@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p className="logo"> EVENTRINET </p>
+        <p className="logo">EVENTRINET</p>
         <p>Gestionador de eventos academicos </p>
         <p> En mantenimiento</p>
       </header>
