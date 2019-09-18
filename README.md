@@ -1,3 +1,8 @@
+## Proyecto Backend en Flask Rest para el sistema Eventrinet
+
+Desarrollado por alumnos de la católica
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
