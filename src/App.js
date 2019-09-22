@@ -1,5 +1,5 @@
-import React, {Component}from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import logo from './lollipop.svg';
 import './App.css';
 
 
