@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import logo from './lollipop.svg';
 import './App.css';
+import Banner from './General/banner';
 
 
 class App extends Component{
@@ -10,9 +11,9 @@ class App extends Component{
     <div className="App">
       <header className="App-header">
         <p className="logo">EVENTRINET</p>
-        <p>Gestionador de eventos academicos </p>
+        <p>Gestionador de eventos academicos</p>
         <p> En mantenimiento...</p>
-        <p> EL BACKEND DICE {JSON.stringify(saludo)}</p>
+        <h1>{JSON.stringify(saludar())}</h1>
       </header>
     </div>
   );}
@@ -29,6 +30,7 @@ function saludar(){
       return responseJson;
     })
     .catch((err) => {
+      console.log("Error en conexión")
       console.log(err)
     })
 }
