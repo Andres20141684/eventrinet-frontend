@@ -25,6 +25,7 @@ function saludar(){
     })
     .then( (response)=> response.json())
     .then( (responseJson)=>{
+      console.log("Conexión a rest service");
       return responseJson;
     })
     .catch((err) => {
