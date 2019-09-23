@@ -5,10 +5,14 @@ import Banner from './General/banner';
 
 
 class App extends Component{
+  state = {
+    banner : Banner
+  }
   render() {
     const saludo = saludar();
     return (
     <div className="App">
+      <this.state.banner />
       <header className="App-header">
         <p className="logo">EVENTRINET</p>
         <p>Gestionador de eventos academicos</p>
