@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
-import Banner from './General/banner'
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

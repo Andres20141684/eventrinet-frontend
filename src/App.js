@@ -1,14 +1,22 @@
 import React, {Component} from 'react';
 import logo from './lollipop.svg';
 import './App.css';
-import Banner from './General/banner';
+import BannerTop from './General/bannerTop';
+import BannerBottom from './General/bannerBottom';
+import { thisExpression } from '@babel/types';
 
 
 class App extends Component{
+  state = {
+    bannerTop : BannerTop,
+    bannerBottom : BannerBottom
+  }
   render() {
     const saludo = saludar();
     return (
     <div className="App">
+      <this.state.bannerTop />
+      <this.state.bannerBottom />
       <header className="App-header">
         <p className="logo">EVENTRINET</p>
         <p>Gestionador de eventos academicos</p>
