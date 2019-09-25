@@ -8,14 +8,12 @@ import { thisExpression } from '@babel/types';
 
 class App extends Component{
   state = {
-    bannerTop : BannerTop,
     bannerBottom : BannerBottom
   }
   render() {
     const saludo = saludar();
     return (
     <div className="App">
-      
       <this.state.bannerBottom />
       <header className="App-header">
         <p className="logo">EVENTRINET</p>
