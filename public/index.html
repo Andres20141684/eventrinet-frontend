@@ -24,11 +24,60 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Eventrinet4.0</title>
+    <title>Eventrinet5.0</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root"> </div> 
+	<script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+	<meta name="google-signin-client_id" content="30333260201-l8im150ksghc8bujnlnhtp3s0t6h4vf3.apps.googleusercontent.com">
+	<!--
+      LOGIN GOOGLE
+    -->
+	<script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+	<script src= "./login.js"></script>
+	<!-- 
+	-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+// setup some JSON to use
+var cars = [
+	{ "make":"Porsche", "model":"911S" },
+	{ "make":"Mercedes-Benz", "model":"220SE" },
+	{ "make":"Jaguar","model": "Mark VII" }
+];
+
+window.onload = function() {
+	// setup the button click
+	document.getElementById("theButton").onclick = function() {
+		doWork()
+	};
+}
+
+function doWork() {
+	// ajax the JSON to the server
+	$.post("receiver", cars, function(){
+
+	});
+	// stop link reloading the page
+ event.preventDefault();
+}
+</script>
+This will send data using AJAX to Python:<br /><br />
+<a id="theButton">Click Me</a>
+	
+	<!-- Display Google sign-in button -->
+	<div id="gSignIn"></div>
+
+	<!-- Show the user profile details -->
+	<div class="userContent" style="display: none;"></div>
+	<!--
+      LOGIN GOOGLE
+    -->
+	<form method="post" role="form">
+		<button class="btn btn-primary" name = "submit" id = "submit">submit</button>
+	</form>
+	
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
