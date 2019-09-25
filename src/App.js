@@ -15,7 +15,7 @@ class App extends Component{
     const saludo = saludar();
     return (
     <div className="App">
-      <this.state.bannerTop />
+      
       <this.state.bannerBottom />
       <header className="App-header">
         <p className="logo">EVENTRINET</p>

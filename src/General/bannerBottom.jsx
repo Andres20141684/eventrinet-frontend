@@ -9,6 +9,7 @@ class BannerBottom extends Component{
         <div style={styles.banner}>
           <div class="">
             <nav class="navbar navbar-expand-md fixed-top">
+            <h1 class="navbar-header">Eventrinet<span class="badge badge-secondary"></span></h1>
                 <ul class="nav nav-fill">
                     <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link active" href="#">Eventos</a></li>

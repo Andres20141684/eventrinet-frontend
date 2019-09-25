@@ -9,8 +9,8 @@ class BannerTop extends Component{
   render(){
     return (
       <div id="banner" style={styles.banner}>
-        <h1 class="navbar-header">Eventrinet<span class="badge badge-secondary"></span></h1>
         <nav class="navbar navbar-expand-md fixed-top"></nav>
+          <h1 class="navbar-header">Eventrinet<span class="badge badge-secondary"></span></h1>
       </div>
     );
   }
