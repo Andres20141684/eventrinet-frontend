@@ -13,6 +13,7 @@ class App extends Component{
   }
   render() {
     const saludo = saludar();
+    const saludo2 = callEventos();
     return (
     <div className="App">
       <this.state.bannerTop />
@@ -21,7 +22,7 @@ class App extends Component{
         <p className="logo">EVENTRINET</p>
         <p>Gestionador de eventos academicos</p>
         <p> En mantenimiento...</p>
-        <h1>{JSON.stringify(saludar())}</h1>
+        <h1 id="render">{saludo2}</h1>
       </header>
     </div>
   );}
@@ -42,5 +43,22 @@ function saludar(){
       console.log(err)
     })
 }
+
+function callEventos(){
+  const url = "https://localhost:5000/eventos";
+    fetch(url, {
+      method:'GET'
+    })
+    .then( (response)=> response.json())
+    .then( (responseJson)=>{
+      console.log(responseJson);
+      return responseJson;
+    })
+    .catch((err) => {
+      console.log("Error en conexión")
+      console.log(err)
+    })
+}
+
 
 export default App;
