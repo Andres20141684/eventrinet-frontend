@@ -19,7 +19,7 @@ class App extends Component{
     })
     .then( (response)=> response.json())
     .then( (responseJson)=>{
-      this.setState({msg: responseJson[0].username})
+      this.setState({msg: responseJson[5].username})
     })
     .catch((err) => {
       console.log("Error en conexión")
