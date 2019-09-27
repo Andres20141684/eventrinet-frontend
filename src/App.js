@@ -1,24 +1,30 @@
 import React, {Component} from 'react';
 import logo from './lollipop.svg';
-import './App.css';
+import BannerTop from './Components/General/bannerTop'
+import './App.css'; 
+import { thisExpression } from '@babel/types';
+
 
 class App extends Component{
   state = {
-    //bannerTop : BannerTop,
+    bannTop : BannerTop,
     //bannerBottom : BannerBottom,
     msg: "NotConnected"
   }
 
-  component
-
   componentWillMount(){
-    const url = "https://localhost:5000/eventos";
+    console.log("AppWillMount")
+    this.setterEvento();
+  }
+
+  setterEvento(){
+    const url = "https://localhost:8000/things";
     fetch(url, {
       method:'GET'
     })
     .then( (response)=> response.json())
     .then( (responseJson)=>{
-      this.setState({msg: responseJson[5].username})
+      this.setState({msg: responseJson})
     })
     .catch((err) => {
       console.log("Error en conexión")
@@ -30,6 +36,7 @@ class App extends Component{
   render() {
     return (
     <div className="App">
+      <this.state.bannTop /> 
       <header className="App-header">
         <p className="logo">EVENTRINET</p>
         <p>Gestionador de eventos academicos</p>
@@ -38,7 +45,6 @@ class App extends Component{
       </header>
     </div>
   );}
-
 }
 
 export default App;
