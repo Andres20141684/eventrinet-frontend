@@ -29,12 +29,13 @@ class BannerTop extends Component{
                 <a class="nav-link" href="#">Convocatoria</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Opciones
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="#">Mis Inscripciones</a>
                   <a class="dropdown-item" href="#">Mis Propuestas</a>
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Organizador</a>
                   <a class="dropdown-item" href="#">Presidente</a>
                   <a class="dropdown-item" href="#">Evaluador</a>
