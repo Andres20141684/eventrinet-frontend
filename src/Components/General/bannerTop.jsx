@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 //const styles = stylesFile.getStyle();
 import {defaultStyle} from '../../styles/styles.js'
 
+
 class BannerTop extends Component{
   state = {
     role: null
@@ -18,7 +19,7 @@ class BannerTop extends Component{
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="nav navbar-nav">
               <li class="nav-item active">
                 <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
               </li>
@@ -28,17 +29,17 @@ class BannerTop extends Component{
               <li class="nav-item">
                 <a class="nav-link" href="#">Convocatoria</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Opciones
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mis Inscripciones</a>
-                  <a class="dropdown-item" href="#">Mis Propuestas</a>
-                  <a class="dropdown-item" href="#">Organizador</a>
-                  <a class="dropdown-item" href="#">Presidente</a>
-                  <a class="dropdown-item" href="#">Evaluador</a>
-                </div>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
               </li>
             </ul>
           </div>
