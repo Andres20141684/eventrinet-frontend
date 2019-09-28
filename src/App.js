@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import logo from './lollipop.svg';
 import BannerTop from './Components/General/bannerTop'
+import BannerBottom from './Components/General/bannerBottom'
 import './App.css'; 
 import { thisExpression } from '@babel/types';
 
@@ -8,7 +9,7 @@ import { thisExpression } from '@babel/types';
 class App extends Component{
   state = {
     bannTop : BannerTop,
-    //bannerBottom : BannerBottom,
+    bannBot : BannerBottom,
     msg: "NotConnected"
   }
 
@@ -43,6 +44,7 @@ class App extends Component{
         <p> En mantenimiento...</p>
         <h1>{this.state.msg}</h1>
       </header>
+      <this.state.bannBot/>
     </div>
   );}
 }
