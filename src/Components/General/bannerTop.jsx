@@ -12,7 +12,7 @@ class BannerTop extends Component{
   render(){
     debugger;
     return (
-      <div id="bannerTop" style={styles.banner}>
+      <div id="bannerTop" style={styles.banner}>     
         <h1 className="navbar-header">Eventrinet<span className="badge badge-secondary"></span></h1>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,8 +30,8 @@ class BannerTop extends Component{
                 <a class="nav-link" href="#">Convocatoria</a>
               </li>
               <li class="nav-item" class="nav dropdown">
-                <a class="nav-link" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Opciones <span class="caret"></span></a>
-                <ul class="nav-link" class="dropdown-menu">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Opciones <span class="caret"></span></a>
+                <ul class="dropdown-menu">
                   <li><a class="nav-link" href="#">Mis Inscripciones</a></li>
                   <li><a class="nav-link" href="#">Mis Propuestas</a></li>
                   <li><a class="nav-link" href="#">Organizador</a></li>
