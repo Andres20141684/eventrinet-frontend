@@ -18,13 +18,13 @@ class App extends Component{
   }
 
   setterEvento(){
-    const url = "https://localhost:8000/things";
+    const url = "https://localhost:5000/eventos";
     fetch(url, {
       method:'GET'
     })
     .then( (response)=> response.json())
     .then( (responseJson)=>{
-      this.setState({msg: responseJson})
+      this.setState({msg: responseJson[0].username})
     })
     .catch((err) => {
       console.log("Error en conexión")
