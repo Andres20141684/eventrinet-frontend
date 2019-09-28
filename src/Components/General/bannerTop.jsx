@@ -12,8 +12,8 @@ class BannerTop extends Component{
   render(){
     debugger;
     return (
-      <div id="bannerTop" style={styles.banner}>     
-        <h1 className="navbar-header">Eventrinet<span className="badge badge-secondary"></span></h1>
+      <div id="bannerTop" style={styles.banner}>
+        <h1 className="navbar-header"><img src="piruleta.png" className="img-fluid" alt="" height="42" width="42"/>Eventrinet<span className="badge badge-secondary"></span></h1>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -34,6 +34,7 @@ class BannerTop extends Component{
                 <ul class="dropdown-menu">
                   <li><a class="nav-link" href="#">Mis Inscripciones</a></li>
                   <li><a class="nav-link" href="#">Mis Propuestas</a></li>
+                  <li><div class="dropdown-divider"></div></li>
                   <li><a class="nav-link" href="#">Organizador</a></li>
                   <li><a class="nav-link" href="#">Presidente</a></li>
                   <li><a class="nav-link" href="#">Evaluador</a></li>
