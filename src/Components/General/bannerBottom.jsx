@@ -18,8 +18,8 @@ export default BannerBottom;
 var styles = {
     banner:{
       backgroundColor: '#002D3D',
-      paddintTop: 20,
-      paddingBottom: 20,
+      paddintTop: 50,
+      paddingBottom: 250,
       color:'#6CDCD6',
     }
 }
