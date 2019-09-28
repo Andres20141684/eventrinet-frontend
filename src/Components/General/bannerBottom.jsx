@@ -6,16 +6,8 @@ class BannerBottom extends Component{
     }
     render(){
       return (
-        <div style={styles.banner}>
-          <div class="">
-            <nav class="navbar navbar-expand-md fixed-top">
-                <ul class="nav nav-fill">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">Eventos</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">Convocatorias</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">Opciones</a></li>
-                </ul>
-            </nav>
+        <div id="bannerBot" style={styles.banner}>
+          <div class="">            
           </div>
         </div>
       );
