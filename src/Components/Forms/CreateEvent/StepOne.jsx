@@ -4,8 +4,8 @@ export default class StepOne extends React.Component {
   constructor () {
     super()
     this.state = { 
-      firstName: '', 
-      lastName: ''
+      firstName:'', 
+      lastName:''
     }
     this.handleFirstNameChanged = this.handleFirstNameChanged.bind(this);
     this.handleLastNameChanged = this.handleLastNameChanged.bind(this);
@@ -17,6 +17,15 @@ export default class StepOne extends React.Component {
 
   handleLastNameChanged (event) {
     this.setState({lastName: event.target.value})
+  }
+
+  componentWillUnmount() {
+    localStorage.setItem('someSavedState', JSON.stringify(this.state))
+  }
+
+  componentWillMount() {
+    var  rehydrate = JSON.parse(localStorage.getItem('someSavedState'))
+    this.setState(rehydrate)
   }
 
   render () {

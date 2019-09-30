@@ -19,6 +19,15 @@ class StepTwo extends React.Component {
     this.setState({emailConfirm: event.target.value})
   }
 
+  componentWillUnmount() {
+    localStorage.setItem('someSavedState', JSON.stringify(this.state))
+  }
+
+  componentWillMount() {
+    var rehydrate = JSON.parse(localStorage.getItem('someSavedState'))
+    this.setState(rehydrate)
+  }
+
   render () {
     return (
       <div>

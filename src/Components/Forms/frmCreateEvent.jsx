@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+localStorage.clear();
 function getSteps() {
   return ['Select campaign settings', 'Create an ad group', 'Create an ad','Sera'];
 }
@@ -47,30 +48,30 @@ export default function HorizontalLinearStepper() {
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
 
-  const isStepOptional = step => {
+  /*const isStepOptional = step => {
     return step === 1;
   };
 
   const isStepSkipped = step => {
     return skipped.has(step);
-  };
+  };*/
 
   const handleNext = () => {
-    let newSkipped = skipped;
+    /*let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
-    }
+    }*/
 
     setActiveStep(prevActiveStep => prevActiveStep + 1);
-    setSkipped(newSkipped);
+    //setSkipped(newSkipped);
   };
 
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const handleSkip = () => {
+  /*const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
       // You probably want to guard against something like this,
       // it should never occur unless someone's actively trying to break something.
@@ -83,7 +84,7 @@ export default function HorizontalLinearStepper() {
       newSkipped.add(activeStep);
       return newSkipped;
     });
-  };
+  };*/
 
   const handleReset = () => {
     setActiveStep(0);
