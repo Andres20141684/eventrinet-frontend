@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/piruleta.ico" />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -10,6 +11,8 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="piruleta.png" />
+
+    
 
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -46,45 +49,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src= "./login.js"></script>
-<script type="text/javascript">
-// setup some JSON to use
-var cars = [
-	{ "make":"Porsche", "model":"911S" },
-	{ "make":"Mercedes-Benz", "model":"220SE" },
-	{ "make":"Jaguar","model": "Mark VII" }
-];
 
-window.onload = function() {
-	// setup the button click
-	document.getElementById("theButton").onclick = function() {
-		doWork()
-	};
-}
-
-function doWork() {
-	// ajax the JSON to the server
-	$.post("receiver", cars, function(){
-
-	});
-	// stop link reloading the page
- event.preventDefault();
-}
-</script>
-This will send data using AJAX to Python:<br /><br />
-<a id="theButton">Click Me</a>
-	
-	<!-- Display Google sign-in button -->
-
-
-	<!-- Show the user profile details -->
-	<div class="userContent" style="display: none;"></div>
-	<!--
-      LOGIN GOOGLE
-    -->
-	<form method="post" role="form">
-		<button class="btn btn-primary" name = "submit" id = "submit">submit</button>
-	</form>
-	
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

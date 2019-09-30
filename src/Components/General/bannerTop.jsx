@@ -36,12 +36,12 @@ class BannerTop extends Component{
             <h1>Eventrinet  <img src="piruleta.png" className="img-fluid" height="42" width="42"/></h1>
           </div>
           <div className="list-inline-item" align="left">
-            <a className="nav" onClick={() => this.openModal()}> {this.state.name} </a>
+            <a className="nav-link" onClick={() => this.openModal()}> {this.state.name} </a>
             <section>
             <script src= "./login.js"></script>
                 <Modal visible={this.state.visible} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                     <div>
-                      <div id="gSignIn"></div>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         <a href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a>
                     </div>
                 </Modal>
