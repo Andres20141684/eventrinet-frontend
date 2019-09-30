@@ -1,53 +1,55 @@
 import React, { Component } from 'react';
 import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
+import '../styles/style_record.css'; 
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
+import 'react-tabs/style/react-tabs.css'
+import ReactTable from 'react-table';
+import 'react-table/react-table.css'
 
-
-function openCity(evt, cityName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-  
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-  
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-  
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-
-class RecordEvent extends Component{
-    render(){
-    return (
+function MyEvents(){
+    return ( 
     <div>
-        <table>
+        <button style={{float:'right'}}>Crear evento</button>
+        <br></br>
+        <br></br>
+        <div>
+        <table class="table"  styles={{width: '100%'}}>
+            <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-            <th>Age</th>
+                <th width="35%">Lista de eventos</th>
+                <th width="30%">Prop. rec. -> En eval. -> Prog. comp. </th>
+                <th width="12%">Editar</th>
+                <th width="12%">Seg. de fases</th>
+                <th width="8%">Publicar evento</th>
+                <th width="4%">Cancelar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Comunity Day AWS</td>
+                <td></td>
+                <td><button  type="button" class="btn">Editar</button></td>
+                <td><button  type="button" class="btn">Seguim</button></td>
+                <td><button  type="button" class="btn">Publicar</button></td>
+                <td><button  type="button" class="btn">Cancelar</button></td>
             </tr>
             <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td>50</td>
+                <td>Sebiwis eventito +naki</td>
+                <td></td>
+                <td><button  type="button" class="btn">Editar</button></td>
+                <td><button  type="button" class="btn">Seguim</button></td>
+                <td><button  type="button" class="btn">Publicar</button></td>
+                <td><button  type="button" class="btn">Cancelar</button></td>
             </tr>
-            <tr>
-                <td>Eve</td>
-                <td>Jackson</td>
-                <td>94</td>
-            </tr>
+            </tbody>
         </table>
+        </div>
     </div>
     )
-    }
+}
+function RecordEvents(){
+    return <h1>text  historial de eventos</h1>
 }
 
 class ActiveEvents extends Component{
@@ -58,32 +60,27 @@ class ActiveEvents extends Component{
       }
     render(){
         return(
-            <div>
-                <div class="tab">
-                <button class="tablinks" onclick="openCity(event, 'London')">London</button>
-                <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+        <div> 
+            <this.state.bannTop />
+            <h1>Mis eventos - Organizador</h1>
+            <div class="container">
+            <div class="panel panel-default">
+                <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
+                    <TabList>
+                        <Tab>Eventos activos</Tab>
+                        <Tab>Historial de eventos</Tab>
+                    </TabList>
+                    <TabPanel> <MyEvents/> </TabPanel>
+                    <TabPanel> <RecordEvents/> </TabPanel>
+                </Tabs>
                 </div>
-                
-                <div id="London" class="tabcontent">
-                <h3>London</h3>
-                <p>London is the capital city of England.</p>
-                </div>
-
-                <div id="Paris" class="tabcontent">
-                <h3>Paris</h3>
-                <p>Paris is the capital of France.</p>
-                </div>
-
-                <div id="Tokyo" class="tabcontent">
-                <h3>Tokyo</h3>
-                <p>Tokyo is the capital of Japan.</p>
-                </div>
-
-                
-                
             </div>
-        )
+            
+        </div>
+        );
     }
 }
+
+
 export default ActiveEvents;
+
