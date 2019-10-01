@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 //const styles = stylesFile.getStyle();
 import {defaultStyle} from '../../styles/styles.js'
 import Modal from 'react-awesome-modal';
-import './../../styles/style_nav.css'
 import { whileStatement } from '@babel/types';
 
 class BannerTop extends Component{
@@ -37,8 +36,9 @@ class BannerTop extends Component{
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal" >
             <h1> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></h1>
-          </div>
-          <div className="list-inline-item" align="left">
+          
+          </div>  
+            <div className="list-inline-item" align="right">
             <a className="nav" onClick={() => this.openModal()}> {this.state.name} </a>
             <section>
             <script src= "./login.js"></script>
@@ -50,7 +50,11 @@ class BannerTop extends Component{
                 </Modal>
             </section>
           </div>
+            
+          
+              
         </div>
+        <div >  
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <button class="navbar-toggler" type="button" backgroundcolor='#002D3D' data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -59,26 +63,26 @@ class BannerTop extends Component{
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="nav navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" href="/"><font color="white">INICIO  |</font><span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">INICIO  |<span class="sr-only">(current)</span></a>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/events"><font color="white">EVENTOS  |</font></a>
+                <a class="nav-link" href="/events">EVENTOS  </a>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/announcements"><font color="white">CONVOCATORIA |</font> </a>
+                <a class="nav-link" href="/announcements">CONVOCATORIA | </a>
               </li>
               
               <li class="nav-item" class="nav dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><font color="white">OPCIONES...</font> </a>
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false">OPCIONES... </a>
                 <ul class="dropdown-menu">
-                  <font color="white"></font>
-                  <li><a class="nav-link" href="#"><font color="white">MIS INSCRIPCIONES</font></a></li>
-                  <li><a class="nav-link" href="#"><font color="white">MIS PROPUESTAS</font></a></li>
-                  <li><a class="nav-link" href="organizador_myevents"><font color="white">ORGANIZADOR</font></a></li>
-                  <li><a class="nav-link" href="#"><font color="white">PRESIDENTE</font></a></li>
-                  <li><a class="nav-link" href="#"><font color="white">EVALUADOR</font></a></li>
+                  
+                  <li><a class="nav-link" href="#">MIS INSCRIPCIONES</a></li>
+                  <li><a class="nav-link" href="#">MIS PROPUESTAS</a></li>
+                  <li><a class="nav-link" href="organizador_myevents">ORGANIZADOR</a></li>
+                  <li><a class="nav-link" href="#">PRESIDENTE</a></li>
+                  <li><a class="nav-link" href="#">EVALUADOR</a></li>
                 </ul>
               </li>
             </ul>
@@ -86,6 +90,8 @@ class BannerTop extends Component{
           </div>
         </nav>
         </div>
+        </div>
+        
     );
   }
 }
@@ -95,8 +101,9 @@ export default BannerTop;
 var styles = {
   banner:{
     backgroundColor: '#002D3D',
-    paddintTop: 20,
+    paddintTop: 0,
     paddingBottom: 20,
+    FontSize: 20,
     color:'#6CDCD6',
   }
 }
