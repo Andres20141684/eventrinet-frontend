@@ -6,6 +6,7 @@ import EventPage from './Pages/EventPage';
 import AnnouncementPage from './Pages/AnnouncementPage';
 import ActiveEvents from './Pages/ActiveEvents';
 import PresiEventos_asignarEva from './Pages/PresiEventos_asignarEva';
+
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 //import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -16,6 +17,7 @@ ReactDOM.render(<Router>
                     <Route path='/announcements' exact component={AnnouncementPage} />
                     <Route path='/organizador_myevents' exact component={ActiveEvents} />
                     <Route path='/Presidente_asignarEva' exact component={PresiEventos_asignarEva} />
+                    <Route path='/myevents' exact component={ActiveEvents} />
                 </Router>,
                  document.getElementById('root'));
 

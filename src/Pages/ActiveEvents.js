@@ -7,6 +7,7 @@ import 'react-tabs/style/react-tabs.css'
 import ReactTable from 'react-table';
 import 'react-table/react-table.css'
 import './../styles/style_gig_tittle.css'
+
 function MyEvents(){
     return ( 
     <div>
