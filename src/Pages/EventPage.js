@@ -14,6 +14,7 @@ class EventPage extends Component{
         <div> 
             <this.state.bannTop />
             <h1>QueryAllEventos</h1>
+            <this.state.bannBot/>
         </div>)
     }
 }

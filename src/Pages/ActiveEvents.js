@@ -6,6 +6,7 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import ReactTable from 'react-table';
 import 'react-table/react-table.css'
+import './../styles/style_gig_tittle.css'
 
 function MyEvents(){
     return ( 
@@ -49,7 +50,34 @@ function MyEvents(){
     )
 }
 function RecordEvents(){
-    return <h1>text  historial de eventos</h1>
+    return ( 
+        <div>
+            <button style={{float:'right'}}>Crear evento</button>
+            <br></br>
+            <br></br>
+            <div>
+            <table class="table"  styles={{width: '100%'}}>
+                <thead>
+                <tr>
+                    <th width="75%">Lista de eventos</th>
+                    <th width="25%">Reporte </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Comunity Day AWS</td>
+                    <td><button  type="button" class="btn">(Download icon)</button></td>
+                </tr>
+                <tr>
+                    <td>JinSSJ evento en Namekusey</td>
+                    <td><button  type="button" class="btn">(Download icon)</button></td>
+                    
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        )
 }
 
 class ActiveEvents extends Component{
@@ -75,7 +103,7 @@ class ActiveEvents extends Component{
                 </Tabs>
                 </div>
             </div>
-            
+            <this.state.bannBot/>
         </div>
         );
     }
