@@ -5,6 +5,7 @@ import {defaultStyle} from '../../styles/styles.js'
 import Modal from 'react-awesome-modal';
 import './../../styles/style_nav.css'
 import { whileStatement } from '@babel/types';
+
 class BannerTop extends Component{
   
   constructor(props) {
@@ -45,14 +46,11 @@ class BannerTop extends Component{
                     <div>
                       <div id="gSignIn"></div>
                         <a href="javascript:void(0);" onClick={()  => this.closeModal()}>Close</a>
-
                     </div>
                 </Modal>
             </section>
           </div>
-        </div>
-
-        
+        </div    
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <button class="navbar-toggler" type="button" backgroundcolor='#002D3D' data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -88,7 +86,6 @@ class BannerTop extends Component{
           </div>
         </nav>
         </div>
-        
     );
   }
 }
@@ -103,3 +100,4 @@ var styles = {
     color:'#6CDCD6',
   }
 }
+

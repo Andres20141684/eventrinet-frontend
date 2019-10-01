@@ -9,7 +9,7 @@ import PresiEventos_asignarEva from './Pages/PresiEventos_asignarEva';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 //import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
-
+//REVISAR NOMENCATLURA DE ROUTES
 ReactDOM.render(<Router>
                     <Route path='/' exact component={App}/>
                     <Route path='/events' exact component={EventPage} />

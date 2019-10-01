@@ -9,6 +9,7 @@ export const defaultStyle = StyleSheet.create({
     }
 });
 
+//esto esta mal pero no lo voy a borrar
 const styles = StyleSheet.create({
     baseText: {
       fontFamily: 'Cochin',
