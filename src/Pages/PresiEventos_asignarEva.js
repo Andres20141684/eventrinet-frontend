@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
-import JinTable from '../Components/Jtable/basictable';
+import AsignarEvaluadorTable from '../Components/Jtable/AsignarEvaluadorTable';
 import '../styles/style_record.css'; 
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
@@ -19,7 +19,7 @@ function FillTable(){
         <br></br>
         <br></br>
         <div>
-            <JinTable/>
+            <AsignarEvaluadorTable/>
         </div>
     </div>
     )
@@ -57,7 +57,7 @@ class PresiEventos_asignarEva extends Component{
                     <h4>La modalidad de preferencia fue (por categoria)<button style={{float:'right'}}>Ver mas...</button></h4>
                     <h4>Asignacion automatica<button style={{float:'right'}}>Aplicar</button></h4>
                     <h4><br/></h4>
-                    < JinTable data ={datos}/>;
+                    < AsignarEvaluadorTable data ={datos}/>;
                     
                     
                 </div>

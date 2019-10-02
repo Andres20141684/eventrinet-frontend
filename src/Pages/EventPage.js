@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
-
+import EventPageTable from '../Components/Jtable/EventPageTable';
 
 class EventPage extends Component{
     state = {

@@ -7,7 +7,7 @@ import 'react-tabs/style/react-tabs.css'
 import ReactTable from 'react-table';
 import 'react-table/react-table.css'
 import './../styles/style_gig_tittle.css'
-
+import Organizador_ActiveEventsTable from '../Components/Jtable/Organizador_ActiveEventsTable';
 function MyEvents(){
     return ( 
     <div>
@@ -80,7 +80,7 @@ function RecordEvents(){
         )
 }
 
-class ActiveEvents extends Component{
+class Organizador_ActiveEvents extends Component{
     state = {
         bannTop : BannerTop,
         bannBot : BannerBottom,
@@ -110,5 +110,5 @@ class ActiveEvents extends Component{
 }
 
 
-export default ActiveEvents;
+export default Organizador_ActiveEvents;
 
