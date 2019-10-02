@@ -68,6 +68,7 @@ class EvaluadorEventos extends Component{
                     <h4>La modalidad de preferencia fue (por categoria)<button style={{float:'right'}}>Ver mas...</button></h4>
                     <h4>Asignacion automatica<button style={{float:'right'}}>Aplicar</button></h4>
                     <h4><br/></h4>
+                    
                     <div class="container">
                         <div class="panel panel-default">
                             <Tabs defaultIndex={0} onSelect={index => console.log(index)}>

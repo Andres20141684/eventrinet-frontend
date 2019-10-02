@@ -7,7 +7,7 @@ import AnnouncementPage from './Pages/AnnouncementPage';
 /**************************************/
 import Organizador_ActiveEvents from './Pages/Organizador_ActiveEvents';
 import PresiCalificacionFinalPapers from './Pages/PresiCalificacionFinalPapers';
-import PresiEventos_asignarEva from './Pages/PresiEventos_asignarEva';
+import PresidenteEventos from './Pages/PresidenteEventos';
 import EvaluadorEventos from './Pages/EvaluadorEventos';
 /************************************* */
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
@@ -20,7 +20,7 @@ ReactDOM.render(<Router>
                     <Route path='/announcements' exact component={AnnouncementPage} />
 
                     <Route path='/Organizador_ActiveEvents' exact component={Organizador_ActiveEvents} />
-                    <Route path='/PresiEventos_asignarEva' exact component={PresiEventos_asignarEva} />
+                    <Route path='/PresidenteEventos' exact component={PresidenteEventos} />
                     <Route path='/PresiCalificacionFinalPapers' exact component={PresiCalificacionFinalPapers} />
                     <Route path='/EvaluadorEventos' exact component={EvaluadorEventos} />
 

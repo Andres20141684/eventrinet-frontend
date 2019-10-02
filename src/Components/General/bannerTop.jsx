@@ -32,7 +32,7 @@ class BannerTop extends Component{
   render(){
     debugger;
     return (
-      <div id="bannerTop" style={styles.banner}>
+      <div id="bannerTop" style={styles.banner}><br/>
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal" >
             <h1> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></h1>
@@ -80,9 +80,9 @@ class BannerTop extends Component{
                   
                   <li><a class="nav-link" href="#">MIS INSCRIPCIONES</a></li>
                   <li><a class="nav-link" href="#">MIS PROPUESTAS</a></li>
-                  <li><a class="nav-link" href="organizador_myevents">ORGANIZADOR</a></li>
-                  <li><a class="nav-link" href="#">PRESIDENTE</a></li>
-                  <li><a class="nav-link" href="#">EVALUADOR</a></li>
+                  <li><a class="nav-link" href="/Organizador_ActiveEvents">ORGANIZADOR</a></li>
+                  <li><a class="nav-link" href="/PresidenteEventos">PRESIDENTE</a></li>
+                  <li><a class="nav-link" href="/EvaluadorEventos">EVALUADOR</a></li>
                 </ul>
               </li>
             </ul>

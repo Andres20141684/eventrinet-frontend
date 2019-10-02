@@ -37,7 +37,9 @@ class AsignarEvaluadorTable extends Component {
         return (
             
            <div>
-              <h1 id='title'>React Dynamic Table</h1>
+              
+              <h1 id='title'><br/>Listado de enventos por iniciar</h1><br/>
+              <h2></h2>
               <table id='chupetinesGA'>
                  <tbody>
                     <tr>{this.renderTableHeader()}</tr>
