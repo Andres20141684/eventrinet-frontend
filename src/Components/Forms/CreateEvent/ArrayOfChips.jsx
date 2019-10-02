@@ -27,7 +27,7 @@ export default function Test(props) {
     <div>
       <Row>
           <Col>
-          <Form.Control placeholder="Ingrese correo electronico" onChange={handleChange}/>
+          <input placeholder="Ingrese correo electronico" onChange={handleChange}/> 
           </Col>
           <Col>
           <Button variant="primary" onClick={handleSelect} >Agregar</Button>

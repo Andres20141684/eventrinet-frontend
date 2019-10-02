@@ -14,7 +14,7 @@ class CEvent_EvalPhase extends Component{
                 <h1>Comité Organizacional</h1>
                 <Form>
                 <br></br>
-                <Test {...props}/>
+                <Test {...props }/>
                 <div >
                         <Chip label="a20143072@pucp.pe" onDelete={() => {}} />{' '}
                         <Chip label="a20143079@pucp.pe" onDelete={() => {}} />{' '}

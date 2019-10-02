@@ -15,7 +15,7 @@ export default class EventNew extends Component{
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleComiteadd=this.handleComiteadd.bind(this)
-        this.handleComitedelete=this.handleComitedelete.bind(this)
+
       }
     
       handleChange(event) {
@@ -31,15 +31,10 @@ export default class EventNew extends Component{
         })
       }
 
-      handleComitedelete(event){
-
-      }
-
       render() {    
         return (
           <div className='container'>
               <this.state.aux 
-              handleComitedelete={this.handleComitedelete}
               handleComiteadd={this.handleComiteadd}
               handleChange={this.handleChange} 
               nombre={this.state.nombre} 
