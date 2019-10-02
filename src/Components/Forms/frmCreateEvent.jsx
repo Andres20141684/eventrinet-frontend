@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import StepOne from './CreateEvent/StepOne';
 import StepTwo from './CreateEvent/StepTwo'
+import '../../styles/style_sheets.css'; 
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,7 +31,7 @@ function getStepContent(stepIndex,props) {
     case 0:
       return <StepOne {...props}/>;
     case 1:
-      return <StepTwo/>;
+      return <StepTwo {...props}/>;
     case 2:
       return 'This is the bit I really care about!';
     default:
@@ -68,20 +69,24 @@ export default function HorizontalLabelPositionBelowStepper(props) {
         {activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>All steps completed</Typography>
-            <Button onClick={handleReset}>Reset</Button>
+            <Button class="mybutton" onClick={handleReset}>Reset</Button>
           </div>
         ) : (
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
             <div>
-              <Button
-                disabled={activeStep === 0}
+              {activeStep===0?
+              null
+              :
+              <Button  
+                class="mybutton"
                 onClick={handleBack}
-                className={classes.backButton}
+                class="mybutton"
+                //className={classes.backButton}
               >
                 Back
-              </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
+              </Button>}
+              <Button  class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </div>

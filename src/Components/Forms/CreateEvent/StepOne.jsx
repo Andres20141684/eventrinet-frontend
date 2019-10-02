@@ -30,7 +30,7 @@ export default class StepOne extends React.Component {
               placeholder='Descripcion'
               type='text'
               onChange={this.props.handleChange}
-              value={this.props.apellido}
+              value={this.props.descripcion}
               autoFocus
             />
           </div>

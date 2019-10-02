@@ -4,26 +4,17 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Chip from '@material-ui/core/Chip';
+import Test from './ArrayOfChips'
 
 class CEvent_EvalPhase extends Component{    
-    state = {
-        msg: "NotConnected"
-      }
 
-    formComiteOrganizacional(){
+    formComiteOrganizacional(props){
         return (
             <div>
                 <h1>Comité Organizacional</h1>
                 <Form>
-                <Row>
-                    <Col>
-                    <Form.Control placeholder="Ingrese correo electronico" />
-                    </Col>
-                    <Col>
-                    <Button variant="primary" type="submit">Agregar</Button>
-                    </Col>
-                </Row>
                 <br></br>
+                <Test {...props}/>
                 <div >
                         <Chip label="a20143072@pucp.pe" onDelete={() => {}} />{' '}
                         <Chip label="a20143079@pucp.pe" onDelete={() => {}} />{' '}
@@ -34,7 +25,7 @@ class CEvent_EvalPhase extends Component{
         )
     }
 
-    formComiteAcademico(){
+    formComiteAcademico(props){
         return (
             <div>
                 <h1>Comité Académico</h1>
@@ -101,13 +92,13 @@ class CEvent_EvalPhase extends Component{
         <div> 
             <div class="panel panel-default">
             <br></br>
-            <this.formComiteOrganizacional/>
+            <this.formComiteOrganizacional {...this.props}/>
             <br></br>
             </div>
 
             <div class="panel panel-default"> 
             <br></br>
-            <this.formComiteAcademico />            
+            <this.formComiteAcademico {...this.props}/>            
             <br></br>
             </div>            
         </div>
