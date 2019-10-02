@@ -10,6 +10,7 @@ class BannerBottom extends Component{
         <div id="bannerBot" style={styles.banner}> 
         
           <footer role="contentinfo" class="footer" ng-class="::{'footer--process': process}">
+            <br/>
             <div ng-hide="::process" class="footer-content">
               <div class="container">
                 

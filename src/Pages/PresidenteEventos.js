@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
 import AsignarEvaluadorTable from '../Components/Jtable/AsignarEvaluadorTable';
+import PresiCalificacionFinalPapersTable from '../Components/Jtable/PresiCalificacionFinalPapersTable';
 import '../styles/style_record.css'; 
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
@@ -63,16 +64,25 @@ class PresidenteEventos extends Component{
         /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
         var datos1 ={ //state is by default an object
             chupetinesGA: [
-               { id: 4, name: 'Asad', age: 25, email: 'asad@email.com'  ,opt: ''},
-               { id: 4, name: 'Asad', age: 25, email: 'asad@email.com'  ,opt: ''},
-               { id: 4, name: 'Asad', age: 25, email: 'asad@email.com'  ,opt: ''}
-            ]
+                { listaEventos: 'WasifWasifWasifWasifWasif',
+                 propAsignadas: '1/2', 
+                 iniEval: 21, 
+                 opt1: '', opt: ''},
+                 { listaEventos: 'WasifWasifWasifWasifWasif',
+                 propAsignadas: '1/2', 
+                 iniEval: 21, 
+                 opt1: '', opt: ''},
+                 { listaEventos: 'WasifWasifWasifWasifWasif',
+                 propAsignadas: '1/2', 
+                 iniEval: 21, 
+                 opt1: '', opt: ''}
+               ]
          }
          var datos2 ={ //state is by default an object
             chupetinesGA: [
-               { id: 1, name: 'Wasif', age: 21, email: 'wasif@email.com',opt: ''},
-               { id: 2, name: 'Ali', age: 19, email: 'ali@email.com'    ,opt: ''},
-               { id: 3, name: 'Saad', age: 16, email: 'saad@email.com'  ,opt: ''},
+               { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 21, calEva: 'wasif@email.com',calPresi:'Si',opt: ''},
+               { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 19, calEva: 'ali@email.com' ,calPresi:'Si'   ,opt: ''},
+               { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 16, calEva: 'saad@email.com' ,calPresi:'Si' ,opt: ''},
               ]
          }
         return(
@@ -93,16 +103,12 @@ class PresidenteEventos extends Component{
                                     <Tab>Eventos en fase de evaluacion</Tab>
                                 </TabList>
                                 <TabPanel>
-                                    <div class="container">
-                                    <div class="panel panel-default">
                                         < AsignarEvaluadorTable data ={datos1}/>
-                                    </div></div>
                                 </TabPanel>
                                 <TabPanel> 
-                                <div class="container">
-                                <div class="panel panel-default">
-                                    < AsignarEvaluadorTable data ={datos2}/> 
-                                </div></div>
+                                
+                                    < PresiCalificacionFinalPapersTable data ={datos2}/> 
+                                
                                 </TabPanel>
                             </Tabs>
                         <Botones/>

@@ -13,24 +13,37 @@ class AsignarEvaluadorTable extends Component {
   
    renderTableData() {
         return this.state.chupetinesGA.map((element, index) => {
-        const { id, name, age, email} = element //destructuring
-        return (
-            <tr key={id}>
-                <td>{id}</td>
-                <td>{name}</td>
-                <td>{age}</td>
-                <td>{email}</td>
-                <td><button onClick={this.handleClick}> Activate Lasers </button></td>
-            </tr>
-        )
+            const { listaEventos, propAsignadas, iniEval} = element //destructuring
+            
+                     return (
+                        
+                        <tr>
+                           <td>{listaEventos} </td>
+                           <td>{propAsignadas}</td>
+                           <td>{iniEval}</td>
+                           <td>
+                              <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus"></i></button>
+                           </td>  
+                           <td>
+                              <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-edit"></i></button>
+                           </td>  
+                        </tr>
+                  )
         })
     }
     renderTableHeader() {
-        let header = Object.keys(this.state.chupetinesGA[0])
-        return header.map((key, index) => {
-           return <th key={index}>{key.toUpperCase()}</th>
-        })
-     }
+       
+      return (
+       <tr>
+          <th width="20%">Lista de eventos</th>
+          <th width="18%">Propuestas<br/>Asignadas/Total </th>
+          <th width="22%">Inicio Evaluadion Limite</th>
+          <th width="15%">Asignar Evaluadores (Evaluador - Presidente) </th>
+          <th width="15%">Editar fases</th>
+       </tr>
+      )
+   }
+
   
      render() {
         this.state = this.props.data
@@ -42,7 +55,7 @@ class AsignarEvaluadorTable extends Component {
               <h2></h2>
               <table id='chupetinesGA'>
                  <tbody>
-                    <tr>{this.renderTableHeader()}</tr>
+                    {this.renderTableHeader()}
                     {this.renderTableData()}
                  </tbody>
               </table>
