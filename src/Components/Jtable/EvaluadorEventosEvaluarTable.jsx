@@ -30,7 +30,8 @@ class EvaluadorEventosEvaluarTable extends Component {
                   
                   
                 <td>{Fecha_limite}</td>
-                <td><button onClick={this.handleClick}> <span class="glyphicon glyphicon-search"></span> </button></td>
+                <td><button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus"></i></button>
+                </td>
             </tr>
         )
         })
@@ -47,7 +48,7 @@ class EvaluadorEventosEvaluarTable extends Component {
         return (
             
            <div>
-              <h1 id='title'>Evalua una propuesta</h1>
+              <h1 id='title'>Elige un evento y evalua las propuestas asignadas</h1>
               <table id='chupetinesGA'>
                  <tbody>
                     <tr>{this.renderTableHeader()}</tr>

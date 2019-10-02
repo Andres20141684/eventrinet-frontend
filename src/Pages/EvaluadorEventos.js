@@ -60,7 +60,7 @@ class EvaluadorEventos extends Component{
             <div> 
                 <this.state.bannTop />
                 /*AQUI DEBO RECIBIR EL NOMBRE DEL EVALUADOR EL CUAL ELIGE PREFERENCIAS Y EVALUAS*/
-                <h1><font size="36">Eventos - Evaluador</font><br/><br/></h1>
+                <h1><font size="33">Evaluador - Eventos</font><br/><br/></h1>
                 <div class="container">
                 <div class="panel panel-default">
 
@@ -90,17 +90,17 @@ class EvaluadorEventos extends Component{
                             </Tabs>
                             </div>
                         </div>
-                    
+                        <h2><br/></h2>
+                        <h3>
+                            <button style={{float:'left'}}>Atras</button>
+                            <button style={{float:'right'}}>Guardar</button>
+                            <br/><br/>
+                        </h3>
                     
                     
                 </div>
                 
-                <h2><br/></h2>
-                    <h3>
-                    <button style={{float:'left'}}>Atras</button>
-                    <button style={{float:'right'}}>Guardar</button>
-                <br/><br/>
-                </h3>
+                
                 </div>
                 
                 <this.state.bannBot/>

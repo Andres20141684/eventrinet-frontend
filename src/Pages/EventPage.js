@@ -13,8 +13,10 @@ class EventPage extends Component{
         return(
         <div> 
             <this.state.bannTop />
-            <h1>QueryAllEventos</h1>
+            <h1>QueryAllEventos</h1>.
+            <div>
             <this.state.bannBot/>
+            </div>
         </div>)
     }
 }

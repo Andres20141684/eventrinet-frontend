@@ -38,7 +38,9 @@ class EvaluadorEventosTable extends Component {
         return (
             
            <div>
-              <h1 id='title'>Evalua las propuestas asignadas</h1>
+              
+              <h1 id='title'><br/>Elige un evento y agrega tus preferencias<br/></h1>
+              <h2><br/></h2>
               <table id='chupetinesGA'>
                  <tbody>
                     <tr>{this.renderTableHeader()}</tr>
