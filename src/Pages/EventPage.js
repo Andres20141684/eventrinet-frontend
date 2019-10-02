@@ -3,6 +3,7 @@ import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
 import frmCreateEvent from '../Components/Forms/frmCreateEvent'
 import { thisExpression } from '@babel/types';
+import frmEventNew from '../Components/Forms/frmEventNew'
 
 
 class EventPage extends Component{
@@ -10,7 +11,7 @@ class EventPage extends Component{
         bannTop : BannerTop,
         bannBot : BannerBottom,
         msg: "NotConnected",
-        prueba: frmCreateEvent
+        prueba: frmEventNew
 
       }
     render(){

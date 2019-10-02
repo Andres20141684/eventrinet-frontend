@@ -1,64 +1,118 @@
-import React from 'react'
+import React, { Component } from 'react';
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Chip from '@material-ui/core/Chip';
 
-class StepTwo extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      email: '',
-      emailConfirm: ''
+class CEvent_EvalPhase extends Component{    
+    state = {
+        msg: "NotConnected"
+      }
+
+    formComiteOrganizacional(){
+        return (
+            <div>
+                <h1>Comité Organizacional</h1>
+                <Form>
+                <Row>
+                    <Col>
+                    <Form.Control placeholder="Ingrese correo electronico" />
+                    </Col>
+                    <Col>
+                    <Button variant="primary" type="submit">Agregar</Button>
+                    </Col>
+                </Row>
+                <br></br>
+                <div >
+                        <Chip label="a20143072@pucp.pe" onDelete={() => {}} />{' '}
+                        <Chip label="a20143079@pucp.pe" onDelete={() => {}} />{' '}
+                        <Chip label="a20143070@pucp.pe" onDelete={() => {}} />{' '}
+                </div> 
+                </Form>
+    </div>
+        )
     }
-    this.handleEmailChanged = this.handleEmailChanged.bind(this);
-    this.handleEmailConfirmChanged = this.handleEmailConfirmChanged.bind(this);
-  }
 
-  handleEmailChanged (event) {
-    this.setState({email: event.target.value})
-  }
+    formComiteAcademico(){
+        return (
+            <div>
+                <h1>Comité Académico</h1>
+                <Form>                                
+                <Form.Group controlId="exampleForm.ControlInput1">
+                    <Form.Label> Presidente</Form.Label>                    
+                    <Row>
+                        <Col>
+                            <Form.Control type="email" placeholder="Ingrese correo electronico" />
+                        </Col>
+                        <Col>
+                            <Button variant="primary" type="submit">Agregar</Button>                    
+                        </Col>
+                    </Row>
+                    <br></br>
+                    <div >
+                        <Chip label="a20143072@pucp.pe" onDelete={() => {}} />{' '}
+                    </div>
+                                      
+                </Form.Group>
+                
+                <Form.Group>
+                <Form.Label>Criterio para evaluar preferencia de evaluadores:</Form.Label>
+                <Col>
+                    <Form.Check
+                    type="radio" inline
+                    label="Categorias"
+                    name="formHorizontalRadios"
+                    id="formHorizontalRadios1"
+                    />
+                    <Form.Check
+                    type="radio" inline
+                    label="Propuestas"
+                    name="formHorizontalRadios"
+                    id="formHorizontalRadios2"
+                    />
+                </Col>
+                </Form.Group>
 
-  handleEmailConfirmChanged (event) {
-    this.setState({emailConfirm: event.target.value})
-  }
+                <Form.Group controlId="exampleForm.ControlInput1">
+                    <Form.Label> Evaluadores</Form.Label>                    
+                    <Row>
+                        <Col>
+                            <Form.Control type="email" placeholder="Ingrese correo electronico" />
+                        </Col>
+                        <Col>
+                            <Button variant="primary" type="submit">Agregar</Button>                    
+                        </Col>
+                    </Row>
+                    <br></br>
+                    <div >
+                        <Chip label="a20143072@pucp.pe" onDelete={() => {}} />{' '}
+                        <Chip label="a20143079@pucp.pe" onDelete={() => {}} />{' '}
+                        <Chip label="a20143070@pucp.pe" onDelete={() => {}} />{' '}
+                    </div>                        
+                </Form.Group>
+                </Form>
+    </div>
+        )
+    }
 
-  componentWillUnmount() {
-    localStorage.setItem('someSavedState', JSON.stringify(this.state))
-  }
+    render(){
+        return(
+        <div> 
+            <div class="panel panel-default">
+            <br></br>
+            <this.formComiteOrganizacional/>
+            <br></br>
+            </div>
 
-  componentWillMount() {
-    var rehydrate = JSON.parse(localStorage.getItem('someSavedState'))
-    this.setState(rehydrate)
-  }
-
-  render () {
-    return (
-      <div>
-        <div className='row'>
-          <div className='six columns'>
-            <label>Your email</label>
-            <input
-              className='u-full-width required'
-              placeholder='test@mailbox.com'
-              type='email'
-              onChange={this.handleEmailChanged}
-              value={this.state.email}
-              autoFocus
-            />
-          </div>
+            <div class="panel panel-default"> 
+            <br></br>
+            <this.formComiteAcademico />            
+            <br></br>
+            </div>            
         </div>
-        <div className='row'>
-          <div className='six columns'>
-            <label>Confirm email</label>
-            <input
-              className='u-full-width'
-              placeholder='Confirm email'
-              type='email'
-              onChange={this.handleEmailConfirmChanged}
-              value={this.state.emailConfirm}
-            />
-          </div>
-        </div>
-      </div>
-    )
-  }
+        );
+    }
 }
 
-export default StepTwo;
+export default CEvent_EvalPhase;
