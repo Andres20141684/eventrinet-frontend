@@ -65,8 +65,8 @@ class EvaluadorEventos extends Component{
                 <div class="panel panel-default">
 
                     <h1>Asigna los evaluadores a las propuestas<br/><br/></h1>
-                    <h4>La modalidad de preferencia fue (por categoria)<button style={{float:'right'}}>Ver mas...</button></h4>
-                    <h4>Asignacion automatica<button style={{float:'right'}}>Aplicar</button></h4>
+                    <h4>La modalidad de preferencia fue (por categoria)<button class="mybutton" style={{float:'right'}}>Ver mas...</button></h4>
+                    <h4>Asignacion automatica<button class="mybutton" style={{float:'right'}}>Aplicar</button></h4>
                     <h4><br/></h4>
                     
                     <div class="container">
@@ -93,8 +93,8 @@ class EvaluadorEventos extends Component{
                         </div>
                         <h2><br/></h2>
                         <h3>
-                            <button style={{float:'left'}}>Atras</button>
-                            <button style={{float:'right'}}>Guardar</button>
+                            <button class="mybutton"style={{float:'left'}}>Atras</button>
+                            <button class="mybutton"style={{float:'right'}}>Guardar</button>
                             <br/><br/>
                         </h3>
                     

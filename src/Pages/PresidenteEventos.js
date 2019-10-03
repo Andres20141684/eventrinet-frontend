@@ -30,8 +30,8 @@ function Botones(){
     <div>
          <h2><br/></h2>
                     <h3>
-                    <button style={{float:'left'}}>Atras</button>
-                    <button style={{float:'right'}}>Guardar</button>
+                    <button class="mybutton" style={{float:'left'}}>Atras</button>
+                    <button class="mybutton" style={{float:'right'}}>Guardar</button>
                     <br/><br/>
                     </h3>
     </div>
@@ -103,12 +103,16 @@ class PresidenteEventos extends Component{
                                     <Tab>Eventos en fase de evaluacion</Tab>
                                 </TabList>
                                 <TabPanel>
+                                <div class="container">
+                                <div class="panel panel-default">
                                         < AsignarEvaluadorTable data ={datos1}/>
+                                        </div></div>
                                 </TabPanel>
                                 <TabPanel> 
-                                
+                                <div class="container">
+                                <div class="panel panel-default">
                                     < PresiCalificacionFinalPapersTable data ={datos2}/> 
-                                
+                                    </div></div>
                                 </TabPanel>
                             </Tabs>
                         <Botones/>

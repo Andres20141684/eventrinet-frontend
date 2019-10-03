@@ -47,8 +47,8 @@ class EvaluadorEventosEvaluarTable extends Component {
         this.state = this.props.data
         return (
             
-           <div>
-              <h1 id='title'>Elige un evento y evalua las propuestas asignadas</h1>
+           <div><br/><br/>
+              <h1 id='title'>Elige un evento y evalua las propuestas asignadas</h1><br/><br/>
               <table id='chupetinesGA'>
                  <tbody>
                     <tr>{this.renderTableHeader()}</tr>

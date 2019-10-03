@@ -7,7 +7,11 @@ import 'react-tabs/style/react-tabs.css'
 import ReactTable from 'react-table';
 import 'react-table/react-table.css'
 import './../styles/style_gig_tittle.css'
+
+import Organizador_HistoryventsTable from '../Components/Jtable/Organizador_HistoryventsTable';
 import Organizador_ActiveEventsTable from '../Components/Jtable/Organizador_ActiveEventsTable';
+
+
 function MyEvents(){
     return ( 
     <div>
@@ -79,32 +83,94 @@ function RecordEvents(){
         </div>
         )
 }
-
+function Botones(){
+    return ( 
+    <div>
+         <h2><br/></h2>
+                    <h3>
+                    <button class="mybutton" style={{float:'left'}}>Atras</button>
+                    <button class="mybutton" style={{float:'right'}}>Guardar</button>
+                    <br/><br/>
+                    </h3>
+    </div>
+    )
+}
+function BodyPanel(){
+    return ( 
+    <div>
+        <br/>
+        <h1>Gestion de eventos activos e históricos</h1><br/><br/>
+        <br/>
+    </div>
+    )
+}
+function MainTittle(){
+    return ( 
+    <div>
+        <h1><font size="33">Organizador - Eventos</font><br/><br/></h1>
+    </div>
+    )
+}
 class Organizador_ActiveEvents extends Component{
     state = {
         bannTop : BannerTop,
         bannBot : BannerBottom,
         msg: "NotConnected"
       }
+      
     render(){
+        /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
+        var datos2 ={ //state is by default an object
+            chupetinesGA: [
+               { listaEventos: 'WaWaWasifsifsWaWasifsifif', propRec: 'si', propEval: 'no', programa: 'si'},
+               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
+               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
+               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
+               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'}
+            ]
+         }
+         var datos1 ={ //state is by default an object
+            chupetinesGA: [
+                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
+                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
+                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
+                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
+                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
+                { listaEventos: 'WaWaWasifsifsWaWasifsifif'}
+            ]
+         }
         return(
-        <div> 
+            <div> 
             <this.state.bannTop />
-            <h1>Mis eventos - Organizador</h1>
+            /*AQUI DEBO RECIBIR EL NOMBRE DEL EVENTO AL CUAL ASIGNAR EVALUADORES*/
+            
+            <MainTittle/>
             <div class="container">
-            <div class="panel panel-default">
-                <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
-                    <TabList>
-                        <Tab>Eventos activos</Tab>
-                        <Tab>Historial de eventos</Tab>
-                    </TabList>
-                    <TabPanel> <MyEvents/> </TabPanel>
-                    <TabPanel> <RecordEvents/> </TabPanel>
-                </Tabs>
+                <div class="panel panel-default">
+
+                    < BodyPanel/>
+
+                    
+                    <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
+                            <TabList>
+                                <Tab>Eventos activos</Tab>
+                                <Tab>Historial de eventos</Tab>
+                            </TabList>
+                            <TabPanel>
+                                <Organizador_HistoryventsTable data ={datos2}/> 
+                            </TabPanel>
+                            <TabPanel> 
+                                
+                                
+                                < Organizador_ActiveEventsTable data ={datos1}/>
+                            </TabPanel>
+                        </Tabs>
+                    <Botones/>
                 </div>
+                </div>
+                <br/><br/>
+                <this.state.bannBot/>
             </div>
-            <this.state.bannBot/>
-        </div>
         );
     }
 }

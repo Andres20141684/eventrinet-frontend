@@ -38,8 +38,8 @@ class EvaluadorEventosTable extends Component {
         return (
             
            <div>
-              
-              <h1 id='title'><br/>Elige un evento y agrega tus preferencias<br/></h1>
+              <br/>
+              <h1 id='title'><br/>Elige un evento y agrega tus preferencias</h1><br/>
               <h2><br/></h2>
               <table id='chupetinesGA'>
                  <tbody>

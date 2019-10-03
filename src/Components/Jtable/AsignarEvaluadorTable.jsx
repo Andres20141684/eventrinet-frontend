@@ -50,8 +50,8 @@ class AsignarEvaluadorTable extends Component {
         return (
             
            <div>
-              
-              <h1 id='title'><br/>Listado de enventos por iniciar</h1><br/>
+              <br/>
+              <h1 id='title'><br/>Listado de enventos por iniciar</h1><br/><br/>
               <h2></h2>
               <table id='chupetinesGA'>
                  <tbody>

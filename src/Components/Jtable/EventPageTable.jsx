@@ -37,7 +37,7 @@ class EventPageTable extends Component {
         return (
             
            <div>
-              <h1 id='title'>React Dynamic Table</h1>
+              <h1 id='title'>Eventos</h1>
               <table id='chupetinesGA'>
                  <tbody>
                     <tr>{this.renderTableHeader()}</tr>

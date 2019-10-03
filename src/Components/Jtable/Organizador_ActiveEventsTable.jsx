@@ -13,23 +13,26 @@ class Organizador_ActiveEventsTable extends Component {
   
    renderTableData() {
         return this.state.chupetinesGA.map((element, index) => {
-        const { id, name, age, email} = element //destructuring
+        const { listaEventos} = element //destructuring
         return (
-            <tr key={id}>
-                <td>{id}</td>
-                <td>{name}</td>
-                <td>{age}</td>
-                <td>{email}</td>
-                <td><button onClick={this.handleClick}> Activate Lasers </button></td>
-            </tr>
+            <tr >
+                <td>{listaEventos}</td>
+                <td>
+                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-download"></i></button>
+               </td> 
+                </tr>
         )
         })
     }
     renderTableHeader() {
-        let header = Object.keys(this.state.chupetinesGA[0])
-        return header.map((key, index) => {
-           return <th key={index}>{key.toUpperCase()}</th>
-        })
+      return (
+         <tr>
+             <th width="70%">Lista de eventos</th>
+             <th width="30%">Reporte </th>
+             
+         </tr>
+
+     )
      }
   
      render() {
@@ -37,10 +40,11 @@ class Organizador_ActiveEventsTable extends Component {
         return (
             
            <div>
-              <h1 id='title'>React Dynamic Table</h1>
+              <br/>
+              <h1 id='title'>Lista de eventos históricos</h1><br></br>
               <table id='chupetinesGA'>
                  <tbody>
-                    <tr>{this.renderTableHeader()}</tr>
+                    {this.renderTableHeader()}
                     {this.renderTableData()}
                  </tbody>
               </table>

@@ -8,6 +8,8 @@ import 'react-tabs/style/react-tabs.css'
 import ReactTable from 'react-table';
 import 'react-table/react-table.css'
 /*AQUI  ASIGNO EVALUADORES*/
+import AsignarEvaluadorTable from '../Components/Jtable/AsignarEvaluadorTable';
+
 
 
 
@@ -19,13 +21,40 @@ function FillTable(){
         <br></br>
         <br></br>
         <div>
-            <PresiCalificacionFinalPapersTable/>
+            <AsignarEvaluadorTable/>
         </div>
     </div>
     )
 }
-
-
+function Botones(){
+    return ( 
+    <div>
+         <h2><br/></h2>
+                    <h3>
+                    <button class="mybutton" style={{float:'left'}}>Atras</button>
+                    <button class="mybutton" style={{float:'right'}}>Guardar</button>
+                    <br/><br/>
+                    </h3>
+    </div>
+    )
+}
+function BodyPanel(){
+    return ( 
+    <div>
+        <br/>
+        <h1>Asigna los evaluadores a las propuestas, edita las fases o aprueba las propuestas de un evento<br/><br/></h1>
+        <br/>
+    </div>
+    )
+}
+function MainTittle(){
+    return ( 
+    <div>
+        <h1><font size="33">Presidente - Eventos - Aprobacion final de Propuestas</font><br/><br/></h1>
+        <h1>Evento: AWS community day Peru<br/><br/></h1>
+    </div>
+    )
+}
 class PresiCalificacionFinalPapers extends Component{
     state = {
         bannTop : BannerTop,
@@ -35,41 +64,65 @@ class PresiCalificacionFinalPapers extends Component{
    
     render(){
         /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
-        var datos ={ //state is by default an object
+        var datos1 ={ //state is by default an object
             chupetinesGA: [
-               { id: 1, name: 'Wasif', age: 21, email: 'wasif@email.com',opt: ''},
-               { id: 2, name: 'Ali', age: 19, email: 'ali@email.com'    ,opt: ''},
-               { id: 3, name: 'Saad', age: 16, email: 'saad@email.com'  ,opt: ''},
-               { id: 4, name: 'Asad', age: 25, email: 'asad@email.com'  ,opt: ''},
-               { id: 4, name: 'Asad', age: 25, email: 'asad@email.com'  ,opt: ''},
-               { id: 4, name: 'Asad', age: 25, email: 'asad@email.com'  ,opt: ''}
-            ]
+                { listaEventos: 'WasifWasifWasifWasifWasif',
+                 propAsignadas: '1/2', 
+                 iniEval: 21, 
+                 opt1: '', opt: ''},
+                 { listaEventos: 'WasifWasifWasifWasifWasif',
+                 propAsignadas: '1/2', 
+                 iniEval: 21, 
+                 opt1: '', opt: ''},
+                 { listaEventos: 'WasifWasifWasifWasifWasif',
+                 propAsignadas: '1/2', 
+                 iniEval: 21, 
+                 opt1: '', opt: ''}
+               ]
+         }
+         var datos2 ={ //state is by default an object
+            chupetinesGA: [
+               { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 21, calEva: 'wasif@email.com',calPresi:'Si',opt: ''},
+               { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 19, calEva: 'ali@email.com' ,calPresi:'Si'   ,opt: ''},
+               { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 16, calEva: 'saad@email.com' ,calPresi:'Si' ,opt: ''},
+              ]
          }
         return(
             <div> 
                 <this.state.bannTop />
                 /*AQUI DEBO RECIBIR EL NOMBRE DEL EVENTO AL CUAL ASIGNAR EVALUADORES*/
-                <h1>CONFERENCIA ANUAL POR JINSSJ EN NAMEKUSEI - 28 de Diciembre<br/><br/></h1>
+                
+                <MainTittle/>
                 <div class="container">
-                <div class="panel panel-default">
+                    <div class="panel panel-default">
 
-                    <h1>Asigna los evaluadores a las propuestas<br/><br/></h1>
-                    <h4>La modalidad de preferencia fue (por categoria)<button style={{float:'right'}}>Ver mas...</button></h4>
-                    <h4>Asignacion automatica<button style={{float:'right'}}>Aplicar</button></h4>
-                    <h4><br/></h4>
-                    <PresiCalificacionFinalPapersTable data ={datos}/>;
-                    
-                    
-                </div>
+                        < BodyPanel/>
+
+                        
+                        <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
+                                <TabList>
+                                    <Tab>Eventos por iniciar</Tab>
+                                    <Tab>Eventos en fase de evaluacion</Tab>
+                                </TabList>
+                                <TabPanel>
+                                <div class="container">
+                                <div class="panel panel-default">
+                                        < AsignarEvaluadorTable data ={datos1}/>
+                                        </div></div>
+                                </TabPanel>
+                                <TabPanel> 
+                                <div class="container">
+                                <div class="panel panel-default">
+                                    < PresiCalificacionFinalPapersTable data ={datos2}/> 
+                                    </div></div>
+                                </TabPanel>
+                            </Tabs>
+                        <Botones/>
+                    </div>
                 
-                <h2><br/></h2>
-                    <h3>
-                    <button style={{float:'left'}}>Atras</button>
-                    <button style={{float:'right'}}>Guardar</button>
+                   
+                </div>
                 <br/><br/>
-                </h3>
-                </div>
-                
                 <this.state.bannBot/>
             </div>
         );
