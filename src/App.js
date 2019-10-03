@@ -36,15 +36,19 @@ class App extends Component{
 
   render() {
     return (
+      <div>
     <div className="App">
       <this.state.bannTop /> 
       <header className="App-header">
         <p className="logo">EVENTRINET</p>
-        <p>Gestionador de eventos academicos</p>
+        <p>Gestión de tus eventos academicos</p>
         <p> En mantenimiento...</p>
         <h1>{this.state.msg}</h1>
       </header>
-      <this.state.bannBot/>
+      
+      
+    </div>
+    <this.state.bannBot/>
     </div>
   );}
 }
