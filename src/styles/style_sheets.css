@@ -1,0 +1,19 @@
+.mybutton{
+    border-radius: 4px;
+    float: left;
+    border: none;
+    outline:none;
+    cursor: pointer;
+    padding: 12px 25px;
+    font-family: sans-serif;
+    font-size: 20px;
+    background-color: #002D3D;
+    color: #FFFFFF;
+    text-align: center;            
+}
+
+.mybutton:hover {
+    background-color: #E6E9EE;
+    color: #002D3D;
+}
+
