@@ -20,6 +20,7 @@ class EventPage extends Component{
             <this.state.bannTop />
             <h1>QueryAllEventos</h1>
             <this.state.prueba/>
+            <this.state.bannBot/>
         </div>)
     }
 }

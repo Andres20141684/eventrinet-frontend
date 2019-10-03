@@ -1,0 +1,15 @@
+/* navbar */
+
+ 
+.nav-link{
+    color: #e2f0e2;
+    background-color: #002D3D;
+    border-color: #002D3D;
+    
+  }
+  .nav-item :active{
+    color: #e2f0e2;
+    background-color: #002D3D;
+    border-color: #002D3D;
+    
+  }
