@@ -23,6 +23,7 @@ class App extends Component{
     fetch(url, {
       method:'GET'
     })
+
     .then( (response)=> response.json())
     .then( (responseJson)=>{
       this.setState({msg: responseJson[0].username})

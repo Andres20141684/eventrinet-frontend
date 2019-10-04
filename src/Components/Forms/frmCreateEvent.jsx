@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import StepOne from './CreateEvent/StepOne';
 import StepTwo from './CreateEvent/StepTwo'
+import StepThree_copy from './CreateEvent/StepThree_copy'
 import '../../styles/style_sheets.css'; 
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +34,7 @@ function getStepContent(stepIndex,props) {
     case 1:
       return <StepTwo {...props}/>;
     case 2:
-      return 'This is the bit I really care about!';
+      return <StepThree_copy {...props}/>;
     default:
       return 'Uknown stepIndex';
   }
