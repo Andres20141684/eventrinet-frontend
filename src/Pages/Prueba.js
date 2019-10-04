@@ -6,7 +6,6 @@ import { thisExpression } from '@babel/types';
 import frmEventNew from '../Components/Forms/frmEventNew';
 import StepThree_copy from '../Components/Forms/CreateEvent/StepThree_copy';
 import { FormGroup } from '@material-ui/core';
-import Calendar from 'ciqu-react-calendar';
 import Form from 'react-bootstrap/Form';
 
 class Prueba extends Component{
