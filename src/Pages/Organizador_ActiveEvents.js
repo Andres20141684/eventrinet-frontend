@@ -157,10 +157,12 @@ class Organizador_ActiveEvents extends Component{
                                 <Tab>Historial de eventos</Tab>
                             </TabList>
                             <TabPanel>
+                                <a  href="/events"><button class="mybutton" style={{float:'right'}}>Crear evento</button></a>
+                            <br/>
                                 <Organizador_HistoryventsTable data ={datos2}/> 
                             </TabPanel>
                             <TabPanel> 
-                                
+                            
                                 
                                 < Organizador_ActiveEventsTable data ={datos1}/>
                             </TabPanel>

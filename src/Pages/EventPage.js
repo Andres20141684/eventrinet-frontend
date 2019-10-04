@@ -12,18 +12,14 @@ class EventPage extends Component{
         bannBot : BannerBottom,
         msg: "NotConnected",
         prueba: frmEventNew
-
       }
+
     render(){
         return(
         <div> 
             <this.state.bannTop />
-            <h1>QueryAllEventos</h1>.
-            <div>
-            <h1>QueryAllEventos</h1>
             <this.state.prueba/>
             <this.state.bannBot/>
-            </div>
         </div>)
     }
 }
