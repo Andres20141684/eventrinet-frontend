@@ -7,7 +7,7 @@ export default class EventNew extends Component{
         super(props);
         this.state = {
             nombre:'',
-            descripcion:'ff',
+            descripcion:'',
             lugar:'',
             fechaI: new Date(),
             comite1:[{key:1,label:'none'},{key:2,label:'Gleen'}],

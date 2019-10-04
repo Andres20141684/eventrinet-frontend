@@ -80,6 +80,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
               null
               :
               <Button  
+                style={{float:'left'}}
                 class="mybutton"
                 onClick={handleBack}
                 class="mybutton"
@@ -87,7 +88,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
               >
                 Back
               </Button>}
-              <Button  class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
+              <Button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </div>
