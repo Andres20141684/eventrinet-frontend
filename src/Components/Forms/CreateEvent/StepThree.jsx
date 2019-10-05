@@ -1,55 +1,85 @@
-import React from 'react'
+import React, { Component } from 'react';
+import { FormGroup } from '@material-ui/core';
+import Form from 'react-bootstrap/Form'
+import FormStepThree from './FormStepThree';
 
-class StepThree extends React.Component {
-  constructor () {
-    super()
-    this.state = { 
-      password: '', 
-      passwordConfirm: '' 
-    }
-    this.handlePasswordChanged = this.handlePasswordChanged.bind(this);
-    this.handlePasswordConfirmChanged = this.handlePasswordConfirmChanged.bind(this);
+class StepThree extends Component{
+    state = { 
+        values: [{ value: null }],
+        form_1: FormStepThree,
+    };  
+
+  handleChange(i, event) {
+    let values = [...this.state.values];
+    values[i].value = event.target.value;
+    this.setState({ values });
   }
 
-  handlePasswordChanged (event) {
-    this.setState({password: event.target.value})
+  addClick() {
+    this.setState(prevState => ({
+      values: [...prevState.values, { value: null }]
+    }));
   }
 
-  handlePasswordConfirmChanged (event) {
-    this.setState({passwordConfirm: event.target.value})
+  removeClick(i) {
+    let values = [...this.state.values];
+    values.splice(i, 1);
+    this.setState({ values });
   }
 
-  render () {
+  handleSubmit(event) {
+    alert("A name was submitted: " + this.state.values.join(", "));
+    event.preventDefault();
+  }
+
+  render() {
     return (
-      <div>
-        <div className='row'>
-          <div className='six columns'>
-            <label>Password</label>
-            <input
-              className='u-full-width required'
-              placeholder='Password'
-              type='password'
-              onChange={this.handlePasswordChanged}
-              value={this.state.password}
-              autoFocus
-            />
+      <form method="Post">
+        <div>
+        {this.state.values.map((el, index) => (
+          <div key={index} class="panel panel-default">
+                <h1>Fase 0{index+1} </h1>  
+                <div>
+                <input
+                    type="button"
+                    value="remove"
+                    onClick={() => this.removeClick(index)}
+                    style={{float:'right'}}
+                />
+                <this.state.form_1   
+                    value={el.value || ""} 
+                    onChange={e => this.handleChange(index, e)}/>
+                </div>
           </div>
+        ))}
+
+        <input type="button" value="add more" onClick={() => this.addClick()} />   
         </div>
-        <div className='row'>
-          <div className='six columns'>
-            <label>Confirm password</label>
-            <input
-              className='u-full-width'
-              placeholder='Confirm Password'
-              type='password'
-              onChange={this.handlePasswordConfirmChanged}
-              value={this.state.passwordConfirm}
-            />
-          </div>
-        </div>
-      </div>
-    )
+            
+        <div class="cointainer p-4">
+            <h1>Incluir Camera Ready</h1>
+            <FormGroup action="" class="card card-body">
+                <div class="form-group">                    
+                <div>
+                    <Form.Check
+                        type="radio" inline
+                        label="Si"
+                        name="formHorizontalRadios"
+                        id="formHorizontalRadios1"
+                    />
+                    <Form.Check
+                        type="radio" inline
+                        label="No"
+                        name="formHorizontalRadios"
+                        id="formHorizontalRadios2"
+                    />
+                </div>
+                </div>
+            </FormGroup>
+        </div>            
+        <button class="btn btn-primary" type="submit" style={{float:'right'}}>Crear evento</button>
+      </form>
+    );
   }
 }
-
 export default StepThree;

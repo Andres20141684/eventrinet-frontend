@@ -13,48 +13,26 @@ class Organizador_HistoryventsTable extends Component {
   
    renderTableData() {
         return this.state.chupetinesGA.map((element, index) => {
-        const { listaEventos, propRec, propEval, programa} = element //destructuring
+        const { listaEventos} = element //destructuring
         return (
-            <tr>
+            <tr >
                 <td>{listaEventos}</td>
                 <td>
-                   <h1>
-                      <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
-                    - <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
-                    - <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
-                  </h1>
+                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-download"></i></button>
                </td> 
-               <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-edit"></i></button>
-               </td> 
-               <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus"></i></button>
-               </td> 
-               
-               <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-play"></i></button>
-               </td> 
-               <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-times-circle"></i></button>
-               </td> 
-                
-            </tr>
+                </tr>
         )
         })
     }
     renderTableHeader() {
-        
-        return (
-            <tr>
-                <th width="35%">Lista de eventos</th>
-                <th width="30%">Prop. rec. -> En eval. -> Prog. comp. </th>
-                <th width="12%">Editar</th>
-                <th width="12%">Seg. de fases</th>
-                <th width="8%">Publicar evento</th>
-                <th width="4%">Cancelar</th>
-            </tr>
+      return (
+         <tr>
+             <th width="70%">Lista de eventos</th>
+             <th width="30%">Reporte </th>
+             
+         </tr>
 
-        )
+     )
      }
   
      render() {
@@ -62,7 +40,8 @@ class Organizador_HistoryventsTable extends Component {
         return (
             
            <div>
-              <h1 id='title'><br/>Lista de Eventos activos</h1><br/>
+              <br/>
+              <h1 id='title'>Lista de eventos históricos</h1><br></br>
               <table id='chupetinesGA'>
                  <tbody>
                     {this.renderTableHeader()}
@@ -74,4 +53,4 @@ class Organizador_HistoryventsTable extends Component {
      }
 }
 
-export default Organizador_HistoryventsTable //exporting a component make it reusable and this is the beauty of react
+export default Organizador_HistoryventsTable//exporting a component make it reusable and this is the beauty of react

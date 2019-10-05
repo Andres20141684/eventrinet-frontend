@@ -16,6 +16,7 @@ export default class EventNew extends Component{
             evaluadores:[],
             categorias:[{key:1,label:'Data Science'},{key:2,label:'Machine learnig'}],
             aux: frmCreateEvent     
+
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleComiteadd=this.handleComiteadd.bind(this)
@@ -62,6 +63,7 @@ export default class EventNew extends Component{
       render() {    
         return (
           <div className='container'>
+
               <this.state.aux 
               evaluadores={this.state.evaluadores}
               presidente={this.state.presidente}
@@ -72,6 +74,7 @@ export default class EventNew extends Component{
               handleDate={this.handleDate}
               fechaIE={this.state.fechaIE}
               fechaFE={this.state.fechaFE}
+
               handleComiteadd={this.handleComiteadd}
               handleChange={this.handleChange} 
               nombre={this.state.nombre} 
