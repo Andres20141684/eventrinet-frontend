@@ -72,7 +72,6 @@ class BannerTop extends Component{
               <li class="nav-item">
                 <a class="nav-link" href="/announcements">Convocatoria | </a>
               </li>
-              
               <li class="nav-item" class="nav dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false">Opciones... </a>
                 <ul class="dropdown-menu">

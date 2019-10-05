@@ -9,13 +9,21 @@ export default class EventNew extends Component{
             nombre:'',
             descripcion:'',
             lugar:'',
-            fechaI: new Date(),
+            fechaIE: new Date(),
+            fechaFE: new Date(),
             comite1:[{key:1,label:'none'},{key:2,label:'Gleen'}],
             frmCreateEvent: frmCreateEvent     
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleComiteadd=this.handleComiteadd.bind(this)
+        this.handleDate=this.handleDate.bind(this)
 
+      }
+
+      handleDate(date){
+        this.setState({
+          fechaIE:date
+        })
       }
     
       handleChange(event) {
@@ -34,13 +42,17 @@ export default class EventNew extends Component{
       render() {    
         return (
           <div className='container'>
+
               <this.state.frmCreateEvent 
+              handleDate={this.handleDate}
+              fechaIE={this.state.fechaIE}
+              fechaFE={this.state.fechaFE}
+
               handleComiteadd={this.handleComiteadd}
               handleChange={this.handleChange} 
               nombre={this.state.nombre} 
               descripcion={this.state.descripcion}
               lugar={this.state.lugar}
-              fechaI={this.state.fechaI}
               comite1={this.state.comite1}
               />
           </div>

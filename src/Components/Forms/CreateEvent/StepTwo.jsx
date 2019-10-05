@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Chip from '@material-ui/core/Chip';
-import Test from './ArrayOfChips'
+import ArrayOfChips from './ArrayOfChips'
 import '../../../styles/style_sheets.css'; 
 
 class StepTwo extends Component{    
@@ -15,12 +15,7 @@ class StepTwo extends Component{
                 <h1>Comité Organizacional</h1>
                 <Form>
                 <br></br>
-                <Test {...props }/>
-                <div >
-                        <Chip label="a20143072@pucp.pe" onDelete={() => {}} />{' '}
-                        <Chip label="a20143079@pucp.pe" onDelete={() => {}} />{' '}
-                        <Chip label="a20143070@pucp.pe" onDelete={() => {}} />{' '}
-                </div> 
+                <ArrayOfChips {...props }/> 
                 </Form>
     </div>
         )
@@ -42,9 +37,6 @@ class StepTwo extends Component{
                         </Col>
                     </Row>
                     <br></br>
-                    <div >
-                        <Chip label="a20143072@pucp.pe" onDelete={() => {}} />{' '}
-                    </div>
                                       
                 </Form.Group>
                 
@@ -76,12 +68,7 @@ class StepTwo extends Component{
                             <button class="btnAdd"  type="submit">Agregar</button>
                         </Col>
                     </Row>
-                    <br></br>
-                    <div >
-                        <Chip label="a20143072@pucp.pe" onDelete={() => {}} />{' '}
-                        <Chip label="a20143079@pucp.pe" onDelete={() => {}} />{' '}
-                        <Chip label="a20143070@pucp.pe" onDelete={() => {}} />{' '}
-                    </div>                        
+                    <br></br>                  
                 </Form.Group>
                 </Form>
     </div>
