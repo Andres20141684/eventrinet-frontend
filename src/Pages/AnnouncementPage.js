@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom';
 import Organizador_ActiveEventsTable from '../Components/Jtable/Organizador_ActiveEventsTable';
-
 import Dashboard from '../Components/Dashboard';
 import { thisExpression } from '@babel/types';
+
 
 class AnnouncementPage extends Component{
     state = {

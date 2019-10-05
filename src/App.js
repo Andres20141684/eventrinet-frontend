@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import logo from './lollipop.svg';
-import BannerTop from './Components/General/bannerTop'
-import BannerBottom from './Components/General/bannerBottom'
+import BannerTop from './Components/General/bannerTop';
+import BannerBottom from './Components/General/bannerBottom';
 import './App.css'; 
 import { thisExpression } from '@babel/types';
+const Networking = require('./Network/Networking.js') ;
 
 
 class App extends Component{
@@ -15,7 +16,15 @@ class App extends Component{
 
   componentWillMount(){
     console.log("AppWillMount")
-    this.setterEvento();
+    Networking.saludar().then(
+      (response)=>{
+        this.setState({msg:response.message});
+      })
+      .catch( (err) =>{
+        console.log("error en conexión");
+        this.setState({msg:"Intento de conexión fallido"});
+        console.log(err);
+      })
   }
 
   setterEvento(){
@@ -46,8 +55,6 @@ class App extends Component{
         <p> En mantenimiento...</p>
         <h1>{this.state.msg}</h1>
       </header>
-      
-      
     </div>
     <this.state.bannBot/>
     </div>

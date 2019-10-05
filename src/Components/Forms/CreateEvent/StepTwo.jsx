@@ -5,8 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Chip from '@material-ui/core/Chip';
 import ArrayOfChips from './ArrayOfChips'
+import '../../../styles/style_sheets.css'; 
 
-class CEvent_EvalPhase extends Component{    
+class StepTwo extends Component{    
 
     formComiteOrganizacional(props){
         return (
@@ -14,7 +15,7 @@ class CEvent_EvalPhase extends Component{
                 <h1>Comité Organizacional</h1>
                 <Form>
                 <br></br>
-                <ArrayOfChips {...props }/> 
+                <ArrayOfChips lista={props.comite1} handleadd={props.handleComiteadd}/> 
                 </Form>
     </div>
         )
@@ -27,14 +28,8 @@ class CEvent_EvalPhase extends Component{
                 <Form>                                
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label> Presidente</Form.Label>                    
-                    <Row>
-                        <Col>
-                            <Form.Control type="email" placeholder="Ingrese correo electronico" />
-                        </Col>
-                        <Col>
-                            <Button variant="primary" type="submit">Agregar</Button>                    
-                        </Col>
-                    </Row>
+                    <br></br>
+                    <ArrayOfChips lista={props.presidente} handleadd={props.handlePresidenteadd}/> 
                     <br></br>
                                       
                 </Form.Group>
@@ -58,15 +53,9 @@ class CEvent_EvalPhase extends Component{
                 </Form.Group>
 
                 <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label> Evaluadores</Form.Label>                    
-                    <Row>
-                        <Col>
-                            <Form.Control type="email" placeholder="Ingrese correo electronico" />
-                        </Col>
-                        <Col>
-                            <Button variant="primary" type="submit">Agregar</Button>                    
-                        </Col>
-                    </Row>
+                    <Form.Label> Evaluadores</Form.Label>
+                    <br></br>    
+                    <ArrayOfChips lista={props.evaluadores} handleadd={props.handleEvaluadoradd}/> 
                     <br></br>                  
                 </Form.Group>
                 </Form>
@@ -93,4 +82,4 @@ class CEvent_EvalPhase extends Component{
     }
 }
 
-export default CEvent_EvalPhase;
+export default StepTwo;

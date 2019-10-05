@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
-import EventPage from './Pages/EventPage';
+import NewEventPage from './Pages/NewEventPage';
 import AnnouncementPage from './Pages/AnnouncementPage';
 /**************************************/
-import Organizador_ActiveEvents from './Pages/Organizador_ActiveEvents';
+import OrganActiveEvents from './Pages/OrganActiveEvents';
 import PresiCalificacionFinalPapers from './Pages/PresiCalificacionFinalPapers';
-import PresidenteEventos from './Pages/PresidenteEventos';
+import PresidentEvents from './Pages/PresidentEvents';
 import EvaluadorEventos from './Pages/EvaluadorEventos';
 import Create_EventStep3 from './Pages/Create_EventStep3';
 import Prueba from './Pages/Prueba';
+import Login from './Pages/Login';
 /************************************* */
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 //import * as serviceWorker from './serviceWorker';
@@ -20,20 +22,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(<Router>
                     <Route path='/' exact component={App}/>
-                    <Route path='/events' exact component={EventPage} />
+                    <Route path='/organizerNewEvent' exact component={NewEventPage} />
                     <Route path='/announcements' exact component={AnnouncementPage} />
 
-                    <Route path='/Organizador_ActiveEvents' exact component={Organizador_ActiveEvents} />
-                    <Route path='/PresidenteEventos' exact component={PresidenteEventos} />
+                    <Route path='/organActiveEvents' exact component={OrganActiveEvents} />
+                    <Route path='/presidentEvents' exact component={PresidentEvents} />
                     <Route path='/PresiCalificacionFinalPapers' exact component={PresiCalificacionFinalPapers} />
                     <Route path='/EvaluadorEventos' exact component={EvaluadorEventos} />
                     <Route path='/createEventStep3' exact component={Create_EventStep3} />
                     <Route path='/prueba' exact component={Prueba} />                    
-                    <Route post={'/prueba',(req, res) =>{
-                        console.log(req.body);
-                        res.send('received');
-                     }}/>
-    }
+                    <Route path='/login' exact component={Login} />
                     </Router>,
                  document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
