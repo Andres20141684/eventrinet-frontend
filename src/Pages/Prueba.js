@@ -4,7 +4,7 @@ import BannerBottom from '../Components/General/bannerBottom'
 import EventPageTable from '../Components/Jtable/EventPageTable';
 import { thisExpression } from '@babel/types';
 import frmEventNew from '../Components/Forms/frmEventNew';
-import StepThree_copy from '../Components/Forms/CreateEvent/StepThree_copy';
+import StepThree_copy from '../Components/Forms/CreateEvent/StepThree';
 import { FormGroup } from '@material-ui/core';
 import Form from 'react-bootstrap/Form';
 

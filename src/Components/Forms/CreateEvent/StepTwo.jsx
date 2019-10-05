@@ -5,8 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Chip from '@material-ui/core/Chip';
 import Test from './ArrayOfChips'
+import '../../../styles/style_sheets.css'; 
 
-class CEvent_EvalPhase extends Component{    
+class StepTwo extends Component{    
 
     formComiteOrganizacional(props){
         return (
@@ -37,7 +38,7 @@ class CEvent_EvalPhase extends Component{
                             <Form.Control type="email" placeholder="Ingrese correo electronico" />
                         </Col>
                         <Col>
-                            <Button variant="primary" type="submit">Agregar</Button>                    
+                            <button class="btnAdd" variant="primary" type="submit">Agregar</button>   
                         </Col>
                     </Row>
                     <br></br>
@@ -72,7 +73,7 @@ class CEvent_EvalPhase extends Component{
                             <Form.Control type="email" placeholder="Ingrese correo electronico" />
                         </Col>
                         <Col>
-                            <Button variant="primary" type="submit">Agregar</Button>                    
+                            <button class="btnAdd"  type="submit">Agregar</button>
                         </Col>
                     </Row>
                     <br></br>
@@ -106,4 +107,4 @@ class CEvent_EvalPhase extends Component{
     }
 }
 
-export default CEvent_EvalPhase;
+export default StepTwo;

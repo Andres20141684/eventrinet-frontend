@@ -11,7 +11,7 @@ export default class EventNew extends Component{
             lugar:'',
             fechaI: new Date(),
             comite1:[{key:1,label:'none'},{key:2,label:'Gleen'}],
-            aux: frmCreateEvent     
+            frmCreateEvent: frmCreateEvent     
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleComiteadd=this.handleComiteadd.bind(this)
@@ -34,7 +34,7 @@ export default class EventNew extends Component{
       render() {    
         return (
           <div className='container'>
-              <this.state.aux 
+              <this.state.frmCreateEvent 
               handleComiteadd={this.handleComiteadd}
               handleChange={this.handleChange} 
               nombre={this.state.nombre} 

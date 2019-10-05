@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import '../../../styles/style_sheets.css';
 
 export default function Test(props) {
   const [chipData, setChipData] = React.useState(props.comite1);
@@ -30,7 +31,7 @@ export default function Test(props) {
           <input placeholder="Ingrese correo electronico" onChange={handleChange}/> 
           </Col>
           <Col>
-          <Button variant="primary" onClick={handleSelect} >Agregar</Button>
+          <button class="btnAdd" variant="primary" onClick={handleSelect} >Agregar</button>
           </Col>
       </Row>
       {chipData.map((data, index) => {
