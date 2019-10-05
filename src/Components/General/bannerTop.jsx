@@ -30,7 +30,7 @@ class BannerTop extends Component{
   }
   
   render(){
-    debugger;
+    //debugger;
     return (
       <div id="bannerTop" style={styles.banner}><br/>
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
