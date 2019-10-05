@@ -31,7 +31,7 @@ class BannerTop extends Component{
   }
   
   render(){
-    debugger;
+    //debugger;
     return (
       <div id="bannerTop" style={styles.banner}><br/>
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
@@ -78,9 +78,8 @@ class BannerTop extends Component{
               <li class="nav-item" class="nav dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></a>
                 <ul class="dropdown-menu">
-                  
-                  <li><a class="nav-link" href="#"><b><font size="3" >Mis inscripciones</font></b></a></li>
-                  <li><a class="nav-link" href="#"><b><font size="3">Mis propuestas</font></b></a></li>
+                  <li><a class="nav-link" href="#">MIS INSCRIPCIONES</a></li>
+                  <li><a class="nav-link" href="#">MIS PROPUESTAS</a></li>
                   <div class="dropdown-divider"></div>
                   <li><a class="nav-link" href="/organActiveEvents"><b><font size="3">Organizador</font></b></a></li>
                   <li><a class="nav-link" href="/presidentEvents"><b><font size="3">Presidente</font></b></a></li>
