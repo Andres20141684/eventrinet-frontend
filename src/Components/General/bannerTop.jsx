@@ -62,25 +62,26 @@ class BannerTop extends Component{
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="nav navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" href="/">Inicio  |<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/"><b>Inicio</b><span class="sr-only">(current)</span></a>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/events">Eventos  </a>
+                <a class="nav-link" href="/events"><b>Eventos</b></a>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/announcements">Convocatoria | </a>
+                <a class="nav-link" href="/announcements"><b>Convocatoria</b></a>
               </li>
               <li class="nav-item" class="nav dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false">Opciones... </a>
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b>Opciones</b></a>
                 <ul class="dropdown-menu">
                   
-                  <li><a class="nav-link" href="#">Mis inscripciones</a></li>
-                  <li><a class="nav-link" href="#">Mis propuestas</a></li>
-                  <li><a class="nav-link" href="/organActiveEvents">Organizador</a></li>
-                  <li><a class="nav-link" href="/presidentEvents">Presidente</a></li>
-                  <li><a class="nav-link" href="/EvaluadorEventos">Evaluador</a></li>
+                  <li><a class="nav-link" href="#"><b>Mis inscripciones</b></a></li>
+                  <li><a class="nav-link" href="#"><b>Mis propuestas</b></a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a class="nav-link" href="/organActiveEvents"><b>Organizador</b></a></li>
+                  <li><a class="nav-link" href="/presidentEvents"><b>Presidente</b></a></li>
+                  <li><a class="nav-link" href="/EvaluadorEventos"><b>Evaluador</b></a></li>
                 </ul>
               </li>
             </ul>
