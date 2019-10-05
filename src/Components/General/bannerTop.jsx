@@ -35,7 +35,7 @@ class BannerTop extends Component{
       <div id="bannerTop" style={styles.banner}><br/>
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal" >
-            <h1> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></h1>          
+            <h1><a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></a></h1>          
           </div>  
             <div className="list-inline-item" align="right">
             <a className="nav" onClick={() => this.openModal()}> {this.state.name} </a>
