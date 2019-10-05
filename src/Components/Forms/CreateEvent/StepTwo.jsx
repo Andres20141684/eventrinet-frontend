@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container'
 import Chip from '@material-ui/core/Chip';
 import ArrayOfChips from './ArrayOfChips'
 
@@ -11,11 +12,14 @@ class CEvent_EvalPhase extends Component{
     formComiteOrganizacional(props){
         return (
             <div>
+                <Container>
                 <h1>Comité Organizacional</h1>
                 <Form>
                 <br></br>
                 <ArrayOfChips lista={props.comite1} handleadd={props.handleComiteadd}/> 
                 </Form>
+                </Container>
+                
     </div>
         )
     }
@@ -23,6 +27,7 @@ class CEvent_EvalPhase extends Component{
     formComiteAcademico(props){
         return (
             <div>
+                <Container>
                 <h1>Comité Académico</h1>
                 <Form>                                
                 <Form.Group controlId="exampleForm.ControlInput1">
@@ -34,21 +39,26 @@ class CEvent_EvalPhase extends Component{
                 </Form.Group>
                 
                 <Form.Group>
+                <br></br>    
                 <Form.Label>Criterio para evaluar preferencia de evaluadores:</Form.Label>
+                <br></br>
                 <Col>
-                    <Form.Check
+                    <input
+                    checked={props.rdCategry}
                     type="radio" inline
-                    label="Categorias"
                     name="formHorizontalRadios"
-                    id="formHorizontalRadios1"
-                    />
-                    <Form.Check
+                    id="rdCategry"
+                    onChange={props.handleChangeRadio}
+                    />Categorias
+                    <input
+                    checked={props.rdPropuest}
                     type="radio" inline
-                    label="Propuestas"
                     name="formHorizontalRadios"
-                    id="formHorizontalRadios2"
-                    />
+                    id="rdPropuest"
+                    onChange={props.handleChangeRadio}
+                    />Propuestas
                 </Col>
+                <br></br>
                 </Form.Group>
 
                 <Form.Group controlId="exampleForm.ControlInput1">
@@ -58,6 +68,7 @@ class CEvent_EvalPhase extends Component{
                     <br></br>                  
                 </Form.Group>
                 </Form>
+                </Container>  
     </div>
         )
     }

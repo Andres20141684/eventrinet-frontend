@@ -4,26 +4,26 @@ import Form from 'react-bootstrap/Form'
 import FormStepThree from './FormStepThree';
 class Prueba extends Component{
     state = { 
-        values: [{ value: null }],
+        values: [{index:0, value: null }],
         form_1: FormStepThree,
     };  
 
   handleChange(i, event) {
     let values = [...this.state.values];
     values[i].value = event.target.value;
-    this.setState({ values });
+    this.setState({ values: values});
   }
 
-  addClick() {
+  addClick(index) {
     this.setState(prevState => ({
-      values: [...prevState.values, { value: null }]
+      values: [...prevState.values, {index:index, value: null }]
     }));
   }
 
   removeClick(i) {
     let values = [...this.state.values];
-    values.splice(i, 1);
-    this.setState({ values });
+    values.splice(i,1)
+    this.setState({ values:values });
   }
 
   handleSubmit(event) {
@@ -49,10 +49,9 @@ class Prueba extends Component{
                     value={el.value || ""} 
                     onChange={e => this.handleChange(index, e)}/>
                 </div>
+                <input type="button" value="add more" onClick={() => this.addClick(index)} /> 
           </div>
-        ))}
-
-        <input type="button" value="add more" onClick={() => this.addClick()} />   
+        ))}  
         </div>
             
         <div class="cointainer p-4">

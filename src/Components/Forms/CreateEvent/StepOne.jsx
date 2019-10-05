@@ -15,7 +15,8 @@ export default class StepOne extends React.Component {
         <div class="panel panel-default">
         <Container>
           <h1>Datos Generales</h1>
-        <Row>
+        <br></br>
+        <Row xs={5} sm={5}>
           <Col>
           <label style={styles.rotulos}>Nombre </label>
           </Col>
@@ -31,14 +32,15 @@ export default class StepOne extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
+        <br></br>
+        <Row xs sm>
           <Col>
           <label style={styles.rotulos}>Descripcion</label>
           </Col>
           <Col>
           <textarea
               rows='4'
-              cols='60'
+              cols='50'
               className='u-full-width'
               name='descripcion'
               placeholder='Descripcion'
@@ -49,7 +51,8 @@ export default class StepOne extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
+        <br></br>
+        <Row xs sm>
           <Col>
           <label style={styles.rotulos}>Lugar </label>
           </Col>
@@ -65,35 +68,56 @@ export default class StepOne extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
-          <Col>Fecha Inicio: </Col>
+        <br></br>
+        <Row xs sm>
+          <Col> <label style={styles.rotulos}>Fecha Inicio: </label> </Col>
           <Col> <DatePicker
-                  name = 'fechaIE'
                   selected={this.props.fechaIE}
                   minDate={new Date()}
                   onChange={this.props.handleDate}
                   />
           </Col>
-          <Col>Fecha Fin:</Col>
-          <Col> <DatePicker/>
+          <Col><label style={styles.rotulos}>Fecha Fin: </label> </Col>
+          <Col> <DatePicker
+                selected={this.props.fechaFE}
+                minDate={this.props.fechaIE}
+                onChange={this.props.handleDate2}
+                />
           </Col>
         </Row>
+        <br></br>
       </Container>
       </div>
       <div class="panel panel-default">
+      <Container>
         <h1>Categorias</h1>
+        <br></br>
         <ArrayOfChips lista={this.props.categorias} handleadd={this.props.handleCategoryadd}/>
+        <br></br>
+      </Container>
       </div>
       <div class="panel panel-default">
+        <Container>
         <h1>Duracion Convocatoria</h1>
+        <br></br>
         <Row>
-          <Col>Fecha Inicio: </Col>
-          <Col> <DatePicker/>
+          <Col><label style={styles.rotulos}>Fecha Inicio: </label></Col>
+          <Col> <DatePicker
+                selected={this.props.fechaIC}
+                minDate={new Date()}
+                onChange={this.props.handleDate3}
+                />
           </Col>
-          <Col>Fecha Fin:</Col>
-          <Col> <DatePicker/>
+          <Col><label style={styles.rotulos}>Fecha Inicio: </label></Col>
+          <Col> <DatePicker
+                  selected={this.props.fechaFC}
+                  minDate={this.props.fechaIC}
+                  onChange={this.props.handleDate4}
+                  />
           </Col>
         </Row>
+        </Container>
+        <br></br>
       </div>
       </div>
     )
