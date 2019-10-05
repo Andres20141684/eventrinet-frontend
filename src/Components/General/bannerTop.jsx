@@ -85,7 +85,8 @@ class BannerTop extends Component{
                 </ul>
               </li>
             </ul>
-            <span class="ml-auto navbar-text">lupa | interrogante | foto</span>
+            <span class="ml-auto navbar-text"><i class="fa fa-search" style={styles.fa} aria-hidden="true" ></i> <i class="fa fa-question-circle fa" style={styles.fa} aria-hidden="true"></i>
+            <i class="fa fa-user" style={styles.fa} aria-hidden="true"></i></span>
           </div>
         </nav>
         </div>
@@ -104,6 +105,10 @@ var styles = {
     paddingBottom: 20,
     FontSize: 20,
     color:'#6CDCD6',
+  }
+  ,fa:{
+    paddingRight:20,
+    color:'#002D3D',
   }
 }
 
