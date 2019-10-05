@@ -41,7 +41,7 @@ class BannerTop extends Component{
             <a className="nav" onClick={() => this.openModal()}> {this.state.name} </a>
             <section>
             <script src= "./login.js"></script>
-                <Modal visible={this.state.visible} width="400" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                <Modal visible={this.state.visible} width="400" height="500" effect="fadeInUp" onClickAway={() => this.closeModal()}>
                     <div>
                     <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         <a href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a>
@@ -62,26 +62,26 @@ class BannerTop extends Component{
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="nav navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" href="/"><b>Inicio</b><span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/"><b><font size="2.5">Inicio</font></b><span class="sr-only">(current)</span></a>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/events"><b>Eventos</b></a>
+                <a class="nav-link" href="/events"><b><font size="2.5">Eventos</font></b></a>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/announcements"><b>Convocatoria</b></a>
+                <a class="nav-link" href="/announcements"><b><font size="2.5">Convocatoria</font></b></a>
               </li>
               <li class="nav-item" class="nav dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b>Opciones</b></a>
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="2.5">Opciones</font></b></a>
                 <ul class="dropdown-menu">
                   
-                  <li><a class="nav-link" href="#"><b>Mis inscripciones</b></a></li>
-                  <li><a class="nav-link" href="#"><b>Mis propuestas</b></a></li>
+                  <li><a class="nav-link" href="#"><b><font size="2.5">Mis inscripciones</font></b></a></li>
+                  <li><a class="nav-link" href="#"><b><font size="2.5">Mis propuestas</font></b></a></li>
                   <div class="dropdown-divider"></div>
-                  <li><a class="nav-link" href="/organActiveEvents"><b>Organizador</b></a></li>
-                  <li><a class="nav-link" href="/presidentEvents"><b>Presidente</b></a></li>
-                  <li><a class="nav-link" href="/EvaluadorEventos"><b>Evaluador</b></a></li>
+                  <li><a class="nav-link" href="/organActiveEvents"><b><font size="2.5">Organizador</font></b></a></li>
+                  <li><a class="nav-link" href="/presidentEvents"><b><font size="2.5">Presidente</font></b></a></li>
+                  <li><a class="nav-link" href="/EvaluadorEventos"><b><font size="2.5">Evaluador</font></b></a></li>
                 </ul>
               </li>
             </ul>
@@ -103,6 +103,7 @@ var styles = {
     backgroundColor: '#002D3D',
     paddintTop: 0,
     paddingBottom: 20,
+    paddingRight:0,
     FontSize: 20,
     color:'#6CDCD6',
   }
