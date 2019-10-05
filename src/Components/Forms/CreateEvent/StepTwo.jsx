@@ -6,8 +6,9 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container'
 import Chip from '@material-ui/core/Chip';
 import ArrayOfChips from './ArrayOfChips'
+import '../../../styles/style_sheets.css'; 
 
-class CEvent_EvalPhase extends Component{    
+class StepTwo extends Component{    
 
     formComiteOrganizacional(props){
         return (
@@ -62,7 +63,7 @@ class CEvent_EvalPhase extends Component{
                 </Form.Group>
 
                 <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label> Evaluadores</Form.Label>                    
+                    <Form.Label> Evaluadores</Form.Label>
                     <br></br>    
                     <ArrayOfChips lista={props.evaluadores} handleadd={props.handleEvaluadoradd}/> 
                     <br></br>                  
@@ -92,4 +93,4 @@ class CEvent_EvalPhase extends Component{
     }
 }
 
-export default CEvent_EvalPhase;
+export default StepTwo;

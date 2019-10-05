@@ -20,6 +20,7 @@ export default class EventNew extends Component{
             evaluadores:[],
             categorias:[],
             aux: frmCreateEvent     
+
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleComiteadd=this.handleComiteadd.bind(this)
@@ -103,6 +104,7 @@ export default class EventNew extends Component{
       render() {    
         return (
           <div className='container'>
+
               <this.state.aux 
               handleChangeRadio={this.handleChangeRadio}
               rdCategry={this.state.rdCategry}
@@ -121,6 +123,7 @@ export default class EventNew extends Component{
               handleDate={this.handleDate}
               fechaIE={this.state.fechaIE}
               fechaFE={this.state.fechaFE}
+
               handleComiteadd={this.handleComiteadd}
               handleChange={this.handleChange} 
               nombre={this.state.nombre} 

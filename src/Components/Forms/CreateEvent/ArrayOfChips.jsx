@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import '../../../styles/style_sheets.css';
 
 export default function ArrayOfChips(props) {
   let chipData =[{}];
@@ -34,7 +35,7 @@ export default function ArrayOfChips(props) {
           <input placeholder="Ingrese correo electronico" onChange={handleChange}/> 
           </Col>
           <Col>
-          <Button variant="primary" onClick={handleSelect} >Agregar</Button>
+          <button class="btnAdd" variant="primary" onClick={handleSelect} >Agregar</button>
           </Col>
       </Row>
       {chipData.map((data, index) => {

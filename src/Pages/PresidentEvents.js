@@ -53,7 +53,7 @@ function MainTittle(){
     </div>
     )
 }
-class PresidenteEventos extends Component{
+class PresidentEvents extends Component{
     state = {
         bannTop : BannerTop,
         bannBot : BannerBottom,
@@ -88,8 +88,6 @@ class PresidenteEventos extends Component{
         return(
             <div> 
                 <this.state.bannTop />
-                /*AQUI DEBO RECIBIR EL NOMBRE DEL EVENTO AL CUAL ASIGNAR EVALUADORES*/
-                
                 <MainTittle/>
                 <div class="container">
                     <div class="panel panel-default">
@@ -128,5 +126,5 @@ class PresidenteEventos extends Component{
 }
 
 
-export default PresidenteEventos;
+export default PresidentEvents;
 
