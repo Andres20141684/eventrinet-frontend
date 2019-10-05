@@ -36,7 +36,7 @@ class BannerTop extends Component{
       <div id="bannerTop" style={styles.banner}><br/>
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
-            <h1><a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></a></h1>
+            <a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></a>
           </div>
           <div className="list-inline-item" align="right">
             <a className="nav" onClick={() => this.openModal()}> {this.state.name} </a>
@@ -51,10 +51,7 @@ class BannerTop extends Component{
             </section>
           </div>
         </div>
-        <hr style={{
-          color:'#6CDCD6',
-          backgroundColor:'#6CDCD6'
-        }}></hr>
+        
         <div>  
         
         <nav class="navbar navbar-expand-lg navbar-inverse" style={styles.navbar}>
@@ -78,8 +75,8 @@ class BannerTop extends Component{
               <li class="nav-item" class="nav dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="#">MIS INSCRIPCIONES</a></li>
-                  <li><a class="nav-link" href="#">MIS PROPUESTAS</a></li>
+                  <li><a class="nav-link" href="#">Mis inscripciones</a></li>
+                  <li><a class="nav-link" href="#">Mis propuestas</a></li>
                   <div class="dropdown-divider"></div>
                   <li><a class="nav-link" href="/organActiveEvents"><b><font size="3">Organizador</font></b></a></li>
                   <li><a class="nav-link" href="/presidentEvents"><b><font size="3">Presidente</font></b></a></li>
@@ -87,8 +84,9 @@ class BannerTop extends Component{
                 </ul>
               </li>
             </ul>
-            <span class="ml-auto navbar-text"><i class="fa fa-search" style={styles.fa} aria-hidden="true" ></i> <i class="fa fa-question-circle fa" style={styles.fa} aria-hidden="true"></i>
-            <i class="fa fa-user" style={styles.fa} aria-hidden="true"></i></span>
+            
+            <div class="pmd-navbar-right-icon ml-auto" align="right"><i class="fa fa-search" style={styles.fa} aria-hidden="true" ></i> <i class="fa fa-question-circle fa" style={styles.fa} aria-hidden="true"></i>
+            <i class="fa fa-user" style={styles.fa} aria-hidden="true"></i></div>
           </div>
         </nav>
         </div>
@@ -103,13 +101,14 @@ export default BannerTop;
 var styles = {
   banner:{
     backgroundColor: '#002D3D',
-    paddintTop: 0,
+    paddintTop:0,
     paddingBottom: 0,
     paddingRight:0,
     FontSize: 20,
     color:'#6CDCD6',
   }
   ,fa:{
+    paddingTop:12,
     paddingRight:20,
     color:'#6CDCD6',
   },
