@@ -6,17 +6,20 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 export default function ArrayOfChips(props) {
-  let [chipData, setChipData] = React.useState(props.comite1);
+  let chipData =[{}];
+  chipData= props.lista;
   var aux='';
   // This come from the select form onChange
   const handleSelect = ()=> {
-    setChipData([...chipData, aux]);
-    props.handleComiteadd(chipData)
+    //setChipData([...chipData, aux]);
+    chipData.push(aux)
+    props.handleadd(chipData)
   };
 
-  const handleDelete = chipToDelete => () => {
-    setChipData(chips => chips.filter(chips => chips.key !== chipToDelete.key));
-    props.handleComiteadd(chipData)
+  const handleDelete = chipToDelete => (data) => {
+    chipData=chipData.splice(chipData.indexOf(data),1);
+    //setChipData(chips => chips.filter(chips => chips.key !== chipToDelete.key));
+    props.handleadd(chipData)
   };
 
   const handleChange= (e) =>{
@@ -37,7 +40,7 @@ export default function ArrayOfChips(props) {
       {chipData.map((data, index) => {
         return (
           <Chip
-            key={data.key + index}
+            key={data.key }
             label={data.label}
             onDelete={handleDelete(data)}
           />
