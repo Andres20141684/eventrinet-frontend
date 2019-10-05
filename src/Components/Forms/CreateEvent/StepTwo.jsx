@@ -15,7 +15,7 @@ class StepTwo extends Component{
                 <h1>Comité Organizacional</h1>
                 <Form>
                 <br></br>
-                <ArrayOfChips {...props }/> 
+                <ArrayOfChips lista={props.comite1} handleadd={props.handleComiteadd}/> 
                 </Form>
     </div>
         )
@@ -28,14 +28,8 @@ class StepTwo extends Component{
                 <Form>                                
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label> Presidente</Form.Label>                    
-                    <Row>
-                        <Col>
-                            <Form.Control type="email" placeholder="Ingrese correo electronico" />
-                        </Col>
-                        <Col>
-                            <button class="btnAdd" variant="primary" type="submit">Agregar</button>   
-                        </Col>
-                    </Row>
+                    <br></br>
+                    <ArrayOfChips lista={props.presidente} handleadd={props.handlePresidenteadd}/> 
                     <br></br>
                                       
                 </Form.Group>
@@ -59,15 +53,9 @@ class StepTwo extends Component{
                 </Form.Group>
 
                 <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label> Evaluadores</Form.Label>                    
-                    <Row>
-                        <Col>
-                            <Form.Control type="email" placeholder="Ingrese correo electronico" />
-                        </Col>
-                        <Col>
-                            <button class="btnAdd"  type="submit">Agregar</button>
-                        </Col>
-                    </Row>
+                    <Form.Label> Evaluadores</Form.Label>
+                    <br></br>    
+                    <ArrayOfChips lista={props.evaluadores} handleadd={props.handleEvaluadoradd}/> 
                     <br></br>                  
                 </Form.Group>
                 </Form>

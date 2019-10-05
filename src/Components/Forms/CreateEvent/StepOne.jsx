@@ -85,7 +85,7 @@ export default class StepOne extends React.Component {
       </div>
       <div class="panel panel-default">
         <h1>Categorias</h1>
-        <ArrayOfChips {... this.props}/>
+        <ArrayOfChips lista={this.props.categorias} handleadd={this.props.handleCategoryadd}/>
       </div>
       <div class="panel panel-default">
         <h1>Duracion Convocatoria</h1>
