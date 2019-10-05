@@ -51,7 +51,12 @@ class BannerTop extends Component{
             </section>
           </div>
         </div>
+        <hr style={{
+          color:'#6CDCD6',
+          backgroundColor:'#6CDCD6'
+        }}></hr>
         <div>  
+        
         <nav class="navbar navbar-expand-lg navbar-inverse" style={styles.navbar}>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
