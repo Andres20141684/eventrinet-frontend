@@ -5,22 +5,23 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export default function Test(props) {
-  const [chipData, setChipData] = React.useState(props.comite1);
+export default function ArrayOfChips(props) {
+  let [chipData, setChipData] = React.useState(props.comite1);
   var aux='';
   // This come from the select form onChange
   const handleSelect = ()=> {
-    {setChipData([...chipData, aux]);
-    props.handleComiteadd(chipData)}
+    setChipData([...chipData, aux]);
+    props.handleComiteadd(chipData)
   };
 
   const handleDelete = chipToDelete => () => {
-    {setChipData(chips => chips.filter(chips => chips.key !== chipToDelete.key));
-    props.handleComiteadd(chipData)}
+    setChipData(chips => chips.filter(chips => chips.key !== chipToDelete.key));
+    props.handleComiteadd(chipData)
   };
 
   const handleChange= (e) =>{
     aux={ key: e.target.value, label: e.target.value }
+    
   }
 
   return (
