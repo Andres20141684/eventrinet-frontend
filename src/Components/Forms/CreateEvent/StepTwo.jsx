@@ -14,7 +14,7 @@ class CEvent_EvalPhase extends Component{
                 <h1>Comité Organizacional</h1>
                 <Form>
                 <br></br>
-                <ArrayOfChips {...props }/> 
+                <ArrayOfChips lista={props.comite1} handleadd={props.handleComiteadd}/> 
                 </Form>
     </div>
         )
