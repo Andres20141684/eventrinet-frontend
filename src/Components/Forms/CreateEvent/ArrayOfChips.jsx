@@ -16,8 +16,8 @@ export default function ArrayOfChips(props) {
     props.handleadd(chipData)
   };
 
-  const handleDelete = chipToDelete => (data) => {
-    chipData=chipData.splice(chipData.indexOf(data),1);
+  const handleDelete = chipToDelete => () => {
+    chipData=chipData.filter(chipData=>chipData.key!==chipToDelete.key);
     //setChipData(chips => chips.filter(chips => chips.key !== chipToDelete.key));
     props.handleadd(chipData)
   };
@@ -38,14 +38,15 @@ export default function ArrayOfChips(props) {
           </Col>
       </Row>
       {chipData.map((data, index) => {
-        return (
-          <Chip
-            key={data.key }
-            label={data.label}
-            onDelete={handleDelete(data)}
-          />
-        );
-      })}
+              return (
+                <Chip
+                  key={data.key+index}
+                  label={data.label}
+                  onDelete={handleDelete(data)}
+                />
+              );
+            })}
+      
     </div>
   );
 }
