@@ -53,6 +53,7 @@ class BannerTop extends Component{
           
               
         </div>
+
         <div >  
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <button class="navbar-toggler" type="button" backgroundcolor='#002D3D' data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +76,6 @@ class BannerTop extends Component{
               <li class="nav-item" class="nav dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b>OPCIONES</b></a>
                 <ul class="dropdown-menu">
-                  
                   <li><a class="nav-link" href="#">MIS INSCRIPCIONES</a></li>
                   <li><a class="nav-link" href="#">MIS PROPUESTAS</a></li>
                   <div class="dropdown-divider"></div>
