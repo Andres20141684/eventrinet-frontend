@@ -27,14 +27,8 @@ class CEvent_EvalPhase extends Component{
                 <Form>                                
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label> Presidente</Form.Label>                    
-                    <Row>
-                        <Col>
-                            <Form.Control type="email" placeholder="Ingrese correo electronico" />
-                        </Col>
-                        <Col>
-                            <Button variant="primary" type="submit">Agregar</Button>                    
-                        </Col>
-                    </Row>
+                    <br></br>
+                    <ArrayOfChips lista={props.presidente} handleadd={props.handlePresidenteadd}/> 
                     <br></br>
                                       
                 </Form.Group>
@@ -59,14 +53,8 @@ class CEvent_EvalPhase extends Component{
 
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label> Evaluadores</Form.Label>                    
-                    <Row>
-                        <Col>
-                            <Form.Control type="email" placeholder="Ingrese correo electronico" />
-                        </Col>
-                        <Col>
-                            <Button variant="primary" type="submit">Agregar</Button>                    
-                        </Col>
-                    </Row>
+                    <br></br>    
+                    <ArrayOfChips lista={props.evaluadores} handleadd={props.handleEvaluadoradd}/> 
                     <br></br>                  
                 </Form.Group>
                 </Form>
