@@ -12,12 +12,18 @@ export default class EventNew extends Component{
             fechaIE: new Date(),
             fechaFE: new Date(),
             comite1:[{key:1,label:'none'},{key:2,label:'Gleen'}],
+            presidente:[],
+            evaluadores:[],
+            categorias:[{key:1,label:'Data Science'},{key:2,label:'Machine learnig'}],
             aux: frmCreateEvent     
+
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleComiteadd=this.handleComiteadd.bind(this)
         this.handleDate=this.handleDate.bind(this)
-
+        this.handleCategoryadd=this.handleCategoryadd.bind(this)
+        this.handleEvaluadoradd=this.handleEvaluadoradd.bind(this)
+        this.handlePresidenteadd=this.handlePresidenteadd.bind(this)
       }
 
       handleDate(date){
@@ -38,14 +44,37 @@ export default class EventNew extends Component{
           comite1 : list
         })
       }
+      handleCategoryadd(list){
+        this.setState({
+          categorias : list
+        })
+      }
+      handleEvaluadoradd(list){
+        this.setState({
+          evaluadores : list
+        })
+      }
+      handlePresidenteadd(list){
+        this.setState({
+          presidente : list
+        })
+      }
 
       render() {    
         return (
           <div className='container'>
+
               <this.state.aux 
+              evaluadores={this.state.evaluadores}
+              presidente={this.state.presidente}
+              handleEvaluadoradd={this.handleEvaluadoradd}
+              handlePresidenteadd={this.handlePresidenteadd}
+              handleCategoryadd={this.handleCategoryadd}
+              categorias={this.state.categorias}
               handleDate={this.handleDate}
               fechaIE={this.state.fechaIE}
               fechaFE={this.state.fechaFE}
+
               handleComiteadd={this.handleComiteadd}
               handleChange={this.handleChange} 
               nombre={this.state.nombre} 
