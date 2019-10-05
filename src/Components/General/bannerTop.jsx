@@ -79,6 +79,7 @@ class BannerTop extends Component{
                   
                   <li><a class="nav-link" href="#">MIS INSCRIPCIONES</a></li>
                   <li><a class="nav-link" href="#">MIS PROPUESTAS</a></li>
+                  <div class="dropdown-divider"></div>
                   <li><a class="nav-link" href="/Organizador_ActiveEvents">ORGANIZADOR</a></li>
                   <li><a class="nav-link" href="/PresidenteEventos">PRESIDENTE</a></li>
                   <li><a class="nav-link" href="/EvaluadorEventos">EVALUADOR</a></li>
