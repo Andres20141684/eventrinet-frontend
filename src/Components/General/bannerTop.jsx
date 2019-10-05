@@ -51,9 +51,9 @@ class BannerTop extends Component{
             </section>
           </div>
         </div>
-        <div>  
-        <nav class="navbar navbar-expand-lg navbar-inverse" style={styles.navbar}>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <div >  
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <button class="navbar-toggler" type="button" backgroundcolor='#002D3D' data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
@@ -73,9 +73,8 @@ class BannerTop extends Component{
               <li class="nav-item" class="nav dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></a>
                 <ul class="dropdown-menu">
-                  
-                  <li><a class="nav-link" href="#"><b><font size="3" >Mis inscripciones</font></b></a></li>
-                  <li><a class="nav-link" href="#"><b><font size="3">Mis propuestas</font></b></a></li>
+                  <li><a class="nav-link" href="#">MIS INSCRIPCIONES</a></li>
+                  <li><a class="nav-link" href="#">MIS PROPUESTAS</a></li>
                   <div class="dropdown-divider"></div>
                   <li><a class="nav-link" href="/organActiveEvents"><b><font size="3">Organizador</font></b></a></li>
                   <li><a class="nav-link" href="/presidentEvents"><b><font size="3">Presidente</font></b></a></li>
