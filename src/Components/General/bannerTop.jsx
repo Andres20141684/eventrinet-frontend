@@ -51,7 +51,12 @@ class BannerTop extends Component{
             </section>
           </div>
         </div>
-        
+        <hr style={{
+          borderBottomWidth:1,
+          borderBottomColor:'#6CDCD6',
+          width:'1'
+        }}>
+        </hr>
         <div>  
         
         <nav class="navbar navbar-expand-lg navbar-inverse" style={styles.navbar}>
@@ -75,8 +80,8 @@ class BannerTop extends Component{
               <li class="nav-item" class="nav dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="#">Mis inscripciones</a></li>
-                  <li><a class="nav-link" href="#">Mis propuestas</a></li>
+                  <li><a class="nav-link" href="#"><b><font size="3">Mis inscripciones</font></b></a></li>
+                  <li><a class="nav-link" href="#"><b><font size="3">Mis propuestas</font></b></a></li>
                   <div class="dropdown-divider"></div>
                   <li><a class="nav-link" href="/organActiveEvents"><b><font size="3">Organizador</font></b></a></li>
                   <li><a class="nav-link" href="/presidentEvents"><b><font size="3">Presidente</font></b></a></li>
@@ -85,8 +90,12 @@ class BannerTop extends Component{
               </li>
             </ul>
             
-            <div class="pmd-navbar-right-icon ml-auto" align="right"><i class="fa fa-search" style={styles.fa} aria-hidden="true" ></i> <i class="fa fa-question-circle fa" style={styles.fa} aria-hidden="true"></i>
-            <i class="fa fa-user" style={styles.fa} aria-hidden="true"></i></div>
+            <div class="pmd-navbar-right-icon ml-auto" align="right">
+              <i class="fa fa-search" style={styles.fa} aria-hidden="true" ></i> 
+              <i class="fa fa-question-circle" style={styles.fa} aria-hidden="true"></i>
+              <i class="fa fa-user" style={styles.fa} aria-hidden="true">
+              </i>
+            </div>
           </div>
         </nav>
         </div>
