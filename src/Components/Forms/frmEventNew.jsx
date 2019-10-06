@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import frmCreateEvent from './frmCreateEvent'
 import { string } from 'prop-types';
+const Networking = require('../../Network/Networking.js') ;
 
 export default class EventNew extends Component{
     constructor(props) {
@@ -8,9 +9,9 @@ export default class EventNew extends Component{
         this.state = {
             nombre:'',
             descripcion:'',
+            fechaIni: new Date(),
+            fechaFin: '',
             lugar:'',
-            fechaIE: new Date(),
-            fechaFE: '',
             fechaIC: new Date(),
             fechaFC: '',
             rdCategry:false,
@@ -19,6 +20,10 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
+            tieneCameraRdy:'',
+            fechaMaxPref:'',
+            numFases:0,
+            preferencia:'',
             aux: frmCreateEvent     
 
         }
@@ -37,13 +42,13 @@ export default class EventNew extends Component{
 
       handleDate(date){
         this.setState({
-          fechaIE:date
+          fechaIni:date
         })
       }
 
       handleDate2(date){
         this.setState({
-          fechaFE:date
+          fechaFin:date
         })
       }
 
@@ -67,14 +72,12 @@ export default class EventNew extends Component{
         this.setState({
           [name]: value
         });  
-        console.log(this.state)
       }
 
       handleComiteadd(list){
         this.setState({
           comite1 : list
         })
-        console.log(this.state.comite1)
       }
       handleCategoryadd(list){
         this.setState({
@@ -103,8 +106,17 @@ export default class EventNew extends Component{
       }
 
       handlePrint(event){
-        console.log(this.state);
-        console.log(JSON.stringify(this.state));
+        var data=JSON.stringify(this.state)
+        console.log(data);
+        console.log("Envio json");
+        Networking.insertNewEvent(data).then(
+          (response)=>{
+            console.log(response);
+          })
+          .catch( (err) =>{
+            console.log("error en conexión");
+            console.log(err);
+          })
       }
 
       
@@ -131,8 +143,8 @@ export default class EventNew extends Component{
               fechaFC={this.state.fechaFC}
               handleDate2={this.handleDate2}
               handleDate={this.handleDate}
-              fechaIE={this.state.fechaIE}
-              fechaFE={this.state.fechaFE}
+              fechaIE={this.state.fechaIni}
+              fechaFE={this.state.fechaFin}
 
               handleComiteadd={this.handleComiteadd}
               handleChange={this.handleChange} 

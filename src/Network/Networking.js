@@ -17,3 +17,18 @@ export async function saludar(){
     }
 }
 
+export async function insertNewEvent(data){
+    try {
+        let response = await fetch(restURL+'crear_evento' ,{
+            method:'POST',
+            body: data
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
