@@ -77,7 +77,7 @@ class StepThree extends Component{
                 </div>
             </FormGroup>
         </div>            
-        <button class="btn btn-primary" type="submit" style={{float:'right'}}>Crear evento</button>
+        <button class="btn btn-primary" type="submit" onClick={this.props.handleSubmit} style={{float:'right'}}>Crear evento</button>
       </form>
     );
   }

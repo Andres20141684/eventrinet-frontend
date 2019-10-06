@@ -15,12 +15,12 @@ class FormStepThree extends Component{
                 <FormGroup action="" class="card card-body">
                     <div class="form-group">
                     <label for="title">Actividad</label>
-                    <input type="text" class="form-control" name="actividad" id="actvidad" placeholder="Actividad" autoFocus required />
+                    <input type="text" name="actividad" id="actvidad" placeholder="Actividad" autoFocus required />
                     </div>
                     
                     <div class="form-group">
                     <label for="title">Descripcion </label>
-                    <textarea class="form-control" rows="3" name="descripcion" id="description" placeholder="Descripcion" />
+                    <textarea rows="3" name="descripcion" id="description" placeholder="Descripcion" />
                     </div>
                     
                     <div class="form-group">
@@ -68,7 +68,7 @@ class FormStepThree extends Component{
                 <h1>Campos personalizados</h1>
                 <FormGroup action="" class="card card-body">
                     <div class="form-group">
-                        <input type="text"  class="form-control"/>
+                        <input type="text"  />
                         <button>Agregar mas campos</button>
                     </div>
                 </FormGroup>

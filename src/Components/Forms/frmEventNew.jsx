@@ -32,6 +32,7 @@ export default class EventNew extends Component{
         this.handleDate3=this.handleDate3.bind(this)
         this.handleDate4=this.handleDate4.bind(this)
         this.handleChangeRadio=this.handleChangeRadio.bind(this)
+        this.handleSubmit=this.handleSubmit.bind(this)
       }
 
       handleDate(date){
@@ -74,6 +75,7 @@ export default class EventNew extends Component{
         })
       }
       handleCategoryadd(list){
+        debugger
         this.setState({
           categorias : list
         })
@@ -99,6 +101,11 @@ export default class EventNew extends Component{
         });  
       }
 
+      handleSubmit(){
+        console.log(this.state);
+        console.log(JSON.stringify(this.state));
+      }
+
       
 
       render() {    
@@ -106,6 +113,8 @@ export default class EventNew extends Component{
           <div className='container'>
 
               <this.state.aux 
+              handleSubmit={this.handleSubmit}
+
               handleChangeRadio={this.handleChangeRadio}
               rdCategry={this.state.rdCategry}
               rdPropuest={this.state.rdPropuest}
