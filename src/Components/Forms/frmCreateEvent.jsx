@@ -46,7 +46,8 @@ export default function HorizontalLabelPositionBelowStepper(props) {
   const steps = getSteps();
 
   const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    {activeStep === steps.length - 1 ? props.handlePrint() : setActiveStep(prevActiveStep => prevActiveStep + 1);}
+    
   };
 
   const handleBack = () => {
@@ -69,6 +70,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
       <div>
         {activeStep === steps.length ? (
           <div>
+            
             <Typography className={classes.instructions}>All steps completed</Typography>
             <Button class="mybutton" onClick={handleReset}>Reset</Button>
           </div>

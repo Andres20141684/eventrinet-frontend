@@ -27,10 +27,10 @@ class StepThree extends Component{
     this.setState({ values });
   }
 
-  handleSubmit(event) {
+  /*handleSubmit(event) {
     alert("A name was submitted: " + this.state.values.join(", "));
     event.preventDefault();
-  }
+  }*/
 
   render() {
     return (
