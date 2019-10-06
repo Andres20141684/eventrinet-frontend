@@ -27,10 +27,10 @@ class StepThree extends Component{
     this.setState({ values });
   }
 
-  handleSubmit(event) {
+  /*handleSubmit(event) {
     alert("A name was submitted: " + this.state.values.join(", "));
     event.preventDefault();
-  }
+  }*/
 
   render() {
     return (
@@ -77,7 +77,7 @@ class StepThree extends Component{
                 </div>
             </FormGroup>
         </div>            
-        <button class="btn btn-primary" type="submit" onClick={this.props.handleSubmit} style={{float:'right'}}>Crear evento</button>
+        <button class="btn btn-primary" type="submit" style={{float:'right'}}>Crear evento</button>
       </form>
     );
   }

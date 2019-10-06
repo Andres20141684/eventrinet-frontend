@@ -35,7 +35,7 @@ export default function ArrayOfChips(props) {
           <input placeholder="Ingrese correo electronico" onChange={handleChange}/> 
           </Col>
           <Col>
-          <button variant="primary" onClick={handleSelect} >Agregar</button>
+          <button class="btnAdd" variant="primary" type='button' onClick={handleSelect} >Agregar</button>
           </Col>
       </Row>
       {chipData.map((data, index) => {

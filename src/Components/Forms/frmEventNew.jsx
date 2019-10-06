@@ -32,7 +32,7 @@ export default class EventNew extends Component{
         this.handleDate3=this.handleDate3.bind(this)
         this.handleDate4=this.handleDate4.bind(this)
         this.handleChangeRadio=this.handleChangeRadio.bind(this)
-        this.handleSubmit=this.handleSubmit.bind(this)
+        this.handlePrint=this.handlePrint.bind(this)
       }
 
       handleDate(date){
@@ -67,15 +67,16 @@ export default class EventNew extends Component{
         this.setState({
           [name]: value
         });  
+        console.log(this.state)
       }
 
       handleComiteadd(list){
         this.setState({
           comite1 : list
         })
+        console.log(this.state.comite1)
       }
       handleCategoryadd(list){
-        debugger
         this.setState({
           categorias : list
         })
@@ -101,7 +102,7 @@ export default class EventNew extends Component{
         });  
       }
 
-      handleSubmit(){
+      handlePrint(event){
         console.log(this.state);
         console.log(JSON.stringify(this.state));
       }
@@ -113,7 +114,7 @@ export default class EventNew extends Component{
           <div className='container'>
 
               <this.state.aux 
-              handleSubmit={this.handleSubmit}
+              handlePrint={this.handlePrint}
 
               handleChangeRadio={this.handleChangeRadio}
               rdCategry={this.state.rdCategry}

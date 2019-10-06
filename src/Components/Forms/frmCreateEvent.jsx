@@ -46,7 +46,8 @@ export default function HorizontalLabelPositionBelowStepper(props) {
   const steps = getSteps();
 
   const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    {activeStep === steps.length - 1 ? props.handlePrint() : setActiveStep(prevActiveStep => prevActiveStep + 1);}
+    
   };
 
   const handleBack = () => {
