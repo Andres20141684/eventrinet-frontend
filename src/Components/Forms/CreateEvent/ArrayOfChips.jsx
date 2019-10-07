@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import '../../../styles/style_sheets.css';
 
 export default function ArrayOfChips(props) {
-  let chipData =[{}];
+  let chipData =[];
   chipData= props.lista;
   var aux='';
   // This come from the select form onChange

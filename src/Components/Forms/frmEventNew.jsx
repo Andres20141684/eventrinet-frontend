@@ -9,8 +9,8 @@ export default class EventNew extends Component{
         this.state = {
             nombre:'',
             descripcion:'',
-            fechaIni: new Date(),
-            fechaFin: '',
+            fIni: new Date(),
+            fFin: '',
             lugar:'',
             fechaIC: new Date(),
             fechaFC: '',
@@ -19,11 +19,12 @@ export default class EventNew extends Component{
             comite1:[],
             presidente:[],
             evaluadores:[],
-            categorias:[],
-            tieneCameraRdy:'',
+            categor:[],
+            tieneCameraRdy:0,
             fechaMaxPref:'',
-            numFases:0,
+            numFases:1,
             preferencia:'',
+            precios:0,
             aux: frmCreateEvent     
 
         }
@@ -42,13 +43,13 @@ export default class EventNew extends Component{
 
       handleDate(date){
         this.setState({
-          fechaIni:date
+          fIni:date
         })
       }
 
       handleDate2(date){
         this.setState({
-          fechaFin:date
+          fFin:date
         })
       }
 
@@ -81,7 +82,7 @@ export default class EventNew extends Component{
       }
       handleCategoryadd(list){
         this.setState({
-          categorias : list
+          categor : list
         })
       }
       handleEvaluadoradd(list){
@@ -106,10 +107,33 @@ export default class EventNew extends Component{
       }
 
       handlePrint(event){
-        var data=JSON.stringify(this.state)
-        console.log(data);
+        let auxjson={}
+        auxjson=this.state
+        auxjson["categorias"]={}
+
+        let fechA = this.state.fIni.getFullYear() + "-" + this.state.fIni.getMonth() + "-" + this.state.fIni.getDay() 
+        auxjson["fechaIni"]=fechA
+
+        let fechB =  this.state.fFin.getFullYear() + "-" + this.state.fFin.getMonth() + "-" + this.state.fFin.getDay() 
+        auxjson["fechaFin"]=fechB
+
+        auxjson["fechaMaxPref"]=fechB
+
+
+        {this.state.categor.map((data, index) => {
+          auxjson.categorias[index+1]=data.label
+        })}
+
+        let test=JSON.stringify(auxjson.categorias)
+        console.log(test);
+
+        console.log(auxjson);
+        var dataA=JSON.stringify(auxjson)
+        console.log(dataA);
+
+
         console.log("Envio json");
-        Networking.insertNewEvent(data).then(
+        Networking.insertNewEvent(dataA).then(
           (response)=>{
             console.log(response);
           })
@@ -136,15 +160,15 @@ export default class EventNew extends Component{
               handleEvaluadoradd={this.handleEvaluadoradd}
               handlePresidenteadd={this.handlePresidenteadd}
               handleCategoryadd={this.handleCategoryadd}
-              categorias={this.state.categorias}
+              categorias={this.state.categor}
               handleDate3={this.handleDate3}
               handleDate4={this.handleDate4}
               fechaIC={this.state.fechaIC}
               fechaFC={this.state.fechaFC}
               handleDate2={this.handleDate2}
               handleDate={this.handleDate}
-              fechaIE={this.state.fechaIni}
-              fechaFE={this.state.fechaFin}
+              fechaIE={this.state.fIni}
+              fechaFE={this.state.fFin}
 
               handleComiteadd={this.handleComiteadd}
               handleChange={this.handleChange} 
