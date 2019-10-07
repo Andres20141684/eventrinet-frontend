@@ -51,12 +51,12 @@ class BannerTop extends Component{
             </section>
           </div>
         </div>
-        <hr style={{
+        {/*<hr style={{
           borderBottomWidth:0,
           borderBottomColor:'#6CDCD6',
           width:'1'
         }}>
-        </hr>
+      </hr>*/}
         <div>  
         {/*<header class="Header" role="banner">
           <div class="Header-item Header-item--full">
