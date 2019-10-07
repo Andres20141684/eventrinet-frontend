@@ -28,6 +28,7 @@ ReactDOM.render(<Router>
                     <Route path='/organActiveEvents' exact component={OrganActiveEvents} />
                     <Route path='/presidentEvents' exact component={PresidentEvents} />
                     <Route path='/PresiCalificacionFinalPapers' exact component={PresiCalificacionFinalPapers} />
+                    
                     <Route path='/EvaluadorEventos' exact component={EvaluadorEventos} />
                     <Route path='/createEventStep3' exact component={Create_EventStep3} />
                     <Route path='/prueba' exact component={Prueba} />                    

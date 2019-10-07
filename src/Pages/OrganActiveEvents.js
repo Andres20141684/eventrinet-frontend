@@ -9,7 +9,7 @@ import './../styles/style_gig_tittle.css'
 
 import Organizador_ActiveEventsTable from '../Components/Jtable/Organizador_ActiveEventsTable';
 import Organizador_HistoryventsTable from '../Components/Jtable/Organizador_HistoryventsTable';
-
+const Networking = require('./../Network/Networking.js') ;
 
 function MainTittle(){
     return ( 
@@ -24,9 +24,24 @@ class OrganActiveEvents extends Component{
         bannBot : BannerBottom,
         formActives: Organizador_ActiveEventsTable,
         formRecord:Organizador_HistoryventsTable,
+        datos_tabla1:  null,
+        datos_tabla2: null,
+        msg: "Not Connected",
+        idOrganizador: 1
+    }
+    
+    componentWillMount(){
+        console.log("LISTAR CTM")
+        Networking.Login(this.state.idOrganizador).then((value) => {
+            this.setState({datos_tabla1: value});   
+            console.log("LOGRE LISTAR  :")
+            console.log(value)
+        });
+        
       }
-      
     render(){
+        
+        //var inputServer = this.getData();
         /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
         var datos2 ={ //state is by default an object
             chupetinesGA: [

@@ -20,8 +20,7 @@ class Organizador_ActiveEventsTable  extends Component {
                 <td>
                    <h1>
                       <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
-                    - <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
-                    - <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
+                    -<button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
                   </h1>
                </td> 
                <td>
@@ -53,7 +52,7 @@ class Organizador_ActiveEventsTable  extends Component {
                   <thead class="thead-light">
                   <tr>
                      <th scope="col">Lista de eventos</th>
-                     <th scope="col">Prop. rec. -> En eval. -> Prog. comp. </th>
+                     <th scope="col">Call for Papers-> Prog. comp. </th>
                      <th scope="col">Editar</th>
                      <th scope="col">Seg. de fases</th>
                      <th scope="col">Publicar evento</th>
