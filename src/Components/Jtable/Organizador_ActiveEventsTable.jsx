@@ -13,10 +13,10 @@ class Organizador_ActiveEventsTable  extends Component {
   
    tableData() {
         return this.state.chupetinesGA.map((element, index) => {
-        const { listaEventos, propRec, propEval, programa} = element //destructuring
+        const { nombre, propRec, propEval, programa} = element //destructuring
         return (
             <tr>
-                <td>{listaEventos}</td>
+                <td>{nombre}</td>
                 <td>
                    <h1>
                       <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
@@ -44,6 +44,8 @@ class Organizador_ActiveEventsTable  extends Component {
   
      render() {
         this.state = this.props.data
+        console.log('this.props.data:', this.props.data);
+        console.log('this.props.dataSSJ:', this.props.dataSSJ);
         return (
            <div >
               <h2 class="card-title" id='title' >Lista de Eventos activos</h2>

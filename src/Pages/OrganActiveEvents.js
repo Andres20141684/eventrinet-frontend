@@ -27,29 +27,28 @@ class OrganActiveEvents extends Component{
         datos_tabla1:  null,
         datos_tabla2: null,
         msg: "Not Connected",
-        idOrganizador: 1
+        idOrganizador: 1,
+        chupetinesGA: []
     }
     
     componentWillMount(){
-        console.log("LISTAR CTM")
-        Networking.Login(this.state.idOrganizador).then((value) => {
+        console.log("LISTAR eventos")
+        Networking.Login(4).then((value) => {
             this.setState({datos_tabla1: value});   
-            console.log("LOGRE LISTAR  :")
-            console.log(value)
         });
         
-      }
+    }
     render(){
         
         //var inputServer = this.getData();
         /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
-        var datos2 ={ //state is by default an object
+        var datos2 ={ 
             chupetinesGA: [
-               { listaEventos: 'WaWaWasifsifsWaWasifsifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'}
+               { nombre: 'FFFFFFFFFFFF', propRec: 'si', propEval: 'no', programa: 'si'},
+               { nombre: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
+               { nombre: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
+               { nombre: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
+               { nombre: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'}
             ]
          }
          var datos1 ={ //state is by default an object
@@ -62,6 +61,16 @@ class OrganActiveEvents extends Component{
                 { listaEventos: 'WaWaWasifsifsWaWasifsifif'}
             ]
          }
+         
+         var datos3 ={chupetinesGA: this.state.datos_tabla1};
+        var aux= datos3;
+         
+        
+        console.log(datos2);
+        console.log('_________________________');
+        console.log(datos3);
+        
+        console.log('_________________________');
         return(
             <div> 
             <this.state.bannTop />            
@@ -80,10 +89,11 @@ class OrganActiveEvents extends Component{
                             </TabList>
                             <TabPanel>
                                 <a  href="/organizerNewEvent"><button class="btnAdd" style={{float:'right'}}>Nuevo</button></a>
-                            <br/>
-                                <this.state.formActives data ={datos2}/> 
+                                <br/>
+                                <this.state.formActives data ={datos2} dataSSJ ={datos3}/> 
                             </TabPanel>
                             <TabPanel> 
+                                
                                 < this.state.formRecord data ={datos1}/>
                             </TabPanel>
                         </Tabs>
