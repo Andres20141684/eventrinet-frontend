@@ -35,7 +35,7 @@ class AsignarEvaluadorTable extends Component {
             <tr>
                <th width="20%">Lista de eventos</th>
                <th width="18%">Propuestas<br/>Asignadas/Total </th>
-               <th width="22%">Inicio Evaluadion Limite</th>
+               <th width="22%">Inicio Evaluacion Limite</th>
                <th width="15%">Asignar Evaluadores (Evaluador - Presidente) </th>
                <th width="15%">Editar fases</th>
             </tr>

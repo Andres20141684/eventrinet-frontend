@@ -14,7 +14,9 @@ class NewEventPage extends Component{
         return(
         <div> 
             <this.state.bannTop />
-            <div ><this.state.formProceso/></div>
+            <div style={{marginBottom:25}} >
+                <this.state.formProceso/>
+            </div>
             <this.state.bannBot/>
         </div>)
     }

@@ -5,7 +5,7 @@ import {defaultStyle} from '../../styles/styles.js'
 import Modal from 'react-awesome-modal';
 import { whileStatement } from '@babel/types';
 import { borderColor } from '@material-ui/system';
-
+import '../../styles/style_banner_top.css'
 class BannerTop extends Component{
   
   constructor(props) {
@@ -31,13 +31,13 @@ class BannerTop extends Component{
   render(){
     //debugger;
     return (
-      <div id="bannerTop" style={styles.banner}><br/>
+      <div id="bannerTop" style={styles.banner} class="navbar-fixed-top"><br/>
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
             <a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></a>
           </div>
           <div className="list-inline-item" align="right">
-            <a className="nav" href="/login" style={{color:"#6CDCD6"}}>Login</a>            
+            <a className="nav" href="/login" style={{color:"#6CDCD6",paddingRight:20}}>Login</a>            
           </div>
         </div>
         {/*<hr style={{
@@ -75,8 +75,8 @@ class BannerTop extends Component{
           </div>
         </header>
       */}
-        <nav class="navbar navbar-expand-lg navbar-inverse" style={styles.navbar}>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-default navbar-expand-xl navbar" style={styles.navbar}>
+          <button class="navbar-toggler scrollbar scrollbar-primary" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <i class="navbar-toggler-icon fa fa-bars" style={styles.fa} aria-hidden="true"></i>
           </button>
 
@@ -105,15 +105,26 @@ class BannerTop extends Component{
                 </ul>
               </li>
             </ul>
-                        
-            <div class="pmd-navbar-right-icon ml-auto" style={{float:"right"}}>
-              <form class="form-inline ">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                <i class="fa fa-search" role="button"  style={styles.fa} aria-hidden="true" />
-                <i class="fa fa-question-circle" role="button" style={styles.fa} aria-hidden="true"></i>
-                <i class="fa fa-user dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" style={{paddingTop:12,paddingRight:0,color:"#6CDCD6"}}></i>
-              </form>
-            </div>
+            
+            <form class="navbar-form form-inline">
+              <div class="input-group search-box" style={{alignItems:"center"}}>								
+                    <input type="text" id="search" class="form-control" placeholder="Buscar" style={{alignItems:"center"}}/>
+                    <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+              </div>
+            </form>            
+            <ul class="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
+              <li class="nav-item dropdown">
+                  <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                    <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" class="avatar" alt="Avatar"/>
+                  </a>
+                  <ul class="dropdown-menu">
+                      <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a></li>
+                      <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Ajustes</a></li>
+                      <li class="divider dropdown-divider"></li>
+                      <li><a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Cerrar sesion</a></li>
+                  </ul>
+              </li> 
+            </ul>
           </div>
         </nav>
         </div>
@@ -144,4 +155,3 @@ var styles = {
     borderColor:'#002D3D'
   }
 }
-

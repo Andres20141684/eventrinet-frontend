@@ -59,15 +59,15 @@ class PresidentEvents extends Component{
         /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
         var datos1 ={ //state is by default an object
             chupetinesGA: [
-                { listaEventos: 'WasifWasifWasifWasifWasif',
+                { listaEventos: 'Eventoo1',
                  propAsignadas: '1/2', 
                  iniEval: 21, 
                  opt1: '', opt: ''},
-                 { listaEventos: 'WasifWasifWasifWasifWasif',
+                 { listaEventos: 'Eventoo2',
                  propAsignadas: '1/2', 
                  iniEval: 21, 
                  opt1: '', opt: ''},
-                 { listaEventos: 'WasifWasifWasifWasifWasif',
+                 { listaEventos: 'Eventoo3',
                  propAsignadas: '1/2', 
                  iniEval: 21, 
                  opt1: '', opt: ''}
@@ -108,7 +108,6 @@ class PresidentEvents extends Component{
                                 </div>
                             </TabPanel>
                         </Tabs>
-                        <Botones/>
                     </div>
                 
                    
