@@ -1,4 +1,4 @@
-import React from 'react'
+import React  from 'react'
 import 'react-simple-datepicker/dist/index.css';
 import { FormGroup } from '@material-ui/core';
 import Form from 'react-bootstrap/Form';
@@ -31,6 +31,7 @@ export default class StepOne extends React.Component {
               type='text'
               onChange={this.props.handleChange}
               value={this.props.nombre}
+              maxLength="45"
               autoFocus
             />
           </Col>
@@ -50,6 +51,7 @@ export default class StepOne extends React.Component {
               type='text'
               onChange={this.props.handleChange}
               value={this.props.descripcion}
+              maxLength="200"
               autoFocus
             />
           </Col>
@@ -67,6 +69,7 @@ export default class StepOne extends React.Component {
               type='text'
               onChange={this.props.handleChange}
               value={this.props.lugar}
+              maxLength="150"
               autoFocus
             />
           </Col>
@@ -111,7 +114,7 @@ export default class StepOne extends React.Component {
                 onChange={this.props.handleDate3}
                 />
           </Col>
-          <Col><label style={styles.rotulos}>Fecha Inicio: </label></Col>
+          <Col><label style={styles.rotulos}>Fecha Fin: </label></Col>
           <Col> <DatePicker
                   selected={this.props.fechaFC}
                   minDate={this.props.fechaIC}
