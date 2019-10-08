@@ -4,7 +4,7 @@ import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
 import EvaluadorEventosTable from '../Components/Jtable/EvaluadorEventosTable';
 import EvaluadorEventosEvaluarTable from '../Components/Jtable/EvaluadorEventosEvaluarTable';
-
+import Row from 'react-bootstrap/Row';
 
 import '../styles/style_record.css'; 
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
@@ -13,7 +13,16 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css'
 /*AQUI  ASIGNO EVALUADORES*/
 
-
+function MainTittle(){
+    return ( 
+    <div>
+    <div style={{marginLeft:15}}>
+        <h1><br/>Evaluador - Eventos</h1>
+    </div>
+    <div style={{marginLeft:40,marginTop:25,marginBottom:25}} ><h4>Asigna los evaluadores las propuestas</h4></div>
+    </div>    
+    )
+}
 
 
 function FillTable(){
@@ -58,52 +67,52 @@ class EvaluadorEventos extends Component{
          }
         return(
             <div> 
-                <this.state.bannTop />
-                /*AQUI DEBO RECIBIR EL NOMBRE DEL EVALUADOR EL CUAL ELIGE PREFERENCIAS Y EVALUAS*/
-                <h1><font size="33">Evaluador - Eventos</font><br/><br/></h1>
-                <div class="container">
-                <div class="panel panel-default">
-
-                    <h1>Asigna los evaluadores a las propuestas<br/><br/></h1>
-                    <h4>La modalidad de preferencia fue (por categoria)<button class="mybutton" style={{float:'right'}}>Ver mas...</button></h4>
-                    <h4>Asignacion automatica<button class="mybutton" style={{float:'right'}}>Aplicar</button></h4>
-                    <h4><br/></h4>
-                    
-                    <div class="container">
-                        <div class="panel panel-default">
-                            <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
-                                <TabList>
-                                    <Tab>Eventos a elegir Preferencias</Tab>
-                                    <Tab>Eventos a evaluar</Tab>
-                                </TabList>
-                                <TabPanel>
-                                    <div class="container">
-                                    <div class="panel panel-default">
-                                        < EvaluadorEventosTable data ={datos1}/>
-                                    </div></div>
-                                </TabPanel>
-                                <TabPanel> 
-                                <div class="container">
-                                <div class="panel panel-default">
-                                    < EvaluadorEventosEvaluarTable data ={datos2}/> 
-                                </div></div>
-                                </TabPanel>
-                            </Tabs>
-                            </div>
+            <this.state.bannTop />
+            <MainTittle/>
+            <div class="container" >
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            La modalidad de preferencia fue (por categoria)
+                            <button class="mybutton" style={{float:'right'}}>Ver mas...</button>                        
                         </div>
-                        <h2><br/></h2>
-                        <h3>
-                            <button class="mybutton"style={{float:'left'}}>Atras</button>
-                            <button class="mybutton"style={{float:'right'}}>Guardar</button>
-                            <br/><br/>
-                        </h3>
-                    
-                    
+                        <div>
+                            Asignacion automatica
+                            <button class="mybutton" style={{float:'right'}}>Aplicar</button>
+                        </div>
+                    </div>
                 </div>
-                
-                
+                <hr/>
+                <div class ="panel-body">
+                    <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
+                        <TabList>
+                            <Tab>Eventos a elegir Preferencias</Tab>
+                            <Tab>Eventos a evaluar</Tab>
+                        </TabList>
+                        <TabPanel>
+                            <div class="panel panel mypanel" >
+                                <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
+                                    <h3>Elige un evento y agrega tus preferencias</h3>
+                                </div>
+                                < EvaluadorEventosTable data ={datos1}/>
+                            </div>
+                        </TabPanel>
+                        <TabPanel>  
+                            <div class="panel panel mypanel" >
+                                <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
+                                    <h3>Elige un evento y evalua las propuestas asignadas</h3>
+                                </div>
+                                < EvaluadorEventosTable data ={datos2}/>
+                            </div>        
+                        </TabPanel>
+                    </Tabs>
+                    <div>
+                        <button class="mybutton"style={{float:'left'}}>Atras</button>
+                        <button class="mybutton"style={{float:'right'}}>Guardar</button>
+                        <br/><br/>
+                    </div>
                 </div>
-                
+                </div>
                 <this.state.bannBot/>
             </div>
         );

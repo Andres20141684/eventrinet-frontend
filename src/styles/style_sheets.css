@@ -13,6 +13,10 @@
     height:28px;    
     line-height: 14px;       
 }
+.mybutton:hover {
+    background-color: #E6E9EE;
+    color: #002D3D;
+}
 .btnAdd{
     border-radius: 5px;
     border: none;
@@ -28,11 +32,18 @@
     height:23px;    
     line-height: 10px; 
 }
-.mybutton:hover {
+.add{
+    background-color: #002D3D;
+    color: #FFFFFF;
+}
+.add:hover {
     background-color: #E6E9EE;
     color: #002D3D;
 }
 
+.form-group DatePicker{
+    background-color: #002D3D;
+}
 .form-container{
     position: absolute; 
     top: 20vh;
@@ -69,9 +80,52 @@
     margin-left: auto;
 }
 
+.input-group>.input-group-append>.btn{
+    background-color: #3B83BD;
+    color: #FFFFFF; 
+}
 
 .component-header .component-logo.chart{
     height: 50px;    
     left: 5px;
     top: 6px;
 }
+
+.panel-group>.panel-default>.panel-heading, .panel-default>.panel-heading{
+    height: 60px;
+    line-height:40px;
+}
+
+.panel-heading h1{
+    font-size: 22px;
+    margin-top: 10px;
+    
+}
+
+.form-group label{
+    font-size: 12px; 
+}
+
+.form-phases h1{
+    font-size: 2px; 
+}
+
+
+
+
+.pull-right{
+    margin-top: -20px;
+    border-radius: 4px;
+    background-color: #3B83BD;
+    color: #FFFFFF; 
+    cursor: pointer;
+    display: inline-block;
+    line-height: 28px;
+    padding: 0 12px;
+    text-decoration:none;
+}
+
+.iconMenu:hover {
+    background-color: #002D3D;
+    color: #6CDCD6;
+  }

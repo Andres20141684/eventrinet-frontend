@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import '../../styles/style_sheets.css'
 
 
 class Organizador_ActiveEventsTable  extends Component {
@@ -18,11 +19,11 @@ class Organizador_ActiveEventsTable  extends Component {
             <tr>
                 <td>{listaEventos}</td>
                 <td>
-                   <h1>
+                   <div>
                       <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
                     - <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
                     - <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
-                  </h1>
+                  </div>
                </td> 
                <td>
                    <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-edit"></i></button>
@@ -32,10 +33,10 @@ class Organizador_ActiveEventsTable  extends Component {
                </td> 
                
                <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-play"></i></button>
+                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-play faPost"></i></button>
                </td> 
                <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-times-circle"></i></button>
+                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-times-circle faCancelar"></i></button>
                </td> 
                 
             </tr>
@@ -46,22 +47,25 @@ class Organizador_ActiveEventsTable  extends Component {
      render() {
         this.state = this.props.data
         return (
-           <div >
-              <h2 class="card-title" id='title' >Lista de Eventos activos</h2>
+           <div class="panel panel mypanel" >
+              <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
+                  <h3>Lista de Eventos activos</h3>
+                  <a  class="pull-right" href="/organizerNewEvent" value="Nuevo"style={{marginRight:30,marginBottom:20}}>Nuevo</a>
+               </div>
               <div  class="table-responsive">
-              <table class="table-light" id='chupetinesGA'>
-                  <thead class="thead-light">
-                  <tr>
-                     <th scope="col">Lista de eventos</th>
-                     <th scope="col">Prop. rec. -> En eval. -> Prog. comp. </th>
-                     <th scope="col">Editar</th>
-                     <th scope="col">Seg. de fases</th>
-                     <th scope="col">Publicar evento</th>
-                     <th scope="col">Cancelar</th>
-                  </tr>
-               </thead>
-              <tbody>{this.tableData()}</tbody>
-              </table>
+                  <table class="table  table-hover" >
+                  <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
+                     <tr>
+                        <th scope="col">Lista de eventos</th>
+                        <th scope="col">Prop. rec. -> En eval. -> Prog. comp. </th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Seg. de fases</th>
+                        <th scope="col">Publicar evento</th>
+                        <th scope="col">Cancelar</th>
+                     </tr>
+                  </thead>
+                     <tbody>{this.tableData()}</tbody>
+                  </table>
               </div>
            </div>
         )

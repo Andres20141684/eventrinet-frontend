@@ -38,26 +38,30 @@ class StepThree extends Component{
         <div>
         {this.state.values.map((el, index) => (
           <div key={index} class="panel panel-default">
-                <h1>Fase 0{index+1} </h1>  
-                <div>
-                <input
-                    type="button"
-                    value="remove"
-                    onClick={() => this.removeClick(index)}
-                    style={{float:'right'}}
-                />
-                <this.state.form_1   
-                    value={el.value || ""} 
-                    onChange={e => this.handleChange(index, e)}/>
+            <div class="panel-heading"><h1>Fase 0{index+1}</h1></div>
+            <div class="panel-body">
+              <div>
+                  <input
+                      type="button"
+                      class="btn btn-danger"
+                      value="Eliminar fase"
+                      onClick={() => this.removeClick(index)}
+                      style={{float:'right'}}
+                  />
+                  <this.state.form_1   
+                      value={el.value || ""} 
+                      onChange={e => this.handleChange(index, e)}/>
                 </div>
+            </div> 
           </div>
-        ))}
-
-        <input type="button" value="add more" onClick={() => this.addClick()} />   
+        ))}        
+                                
+          <input type="button"  class="btn btn-primary" value="Agregar mas fases" onClick={() => this.addClick()} />           
         </div>
             
-        <div class="cointainer p-4">
+        
             <h1>Incluir Camera Ready</h1>
+            <div class="panel panel-default">
             <FormGroup action="" class="card card-body">
                 <div class="form-group">                    
                 <div>
@@ -76,8 +80,7 @@ class StepThree extends Component{
                 </div>
                 </div>
             </FormGroup>
-        </div>            
-        <button class="btn btn-primary" type="submit" style={{float:'right'}}>Crear evento</button>
+        </div>        
       </form>
     );
   }

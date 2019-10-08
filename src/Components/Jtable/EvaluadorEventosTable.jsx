@@ -37,17 +37,16 @@ class EvaluadorEventosTable extends Component {
         this.state = this.props.data
         return (
             
-           <div>
-              <br/>
-              <h1 id='title'><br/>Elige un evento y agrega tus preferencias</h1><br/>
-              <h2><br/></h2>
-              <table id='chupetinesGA'>
-                 <tbody>
-                    <tr>{this.renderTableHeader()}</tr>
-                    {this.renderTableData()}
-                 </tbody>
-              </table>
-           </div>
+         <div  class="table-responsive">
+            <table class="table  table-hover" >
+               <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
+                  <tr>{this.renderTableHeader()}</tr>
+               </thead>
+               <tbody>           
+                  {this.renderTableData()}
+               </tbody>
+            </table>
+         </div>
         )
      }
 }

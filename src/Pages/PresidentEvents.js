@@ -37,20 +37,15 @@ function Botones(){
     </div>
     )
 }
-function BodyPanel(){
-    return ( 
-    <div>
-        <br/>
-        <h1>Asigna los evaluadores a las propuestas, edita las fases o aprueba las propuestas de un evento<br/><br/></h1>
-        <br/>
-    </div>
-    )
-}
+
 function MainTittle(){
     return ( 
     <div>
-        <h1><font size="33">Presidente - Eventos</font><br/><br/></h1>
+    <div style={{marginLeft:15}}>
+        <h1><br/>Presidente - Eventos</h1>
     </div>
+    <div style={{marginLeft:40,marginTop:25}} ><h4>Asigna los evaluadores a las propuestas, edita las fases o aprueba las propuestas de un evento</h4></div>
+    </div>    
     )
 }
 class PresidentEvents extends Component{
@@ -89,30 +84,30 @@ class PresidentEvents extends Component{
             <div> 
                 <this.state.bannTop />
                 <MainTittle/>
-                <div class="container">
-                    <div class="panel panel-default">
-
-                        < BodyPanel/>
-
-                        
+                <div class="container" >
+                <div class ="panel-body">
                         <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
-                                <TabList>
-                                    <Tab>Eventos por iniciar</Tab>
-                                    <Tab>Eventos en fase de evaluacion</Tab>
-                                </TabList>
-                                <TabPanel>
-                                <div class="container">
-                                <div class="panel panel-default">
-                                        < AsignarEvaluadorTable data ={datos1}/>
-                                        </div></div>
-                                </TabPanel>
-                                <TabPanel> 
-                                <div class="container">
-                                <div class="panel panel-default">
+                            <TabList>
+                                <Tab>Eventos por iniciar</Tab>
+                                <Tab>Eventos en fase de evaluacion</Tab>
+                            </TabList>
+                            <TabPanel>
+                                <div class="panel panel mypanel" >
+                                    <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
+                                        <h3>Lista de Eventos por iniciar</h3>
+                                    </div>
+                                    < AsignarEvaluadorTable data ={datos1}/>
+                                </div>
+                            </TabPanel>
+                            <TabPanel>
+                                <div class="panel panel mypanel" >
+                                    <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
+                                        <h3>Lista de Eventos en fase de evaluacion</h3>
+                                    </div>
                                     < PresiCalificacionFinalPapersTable data ={datos2}/> 
-                                    </div></div>
-                                </TabPanel>
-                            </Tabs>
+                                </div>
+                            </TabPanel>
+                        </Tabs>
                         <Botones/>
                     </div>
                 

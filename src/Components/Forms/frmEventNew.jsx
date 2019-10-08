@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import frmCreateEvent from './frmCreateEvent'
 import { string } from 'prop-types';
+import '../../styles/style_sheets.css'
 
 export default class EventNew extends Component{
     constructor(props) {
@@ -17,6 +18,7 @@ export default class EventNew extends Component{
             rdPropuest:false,
             comite1:[],
             presidente:[],
+            campos:[],
             evaluadores:[],
             categorias:[],
             aux: frmCreateEvent     
@@ -29,6 +31,7 @@ export default class EventNew extends Component{
         this.handleCategoryadd=this.handleCategoryadd.bind(this)
         this.handleEvaluadoradd=this.handleEvaluadoradd.bind(this)
         this.handlePresidenteadd=this.handlePresidenteadd.bind(this)
+        this.handleCamposadd=this.handleCamposadd.bind(this)
         this.handleDate3=this.handleDate3.bind(this)
         this.handleDate4=this.handleDate4.bind(this)
         this.handleChangeRadio=this.handleChangeRadio.bind(this)
@@ -91,6 +94,11 @@ export default class EventNew extends Component{
           presidente : list
         })
       }
+      handleCamposadd(list){
+        this.setState({
+          campos : list
+        })
+      }
 
       handleChangeRadio(event) {
         const target = event.target;
@@ -115,56 +123,35 @@ export default class EventNew extends Component{
 
               <this.state.aux 
               handlePrint={this.handlePrint}
-
-              handleChangeRadio={this.handleChangeRadio}
+              
               rdCategry={this.state.rdCategry}
               rdPropuest={this.state.rdPropuest}
               evaluadores={this.state.evaluadores}
               presidente={this.state.presidente}
-              handleEvaluadoradd={this.handleEvaluadoradd}
-              handlePresidenteadd={this.handlePresidenteadd}
-              handleCategoryadd={this.handleCategoryadd}
+              campos={this.state.campos}
               categorias={this.state.categorias}
-              handleDate3={this.handleDate3}
-              handleDate4={this.handleDate4}
               fechaIC={this.state.fechaIC}
               fechaFC={this.state.fechaFC}
-              handleDate2={this.handleDate2}
-              handleDate={this.handleDate}
               fechaIE={this.state.fechaIE}
               fechaFE={this.state.fechaFE}
-
-              handleComiteadd={this.handleComiteadd}
-              handleChange={this.handleChange} 
               nombre={this.state.nombre} 
               descripcion={this.state.descripcion}
               lugar={this.state.lugar}
               comite1={this.state.comite1}
+
+              handleEvaluadoradd={this.handleEvaluadoradd}
+              handlePresidenteadd={this.handlePresidenteadd}
+              handleCamposadd={this.handleCamposadd}
+              handleCategoryadd={this.handleCategoryadd}
+              handleChangeRadio={this.handleChangeRadio}              
+              handleDate3={this.handleDate3}
+              handleDate4={this.handleDate4}
+              handleDate2={this.handleDate2}
+              handleDate={this.handleDate}
+              handleComiteadd={this.handleComiteadd}
+              handleChange={this.handleChange} 
               />
           </div>
-          /*
-          
-          <React.Fragment>            
-          <form onSubmit={this.handleSubmit}>
-
-            <Step1 
-              currentStep={this.state.currentStep} 
-              handleChange={this.handleChange}
-              email={this.state.email}
-            />
-            <Step2 
-              currentStep={this.state.currentStep} 
-              handleChange={this.handleChange}
-              username={this.state.username}
-            />
-            <Step3 
-              currentStep={this.state.currentStep} 
-              handleChange={this.handleChange}
-              password={this.state.password}
-            />       
-        
-          </form>
-          </React.Fragment>*/
         )
         }
 
