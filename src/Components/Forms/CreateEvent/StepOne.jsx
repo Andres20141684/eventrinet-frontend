@@ -11,8 +11,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import ArrayOfChips from './ArrayOfChips';
 import '../../../styles/style_sheets.css'
 
+
+
 export default class StepOne extends React.Component {
- 
+  
+  
   render () {
     return (
       <div>
@@ -63,65 +66,69 @@ export default class StepOne extends React.Component {
             </Row>
             <Row>            
                 <div class="form-group col-md-3">
-                    <label >Fecha Inicio</label>
-                    <div><DatePicker
-                      selected={this.props.fechaIC}
-                      minDate={new Date()}
-                      onChange={this.props.handleDate3}
-                      class="form-control"
-                    /></div>
+                <label >Fecha Inicio</label>
+                  <Form.Control
+                    type="date"
+                    selected={this.props.fechaIC}
+                    minDate={new Date()}
+                    onChange={this.props.handleDate3}
+                    class="form-control"
+                    name="date_in"
+                    placeholder="date_in"
+                  />
                 </div>
                 <div class="form-group col-md-3">
                     <label >Fecha Fin</label>
-                    <div><DatePicker
-                      selected={this.props.fechaFE}
-                      minDate={this.props.fechaIE}
-                      onChange={this.props.handleDate2}
-                      class="form-control"
-                    /></div>
+                      <Form.Control
+                        type="date"
+                        selected={this.props.fechaFE}
+                        minDate={this.props.fechaIE}
+                        onChange={this.props.handleDate2}
+                        class="form-control"
+                        name="date_in"
+                        placeholder="date_in"
+                      />
                 </div>
             </Row>
             </div>
           </div>
-          <br/>
-          <div class="panel-group">
-            <div class="panel panel-default">
-              <div class="panel-heading"><h1>Categorias</h1></div>
-              <div class="panel-body">
-                <div class="form-group col-md-6">
-                    <ArrayOfChips lista={this.props.categorias} handleadd={this.props.handleCategoryadd}/>
-                </div>
+          <br></br>
+          <div class="panel panel-default">
+            <div class="panel-heading"><h1>Categorias</h1></div>
+            <div class="panel-body">
+              <div class="form-group col-md-6">
+                  <ArrayOfChips lista={this.props.categorias} handleadd={this.props.handleCategoryadd}/>
               </div>
             </div>
           </div>
-          <br/>
-          <div class="panel-group">
-            <div class="panel panel-default">
+          <br></br>
+          <div class="panel panel-default">
               <div class="panel-heading"><h1>Duración de la convocatoria</h1></div>
               <div class="panel-body">
               <Row>            
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <label >Fecha Inicio</label>
-                    <div><DatePicker
+                    <Form.Control
+                      type="date"
                       selected={this.props.fechaIC}
                       minDate={new Date()}
                       onChange={this.props.handleDate3}
                       class="form-control"
-                    /></div>
+                    />
                 </div>
                 <div class="form-group col-md-3">
                     <label >Fecha Fin</label>
-                    <div><DatePicker
+                    <Form.Control
+                      type="date"
                       selected={this.props.fechaFC}
                       minDate={this.props.fechaIC}
                       onChange={this.props.handleDate4}
-                    /></div>
+                    />
                 </div>
               </Row>              
               </div>
             </div>
-          </div>
-      </div>
+        </div>      
       </div>
     )
   }

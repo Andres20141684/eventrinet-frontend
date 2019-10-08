@@ -80,6 +80,10 @@
     margin-left: auto;
 }
 
+.input-group>.input-group-append>.btn{
+    background-color: #3B83BD;
+    color: #FFFFFF; 
+}
 
 .component-header .component-logo.chart{
     height: 50px;    
@@ -87,8 +91,14 @@
     top: 6px;
 }
 
+.panel-group>.panel-default>.panel-heading, .panel-default>.panel-heading{
+    height: 60px;
+    line-height:40px;
+}
+
 .panel-heading h1{
-    font-size: 23px; 
+    font-size: 22px;
+    margin-top: 10px;
     
 }
 
@@ -99,3 +109,16 @@
 .form-phases h1{
     font-size: 2px; 
 }
+
+
+.MuiStepLabel-label.MuiStepLabel-alternativeLabel {
+    font-size: 25px;
+    margin-top: 16px;
+    text-align: center;
+}
+
+.MuiStepLabel-label.MuiStepLabel-active {
+    color: #002D3D;
+    font-weight: 500;
+}
+

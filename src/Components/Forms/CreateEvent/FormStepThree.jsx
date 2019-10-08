@@ -6,8 +6,8 @@ import Row from 'react-bootstrap/Row';
 class FormStepThree extends Component{
     render(){
         return(
-            <div clas="form-phases">            
-                <h1>Detalles Generales</h1>
+            <div clas="form-phases">
+                <h3>Detalles Generales</h3>
                 <div class="panel panel-default">                
                 <div class="panel-body">
                 <Row >
@@ -60,7 +60,7 @@ class FormStepThree extends Component{
                 </div>
                 </div> 
             
-                <h1>Configuracion de evaluacion</h1>            
+                <h3>Configuracion de evaluacion</h3>
                 <div class="panel panel-default">    
                 <div class="panel-body">
                 <Row >
@@ -84,7 +84,7 @@ class FormStepThree extends Component{
                 </div>
                 </div>            
 
-                <h1>Campos personalizados</h1>
+                <h3>Campos personalizados</h3>
                 <div class="panel panel-default">
                 <div class="panel-body">
                 <Row >
@@ -94,16 +94,15 @@ class FormStepThree extends Component{
                                 type="email" 
                                 name='email'
                                 class="form-control" 
-                                id="id_email"
-                                placeholder="example@example.com" 
+                                id="id_email"                                
                                 aria-label="Recipient's username" 
                                 aria-describedby="basic-addon2"
                                 style={{width: 300}}/>
                             <div class="input-group-append">
+
                             <button 
                                 class="btn btn-outline-secondary add"
                                 variant="primary" 
-                                type='button' 
                                 style={{backgroundColor:"002D3D"}}
                                 type="button">Agregar campos</button>
                             </div>

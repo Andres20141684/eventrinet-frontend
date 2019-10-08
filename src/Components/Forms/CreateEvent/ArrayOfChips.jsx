@@ -37,7 +37,6 @@ export default function ArrayOfChips(props) {
             name='email'
             class="form-control" 
             id="id_email"
-            placeholder="example@example.com" 
             aria-label="Recipient's username" 
             aria-describedby="basic-addon2"
             onChange={handleChange}

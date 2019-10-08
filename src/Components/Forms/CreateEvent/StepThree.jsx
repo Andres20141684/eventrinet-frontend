@@ -43,7 +43,8 @@ class StepThree extends Component{
               <div>
                   <input
                       type="button"
-                      value="remove"
+                      class="btn btn-danger"
+                      value="Eliminar fase"
                       onClick={() => this.removeClick(index)}
                       style={{float:'right'}}
                   />
@@ -53,8 +54,9 @@ class StepThree extends Component{
                 </div>
             </div> 
           </div>
-        ))}
-          <input type="button" class="btn btn-success btn-block" value="Agregar mas fases" onClick={() => this.addClick()} />           
+        ))}        
+                                
+          <input type="button"  class="btn btn-primary" value="Agregar mas fases" onClick={() => this.addClick()} />           
         </div>
             
         
