@@ -13,7 +13,8 @@ class BannerTop extends Component{
     this.state = {
         visible : false,
         role: null,
-        name: "Login"
+        name: "Iniciar Sesion"
+        
 
     }
   }
@@ -39,7 +40,7 @@ class BannerTop extends Component{
             <h1><a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></a></h1>
           </div>
           <div className="list-inline-item" align="right">
-            <a className="nav" onClick={() => this.openModal()}> {this.state.name} </a>
+            <a className="nav" href="/login" data={"/"}/*onClick={() => this.openModal()}*/> {this.state.name} </a>
             <section>
               <script src= "./login.js"></script>
               <Modal visible={this.state.visible} width="400" height="500" effect="fadeInUp" onClickAway={() => this.closeModal()}>

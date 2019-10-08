@@ -90,7 +90,7 @@ class OrganActiveEvents extends Component{
                             <TabPanel>
                                 <a  href="/organizerNewEvent"><button class="btnAdd" style={{float:'right'}}>Nuevo</button></a>
                                 <br/>
-                                <this.state.formActives data ={datos2} dataSSJ ={datos3}/> 
+                                <this.state.formActives data ={datos2} /> 
                             </TabPanel>
                             <TabPanel> 
                                 

@@ -1,51 +1,46 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
+const Networking = require('./../../Network/Networking.js') ;
+
 
 class Organizador_ActiveEventsTable  extends Component {
    constructor(props) {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+      
       console.log("rzwetxrytcvygbuhnj"+this.props);
    }
+   state = {
+      datos_tabla1: []
+  }
    handleClick = () => {
     console.log('this is:', this);
   }
-  
+  POPULATEDATA(){
+   console.log("HAAAAAAAAAAAAAAAAAAAAA")
+   Networking.Login(4).then((value) => {
+       this.setState({datos_tabla1: value});   
+
+
+
+
+
+   });
+
+
+
+  }
    tableData() {
-        return this.state.chupetinesGA.map((element, index) => {
-        const { nombre, propRec, propEval, programa} = element //destructuring
-        return (
-            <tr>
-                <td>{nombre}</td>
-                <td>
-                   <h1>
-                      <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
-                    -<button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
-                  </h1>
-               </td> 
-               <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-edit"></i></button>
-               </td> 
-               <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus"></i></button>
-               </td> 
-               
-               <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-play"></i></button>
-               </td> 
-               <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-times-circle"></i></button>
-               </td> 
-                
-            </tr>
-        )
-        })
+      console.log("HAAAAAAAAAAAAAAAAAAAAA")
+        Networking.Login(4).then((value) => {
+            this.setState({datos_tabla1: value});   
+        });
+        
     }
   
      render() {
-        this.state = this.props.data
-        console.log('this.props.data:', this.props.data);
-        console.log('this.props.dataSSJ:', this.props.dataSSJ);
+        //this.state = this.props.data
+        //console.log('this.props.data:', this.props.data);
         return (
            <div >
               <h2 class="card-title" id='title' >Lista de Eventos activos</h2>
