@@ -12,82 +12,83 @@ class StepTwo extends Component{
 
     formComiteOrganizacional(props){
         return (
-            <div>
-                <Container>
-                <h1>Comité Organizacional</h1>
-                <Form>
-                <br></br>
-                <ArrayOfChips lista={props.comite1} handleadd={props.handleComiteadd}/> 
-                </Form>
-                </Container>
-                
-    </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                <div class="panel-heading"><h1>Comité Organizacional</h1></div>
+                <div class="panel-body">
+                    <div class="form-group col-md-6">
+                        <ArrayOfChips lista={props.comite1} handleadd={props.handleComiteadd}/> 
+                    </div>
+                </div>
+                </div>
+            </div>    
         )
     }
 
     formComiteAcademico(props){
         return (
-            <div>
-                <Container>
-                <h1>Comité Académico</h1>
-                <Form>                                
-                <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label> Presidente</Form.Label>                    
-                    <br></br>
-                    <ArrayOfChips lista={props.presidente} handleadd={props.handlePresidenteadd}/> 
-                    <br></br>
-                                      
-                </Form.Group>
-                
-                <Form.Group>
-                <br></br>    
-                <Form.Label>Criterio para evaluar preferencia de evaluadores:</Form.Label>
-                <br></br>
-                <Col>
-                    <input
-                    checked={props.rdCategry}
-                    type="radio" inline
-                    name="formHorizontalRadios"
-                    id="rdCategry"
-                    onChange={props.handleChangeRadio}
-                    />Categorias
-                    <input
-                    checked={props.rdPropuest}
-                    type="radio" inline
-                    name="formHorizontalRadios"
-                    id="rdPropuest"
-                    onChange={props.handleChangeRadio}
-                    />Propuestas
-                </Col>
-                <br></br>
-                </Form.Group>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                <div class="panel-heading"><h1>Comité Académico</h1></div>
+                <div class="panel-body"> 
+                    <Row >
+                        <div class="form-group col-md-6">
+                            <label> Presidente</label>
+                            <div style={{marginLeft: 13}}>
+                            <ArrayOfChips lista={props.presidente} handleadd={props.handlePresidenteadd}/>                         
+                            </div>
+                        </div>
+                    </Row> 
+                    
+                    <Row>
+                    <div class="form-group col-md-6">
+                        <label> Criterio para evaluar preferencia de evaluadores:</label>
+                        <form >
+                            <div class="form-check-inline">
+                            <label class="form-check-label" for="radio1" style={{float:"left"}}/> 
+                            <input
+                                checked={props.rdCategry}
+                                type="radio" 
+                                name="formHorizontalRadios"
+                                id="rdCategry"
+                                onChange={props.handleChangeRadio}
+                                />Categorias 
+                            </div>
+                            <div class="form-check-inline">
+                            <label class="form-check-label" for="radio2" style={{float:"right"}}/>
+                            <input
+                                checked={props.rdPropuest}
+                                type="radio" 
+                                name="formHorizontalRadios"
+                                id="rdPropuest"
+                                onChange={props.handleChangeRadio}
+                            />Propuestas
+                            </div>                            
+                        </form>
+                    </div>
+                    </Row>
 
-                <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label> Evaluadores</Form.Label>
-                    <br></br>    
-                    <ArrayOfChips lista={props.evaluadores} handleadd={props.handleEvaluadoradd}/> 
-                    <br></br>                  
-                </Form.Group>
-                </Form>
-                </Container>  
-    </div>
+                    <Row >
+                        <div class="form-group col-md-6">
+                            <label> Presidente</label>
+                            <div style={{marginLeft: 13}}>
+                            <ArrayOfChips lista={props.evaluadores} handleadd={props.handleEvaluadoradd}/>                         
+                            </div>
+                        </div>
+                    </Row> 
+                </div>
+                </div>
+            </div>
         )
     }
 
     render(){
         return(
         <div> 
-            <div class="panel panel-default">
+            <this.formComiteOrganizacional {...this.props}/>            
             <br></br>
-            <this.formComiteOrganizacional {...this.props}/>
-            <br></br>
-            </div>
-
-            <div class="panel panel-default"> 
-            <br></br>
-            <this.formComiteAcademico {...this.props}/>            
-            <br></br>
-            </div>            
+            <this.formComiteAcademico {...this.props}/>       
+            <br></br>            
         </div>
         );
     }

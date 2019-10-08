@@ -30,13 +30,28 @@ export default function ArrayOfChips(props) {
 
   return (
     <div>
-      <Row>
-          <Col>
-          <input placeholder="Ingrese correo electronico" onChange={handleChange}/> 
-          </Col>
-          <Col>
-          <button class="btnAdd" variant="primary" type='button' onClick={handleSelect} >Agregar</button>
-          </Col>
+      <Row> 
+      <div class="input-group mb-3">
+        <input 
+            type="email" 
+            name='email'
+            class="form-control" 
+            id="id_email"
+            placeholder="example@example.com" 
+            aria-label="Recipient's username" 
+            aria-describedby="basic-addon2"
+            onChange={handleChange}
+            style={{width: 360}}/>
+        <div class="input-group-append">
+          <button 
+            class="btn btn-outline-secondary add"
+            variant="primary" 
+            type='button' 
+            onClick={handleSelect}
+            style={{backgroundColor:"002D3D"}}
+            type="button">Agregar</button>
+        </div>
+      </div>
       </Row>
       {chipData.map((data, index) => {
               return (
