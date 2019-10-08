@@ -111,14 +111,21 @@
 }
 
 
-.MuiStepLabel-label.MuiStepLabel-alternativeLabel {
-    font-size: 25px;
-    margin-top: 16px;
-    text-align: center;
+
+
+.pull-right{
+    margin-top: -20px;
+    border-radius: 4px;
+    background-color: #3B83BD;
+    color: #FFFFFF; 
+    cursor: pointer;
+    display: inline-block;
+    line-height: 28px;
+    padding: 0 12px;
+    text-decoration:none;
 }
 
-.MuiStepLabel-label.MuiStepLabel-active {
-    color: #002D3D;
-    font-weight: 500;
-}
-
+.iconMenu:hover {
+    background-color: #002D3D;
+    color: #6CDCD6;
+  }

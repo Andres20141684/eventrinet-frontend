@@ -11,16 +11,50 @@ import Form from 'react-bootstrap/Form';
 class Prueba extends Component{
     state = {
         bannTop : BannerTop,
-        bannBot : BannerBottom,
-        date: new Date(),    
-        prueba: StepThree_copy,
-    };
+        bannBot : BannerBottom,       
+      }
     
     render(){
         return(            
         <div> 
             <this.state.bannTop />
-            <this.state.prueba />
+            <div class="panel panel-primary mypanel" >
+              <div class="panel-heading">
+                  <h2 class="panel-title">Lista de Eventos activos</h2>                  
+                  <a  class="pull-right" href="/organizerNewEvent" value="Nuevo">Nuevo</a>
+               </div>
+            <div  class="table-responsive">
+            <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td colspan="2">Larry the Bird</td>
+                <td>@twitter</td>
+                </tr>
+            </tbody>
+            </table>
+            </div>
+            </div>
             <this.state.bannBot/> 
         </div>)
     }

@@ -12,9 +12,11 @@ import Organizador_HistoryventsTable from '../Components/Jtable/Organizador_Hist
 
 
 function MainTittle(){
-    return ( 
-    <div >
-        <h1><br/>Organizador - Mis eventos<br/><br/></h1>
+    return ( <div>
+    <div style={{marginLeft:15}}>
+        <h1><br/>Organizador - Mis eventos</h1>
+    </div>
+    <div style={{marginLeft:40,marginTop:25}} ><h4>Gestion de eventos activos e históricos</h4></div>
     </div>
     )
 }
@@ -30,54 +32,46 @@ class OrganActiveEvents extends Component{
         /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
         var datos2 ={ //state is by default an object
             chupetinesGA: [
-               { listaEventos: 'WaWaWasifsifsWaWasifsifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'}
+               { listaEventos: 'Evento 1', propRec: 'si', propEval: 'no', programa: 'si'},
+               { listaEventos: 'Evento 2', propRec: 'si', propEval: 'no', programa: 'si'},
+               { listaEventos: 'Evento 3', propRec: 'si', propEval: 'no', programa: 'si'},
+               { listaEventos: 'Evento 4', propRec: 'si', propEval: 'no', programa: 'si'},
+               { listaEventos: 'Evento 5', propRec: 'si', propEval: 'no', programa: 'si'}
             ]
          }
          var datos1 ={ //state is by default an object
             chupetinesGA: [
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'}
+                { listaEventos: 'Evento 6'},
+                { listaEventos: 'Evento 7'},
+                { listaEventos: 'Evento 8'},
+                { listaEventos: 'Evento 9'},
+                { listaEventos: 'Evento 10'},
+                { listaEventos: 'Evento 11'}
             ]
          }
         return(
             <div> 
-            <this.state.bannTop />            
+            <this.state.bannTop />
             <MainTittle/>
-            <div class="container">
-                <div >
-                <div class="card">
-                    <div class="card-title">
-                        <h2>Gestion de eventos activos e históricos</h2>
-                    </div>
-                    <div class ="card-body">
+            <div class="container" >
+                <div class ="panel-body">
                     <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
-                            <TabList>
-                                <Tab>Eventos activos</Tab>
-                                <Tab>Historial de eventos</Tab>
-                            </TabList>
-                            <TabPanel>
-                                <a  href="/organizerNewEvent"><button class="btnAdd" style={{float:'right'}}>Nuevo</button></a>
-                            <br/>
-                                <this.state.formActives data ={datos2}/> 
-                            </TabPanel>
-                            <TabPanel> 
-                                < this.state.formRecord data ={datos1}/>
-                            </TabPanel>
-                        </Tabs>
-                    </div>
+                        <TabList>
+                            <Tab>Eventos activos</Tab>
+                            <Tab>Historial de eventos</Tab>
+                        </TabList>
+                        <TabPanel>
+                            <this.state.formActives data ={datos2}/> 
+                        </TabPanel>
+                        <TabPanel> 
+                            < this.state.formRecord data ={datos1}/>
+                        </TabPanel>
+                    </Tabs>
                 </div>
-                </div>
-                </div>
-                <br/><br/>
-                <this.state.bannBot/>
+                
+            </div>    
+            <br/><br/>
+            <this.state.bannBot/>
             </div>
         );
     }

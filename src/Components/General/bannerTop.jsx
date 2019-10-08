@@ -13,8 +13,6 @@ class BannerTop extends Component{
     this.state = {
         visible : false,
         role: null,
-        name: "Login"
-
     }
   }
 
@@ -39,16 +37,7 @@ class BannerTop extends Component{
             <a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></a>
           </div>
           <div className="list-inline-item" align="right">
-            <a className="nav" onClick={() => this.openModal()}> {this.state.name} </a>
-            <section>
-              <script src= "./login.js"></script>
-              <Modal visible={this.state.visible} width="400" height="500" effect="fadeInUp" onClickAway={() => this.closeModal()}>
-                <div>
-                  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                  <a href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a>
-                </div>
-              </Modal>
-            </section>
+            <a className="nav" href="/login" style={{color:"#6CDCD6"}}>Login</a>            
           </div>
         </div>
         {/*<hr style={{
@@ -88,7 +77,7 @@ class BannerTop extends Component{
       */}
         <nav class="navbar navbar-expand-lg navbar-inverse" style={styles.navbar}>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <i class="navbar-toggler-icon fa fa-bars" style={styles.fa} aria-hidden="true"></i>
           </button>
 
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -116,11 +105,14 @@ class BannerTop extends Component{
                 </ul>
               </li>
             </ul>
-            
-            <div class="pmd-navbar-right-icon ml-auto" align="right">
-              <i class="fa fa-search" style={styles.fa} aria-hidden="true" ></i> 
-              <i class="fa fa-question-circle" style={styles.fa} aria-hidden="true"></i>
-              <i class="fa fa-user dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style={{paddingTop:12,paddingRight:0,color:"#6CDCD6"}}></i>
+                        
+            <div class="pmd-navbar-right-icon ml-auto" style={{float:"right"}}>
+              <form class="form-inline ">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+                <i class="fa fa-search" role="button"  style={styles.fa} aria-hidden="true" />
+                <i class="fa fa-question-circle" role="button" style={styles.fa} aria-hidden="true"></i>
+                <i class="fa fa-user dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" style={{paddingTop:12,paddingRight:0,color:"#6CDCD6"}}></i>
+              </form>
             </div>
           </div>
         </nav>

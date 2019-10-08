@@ -152,29 +152,6 @@ export default class EventNew extends Component{
               handleChange={this.handleChange} 
               />
           </div>
-          /*
-          
-          <React.Fragment>            
-          <form onSubmit={this.handleSubmit}>
-
-            <Step1 
-              currentStep={this.state.currentStep} 
-              handleChange={this.handleChange}
-              email={this.state.email}
-            />
-            <Step2 
-              currentStep={this.state.currentStep} 
-              handleChange={this.handleChange}
-              username={this.state.username}
-            />
-            <Step3 
-              currentStep={this.state.currentStep} 
-              handleChange={this.handleChange}
-              password={this.state.password}
-            />       
-        
-          </form>
-          </React.Fragment>*/
         )
         }
 
