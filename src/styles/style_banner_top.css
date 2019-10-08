@@ -139,8 +139,8 @@ body{
     overflow: auto;
   }
 
-  .line-top{        
-    border-radius: 2;
+  .line-top{
     border: 1px solid #6CDCD6;
-    border-radius: 1px;
+    margin-bottom: 0;
+    margin-top: 0;
   }
