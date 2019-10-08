@@ -1,5 +1,5 @@
 function renderButton() {
-	gapi.signin2.render(
+	gapi.signi2.render(
 		'gSignIn',
 		{
 		'scope': 'profile email',
@@ -22,6 +22,14 @@ var superprofile = {
 	picture: "_"
 }
 // Sign-in success callback
+function onSignIn2(googleUser) {
+	var profile = googleUser.getBasicProfile();
+	console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	console.log('Name: ' + profile.getName());
+	console.log('Image URL: ' + profile.getImageUrl());
+	console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+}
 function onSignIn(googleUser) {
 	// Get the Google profile data (basic)
 	var profile = googleUser.getBasicProfile();
@@ -64,6 +72,8 @@ function onSignIn(googleUser) {
 			console.log(superprofile)
 		});
 	});
+	console.log('Display the superprofile:')
+			console.log(superprofile)
 	
 }
 function getJsonGoogleUser(){
@@ -90,4 +100,16 @@ function signOut() {
 	});
 	
 	auth2.disconnect();
+}
+
+
+function toJSON(p) {
+	if (typeof (p.data) === 'object') {
+		// Convert the POST into a javascript object
+		try {
+			p.data = JSON.stringify(p.data);
+			p.headers['content-type'] = 'application/json';
+		}
+		catch (e) {}
+	}
 }

@@ -11,7 +11,7 @@ class Login extends Component{
         usuario : null,
         pagPrev: "/"
     }
-
+    
     render(){
 
         return(<div>            
@@ -42,9 +42,13 @@ class Login extends Component{
                             <label for="exampleInputEmail1"  style={{textAlignVertical: "center",textAlign: "center"}}>Ingresar con cuenta gmail</label>
                             <section class="loginButton">
                             <script src= "./login.js"></script>
+
                                 <div width="200" height="500" effect="fadeInUp">                                    
-                                    <div class="g-signin2" data-onsuccess="onSignIn" ></div>
-                                    <a href={this.state.pagPrev}>___</a>
+                                    
+                                    <div class="g-signin2" align="center" data-onsuccess="onSignIn" >
+                                        
+                                    </div>
+                                    
                                 </div>
                             </section>
                         </div>

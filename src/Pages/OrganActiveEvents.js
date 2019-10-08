@@ -27,15 +27,11 @@ class OrganActiveEvents extends Component{
         datos_tabla1:  null,
         datos_tabla2: null,
         msg: "Not Connected",
-        idOrganizador: 1,
-        chupetinesGA: []
+        idOrganizador: 1
     }
     
     componentWillMount(){
-        console.log("LISTAR eventos")
-        Networking.Login(4).then((value) => {
-            this.setState({datos_tabla1: value});   
-        });
+        
         
     }
     render(){
@@ -62,15 +58,6 @@ class OrganActiveEvents extends Component{
             ]
          }
          
-         var datos3 ={chupetinesGA: this.state.datos_tabla1};
-        var aux= datos3;
-         
-        
-        console.log(datos2);
-        console.log('_________________________');
-        console.log(datos3);
-        
-        console.log('_________________________');
         return(
             <div> 
             <this.state.bannTop />            
