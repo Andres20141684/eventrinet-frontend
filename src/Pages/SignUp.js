@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import BannerLogin from '../Components/General/bannerLogin';
-import BannerBottom from '../Components/General/bannerBottom'
+//import BannerLogin from '../Components/General/bannerLogin';
+//import BannerBottom from '../Components/General/bannerBottom'
 import '../styles/style_record.css'; 
-import {reduxForm, Field} from 'redux-form';
-import {connect} from 'react-redux';
-import {compose} from 'redux';
+//import {reduxForm, Field} from 'redux-form';
+//import {connect} from 'react-redux';
+//import {compose} from 'redux';
+//import GoogleLogin from 'react-google-login';
+//import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
-import CustomInput from '../Components/Custom/CustomInput';
-import * as actions from '../action';
-import GoogleLogin from 'react-google-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
-
+class SignUp extends Component {
+  render() {
+    const { handleSubmit } = this.props;
+    return (
+      <div className="row">
+        </div>)};
+}export default SignUp;
+/*
 
 class SignUp extends Component {
     constructor(props) {
@@ -19,7 +24,7 @@ class SignUp extends Component {
       this.responseGoogle = this.responseGoogle.bind(this);
       this.responseFacebook = this.responseFacebook.bind(this);
     }
-  
+    
     async onSubmit(formData) {
       await this.props.signUp(formData);
       if (!this.props.errorMessage) {
@@ -114,3 +119,4 @@ class SignUp extends Component {
     connect(mapStateToProps, actions),
     reduxForm({ form: 'signup' })
   )(SignUp)
+*/

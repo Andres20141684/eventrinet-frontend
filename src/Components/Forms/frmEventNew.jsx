@@ -120,7 +120,6 @@ export default class EventNew extends Component{
       render() {    
         return (
           <div className='container'>
-
               <this.state.aux 
               handlePrint={this.handlePrint}
               
