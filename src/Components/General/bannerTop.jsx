@@ -32,7 +32,7 @@ class BannerTop extends Component{
     //debugger;
     return (
       <div id="bannerTop" style={styles.banner} class="navbar-fixed-top"><br/>
-        <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
+        <div className="list-inline-item d-flex flex-column flex-md-row align-items-center" >
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
             <a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></a>
           </div>
@@ -40,6 +40,7 @@ class BannerTop extends Component{
             <a className="nav" href="/login" style={{color:"#6CDCD6",paddingRight:20}}>Login</a>            
           </div>
         </div>
+        <div style={{paddingRight:20, paddingLeft:20}}><hr  class="line-top"/></div>
         {/*<hr style={{
           borderBottomWidth:0,
           borderBottomColor:'#6CDCD6',
@@ -152,6 +153,8 @@ var styles = {
   },
   navbar:{
     backgroundColor:'#002D3D',
-    borderColor:'#002D3D'
+    borderColor:'#002D3D',
+    paddingLeft:30,
+    paddingRight:30,
   }
 }
