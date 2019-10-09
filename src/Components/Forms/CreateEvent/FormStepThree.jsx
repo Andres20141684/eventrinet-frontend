@@ -3,8 +3,27 @@ import { FormGroup } from '@material-ui/core';
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row';
 import '../../../styles/style_sheets.css';
+import ArrayOfChips from './ArrayOfChips';
 
 class FormStepThree extends Component{
+    
+    formGroupCamposPersonalizados(props){
+        return(
+            <div style={{marginLeft: 13}}>
+            <h3>Campos personalizados</h3>
+                <div class="panel panel-default">
+                <div class="panel-body">
+                <Row >
+                    <div class="form-group col-md-6">
+                    <ArrayOfChips lista={props.campos} handleadd={props.handleCamposadd}/> 
+                    </div>
+                </Row>
+                </div>
+                </div>
+            </div>
+        )
+
+    }
     render(){
         return(
             <div clas="form-phases">
@@ -135,34 +154,7 @@ class FormStepThree extends Component{
                 </Row>                
                 </div>
                 </div>            
-
-                <h3>Campos personalizados</h3>
-                <div class="panel panel-default">
-                <div class="panel-body">
-                <Row >
-                    <div class="form-group col-md-6">
-                        <div class="input-group mb-3">
-                            <input 
-                                type="email" 
-                                name='email'
-                                class="form-control" 
-                                id="id_email"                                
-                                aria-label="Recipient's username" 
-                                aria-describedby="basic-addon2"
-                                style={{width: 300}}/>
-                            <div class="input-group-append">
-
-                            <button 
-                                class="btn btn-outline-secondary add"
-                                variant="primary" 
-                                style={{backgroundColor:"002D3D"}}
-                                type="button">Agregar campos</button>
-                            </div>
-                        </div>
-                    </div>
-                </Row>
-                </div>
-                </div>
+                <this.formGroupCamposPersonalizados {...this.props} />
         </div>)
     }
 }

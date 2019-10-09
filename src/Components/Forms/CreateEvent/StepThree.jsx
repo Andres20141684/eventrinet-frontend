@@ -66,7 +66,7 @@ class StepThree extends Component{
             </div>
             <div class="panel-body">
               <div>
-                  <this.state.form_1   
+                  <this.state.form_1 {...this.props} 
                       value={el.value || ""} 
                       onChange={e => this.handleChange(index, e)}/>
                 </div>

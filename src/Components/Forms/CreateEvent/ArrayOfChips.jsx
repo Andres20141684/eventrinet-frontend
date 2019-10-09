@@ -13,8 +13,19 @@ export default function ArrayOfChips(props) {
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
-    chipData.push(aux)
-    props.handleadd(chipData)
+    console.log("El item a insertar",aux);
+    
+    const result = chipData.find( ({ key }) => key === aux["key"]);
+    if (result){
+      console.log("The item exist");
+    }
+    else{
+      console.log("The item doesn't exist");
+      chipData.push(aux);
+      props.handleadd(chipData);
+      
+    }
+    console.log(chipData);    
   };
 
   const handleDelete = chipToDelete => () => {
@@ -40,7 +51,8 @@ export default function ArrayOfChips(props) {
             aria-label="Recipient's username" 
             aria-describedby="basic-addon2"
             onChange={handleChange}
-            style={{width: 360}}/>
+            style={{width: 360}}
+            />
         <div class="input-group-append">
           <button 
             class="btn btn-outline-secondary add"

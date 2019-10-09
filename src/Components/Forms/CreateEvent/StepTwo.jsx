@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container'
-import Chip from '@material-ui/core/Chip';
 import ArrayOfChips from './ArrayOfChips'
 import '../../../styles/style_sheets.css'; 
 
@@ -40,24 +36,24 @@ class StepTwo extends Component{
                 <Row>
                 <div class="form-group col-md-6">
                     <label> Criterio para evaluar preferencia de evaluadores:</label>
-                    <div class="form-group col-md-6">                    
-                    <div>
+                    <form >
                         <Form.Check
                             type="radio" inline
                             label="Categorias"
-                            name="formHorizontalRadios_1"
-                            id="formHorizontalRadios1"
-                            
+                            name="formHorizontalRadios"
+                            id="rdCategry"
+                            value={props.rdCategry}
+                            onChange={props.handleChangeRadio}
                         />
                         <Form.Check
                             type="radio" inline
                             label="Propuestas"
-                            name="formHorizontalRadios_1"
-                            id="formHorizontalRadios2"
-                            
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios1"
+                            value={props.rdPropuest}
+                            onChange={props.handleChangeRadio}
                         />
-                    </div>
-                </div>
+                    </form>
                 </div>
                 </Row>
 
