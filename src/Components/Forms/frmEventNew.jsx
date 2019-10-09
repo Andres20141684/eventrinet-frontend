@@ -20,6 +20,10 @@ export default class EventNew extends Component{
             categorias:[],
             fases:[{secuencia:1,camposPerson:[],criterios:[],reqArch:false,reqEval:false}],
             tieneCameraRdy:0,
+            rdCamR:false,
+            fCRIni:new Date(),
+            fCRFin:'',
+            fechPref:new Date(),            
             fechaMaxPref:'',
             numFases:'',
             preferencia:'',
@@ -32,8 +36,12 @@ export default class EventNew extends Component{
         this.handleChangeRadio=this.handleChangeRadio.bind(this)
         this.handlePrint=this.handlePrint.bind(this)
         this.DateFormat=this.DateFormat.bind(this)
+        this.handleCheckB=this.handleCheckB.bind(this)
       }
 
+      handleCheckB(event,str){
+        this.setState({[str]:!this.state[str]})
+      }
       handleChange2(value,label){
         this.setState({
           [label]:value
@@ -63,9 +71,9 @@ export default class EventNew extends Component{
       }
 
       DateFormat(date,json,tag,tag2){
-        let aux=date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() 
+        let aux=date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
         json[tag]=aux
-        delete json[tag2]
+        //delete json[tag2]
       }
 
       handlePrint(event){
@@ -81,11 +89,18 @@ export default class EventNew extends Component{
         delete auxjson.rdCategry
         delete auxjson.rdPropuest
 
+        if(auxjson.rdCamR===true){
+          auxjson.tieneCameraRdy=1
+          let addPhase={nombre:"Camera Ready",secuencia:this.state.fases.length+1}
+          this.DateFormat(auxjson.fCRIni,addPhase,"fechaFaseIni",null)
+          this.DateFormat(auxjson.fCRFin,addPhase,"fechaFaseFin",null)
+          auxjson.fases.push(addPhase)
+        }
         auxjson.numFases=this.state.fases.length
 
         this.DateFormat(this.state.fIni,auxjson,"fechaIni","fIni")
         this.DateFormat(this.state.fFin,auxjson,"fechaFin","fFin")
-        //this.DateFormat(this.state.fFin,auxjson,"fechaMaxPref","fFin")
+        this.DateFormat(this.state.fechPref,auxjson,"fechaMaxPref","fechPref")
 
         console.log(auxjson);
         var dataA=JSON.stringify(auxjson)
@@ -117,6 +132,7 @@ export default class EventNew extends Component{
               rdCategry={this.state.rdCategry}
               rdPropuest={this.state.rdPropuest}
 
+
               categorias={this.state.categorias}
               evaluadores={this.state.evaluadores}
               presidente={this.state.presidente}
@@ -124,8 +140,15 @@ export default class EventNew extends Component{
               fases={this.state.fases}
               
               fechaIE={this.state.fIni}
-              fechaFE={this.state.fFin}  
+              fechaFE={this.state.fFin} 
+              
+              fechPref={this.state.fechPref}
 
+              rdCamR={this.state.rdCamR}
+              fCRIni={this.state.fCRIni}
+              fCRFin={this.state.fCRFin}
+
+              handleCheckB={this.handleCheckB}
               handleChange2={this.handleChange2}
               handleChangeRadio={this.handleChangeRadio}
               handleChange={this.handleChange} 

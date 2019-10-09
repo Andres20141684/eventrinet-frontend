@@ -78,9 +78,7 @@ class FormStepThree extends Component{
                             <label for="title">Requiere de Criterios: </label>
                             </Col>
                             <Col><input
-                                type="checkBox" inline
-                                name="formHorizontalRadios_1"
-                                id="formHorizontalRadios1"
+                                type="checkBox" 
                                 checked={this.props.value.reqEval}
                                 onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
                             />

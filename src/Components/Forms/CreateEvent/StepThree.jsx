@@ -108,39 +108,47 @@ class StepThree extends Component{
         </div>
             
         <div class="cointainer p-4">
-            <h1>Incluir Camera Ready</h1>
+            <h1>Camera Ready</h1>
             <FormGroup action="" class="card card-body">
                 <div class="form-group">                    
-                <div>
-                    <Form.Check
-                        type="radio" inline
-                        label="Si"
-                        name="formHorizontalRadios"
-                        id="formHorizontalRadios1"
-                    />
-                    <Form.Check
-                        type="radio" inline
-                        label="No"
-                        name="formHorizontalRadios"
-                        id="formHorizontalRadios2"
-                    />
+                <Row>
+                  <Col><label >Requiere:</label> </Col>
+                  <Col><input
+                                type="checkBox" 
+                                checked={this.props.rdCamR}
+                                onClick={(e)=>this.props.handleCheckB(e,"rdCamR")}
+                            /></Col>
+                    
+                </Row>
                 </div>
-                </div>
-                <Row xs sm>
+                {this.props.rdCamR===true?<Row xs sm>
                     <Col> <label >Fecha Inicio: </label> </Col>
                     <Col> <DatePicker
-                            selected={new Date()}
+                            selected={this.props.fCRIni}
+                            minDate={new Date()}
+                            onChange={(e)=> this.props.handleChange2(e,"fCRIni")}
                             />
                     </Col>
                     <Col><label >Fecha Fin: </label> </Col>
                     <Col> <DatePicker
-                            selected={new Date()}
+                            selected={this.props.fCRFin}
+                            minDate={new Date()}
+                            onChange={(e)=> this.props.handleChange2(e,"fCRFin")}
                             />
                     </Col>
-                    </Row>
+                    </Row>:null}
+                
             </FormGroup>
-        </div>            
-        <button class="btn btn-primary" type="submit" style={{float:'right'}}>Crear evento</button>
+        </div>  
+        <div>
+        <Col><label >Fecha máxima para elegir preferencia el evaluador::</label> </Col>
+        <Col> <DatePicker
+                            selected={this.props.fechPref}
+                            minDate={new Date()}
+                            onChange={(e)=> this.props.handleChange2(e,"fechPref")}
+                            />
+                    </Col>
+          </div>          
       </form>
     );
   }
