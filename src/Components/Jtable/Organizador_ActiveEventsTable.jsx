@@ -8,7 +8,7 @@ class Organizador_ActiveEventsTable  extends Component {
    constructor(props) {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
-        Networking.Login(4).then((value) => {
+      Networking.populateDataOrgTab1(4).then((value) => {
             this.setState({datos_tabla1: value});   
             
       });
@@ -38,7 +38,8 @@ class Organizador_ActiveEventsTable  extends Component {
                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-edit"></i></button>
                </td> 
                <td>
-                  <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus"></i></button>
+                  <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus
+                  "></i></button>
                </td> 
                <td>
                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-play"></i></button>

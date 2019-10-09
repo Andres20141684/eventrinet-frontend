@@ -43,12 +43,7 @@ class BannerTop extends Component{
             <a className="nav" href="/login" data={"/"}/*onClick={() => this.openModal()}*/> {this.state.name} </a>
             <section>
               <script src= "./login.js"></script>
-              <Modal visible={this.state.visible} width="400" height="500" effect="fadeInUp" onClickAway={() => this.closeModal()}>
-                <div>
-                  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                  <a href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a>
-                </div>
-              </Modal>
+              
             </section>
           </div>
         </div>

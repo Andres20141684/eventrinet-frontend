@@ -1,3 +1,42 @@
+const restURL = 'http://localhost:5000/api/eventos';
+
+async function validar_sesion(var_email,var_given_name,var_family_name) {
+    console.log('INTENTO DE LOGIN!! en ' +restURL 
+    + 'validar_sesion'+var_email);
+    try {
+        console.log('RECIBI UN LOGIN: ' + var_email + var_given_name+ var_family_name);
+        let response = await fetch(restURL 
+            + '/validar_sesion', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: var_email,
+                family_name: var_family_name,
+                given_name: var_given_name
+
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+		console.log(responseJson);
+		console.log(responseJson[0]);
+		console.log(response);
+		console.log(response[0]);
+        console.log('Saving!!');
+
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+
+var request=null;
 function renderButton() {
 	gapi.signi2.render(
 		'gSignIn',
@@ -22,68 +61,91 @@ var superprofile = {
 	picture: "_"
 }
 // Sign-in success callback
-function onSignIn2(googleUser) {
+function onSignIn1(googleUser) {
 	var profile = googleUser.getBasicProfile();
 	console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 	console.log('Name: ' + profile.getName());
 	console.log('Image URL: ' + profile.getImageUrl());
 	console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	console.log("LOGIN -> ING")
 
+      
 }
+var oauth2 = google.oauth2({
+	auth: auth,
+	version: 'v2'
+});
+
+oauth2.userinfo.v2.me.get(
+function(err, res) {
+if (err) {
+	console.log(err);
+} else {
+	console.log(res);
+}
+});
 function onSignIn(googleUser) {
 	// Get the Google profile data (basic)
 	var profile = googleUser.getBasicProfile();
-	//var superprofile;
-	console.log('Display the superprofile:')
-			console.log(superprofile)
+	/*Networking.validar_sesion(
+		
+		profile.U3,
+		profile.ofa,
+		profile.wea
+		).then((value) => {
+		this.setState({datos_tabla1: value});   
+		
+  	});*/
+	console.log('Display the profile:')
+	console.log(profile)
+	console.log(profile.ig)
+		console.log(profile.Eea)
+		console.log(profile.Paa)
+		console.log(profile.U3)
+		console.log(profile.ofa)
+		console.log(profile.wea)
 	// Retrieve the Google account data
 	gapi.client.load('oauth2', 'v2', function () {
-		var request = gapi.client.oauth2.userinfo.get({
+		request = gapi.client.oauth2.userinfo.get({
 			'userId': 'me'
-		});
-		
-		request.execute(function (resp) {
-			superprofile=JSON.stringify({resp})
-			// Display the user details
-			console.log('Display the resp:')
-			console.log(resp)
-			superprofile=resp
-			/*
-			superprofile.email=resp.email
-			superprofile.family_name=resp.family_name
-			superprofile.given_name=resp.given_name
-			superprofile.id=resp.id
-			superprofile.locale=resp.locale
-			superprofile.name=resp.name
-			superprofile.picture=resp.picture
-			*/
-			/*var profileHTML = '<h3>Welcome '+resp.given_name+'! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></h3>';
-			profileHTML += '<img src="'+resp.picture+'"/><p><b>Google ID: </b>'
-			+resp.id+'</p><p><b>Name: </b>'+resp.name+'</p><p><b>Email: </b>'
-			+resp.email+'</p><p><b>Gender: </b>'+resp.gender+'</p><p><b>Locale: </b>'
-			+resp.locale+'</p><p><b>Google Profile:</b>
-			 <a target="_blank" href="'+resp.link+'">click to view profile</a>
-			 </p>';
-			document.getElementsByClassName("userContent")[0].innerHTML = profileHTML;
-			
-			document.getElementById("gSignIn").style.display = "none";
-			document.getElementsByClassName("userContent")[0].style.display = "block";*/
-			console.log('Display the superprofile:')
-			console.log(superprofile)
-		});
 	});
-	console.log('Display the superprofile:')
-			console.log(superprofile)
+		
+		
+		console.log('Display the request:')
+		console.log(request)
+		getJsonGoogleUser();
+		
+	});
+
 	
 }
+var respuestaVal = null;
+var superprofile=null;
 function getJsonGoogleUser(){
 	/**porque quiero y porque puedo */
-	var profileHTML = '<h3>Welcome '+resp.given_name+'! <a href="javascript:void(0);" onclick="signOut();">Sign out</a></h3>';
-			profileHTML += '<img src="'+resp.picture+'"/><p><b>Google ID: </b>'+resp.id+'</p><p><b>Name: </b>'+resp.name+'</p><p><b>Email: </b>'+resp.email+'</p><p><b>Gender: </b>'+resp.gender+'</p><p><b>Locale: </b>'+resp.locale+'</p><p><b>Google Profile:</b> <a target="_blank" href="'+resp.link+'">click to view profile</a></p>';
-			document.getElementsByClassName("userContent")[0].innerHTML = profileHTML;
+	request.execute(
+		function (resp) {
+			superprofile=resp
+		
+		console.log("LOGIN -> ING")
+		console.log('ID: ' + superprofile.id); // Do not send to your backend! Use an ID token instead.
+		console.log('Name: ' + superprofile.given_name);
+		console.log('Image URL: ' + superprofile.family_name);
+		console.log('Email: ' + superprofile.email); // This is null if the 'email' scope is not present.
+		validar_sesion(
+		
+			resp.email,
+			resp.given_name,
+			resp.family_name
+			).then((value) => {
+				respuestaVal= value 
 			
-			document.getElementById("gSignIn").style.display = "none";
-			document.getElementsByClassName("userContent")[0].style.display = "block";
+		  });
+	
+	
+	});
+
+	
 }
 // Sign-in failure callback
 function onFailure(error) {

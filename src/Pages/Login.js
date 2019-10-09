@@ -3,6 +3,9 @@ import BannerLogin from '../Components/General/bannerLogin';
 import BannerBottom from '../Components/General/bannerBottom'
 import '../styles/style_record.css'; 
 
+var request=null;
+var loggedin = false;
+
 
 class Login extends Component{
     state = {
