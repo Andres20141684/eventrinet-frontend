@@ -40,18 +40,18 @@ class Organizador_ActiveEventsTable  extends Component {
             preferencia,tieneCameraRdy,programaCompletado,
             fechaMaxPref,numeroPropuestas} = element
          return (
-         <tr>
-               <td>{nombre}</td>
-               <td>
-                  <h1>
+         <tr >
+               <td >{nombre}</td>
+                  <td >
+                     
                      <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
                      -
                      <button class="btn_plus" onClick={this.handleClick} >
                      {( {programaCompletado} ===1 )  ? <i class="fa fa-check-circle"></i> : <i class="fa fa-times-circle"></i> }
                      </button>
-                  </h1>
+                     
 
-               </td> 
+                  </td> 
                <td>
                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-edit"></i></button>
                </td> 
@@ -81,10 +81,10 @@ class Organizador_ActiveEventsTable  extends Component {
                   <a  class="pull-right" href="/organizerNewEvent" value="Nuevo"style={{marginRight:30,marginBottom:20}}>Nuevo</a>
                </div>
               <div  class="table-responsive">
-              <table class="table-light" id='chupetinesGA'>
-               <thead class="thead-light">
-                  <tr>
-                     <th scope="col">Lista de eventos</th>
+              <table class="table  table-hover">
+               <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
+                  <tr >
+                     <th align= "left" scope="col">Lista de eventos</th>
                      <th scope="col">Call for Papers-> Prog. comp. </th>
                      <th scope="col">Editar</th>
                      <th scope="col">Seg. de fases</th>

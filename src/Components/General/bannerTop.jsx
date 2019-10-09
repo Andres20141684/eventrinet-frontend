@@ -11,9 +11,11 @@ class BannerTop extends Component{
   constructor(props) {
     super(props);
     this.state = {
+        user: [],
         visible : false,
         role: null,
-        name: "Iniciar Sesion"
+        name: "Iniciar Sesion",
+        SignUp: "Registrarse"
         
     }
   }
@@ -41,6 +43,7 @@ class BannerTop extends Component{
           </div>          
           <div class="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
               <div className="list-inline-item" align="right">
+              <a className="nav" href="/signUp" data={"/"} style={{color:"#6CDCD6",paddingRight:20}}>{this.state.SignUp} </a>
                 <a className="nav" href="/login" data={"/"} style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name} </a>            
               </div>
               <li class="nav-item dropdown">

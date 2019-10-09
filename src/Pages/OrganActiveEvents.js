@@ -13,12 +13,12 @@ const Networking = require('./../Network/Networking.js') ;
 function Botones(){
     return ( 
     <div>
-         <h2><br/></h2>
-                    <h3>
-                    <button class="mybutton" style={{float:'left'}}>Atras</button>
-                    <button class="mybutton" style={{float:'right'}}>Guardar</button>
-                    <br/><br/>
-                    </h3>
+        <h2><br/></h2>
+        <h3>
+        <button class="mybutton" style={{float:'left'}}>Atras</button>
+        <button class="mybutton" style={{float:'right'}}>Guardar</button>
+        <br/><br/>
+        </h3>
     </div>
     )
 }
@@ -36,7 +36,7 @@ class OrganActiveEvents extends Component{
         bannTop : BannerTop,
         bannBot : BannerBottom,
         formActives: Organizador_ActiveEventsTable,
-        formRecord:Organizador_HistoryventsTable,
+        formRecord: Organizador_HistoryventsTable,
         datos_tabla1:  null,
         datos_tabla2: null,
         msg: "Not Connected",
@@ -74,14 +74,12 @@ class OrganActiveEvents extends Component{
                         <Botones/>
                     </div>
                 </div>
+                <br/><br/>
+            <this.state.bannBot/>
                 </div>
 
-                </div>
                 
-            </div>    
-            <br/><br/>
-            <this.state.bannBot/>
-            </div>
+            
         );
     }
 }
