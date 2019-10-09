@@ -40,24 +40,24 @@ class StepTwo extends Component{
                 <Row>
                 <div class="form-group col-md-6">
                     <label> Criterio para evaluar preferencia de evaluadores:</label>
-                    <form >
+                    <div class="form-group col-md-6">                    
+                    <div>
                         <Form.Check
                             type="radio" inline
                             label="Categorias"
-                            name="formHorizontalRadios"
-                            id="rdCategry"
-                            checked={props.rdCategry}
-                            onChange={props.handleChangeRadio}
+                            name="formHorizontalRadios_1"
+                            id="formHorizontalRadios1"
+                            
                         />
                         <Form.Check
                             type="radio" inline
                             label="Propuestas"
-                            name="formHorizontalRadios"
-                            id="formHorizontalRadios1"
-                            checked={props.rdPropuest}
-                            onChange={props.handleChangeRadio}
+                            name="formHorizontalRadios_1"
+                            id="formHorizontalRadios2"
+                            
                         />
-                    </form>
+                    </div>
+                </div>
                 </div>
                 </Row>
 

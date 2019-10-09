@@ -138,3 +138,9 @@ body{
     height: 400px;
     overflow: auto;
   }
+
+  .line-top{
+    border: 1px solid #6CDCD6;
+    margin-bottom: 0;
+    margin-top: 0;
+  }

@@ -31,56 +31,38 @@ class BannerTop extends Component{
   render(){
     //debugger;
     return (
-      <div id="bannerTop" style={styles.banner} class="navbar-fixed-top"><br/>
+      <div id="bannerTop" style={styles.banner}><br/>
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
-            <a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="250"/></a>
-          </div>
-          <div className="list-inline-item" align="right">
-            <a className="nav" href="/login" style={{color:"#6CDCD6",paddingRight:20}}>Login</a>            
-          </div>
-        </div>
-        {/*<hr style={{
-          borderBottomWidth:0,
-          borderBottomColor:'#6CDCD6',
-          width:'1'
-        }}>
-      </hr>*/}
-        <div>  
-        {/*<header class="Header" role="banner">
-          <div class="Header-item Header-item--full">
-            <div class="header-search mr-3 scoped-search site-scoped-search js-site-searh position-relative js-jump-to" role="combobox" aria-owns="jump-to-result" aria-lavel="Buscar..." aria-haspopup="listbox" aria-expanded="false">
-              <div class="position-relative">
+            <a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="200"/></a>
+          </div>          
+          <div class="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
+              <div className="list-inline-item" align="right">
+                <a className="nav" href="/login" style={{color:"#6CDCD6",paddingRight:20}}>Login</a>            
               </div>
+              <li class="nav-item dropdown">
+                  <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                    <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" class="avatar" alt="Avatar"/>
+                  </a>
+                  <ul class="dropdown-menu">
+                      <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a></li>
+                      <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Ajustes</a></li>
+                      <li class="divider dropdown-divider"></li>
+                      <li><a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Cerrar sesion</a></li>
+                  </ul>
+              </li> 
             </div>
-            <nav class="d-flex" arial-label="Global"> 
-              <a class="js-selected-navigation-item Header-link mr-3" arial-label="Inicio" href="/">Inicio</a>
-              <a class="js-selected-navigation-item Header-link mr-3" arial-label="Eventos" href="/events">Eventos</a>
-              <a class="js-selected-navigation-item Header-link mr-3" arial-label="Convocatoria" href="/announcements">Convocatoria</a>
-              <div class="Header-item position-relative mr-0 dropdown-caret" arial-label="Opciones" role="button">Opciones
-                <details class="details-overlay details-reset" open="">
-                  <summary class="Header-link" arial-label="Opciones..." aria-haspopup="menu" role="button">
-                    <span class="dropdown-caret"></span>
-                  </summary>
-                  <details-menu class="dropdown-menu dropdown-menu-sw" role="menu">
-                    <a class="dropdown-item" role="menuitem" href="#">Mis inscripciones</a>
-                    <a class="dropdown-item" role="menuitem" href="#">Mis propuestas</a>
-                    <a class="dropdown-item" role="menuitem" href="/organActiveEvents">Organizador</a>
-                    <a class="dropdown-item" role="menuitem" href="/presidentEvents">Presidente</a>
-                    <a class="dropdown-item" role="menuitem" href="/EvaluadorEventos">Evaluador</a>
-                  </details-menu>
-                </details>
-              </div>
-            </nav>
-          </div>
-        </header>
-      */}
+        </div>
+        <div style={{paddingRight:20, paddingLeft:20}}><hr  class="line-top"/></div>
+    
+        <div>  
+        
         <nav class="navbar navbar-default navbar-expand-xl navbar" style={styles.navbar}>
           <button class="navbar-toggler scrollbar scrollbar-primary" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <i class="navbar-toggler-icon fa fa-bars" style={styles.fa} aria-hidden="true"></i>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown" style={{}}>
             <ul class="nav navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="/"><b><font size="3" color="#6CDCD6">Inicio</font></b><span class="sr-only">(current)</span></a>
@@ -112,19 +94,6 @@ class BannerTop extends Component{
                     <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
               </div>
             </form>            
-            <ul class="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
-              <li class="nav-item dropdown">
-                  <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
-                    <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" class="avatar" alt="Avatar"/>
-                  </a>
-                  <ul class="dropdown-menu">
-                      <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a></li>
-                      <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Ajustes</a></li>
-                      <li class="divider dropdown-divider"></li>
-                      <li><a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Cerrar sesion</a></li>
-                  </ul>
-              </li> 
-            </ul>
           </div>
         </nav>
         </div>
@@ -140,8 +109,6 @@ var styles = {
   banner:{
     backgroundColor: '#002D3D',
     paddintTop:0,
-    paddingBottom: 0,
-    paddingRight:0,
     FontSize: 20,
     color:'#6CDCD6',
   }
@@ -152,6 +119,8 @@ var styles = {
   },
   navbar:{
     backgroundColor:'#002D3D',
-    borderColor:'#002D3D'
+    borderColor:'#002D3D',
+    paddingLeft:30,
+    paddingRight:30,
   }
 }
