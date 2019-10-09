@@ -14,7 +14,7 @@ class ArrayDinamics extends Component{
         }
       }
       componentWillMount(){
-        this.setState({array:this.props.value.camposPerson})
+        this.setState({array:this.props.value[this.props.campo]})
       }
 
       addClick() {
@@ -28,7 +28,7 @@ class ArrayDinamics extends Component{
         let val = this.state.array;
         val[i][str] = event.target.value;
         this.setState({ values:val });
-        this.props.handleChange4(this.state.array,this.props.index,"camposPerson")
+        this.props.handleChange4(this.state.array,this.props.index,this.props.campo)
         console.log(this.state)
       }
 
@@ -36,7 +36,7 @@ class ArrayDinamics extends Component{
         let values = [...this.state.array];
         values.splice(this.state.array.length-1, 1);
         this.setState({ array:values, size:this.state.size-1 });
-        this.props.handleChange4(values,this.props.index,"camposPerson")
+        this.props.handleChange4(values,this.props.index,this.props.campo)
       }
 
       render(){
@@ -52,9 +52,6 @@ class ArrayDinamics extends Component{
                                 <Col>
                                 <input type="text" onChange={(e)=>this.handleChange5(e,index,"enunciado")} value={this.state.array[index].enunciado}/>
                                 </Col> 
-                                <Col>
-                                <input type="checkbox">
-                                </input></Col>
                           </Row>
                           <Row>
                               <Col>
@@ -63,6 +60,14 @@ class ArrayDinamics extends Component{
                                 <Col>
                                 <input type="text" onChange={(e)=>this.handleChange5(e,index,"descripcion")} value={this.state.array[index].descripcion}/>
                               </Col>
+                          </Row>
+                          <Row>
+                          <Col>
+                                <Col>
+                                <label for="title">Obligatorio</label>
+                                </Col>
+                                <input type="checkbox">
+                                </input></Col>
                           </Row>
                           <br/> 
                       </div>

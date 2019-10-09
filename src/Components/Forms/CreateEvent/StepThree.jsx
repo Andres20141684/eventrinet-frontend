@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css";
+import { throwStatement } from '@babel/types';
 
 class StepThree extends Component{
     constructor(){
@@ -17,14 +18,28 @@ class StepThree extends Component{
       }
       this.handleChange3=this.handleChange3.bind(this)
       this.handleChange4=this.handleChange4.bind(this)
+      this.handleChangeFaseDate=this.handleChangeFaseDate.bind(this)
+      this.DateFormat=this.DateFormat.bind(this)
+      this.handleCheck=this.handleCheck.bind(this)
     }
 
   componentWillMount(){
     this.setState({values:this.props.fases})
   }
+  DateFormat(date,json,tag){
+    let aux=date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() 
+    json[tag]=aux
+  }
+  handleCheck(event,i,str,str2){
+    let val = this.state.values;
+    val[i][str]=!val[i][str]
+    val[i][str2]=val[i][str]===true?1:0
+    this.setState({ values:val})
+    this.props.handleChange2(this.state.values,"fases")
+  }
   handleChange3(event,i,str) {
     let val = this.state.values;
-    val[i][str] = event.target.value;
+    val[i][str] = event.type==="checkBox"?event.target.checked:event.target.value
     this.setState({ values:val });
     this.props.handleChange2(this.state.values,"fases")
     console.log(this.state)
@@ -36,9 +51,17 @@ class StepThree extends Component{
     this.props.handleChange2(this.state.values,"fases")
   }
 
+  handleChangeFaseDate(value,i,str,str2){
+    let val = this.state.values;
+    val[i][str] = value;
+    this.DateFormat(value,val[i],str2)
+    this.setState({ values:val });
+    this.props.handleChange2(this.state.values,"fases")
+  }
+
   addClick() {
     this.setState(prevState => ({
-      values: [...prevState.values, {secuencia:this.state.values.length+1,camposPerson:[{}]}]
+      values: [...prevState.values, {secuencia:this.state.values.length+1,camposPerson:[],criterios:[],reqArch:false,reqEval:false}]
     }));
   }
 
@@ -69,10 +92,14 @@ class StepThree extends Component{
                     style={{float:'right'}}
                 />:null}
                 <this.state.form_1 
+                    camposPerson="camposPerson"
+                    criterios="criterios"
                     value={this.state.values[index]} 
                     index={index}
                     onChange={this.handleChange3}
-                    handleChange4={this.handleChange4}/>
+                    handleChange4={this.handleChange4}
+                    handleChangeFaseDate={this.handleChangeFaseDate}
+                    handleCheck={this.handleCheck}/>
                 </div>
           </div>
         ))}
