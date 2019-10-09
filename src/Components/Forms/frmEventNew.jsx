@@ -18,7 +18,7 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{secuencia:1,camposPerson:[],criterios:[],reqArch:false,reqEval:false}],
+            fases:[{secuencia:1,camposPerson:[{obli:false}],criterios:[{obli:false}],reqArch:false,reqEval:false}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:new Date(),

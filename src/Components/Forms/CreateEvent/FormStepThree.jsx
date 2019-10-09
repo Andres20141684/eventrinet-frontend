@@ -64,6 +64,8 @@ class FormStepThree extends Component{
                                 type="number" 
                                 minValue="0"
                                 maxValue="20"
+                                onChange={(e) => this.props.onChange(e,this.props.index,"numEvaluadores")}
+                                value={this.props.value.numEvaluadores}
                             />
                             </Col>
                         </Row>

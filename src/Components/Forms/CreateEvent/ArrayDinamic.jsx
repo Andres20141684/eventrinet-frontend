@@ -24,9 +24,18 @@ class ArrayDinamics extends Component{
         }));
       }
 
+
       handleChange5(event,i,str) {
         let val = this.state.array;
         val[i][str] = event.target.value;
+        this.setState({ values:val });
+        this.props.handleChange4(this.state.array,this.props.index,this.props.campo)
+        console.log(this.state)
+      }
+      handleCheckBox(event,i,str,str2){
+        let val = this.state.array;
+        val[i][str]=!val[i][str];
+        val[i][str2]=val[i][str]===true?1:0
         this.setState({ values:val });
         this.props.handleChange4(this.state.array,this.props.index,this.props.campo)
         console.log(this.state)
@@ -66,7 +75,7 @@ class ArrayDinamics extends Component{
                                 <Col>
                                 <label for="title">Obligatorio</label>
                                 </Col>
-                                <input type="checkbox">
+                                <input type="checkbox" onClick={(e)=>this.handleCheckBox(e,index,"obli","obligatorio")} checked={this.state.array[index].obli}>
                                 </input></Col>
                           </Row>
                           <br/> 
