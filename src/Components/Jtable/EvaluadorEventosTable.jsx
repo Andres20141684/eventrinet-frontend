@@ -65,6 +65,7 @@ class EvaluadorEventosTable extends Component {
                  </tbody>
               </table>
            </div>
+
         )
      }
 }

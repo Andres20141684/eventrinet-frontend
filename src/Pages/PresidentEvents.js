@@ -24,20 +24,15 @@ function Botones(){
     </div>
     )
 }
-function BodyPanel(){
-    return ( 
-    <div>
-        <br/>
-        <h1>Asigna los evaluadores a las propuestas, edita las fases o aprueba las propuestas de un evento<br/><br/></h1>
-        <br/>
-    </div>
-    )
-}
+
 function MainTittle(){
     return ( 
     <div>
-        <h1><font size="33">Presidente - Eventos</font><br/><br/></h1>
+    <div style={{marginLeft:15}}>
+        <h1><br/>Presidente - Eventos</h1>
     </div>
+    <div style={{marginLeft:40,marginTop:25}} ><h4>Asigna los evaluadores a las propuestas, edita las fases o aprueba las propuestas de un evento</h4></div>
+    </div>    
     )
 }
 class PresidentEvents extends Component{
@@ -51,15 +46,15 @@ class PresidentEvents extends Component{
         /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
         var datos1 ={ //state is by default an object
             chupetinesGA: [
-                { listaEventos: 'WasifWasifWasifWasifWasif',
+                { listaEventos: 'Eventoo1',
                  propAsignadas: '1/2', 
                  iniEval: 21, 
                  opt1: '', opt: ''},
-                 { listaEventos: 'WasifWasifWasifWasifWasif',
+                 { listaEventos: 'Eventoo2',
                  propAsignadas: '1/2', 
                  iniEval: 21, 
                  opt1: '', opt: ''},
-                 { listaEventos: 'WasifWasifWasifWasifWasif',
+                 { listaEventos: 'Eventoo3',
                  propAsignadas: '1/2', 
                  iniEval: 21, 
                  opt1: '', opt: ''}
@@ -81,12 +76,8 @@ class PresidentEvents extends Component{
             <div> 
                 <this.state.bannTop />
                 <MainTittle/>
-                <div class="container">
-                    <div class="panel panel-default">
-
-                        < BodyPanel/>
-
-                        
+                <div class="container" >
+                <div class ="panel-body">
                         <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
                                 <TabList>
                                     <Tab>Eventos por iniciar</Tab>
@@ -103,6 +94,7 @@ class PresidentEvents extends Component{
                                 </TabPanel>
                             </Tabs>
                         <Botones/>
+
                     </div>
                 
                    

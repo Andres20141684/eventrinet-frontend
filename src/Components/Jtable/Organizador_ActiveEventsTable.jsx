@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import '../../styles/style_sheets.css'
 
 const Networking = require('./../../Network/Networking.js') ;
 
@@ -49,6 +50,7 @@ class Organizador_ActiveEventsTable  extends Component {
                      {( {programaCompletado} ===1 )  ? <i class="fa fa-check-circle"></i> : <i class="fa fa-times-circle"></i> }
                      </button>
                   </h1>
+
                </td> 
                <td>
                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-edit"></i></button>
@@ -62,6 +64,7 @@ class Organizador_ActiveEventsTable  extends Component {
                </td> 
                <td>
                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-times"></i></button>
+
                </td> 
          </tr>
          )
@@ -72,8 +75,11 @@ class Organizador_ActiveEventsTable  extends Component {
         //this.state = this.props.data
         //console.log('this.props.data:', this.props.data);
         return (
-           <div >
-              <h2 class="card-title" id='title' >Lista de Eventos activos</h2>
+           <div class="panel panel mypanel" >
+              <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
+                  <h3>Lista de Eventos activos</h3>
+                  <a  class="pull-right" href="/organizerNewEvent" value="Nuevo"style={{marginRight:30,marginBottom:20}}>Nuevo</a>
+               </div>
               <div  class="table-responsive">
               <table class="table-light" id='chupetinesGA'>
                <thead class="thead-light">

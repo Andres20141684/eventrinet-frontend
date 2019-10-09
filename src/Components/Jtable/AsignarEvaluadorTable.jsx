@@ -44,18 +44,20 @@ class AsignarEvaluadorTable extends Component {
                            </td>  
                         </tr>
                   )
+
         })
     }
     renderTableHeader() {
-       
       return (
-       <tr>
-          <th width="20%">Lista de eventos</th>
-          <th width="18%">Propuestas<br/>Asignadas/Total </th>
-          <th width="22%">Inicio Evaluadion Limite</th>
-          <th width="15%">Asignar Evaluadores (Evaluador - Presidente) </th>
-          <th width="15%">Editar fases</th>
-       </tr>
+         <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
+            <tr>
+               <th width="20%">Lista de eventos</th>
+               <th width="18%">Propuestas<br/>Asignadas/Total </th>
+               <th width="22%">Inicio Evaluacion Limite</th>
+               <th width="15%">Asignar Evaluadores (Evaluador - Presidente) </th>
+               <th width="15%">Editar fases</th>
+            </tr>
+       </thead>
       )
    }
 
@@ -63,15 +65,12 @@ class AsignarEvaluadorTable extends Component {
      render() {
         return (
             
-           <div>
-              <br/>
-              <h1 id='title'><br/>Listado de enventos por iniciar</h1><br/><br/>
-              <h2></h2>
-              <table id='chupetinesGA'>
-                 <tbody>
-                    {this.renderTableHeader()}
+         <div  class="table-responsive">
+              <table class="table  table-hover" >
+                  {this.renderTableHeader()}
+                  <tbody>                    
                     {this.renderTableData()}
-                 </tbody>
+                  </tbody>
               </table>
            </div>
         )

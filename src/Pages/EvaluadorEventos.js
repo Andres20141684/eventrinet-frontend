@@ -4,7 +4,7 @@ import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
 import EvaluadorEventosTable from '../Components/Jtable/EvaluadorEventosTable';
 import EvaluadorEventosEvaluarTable from '../Components/Jtable/EvaluadorEventosEvaluarTable';
-
+import Row from 'react-bootstrap/Row';
 
 import '../styles/style_record.css'; 
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
@@ -12,6 +12,7 @@ import 'react-tabs/style/react-tabs.css'
 import ReactTable from 'react-table';
 import 'react-table/react-table.css'
 /*AQUI  ASIGNO EVALUADORES*/
+
 
 
 class EvaluadorEventos extends Component{
@@ -63,11 +64,9 @@ class EvaluadorEventos extends Component{
                         </h3>
                     
                     
+
                 </div>
-                
-                
                 </div>
-                
                 <this.state.bannBot/>
             </div>
         );

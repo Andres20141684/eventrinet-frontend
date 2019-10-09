@@ -23,9 +23,11 @@ function Botones(){
     )
 }
 function MainTittle(){
-    return ( 
-    <div >
-        <h1><br/>Organizador - Mis eventos<br/><br/></h1>
+    return ( <div>
+    <div style={{marginLeft:15}}>
+        <h1><br/>Organizador - Mis eventos</h1>
+    </div>
+    <div style={{marginLeft:40,marginTop:25}} ><h4>Gestion de eventos activos e históricos</h4></div>
     </div>
     )
 }
@@ -46,20 +48,15 @@ class OrganActiveEvents extends Component{
         
         //var inputServer = this.getData();
         /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
-        
-         
+
         return(
             <div> 
-            <this.state.bannTop />            
+            <this.state.bannTop />
             <MainTittle/>
-            <div class="container">
-                <div >
-                <div class="card">
-                    <div class="card-title">
-                        <h2>Gestion de eventos activos e históricos</h2>
-                    </div>
-                    <div class ="card-body">
+            <div class="container" >
+                <div class ="panel-body">
                     <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
+
                             <TabList>
                                 <Tab>Eventos activos</Tab>
                                 <Tab>Historial de eventos</Tab>
@@ -78,9 +75,12 @@ class OrganActiveEvents extends Component{
                     </div>
                 </div>
                 </div>
+
                 </div>
-                <br/><br/>
-                <this.state.bannBot/>
+                
+            </div>    
+            <br/><br/>
+            <this.state.bannBot/>
             </div>
         );
     }

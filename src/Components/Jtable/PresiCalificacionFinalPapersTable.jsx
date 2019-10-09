@@ -43,8 +43,8 @@ class PresiCalificacionFinalPapersTable extends Component {
         })
     }
     renderTableHeader() {
-       
         return (
+         <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
          <tr>
             <th width="40%">Lista de eventos</th>
             <th width="15%">Fase actual/Num. Fases </th>
@@ -52,23 +52,21 @@ class PresiCalificacionFinalPapersTable extends Component {
             <th width="25%">Calificación (Evaluador - Presidente) </th>
             <th width="15%">Aprobar Propuestas</th>
          </tr>
+         </thead>
         )
      }
   
      render() {
         return (
             
-           <div>
-              
-              <h1 id='title'><br/>Listado de enventos en fases de evaluacion</h1><br/>
-              <h2></h2>
-              <table id='chupetinesGA'>
-                 <tbody>
-                    {this.renderTableHeader()}
-                    {this.renderTableData()}
-                 </tbody>
-              </table>
-           </div>
+         <div  class="table-responsive">
+         <table class="table  table-hover" >
+            {this.renderTableHeader()}
+            <tbody>                    
+               {this.renderTableData()}
+            </tbody>
+         </table>
+         </div>
         )
      }
 }

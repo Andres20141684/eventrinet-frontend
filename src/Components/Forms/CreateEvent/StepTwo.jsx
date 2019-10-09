@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container'
 import Chip from '@material-ui/core/Chip';
 import ArrayOfChips from './ArrayOfChips'
 import '../../../styles/style_sheets.css'; 
@@ -10,74 +11,77 @@ import '../../../styles/style_sheets.css';
 class StepTwo extends Component{    
 
     formComiteOrganizacional(props){
-        return (
-            <div>
-                <h1>Comité Organizacional</h1>
-                <Form>
-                <br></br>
-                <ArrayOfChips lista={props.comite1} handleadd={props.handleComiteadd}/> 
-                </Form>
-    </div>
+        return (            
+            <div class="panel panel-default">
+            <div class="panel-heading"><h1>Comité Organizacional</h1></div>
+            <div class="panel-body">
+                <div class="form-group col-md-6">
+                    <ArrayOfChips lista={props.comite1} handleadd={props.handleComiteadd}/> 
+                </div>
+            </div>
+            </div>
         )
     }
 
     formComiteAcademico(props){
-        return (
-            <div>
-                <h1>Comité Académico</h1>
-                <Form>                                
-                <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label> Presidente</Form.Label>                    
-                    <br></br>
-                    <ArrayOfChips lista={props.presidente} handleadd={props.handlePresidenteadd}/> 
-                    <br></br>
-                                      
-                </Form.Group>
+        return (            
+            <div class="panel panel-default">
+            <div class="panel-heading"><h1>Comité Académico</h1></div>
+            <div class="panel-body"> 
+                <Row >
+                    <div class="form-group col-md-6">
+                        <label> Presidente</label>
+                        <div style={{marginLeft: 13}}>
+                        <ArrayOfChips lista={props.presidente} handleadd={props.handlePresidenteadd}/>                         
+                        </div>
+                    </div>
+                </Row> 
                 
-                <Form.Group>
-                <Form.Label>Criterio para evaluar preferencia de evaluadores:</Form.Label>
-                <Col>
-                    <Form.Check
-                    type="radio" inline
-                    label="Categorias"
-                    name="formHorizontalRadios"
-                    id="formHorizontalRadios1"
-                    />
-                    <Form.Check
-                    type="radio" inline
-                    label="Propuestas"
-                    name="formHorizontalRadios"
-                    id="formHorizontalRadios2"
-                    />
-                </Col>
-                </Form.Group>
+                <Row>
+                <div class="form-group col-md-6">
+                    <label> Criterio para evaluar preferencia de evaluadores:</label>
+                    <div class="form-group col-md-6">                    
+                    <div>
+                        <Form.Check
+                            type="radio" inline
+                            label="Categorias"
+                            name="formHorizontalRadios_1"
+                            id="formHorizontalRadios1"
+                            
+                        />
+                        <Form.Check
+                            type="radio" inline
+                            label="Propuestas"
+                            name="formHorizontalRadios_1"
+                            id="formHorizontalRadios2"
+                            
+                        />
+                    </div>
+                </div>
+                </div>
+                </Row>
 
-                <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label> Evaluadores</Form.Label>
-                    <br></br>    
-                    <ArrayOfChips lista={props.evaluadores} handleadd={props.handleEvaluadoradd}/> 
-                    <br></br>                  
-                </Form.Group>
-                </Form>
-    </div>
+                <Row >
+                    <div class="form-group col-md-6">
+                        <label> Presidente</label>
+                        <div style={{marginLeft: 13}}>
+                        <ArrayOfChips lista={props.evaluadores} handleadd={props.handleEvaluadoradd}/>                         
+                        </div>
+                    </div>
+                </Row> 
+            </div>
+            </div>
         )
     }
 
     render(){
-        return(
-        <div> 
-            <div class="panel panel-default">
-            <br></br>
-            <this.formComiteOrganizacional {...this.props}/>
-            <br></br>
+        return(        
+            <div class="panel-group">
+                <this.formComiteOrganizacional {...this.props}/>            
+                <br></br>
+                <this.formComiteAcademico {...this.props}/>       
+                <br></br>            
             </div>
-
-            <div class="panel panel-default"> 
-            <br></br>
-            <this.formComiteAcademico {...this.props}/>            
-            <br></br>
-            </div>            
-        </div>
         );
     }
 }
