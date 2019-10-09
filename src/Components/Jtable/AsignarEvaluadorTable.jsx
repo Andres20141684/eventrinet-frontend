@@ -1,24 +1,39 @@
 import React, { Component } from 'react'
 import './../../styles/Jtab.css'
+
+const Networking = require('./../../Network/Networking.js') ;
+
 class AsignarEvaluadorTable extends Component {
    constructor(props) {
-    
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+      console.log("HAAAAAAAAAAAAAAAAAAAAA")
+      /*Networking.populateDataPresiTab(1,1).then((value) => {
+            this.setState({datos_tabla: value});   
+            
+      });*/
       console.log("rzwetxrytcvygbuhnj"+this.props);
-      
    }
+   state = {
+      datos_tabla: [
+         {  nombre: 'AWS communnity day',
+            propAsignadas: '1/15', 
+            iniEval: '25/08/2019'
+         }]
+      
+
+  }
    handleClick = () => {
     console.log('this is:', this);
   }
   
    renderTableData() {
-        return this.state.chupetinesGA.map((element, index) => {
-            const { listaEventos, propAsignadas, iniEval} = element //destructuring
+        return this.state.datos_tabla.map((element, index) => {
+            const { nombre, propAsignadas, iniEval} = element //destructuring
             
                      return (
                         
                         <tr>
-                           <td>{listaEventos} </td>
+                           <td>{nombre} </td>
                            <td>{propAsignadas}</td>
                            <td>{iniEval}</td>
                            <td>
@@ -46,7 +61,6 @@ class AsignarEvaluadorTable extends Component {
 
   
      render() {
-        this.state = this.props.data
         return (
             
            <div>

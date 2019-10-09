@@ -67,7 +67,12 @@ class PresidentEvents extends Component{
          }
          var datos2 ={ //state is by default an object
             chupetinesGA: [
-               { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 21, calEva: 'wasif@email.com',calPresi:'Si',opt: ''},
+               { listaEventos: 'WasifWasifWasifWasifWasif', 
+               fases: '1/2', 
+               fechalimite: 21, 
+               calEva: 'wasif@email.com',
+               calPresi:'Si',
+               opt: ''},
                { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 19, calEva: 'ali@email.com' ,calPresi:'Si'   ,opt: ''},
                { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 16, calEva: 'saad@email.com' ,calPresi:'Si' ,opt: ''},
               ]
@@ -88,16 +93,12 @@ class PresidentEvents extends Component{
                                     <Tab>Eventos en fase de evaluacion</Tab>
                                 </TabList>
                                 <TabPanel>
-                                
-                                
-                                        < AsignarEvaluadorTable data ={datos1}/>
-                                        
-                                        
+                                    
+                                        < AsignarEvaluadorTable />
+                                       
                                 </TabPanel>
                                 <TabPanel> 
-                                    
-                                    < PresiCalificacionFinalPapersTable data ={datos2}/> 
-                                   
+                                    < PresiCalificacionFinalPapersTable/> 
                                    
                                 </TabPanel>
                             </Tabs>

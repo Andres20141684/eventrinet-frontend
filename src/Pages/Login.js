@@ -47,11 +47,11 @@ class Login extends Component{
                             <script src= "./login.js"></script>
 
                                 <div width="200" height="500" effect="fadeInUp">                                    
-                                    
+                                    <a href={this.state.pagPrev}>
                                     <div class="g-signin2" align="center" data-onsuccess="onSignIn" >
                                         
                                     </div>
-                                    
+                                    </a>
                                 </div>
                             </section>
                         </div>
