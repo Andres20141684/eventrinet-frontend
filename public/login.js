@@ -1,12 +1,11 @@
-const restURL = 'http://localhost:5000/api/eventos';
+const restURL = 'http://localhost:5000/api/';
 
 async function validar_sesion(var_email,var_given_name,var_family_name) {
-    console.log('INTENTO DE LOGIN!! en ' +restURL 
-    + 'validar_sesion'+var_email);
+    console.log('INTENTO DE LOGIN!!');
     try {
         console.log('RECIBI UN LOGIN: ' + var_email + var_given_name+ var_family_name);
         let response = await fetch(restURL 
-            + '/validar_sesion', {
+            + 'validar_session', {
             method: 'POST',
             mode: 'cors',
             headers: {

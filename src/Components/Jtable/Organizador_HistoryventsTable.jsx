@@ -15,14 +15,22 @@ class Organizador_HistoryventsTable extends Component {
       });
    }
    state = {
-      datos_tabla: []
-  }
+      datos_tabla: {
+         Eventos:[
+            {  
+               nombre: 'Datos1', 
+               fechaLimitePref: '21/03/2019',
+               preferencia: 'Por Categoria' 
+            }
+         ]
+      }
+   }
    handleClick = () => {
     console.log('this is:', this);
   }
   
    renderTableData() {
-        return this.state.datos_tabla.map((element, index) => {
+        return this.state.datos_tabla.Eventos.map((element, index) => {
          const {idEvento, nombre,descripcion,fechaIni,
             fechaFin,lugar,precios,numFases,estado,
             preferencia,tieneCameraRdy,programaCompletado,

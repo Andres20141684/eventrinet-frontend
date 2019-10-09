@@ -15,18 +15,24 @@ class Organizador_ActiveEventsTable  extends Component {
       console.log("rzwetxrytcvygbuhnj"+this.props);
    }
    state = {
-      datos_tabla: [{  nombre: 'Datos1', 
-      fechaLimitePref: '21/03/2019',
-      preferencia: 'Por Categoria' }]
+      datos_tabla: {
+         Eventos:[
+            {  
+               nombre: 'Datos1', 
+               fechaLimitePref: '21/03/2019',
+               preferencia: 'Por Categoria' 
+            }
+         ]
+   }
   }
    handleClick = () => {
     console.log('this is:', this);
   }
  
-
+   
    tableData() {
       
-        return this.state.datos_tabla.map((element, index) => {
+        return this.state.datos_tabla.Eventos.map((element, index) => {
          
          const {idEvento, nombre,descripcion,fechaIni,
             fechaFin,lugar,precios,numFases,estado,
@@ -36,16 +42,20 @@ class Organizador_ActiveEventsTable  extends Component {
          <tr>
                <td>{nombre}</td>
                <td>
-                  <h1><button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
-                  -<button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
+                  <h1>
+                     <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
+                     -
+                     <button class="btn_plus" onClick={this.handleClick} >
+                     {( {programaCompletado} ===1 )  ? <i class="fa fa-check-circle"></i> : <i class="fa fa-times-circle"></i> }
+                     </button>
                   </h1>
                </td> 
                <td>
                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-edit"></i></button>
                </td> 
                <td>
-                  <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus
-                  "></i></button>
+               
+                  <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus "></i></button>
                </td> 
                <td>
                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-play"></i></button>

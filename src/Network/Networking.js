@@ -57,8 +57,7 @@ export async function populateDataOrgTab1(idOrganizador) {
 }
 
 export async function populateDataOrgTab2(idOrganizador) {
-    console.log('INTENTO DE POST!! en ' +restURL 
-    + 'eventos/listar_eventos_historial');
+    
     try {
         console.log('RECIBI UN idOrganizador: ' + idOrganizador);
         let response = await fetch(restURL 
