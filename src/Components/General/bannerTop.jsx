@@ -109,7 +109,6 @@ var styles = {
   banner:{
     backgroundColor: '#002D3D',
     paddintTop:0,
-    
     FontSize: 20,
     color:'#6CDCD6',
   }

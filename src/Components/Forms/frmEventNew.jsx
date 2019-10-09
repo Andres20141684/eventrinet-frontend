@@ -14,14 +14,17 @@ export default class EventNew extends Component{
             fechaFE: '',
             fechaIC: new Date(),
             fechaFC: '',
-            rdCategry:false,
+            rdCategory:false,
             rdPropuest:false,
             comite1:[],
             presidente:[],
             campos:[],
             evaluadores:[],
             categorias:[],
-            aux: frmCreateEvent     
+            aux: frmCreateEvent,
+            fechaEndCamReady:'',
+            fechaStartCamReady:'', 
+            fechaEndEval:'',
 
         }
         this.handleChange = this.handleChange.bind(this)
@@ -36,13 +39,36 @@ export default class EventNew extends Component{
         this.handleDate4=this.handleDate4.bind(this)
         this.handleChangeRadio=this.handleChangeRadio.bind(this)
         this.handlePrint=this.handlePrint.bind(this)
+        
+        this.handleDateEndCamReady=this.handleDateEndCamReady.bind(this)
+        this.handleDateStartCamReady=this.handleDateStartCamReady.bind(this)
+        this.handleDateEndEval=this.handleDateEndEval.bind(this)
       }
+
+      handleDateEndCamReady(date){
+        this.setState({
+          fechaEndCamReady:date
+        })
+      }
+      handleDateStartCamReady(date){
+        this.setState({
+          fechaStartCamReady:date
+        })
+      }
+      handleDateEndEval(date){
+        this.setState({
+          fechaEndEval:date
+        })
+      }
+
+
 
       handleDate(date){
         this.setState({
           fechaIE:date
         })
       }
+
 
       handleDate2(date){
         this.setState({
@@ -115,15 +141,13 @@ export default class EventNew extends Component{
         console.log(JSON.stringify(this.state));
       }
 
-      
-
       render() {    
         return (
           <div className='container'>
               <this.state.aux 
               handlePrint={this.handlePrint}
               
-              rdCategry={this.state.rdCategry}
+              rdCategory={this.state.rdCategory}
               rdPropuest={this.state.rdPropuest}
               evaluadores={this.state.evaluadores}
               presidente={this.state.presidente}
@@ -148,7 +172,10 @@ export default class EventNew extends Component{
               handleDate2={this.handleDate2}
               handleDate={this.handleDate}
               handleComiteadd={this.handleComiteadd}
-              handleChange={this.handleChange} 
+              handleChange={this.handleChange}
+              handleDateEndCamReady={this.handleDateEndCamReady}
+              handleDateStartCamReady={this.handleDateStartCamReady}
+              handleDateEndEval={this.handleDateEndEval}             
               />
           </div>
         )

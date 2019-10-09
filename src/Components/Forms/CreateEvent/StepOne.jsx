@@ -1,12 +1,7 @@
 import React from 'react'
 import 'react-simple-datepicker/dist/index.css';
-import { FormGroup } from '@material-ui/core';
 import Form from 'react-bootstrap/Form';
-import Button from '@material-ui/core/Button';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container'
-import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css";
 import ArrayOfChips from './ArrayOfChips';
 import '../../../styles/style_sheets.css'

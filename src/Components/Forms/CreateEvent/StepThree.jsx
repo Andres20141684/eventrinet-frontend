@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { FormGroup } from '@material-ui/core';
 import Form from 'react-bootstrap/Form'
 import FormStepThree from './FormStepThree';
+import Row from 'react-bootstrap/Row';
 
+
+
+  
 class StepThree extends Component{
     state = { 
         values: [{ value: null }],
         form_1: FormStepThree,
+        checked:false,
     };  
 
   handleChange(i, event) {
@@ -31,6 +36,15 @@ class StepThree extends Component{
     alert("A name was submitted: " + this.state.values.join(", "));
     event.preventDefault();
   }*/
+  
+  handleCheckboxChange = event =>{
+    this.setState({ checked: event.target.checked });
+    const isChecked = this.state.checked;
+    if (isChecked){
+      console.log("bloquea");
+    }
+  }
+    
 
   render() {
     return (
@@ -38,16 +52,20 @@ class StepThree extends Component{
         <div>
         {this.state.values.map((el, index) => (
           <div key={index} class="panel panel-default">
-            <div class="panel-heading"><h1>Fase 0{index+1}</h1></div>
+            <div class="panel-heading">
+              <h1>Fase 0{index+1}
+              <a  style={{marginRight:10,marginBottom:10,float:"right"}}>
+                <input
+                  type="button"
+                  class="btn btn-danger"
+                  value="Eliminar fase"
+                  onClick={() => this.removeClick(index)}
+                  style={{float:'right'}}
+              />
+              </a></h1>
+            </div>
             <div class="panel-body">
               <div>
-                  <input
-                      type="button"
-                      class="btn btn-danger"
-                      value="Eliminar fase"
-                      onClick={() => this.removeClick(index)}
-                      style={{float:'right'}}
-                  />
                   <this.state.form_1   
                       value={el.value || ""} 
                       onChange={e => this.handleChange(index, e)}/>
@@ -59,28 +77,63 @@ class StepThree extends Component{
           <input type="button"  class="btn btn-primary" value="Agregar mas fases" onClick={() => this.addClick()} />           
         </div>
             
-        
-            <h1>Incluir Camera Ready</h1>
-            <div class="panel panel-default">
-            <FormGroup action="" class="card card-body">
-                <div class="form-group">                    
-                <div>
-                    <Form.Check
-                        type="radio" inline
-                        label="Si"
-                        name="formHorizontalRadios"
-                        id="formHorizontalRadios1"
-                    />
-                    <Form.Check
-                        type="radio" inline
-                        label="No"
-                        name="formHorizontalRadios"
-                        id="formHorizontalRadios2"
-                    />
-                </div>
-                </div>
-            </FormGroup>
-        </div>        
+            <br/>
+
+            <div>
+            <h3>Incluir Camera Ready</h3>
+            <input 
+                type="checkbox" 
+                checked={this.state.checked}
+                onChange={this.handleCheckboxChange}
+                />
+            </div>
+            <div class="panel panel-default">                
+            <div class="panel-body">
+              <FormGroup action="" class="card card-body">
+                  <Row>            
+                  <div class="form-group col-md-3">
+                      <label >Fecha Inicio</label>
+                      <Form.Control
+                        type="date"
+                        id="id_IniCamReady"
+                        selected={this.props.fechaIC}
+                        minDate={new Date()}
+                        onChange={this.props.handleDateStartCamReady}
+                        class="form-control"
+                        disabled ={this.state.checked}
+                      />
+                  </div>
+                  <div class="form-group col-md-3">
+                      <label >Fecha Fin</label>
+                      <Form.Control
+                        type="date"
+                        id="id_FinCamReady"
+                        selected={this.props.fechaFC}
+                        minDate={this.props.fechaIC}
+                        onChange={this.props.handleDateEndCamReady}
+                        disabled ={this.state.checked}
+                      />
+                  </div>
+                </Row>
+                                  
+              </FormGroup>
+            </div>
+            </div>
+
+            <h3>Fecha límite de elección de preferencias para los evaluadores</h3>            
+              <FormGroup action="" class="card card-body">  
+                  <Row>            
+                  <div class="form-group col-md-3">                      
+                      <Form.Control
+                        type="date"
+                        selected={this.props.fechaIC}
+                        minDate={new Date()}
+                        onChange={this.props.handleDateEndEval}
+                        class="form-control"
+                      />
+                  </div>
+                </Row>        
+              </FormGroup><br/>
       </form>
     );
   }
