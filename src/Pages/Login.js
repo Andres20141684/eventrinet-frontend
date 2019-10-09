@@ -3,15 +3,20 @@ import BannerLogin from '../Components/General/bannerLogin';
 import BannerBottom from '../Components/General/bannerBottom'
 import '../styles/style_record.css'; 
 
+var request=null;
+var loggedin = false;
+
 
 class Login extends Component{
     state = {
         bannerLogin: BannerLogin,
         bannBot : BannerBottom,
-
-      }
-   
+        usuario : null,
+        pagPrev: "/"
+    }
+    
     render(){
+
         return(<div>            
             <body>  
                 <div class="component-header"  width="300">
@@ -38,11 +43,16 @@ class Login extends Component{
                         <div class="right-box">
                             <br/>
                             <label for="exampleInputEmail1"  style={{textAlignVertical: "center",textAlign: "center"}}>Ingresar con cuenta gmail</label>
-                            <section>
+                            <section class="loginButton">
                             <script src= "./login.js"></script>
-                                <modal width="100" height="300" effect="fadeInUp" onClickAway={() => this.closeModal()}>                                    
-                                    <div class="g-signin2" data-onsuccess="onSignIn" ></div>
-                                </modal>
+
+                                <div width="200" height="500" effect="fadeInUp">                                    
+                                    <a href={this.state.pagPrev}>
+                                    <div class="g-signin2" align="center" data-onsuccess="onSignIn" >
+                                        
+                                    </div>
+                                    </a>
+                                </div>
                             </section>
                         </div>
                         </div>

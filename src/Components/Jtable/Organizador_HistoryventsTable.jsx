@@ -1,28 +1,49 @@
 import React, { Component } from 'react'
 import './../../styles/Jtab.css'
+
+const Networking = require('./../../Network/Networking.js') ;
+
 class Organizador_HistoryventsTable extends Component {
    constructor(props) {
     
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      console.log("rzwetxrytcvygbuhnj"+this.props);
       
+      console.log("HAAAAAAAAAAAAAAAAAAAAA")
+      Networking.populateDataOrgTab1(4).then((value) => {
+            this.setState({datos_tabla: value});   
+            
+      });
+   }
+   state = {
+      datos_tabla: {
+         Eventos:[
+            {  
+               nombre: 'Datos1', 
+               fechaLimitePref: '21/03/2019',
+               preferencia: 'Por Categoria' 
+            }
+         ]
+      }
    }
    handleClick = () => {
     console.log('this is:', this);
   }
   
    renderTableData() {
-        return this.state.chupetinesGA.map((element, index) => {
-        const { listaEventos} = element //destructuring
-        return (
+        return this.state.datos_tabla.Eventos.map((element, index) => {
+         const {idEvento, nombre,descripcion,fechaIni,
+            fechaFin,lugar,precios,numFases,estado,
+            preferencia,tieneCameraRdy,programaCompletado,
+            fechaMaxPref,numeroPropuestas} = element
+            return (
             <tr >
-                <td>{listaEventos}</td>
+                <td>{nombre}</td>
                 <td>
                    <div >
                    <button class="btn_plus" style={{justifyContent:"center", alignItems:"center"}} onClick={this.handleClick} ><i class="fa fa-download"></i></button>
                    </div>
                </td> 
-                </tr>
+            </tr>
         )
         })
     }
@@ -37,7 +58,7 @@ class Organizador_HistoryventsTable extends Component {
      }
   
      render() {
-        this.state = this.props.data
+        //this.state = this.props.data
         return (
          <div class="panel panel mypanel" >
          <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>

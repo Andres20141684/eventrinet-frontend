@@ -12,19 +12,6 @@ import 'react-table/react-table.css'
 
 
 
-
-function FillTable(){
-    return ( 
-    <div>
-        <button style={{float:'right'}}>Crear evento</button>
-        <br></br>
-        <br></br>
-        <div>
-            <AsignarEvaluadorTable/>
-        </div>
-    </div>
-    )
-}
 function Botones(){
     return ( 
     <div>
@@ -75,7 +62,12 @@ class PresidentEvents extends Component{
          }
          var datos2 ={ //state is by default an object
             chupetinesGA: [
-               { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 21, calEva: 'wasif@email.com',calPresi:'Si',opt: ''},
+               { listaEventos: 'WasifWasifWasifWasifWasif', 
+               fases: '1/2', 
+               fechalimite: 21, 
+               calEva: 'wasif@email.com',
+               calPresi:'Si',
+               opt: ''},
                { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 19, calEva: 'ali@email.com' ,calPresi:'Si'   ,opt: ''},
                { listaEventos: 'WasifWasifWasifWasifWasif', fases: '1/2', fechalimite: 16, calEva: 'saad@email.com' ,calPresi:'Si' ,opt: ''},
               ]
@@ -87,27 +79,22 @@ class PresidentEvents extends Component{
                 <div class="container" >
                 <div class ="panel-body">
                         <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
-                            <TabList>
-                                <Tab>Eventos por iniciar</Tab>
-                                <Tab>Eventos en fase de evaluacion</Tab>
-                            </TabList>
-                            <TabPanel>
-                                <div class="panel panel mypanel" >
-                                    <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                                        <h3>Lista de Eventos por iniciar</h3>
-                                    </div>
-                                    < AsignarEvaluadorTable data ={datos1}/>
-                                </div>
-                            </TabPanel>
-                            <TabPanel>
-                                <div class="panel panel mypanel" >
-                                    <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                                        <h3>Lista de Eventos en fase de evaluacion</h3>
-                                    </div>
-                                    < PresiCalificacionFinalPapersTable data ={datos2}/> 
-                                </div>
-                            </TabPanel>
-                        </Tabs>
+                                <TabList>
+                                    <Tab>Eventos por iniciar</Tab>
+                                    <Tab>Eventos en fase de evaluacion</Tab>
+                                </TabList>
+                                <TabPanel>
+                                    
+                                        < AsignarEvaluadorTable />
+                                       
+                                </TabPanel>
+                                <TabPanel> 
+                                    < PresiCalificacionFinalPapersTable/> 
+                                   
+                                </TabPanel>
+                            </Tabs>
+                        <Botones/>
+
                     </div>
                 
                    

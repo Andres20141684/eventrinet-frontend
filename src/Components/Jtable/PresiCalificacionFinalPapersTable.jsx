@@ -1,25 +1,40 @@
 import React, { Component } from 'react'
 import './../../styles/Jtab.css'
+
+const Networking = require('./../../Network/Networking.js') ;
+
 class PresiCalificacionFinalPapersTable extends Component {
    constructor(props) {
-    
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+      console.log("HAAAAAAAAAAAAAAAAAAAAA")
+      /*Networking.populateDataPresiTab(1,2).then((value) => {
+            this.setState({datos_tabla: value});   
+            
+      });*/
       console.log("rzwetxrytcvygbuhnj"+this.props);
-      
    }
+   state = {
+      datos_tabla: [
+         {  nombre: 'Simposio agujeros Negros', 
+            fases: '1/2', 
+            fechalimite: '25/08/2019', 
+            calEva: 'Si',
+            calPresi:'No'
+         }]
+  }
    handleClick = () => {
     console.log('this is:', this);
   }
   
    renderTableData() {
-        return this.state.chupetinesGA.map((element, index) => {
-        const { listaEventos, fases, fechalimite, calEva,calPresi} = element //destructuring
+        return this.state.datos_tabla.map((element, index) => {
+        const { nombre, fases, fechalimite, calEva,calPresi} = element //destructuring
         return (
             <tr>
-                <td>{listaEventos}</td>
+                <td>{nombre}</td>
                 <td>{fases}</td>
                 <td>{fechalimite}</td>
-                <td>{calEva}</td>
+                <td>{calEva}-{calPresi}</td>
                 <td>
                    <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus"></i></button>
                </td>    
@@ -42,7 +57,6 @@ class PresiCalificacionFinalPapersTable extends Component {
      }
   
      render() {
-        this.state = this.props.data
         return (
             
          <div  class="table-responsive">

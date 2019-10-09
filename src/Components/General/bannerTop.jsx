@@ -13,6 +13,8 @@ class BannerTop extends Component{
     this.state = {
         visible : false,
         role: null,
+        name: "Iniciar Sesion"
+        
     }
   }
 
@@ -34,11 +36,12 @@ class BannerTop extends Component{
       <div id="bannerTop" style={styles.banner}><br/>
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
+
             <a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="200"/></a>
           </div>          
           <div class="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
               <div className="list-inline-item" align="right">
-                <a className="nav" href="/login" style={{color:"#6CDCD6",paddingRight:20}}>Login</a>            
+                <a className="nav" href="/login" data={"/"} style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name} </a>            
               </div>
               <li class="nav-item dropdown">
                   <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
@@ -52,6 +55,7 @@ class BannerTop extends Component{
                   </ul>
               </li> 
             </div>
+          
         </div>
         <div style={{paddingRight:20, paddingLeft:20}}><hr  class="line-top"/></div>
     

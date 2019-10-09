@@ -9,8 +9,19 @@ import './../styles/style_gig_tittle.css'
 
 import Organizador_ActiveEventsTable from '../Components/Jtable/Organizador_ActiveEventsTable';
 import Organizador_HistoryventsTable from '../Components/Jtable/Organizador_HistoryventsTable';
-
-
+const Networking = require('./../Network/Networking.js') ;
+function Botones(){
+    return ( 
+    <div>
+         <h2><br/></h2>
+                    <h3>
+                    <button class="mybutton" style={{float:'left'}}>Atras</button>
+                    <button class="mybutton" style={{float:'right'}}>Guardar</button>
+                    <br/><br/>
+                    </h3>
+    </div>
+    )
+}
 function MainTittle(){
     return ( <div>
     <div style={{marginLeft:15}}>
@@ -26,29 +37,18 @@ class OrganActiveEvents extends Component{
         bannBot : BannerBottom,
         formActives: Organizador_ActiveEventsTable,
         formRecord:Organizador_HistoryventsTable,
-      }
-      
+        datos_tabla1:  null,
+        datos_tabla2: null,
+        msg: "Not Connected",
+        idOrganizador: 1
+    }
+    
+   
     render(){
+        
+        //var inputServer = this.getData();
         /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
-        var datos2 ={ //state is by default an object
-            chupetinesGA: [
-               { listaEventos: 'Evento 1', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'Evento 2', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'Evento 3', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'Evento 4', propRec: 'si', propEval: 'no', programa: 'si'},
-               { listaEventos: 'Evento 5', propRec: 'si', propEval: 'no', programa: 'si'}
-            ]
-         }
-         var datos1 ={ //state is by default an object
-            chupetinesGA: [
-                { listaEventos: 'Evento 6'},
-                { listaEventos: 'Evento 7'},
-                { listaEventos: 'Evento 8'},
-                { listaEventos: 'Evento 9'},
-                { listaEventos: 'Evento 10'},
-                { listaEventos: 'Evento 11'}
-            ]
-         }
+
         return(
             <div> 
             <this.state.bannTop />
@@ -56,17 +56,26 @@ class OrganActiveEvents extends Component{
             <div class="container" >
                 <div class ="panel-body">
                     <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
-                        <TabList>
-                            <Tab>Eventos activos</Tab>
-                            <Tab>Historial de eventos</Tab>
-                        </TabList>
-                        <TabPanel>
-                            <this.state.formActives data ={datos2}/> 
-                        </TabPanel>
-                        <TabPanel> 
-                            < this.state.formRecord data ={datos1}/>
-                        </TabPanel>
-                    </Tabs>
+
+                            <TabList>
+                                <Tab>Eventos activos</Tab>
+                                <Tab>Historial de eventos</Tab>
+                            </TabList>
+                            <TabPanel>
+                                <a  href="/organizerNewEvent"><button class="btnAdd" style={{float:'right'}}>Nuevo</button></a>
+                                <br/>
+                                <this.state.formActives  /> 
+                            </TabPanel>
+                            <TabPanel> 
+                                
+                                < this.state.formRecord />
+                            </TabPanel>
+                        </Tabs>
+                        <Botones/>
+                    </div>
+                </div>
+                </div>
+
                 </div>
                 
             </div>    

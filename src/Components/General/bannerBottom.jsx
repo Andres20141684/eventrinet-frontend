@@ -84,8 +84,8 @@ class BannerBottom extends Component{
                   </ul>
                 </div>
                 </div>
+                
                 <div class="footer-socialNetworkLinks col-xs-12 col-sm-12 col-md-6 col-lg-6">
-
                   <div class="footer-socialLinks">
                     <h4 class="footer-headLineH4 footer-socialHeader"> Síguenos en: <br/></h4>
                     <ul class="footer-unorderedList--social list-inline"> <br/>
@@ -98,7 +98,11 @@ class BannerBottom extends Component{
                     </ul>
                   </div>
                 </div>
+
               </div>
+
+
+              
               </div>
             </div>
 
@@ -110,7 +114,7 @@ class BannerBottom extends Component{
                 
                   <p class="footer-paragraph--copy footer-copyright footer-paragraph--smToBlock">
                   <a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" alt="Logo EVENTRINET" width="100"/> </a>
-                  <br/>© 2019 EVENTRINET gestión de eventos Perú<br/>Todos los derechos reservados.</p>
+                  <br/>© 2019 EVENTRINET enterprise gestión de eventos Perú<br/>Todos los derechos reservados.</p>
                 </div>
 
               </div>
