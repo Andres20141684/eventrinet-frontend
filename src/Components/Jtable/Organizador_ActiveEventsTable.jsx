@@ -9,13 +9,15 @@ class Organizador_ActiveEventsTable  extends Component {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
       Networking.populateDataOrgTab1(4).then((value) => {
-            this.setState({datos_tabla1: value});   
+            this.setState({datos_tabla: value});   
             
       });
       console.log("rzwetxrytcvygbuhnj"+this.props);
    }
    state = {
-      datos_tabla1: []
+      datos_tabla: [{  nombre: 'Datos1', 
+      fechaLimitePref: '21/03/2019',
+      preferencia: 'Por Categoria' }]
   }
    handleClick = () => {
     console.log('this is:', this);
@@ -24,9 +26,13 @@ class Organizador_ActiveEventsTable  extends Component {
 
    tableData() {
       
-        return this.state.datos_tabla1.map((element, index) => {
-         const { nombre} = element //destructuring
-        return (
+        return this.state.datos_tabla.map((element, index) => {
+         
+         const {idEvento, nombre,descripcion,fechaIni,
+            fechaFin,lugar,precios,numFases,estado,
+            preferencia,tieneCameraRdy,programaCompletado,
+            fechaMaxPref,numeroPropuestas} = element
+         return (
          <tr>
                <td>{nombre}</td>
                <td>
@@ -60,7 +66,7 @@ class Organizador_ActiveEventsTable  extends Component {
               <h2 class="card-title" id='title' >Lista de Eventos activos</h2>
               <div  class="table-responsive">
               <table class="table-light" id='chupetinesGA'>
-                  <thead class="thead-light">
+               <thead class="thead-light">
                   <tr>
                      <th scope="col">Lista de eventos</th>
                      <th scope="col">Call for Papers-> Prog. comp. </th>

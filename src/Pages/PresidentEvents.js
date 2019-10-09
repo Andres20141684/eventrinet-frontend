@@ -12,19 +12,6 @@ import 'react-table/react-table.css'
 
 
 
-
-function FillTable(){
-    return ( 
-    <div>
-        <button style={{float:'right'}}>Crear evento</button>
-        <br></br>
-        <br></br>
-        <div>
-            <AsignarEvaluadorTable/>
-        </div>
-    </div>
-    )
-}
 function Botones(){
     return ( 
     <div>
@@ -101,16 +88,17 @@ class PresidentEvents extends Component{
                                     <Tab>Eventos en fase de evaluacion</Tab>
                                 </TabList>
                                 <TabPanel>
-                                <div class="container">
-                                <div class="panel panel-default">
+                                
+                                
                                         < AsignarEvaluadorTable data ={datos1}/>
-                                        </div></div>
+                                        
+                                        
                                 </TabPanel>
                                 <TabPanel> 
-                                <div class="container">
-                                <div class="panel panel-default">
+                                    
                                     < PresiCalificacionFinalPapersTable data ={datos2}/> 
-                                    </div></div>
+                                   
+                                   
                                 </TabPanel>
                             </Tabs>
                         <Botones/>

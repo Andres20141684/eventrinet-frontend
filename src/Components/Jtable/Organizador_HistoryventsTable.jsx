@@ -1,26 +1,39 @@
 import React, { Component } from 'react'
 import './../../styles/Jtab.css'
+
+const Networking = require('./../../Network/Networking.js') ;
+
 class Organizador_HistoryventsTable extends Component {
    constructor(props) {
     
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      console.log("rzwetxrytcvygbuhnj"+this.props);
       
+      console.log("HAAAAAAAAAAAAAAAAAAAAA")
+      Networking.populateDataOrgTab1(4).then((value) => {
+            this.setState({datos_tabla: value});   
+            
+      });
    }
+   state = {
+      datos_tabla: []
+  }
    handleClick = () => {
     console.log('this is:', this);
   }
   
    renderTableData() {
-        return this.state.chupetinesGA.map((element, index) => {
-        const { listaEventos} = element //destructuring
-        return (
+        return this.state.datos_tabla.map((element, index) => {
+         const {idEvento, nombre,descripcion,fechaIni,
+            fechaFin,lugar,precios,numFases,estado,
+            preferencia,tieneCameraRdy,programaCompletado,
+            fechaMaxPref,numeroPropuestas} = element
+            return (
             <tr >
-                <td>{listaEventos}</td>
+                <td>{nombre}</td>
                 <td>
                    <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-download"></i></button>
                </td> 
-                </tr>
+            </tr>
         )
         })
     }
@@ -36,7 +49,7 @@ class Organizador_HistoryventsTable extends Component {
      }
   
      render() {
-        this.state = this.props.data
+        //this.state = this.props.data
         return (
             
            <div>

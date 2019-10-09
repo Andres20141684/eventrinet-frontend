@@ -55,3 +55,89 @@ export async function populateDataOrgTab1(idOrganizador) {
         console.error('CATCH ALCANZADO :(');
     }
 }
+
+export async function populateDataOrgTab2(idOrganizador) {
+    console.log('INTENTO DE POST!! en ' +restURL 
+    + 'eventos/listar_eventos_historial');
+    try {
+        console.log('RECIBI UN idOrganizador: ' + idOrganizador);
+        let response = await fetch(restURL 
+            + 'eventos/listar_eventos_historial', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario: idOrganizador
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log('Saving!!');
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+
+export async function populateDataEvaTab(idOrganizador,tab) {
+    console.log('INTENTO DE POST!! en ' +restURL 
+    + 'eventos/evaluador');
+    try {
+        console.log('RECIBI UN idOrganizador: ' + idOrganizador);
+        let response = await fetch(restURL 
+            + 'eventos/evaluador', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario: idOrganizador,
+                _tab: tab
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log('Saving!!');
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+
+export async function populateDataPresiTab(idOrganizador,tab) {
+    console.log('INTENTO DE POST!! en ' +restURL 
+    + 'eventos/presidente');
+    try {
+        console.log('RECIBI UN idOrganizador: ' + idOrganizador);
+        let response = await fetch(restURL 
+            + 'eventos/presidente', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario: idOrganizador,
+                _tab: tab
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log('Saving!!');
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}

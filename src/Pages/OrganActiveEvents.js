@@ -10,7 +10,18 @@ import './../styles/style_gig_tittle.css'
 import Organizador_ActiveEventsTable from '../Components/Jtable/Organizador_ActiveEventsTable';
 import Organizador_HistoryventsTable from '../Components/Jtable/Organizador_HistoryventsTable';
 const Networking = require('./../Network/Networking.js') ;
-
+function Botones(){
+    return ( 
+    <div>
+         <h2><br/></h2>
+                    <h3>
+                    <button class="mybutton" style={{float:'left'}}>Atras</button>
+                    <button class="mybutton" style={{float:'right'}}>Guardar</button>
+                    <br/><br/>
+                    </h3>
+    </div>
+    )
+}
 function MainTittle(){
     return ( 
     <div >
@@ -30,33 +41,12 @@ class OrganActiveEvents extends Component{
         idOrganizador: 1
     }
     
-    componentWillMount(){
-        
-        
-    }
+   
     render(){
         
         //var inputServer = this.getData();
         /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
-        var datos2 ={ 
-            chupetinesGA: [
-               { nombre: 'FFFFFFFFFFFF', propRec: 'si', propEval: 'no', programa: 'si'},
-               { nombre: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { nombre: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { nombre: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'},
-               { nombre: 'WasWasifWasifWasifif', propRec: 'si', propEval: 'no', programa: 'si'}
-            ]
-         }
-         var datos1 ={ //state is by default an object
-            chupetinesGA: [
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'},
-                { listaEventos: 'WaWaWasifsifsWaWasifsifif'}
-            ]
-         }
+        
          
         return(
             <div> 
@@ -77,13 +67,14 @@ class OrganActiveEvents extends Component{
                             <TabPanel>
                                 <a  href="/organizerNewEvent"><button class="btnAdd" style={{float:'right'}}>Nuevo</button></a>
                                 <br/>
-                                <this.state.formActives data ={datos2} /> 
+                                <this.state.formActives  /> 
                             </TabPanel>
                             <TabPanel> 
                                 
-                                < this.state.formRecord data ={datos1}/>
+                                < this.state.formRecord />
                             </TabPanel>
                         </Tabs>
+                        <Botones/>
                     </div>
                 </div>
                 </div>
