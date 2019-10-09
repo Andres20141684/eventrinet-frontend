@@ -28,6 +28,7 @@ export default class EventNew extends Component{
             numFases:'',
             preferencia:'',
             precios:0,
+            numeroPropuestas:0,
             aux: frmCreateEvent     
 
         }
