@@ -13,6 +13,9 @@ import EvaluadorEventos from './Pages/EvaluadorEventos';
 import Create_EventStep3 from './Pages/Create_EventStep3';
 import Prueba from './Pages/Prueba';
 import Login from './Pages/Login';
+import SelectedEvent from './Pages/SelectedEvent';
+
+import SignUp from './Pages/SignUp';
 /************************************* */
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 //import * as serviceWorker from './serviceWorker';
@@ -24,14 +27,18 @@ ReactDOM.render(<Router>
                     <Route path='/' exact component={App}/>
                     <Route path='/organizerNewEvent' exact component={NewEventPage} />
                     <Route path='/announcements' exact component={AnnouncementPage} />
-
+                    
                     <Route path='/organActiveEvents' exact component={OrganActiveEvents} />
                     <Route path='/presidentEvents' exact component={PresidentEvents} />
                     <Route path='/PresiCalificacionFinalPapers' exact component={PresiCalificacionFinalPapers} />
+                    
                     <Route path='/EvaluadorEventos' exact component={EvaluadorEventos} />
                     <Route path='/createEventStep3' exact component={Create_EventStep3} />
                     <Route path='/prueba' exact component={Prueba} />                    
                     <Route path='/login' exact component={Login} />
+                    <Route path='/SelectedEvent' exact component={SelectedEvent} />
+                    
+                    <Route path='/signUp' exact component={SignUp} />
                     </Router>,
                  document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change

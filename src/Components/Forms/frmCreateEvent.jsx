@@ -9,6 +9,7 @@ import StepOne from './CreateEvent/StepOne';
 import StepTwo from './CreateEvent/StepTwo'
 import StepThree from './CreateEvent/StepThree'
 import '../../styles/style_sheets.css'; 
+import { fontSize } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -70,7 +71,6 @@ export default function HorizontalLabelPositionBelowStepper(props) {
       <div>
         {activeStep === steps.length ? (
           <div>
-            
             <Typography className={classes.instructions}>All steps completed</Typography>
             <Button class="mybutton" onClick={handleReset}>Reset</Button>
           </div>
@@ -81,17 +81,17 @@ export default function HorizontalLabelPositionBelowStepper(props) {
               {activeStep===0?
               null
               :
-              <Button  
+              <button  
                 style={{float:'left'}}
                 class="mybutton"
                 onClick={handleBack}
                 //className={classes.backButton}
               >
                 Regresar
-              </Button>}
-              <Button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
+              </button>}
+              <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Fin' : 'Siguiente'}
-              </Button>
+              </button>
             </div>
           </div>
         )}

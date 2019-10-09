@@ -11,14 +11,16 @@ class App extends Component{
   state = {
     bannTop : BannerTop,
     bannBot : BannerBottom,
-    msg: "NotConnected"
+    msg: "Not Connected"
   }
 
   componentWillMount(){
     console.log("AppWillMount")
     Networking.saludar().then(
       (response)=>{
+        
         this.setState({msg:response.message});
+        console.log({msg:response.message});
       })
       .catch( (err) =>{
         console.log("error en conexión");
@@ -28,7 +30,7 @@ class App extends Component{
   }
 
   setterEvento(){
-    const url = "https://localhost:5000/eventos";
+    const url = "https://localhost:5000/eventos/listar_eventos_activos";
     fetch(url, {
       method:'GET'
     })
@@ -54,6 +56,7 @@ class App extends Component{
         <p>Gestión de tus eventos academicos</p>
         <p> En mantenimiento...</p>
         <h1>{this.state.msg}</h1>
+        
       </header>
     </div>
     <this.state.bannBot/>

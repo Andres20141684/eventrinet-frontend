@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import frmCreateEvent from './frmCreateEvent'
 import { string } from 'prop-types';
 const Networking = require('../../Network/Networking.js') ;
+import '../../styles/style_sheets.css'
 
 export default class EventNew extends Component{
     constructor(props) {
@@ -16,6 +17,7 @@ export default class EventNew extends Component{
             rdPropuest:false,
             comiteOrganizacional:[],
             presidente:[],
+            campos:[],
             evaluadores:[],
             categorias:[],
             fases:[{secuencia:1,camposPerson:[{obli:false}],criterios:[{obli:false}],reqArch:false,reqEval:false}],
@@ -42,6 +44,7 @@ export default class EventNew extends Component{
 
       handleCheckB(event,str){
         this.setState({[str]:!this.state[str]})
+
       }
       handleChange2(value,label){
         this.setState({
@@ -58,6 +61,11 @@ export default class EventNew extends Component{
         this.setState({
           [name]: value
         });  
+      }
+      handleCamposadd(list){
+        this.setState({
+          campos : list
+        })
       }
 
       handleChangeRadio(event,str) {
@@ -119,12 +127,9 @@ export default class EventNew extends Component{
           })
       }
 
-      
-
       render() {    
         return (
           <div className='container'>
-
               <this.state.aux 
               nombre={this.state.nombre} 
               descripcion={this.state.descripcion}
@@ -161,24 +166,22 @@ export default class EventNew extends Component{
           <React.Fragment>            
           <form onSubmit={this.handleSubmit}>
 
-            <Step1 
-              currentStep={this.state.currentStep} 
+              handleEvaluadoradd={this.handleEvaluadoradd}
+              handlePresidenteadd={this.handlePresidenteadd}
+              handleCamposadd={this.handleCamposadd}
+              handleCategoryadd={this.handleCategoryadd}
+              handleChangeRadio={this.handleChangeRadio}              
+              handleDate3={this.handleDate3}
+              handleDate4={this.handleDate4}
+              handleDate2={this.handleDate2}
+              handleDate={this.handleDate}
+              handleComiteadd={this.handleComiteadd}
               handleChange={this.handleChange}
-              email={this.state.email}
-            />
-            <Step2 
-              currentStep={this.state.currentStep} 
-              handleChange={this.handleChange}
-              username={this.state.username}
-            />
-            <Step3 
-              currentStep={this.state.currentStep} 
-              handleChange={this.handleChange}
-              password={this.state.password}
-            />       
-        
-          </form>
-          </React.Fragment>*/
+              handleDateEndCamReady={this.handleDateEndCamReady}
+              handleDateStartCamReady={this.handleDateStartCamReady}
+              handleDateEndEval={this.handleDateEndEval}             
+              />
+          </div>
         )
         }
 

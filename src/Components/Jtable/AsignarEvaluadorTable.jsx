@@ -1,24 +1,39 @@
 import React, { Component } from 'react'
 import './../../styles/Jtab.css'
+
+const Networking = require('./../../Network/Networking.js') ;
+
 class AsignarEvaluadorTable extends Component {
    constructor(props) {
-    
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+      console.log("HAAAAAAAAAAAAAAAAAAAAA")
+      /*Networking.populateDataPresiTab(1,1).then((value) => {
+            this.setState({datos_tabla: value});   
+            
+      });*/
       console.log("rzwetxrytcvygbuhnj"+this.props);
-      
    }
+   state = {
+      datos_tabla: [
+         {  nombre: 'AWS communnity day',
+            propAsignadas: '1/15', 
+            iniEval: '25/08/2019'
+         }]
+      
+
+  }
    handleClick = () => {
     console.log('this is:', this);
   }
   
    renderTableData() {
-        return this.state.chupetinesGA.map((element, index) => {
-            const { listaEventos, propAsignadas, iniEval} = element //destructuring
+        return this.state.datos_tabla.map((element, index) => {
+            const { nombre, propAsignadas, iniEval} = element //destructuring
             
                      return (
                         
                         <tr>
-                           <td>{listaEventos} </td>
+                           <td>{nombre} </td>
                            <td>{propAsignadas}</td>
                            <td>{iniEval}</td>
                            <td>
@@ -29,35 +44,33 @@ class AsignarEvaluadorTable extends Component {
                            </td>  
                         </tr>
                   )
+
         })
     }
     renderTableHeader() {
-       
       return (
-       <tr>
-          <th width="20%">Lista de eventos</th>
-          <th width="18%">Propuestas<br/>Asignadas/Total </th>
-          <th width="22%">Inicio Evaluadion Limite</th>
-          <th width="15%">Asignar Evaluadores (Evaluador - Presidente) </th>
-          <th width="15%">Editar fases</th>
-       </tr>
+         <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
+            <tr>
+               <th width="20%">Lista de eventos</th>
+               <th width="18%">Propuestas<br/>Asignadas/Total </th>
+               <th width="22%">Inicio Evaluacion Limite</th>
+               <th width="15%">Asignar Evaluadores (Evaluador - Presidente) </th>
+               <th width="15%">Editar fases</th>
+            </tr>
+       </thead>
       )
    }
 
   
      render() {
-        this.state = this.props.data
         return (
             
-           <div>
-              <br/>
-              <h1 id='title'><br/>Listado de enventos por iniciar</h1><br/><br/>
-              <h2></h2>
-              <table id='chupetinesGA'>
-                 <tbody>
-                    {this.renderTableHeader()}
+         <div  class="table-responsive">
+              <table class="table  table-hover" >
+                  {this.renderTableHeader()}
+                  <tbody>                    
                     {this.renderTableData()}
-                 </tbody>
+                  </tbody>
               </table>
            </div>
         )

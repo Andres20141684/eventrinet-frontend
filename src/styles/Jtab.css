@@ -29,14 +29,7 @@
     background-color: #000000;
     color: white;
   }
-  .btn_plus {
-    background-color: #002D3D;
-    border: none;
-    color: #002D3D;
-    padding: 2.5px 3px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
+  
   /***
   
   Banner botton
@@ -64,11 +57,27 @@
 
 
 /***icons***/
-
+.btn_plus {
+    align-items: center;   
+    align-content: center;
+    border: none;
+    background-color: rgba(255,255,255, 0.1);
+    
+    padding: 2.5px 3px;
+    font-size: 1rem;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+  }
 .fa {
-      font-size: 2.3rem;
-      color: white;
+    font-size: 2.3rem;
+    color: #002D3D;
 }
+.btn_plus>.faCancelar{
+    font-size: 2.3rem;
+    color: #e14545;
+}
+
 .mybutton{
   border-radius: 4px;
   float: left;
@@ -87,4 +96,3 @@
   background-color: #E6E9EE;
   color: #002D3D;
 }
-

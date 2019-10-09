@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { throwStatement } from '@babel/types';
 
+  
 class StepThree extends Component{
     constructor(){
       super();
@@ -76,6 +77,15 @@ class StepThree extends Component{
     alert("A name was submitted: " + this.state.values.join(", "));
     event.preventDefault();
   }*/
+  
+  handleCheckboxChange = event =>{
+    this.setState({ checked: event.target.checked });
+    const isChecked = this.state.checked;
+    if (isChecked){
+      console.log("bloquea");
+    }
+  }
+    
 
   render() {
     return (
@@ -100,11 +110,13 @@ class StepThree extends Component{
                     handleChange4={this.handleChange4}
                     handleChangeFaseDate={this.handleChangeFaseDate}
                     handleCheck={this.handleCheck}/>
-                </div>
-          </div>
-        ))}
 
-        <input type="button" value="add more" onClick={() => this.addClick()} />   
+                </div>
+            </div> 
+          </div>
+        ))}        
+                                
+          <input type="button"  class="btn btn-primary" value="Agregar mas fases" onClick={() => this.addClick()} />           
         </div>
             
         <div class="cointainer p-4">

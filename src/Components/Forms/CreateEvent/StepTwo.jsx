@@ -19,8 +19,7 @@ class StepTwo extends Component{
                 <br></br>
                 <ArrayOfChips lista={props.comite1} handleadd={props.handleChange2} tag="comite1"/> 
                 </Form>
-                </Container>
-                
+                </Container>              
     </div>
         )
     }
@@ -71,24 +70,18 @@ class StepTwo extends Component{
                 </Form>
                 </Container>  
     </div>
+
         )
     }
 
     render(){
-        return(
-        <div> 
-            <div class="panel panel-default">
-            <br></br>
-            <this.formComiteOrganizacional {...this.props}/>
-            <br></br>
+        return(        
+            <div class="panel-group">
+                <this.formComiteOrganizacional {...this.props}/>            
+                <br></br>
+                <this.formComiteAcademico {...this.props}/>       
+                <br></br>            
             </div>
-
-            <div class="panel panel-default"> 
-            <br></br>
-            <this.formComiteAcademico {...this.props}/>            
-            <br></br>
-            </div>            
-        </div>
         );
     }
 }
