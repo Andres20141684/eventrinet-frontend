@@ -17,7 +17,7 @@ class StepTwo extends Component{
                 <h1>Comité Organizacional</h1>
                 <Form>
                 <br></br>
-                <ArrayOfChips lista={props.comite1} handleadd={props.handleComiteadd}/> 
+                <ArrayOfChips lista={props.comite1} handleadd={props.handleChange2} tag="comite1"/> 
                 </Form>
                 </Container>
                 
@@ -34,7 +34,7 @@ class StepTwo extends Component{
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label> Presidente</Form.Label>                    
                     <br></br>
-                    <ArrayOfChips lista={props.presidente} handleadd={props.handlePresidenteadd}/> 
+                    <ArrayOfChips lista={props.presidente} handleadd={props.handleChange2} tag="presidente"/> 
                     <br></br>
                                       
                 </Form.Group>
@@ -49,14 +49,14 @@ class StepTwo extends Component{
                     type="radio" inline
                     name="formHorizontalRadios"
                     id="rdCategry"
-                    onChange={props.handleChangeRadio}
+                    onChange={(e)=>props.handleChangeRadio(e,"rdPropuest")}
                     />Categorias
                     <input
                     checked={props.rdPropuest}
                     type="radio" inline
                     name="formHorizontalRadios"
                     id="rdPropuest"
-                    onChange={props.handleChangeRadio}
+                    onChange={(e)=>props.handleChangeRadio(e,"rdCategry")}
                     />Propuestas
                 </Col>
                 <br></br>
@@ -65,7 +65,7 @@ class StepTwo extends Component{
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label> Evaluadores</Form.Label>
                     <br></br>    
-                    <ArrayOfChips lista={props.evaluadores} handleadd={props.handleEvaluadoradd}/> 
+                    <ArrayOfChips lista={props.evaluadores} handleadd={props.handleChange2} tag="evaluadores"/> 
                     <br></br>                  
                 </Form.Group>
                 </Form>

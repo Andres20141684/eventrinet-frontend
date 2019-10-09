@@ -12,57 +12,33 @@ export default class EventNew extends Component{
             fIni: new Date(),
             fFin: '',
             lugar:'',
-            fechaIC: new Date(),
-            fechaFC: '',
             rdCategry:false,
             rdPropuest:false,
-            comite1:[],
+            comiteOrganizacional:[],
             presidente:[],
             evaluadores:[],
-            categor:[],
+            categorias:[],
+            fases:[{secuencia:1,camposPerson:[]}],
             tieneCameraRdy:0,
             fechaMaxPref:'',
-            numFases:1,
+            numFases:'',
             preferencia:'',
             precios:0,
             aux: frmCreateEvent     
 
         }
         this.handleChange = this.handleChange.bind(this)
-        this.handleComiteadd=this.handleComiteadd.bind(this)
-        this.handleDate=this.handleDate.bind(this)
-        this.handleDate2=this.handleDate2.bind(this)
-        this.handleCategoryadd=this.handleCategoryadd.bind(this)
-        this.handleEvaluadoradd=this.handleEvaluadoradd.bind(this)
-        this.handlePresidenteadd=this.handlePresidenteadd.bind(this)
-        this.handleDate3=this.handleDate3.bind(this)
-        this.handleDate4=this.handleDate4.bind(this)
+        this.handleChange2=this.handleChange2.bind(this)
         this.handleChangeRadio=this.handleChangeRadio.bind(this)
         this.handlePrint=this.handlePrint.bind(this)
+        this.DateFormat=this.DateFormat.bind(this)
       }
 
-      handleDate(date){
+      handleChange2(value,label){
         this.setState({
-          fIni:date
+          [label]:value
         })
-      }
-
-      handleDate2(date){
-        this.setState({
-          fFin:date
-        })
-      }
-
-      handleDate3(date){
-        this.setState({
-          fechaIC:date
-        })
-      }
-
-      handleDate4(date){
-        this.setState({
-          fechaFC:date
-        })
+        console.log(this.state)
       }
     
       handleChange(event) {
@@ -75,57 +51,41 @@ export default class EventNew extends Component{
         });  
       }
 
-      handleComiteadd(list){
-        this.setState({
-          comite1 : list
-        })
-      }
-      handleCategoryadd(list){
-        this.setState({
-          categor : list
-        })
-      }
-      handleEvaluadoradd(list){
-        this.setState({
-          evaluadores : list
-        })
-      }
-      handlePresidenteadd(list){
-        this.setState({
-          presidente : list
-        })
-      }
-
-      handleChangeRadio(event) {
+      handleChangeRadio(event,str) {
         const target = event.target;
         const checked = target.checked;
         const id = target.id;
 
         this.setState({
-          [id]: checked
+          [id]: checked,
+          [str]:false
         });  
+      }
+
+      DateFormat(date,json,tag,tag2){
+        let aux=date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() 
+        json[tag]=aux
+        delete json[tag2]
       }
 
       handlePrint(event){
         let auxjson={}
         auxjson=this.state
-        auxjson["categorias"]={}
+        delete auxjson["aux"]
+        
+        if(auxjson.rdCategry===true){
+          auxjson.preferencia="CATEGORIA"
+        }else{
+          auxjson.preferencia="PROPUESTA"
+        }
+        delete auxjson.rdCategry
+        delete auxjson.rdPropuest
 
-        let fechA = this.state.fIni.getFullYear() + "-" + this.state.fIni.getMonth() + "-" + this.state.fIni.getDay() 
-        auxjson["fechaIni"]=fechA
+        auxjson.numFases=this.state.fases.length
 
-        let fechB =  this.state.fFin.getFullYear() + "-" + this.state.fFin.getMonth() + "-" + this.state.fFin.getDay() 
-        auxjson["fechaFin"]=fechB
-
-        auxjson["fechaMaxPref"]=fechB
-
-
-        {this.state.categor.map((data, index) => {
-          auxjson.categorias[index+1]=data.label
-        })}
-
-        let test=JSON.stringify(auxjson.categorias)
-        console.log(test);
+        this.DateFormat(this.state.fIni,auxjson,"fechaIni","fIni")
+        this.DateFormat(this.state.fFin,auxjson,"fechaFin","fFin")
+        //this.DateFormat(this.state.fFin,auxjson,"fechaMaxPref","fFin")
 
         console.log(auxjson);
         var dataA=JSON.stringify(auxjson)
@@ -150,32 +110,26 @@ export default class EventNew extends Component{
           <div className='container'>
 
               <this.state.aux 
-              handlePrint={this.handlePrint}
-
-              handleChangeRadio={this.handleChangeRadio}
-              rdCategry={this.state.rdCategry}
-              rdPropuest={this.state.rdPropuest}
-              evaluadores={this.state.evaluadores}
-              presidente={this.state.presidente}
-              handleEvaluadoradd={this.handleEvaluadoradd}
-              handlePresidenteadd={this.handlePresidenteadd}
-              handleCategoryadd={this.handleCategoryadd}
-              categorias={this.state.categor}
-              handleDate3={this.handleDate3}
-              handleDate4={this.handleDate4}
-              fechaIC={this.state.fechaIC}
-              fechaFC={this.state.fechaFC}
-              handleDate2={this.handleDate2}
-              handleDate={this.handleDate}
-              fechaIE={this.state.fIni}
-              fechaFE={this.state.fFin}
-
-              handleComiteadd={this.handleComiteadd}
-              handleChange={this.handleChange} 
               nombre={this.state.nombre} 
               descripcion={this.state.descripcion}
               lugar={this.state.lugar}
-              comite1={this.state.comite1}
+                
+              rdCategry={this.state.rdCategry}
+              rdPropuest={this.state.rdPropuest}
+
+              categorias={this.state.categorias}
+              evaluadores={this.state.evaluadores}
+              presidente={this.state.presidente}
+              comite1={this.state.comiteOrganizacional}
+              fases={this.state.fases}
+              
+              fechaIE={this.state.fIni}
+              fechaFE={this.state.fFin}  
+
+              handleChange2={this.handleChange2}
+              handleChangeRadio={this.handleChangeRadio}
+              handleChange={this.handleChange} 
+              handlePrint={this.handlePrint}
               />
           </div>
           /*

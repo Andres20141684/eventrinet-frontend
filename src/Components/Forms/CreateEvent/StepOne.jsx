@@ -77,14 +77,14 @@ export default class StepOne extends React.Component {
           <Col> <DatePicker
                   selected={this.props.fechaIE}
                   minDate={new Date()}
-                  onChange={this.props.handleDate}
+                  onChange={(e)=> this.props.handleChange2(e,"fIni")}
                   />
           </Col>
           <Col><label style={styles.rotulos}>Fecha Fin: </label> </Col>
           <Col> <DatePicker
                 selected={this.props.fechaFE}
                 minDate={this.props.fechaIE}
-                onChange={this.props.handleDate2}
+                onChange={(e)=> this.props.handleChange2(e,"fFin")}
                 />
           </Col>
         </Row>
@@ -95,32 +95,9 @@ export default class StepOne extends React.Component {
       <Container>
         <h1>Categorias</h1>
         <br></br>
-        <ArrayOfChips lista={this.props.categorias} handleadd={this.props.handleCategoryadd}/>
+        <ArrayOfChips lista={this.props.categorias} handleadd={this.props.handleChange2} tag="categorias"/>
         <br></br>
       </Container>
-      </div>
-      <div class="panel panel-default">
-        <Container>
-        <h1>Duracion Convocatoria</h1>
-        <br></br>
-        <Row>
-          <Col><label style={styles.rotulos}>Fecha Inicio: </label></Col>
-          <Col> <DatePicker
-                selected={this.props.fechaIC}
-                minDate={new Date()}
-                onChange={this.props.handleDate3}
-                />
-          </Col>
-          <Col><label style={styles.rotulos}>Fecha Inicio: </label></Col>
-          <Col> <DatePicker
-                  selected={this.props.fechaFC}
-                  minDate={this.props.fechaIC}
-                  onChange={this.props.handleDate4}
-                  />
-          </Col>
-        </Row>
-        </Container>
-        <br></br>
       </div>
       </div>
     )

@@ -14,17 +14,17 @@ export default function ArrayOfChips(props) {
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
     chipData.push(aux)
-    props.handleadd(chipData)
+    props.handleadd(chipData,props.tag)
   };
 
   const handleDelete = chipToDelete => () => {
-    chipData=chipData.filter(chipData=>chipData.key!==chipToDelete.key);
+    chipData=chipData.filter(chipData=>chipData.descripcion!==chipToDelete.descripcion);
     //setChipData(chips => chips.filter(chips => chips.key !== chipToDelete.key));
-    props.handleadd(chipData)
+    props.handleadd(chipData,props.tag)
   };
 
   const handleChange= (e) =>{
-    aux={ key: e.target.value, label: e.target.value }
+    aux={descripcion: e.target.value }
     
   }
 
@@ -41,8 +41,8 @@ export default function ArrayOfChips(props) {
       {chipData.map((data, index) => {
               return (
                 <Chip
-                  key={data.key+index}
-                  label={data.label}
+                  key={index}
+                  label={data.descripcion}
                   onDelete={handleDelete(data)}
                 />
               );
@@ -52,10 +52,3 @@ export default function ArrayOfChips(props) {
   );
 }
 
-/*<TextField select value={userValues} onChange={e => handleSelect(e)} >
-        {userArray.map(option => (
-          <MenuItem key={option.key} value={option.label}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>*/

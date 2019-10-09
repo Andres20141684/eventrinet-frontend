@@ -21,6 +21,7 @@ export async function insertNewEvent(data){
     try {
         let response = await fetch(restURL+'crear_evento' ,{
             method:'POST',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
             body: data
         });
         let responseJson = response.json();

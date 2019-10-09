@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { FormGroup } from '@material-ui/core';
 import Form from 'react-bootstrap/Form'
-
-
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import DatePicker from "react-datepicker"; 
+import "react-datepicker/dist/react-datepicker.css";
+import ArrayDinamic from './ArrayDinamic';
 class FormStepThree extends Component{
     render(){
         return(    
@@ -15,14 +18,25 @@ class FormStepThree extends Component{
                 <FormGroup action="" class="card card-body">
                     <div class="form-group">
                     <label for="title">Actividad</label>
-                    <input type="text" name="actividad" id="actvidad" placeholder="Actividad" autoFocus required />
+                    <input type="text" name="actividad" id="actvidad" placeholder="Actividad" onChange={(e) => this.props.onChange(e,this.props.index,"nombre")} value={this.props.value.nombre}autoFocus required />
                     </div>
                     
                     <div class="form-group">
                     <label for="title">Descripcion </label>
-                    <textarea rows="3" name="descripcion" id="description" placeholder="Descripcion" />
+                    <textarea rows="3" name="descripcion" id="description" placeholder="Descripcion" onChange={(e) => this.props.onChange(e,this.props.index,"descripcion")} value={this.props.value.descripcion}/>
                     </div>
-                    
+                    <Row xs sm>
+                    <Col> <label >Fecha Inicio: </label> </Col>
+                    <Col> <DatePicker
+                            selected={new Date()}
+                            />
+                    </Col>
+                    <Col><label >Fecha Fin: </label> </Col>
+                    <Col> <DatePicker
+                            selected={new Date()}
+                            />
+                    </Col>
+                    </Row>
                     <div class="form-group">
                     <label for="title">Requiere adjuntar archivo (.pdf)</label>
                     <div>
@@ -67,10 +81,7 @@ class FormStepThree extends Component{
             <div class="cointainer p-4">
                 <h1>Campos personalizados</h1>
                 <FormGroup action="" class="card card-body">
-                    <div class="form-group">
-                        <input type="text"  />
-                        <button>Agregar mas campos</button>
-                    </div>
+                    <ArrayDinamic {...this.props}/>
                 </FormGroup>
             </div> 
             </div>
