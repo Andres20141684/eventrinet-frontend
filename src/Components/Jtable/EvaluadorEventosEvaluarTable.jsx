@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './../../styles/Jtab.css'
 import { stringify } from 'querystring';
+import '../../styles/style_sheets.css'
+
 const Networking = require('./../../Network/Networking.js') ;
 
 class EvaluadorEventosEvaluarTable extends Component {
@@ -9,10 +11,10 @@ class EvaluadorEventosEvaluarTable extends Component {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
       
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
-      Networking.populateDataEvaTab(6).then((value) => {
+     /* Networking.populateDataEvaTab(6).then((value) => {
             this.setState({datos_tabla: value});   
             
-      });
+      });*/
    }
    state = {
       datos_tabla: [{  nombre: 'Datos1', 
