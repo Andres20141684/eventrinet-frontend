@@ -7,24 +7,24 @@ import Col from 'react-bootstrap/Col';
 import '../../../styles/style_sheets.css';
 
 export default function ArrayOfChips(props) {
-  let chipData =[{}];
+  let chipData =[];
   chipData= props.lista;
   var aux='';
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
     chipData.push(aux)
-    props.handleadd(chipData)
+    props.handleadd(chipData,props.tag)
   };
 
   const handleDelete = chipToDelete => () => {
-    chipData=chipData.filter(chipData=>chipData.key!==chipToDelete.key);
+    chipData=chipData.filter(chipData=>chipData[props.label]!==chipToDelete[props.label]);
     //setChipData(chips => chips.filter(chips => chips.key !== chipToDelete.key));
-    props.handleadd(chipData)
+    props.handleadd(chipData,props.tag)
   };
 
   const handleChange= (e) =>{
-    aux={ key: e.target.value, label: e.target.value }
+    aux={[props.label]: e.target.value }
     
   }
 
@@ -40,7 +40,7 @@ export default function ArrayOfChips(props) {
             aria-label="Recipient's username" 
             aria-describedby="basic-addon2"
             onChange={handleChange}
-            style={{width: 360}}/>
+            style={{width: 360,position:"relative"}}/>
         <div class="input-group-append">
           <button 
             class="btn btn-outline-secondary add"
@@ -55,8 +55,8 @@ export default function ArrayOfChips(props) {
       {chipData.map((data, index) => {
               return (
                 <Chip
-                  key={data.key+index}
-                  label={data.label}
+                  key={index}
+                  label={data[props.label]}
                   onDelete={handleDelete(data)}
                 />
               );
@@ -66,10 +66,3 @@ export default function ArrayOfChips(props) {
   );
 }
 
-/*<TextField select value={userValues} onChange={e => handleSelect(e)} >
-        {userArray.map(option => (
-          <MenuItem key={option.key} value={option.label}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>*/

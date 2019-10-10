@@ -5,7 +5,9 @@ import Row from 'react-bootstrap/Row';
 import "react-datepicker/dist/react-datepicker.css";
 import ArrayOfChips from './ArrayOfChips';
 import '../../../styles/style_sheets.css'
-
+import DatePicker from "react-datepicker"; 
+import "react-datepicker/dist/react-datepicker.css";
+import '../../../styles/style_sheets.css';
 
 
 export default class StepOne extends React.Component {
@@ -62,24 +64,25 @@ export default class StepOne extends React.Component {
             <Row>            
                 <div class="form-group col-md-3">
                 <label >Fecha Inicio</label>
-                  <Form.Control
+                  <DatePicker
                     type="date"
-                    selected={this.props.fechaIC}
+                    selected={this.props.fechaIE}
                     minDate={new Date()}
-                    onChange={this.props.handleDate3}
-                    class="form-control"
+                    onChange={(e)=> this.props.handleChange2(e,"fIni")}
+                    id="input-date"
                     name="date_in"
                     placeholder="date_in"
                   />
                 </div>
-                <div class="form-group col-md-3">
-                    <label >Fecha Fin</label>
-                      <Form.Control
+                <div class="form-group col-md">
+                    <label >Fecha Fin </label>
+                      <DatePicker
+                        style={{position:"absolute"}}
                         type="date"
                         selected={this.props.fechaFE}
                         minDate={this.props.fechaIE}
-                        onChange={this.props.handleDate2}
-                        class="form-control"
+                        onChange={(e)=> this.props.handleChange2(e,"fFin")}
+                        id="input-date"
                         name="date_in"
                         placeholder="date_in"
                       />
@@ -92,37 +95,11 @@ export default class StepOne extends React.Component {
             <div class="panel-heading"><h1>Categorias</h1></div>
             <div class="panel-body">
               <div class="form-group col-md-6">
-                  <ArrayOfChips lista={this.props.categorias} handleadd={this.props.handleCategoryadd}/>
+              <ArrayOfChips lista={this.props.categorias} handleadd={this.props.handleChange2} tag="categorias" label="descripcion"/>
               </div>
             </div>
           </div>
           <br></br>
-          <div class="panel panel-default">
-              <div class="panel-heading"><h1>Duración de la convocatoria</h1></div>
-              <div class="panel-body">
-              <Row>            
-                <div class="form-group col-md-3">
-                    <label >Fecha Inicio</label>
-                    <Form.Control
-                      type="date"
-                      selected={this.props.fechaIC}
-                      minDate={new Date()}
-                      onChange={this.props.handleDate3}
-                      class="form-control"
-                    />
-                </div>
-                <div class="form-group col-md-3">
-                    <label >Fecha Fin</label>
-                    <Form.Control
-                      type="date"
-                      selected={this.props.fechaFC}
-                      minDate={this.props.fechaIC}
-                      onChange={this.props.handleDate4}
-                    />
-                </div>
-              </Row>              
-              </div>
-            </div>
         </div>      
       </div>
     )

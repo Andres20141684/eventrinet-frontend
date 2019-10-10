@@ -3,47 +3,87 @@ import { FormGroup } from '@material-ui/core';
 import Form from 'react-bootstrap/Form'
 import FormStepThree from './FormStepThree';
 import Row from 'react-bootstrap/Row';
-
-
+import DatePicker from "react-datepicker"; 
+import "react-datepicker/dist/react-datepicker.css";
 
   
 class StepThree extends Component{
-    state = { 
-        values: [{ value: null }],
-        form_1: FormStepThree,
-        checked:false,
-    };  
-
-  handleChange(i, event) {
-    let values = [...this.state.values];
-    values[i].value = event.target.value;
-    this.setState({ values });
-  }
-
-  addClick() {
-    this.setState(prevState => ({
-      values: [...prevState.values, { value: null }]
-    }));
-  }
-
-  removeClick(i) {
-    let values = [...this.state.values];
-    values.splice(i, 1);
-    this.setState({ values });
-  }
-
-  /*handleSubmit(event) {
-    alert("A name was submitted: " + this.state.values.join(", "));
-    event.preventDefault();
-  }*/
-  
-  handleCheckboxChange = event =>{
-    this.setState({ checked: event.target.checked });
-    const isChecked = this.state.checked;
-    if (isChecked){
-      console.log("bloquea");
+  constructor(){
+    super();
+    this.state={
+      values: [{ }],
+      
+      form_1: FormStepThree,
     }
+    this.handleChange3=this.handleChange3.bind(this)
+    this.handleChange4=this.handleChange4.bind(this)
+    this.handleChangeFaseDate=this.handleChangeFaseDate.bind(this)
+    this.DateFormat=this.DateFormat.bind(this)
+    this.handleCheck=this.handleCheck.bind(this)
   }
+
+componentWillMount(){
+  this.setState({values:this.props.fases})
+}
+DateFormat(date,json,tag){
+  let aux=date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() 
+  json[tag]=aux
+}
+handleCheck(event,i,str,str2){
+  let val = this.state.values;
+  val[i][str]=!val[i][str]
+  val[i][str2]=val[i][str]===true?1:0
+  this.setState({ values:val})
+  this.props.handleChange2(this.state.values,"fases")
+}
+handleChange3(event,i,str) {
+  let val = this.state.values;
+  val[i][str] = event.type==="checkBox"?event.target.checked:event.target.value
+  this.setState({ values:val });
+  this.props.handleChange2(this.state.values,"fases")
+  console.log(this.state)
+}
+handleChange4(value,i,str){
+  let val = this.state.values;
+  val[i][str] = value;
+  this.setState({ values:val });
+  this.props.handleChange2(this.state.values,"fases")
+}
+
+handleChangeFaseDate(value,i,str,str2){
+  let val = this.state.values;
+  val[i][str] = value;
+  this.DateFormat(value,val[i],str2)
+  this.setState({ values:val });
+  this.props.handleChange2(this.state.values,"fases")
+}
+
+addClick() {
+  this.setState(prevState => ({
+    values: [...prevState.values, {secuencia:this.state.values.length+1,camposPerson:[],criterios:[],reqArch:false,reqEval:false}]
+  }));
+}
+
+removeClick(i) {
+  let val = [...this.state.values];
+  val.splice(i, 1);
+  this.setState({ values:val });
+  this.props.handleChange2(val,"fases")
+}
+
+/*handleSubmit(event) {
+  alert("A name was submitted: " + this.state.values.join(", "));
+  event.preventDefault();
+}*/
+
+handleCheckboxChange = event =>{
+  this.setState({ checked: event.target.checked });
+  const isChecked = this.state.checked;
+  if (isChecked){
+    console.log("bloquea");
+  }
+}
+  
     
 
   render() {
@@ -55,20 +95,27 @@ class StepThree extends Component{
             <div class="panel-heading">
               <h1>Fase 0{index+1}
               <a  style={{marginRight:10,marginBottom:10,float:"right"}}>
-                <input
-                  type="button"
-                  class="btn btn-danger"
-                  value="Eliminar fase"
-                  onClick={() => this.removeClick(index)}
-                  style={{float:'right'}}
-              />
+              {index===this.state.values.length-1?<input
+                    type="button"
+                    value="Eliminar fase"
+                    class="btn btn-danger"
+                    onClick={() => this.removeClick(index)}
+                    style={{float:'right'}}
+                />:null}
+                
               </a></h1>
             </div>
             <div class="panel-body">
               <div>
-                  <this.state.form_1   
-                      value={el.value || ""} 
-                      onChange={e => this.handleChange(index, e)}/>
+              <this.state.form_1 
+                    camposPerson="camposPerson"
+                    criterios="criterios"
+                    value={this.state.values[index]} 
+                    index={index}
+                    onChange={this.handleChange3}
+                    handleChange4={this.handleChange4}
+                    handleChangeFaseDate={this.handleChangeFaseDate}
+                    handleCheck={this.handleCheck}/>
                 </div>
             </div> 
           </div>
@@ -80,43 +127,47 @@ class StepThree extends Component{
             <br/>
 
             <div>
-            <h3>Incluir Camera Ready</h3>
+            <h3>Camera Ready</h3>
+            <div class="panel panel-default">  
+            <div class="panel-body">   
+            <div>
+              <label>Requiere Camera Ready</label>
             <input 
                 type="checkbox" 
-                checked={this.state.checked}
-                onChange={this.handleCheckboxChange}
+                checked={this.props.rdCamR}
+                onClick={(e)=>this.props.handleCheckB(e,"rdCamR")}
                 />
             </div>
-            <div class="panel panel-default">                
-            <div class="panel-body">
-              <FormGroup action="" class="card card-body">
+            </div>
+              {this.props.rdCamR===true?<FormGroup action="" class="card card-body">
                   <Row>            
                   <div class="form-group col-md-3">
                       <label >Fecha Inicio</label>
-                      <Form.Control
+                      <DatePicker
                         type="date"
                         id="id_IniCamReady"
-                        selected={this.props.fechaIC}
+                        selected={this.props.fCRIni}
                         minDate={new Date()}
-                        onChange={this.props.handleDateStartCamReady}
+                        onChange={(e)=> this.props.handleChange2(e,"fCRIni")}
                         class="form-control"
-                        disabled ={this.state.checked}
+                        
                       />
                   </div>
                   <div class="form-group col-md-3">
                       <label >Fecha Fin</label>
-                      <Form.Control
+                      <DatePicker
                         type="date"
                         id="id_FinCamReady"
-                        selected={this.props.fechaFC}
-                        minDate={this.props.fechaIC}
-                        onChange={this.props.handleDateEndCamReady}
-                        disabled ={this.state.checked}
+                        selected={this.props.fCRFin}
+                        minDate={this.props.fCRIni}
+                        onChange={(e)=> this.props.handleChange2(e,"fCRFin")}
+                        
                       />
                   </div>
                 </Row>
                                   
-              </FormGroup>
+              </FormGroup>:null}
+              
             </div>
             </div>
 
@@ -124,11 +175,10 @@ class StepThree extends Component{
               <FormGroup action="" class="card card-body">  
                   <Row>            
                   <div class="form-group col-md-3">                      
-                      <Form.Control
-                        type="date"
-                        selected={this.props.fechaIC}
+                      <DatePicker
+                        selected={this.props.fechPref}
                         minDate={new Date()}
-                        onChange={this.props.handleDateEndEval}
+                        onChange={(e)=> this.props.handleChange2(e,"fechPref")}
                         class="form-control"
                       />
                   </div>
