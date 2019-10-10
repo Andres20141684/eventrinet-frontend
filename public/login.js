@@ -122,6 +122,7 @@ var respuestaVal = null;
 var superprofile=null;
 function getJsonGoogleUser(){
 	/**porque quiero y porque puedo */
+	
 	request.execute(
 		function (resp) {
 			superprofile=resp

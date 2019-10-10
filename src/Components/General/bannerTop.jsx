@@ -76,7 +76,7 @@ class BannerTop extends Component{
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/events"><b><font size="3" color="#6CDCD6">Eventos</font></b></a>
+                <a class="nav-link" href="/EventInscriptionPage"><b><font size="3" color="#6CDCD6">Eventos</font></b></a>
               </li>
               
               <li class="nav-item">
