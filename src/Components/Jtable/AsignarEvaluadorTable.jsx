@@ -22,9 +22,7 @@ class AsignarEvaluadorTable extends Component {
       
 
   }
-   handleClick = () => {
-    console.log('this is:', this);
-  }
+  
   
    renderTableData() {
         return this.state.datos_tabla.map((element, index) => {
