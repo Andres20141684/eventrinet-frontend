@@ -14,7 +14,7 @@ import Create_EventStep3 from './Pages/Create_EventStep3';
 import Prueba from './Pages/Prueba';
 import Login from './Pages/Login';
 import SelectedEvent from './Pages/SelectedEvent';
-
+import EventInscriptionPage from './Pages/EventInscriptionPage';
 import SignUp from './Pages/SignUp';
 /************************************* */
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
@@ -37,6 +37,7 @@ ReactDOM.render(<Router>
                     <Route path='/prueba' exact component={Prueba} />                    
                     <Route path='/login' exact component={Login} />
                     <Route path='/SelectedEvent' exact component={SelectedEvent} />
+                    <Route path='/EventInscriptionPage' exact component={EventInscriptionPage} />
                     
                     <Route path='/signUp' exact component={SignUp} />
                     </Router>,

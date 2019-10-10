@@ -7,20 +7,20 @@ class PresiCalificacionFinalPapersTable extends Component {
    constructor(props) {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
-      /*Networking.populateDataPresiTab(1,2).then((value) => {
+      Networking.populateDataPresiTab_en_fase_evaluacion(7).then((value) => {
             this.setState({datos_tabla: value});   
             
-      });*/
+      });
       console.log("rzwetxrytcvygbuhnj"+this.props);
    }
    state = {
       datos_tabla: [
-         {  nombre: 'Simposio agujeros Negros', 
+        /* {  nombre: 'Simposio agujeros Negros', 
             fases: '1/2', 
             fechalimite: '25/08/2019', 
             calEva: 'Si',
             calPresi:'No'
-         }]
+         }*/] 
   }
    handleClick = () => {
     console.log('this is:', this);
@@ -28,12 +28,12 @@ class PresiCalificacionFinalPapersTable extends Component {
   
    renderTableData() {
         return this.state.datos_tabla.map((element, index) => {
-        const { nombre, fases, fechalimite, calEva,calPresi} = element //destructuring
+        const { nombre,secuencia, numFases, fechaLimite, calEva,calPresi} = element //destructuring
         return (
             <tr>
                 <td>{nombre}</td>
-                <td>{fases}</td>
-                <td>{fechalimite}</td>
+                <td>{secuencia}/{numFases}</td>
+                <td>{fechaLimite}</td>
                 <td>{calEva}-{calPresi}</td>
                 <td>
                    <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus"></i></button>

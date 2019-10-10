@@ -7,35 +7,33 @@ class AsignarEvaluadorTable extends Component {
    constructor(props) {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
-      /*Networking.populateDataPresiTab(1,1).then((value) => {
+      Networking.populateDataPresiTab_asignar_evaluadores(7).then((value) => {
             this.setState({datos_tabla: value});   
             
-      });*/
+      });
       console.log("rzwetxrytcvygbuhnj"+this.props);
    }
    state = {
       datos_tabla: [
-         {  nombre: 'AWS communnity day',
+        /* {  nombre: 'AWS communnity day',
             propAsignadas: '1/15', 
             iniEval: '25/08/2019'
-         }]
+         }*/]
       
 
   }
-   handleClick = () => {
-    console.log('this is:', this);
-  }
+  
   
    renderTableData() {
         return this.state.datos_tabla.map((element, index) => {
-            const { nombre, propAsignadas, iniEval} = element //destructuring
+            const { nombre, propAsignadas, inicioEvaluacion} = element //destructuring
             
                      return (
                         
                         <tr>
                            <td>{nombre} </td>
                            <td>{propAsignadas}</td>
-                           <td>{iniEval}</td>
+                           <td>{inicioEvaluacion}</td>
                            <td>
                               <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus"></i></button>
                            </td>  

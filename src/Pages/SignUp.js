@@ -1,122 +1,140 @@
 import React, { Component } from 'react';
-//import BannerLogin from '../Components/General/bannerLogin';
-//import BannerBottom from '../Components/General/bannerBottom'
+import BannerLogin from '../Components/General/bannerLogin';
+import BannerBottom from '../Components/General/bannerBottom'
 import '../styles/style_record.css'; 
-//import {reduxForm, Field} from 'redux-form';
-//import {connect} from 'react-redux';
-//import {compose} from 'redux';
-//import GoogleLogin from 'react-google-login';
-//import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBIcon, MDBBtn } from 'mdbreact';
 
-class SignUp extends Component {
-  render() {
-    const { handleSubmit } = this.props;
-    return (
-      <div className="row">
-        </div>)};
-}export default SignUp;
-/*
 
-class SignUp extends Component {
-    constructor(props) {
-      super(props);
-      this.onSubmit = this.onSubmit.bind(this);
-      this.responseGoogle = this.responseGoogle.bind(this);
-      this.responseFacebook = this.responseFacebook.bind(this);
+var request=null;
+var loggedin = false;
+
+
+class SingUp extends Component{
+    state = {
+        bannerLogin: BannerLogin,
+        bannBot : BannerBottom,
+        usuario : null,
+        pagPrev: "/"
     }
     
-    async onSubmit(formData) {
-      await this.props.signUp(formData);
-      if (!this.props.errorMessage) {
-        this.props.history.push('/dashboard');
-      }
+    render(){
+
+        return(
+        <div>            
+            <body>  
+                <div class="component-header"  width="300">
+                <a class="component-logo customizable chart" href='/' title="Volver a pagina principal">
+                    <img class="component-logo" src="logo.png"  width="240"/> 
+                </a>
+                </div>                
+                <section class="container-fluid bg">
+                    <section class="row justify-content-center">
+                        <section class="col-12  col-sm-6 col-md-3">
+                          <br/><br/><br/><br/>
+                        <MDBContainer>
+                        <MDBRow>
+        <MDBCol md="6">
+          <MDBCard>
+            <MDBCardBody>
+              <form>
+                <p className="h4 text-center py-4">Sign up</p>
+                <div className="grey-text">
+                  <MDBInput
+                    label="Nombre"
+                    icon="user"
+                    group
+                    type="text"
+                    validate
+                    error="wrong"
+                    success="right"
+                  />
+                  <MDBInput
+                    label="Correo Electrónico"
+                    icon="envelope"
+                    group
+                    type="email"
+                    validate
+                    error="wrong"
+                    success="right"
+                  />
+                  <MDBInput
+                    label="Confirma tu correo electrónico"
+                    icon="exclamation-triangle"
+                    group
+                    type="text"
+                    validate
+                    error="wrong"
+                    success="right"
+                  />
+                  <MDBInput
+                    label="Contraseña"
+                    icon="lock"
+                    group
+                    type="password"
+                    validate
+                  />
+                </div>
+                <div className="text-center py-4 mt-3">
+                  <MDBBtn color="cyan" type="submit">
+                    Registrar
+                  </MDBBtn>
+                  <MDBBtn>
+                  <div width="200" height="500" effect="fadeInUp">                                    
+                  <a href={this.state.pagPrev}>
+                  <div class="g-signin2" align="center" data-onsuccess="onSignIn" >
+                      
+                  </div>
+                  </a>
+                  </div>
+                  </MDBBtn>
+                </div>
+              </form>
+            </MDBCardBody>
+          </MDBCard>
+        </MDBCol>
+      </MDBRow>
+      </MDBContainer>     
+
+
+
+                        </section>
+                    </section>
+                </section>
+            </body>
+            <this.state.bannBot />
+        </div>)
     }
-  
-    async responseGoogle(res) {
-      await this.props.oauthGoogle(res.accessToken);
-      if (!this.props.errorMessage) {
-        this.props.history.push('/dashboard');
-      }
-    }
-  
-    async responseFacebook(res) {
-      await this.props.oauthFacebook(res.accessToken);
-      if (!this.props.errorMessage) {
-        this.props.history.push('/dashboard');
-      }
-    }
-  
-    render() {
-      const { handleSubmit } = this.props;
-      return (
-        <div className="row">
-          <div className="col">
-            <form onSubmit={handleSubmit(this.onSubmit)}>
-              <fieldset>
-                <Field
-                  name="email"
-                  type="text"
-                  id="email"
-                  label="Enter your email"
-                  placeholder="example@example.com"
-                  component={ CustomInput } />
-              </fieldset>
-              <fieldset>
-                <Field
-                  name="password"
-                  type="password"
-                  id="password"
-                  label="Enter your password"
-                  placeholder="yoursuperpassword"
-                  component={ CustomInput } />
-              </fieldset>
-  
-              { this.props.errorMessage ? 
-              <div className="alert alert-danger">
-                { this.props.errorMessage }
-              </div> : null }
-  
-              <button type="submit" className="btn btn-primary">Sign Up</button>
-            </form>
-          </div>
-          <div className="col">
-            <div className="text-center">
-              <div className="alert alert-primary">
-                Or sign up using third-party services
-              </div>
-              <FacebookLogin
-                appId="number"
-                render={renderProps => (
-                  <button style={{ marginRight: 15 }} className="btn btn-primary" onClick={renderProps.onClick}>Facebook</button>
-                )}
-                fields="name,email,picture"
-                callback={this.responseFacebook}
-                cssClass="btn btn-outline-primary"
-              />
-              <GoogleLogin 
-                clientId="number"
-                render={renderProps => (
-                  <button className="btn btn-danger" onClick={renderProps.onClick} disabled={renderProps.disabled}>Google</button>
-                )}
-                onSuccess={this.responseGoogle}
-                onFailure={this.responseGoogle}
-                className="btn btn-outline-danger"
-              />
-            </div>
-          </div>
-        </div>
-      );
-    }
-  }
-  
-  function mapStateToProps(state) {
-    return {
-      errorMessage: state.auth.errorMessage
-    }
-  }
-  
-  export default compose(
-    connect(mapStateToProps, actions),
-    reduxForm({ form: 'signup' })
-  )(SignUp)
-*/
+}
+
+
+export default SingUp;
+
+/*<div class="form-container">
+                        <form action="/organActiveEvents" >
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Usuario</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1"  placeholder="Ingresar usuario"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Contraseña</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña"/>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Iniciar sesion</button>
+                            
+                        </form>
+                        <div class="right-box">
+                            <br/>
+                            <label for="exampleInputEmail1"  style={{textAlignVertical: "center",textAlign: "center"}}>Ingresar con cuenta gmail</label>
+                            <section class="loginButton">
+                            <script src= "./login.js"></script>
+
+                                <div width="200" height="500" effect="fadeInUp">                                    
+                                    <a href={this.state.pagPrev}>
+                                    <div class="g-signin2" align="center" data-onsuccess="onSignIn" >
+                                        
+                                    </div>
+                                    </a>
+                                </div>
+                            </section>
+                        </div>
+                        </div>*/
