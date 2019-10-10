@@ -1,18 +1,30 @@
-import React, { Component } from 'react'
+/*import React, { Component } from 'react'
 import './../../styles/Jtab.css'
 class AsignarEvaluadorTable extends Component {
    constructor(props) {
-    
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+      console.log("HAAAAAAAAAAAAAAAAAAAAA")
+      Networking.populateDataPresiTab_asignar_evaluadores(7).then((value) => {
+            this.setState({datos_tabla: value});   
+            
+      });
       console.log("rzwetxrytcvygbuhnj"+this.props);
-      
    }
+   state = {
+      datos_tabla: [
+         {  nombre: 'Simposio agujeros Negros', 
+            fases: '1/2', 
+            fechalimite: '25/08/2019', 
+            calEva: 'Si',
+            calPresi:'No'
+         }]
+  }
    handleClick = () => {
     console.log('this is:', this);
   }
   
    renderTableData() {
-        return this.state.chupetinesGA.map((element, index) => {
+        return this.state.datos_tabla.map((element, index) => {
         const { id, name, age, email} = element //destructuring
         return (
             <tr key={id}>
@@ -50,3 +62,4 @@ class AsignarEvaluadorTable extends Component {
 }
 
 export default AsignarEvaluadorTable //exporting a component make it reusable and this is the beauty of react
+*/

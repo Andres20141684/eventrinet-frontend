@@ -7,10 +7,10 @@ class PresiCalificacionFinalPapersTable extends Component {
    constructor(props) {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
-      /*Networking.populateDataPresiTab(1,2).then((value) => {
+      Networking.populateDataPresiTab_en_fase_evaluacion(3).then((value) => {
             this.setState({datos_tabla: value});   
             
-      });*/
+      });
       console.log("rzwetxrytcvygbuhnj"+this.props);
    }
    state = {
@@ -20,7 +20,7 @@ class PresiCalificacionFinalPapersTable extends Component {
             fechalimite: '25/08/2019', 
             calEva: 'Si',
             calPresi:'No'
-         }]
+         }] 
   }
    handleClick = () => {
     console.log('this is:', this);
