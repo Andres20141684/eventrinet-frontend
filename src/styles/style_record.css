@@ -37,7 +37,7 @@
     display: none;
 }
 
-#input-date{
+#input-date, #id_IniCamReady{
     font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -56,7 +56,7 @@
   border: 1px solid #ccc;
 }
 
-#input-chip{
+#id_email{
     position: relative;
     z-index: 0; 
     float: left;
