@@ -18,13 +18,13 @@ export default function ArrayOfChips(props) {
   };
 
   const handleDelete = chipToDelete => () => {
-    chipData=chipData.filter(chipData=>chipData.descripcion!==chipToDelete.descripcion);
+    chipData=chipData.filter(chipData=>chipData[props.label]!==chipToDelete[props.label]);
     //setChipData(chips => chips.filter(chips => chips.key !== chipToDelete.key));
     props.handleadd(chipData,props.tag)
   };
 
   const handleChange= (e) =>{
-    aux={descripcion: e.target.value }
+    aux={[props.label]: e.target.value }
     
   }
 
@@ -40,7 +40,7 @@ export default function ArrayOfChips(props) {
             aria-label="Recipient's username" 
             aria-describedby="basic-addon2"
             onChange={handleChange}
-            style={{width: 360}}/>
+            style={{width: 360,position:"relative"}}/>
         <div class="input-group-append">
           <button 
             class="btn btn-outline-secondary add"
@@ -56,7 +56,7 @@ export default function ArrayOfChips(props) {
               return (
                 <Chip
                   key={index}
-                  label={data.descripcion}
+                  label={data[props.label]}
                   onDelete={handleDelete(data)}
                 />
               );

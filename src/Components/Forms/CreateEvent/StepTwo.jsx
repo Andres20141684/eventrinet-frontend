@@ -11,66 +11,68 @@ import '../../../styles/style_sheets.css';
 class StepTwo extends Component{    
 
     formComiteOrganizacional(props){
-        return (
-            <div>
-                <Container>
-                <h1>Comité Organizacional</h1>
-                <Form>
-                <br></br>
-                <ArrayOfChips lista={props.comite1} handleadd={props.handleChange2} tag="comite1"/> 
-                </Form>
-                </Container>              
-    </div>
+        return (            
+            <div class="panel panel-default">
+            <div class="panel-heading"><h1>Comité Organizacional</h1></div>
+            <div class="panel-body">
+                <div class="form-group col-md-6">
+                <ArrayOfChips lista={props.comite1} handleadd={props.handleChange2} tag="comiteOrganizacional" label="correo"/> 
+                </div>
+            </div>
+            </div>
         )
     }
 
     formComiteAcademico(props){
-        return (
-            <div>
-                <Container>
-                <h1>Comité Académico</h1>
-                <Form>                                
-                <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label> Presidente</Form.Label>                    
-                    <br></br>
-                    <ArrayOfChips lista={props.presidente} handleadd={props.handleChange2} tag="presidente"/> 
-                    <br></br>
-                                      
-                </Form.Group>
+        return (            
+            <div class="panel panel-default">
+            <div class="panel-heading"><h1>Comité Académico</h1></div>
+            <div class="panel-body"> 
+                <Row >
+                    <div class="form-group col-md-6">
+                        <label> Presidente</label>
+                        <div style={{marginLeft: 13}}>
+                        <ArrayOfChips lista={props.presidente} handleadd={props.handleChange2} tag="presidente" label="correo"/>                          
+                        </div>
+                    </div>
+                </Row> 
                 
-                <Form.Group>
-                <br></br>    
-                <Form.Label>Criterio para evaluar preferencia de evaluadores:</Form.Label>
-                <br></br>
-                <Col>
-                    <input
-                    checked={props.rdCategry}
-                    type="radio" inline
-                    name="formHorizontalRadios"
-                    id="rdCategry"
-                    onChange={(e)=>props.handleChangeRadio(e,"rdPropuest")}
-                    />Categorias
-                    <input
-                    checked={props.rdPropuest}
-                    type="radio" inline
-                    name="formHorizontalRadios"
-                    id="rdPropuest"
-                    onChange={(e)=>props.handleChangeRadio(e,"rdCategry")}
-                    />Propuestas
-                </Col>
-                <br></br>
-                </Form.Group>
+                <Row>
+                <div class="form-group col-md-6">
+                    <label> Criterio para evaluar preferencia de evaluadores:</label>
+                    <div class="form-group col-md-6">                    
+                    <div>
+                        <Form.Check
+                            type="radio" inline
+                            value={props.rdCategry}
+                            label="Categorias"
+                            name="formHorizontalRadios_1"
+                            id="formHorizontalRadios1"
+                            onClick={(e)=>props.handleChangeRadio(e,"rdCategry")}
+                        />
+                        <Form.Check
+                            type="radio" inline
+                            value={props.rdPropuest}
+                            label="Propuestas"
+                            name="formHorizontalRadios_1"
+                            id="formHorizontalRadios2"
+                            onClick={(e)=>props.handleChangeRadio(e,"rdPropuest")}
+                        />
+                    </div>
+                </div>
+                </div>
+                </Row>
 
-                <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Label> Evaluadores</Form.Label>
-                    <br></br>    
-                    <ArrayOfChips lista={props.evaluadores} handleadd={props.handleChange2} tag="evaluadores"/> 
-                    <br></br>                  
-                </Form.Group>
-                </Form>
-                </Container>  
-    </div>
-
+                <Row >
+                    <div class="form-group col-md-6">
+                        <label> Evaluadores</label>
+                        <div style={{marginLeft: 13}}>
+                        <ArrayOfChips lista={props.evaluadores} handleadd={props.handleChange2} tag="evaluadores" label="correo"/>                         
+                        </div>
+                    </div>
+                </Row> 
+            </div>
+            </div>
         )
     }
 

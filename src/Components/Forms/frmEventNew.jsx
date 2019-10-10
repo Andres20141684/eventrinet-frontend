@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import frmCreateEvent from './frmCreateEvent'
 import { string } from 'prop-types';
-const Networking = require('../../Network/Networking.js') ;
 import '../../styles/style_sheets.css'
-
+const Networking = require('../../Network/Networking.js') ;
 export default class EventNew extends Component{
     constructor(props) {
         super(props);
@@ -98,13 +97,13 @@ export default class EventNew extends Component{
         delete auxjson.rdCategry
         delete auxjson.rdPropuest
 
-        if(auxjson.rdCamR===true){
+        /*if(auxjson.rdCamR===true){
           auxjson.tieneCameraRdy=1
           let addPhase={nombre:"Camera Ready",secuencia:this.state.fases.length+1}
           this.DateFormat(auxjson.fCRIni,addPhase,"fechaFaseIni",null)
           this.DateFormat(auxjson.fCRFin,addPhase,"fechaFaseFin",null)
           auxjson.fases.push(addPhase)
-        }
+        }*/
         auxjson.numFases=this.state.fases.length
 
         this.DateFormat(this.state.fIni,auxjson,"fechaIni","fIni")
@@ -181,7 +180,7 @@ export default class EventNew extends Component{
               handleDateStartCamReady={this.handleDateStartCamReady}
               handleDateEndEval={this.handleDateEndEval}             
               />
-          </div>
+          </div>*/
         )
         }
 

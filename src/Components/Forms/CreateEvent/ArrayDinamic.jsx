@@ -55,38 +55,34 @@ class ArrayDinamics extends Component{
                       <div>
                           <br/>
                           <Row>
-                              <Col>
-                                <label for="title">Enunciado</label>
-                                </Col>
-                                <Col>
-                                <input type="text" onChange={(e)=>this.handleChange5(e,index,"enunciado")} value={this.state.array[index].enunciado}/>
-                                </Col> 
+                          <div class="form-group col-md-6">
+                          <label for="title">Enunciado</label>
+                                <input class="form-control" type="text" onChange={(e)=>this.handleChange5(e,index,"enunciado")} value={this.state.array[index].enunciado}/>
+                          </div>
                           </Row>
                           <Row>
-                              <Col>
-                                <label for="title">Descripcion</label>
-                                </Col>
-                                <Col>
-                                <input type="text" onChange={(e)=>this.handleChange5(e,index,"descripcion")} value={this.state.array[index].descripcion}/>
-                              </Col>
+                            <div  class="form-group col-md-6">
+                                <label for="title">Descripcion</label>                                
+                                <input class="form-control" type="text" onChange={(e)=>this.handleChange5(e,index,"descripcion")} value={this.state.array[index].descripcion}/>
+                            </div>
                           </Row>
+                          <br/>
                           <Row>
-                          <Col>
-                                <Col>
-                                <label for="title">Obligatorio</label>
-                                </Col>
-                                <input type="checkbox" onClick={(e)=>this.handleCheckBox(e,index,"obli","obligatorio")} checked={this.state.array[index].obli}>
-                                </input></Col>
+                            <div class="form-group col-md-6" >
+                            <label for="title">Obligatorio</label>
+                            <input  type="checkbox" onClick={(e)=>this.handleCheckBox(e,index,"obli","obligatorio")} checked={this.state.array[index].obli}>
+                            </input>
+                            </div>   
                           </Row>
                           <br/> 
                       </div>
                   ))}
                   <Row>
                       <Col>
-                      <input type="button" value="add more" onClick={() => this.addClick()} /> 
+                      <input class="btn btn-primary"type="button" value="add more" onClick={() => this.addClick()} /> 
                       </Col>
                       <Col>
-                      {this.state.array.length===0?null:<input type="button" value="delete" onClick={() => this.removeClick()} />} 
+                      {this.state.array.length===0?null:<input class="btn btn-danger"type="button" value="delete" onClick={() => this.removeClick()} />} 
                       </Col>
                   </Row>
                   

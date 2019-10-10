@@ -74,14 +74,12 @@ class OrganActiveEvents extends Component{
                         <Botones/>
                     </div>
                 </div>
-                </div>
-
+                <br/><br/>
+            <this.state.bannBot/>
                 </div>
                 
-            </div>    
-            <br/><br/>
-            <this.state.bannBot/>
-            </div>
+                  
+            
         );
     }
 }
