@@ -28,12 +28,12 @@ class PresiCalificacionFinalPapersTable extends Component {
   
    renderTableData() {
         return this.state.datos_tabla.map((element, index) => {
-        const { nombre, fases, fechalimite, calEva,calPresi} = element //destructuring
+        const { nombre,secuencia, numFases, fechaLimite, calEva,calPresi} = element //destructuring
         return (
             <tr>
                 <td>{nombre}</td>
-                <td>{fases}</td>
-                <td>{fechalimite}</td>
+                <td>{secuencia}/{numFases}</td>
+                <td>{fechaLimite}</td>
                 <td>{calEva}-{calPresi}</td>
                 <td>
                    <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus"></i></button>
