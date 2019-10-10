@@ -62,7 +62,7 @@ class OrganActiveEvents extends Component{
                                 <Tab>Historial de eventos</Tab>
                             </TabList>
                             <TabPanel>
-                                <a  href="/organizerNewEvent"><button class="btnAdd" style={{float:'right'}}>Nuevo</button></a>
+                                
                                 <br/>
                                 <this.state.formActives  /> 
                             </TabPanel>

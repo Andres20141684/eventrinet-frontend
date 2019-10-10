@@ -6,12 +6,12 @@ class EvaluadorEventosTable extends Component {
    constructor(props) {
     
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      /*
+      
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
-      Networking.populateDataEvaTab(1,1).then((value) => {
+      Networking.populateDataEvaTab(6).then((value) => {
             this.setState({datos_tabla: value});   
             
-      });*/
+      });
    }
    state = {
       datos_tabla: 
@@ -58,7 +58,7 @@ class EvaluadorEventosTable extends Component {
               <br/>
               <h1 id='title'><br/>Elige un evento y agrega tus preferencias</h1><br/>
               <h2><br/></h2>
-              <table id='chupetinesGA'>
+              <table class="table  table-hover">
                  <tbody>
                     {this.TableHeader()}
                     {this.TableData()}
