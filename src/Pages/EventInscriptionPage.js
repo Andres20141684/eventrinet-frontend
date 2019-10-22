@@ -5,6 +5,7 @@ import Organizador_ActiveEventsTable from '../Components/Jtable/Organizador_Acti
 import Dashboard from '../Components/Dashboard';
 import { thisExpression } from '@babel/types';
 
+import {Link}  from "react-router-dom";
 
 class EventInscriptionPage extends Component{
     constructor(props) {
@@ -27,6 +28,8 @@ class EventInscriptionPage extends Component{
     render(){
         return(
         <div> 
+      <Link to="/EventInscriptionPage">EventInscriptionPage</Link> | 
+      <Link to="/">Home</Link>
             <this.state.bannTop />
             <h1>
             <font size="38">

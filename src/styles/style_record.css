@@ -37,7 +37,7 @@
     display: none;
 }
 
-#input-date, #id_IniCamReady{
+#input-date, #id_IniCamReady,#id_FinCamReady,#dateLimit, #date-end-phase, #date-in-phase{
     font-family: inherit;
   font-size: inherit;
   line-height: inherit;

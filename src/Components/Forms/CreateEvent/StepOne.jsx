@@ -63,7 +63,7 @@ export default class StepOne extends React.Component {
             </Row>
             <Row>            
                 <div class="form-group col-md-3">
-                <label >Fecha Inicio</label>
+                <label >Fecha Inicio&nbsp;</label>
                   <DatePicker
                     type="date"
                     selected={this.props.fechaIE}
@@ -74,17 +74,17 @@ export default class StepOne extends React.Component {
                     placeholder="date_in"
                   />
                 </div>
-                <div class="form-group col-md">
-                    <label >Fecha Fin </label>
+                <div class="form-group col-md-3">
+                    <label >Fecha Fin &nbsp;&nbsp;&nbsp;&nbsp;</label>
                       <DatePicker
-                        style={{position:"absolute"}}
                         type="date"
+                        style={{position:"absolute"}}
                         selected={this.props.fechaFE}
                         minDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fFin")}
                         id="input-date"
                         name="date_in"
-                        placeholder="date_in"
+                        placeholder="date_end"
                       />
                 </div>
             </Row>

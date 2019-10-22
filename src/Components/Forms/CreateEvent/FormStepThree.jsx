@@ -47,6 +47,7 @@ class FormStepThree extends Component{
                       selected={this.props.value.faseIni}
                       minDate={new Date()}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseIni","fechaFaseIni")}
+                      id="date-in-phase"
                     />
                 </div>
                 <div class="form-group col-md-3">
@@ -55,21 +56,20 @@ class FormStepThree extends Component{
                       selected={this.props.value.faseFin}
                       minDate={this.props.value.faseIni}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseFin","fechaFaseFin")}
+                      id="date-end-phase"
                     />
                 </div>
               </Row>
                 <Row>                
                 <div class="form-group col-md-6">
                     <label>Requiere adjuntar archivo (.pdf)</label>
-                    <div>
-                        <Form.Check
+                    <Form.Check
                             type="checkBox" 
                             name="formHorizontalRadios_1"
                             id="formHorizontalRadios1"
                             checked={this.props.value.reqArch}
                             onClick={(e) => this.props.handleCheck(e,this.props.index,"reqArch","necesitaArchivo")}
-                        />
-                    </div>
+                    />                    
                 </div>
                 </Row>
                 </div>
@@ -93,17 +93,12 @@ class FormStepThree extends Component{
                 </Row>
                 <Row >
                 <div class="form-group col-md-6">                    
-                    <div>
-                            <Col>
-                            <label for="title">Requiere de Criterios: </label>
-                            </Col>
-                            <Col><input
-                                type="checkBox" 
-                                checked={this.props.value.reqEval}
-                                onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
-                            />
-                            </Col>
-                    </div>
+                    <label for="title">Requiere de Criterios: &nbsp;&nbsp;</label>
+                    <input
+                        type="checkBox" 
+                        checked={this.props.value.reqEval}
+                        onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
+                    />
                     <div>
                     {this.props.value.reqEval===true?
                         <ArrayDinamic 
@@ -115,7 +110,7 @@ class FormStepThree extends Component{
                         :null}
                     
                     </div> 
-                </div>
+                </div >
                 </Row>
                 
                    

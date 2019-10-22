@@ -130,13 +130,14 @@ handleCheckboxChange = event =>{
             <h3>Camera Ready</h3>
             <div class="panel panel-default">  
             <div class="panel-body">   
-            <div>
-              <label>Requiere Camera Ready</label>
-            <input 
-                type="checkbox" 
-                checked={this.props.rdCamR}
-                onClick={(e)=>this.props.handleCheckB(e,"rdCamR")}
-                />
+            
+            <div class="form-group col-md-6">  
+              <label for="title">Requiere Camera Ready &nbsp;&nbsp;</label>
+              <input 
+                  type="checkbox" 
+                  checked={this.props.rdCamR}
+                  onClick={(e)=>this.props.handleCheckB(e,"rdCamR")}
+                  />
             </div>
             </div>
               {this.props.rdCamR===true?<FormGroup action="" class="card card-body">
@@ -180,6 +181,7 @@ handleCheckboxChange = event =>{
                         minDate={new Date()}
                         onChange={(e)=> this.props.handleChange2(e,"fechPref")}
                         class="form-control"
+                        id= "dateLimit"
                       />
                   </div>
                 </Row>        

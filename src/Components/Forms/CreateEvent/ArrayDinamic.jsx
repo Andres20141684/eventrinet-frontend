@@ -69,7 +69,7 @@ class ArrayDinamics extends Component{
                           <br/>
                           <Row>
                             <div class="form-group col-md-6" >
-                            <label for="title">Obligatorio</label>
+                            <label for="title">Obligatorio&nbsp;&nbsp;</label>
                             <input  type="checkbox" onClick={(e)=>this.handleCheckBox(e,index,"obli","obligatorio")} checked={this.state.array[index].obli}>
                             </input>
                             </div>   
@@ -79,10 +79,10 @@ class ArrayDinamics extends Component{
                   ))}
                   <Row>
                       <Col>
-                      <input class="btn btn-primary"type="button" value="add more" onClick={() => this.addClick()} /> 
+                      <input class="btn btn-primary"type="button" value="Agregar" onClick={() => this.addClick()} /> 
                       </Col>
                       <Col>
-                      {this.state.array.length===0?null:<input class="btn btn-danger"type="button" value="delete" onClick={() => this.removeClick()} />} 
+                      {this.state.array.length===0?null:<input class="btn btn-danger"type="button" value="Borrar" onClick={() => this.removeClick()} />} 
                       </Col>
                   </Row>
                   

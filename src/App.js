@@ -4,6 +4,9 @@ import BannerTop from './Components/General/bannerTop';
 import BannerBottom from './Components/General/bannerBottom';
 import './App.css'; 
 import { thisExpression } from '@babel/types';
+
+import {Link}  from "react-router-dom";
+
 const Networking = require('./Network/Networking.js') ;
 
 
@@ -48,8 +51,9 @@ class App extends Component{
 
   render() {
     return (
-      <div>
+      <div> 
     <div className="App">
+      <br />{"JSON:"+JSON.stringify(sessionStorage.getItem("dataUser"))}      
       <this.state.bannTop /> 
       <header className="App-header">
         <p className="logo">EVENTRINET</p>

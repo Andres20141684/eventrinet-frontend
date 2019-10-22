@@ -1,117 +1,155 @@
-import React, {Component} from 'react';
-//const stylesFile = require('../Styles/styles.js');
-//const styles = stylesFile.getStyle();
-import '../styles/style_banner_top.css'
-class Prueba extends Component{
-  
-  constructor(props) {
-    super(props);
-    this.state = {
-        visible : false,
-        role: null,
+import React, { Component } from 'react';
+import BannerLogin from '../Components/General/bannerLogin';
+import BannerBottom from '../Components/General/bannerBottom'
+import {Link}  from "react-router-dom";
+import '../styles/style_signUp.css'; 
+import {Redirect}  from "react-router-dom";
+
+const Networking = require('../Network/Networking');
+
+var request=null;
+var loggedin = false;
+
+
+class Login extends Component{
+  state = {
+    bannerLogin: BannerLogin,
+    usuario : null,
+    user: "",
+    pass: "",
+    redirect:false
     }
-  }
 
-  openModal() {
-    this.setState({
-        visible : true
-    });
-  }
+    onSubmitForm = (evt) => {
 
-  closeModal() {
-    this.setState({
-        visible : false
-    });
-  }
-  
-  render(){
-    //debugger;
-    return (
-        <nav id="bannerTop" class="navbar navbar-default navbar-expand-xl navbar-fixed-top" style={styles.banner} >
-            <div class="navbar-header d-flex col">
-                <a class="navbar-brand" href="#"><i class="fa fa-cube"></i>Brand<b>Name</b></a>  		
-                <button type="button" data-target="#navbarNavDropdown" data-toggle="collapse" class="navbar-toggle navbar-toggler ml-auto">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
+        evt.preventDefault()
+        console.log(this.state)
 
-            <div id="navbarNavDropdown" class="collapse navbar-collapse justify-content-start">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/"><b><font size="3" color="#6CDCD6">Inicio</font></b><span class="sr-only">(current)</span></a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="/events"><b><font size="3" color="#6CDCD6">Eventos</font></b></a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="/announcements"><b><font size="3" color="#6CDCD6">Convocatoria</font></b></a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="#"><b><font size="3">Mis inscripciones</font></b></a></li>
-                            <li><a class="nav-link" href="#"><b><font size="3">Mis propuestas</font></b></a></li>
-                            <div class="dropdown-divider"></div>
-                            <li><a class="nav-link" href="/organActiveEvents"><b><font size="3">Organizador</font></b></a></li>
-                            <li><a class="nav-link" href="/presidentEvents"><b><font size="3">Presidente</font></b></a></li>
-                            <li><a class="nav-link" href="/EvaluadorEventos"><b><font size="3 ">Evaluador</font></b></a></li>
-                        </ul>
-                    </li>
-            </ul>
-            <form class="navbar-form form-inline">
-            <div class="input-group search-box">								
-              <input type="text" id="search" class="form-control" style={{alignItems:"center"}} placeholder="Buscar"/>
-              <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
-            </div>
-          </form>
-            <ul class=" navbar-right ml-auto " style={{height:50, alignItems:"center"}} >
-            </ul>
-            <form class="navbar-form navbar-right ml-auto">
-                
-                <ul class="nav navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
-                            <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" class="avatar" alt="Avatar"/>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a></li>
-                            <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Ajustes</a></li>
-                            <li class="divider dropdown-divider"></li>
-                            <li><a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Cerrar sesion</a></li>
-                        </ul>
-                    </li> 
-                </ul>
-                
-            </form>            
+        let thisForm = evt.target
+        let errorMsg = document.getElementById("errorMsg")
+
+        if (!this.state.user.length) {
+            thisForm.user.focus()
+            errorMsg.style.display = "block"
+            errorMsg.innerText = "Ingrese nombre de usuario"
+            return false
+        }
+
+        if (!this.state.pass.length) {
+            thisForm.pass.focus()
+            errorMsg.style.display = "block"
+            errorMsg.innerText = "Ingrese password de usuario"
+            return false
+        }
+        
+        // else
+        errorMsg.style.display = "none"
+
+        //Asumiendo que este sera el Json recibido
+        sessionStorage.dataUser = {status:true, data:{sesion:true, roles:["organizador"], msj:"error de credenciales"}}
+        console.log(this.state)
+        this.setState({redirect:true})        
+        
+        return false
+
+        let responseJson = Networking.login(this.state.name, this.state.pass)
+        if (!responseJson.data.sesion) {
+            alert(responseJson.data.msj)
+        } else {
+            sessionStorage.dataUser = responseJson
+            this.setState({redirect:true})
+        }
+    }
+
+    renderRedirect = () => {
+        if(this.state.redirect) {
+            return <Redirect to='/'></Redirect>
+        }
+    }
+
+    onChageInputName = (evt) => {
+        console.log(evt.target)
+
+        this.setState({user: evt.target.value});
+    }
+
+    onChageInputPass = (evt) => {
+        this.setState({pass: evt.target.value});
+    }
+
+    onKeyDownName = (evt) => {
+        let user = evt.target.value
+
+        console.log(user.length)
+
+        if (user.length >= 20) {
+            evt.preventDefault()
+            return false
+        }
+    }
+    
+    render(){
+      return(
+        <div>{this.renderRedirect()} 
+          <div class="component-header"  width="300"  style={{paddingLeft:20}}>
+            <a class="component-logo customizable chart" href='/' title="Volver a pagina principal">
+                <img class="component-logo" src="logo.png"  width="240"/> 
+            </a>
           </div>
-        </nav>
-    );
-  }
+          <div class="page-content">
+
+            <div class="form-v5-content">
+              <form class="form-detail"  type="post" onSubmit={this.onSubmitForm}>
+                <h2>Eventrinet</h2>
+                
+                <div class="form-row">
+                  <label for="your-email">Email</label>
+                  <input type="text" name="your-email" id="your-email" class="input-text" onChange={this.onChageInputName} onKeyDown={this.onKeyDownName} placeholder="Ingresar email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"/>
+                  <i class="fa fa-envelope"></i>
+                </div>
+                <div class="form-row">
+                  <label for="password">Contraseña</label>
+                  <input type="password" name="password" id="password" class="input-text"  onChange={this.onChageInputPass} placeholder="Contraseña" required/>
+                  <i class="fa fa-lock"></i>
+                </div>
+                <div class="form-row-last">                  
+                  <input type="submit" name="Iniciar sesion"class="btn btn-primary btn-block" value="Iniciar Sesion"/>
+                </div>
+                                
+              </form>
+              
+              <div id="errorMsg" class="alert alert-warning" role="alert" style={{marginBottom:0, marginTop:"20px", display:"none"}}></div>
+              
+              <div class="col-xs-12">
+                  <div class="divider">
+                  <strong class="divider-title ng-binding">o</strong>
+                  </div>
+                </div>
+              
+                <div >
+                  <section class="loginButton">
+                  <script src= "./login.js"></script>
+                  <div  effect="fadeInUp">                                    
+                      <a href={this.state.pagPrev}>
+                      <div class="g-signin2" align="center" data-onsuccess="onSignIn" />
+                      </a>
+                  </div>
+                  </section>
+                </div>
+                <br/>
+
+                <div class="hint-text small" style={{textAlign:"center"}}>
+                  ¿No tienes una cuenta?
+                  <Link to="/signUp"  class="text-success">Registrate ahora!</Link>
+                </div>
+                <br/>
+            </div>
+           
+          </div>          
+        </div>
+      )
+    }
 }
 
-export default Prueba;
 
-var styles = {
-  banner:{
-    backgroundColor: '#002D3D',
-    paddintTop:0,
-    paddingBottom: 0,
-    paddingRight:0,
-    FontSize: 20,
-    color:'#6CDCD6',
-  }
-  ,fa:{
-    paddingTop:1,
-    paddingRight:20,
-    color:'#6CDCD6',
-  },
-  navbar:{
-    backgroundColor:'#002D3D',
-    borderColor:'#002D3D'
-  }
-}
+export default Login;

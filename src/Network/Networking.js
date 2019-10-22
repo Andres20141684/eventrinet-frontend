@@ -2,6 +2,23 @@ import {AsyncStorage} from 'react';
 
 const restURL = 'http://localhost:5000/api/';
 
+export async function login (name, pass) {
+    try {
+        let response = await fetch(restURL + 'login', {
+            method:'POST',
+            body: JSON.stringify({"name":name, "pass":pass})
+        });
+
+        let responseJson = response.json(); // {status:true, data:{sesion:true, roles:["admin","publicador"] msj:"error de credenciales"}}
+        console.log(responseJson);
+        return responseJson;
+
+    } catch (error) {
+        console.log(error);
+        return error
+    }
+}
+
 export async function saludar(){
     try {
         let response = await fetch(restURL+'hola' ,{
