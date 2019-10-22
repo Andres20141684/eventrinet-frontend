@@ -22,37 +22,49 @@ class BannerTop extends Component{
   }
 
   componentDidMount(){
-    try{
+    
+
+    try{ //Verify if I'm logging
       let retrievedObject = sessionStorage.getItem('dataUser');
-      let retrievedJson = JSON.parse(retrievedObject);
+      let retrievedJson = JSON.parse(retrievedObject);      
 
       let linkLogin = document.getElementById("linkLogin")
       let linkSignUp = document.getElementById("linkSignUp")
       let myavatar = document.getElementById("myavatar")
 
+      if (retrievedObject == null){ //If doesnt exist de object
+        linkLogin.style.display ="block"
+        linkSignUp.style.display ="block"
+        myavatar.style.display="none"
+        return
+      }
+      
+      //If exist the object and  status =true
       console.log("retrivedJSON:  ",retrievedJson["status"])
-
+  
       if (retrievedJson["status"]){
         this.setState({"logeado": true})
       }
-      
+        
       console.log("state:  ",this.state)
-
+  
       if (retrievedJson["status"]){
         linkLogin.style.display ="none"
         linkSignUp.style.display ="none"
-        myavatar.displat="block"
+        myavatar.style.display="block"
         return
       }
       else{ //Si no estoy logeado
         linkLogin.style.display ="block"
         linkSignUp.style.display ="block"
-        myavatar.displat="none"
+        myavatar.style.display="none"
         return
       }
     }catch(err){
       console.log(err)
     }
+
+    
 
   }
   openModal() {
@@ -68,7 +80,12 @@ class BannerTop extends Component{
   }
   
   clickLogOut () {
-    console.log("Me todoo")
+    console.log("Cerrando")
+
+    let retrievedObject = sessionStorage.getItem('dataUser');
+    let retrievedJson = JSON.parse(retrievedObject);
+    retrievedJson["status"]=false
+
     let linkLogin = document.getElementById("linkLogin")
     let linkSignUp = document.getElementById("linkSignUp")
     let myavatar = document.getElementById("myavatar")
@@ -76,7 +93,6 @@ class BannerTop extends Component{
     linkLogin.style.display ="block"
     linkSignUp.style.display ="block"
     myavatar.style.display="none"
-    
   }
 
   render(){
