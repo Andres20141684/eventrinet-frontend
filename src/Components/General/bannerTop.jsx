@@ -93,6 +93,7 @@ class BannerTop extends Component{
     linkLogin.style.display ="block"
     linkSignUp.style.display ="block"
     myavatar.style.display="none"
+
   }
 
   render(){
@@ -121,7 +122,7 @@ class BannerTop extends Component{
                       <li><Link to="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</Link></li>
                       <li><Link to="#" class="dropdown-item"><i class="fa fa-sliders"></i> Ajustes</Link></li>
                       <li class="divider dropdown-divider"></li>
-                      <li><Link to="#" class="dropdown-item"onClick={this.clickLogOut}><i class="material-icons" >&#xE8AC;</i> Cerrar sesion</Link></li>
+                      <li><Link to="/" class="dropdown-item"onClick={this.clickLogOut}><i class="material-icons" >&#xE8AC;</i> Cerrar sesion</Link></li>
                   </ul>
               </li> 
             </div>
