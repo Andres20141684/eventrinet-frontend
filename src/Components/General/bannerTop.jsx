@@ -22,32 +22,36 @@ class BannerTop extends Component{
   }
 
   componentDidMount(){
-    let retrievedObject = sessionStorage.getItem('dataUser');
-    let retrievedJson = JSON.parse(retrievedObject);
+    try{
+      let retrievedObject = sessionStorage.getItem('dataUser');
+      let retrievedJson = JSON.parse(retrievedObject);
 
-    let linkLogin = document.getElementById("linkLogin")
-    let linkSignUp = document.getElementById("linkSignUp")
-    let myavatar = document.getElementById("myavatar")
+      let linkLogin = document.getElementById("linkLogin")
+      let linkSignUp = document.getElementById("linkSignUp")
+      let myavatar = document.getElementById("myavatar")
 
-    console.log("retrivedJSON:  ",retrievedJson["status"])
+      console.log("retrivedJSON:  ",retrievedJson["status"])
 
-    if (retrievedJson["status"]){
-      this.setState({"logeado": true})
-    }
-    
-    console.log("state:  ",this.state)
+      if (retrievedJson["status"]){
+        this.setState({"logeado": true})
+      }
+      
+      console.log("state:  ",this.state)
 
-    if (retrievedJson["status"]){
-      linkLogin.style.display ="none"
-      linkSignUp.style.display ="none"
-      myavatar.displat="block"
-      return
-    }
-    else{ //Si no estoy logeado
-      linkLogin.style.display ="block"
-      linkSignUp.style.display ="block"
-      myavatar.displat="none"
-      return
+      if (retrievedJson["status"]){
+        linkLogin.style.display ="none"
+        linkSignUp.style.display ="none"
+        myavatar.displat="block"
+        return
+      }
+      else{ //Si no estoy logeado
+        linkLogin.style.display ="block"
+        linkSignUp.style.display ="block"
+        myavatar.displat="none"
+        return
+      }
+    }catch(err){
+      console.log(err)
     }
 
   }
