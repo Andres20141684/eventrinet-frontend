@@ -28,16 +28,15 @@ class Organizador_ActiveEventsTable  extends Component {
          
       });
    }
-   /*shouldComponentUpdate(nextProps, nextState){
+   shouldComponentUpdate(nextProps, nextState){
       if(this.state.datos_tabla != nextState.datos_tabla){
          return true;
       }
       return false;
-   }*/
+   }
    state = {
       datos_tabla: {
          Eventos:[
-            
          ]
    }
   }
