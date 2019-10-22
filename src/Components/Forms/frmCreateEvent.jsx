@@ -9,6 +9,7 @@ import StepOne from './CreateEvent/StepOne';
 import Dialog from '@material-ui/core/Dialog';
 import StepTwo from './CreateEvent/StepTwo'
 import StepThree from './CreateEvent/StepThree'
+import ModalSave from './CreateEvent/ModalDialog'
 import '../../styles/style_sheets.css'; 
 import { fontSize } from '@material-ui/system';
 
@@ -46,18 +47,10 @@ export default function HorizontalLabelPositionBelowStepper(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-  const [open, setOpen] = React.useState(false);
   
-  const handleSubmit=() =>{
-    setOpen(true);
-    props.handlePrint();
-  }
-
-  const handleClose=()=>{
-    setOpen(false);
-  }
+  
   const handleNext = () => {
-    {activeStep === steps.length - 1 ? handleSubmit() : setActiveStep(prevActiveStep => prevActiveStep + 1);}
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
     
   };
 
@@ -79,10 +72,17 @@ export default function HorizontalLabelPositionBelowStepper(props) {
         ))}
       </Stepper>
       <div>
-        {activeStep === steps.length ? (
+        {activeStep === steps.length - 1 ? (
           <div>
-            <Typography className={classes.instructions}>All steps completed</Typography>
-            <Button class="mybutton" onClick={handleReset}>Reset</Button>
+            <Typography className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
+            <button  
+                style={{float:'left'}}
+                class="mybutton"
+                onClick={handleBack}
+              >
+                Regresar
+              </button>
+            <ModalSave {...props}></ModalSave>
           </div>
         ) : (
           <div>
@@ -95,14 +95,12 @@ export default function HorizontalLabelPositionBelowStepper(props) {
                 style={{float:'left'}}
                 class="mybutton"
                 onClick={handleBack}
-                //className={classes.backButton}
               >
                 Regresar
               </button>}
               <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? 'Fin' : 'Siguiente'}
+              Siguiente
               </button>
-              <Dialog open={open} onClose={handleClose} disableBackdropClick={true}></Dialog>
             </div>
           </div>
         )}
