@@ -124,7 +124,7 @@ export default class EventNew extends Component{
             console.log("error en conexión");
             console.log(err);
           })
-          window.location.assign("/organActiveEvents");
+          //window.location.assign("/organActiveEvents");
       }
 
       render() {    

@@ -6,6 +6,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import StepOne from './CreateEvent/StepOne';
+import Dialog from '@material-ui/core/Dialog';
 import StepTwo from './CreateEvent/StepTwo'
 import StepThree from './CreateEvent/StepThree'
 import '../../styles/style_sheets.css'; 
@@ -45,9 +46,18 @@ export default function HorizontalLabelPositionBelowStepper(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+  const [open, setOpen] = React.useState(false);
+  
+  const handleSubmit=() =>{
+    setOpen(true);
+    props.handlePrint();
+  }
 
+  const handleClose=()=>{
+    setOpen(false);
+  }
   const handleNext = () => {
-    {activeStep === steps.length - 1 ? props.handlePrint() : setActiveStep(prevActiveStep => prevActiveStep + 1);}
+    {activeStep === steps.length - 1 ? handleSubmit() : setActiveStep(prevActiveStep => prevActiveStep + 1);}
     
   };
 
@@ -92,6 +102,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
               <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Fin' : 'Siguiente'}
               </button>
+              <Dialog open={open} onClose={handleClose} disableBackdropClick={true}></Dialog>
             </div>
           </div>
         )}

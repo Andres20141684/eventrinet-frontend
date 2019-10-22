@@ -44,19 +44,19 @@ class StepTwo extends Component{
                     <div>
                         <Form.Check
                             type="radio" inline
-                            value={props.rdCategry}
+                            checked={props.rdCategry}
                             label="Categorias"
                             name="formHorizontalRadios_1"
-                            id="formHorizontalRadios1"
-                            onClick={(e)=>props.handleChangeRadio(e,"rdCategry")}
+                            id="rdCategry"
+                            onClick={(e)=>props.handleChangeRadio(e,"rdPropuest")}
                         />
                         <Form.Check
                             type="radio" inline
-                            value={props.rdPropuest}
+                            checked={props.rdPropuest}
                             label="Propuestas"
                             name="formHorizontalRadios_1"
-                            id="formHorizontalRadios2"
-                            onClick={(e)=>props.handleChangeRadio(e,"rdPropuest")}
+                            id="rdPropuest"
+                            onClick={(e)=>props.handleChangeRadio(e,"rdCategry")}
                         />
                     </div>
                 </div>
