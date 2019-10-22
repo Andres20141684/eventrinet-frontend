@@ -25,7 +25,7 @@ class Login extends Component{
         evt.preventDefault()
         console.log(this.state)
 
-        let thisForm = evt.target
+/*      let thisForm = evt.target
         let errorMsg = document.getElementById("errorMsg")
 
         if (!this.state.user.length) {
@@ -44,15 +44,21 @@ class Login extends Component{
         
         // else
         errorMsg.style.display = "none"
-
+*/
         //Asumiendo que este sera el Json recibido
-        let dataUser = {"status":true, "data":{"sesion":true,"nombre":"Sebastian Sanchez Herrera", "roles":["organizador"], "msj":"error de credenciales"}}
+        let dataUser = {"status":true, 
+                        "data":{"sesion":true,
+                                "nombre":"Sebastian Sanchez Herrera",
+                                "userName":"Sebitas",
+                                "idUser": 2212,
+                                "roles":["organizador"],
+                                "msj":"error de credenciales"}}
         
-        sessionStorage.setItem('dataUser', JSON.stringify(dataUser) )
+        sessionStorage.setItem("dataUser", JSON.stringify(dataUser))
         
         let retrievedObject = sessionStorage.getItem('dataUser');
 
-        console.log("Json leido y guradro ",JSON.parse(retrievedObject))
+        console.log("Json leido y guardado ",JSON.parse(retrievedObject))
         console.log(this.state)
         
         

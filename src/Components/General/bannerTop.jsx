@@ -12,19 +12,102 @@ class BannerTop extends Component{
   constructor(props) {
     super(props);
     this.state = {
-        user: [],
+        user: [],       
+        userName: "",
+        fullName:"",
+        idUser:-1,
+        myRoles:null,
+        logeado :false,
         visible : false,
         role: null,
         name: "Iniciar Sesion",
-        SignUp: "Registrarse",
-        
+        SignUp: "Registrarse",        
+    }
+  }
+
+
+  initialState(){
+    let linkLogin = document.getElementById("linkLogin")
+    let linkSignUp = document.getElementById("linkSignUp")
+    let myavatar = document.getElementById("myavatar")
+    let itemOpciones = document.getElementById("nav-item-opciones")
+
+    linkLogin.style.display = "block"
+    linkSignUp.style.display = "block"
+    myavatar.style.display = "none"
+    itemOpciones.style.display = "none"
+  }
+
+  setRoles(listRoles){
+    /*I've assumed this is the json that returns me after logging in xd salu2 :v*/
+    //"roles":["organizador"]    
+    let itemOrga = document.getElementById("itemOrga")
+    let itemEval = document.getElementById("itemEval")
+    let itemPresi = document.getElementById("itemPresi")
+    let itemMisProp = document.getElementById("itemMisProp")
+
+    itemOrga.style.display = "none"
+    itemEval.style.display = "none"
+    itemPresi.style.display = "none"
+    itemMisProp.style.display = "none"
+
+    console.log("qweqewqw",listRoles)
+
+    listRoles.map((element, index) => {
+      
+      if (!element.localeCompare("organizador")){
+        itemOrga.style.display = "block"
+      }
+      if (!element.localeCompare("evaluador")){
+        itemEval.style.display = "block"
+      }
+      if (!element.localeCompare("presidente")){
+        itemPresi.style.display = "block"
+      }
+      if (!element.localeCompare("postulante")){
+        itemMisProp.style.display = "block"
+      }
+    })
+    
+  }
+
+  logInState(){
+    let linkLogin = document.getElementById("linkLogin")
+    let linkSignUp = document.getElementById("linkSignUp")
+    let myavatar = document.getElementById("myavatar")
+    let itemOpciones = document.getElementById("nav-item-opciones")
+
+    linkLogin.style.display = "none"
+    linkSignUp.style.display = "none"
+    myavatar.style.display = "block"
+    itemOpciones.style.display = "block"
+
+  }
+  
+  setPermission(retrievedJson){
+    /*I've assumed this is the json that returns me after logging in xd salu2 :v*/
+    //{"status":true, "data":{"sesion":true,"nombre":"Sebastian Sanchez Herrera","userName":"Sebitas","idUser": 2212, "roles":["organizador"], "msj":"error de credenciales"}}
+    try{
+      
+      console.log("retrivedJSON:  ",retrievedJson)
+      console.log("retrivedJSON userName:  ",retrievedJson.data.userName)
+      console.log("retrivedJSON fullName:  ",retrievedJson.data.nombre)
+
+      this.setState({userName: new String(retrievedJson.data.userName)})
+      //this.setState({fullName: retrievedJson.data.nombre})
+      this.setState({"fullName": "asdasd"})
+      this.setState({idUser: retrievedJson.data.idUser})
+      this.setState({logeado: retrievedJson.data.sesion})
+      this.setState({myRoles: retrievedJson.data.roles})      
+
+      console.log("mi estado actualizado: ",this.state)
+    }catch(err){
+      console.log(err)
     }
   }
 
   componentDidMount(){
-    
-
-    try{ //Verify if I'm logging
+    try{ //Verify if I'm logged
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);      
 
@@ -32,41 +115,30 @@ class BannerTop extends Component{
       let linkSignUp = document.getElementById("linkSignUp")
       let myavatar = document.getElementById("myavatar")
 
-      if (retrievedObject == null){ //If doesnt exist de object
-        linkLogin.style.display ="block"
-        linkSignUp.style.display ="block"
-        myavatar.style.display="none"
+      if (retrievedJson == null){ //If doesnt exist de object
+        this.initialState()
+        console.log("No estoy logeado")
         return
       }
       
+      this.setPermission(retrievedJson) //Set state with user data
+      this.setRoles(retrievedJson.data.roles) //Set roles
+
       //If exist the object and  status =true
-      console.log("retrivedJSON:  ",retrievedJson["status"])
-  
       if (retrievedJson["status"]){
-        this.setState({"logeado": true})
-      }
-        
-      console.log("state:  ",this.state)
-  
-      if (retrievedJson["status"]){
-        linkLogin.style.display ="none"
-        linkSignUp.style.display ="none"
-        myavatar.style.display="block"
+        this.logInState()        
         return
       }
       else{ //Si no estoy logeado
-        linkLogin.style.display ="block"
-        linkSignUp.style.display ="block"
-        myavatar.style.display="none"
+        this.initialState()        
         return
       }
     }catch(err){
       console.log(err)
     }
 
-    
-
   }
+
   openModal() {
     this.setState({
         visible : true
@@ -80,20 +152,21 @@ class BannerTop extends Component{
   }
   
   clickLogOut () {
-    console.log("Cerrando")
-
-    let retrievedObject = sessionStorage.getItem('dataUser');
-    let retrievedJson = JSON.parse(retrievedObject);
-    retrievedJson["status"]=false
-
-    let linkLogin = document.getElementById("linkLogin")
-    let linkSignUp = document.getElementById("linkSignUp")
-    let myavatar = document.getElementById("myavatar")
-
-    linkLogin.style.display ="block"
-    linkSignUp.style.display ="block"
-    myavatar.style.display="none"
-
+    try{
+      let linkLogin = document.getElementById("linkLogin")
+      let linkSignUp = document.getElementById("linkSignUp")
+      let myavatar = document.getElementById("myavatar")
+      let itemOpciones = document.getElementById("nav-item-opciones")
+  
+      linkLogin.style.display = "block"
+      linkSignUp.style.display = "block"
+      myavatar.style.display = "none"
+      itemOpciones.style.display = "none"
+      
+      sessionStorage.setItem("dataUser",null)
+    }catch(err){
+      console.log(err)
+    }    
   }
 
   render(){
@@ -150,15 +223,15 @@ class BannerTop extends Component{
               <li class="nav-item">
                 <Link class="nav-link" to="/announcements"><b><font size="3" color="#6CDCD6">Convocatoria</font></b></Link>
               </li>
-              <li class="nav-item" class="nav dropdown">
+              <li class="nav-item" class="nav dropdown" id="nav-item-opciones">
                 <Link class="nav-link dropdown-toggle" to="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></Link>
                 <ul class="dropdown-menu">
-                  <li><Link class="nav-link" to="#"><b><font size="3">Mis inscripciones</font></b></Link></li>
-                  <li><Link class="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
+                  <li><Link id="itemMisInscrip" class="nav-link" to="#"><b><font size="3">Mis inscripciones</font></b></Link></li>
+                  <li><Link id="itemMisProp" class="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div class="dropdown-divider"></div>
-                  <li><Link class="nav-link" to="/organActiveEvents"><b><font size="3">Organizador</font></b></Link></li>
-                  <li><Link class="nav-link" to="/presidentEvents"><b><font size="3">Presidente</font></b></Link></li>
-                  <li><Link class="nav-link" to="/EvaluadorEventos"><b><font size="3 ">Evaluador</font></b></Link></li>
+                  <li><Link id="itemOrga" class="nav-link" to="/organActiveEvents"><b><font size="3">Organizador</font></b></Link></li>
+                  <li><Link id="itemPresi" class="nav-link" to="/presidentEvents"><b><font size="3">Presidente</font></b></Link></li>
+                  <li><Link id="itemEval" class="nav-link" to="/EvaluadorEventos" ><b><font size="3 ">Evaluador</font></b></Link></li>
                 </ul>
               </li>
             </ul>

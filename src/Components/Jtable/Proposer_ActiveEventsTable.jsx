@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import $ from 'jquery';
-
+import {Link}  from "react-router-dom";
 const Networking = require('./../../Network/Networking.js') ;
 
 
@@ -20,6 +20,10 @@ class Proposer_ActiveEventsTable  extends Component {
     console.log('this is:', this);
   }
 
+   handleClickMore = () => {
+   
+   }
+     
    renderProposals(listProp){
       return listProp.map((element, index) => {
          const { prop, fase, estado, fechaLim } = element 
@@ -30,7 +34,7 @@ class Proposer_ActiveEventsTable  extends Component {
                <td> {estado} </td>
                <td> {fechaLim } </td>
                <td>
-                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus-circle"></i></button>
+                  <Link  to="/propDetailProposal"><i class="fa fa-plus-circle"/></Link>
                </td> 
             </tr>
          )})
