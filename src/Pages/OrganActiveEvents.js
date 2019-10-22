@@ -39,7 +39,7 @@ class OrganActiveEvents extends Component{
         formRecord: Organizador_HistoryventsTable,
         datos_tabla1:  null,
         datos_tabla2: null,
-        msg: "Not Connected",
+        msg: "Not Connected" ,
         idOrganizador: 1
     }
     
@@ -77,8 +77,6 @@ class OrganActiveEvents extends Component{
                 <br/><br/>
             <this.state.bannBot/>
                 </div>
-
-                
             
         );
     }

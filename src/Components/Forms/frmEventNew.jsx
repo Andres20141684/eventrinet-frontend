@@ -2,90 +2,54 @@ import React, { Component } from 'react';
 import frmCreateEvent from './frmCreateEvent'
 import { string } from 'prop-types';
 import '../../styles/style_sheets.css'
-
+const Networking = require('../../Network/Networking.js') ;
 export default class EventNew extends Component{
     constructor(props) {
         super(props);
         this.state = {
             nombre:'',
             descripcion:'',
+            fIni: new Date(),
+            fFin: '',
             lugar:'',
-            fechaIE: new Date(),
-            fechaFE: '',
-            fechaIC: new Date(),
-            fechaFC: '',
-            rdCategory:false,
+            rdCategry:false,
             rdPropuest:false,
-            comite1:[],
+            comiteOrganizacional:[],
             presidente:[],
             campos:[],
             evaluadores:[],
             categorias:[],
-            aux: frmCreateEvent,
-            fechaEndCamReady:'',
-            fechaStartCamReady:'', 
-            fechaEndEval:'',
+            fases:[{secuencia:1,camposPerson:[{obli:false}],criterios:[{obli:false}],reqArch:false,reqEval:false}],
+            tieneCameraRdy:0,
+            rdCamR:false,
+            fCRIni:new Date(),
+            fCRFin:'',
+            fechPref:new Date(),            
+            fechaMaxPref:'',
+            numFases:'',
+            preferencia:'',
+            precios:0,
+            numeroPropuestas:0,
+            aux: frmCreateEvent     
 
         }
         this.handleChange = this.handleChange.bind(this)
-        this.handleComiteadd=this.handleComiteadd.bind(this)
-        this.handleDate=this.handleDate.bind(this)
-        this.handleDate2=this.handleDate2.bind(this)
-        this.handleCategoryadd=this.handleCategoryadd.bind(this)
-        this.handleEvaluadoradd=this.handleEvaluadoradd.bind(this)
-        this.handlePresidenteadd=this.handlePresidenteadd.bind(this)
-        this.handleCamposadd=this.handleCamposadd.bind(this)
-        this.handleDate3=this.handleDate3.bind(this)
-        this.handleDate4=this.handleDate4.bind(this)
+        this.handleChange2=this.handleChange2.bind(this)
         this.handleChangeRadio=this.handleChangeRadio.bind(this)
         this.handlePrint=this.handlePrint.bind(this)
-        
-        this.handleDateEndCamReady=this.handleDateEndCamReady.bind(this)
-        this.handleDateStartCamReady=this.handleDateStartCamReady.bind(this)
-        this.handleDateEndEval=this.handleDateEndEval.bind(this)
+        this.DateFormat=this.DateFormat.bind(this)
+        this.handleCheckB=this.handleCheckB.bind(this)
       }
 
-      handleDateEndCamReady(date){
-        this.setState({
-          fechaEndCamReady:date
-        })
+      handleCheckB(event,str){
+        this.setState({[str]:!this.state[str]})
+
       }
-      handleDateStartCamReady(date){
+      handleChange2(value,label){
         this.setState({
-          fechaStartCamReady:date
+          [label]:value
         })
-      }
-      handleDateEndEval(date){
-        this.setState({
-          fechaEndEval:date
-        })
-      }
-
-
-
-      handleDate(date){
-        this.setState({
-          fechaIE:date
-        })
-      }
-
-
-      handleDate2(date){
-        this.setState({
-          fechaFE:date
-        })
-      }
-
-      handleDate3(date){
-        this.setState({
-          fechaIC:date
-        })
-      }
-
-      handleDate4(date){
-        this.setState({
-          fechaFC:date
-        })
+        console.log(this.state)
       }
     
       handleChange(event) {
@@ -96,29 +60,6 @@ export default class EventNew extends Component{
         this.setState({
           [name]: value
         });  
-        console.log(this.state)
-      }
-
-      handleComiteadd(list){
-        this.setState({
-          comite1 : list
-        })
-        console.log(this.state.comite1)
-      }
-      handleCategoryadd(list){
-        this.setState({
-          categorias : list
-        })
-      }
-      handleEvaluadoradd(list){
-        this.setState({
-          evaluadores : list
-        })
-      }
-      handlePresidenteadd(list){
-        this.setState({
-          presidente : list
-        })
       }
       handleCamposadd(list){
         this.setState({
@@ -126,41 +67,104 @@ export default class EventNew extends Component{
         })
       }
 
-      handleChangeRadio(event) {
+      handleChangeRadio(event,str) {
         const target = event.target;
         const checked = target.checked;
         const id = target.id;
 
         this.setState({
-          [id]: checked
+          [id]: checked,
+          [str]:false
         });  
       }
 
+      DateFormat(date,json,tag,tag2){
+        let aux=date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
+        json[tag]=aux
+        //delete json[tag2]
+      }
+
       handlePrint(event){
-        console.log(this.state);
-        console.log(JSON.stringify(this.state));
+        let auxjson={}
+        auxjson=this.state
+        delete auxjson["aux"]
+        
+        if(auxjson.rdCategry===true){
+          auxjson.preferencia="CATEGORIA"
+        }else{
+          auxjson.preferencia="PROPUESTA"
+        }
+        delete auxjson.rdCategry
+        delete auxjson.rdPropuest
+
+        /*if(auxjson.rdCamR===true){
+          auxjson.tieneCameraRdy=1
+          let addPhase={nombre:"Camera Ready",secuencia:this.state.fases.length+1}
+          this.DateFormat(auxjson.fCRIni,addPhase,"fechaFaseIni",null)
+          this.DateFormat(auxjson.fCRFin,addPhase,"fechaFaseFin",null)
+          auxjson.fases.push(addPhase)
+        }*/
+        auxjson.numFases=this.state.fases.length
+
+        this.DateFormat(this.state.fIni,auxjson,"fechaIni","fIni")
+        this.DateFormat(this.state.fFin,auxjson,"fechaFin","fFin")
+        this.DateFormat(this.state.fechPref,auxjson,"fechaMaxPref","fechPref")
+
+        console.log(auxjson);
+        var dataA=JSON.stringify(auxjson)
+        console.log(dataA);
+
+
+        console.log("Envio json");
+        Networking.insertNewEvent(dataA).then(
+          (response)=>{
+            console.log(response);
+          })
+          .catch( (err) =>{
+            console.log("error en conexión");
+            console.log(err);
+          })
+          window.location.assign("/organActiveEvents");
       }
 
       render() {    
         return (
           <div className='container'>
               <this.state.aux 
-              handlePrint={this.handlePrint}
-              
-              rdCategory={this.state.rdCategory}
-              rdPropuest={this.state.rdPropuest}
-              evaluadores={this.state.evaluadores}
-              presidente={this.state.presidente}
-              campos={this.state.campos}
-              categorias={this.state.categorias}
-              fechaIC={this.state.fechaIC}
-              fechaFC={this.state.fechaFC}
-              fechaIE={this.state.fechaIE}
-              fechaFE={this.state.fechaFE}
               nombre={this.state.nombre} 
               descripcion={this.state.descripcion}
               lugar={this.state.lugar}
-              comite1={this.state.comite1}
+                
+              rdCategry={this.state.rdCategry}
+              rdPropuest={this.state.rdPropuest}
+
+
+              categorias={this.state.categorias}
+              evaluadores={this.state.evaluadores}
+              presidente={this.state.presidente}
+              comite1={this.state.comiteOrganizacional}
+              fases={this.state.fases}
+              
+              fechaIE={this.state.fIni}
+              fechaFE={this.state.fFin} 
+              
+              fechPref={this.state.fechPref}
+
+              rdCamR={this.state.rdCamR}
+              fCRIni={this.state.fCRIni}
+              fCRFin={this.state.fCRFin}
+
+              handleCheckB={this.handleCheckB}
+              handleChange2={this.handleChange2}
+              handleChangeRadio={this.handleChangeRadio}
+              handleChange={this.handleChange} 
+              handlePrint={this.handlePrint}
+              />
+          </div>
+          /*
+          
+          <React.Fragment>            
+          <form onSubmit={this.handleSubmit}>
 
               handleEvaluadoradd={this.handleEvaluadoradd}
               handlePresidenteadd={this.handlePresidenteadd}
@@ -177,7 +181,7 @@ export default class EventNew extends Component{
               handleDateStartCamReady={this.handleDateStartCamReady}
               handleDateEndEval={this.handleDateEndEval}             
               />
-          </div>
+          </div>*/
         )
         }
 

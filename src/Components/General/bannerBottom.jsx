@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../styles/Jtab.css'; 
+import '../../styles/Jstyle.css'; 
 class BannerBottom extends Component{
     state = {
       role: null
@@ -89,6 +89,7 @@ class BannerBottom extends Component{
                   <div class="footer-socialLinks">
                     <h4 class="footer-headLineH4 footer-socialHeader"> Síguenos en: <br/></h4>
                     <ul class="footer-unorderedList--social list-inline"> <br/>
+                    
                           <li><a href="https://www.facebook.com/pucp"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                           <li><a href="https://www.youtube.com/pucp"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
                           <li><a href="https://www.instagram.com/?hl=en"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
@@ -135,7 +136,7 @@ export default BannerBottom;
 
 var styles = {
     banner:{
-      backgroundColor: '#002D3D',
+      backgroundColor: '#000000',
       paddintTop: 100,
       paddingBottom: 5,
       color:'#6CDCD6',

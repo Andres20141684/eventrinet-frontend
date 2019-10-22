@@ -16,7 +16,7 @@ class StepTwo extends Component{
             <div class="panel-heading"><h1>Comité Organizacional</h1></div>
             <div class="panel-body">
                 <div class="form-group col-md-6">
-                    <ArrayOfChips lista={props.comite1} handleadd={props.handleComiteadd}/> 
+                <ArrayOfChips lista={props.comite1} handleadd={props.handleChange2} tag="comiteOrganizacional" label="correo"/> 
                 </div>
             </div>
             </div>
@@ -32,7 +32,7 @@ class StepTwo extends Component{
                     <div class="form-group col-md-6">
                         <label> Presidente</label>
                         <div style={{marginLeft: 13}}>
-                        <ArrayOfChips lista={props.presidente} handleadd={props.handlePresidenteadd}/>                         
+                        <ArrayOfChips lista={props.presidente} handleadd={props.handleChange2} tag="presidente" label="correo"/>                          
                         </div>
                     </div>
                 </Row> 
@@ -44,17 +44,19 @@ class StepTwo extends Component{
                     <div>
                         <Form.Check
                             type="radio" inline
+                            value={props.rdCategry}
                             label="Categorias"
                             name="formHorizontalRadios_1"
                             id="formHorizontalRadios1"
-                            
+                            onClick={(e)=>props.handleChangeRadio(e,"rdCategry")}
                         />
                         <Form.Check
                             type="radio" inline
+                            value={props.rdPropuest}
                             label="Propuestas"
                             name="formHorizontalRadios_1"
                             id="formHorizontalRadios2"
-                            
+                            onClick={(e)=>props.handleChangeRadio(e,"rdPropuest")}
                         />
                     </div>
                 </div>
@@ -63,9 +65,9 @@ class StepTwo extends Component{
 
                 <Row >
                     <div class="form-group col-md-6">
-                        <label> Presidente</label>
+                        <label> Evaluadores</label>
                         <div style={{marginLeft: 13}}>
-                        <ArrayOfChips lista={props.evaluadores} handleadd={props.handleEvaluadoradd}/>                         
+                        <ArrayOfChips lista={props.evaluadores} handleadd={props.handleChange2} tag="evaluadores" label="correo"/>                         
                         </div>
                     </div>
                 </Row> 

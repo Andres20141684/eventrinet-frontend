@@ -3,6 +3,10 @@ import { FormGroup } from '@material-ui/core';
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row';
 import '../../../styles/style_sheets.css';
+import Col from 'react-bootstrap/Col';
+import ArrayDinamic from './ArrayDinamic';
+import DatePicker from "react-datepicker"; 
+import "react-datepicker/dist/react-datepicker.css";
 
 class FormStepThree extends Component{
     render(){
@@ -20,15 +24,7 @@ class FormStepThree extends Component{
                 <Row >
                 <div class="form-group col-md-6">
                     <label >Actividad</label>
-                    <input 
-                        type="text" 
-                        name='nombre'
-                        class="form-control" 
-                        id="id_name_fase"
-                        placeholder='Actividad'              
-                        onChange={this.props.handleChange}
-                        value={this.props.nombre}
-                        autoFocus/>
+                    <input type="text" class="form-control" name="actividad" id="actvidad" placeholder="Actividad" onChange={(e) => this.props.onChange(e,this.props.index,"nombre")} value={this.props.value.nombre}autoFocus required />
                 </div>
                 </Row>
                 <Row>
@@ -40,29 +36,25 @@ class FormStepThree extends Component{
                         class="form-control" 
                         id="id_description_fase"
                         placeholder='Descripcion'                  
-                        onChange={this.props.handleChange}
-                        value={this.props.descripcion}              
+                        onChange={(e) => this.props.onChange(e,this.props.index,"descripcion")} value={this.props.value.descripcion}         
                         />
                 </div>
                 </Row>
                 <Row>            
                 <div class="form-group col-md-3">
                     <label >Fecha Inicio</label>
-                    <Form.Control
-                      type="date"
-                      selected={this.props.fechaIC}
+                    <DatePicker
+                      selected={this.props.value.faseIni}
                       minDate={new Date()}
-                      onChange={this.props.handleDate3}
-                      class="form-control"
+                      onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseIni","fechaFaseIni")}
                     />
                 </div>
                 <div class="form-group col-md-3">
                     <label >Fecha Fin</label>
-                    <Form.Control
-                      type="date"
-                      selected={this.props.fechaFC}
-                      minDate={this.props.fechaIC}
-                      onChange={this.props.handleDate4}
+                    <DatePicker
+                      selected={this.props.value.faseFin}
+                      minDate={this.props.value.faseIni}
+                      onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseFin","fechaFaseFin")}
                     />
                 </div>
               </Row>
@@ -71,16 +63,11 @@ class FormStepThree extends Component{
                     <label>Requiere adjuntar archivo (.pdf)</label>
                     <div>
                         <Form.Check
-                            type="radio" inline
-                            label="Si"
+                            type="checkBox" 
                             name="formHorizontalRadios_1"
                             id="formHorizontalRadios1"
-                        />
-                        <Form.Check
-                            type="radio" inline
-                            label="No"
-                            name="formHorizontalRadios_1"
-                            id="formHorizontalRadios2"
+                            checked={this.props.value.reqArch}
+                            onClick={(e) => this.props.handleCheck(e,this.props.index,"reqArch","necesitaArchivo")}
                         />
                     </div>
                 </div>
@@ -88,51 +75,50 @@ class FormStepThree extends Component{
                 </div>
                 </div> 
                 
-                <h3>Configuracion de evaluacion</h3>
+                <h3>Evaluacion</h3>
                 <div class="panel panel-default">    
                 <div class="panel-body">
-                <Row >
-                <div class="form-group col-md-6">                    
-                    <div>
-                        <Form.Check
-                            type="radio" inline
-                            label="Si"
-                            name="formHorizontalRadios_1"
-                            id="formHorizontalRadios1"
-                        />
-                        <Form.Check
-                            type="radio" inline
-                            label="No"
-                            name="formHorizontalRadios_1"
-                            id="formHorizontalRadios2"
-                        />
-                    </div>
-                </div>
-                </Row>
                 <Row>
                 <div class="form-group col-md-6">
                     <label >Numero de evaluadores</label>
                     <input 
-                        type="text" 
+                        type="number" 
                         name='nombre'
                         class="form-control" 
-                        id="id_name_fase"
-                        placeholder='Actividad'              
-                        onChange={this.props.handleChange}
-                        value={this.props.nombre}
+                        id="id_name_fase"       
+                        onChange={(e) => this.props.onChange(e,this.props.index,"numEvaluadores")}
+                        value={this.props.value.numEvaluadores}
                         />
                 </div>
                 </Row>
-                <Row>
-                <div class="form-group col-md-6">
-                    <label >Criterios de evaluacion</label>
-                    <label style={{fontSize:10, paddingLeft:20}} >Subir los criterios. El archivo debe estar en formato Excel(extension xlx,xlxs)</label>                    
+                <Row >
+                <div class="form-group col-md-6">                    
+                    <div>
+                            <Col>
+                            <label for="title">Requiere de Criterios: </label>
+                            </Col>
+                            <Col><input
+                                type="checkBox" 
+                                checked={this.props.value.reqEval}
+                                onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
+                            />
+                            </Col>
+                    </div>
+                    <div>
+                    {this.props.value.reqEval===true?
+                        <ArrayDinamic 
+                        campo={this.props.criterios}
+                        value={this.props.value} 
+                        index={this.props.index}
+                        handleChange4={this.props.handleChange4}
+                        handleCheck={this.props.handleCheck}/>
+                        :null}
                     
-                    
-                    <input type="file" class="btn btn-sm float-left" />
-                    
+                    </div> 
                 </div>
-                </Row>                
+                </Row>
+                
+                   
                 </div>
                 </div>            
 
@@ -142,22 +128,12 @@ class FormStepThree extends Component{
                 <Row >
                     <div class="form-group col-md-6">
                         <div class="input-group mb-3">
-                            <input 
-                                type="email" 
-                                name='email'
-                                class="form-control" 
-                                id="id_email"                                
-                                aria-label="Recipient's username" 
-                                aria-describedby="basic-addon2"
-                                style={{width: 300}}/>
-                            <div class="input-group-append">
-
-                            <button 
-                                class="btn btn-outline-secondary add"
-                                variant="primary" 
-                                style={{backgroundColor:"002D3D"}}
-                                type="button">Agregar campos</button>
-                            </div>
+                            <ArrayDinamic 
+                            campo={this.props.camposPerson}
+                            value={this.props.value} 
+                            index={this.props.index}
+                            handleChange4={this.props.handleChange4}
+                            handleCheck={this.props.handleCheck}/>
                         </div>
                     </div>
                 </Row>

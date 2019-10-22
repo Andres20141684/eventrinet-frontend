@@ -17,7 +17,23 @@ export async function saludar(){
     }
 }
 
+export async function insertNewEvent(data){
 
+    try {
+        let response = await fetch(restURL+'eventos/crear_evento' ,{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }}
 export async function populateDataOrgTab1(idOrganizador) {
     console.log('INTENTO DE POST!! en ' +restURL 
     + 'eventos/listar_eventos_activos');
@@ -53,6 +69,7 @@ export async function populateDataOrgTab1(idOrganizador) {
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
+        return null;
     }
 }
 

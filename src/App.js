@@ -29,39 +29,27 @@ class App extends Component{
       })
   }
 
-  setterEvento(){
-    const url = "https://localhost:5000/eventos/listar_eventos_activos";
-    fetch(url, {
-      method:'GET'
-    })
 
-    .then( (response)=> response.json())
-    .then( (responseJson)=>{
-      this.setState({msg: responseJson[0].username})
-    })
-    .catch((err) => {
-      console.log("Error en conexión")
-      this.setState({msg: "Intento de conexión fallido"})
-      console.log(err)
-    })
-  }
 
   render() {
     return (
       <div>
-    <div className="App">
-      <this.state.bannTop /> 
-      <header className="App-header">
-        <p className="logo">EVENTRINET</p>
-        <p>Gestión de tus eventos academicos</p>
-        <p> En mantenimiento...</p>
-        <h1>{this.state.msg}</h1>
-        
-      </header>
-    </div>
-    <this.state.bannBot/>
-    </div>
-  );}
+        <this.state.bannTop />
+        <div className="App">
+         
+          <header className="App-header">
+            <p className="logo">EVENTRINET</p>
+            <p>Gestión de tus eventos academicos</p>
+            <p> En mantenimiento...</p>
+            <h1>{this.state.msg}</h1>
+          
+          </header>
+          
+        </div>
+        <this.state.bannBot/>
+      </div>
+  );
+}
 }
 
 export default App;

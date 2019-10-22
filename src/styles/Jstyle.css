@@ -1,0 +1,28 @@
+/***
+  
+  Banner botton
+  
+  ***/
+  .separatorSSJ
+  {
+    padding-bottom: 10px;
+  }
+  
+.divider
+{
+	position: relative;
+	height: 3px;
+}
+.div-transparent:before
+{
+	content: "";
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 1px;
+	background-image: linear-gradient(to right, transparent, #6CDCD6, transparent);
+}
+.fa {
+    font-size: 2.3rem;
+    color: #6CDCD6;
+}
