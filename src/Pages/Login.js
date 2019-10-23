@@ -53,6 +53,7 @@ class Login extends Component{
             this.setState({redirect:true})
         }else{
             this.setState({redirect:false})
+            alert("Contraseña y/o usuario incorrecto!")
         }
 
     }

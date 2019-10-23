@@ -1,37 +1,92 @@
 import React, {Component} from 'react';
-//const stylesFile = require('../Styles/styles.js');
-//const styles = stylesFile.getStyle();
-import {defaultStyle} from '../../styles/styles.js'
-import Modal from 'react-awesome-modal';
-import { whileStatement } from '@babel/types';
-import { borderColor } from '@material-ui/system';
 import '../../styles/style_banner_top.css'
+import {Link}  from "react-router-dom";
+
+function initialState(){
+  let linkLogin = document.getElementById("linkLogin")
+  let linkSignUp = document.getElementById("linkSignUp")
+  let myavatar = document.getElementById("myavatar")
+  let itemOpciones = document.getElementById("nav-item-opciones")
+
+  linkLogin.style.display = "block"
+  linkSignUp.style.display = "block"
+  myavatar.style.display = "none"
+  itemOpciones.style.display = "none"
+}
+
+function logInState(){
+  let linkLogin = document.getElementById("linkLogin")
+  let linkSignUp = document.getElementById("linkSignUp")
+  let myavatar = document.getElementById("myavatar")
+  let itemOpciones = document.getElementById("nav-item-opciones")
+
+  linkLogin.style.display = "none"
+  linkSignUp.style.display = "none"
+  myavatar.style.display = "block"
+  itemOpciones.style.display = "block"
+}
+
+
 class BannerTop extends Component{
   
   constructor(props) {
     super(props);
     this.state = {
-        user: [],
+        user: [],       
+        userName: "",
+        fullName:"",
+        idUser:-1,
+        myRoles:null,
+        logeado :false,
         visible : false,
         role: null,
         name: "Iniciar Sesion",
-        SignUp: "Registrarse"
-        
+        SignUp: "Registrarse",        
     }
+  }  
+
+  componentDidMount(){
+    try{ //Verify if I'm logged
+      let retrievedObject = sessionStorage.getItem('dataUser');
+      let retrievedJson = JSON.parse(retrievedObject);      
+
+      let linkLogin = document.getElementById("linkLogin")
+      let linkSignUp = document.getElementById("linkSignUp")
+      let myavatar = document.getElementById("myavatar")
+
+      if (retrievedJson == null){ //I'm not logged
+        initialState()
+        console.log("No estoy logeado!")
+        return
+      }
+      
+      // I'm logged
+      logInState()
+
+    }catch(err){
+      console.log(err)
+    }
+    return 
   }
 
-  openModal() {
-    this.setState({
-        visible : true
-    });
-  }
-
-  closeModal() {
-    this.setState({
-        visible : false
-    });
-  }
+  clickLogOut () {
+    try{
+      let linkLogin = document.getElementById("linkLogin")
+      let linkSignUp = document.getElementById("linkSignUp")
+      let myavatar = document.getElementById("myavatar")
+      let itemOpciones = document.getElementById("nav-item-opciones")
   
+      linkLogin.style.display = "block"
+      linkSignUp.style.display = "block"
+      myavatar.style.display = "none"
+      itemOpciones.style.display = "none"
+      
+      sessionStorage.setItem("dataUser",null)
+    }catch(err){
+      console.log(err)
+    }    
+  }
+
   render(){
     //debugger;
     return (
@@ -39,22 +94,26 @@ class BannerTop extends Component{
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
 
-            <a href="/" target="_self" title="Volver al home"> <img src="piruleta_loquisima.png" className="img-fluid"  width="200"/></a>
+          <Link to="/" target="_self" title="Volver al home"><img src="piruleta_loquisima.png" className="img-fluid"  width="200"/></Link>
+            
           </div>          
           <div class="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
               <div className="list-inline-item" align="right">
-              <a className="nav" href="/signUp" data={"/"} style={{color:"#6CDCD6",paddingRight:20}}>{this.state.SignUp} </a>
-                <a className="nav" href="/login" data={"/"} style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name} </a>            
+                <Link to="/signUp" id="linkSignUp" className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.SignUp}</Link>
+                <Link to="/login"  id="linkLogin" className="nav"  style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name}</Link>
               </div>
-              <li class="nav-item dropdown">
-                  <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+
+
+
+              <li class="nav-item dropdown" id="myavatar"   >
+                  <Link to="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
                     <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" class="avatar" alt="Avatar"/>
-                  </a>
-                  <ul class="dropdown-menu">
-                      <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a></li>
-                      <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Ajustes</a></li>
+                  </Link>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                      <li><Link to="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</Link></li>
+                      <li><Link to="#" class="dropdown-item"><i class="fa fa-sliders"></i> Ajustes</Link></li>
                       <li class="divider dropdown-divider"></li>
-                      <li><a href="#" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Cerrar sesion</a></li>
+                      <li><Link to="/" class="dropdown-item"onClick={this.clickLogOut}><i class="material-icons" >&#xE8AC;</i> Cerrar sesion</Link></li>
                   </ul>
               </li> 
             </div>
@@ -72,25 +131,25 @@ class BannerTop extends Component{
           <div class="collapse navbar-collapse" id="navbarNavDropdown" style={{}}>
             <ul class="nav navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="/"><b><font size="3" color="#6CDCD6">Inicio</font></b><span class="sr-only">(current)</span></a>
+                <Link class="nav-link" to="/"><b><font size="3" color="#6CDCD6">Inicio</font></b><span class="sr-only">(current)</span></Link>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/EventInscriptionPage"><b><font size="3" color="#6CDCD6">Eventos</font></b></a>
+                <Link class="nav-link" to="/EventInscriptionPage"><b><font size="3" color="#6CDCD6">Eventos</font></b></Link>
               </li>
               
               <li class="nav-item">
-                <a class="nav-link" href="/announcements"><b><font size="3" color="#6CDCD6">Convocatoria</font></b></a>
+                <Link class="nav-link" to="/announcements"><b><font size="3" color="#6CDCD6">Convocatoria</font></b></Link>
               </li>
-              <li class="nav-item" class="nav dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></a>
+              <li class="nav-item" class="nav dropdown" id="nav-item-opciones">
+                <Link class="nav-link dropdown-toggle" to="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></Link>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="#"><b><font size="3">Mis inscripciones</font></b></a></li>
-                  <li><a class="nav-link" href="#"><b><font size="3">Mis propuestas</font></b></a></li>
+                  <li><Link id="itemMisInscrip" class="nav-link" to="#"><b><font size="3">Mis inscripciones</font></b></Link></li>
+                  <li><Link id="itemMisProp" class="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div class="dropdown-divider"></div>
-                  <li><a class="nav-link" href="/organActiveEvents"><b><font size="3">Organizador</font></b></a></li>
-                  <li><a class="nav-link" href="/presidentEvents"><b><font size="3">Presidente</font></b></a></li>
-                  <li><a class="nav-link" href="/EvaluadorEventos"><b><font size="3 ">Evaluador</font></b></a></li>
+                  <li><Link id="itemOrga" class="nav-link" to="/organActiveEvents"><b><font size="3">Organizador</font></b></Link></li>
+                  <li><Link id="itemPresi" class="nav-link" to="/presidentEvents"><b><font size="3">Presidente</font></b></Link></li>
+                  <li><Link id="itemEval" class="nav-link" to="/EvaluadorEventos" ><b><font size="3 ">Evaluador</font></b></Link></li>
                 </ul>
               </li>
             </ul>
