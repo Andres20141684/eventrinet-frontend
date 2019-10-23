@@ -32,7 +32,8 @@ async function validar_sesion_ps(var_user,var_password) {
         return responseJson;  
     } catch (error) {
         console.error(error);
-        console.error('CATCH ALCANZADO :(');
+		console.error('CATCH ALCANZADO :(');
+		return null;
     }
 }
 
@@ -67,7 +68,8 @@ async function validar_sesion(var_email,var_given_name,var_family_name) {
         return responseJson;  
     } catch (error) {
         console.error(error);
-        console.error('CATCH ALCANZADO :(');
+		console.error('CATCH ALCANZADO :(');
+		return null;
     }
 }
 
