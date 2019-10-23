@@ -14,7 +14,7 @@ function initialState(){
   itemOpciones.style.display = "none"
 }
 
-function logInState(){
+function logInState(){  
   let linkLogin = document.getElementById("linkLogin")
   let linkSignUp = document.getElementById("linkSignUp")
   let myavatar = document.getElementById("myavatar")
@@ -26,6 +26,43 @@ function logInState(){
   itemOpciones.style.display = "block"
 }
 
+function setRoles(listRoles){
+  console.log("listRoles")
+  
+  console.log("admi",listRoles[0]["Administrador"])  
+  console.log("org",listRoles[1]["Organizador"])  
+  console.log("presi",listRoles[2]["Presidente del Comité Académico"])  
+  
+
+  let itemOrga = document.getElementById("itemOrga")
+  let itemEval = document.getElementById("itemEval")
+  let itemPresi = document.getElementById("itemPresi")
+  let itemMisProp = document.getElementById("itemMisProp")
+  let itemMisInscrip = document.getElementById("itemMisInscrip")
+
+  itemOrga.style.display = "none"
+  itemEval.style.display = "none"
+  itemPresi.style.display = "none"
+  itemMisProp.style.display = "none"
+  itemMisInscrip.style.display = "none"
+
+  if (!(listRoles[0]["Organizador"]==0)){
+    itemOrga.style.display = "block"
+  }
+  if (!(listRoles[2]["Presidente del Comité Académico"]==0)){
+    itemPresi.style.display = "block"
+  }
+  if (!(listRoles[3]["Evaluador"]==0)){
+    itemEval.style.display = "block"
+  }
+  if (!(listRoles[4]["Postulante"]==0)){
+    itemMisProp.style.display = "block"
+  }
+  if (!(listRoles[5]["Participante"]==0)){
+    itemMisInscrip.style.display = "block"
+  }  
+
+}
 
 class BannerTop extends Component{
   
@@ -62,6 +99,7 @@ class BannerTop extends Component{
       
       // I'm logged
       logInState()
+      setRoles(retrievedJson.permisos)
 
     }catch(err){
       console.log(err)
@@ -99,8 +137,8 @@ class BannerTop extends Component{
           </div>          
           <div class="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
               <div className="list-inline-item" align="right">
-                <Link to="/signUp" id="linkSignUp" className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.SignUp}</Link>
-                <Link to="/login"  id="linkLogin" className="nav"  style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name}</Link>
+                <a href="/signUp" id="linkSignUp" className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.SignUp}</a>
+                <a href="/login"  id="linkLogin" className="nav"  style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name}</a>
               </div>
 
 
