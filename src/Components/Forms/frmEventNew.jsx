@@ -19,7 +19,7 @@ export default class EventNew extends Component{
             campos:[],
             evaluadores:[],
             categorias:[],
-            fases:[{secuencia:1,camposPerson:[{obli:false}],criterios:[{obli:false}],reqArch:false,reqEval:false}],
+            fases:[{secuencia:1,camposPerson:[{obli: false, obligatorio:0}],criterios:[{obli: false, obligatorio:0}],reqArch:false,reqEval:false}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:new Date(),
