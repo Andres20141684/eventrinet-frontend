@@ -30,8 +30,8 @@ class SingUp extends Component{
               <form class="form-detail" action="#" method="post">
                 <h2>Registrarse</h2>
                 <div class="form-row">
-                  <label for="full-name">Nombre Completo</label>
-                  <input type="text" name="full-name" id="full-name" class="input-text" placeholder="Nombre completo" required/>
+                  <label for="your-user">Usuario</label>
+                  <input type="text" name="your-user" id="your-user" class="input-text" placeholder="Usuario" required/>
                   <i class="fa fa-user"></i>
                 </div>
                 <div class="form-row">

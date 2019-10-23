@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import BannerLogin from '../Components/General/bannerLogin';
-import BannerBottom from '../Components/General/bannerBottom'
 import {Link}  from "react-router-dom";
 import '../styles/style_signUp.css'; 
 import {Redirect}  from "react-router-dom";
+import BannerTop from '../Components/General/bannerTop';
 
 const Networking = require('../Network/Networking');
-
-var request=null;
-var loggedin = false;
-
 
 class Login extends Component{
   state = {
@@ -22,55 +18,43 @@ class Login extends Component{
 
     onSubmitForm = (evt) => {
 
-        evt.preventDefault()
-        console.log(this.state)
+        evt.preventDefault()        
 
-/*      let thisForm = evt.target
-        let errorMsg = document.getElementById("errorMsg")
-        if (!this.state.user.length) {
-            thisForm.user.focus()
-            errorMsg.style.display = "block"
-            errorMsg.innerText = "Ingrese nombre de usuario"
-            return false
+        //let connectedUser = validar_sesion_ps(this.state.user,this.state.pass)
+        let connectedUser ={
+            "infoUsuario": {
+                "idUsuario": 8,
+                "correo": "qwe912@gmail.com",
+                "username": "CHUUUUG",
+                "ultimaSesion": "None",
+                "nombre": "Peter",
+                "apePaterno": "Soy",
+                "apeMaterno": "Yo",
+                "telefono": "+51 928232821",
+                "gradoInstruccion": "Doctor"
+            },
+            "permisos": [
+                {"Administrador": 0},
+                {"Organizador": 5},
+                {"Presidente del Comité Académico": 0},
+                {"Evaluador": 6},
+                {"Postulante": 0},
+                {"Participante": 0},
+                {"Miembro del Comité Organizacional": 0}
+            ],
+            "succeed": true,
+            "message": "Usuario encontrado"
         }
-        if (!this.state.pass.length) {
-            thisForm.pass.focus()
-            errorMsg.style.display = "block"
-            errorMsg.innerText = "Ingrese password de usuario"
-            return false
-        }
         
-        // else
-        errorMsg.style.display = "none"
-*/
-        //Asumiendo que este sera el Json recibido
-        let dataUser = {"status":true, 
-                        "data":{"sesion":true,
-                                "nombre":"Sebastian Sanchez Herrera",
-                                "userName":"Sebitas",
-                                "idUser": 2212,
-                                "roles":["organizador"],
-                                "msj":"error de credenciales"}}
-        
-        sessionStorage.setItem("dataUser", JSON.stringify(dataUser))
-        
-        let retrievedObject = sessionStorage.getItem('dataUser');
-
-        console.log("Json leido y guardado ",JSON.parse(retrievedObject))
-        console.log(this.state)
-        
-        
-        this.setState({redirect:true})        
-        
-        return false
-
-        let responseJson = Networking.login(this.state.name, this.state.pass)
-        if (!responseJson.data.sesion) {
-            alert(responseJson.data.msj)
-        } else {
-            sessionStorage.setItem('dataUser', JSON.stringify(responseJson) )
+        if (!(connectedUser == null)){
+            console.log("estamos accediendoo bbecita prrr")
+            console.log(connectedUser)
+            sessionStorage.setItem('dataUser', JSON.stringify(connectedUser))
             this.setState({redirect:true})
+        }else{
+            this.setState({redirect:false})
         }
+
     }
 
     renderRedirect = () => {
@@ -115,8 +99,8 @@ class Login extends Component{
                 <h2>Eventrinet</h2>
                 
                 <div class="form-row">
-                  <label for="your-email">Email</label>
-                  <input type="text" name="your-email" id="your-email" class="input-text" onChange={this.onChageInputName} onKeyDown={this.onKeyDownName} placeholder="Ingresar email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"/>
+                  <label for="your-user">Usuario</label>
+                  <input type="text" name="your-user" id="your-user" class="input-text" onChange={this.onChageInputName} onKeyDown={this.onKeyDownName} placeholder="Ingresar usuario" />
                   <i class="fa fa-envelope"></i>
                 </div>
                 <div class="form-row">
