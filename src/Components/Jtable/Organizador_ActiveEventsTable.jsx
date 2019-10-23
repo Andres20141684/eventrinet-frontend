@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
+import { is } from '@babel/types';
 
 const Networking = require('./../../Network/Networking.js') ;
 
@@ -8,21 +9,34 @@ const Networking = require('./../../Network/Networking.js') ;
 class Organizador_ActiveEventsTable  extends Component {
    constructor(props) {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      console.log("HAAAAAAAAAAAAAAAAAAAAA")
-      Networking.populateDataOrgTab1(8).then((value) => {
-            this.setState({datos_tabla: value});   
+      console.log("HAAAAAAAAAAAAAAAAAAAAA");
+      
+      
+      
+      console.log("PROPS del active events"+this.props);
+   }
+   componentDidMount(){
+      Networking.populateDataOrgTab1(13).then((value) => {
+         console.log(value);
+         if(value == null){
+            console.log('no hay algo aun');
             
+         }else {
+            console.log('si hay algo:');
+            this.setState({datos_tabla:value});
+         }
+         
       });
-      console.log("rzwetxrytcvygbuhnj"+this.props);
+   }
+   shouldComponentUpdate(nextProps, nextState){
+      if(this.state.datos_tabla != nextState.datos_tabla){
+         return true;
+      }
+      return false;
    }
    state = {
       datos_tabla: {
          Eventos:[
-            {  
-               nombre: 'Datos1', 
-               fechaLimitePref: '21/03/2019',
-               preferencia: 'Por Categoria' 
-            }
          ]
    }
   }
@@ -71,10 +85,14 @@ class Organizador_ActiveEventsTable  extends Component {
       })
     }
   
+  
      render() {
+      console.log(this.state.datos_tabla.Eventos.length);
+      //superWait(this.state.datos_tabla.Eventos);
         //this.state = this.props.data
         //console.log('this.props.data:', this.props.data);
-        return (
+        console.log('RENDER DE MRD! se loqueo');
+         return (
            <div class="panel panel mypanel" >
               <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                   <h3>Lista de Eventos activos</h3>
