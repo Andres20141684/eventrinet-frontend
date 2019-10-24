@@ -30,6 +30,7 @@ export default class EventNew extends Component{
             preferencia:'',
             precios:0,
             numeroPropuestas:0,
+            datajson:'',
             aux: frmCreateEvent     
 
         }
@@ -87,7 +88,7 @@ export default class EventNew extends Component{
       handlePrint(event){
         let auxjson={}
         auxjson=this.state
-        delete auxjson["aux"]
+        //delete auxjson["aux"]
         
         if(auxjson.rdCategry===true){
           auxjson.preferencia="CATEGORIA"
@@ -111,8 +112,9 @@ export default class EventNew extends Component{
         this.DateFormat(this.state.fechPref,auxjson,"fechaMaxPref","fechPref")
 
         console.log(auxjson);
-        var dataA=JSON.stringify(auxjson)
-        console.log(dataA);
+        const dataA=JSON.stringify(auxjson)
+        this.setState({datajson:dataA})
+        console.log(this.state.datajson);
 
 
         console.log("Envio json");
