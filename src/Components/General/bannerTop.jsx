@@ -27,12 +27,7 @@ function logInState(){
 }
 
 function setRoles(listRoles){
-  console.log("listRoles")
-  
-  console.log("admi",listRoles[0]["Administrador"])  
-  console.log("org",listRoles[1]["Organizador"])  
-  console.log("presi",listRoles[2]["Presidente del Comité Académico"])  
-  
+  console.log("listRoles",listRoles)
 
   let itemOrga = document.getElementById("itemOrga")
   let itemEval = document.getElementById("itemEval")
@@ -46,20 +41,25 @@ function setRoles(listRoles){
   itemMisProp.style.display = "none"
   itemMisInscrip.style.display = "none"
 
-  if (!(listRoles[0]["Organizador"]==0)){
+  if (!(listRoles[1]["Organizador"]==0)){
     itemOrga.style.display = "block"
+    console.log("orga",listRoles[0]["Organizador"])
   }
   if (!(listRoles[2]["Presidente del Comité Académico"]==0)){
     itemPresi.style.display = "block"
+    console.log("presi",listRoles[2]["Presidente del Comité Académico"])
   }
   if (!(listRoles[3]["Evaluador"]==0)){
     itemEval.style.display = "block"
+    console.log("eval",listRoles[3]["Evaluador"])
   }
   if (!(listRoles[4]["Postulante"]==0)){
     itemMisProp.style.display = "block"
+    console.log("postul",listRoles[4]["Postulante"])
   }
   if (!(listRoles[5]["Participante"]==0)){
     itemMisInscrip.style.display = "block"
+    console.log("parti",listRoles[5]["Participante"])
   }  
 
 }
