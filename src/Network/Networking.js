@@ -2,11 +2,10 @@ import {AsyncStorage} from 'react';
 
 const restURL = 'http://localhost:5000/api/';
 
-
 export async function validar_sesion_ps(var_user,var_password) {
     console.log('INTENTO DE LOGIN!!');
     try {
-        console.log('RECIBI UN LOGIN: ' + var_user + var_password);
+        console.log('RECIBI UN LOGIN con username: ' + var_user + var_password);
         let response = await fetch(restURL 
             + 'validar_session_ps', {
             method: 'POST',
@@ -18,25 +17,23 @@ export async function validar_sesion_ps(var_user,var_password) {
             body: JSON.stringify({
                 user: var_user,
                 password: var_password
-
+  
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
         let responseJson = await response.json();
         console.log('Saving!!');
-		console.log(responseJson);
-		console.log(responseJson[0]);
-		console.log(response);
-		console.log(response[0]);
+        console.log(responseJson);  
+        console.log(response);
         console.log('Saving!!');
-
+  
         return responseJson;  
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
+        return
     }
-}
-
+  }
 
 export async function saludar(){
     try {

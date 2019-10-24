@@ -7,6 +7,7 @@ import BannerTop from '../Components/General/bannerTop';
 
 const Networking = require('../Network/Networking');
 
+
 class Login extends Component{
   state = {
     bannerLogin: BannerLogin,
@@ -18,44 +19,24 @@ class Login extends Component{
 
     onSubmitForm = (evt) => {
 
-        evt.preventDefault()        
+        evt.preventDefault()
 
-        //let connectedUser = validar_sesion_ps(this.state.user,this.state.pass)
-        let connectedUser ={
-            "infoUsuario": {
-                "idUsuario": 8,
-                "correo": "qwe912@gmail.com",
-                "username": "CHUUUUG",
-                "ultimaSesion": "None",
-                "nombre": "Peter",
-                "apePaterno": "Soy",
-                "apeMaterno": "Yo",
-                "telefono": "+51 928232821",
-                "gradoInstruccion": "Doctor"
-            },
-            "permisos": [
-                {"Administrador": 0},
-                {"Organizador": 5},
-                {"Presidente del Comité Académico": 0},
-                {"Evaluador": 6},
-                {"Postulante": 0},
-                {"Participante": 0},
-                {"Miembro del Comité Organizacional": 0}
-            ],
-            "succeed": true,
-            "message": "Usuario encontrado"
-        }
-        
-        if (!(connectedUser == null)){
-            console.log("estamos accediendoo bbecita prrr")
-            console.log(connectedUser)
-            sessionStorage.setItem('dataUser', JSON.stringify(connectedUser))
-            this.setState({redirect:true})
-        }else{
-            this.setState({redirect:false})
-            alert("Contraseña y/o usuario incorrecto!")
-        }
-
+        Networking.validar_sesion_ps(this.state.user,this.state.pass).then(
+                (response) => {
+                  console.log(response);
+                  let connectedUser = response;
+                  console.log("Data del usuario",connectedUser);
+                  if (!(connectedUser == null)){
+                    console.log("estamos accediendoo bbecita prrr")
+                    console.log(connectedUser)
+                    sessionStorage.setItem('dataUser', JSON.stringify(connectedUser))
+                    this.setState({redirect:true})
+                  }else{
+                    this.setState({redirect:false})
+                    alert("Contraseña y/o usuario incorrecto!")
+                  }
+                }
+        )
     }
 
     renderRedirect = () => {
