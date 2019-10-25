@@ -107,6 +107,7 @@ class FormStepThree extends Component{
                     <div>
                     {this.props.value.reqEval===true?
                         <ArrayDinamic 
+                        type='Criterio'
                         campo={this.props.criterios}
                         value={this.props.value} 
                         index={this.props.index}

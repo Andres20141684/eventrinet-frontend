@@ -26,7 +26,7 @@ componentWillMount(){
   this.setState({values:this.props.fases})
 }
 DateFormat(date,json,tag){
-  let aux=date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() 
+  let aux=date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
   json[tag]=aux
 }
 handleCheck(event,i,str,str2){

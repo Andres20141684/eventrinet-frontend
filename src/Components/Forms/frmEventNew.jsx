@@ -19,7 +19,7 @@ export default class EventNew extends Component{
             campos:[],
             evaluadores:[],
             categorias:[],
-            fases:[{secuencia:1,camposPerson:[{obli:false}],criterios:[{obli:false}],reqArch:false,reqEval:false}],
+            fases:[{secuencia:1,camposPerson:[{obli: false, obligatorio:0}],criterios:[{obli: false, obligatorio:0}],reqArch:false,reqEval:false}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:new Date(),
@@ -30,6 +30,7 @@ export default class EventNew extends Component{
             preferencia:'',
             precios:0,
             numeroPropuestas:0,
+            datajson:'',
             aux: frmCreateEvent     
 
         }
@@ -87,7 +88,7 @@ export default class EventNew extends Component{
       handlePrint(event){
         let auxjson={}
         auxjson=this.state
-        delete auxjson["aux"]
+        //delete auxjson["aux"]
         
         if(auxjson.rdCategry===true){
           auxjson.preferencia="CATEGORIA"
@@ -111,8 +112,9 @@ export default class EventNew extends Component{
         this.DateFormat(this.state.fechPref,auxjson,"fechaMaxPref","fechPref")
 
         console.log(auxjson);
-        var dataA=JSON.stringify(auxjson)
-        console.log(dataA);
+        const dataA=JSON.stringify(auxjson)
+        this.setState({datajson:dataA})
+        console.log(this.state.datajson);
 
 
         console.log("Envio json");
@@ -124,7 +126,7 @@ export default class EventNew extends Component{
             console.log("error en conexión");
             console.log(err);
           })
-          window.location.assign("/organActiveEvents");
+          //window.location.assign("/organActiveEvents");
       }
 
       render() {    

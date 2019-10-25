@@ -10,7 +10,14 @@ class Organizador_HistoryventsTable extends Component {
       
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
       Networking.populateDataOrgTab1(8).then((value) => {
-            this.setState({datos_tabla: value});   
+         console.log(value);
+         if(value == null){
+            console.log('no hay algo aun');
+            
+         }else {
+            console.log('si hay algo:');
+            this.setState({datos_tabla:value});
+         }   
             
       });
    }

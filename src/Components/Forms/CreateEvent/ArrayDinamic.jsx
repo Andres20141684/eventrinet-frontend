@@ -9,7 +9,7 @@ class ArrayDinamics extends Component{
     constructor(){
         super();
         this.state={
-          array: [{ }],
+          array: [{obli: false, obligatorio:0 }],
           size:0,
         }
       }
@@ -19,7 +19,7 @@ class ArrayDinamics extends Component{
 
       addClick() {
         this.setState(prevState => ({
-            array: [...prevState.array, {}],
+            array: [...prevState.array, {obli: false, obligatorio:0}],
             size:this.state.size+1
         }));
       }
@@ -61,18 +61,22 @@ class ArrayDinamics extends Component{
                           </div>
                           </Row>
                           <Row>
+                            {this.props.type==='Criterio'?null:
                             <div  class="form-group col-md-6">
                                 <label for="title">Descripcion</label>                                
                                 <input class="form-control" type="text" onChange={(e)=>this.handleChange5(e,index,"descripcion")} value={this.state.array[index].descripcion}/>
-                            </div>
+                            </div>}
                           </Row>
                           <br/>
                           <Row>
-                            <div class="form-group col-md-6" >
+                            {this.props.type==='Criterio'?null:
+                              <div class="form-group col-md-6" >
                             <label for="title">Obligatorio</label>
                             <input  type="checkbox" onClick={(e)=>this.handleCheckBox(e,index,"obli","obligatorio")} checked={this.state.array[index].obli}>
                             </input>
-                            </div>   
+                            </div> 
+                            }
+                              
                           </Row>
                           <br/> 
                       </div>
@@ -82,7 +86,7 @@ class ArrayDinamics extends Component{
                       <input class="btn btn-primary"type="button" value="add more" onClick={() => this.addClick()} /> 
                       </Col>
                       <Col>
-                      {this.state.array.length===0?null:<input class="btn btn-danger"type="button" value="delete" onClick={() => this.removeClick()} />} 
+                      {this.state.array.length===1?null:<input class="btn btn-danger"type="button" value="delete" onClick={() => this.removeClick()} />} 
                       </Col>
                   </Row>
                   
