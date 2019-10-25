@@ -15,6 +15,8 @@ import Prueba from './Pages/Prueba';
 import Login from './Pages/Login';
 import SelectedEvent from './Pages/SelectedEvent';
 import EventInscriptionPage from './Pages/EventInscriptionPage';
+import ProposerMyProposals from './Pages/ProposerMyProposals';
+import ProposerDetailProposal from './Pages/ProposerDetailProposal';
 import SignUp from './Pages/SignUp';
 /************************************* */
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
@@ -27,6 +29,9 @@ ReactDOM.render(<Router>
                     <Route path='/' exact component={App}/>
                     <Route path='/organizerNewEvent' exact component={NewEventPage} />
                     <Route path='/announcements' exact component={AnnouncementPage} />
+                    
+                    <Route path='/propMyProposals' exact component={ProposerMyProposals} />
+                    <Route path='/propDetailProposal' exact component={ProposerDetailProposal} />
                     
                     <Route path='/organActiveEvents' exact component={OrganActiveEvents} />
                     <Route path='/presidentEvents' exact component={PresidentEvents} />
