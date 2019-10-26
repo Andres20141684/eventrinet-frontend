@@ -1,57 +1,141 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
+import React, { Component }  from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
+import Fade from '@material-ui/core/Fade';
+import CircularProgress from '@material-ui/core/CircularProgress';
+const Networking = require('../../../Network/Networking.js') ;
 
-export default function ModalSave(props) {
-    const [open, setOpen] = React.useState(false);
-    const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+class ModalDialog extends Component{
+    constructor(){
+      super();
+      this.state={
+        open:false,
+        data:null,
+        succeed:''
+      }
+      this.handleClickOpen=this.handleClickOpen.bind(this)
+      this.handleClose=this.handleClose.bind(this)
+      this.handleSave=this.handleSave.bind(this)
+      this.handleExit=this.handleExit.bind(this)
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if(this.state.data!==nextProps.datajson){
+        this.setState({data:nextProps.datajson})
+      }
+    }
+    
+    handleClickOpen(){
+      this.props.handlePrint();
+      this.setState({open:true})   
+    }
   
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
+    handleClose () {
+      this.setState({open:false})  
+    }
 
-    const handleSave = () => {
-      props.handlePrint();
-      setOpen(false);
-    };
+    handleSave () {
+      this.setState({succeed:'wait'})
+      Networking.insertNewEvent(this.state.data).then(
+        (response)=>{
+          this.setState({succeed:response.succeed})
+          console.log(response);
+        })
+        .catch( (err) =>{
+          console.log("error en conexión");
+          console.log(err);
+        })
+    }
 
+    handleExit(){
+      window.location.assign("/organActiveEvents");
+    }
+    render(){
+      return (
+        <div>
+          <button style={{float:'right'}} class="mybutton" onClick={this.handleClickOpen}>Guardar</button>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="responsive-dialog-title"
+            disableBackdropClick={true}
+          >
+            <div>
+              {this.state.succeed===''?
+              <div>
+              <DialogContent>
+                <DialogContentText>
+                  <h2>Esta seguro de guardar</h2>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <button onClick={this.handleClose} color="primary">
+                  Rechazar
+                </button>
+                <button onClick={this.handleSave} color="primary" autoFocus>
+                  Aceptar
+                </button>
+              </DialogActions>  
+              </div>
+              :
+              <div>
+                {this.state.succeed==='wait'?
+                <div>
+                  <DialogContent>
+                    <Fade
+                      in={this.state.succeed === 'wait'}
+                      style={{
+                        transitionDelay: this.state.succeed === 'wait' ? '800ms' : '0ms',
+                      }}
+                      unmountOnExit
+                      >
+                      <CircularProgress />
+                      </Fade>
+                      <DialogContentText>
+                          <h2>Procesando</h2>
+                        </DialogContentText>
+                  </DialogContent>
+                  
+                </div>
+                :
+                <div>
+                  {this.state.succeed===true?
+                    <div>
+                      <DialogContent>
+                        <DialogContentText>
+                          <h2>La transaccion fue exitosa</h2>
+                        </DialogContentText>
+                      </DialogContent>
+                    </div>
+                    :
+                    <div>
+                      <DialogContent>
+                        <DialogContentText>
+                          <h2>La transaccion fallo</h2>
+                        </DialogContentText>
+                      </DialogContent>
+                    </div>
+                    }
+                    <DialogActions>
+                      <button onClick={this.handleExit} color="primary" autoFocus>
+                        Aceptar
+                      </button>
+                    </DialogActions> 
+                </div>
+                }
+              </div>
+              }
+            </div>
 
-  
-    return (
-      <div>
-        <button style={{float:'right'}} class="mybutton" onClick={handleClickOpen}>Guardar</button>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="responsive-dialog-title"
-          disableBackdropClick={true}
-        >
-          <DialogTitle id="responsive-dialog-title">{"Esta seguro de guardar"}</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              <h2>La informacion ingresada sera registrada como un nuevo evento</h2>
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <button onClick={handleClose} color="primary">
-              Rechazar
-            </button>
-            <button onClick={handleSave} color="primary" autoFocus>
-              Aceptar
-            </button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    );
+            
+          </Dialog>
+        </div>
+      );
+    }
+    
   }
+
+  export default ModalDialog;

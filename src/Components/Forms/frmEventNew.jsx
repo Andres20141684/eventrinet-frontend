@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import frmCreateEvent from './frmCreateEvent'
 import { string } from 'prop-types';
 import '../../styles/style_sheets.css'
+import { thisExpression } from '@babel/types';
 const Networking = require('../../Network/Networking.js') ;
 export default class EventNew extends Component{
     constructor(props) {
@@ -16,7 +17,6 @@ export default class EventNew extends Component{
             rdPropuest:false,
             comiteOrganizacional:[],
             presidente:[],
-            campos:[],
             evaluadores:[],
             categorias:[],
             fases:[{secuencia:1,camposPerson:[{obli: false, obligatorio:0}],criterios:[{obli: false, obligatorio:0}],reqArch:false,reqEval:false}],
@@ -26,12 +26,12 @@ export default class EventNew extends Component{
             fCRFin:'',
             fechPref:new Date(),            
             fechaMaxPref:'',
-            numFases:'',
+            numFases:0,
             preferencia:'',
             precios:0,
             numeroPropuestas:0,
-            datajson:'',
-            aux: frmCreateEvent     
+            datajson:null,  
+            form:frmCreateEvent  
 
         }
         this.handleChange = this.handleChange.bind(this)
@@ -44,13 +44,12 @@ export default class EventNew extends Component{
 
       handleCheckB(event,str){
         this.setState({[str]:!this.state[str]})
-
       }
+      
       handleChange2(value,label){
         this.setState({
           [label]:value
         })
-        console.log(this.state)
       }
     
       handleChange(event) {
@@ -61,11 +60,6 @@ export default class EventNew extends Component{
         this.setState({
           [name]: value
         });  
-      }
-      handleCamposadd(list){
-        this.setState({
-          campos : list
-        })
       }
 
       handleChangeRadio(event,str) {
@@ -79,60 +73,55 @@ export default class EventNew extends Component{
         });  
       }
 
-      DateFormat(date,json,tag,tag2){
+      DateFormat(string,json,tag,tag2){
+        const date=new Date(string)
         let aux=date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
         json[tag]=aux
-        //delete json[tag2]
+        delete json[tag2]
       }
 
       handlePrint(event){
-        let auxjson={}
-        auxjson=this.state
-        //delete auxjson["aux"]
-        
-        if(auxjson.rdCategry===true){
-          auxjson.preferencia="CATEGORIA"
-        }else{
-          auxjson.preferencia="PROPUESTA"
-        }
-        delete auxjson.rdCategry
-        delete auxjson.rdPropuest
+        var auxjson= JSON.parse(JSON.stringify(this.state));
+        console.log(auxjson)
 
-        /*if(auxjson.rdCamR===true){
-          auxjson.tieneCameraRdy=1
-          let addPhase={nombre:"Camera Ready",secuencia:this.state.fases.length+1}
-          this.DateFormat(auxjson.fCRIni,addPhase,"fechaFaseIni",null)
-          this.DateFormat(auxjson.fCRFin,addPhase,"fechaFaseFin",null)
-          auxjson.fases.push(addPhase)
-        }*/
+        delete auxjson.form;
+        delete auxjson.datajson;
+        
+        auxjson.rdCategry===true? auxjson.preferencia="CATEGORIA": auxjson.preferencia="PROPUESTA";
+        delete auxjson.rdCategry;
+        delete auxjson.rdPropuest;
+
+        auxjson.tieneCameraRdy=auxjson.rdCamR===true?1:0;
+        this.DateFormat(auxjson.fCRIni,auxjson,"fechaIniCR","fCRIni")
+        this.DateFormat(auxjson.fCRFin,auxjson,"fechaFinCR","fCRFin")
+
         auxjson.numFases=this.state.fases.length
 
         this.DateFormat(this.state.fIni,auxjson,"fechaIni","fIni")
         this.DateFormat(this.state.fFin,auxjson,"fechaFin","fFin")
         this.DateFormat(this.state.fechPref,auxjson,"fechaMaxPref","fechPref")
 
-        console.log(auxjson);
         const dataA=JSON.stringify(auxjson)
+        console.log(dataA)
         this.setState({datajson:dataA})
-        console.log(this.state.datajson);
 
 
-        console.log("Envio json");
+        /*console.log("Envio json");
         Networking.insertNewEvent(dataA).then(
           (response)=>{
             console.log(response);
+            window.location.assign("/organActiveEvents");
           })
           .catch( (err) =>{
             console.log("error en conexión");
             console.log(err);
-          })
-          //window.location.assign("/organActiveEvents");
+          })*/
       }
 
       render() {    
         return (
           <div className='container'>
-              <this.state.aux 
+              <this.state.form
               nombre={this.state.nombre} 
               descripcion={this.state.descripcion}
               lugar={this.state.lugar}
@@ -156,6 +145,8 @@ export default class EventNew extends Component{
               fCRIni={this.state.fCRIni}
               fCRFin={this.state.fCRFin}
 
+              datajson={this.state.datajson}
+
               handleCheckB={this.handleCheckB}
               handleChange2={this.handleChange2}
               handleChangeRadio={this.handleChangeRadio}
@@ -163,27 +154,6 @@ export default class EventNew extends Component{
               handlePrint={this.handlePrint}
               />
           </div>
-          /*
-          
-          <React.Fragment>            
-          <form onSubmit={this.handleSubmit}>
-
-              handleEvaluadoradd={this.handleEvaluadoradd}
-              handlePresidenteadd={this.handlePresidenteadd}
-              handleCamposadd={this.handleCamposadd}
-              handleCategoryadd={this.handleCategoryadd}
-              handleChangeRadio={this.handleChangeRadio}              
-              handleDate3={this.handleDate3}
-              handleDate4={this.handleDate4}
-              handleDate2={this.handleDate2}
-              handleDate={this.handleDate}
-              handleComiteadd={this.handleComiteadd}
-              handleChange={this.handleChange}
-              handleDateEndCamReady={this.handleDateEndCamReady}
-              handleDateStartCamReady={this.handleDateStartCamReady}
-              handleDateEndEval={this.handleDateEndEval}             
-              />
-          </div>*/
         )
         }
 

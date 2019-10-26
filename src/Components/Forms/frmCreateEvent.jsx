@@ -9,7 +9,7 @@ import StepOne from './CreateEvent/StepOne';
 import Dialog from '@material-ui/core/Dialog';
 import StepTwo from './CreateEvent/StepTwo'
 import StepThree from './CreateEvent/StepThree'
-import ModalSave from './CreateEvent/ModalDialog'
+import ModalDialog from './CreateEvent/ModalDialog'
 import '../../styles/style_sheets.css'; 
 import { fontSize } from '@material-ui/system';
 
@@ -82,7 +82,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
               >
                 Regresar
               </button>
-            <ModalSave {...props}></ModalSave>
+            <ModalDialog {...props}/>
           </div>
         ) : (
           <div>
