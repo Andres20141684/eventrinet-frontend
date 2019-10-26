@@ -2,32 +2,61 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
+import ReactDOM from 'react-dom';
+import NewEventPage from './../../Pages/NewEventPage';
+/**
+ * 
+ * 
 
+******************************* BOTTON EN CONSTRUCCION XDDDDDDDDDDDDDDDDDDDD (JEREMI SE LA COME)
+
+
+
+
+ */
 
 class ActionButton  extends Component {
    constructor(props) {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      console.log("HAAAAAAAAAAAAAAAAAAAAA");
+      console.log("ACTION BUTTON");
       
-      console.log("PROPS del active events"+this.props);
+      console.log("PROPS del ACTION BUTTON"+this.props);
    }
 
 
    state = {
-      button_class : "fa fa-plus "
+      //el tipo e boton por default es el plus
+      class_for_style: "btn_plus",
+      redirect_to : "/#",
+      button_class : "fa fa-plus ",
+      id_evento: "1"
    }
 
   
    handleClick = () => {
-    console.log('this is:', this);
+    console.log('redireccionando a ... update evento');
+    //window.location.replace("./");
+    const div = document.createElement('div');
+    ReactDOM.render(<NewEventPage idEvent_recived = {this.state.id_evento} />, div);
   }
  
 
   
     render() {
         this.state.button_class = this.props.button_class;
+        this.state.redirect_to = this.props.redirect_to;
+        this.state.id_evento = this.props.id_evento;
+        console.log("STATE BUTTON");
+        console.log(this.state);
         return(
-            <button class="btn_plus" onClick={this.handleClick} ><i class={this.state.button_class}></i></button>
+            <button class={this.state.class_for_style} onClick={this.handleClick} >
+               <a href={this.state.redirect_to}>
+                  <i 
+                     class={this.state.button_class}
+                  >
+                  </i>
+               </a>
+            </button>
         )
         
      }
