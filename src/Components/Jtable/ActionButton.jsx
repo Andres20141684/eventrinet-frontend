@@ -50,12 +50,12 @@ class ActionButton  extends Component {
         console.log(this.state);
         return(
             <button class={this.state.class_for_style} onClick={this.handleClick} >
-               <a href={this.state.redirect_to}>
+               
                   <i 
                      class={this.state.button_class}
                   >
                   </i>
-               </a>
+            
             </button>
         )
         
