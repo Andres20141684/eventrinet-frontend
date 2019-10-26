@@ -9,7 +9,7 @@ class ArrayDinamics extends Component{
     constructor(){
         super();
         this.state={
-          array: [{obli: false, obligatorio:0 }],
+          array: [{descripcion:'',enunciado:'',obli: false, obligatorio:0}],
           size:0,
         }
       }
@@ -19,7 +19,7 @@ class ArrayDinamics extends Component{
 
       addClick() {
         this.setState(prevState => ({
-            array: [...prevState.array, {obli: false, obligatorio:0}],
+            array: [...prevState.array, {descripcion:'',enunciado:'',obli: false, obligatorio:0}],
             size:this.state.size+1
         }));
       }

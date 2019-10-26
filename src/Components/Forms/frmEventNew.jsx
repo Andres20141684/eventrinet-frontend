@@ -19,7 +19,7 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{secuencia:1,camposPerson:[{obli: false, obligatorio:0}],criterios:[{obli: false, obligatorio:0}],reqArch:false,reqEval:false}],
+            fases:[{secuencia:1,camposPerson:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:new Date(),
@@ -104,18 +104,6 @@ export default class EventNew extends Component{
         const dataA=JSON.stringify(auxjson)
         console.log(dataA)
         this.setState({datajson:dataA})
-
-
-        /*console.log("Envio json");
-        Networking.insertNewEvent(dataA).then(
-          (response)=>{
-            console.log(response);
-            window.location.assign("/organActiveEvents");
-          })
-          .catch( (err) =>{
-            console.log("error en conexión");
-            console.log(err);
-          })*/
       }
 
       render() {    
