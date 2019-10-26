@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
+import ActionButton from './ActionButton';
 
 const Networking = require('./../../Network/Networking.js') ;
 
@@ -16,7 +17,7 @@ class Organizador_ActiveEventsTable  extends Component {
       console.log("PROPS del active events"+this.props);
    }
    componentDidMount(){
-      Networking.populateDataOrgTab1(13).then((value) => {
+      Networking.populateDataOrgTab1(2).then((value) => {
          console.log(value);
          if(value == null){
             console.log('no hay algo aun');
@@ -71,7 +72,7 @@ class Organizador_ActiveEventsTable  extends Component {
                </td> 
                <td>
                
-                  <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-plus "></i></button>
+                  <ActionButton button_class ="fa fa-plus"/>
                </td> 
                <td>
                   <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-play"></i></button>
