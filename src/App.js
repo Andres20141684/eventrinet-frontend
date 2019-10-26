@@ -11,7 +11,7 @@ class App extends Component{
   state = {
     bannTop : BannerTop,
     bannBot : BannerBottom,
-    msg: "Not Connected"
+    msg: "Not Connected" 
   }
 
   componentWillMount(){
