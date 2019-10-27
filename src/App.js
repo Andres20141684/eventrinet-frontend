@@ -4,6 +4,7 @@ import BannerTop from './Components/General/bannerTop';
 import BannerBottom from './Components/General/bannerBottom';
 import './App.css'; 
 import { thisExpression } from '@babel/types';
+import WorkingSpace from './Components/Special/WorkingSpace';
 const Networking = require('./Network/Networking.js') ;
 
 
@@ -11,6 +12,7 @@ class App extends Component{
   state = {
     bannTop : BannerTop,
     bannBot : BannerBottom,
+    workingSpace : WorkingSpace,
     msg: "Not Connected" 
   }
 
@@ -51,13 +53,9 @@ class App extends Component{
       <div>
     <div className="App">
       <this.state.bannTop /> 
-      <header className="App-header">
-        <p className="logo">EVENTRINET</p>
-        <p>Gestión de tus eventos academicos</p>
-        <p> En mantenimiento...</p>
-        <h1>{this.state.msg}</h1>
-        
-      </header>
+      <div>
+      <this.state.workingSpace/>
+    </div>
     </div>
     <this.state.bannBot/>
     </div>

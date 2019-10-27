@@ -17,7 +17,9 @@ class Organizador_ActiveEventsTable  extends Component {
       console.log("PROPS del active events"+this.props);
    }
    componentDidMount(){
-      Networking.populateDataOrgTab1(13).then((value) => {
+      let retrievedObject = sessionStorage.getItem('dataUser');
+      let retrievedJson = JSON.parse(retrievedObject);  
+      Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
          console.log(value);
          if(value == null){
             console.log('no hay algo aun');
@@ -36,6 +38,7 @@ class Organizador_ActiveEventsTable  extends Component {
       return false;
    }
    state = {
+      idUser_recived: 13,
       datos_tabla: {
          Eventos:[
          ]
@@ -48,7 +51,8 @@ class Organizador_ActiveEventsTable  extends Component {
  
    
    tableData() {
-      
+      //this.setState.idUser_recived=this.props.idUser_recived;
+
         return this.state.datos_tabla.Eventos.map((element, index) => {
          
          const {idEvento, nombre,descripcion,fechaIni,

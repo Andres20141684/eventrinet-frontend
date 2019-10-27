@@ -63,10 +63,11 @@ async function validar_sesion(var_email,var_given_name,var_family_name) {
 		console.log('Saving!!');
 		
 		if (responseJson.succeed){
-			alert("El correo esta registrado en Eventrinet!")
+			
 			let connectedUser = responseJson;
 			console.log("Data del usuario",connectedUser);
 			sessionStorage.setItem('dataUser', JSON.stringify(connectedUser))
+			alert("El correo esta registrado en Eventrinet!")
 			window.location.replace("./");
 		}else{
 			alert("El correo no esta registrado en Eventrinet!")
