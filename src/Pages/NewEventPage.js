@@ -11,6 +11,7 @@ class NewEventPage extends Component{
       }
 
     render(){
+        console.log(this.props.id_evento)
         return(
         <div> 
             <this.state.bannTop />
