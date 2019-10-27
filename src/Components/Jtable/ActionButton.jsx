@@ -38,27 +38,34 @@ class ActionButton  extends Component {
     
     //window.location.replace("./");
    }
-    
+   componentWillMount(){
+      this.state.button_class = this.props.button_class;
+      this.state.redirect_to = this.props.redirect_to;
+      this.state.id_evento = this.props.id_evento;
+   }
+   componentDidMount(){
+      sessionStorage.setItem('nextProp', JSON.stringify({id_evento_nextProps: this.state.id_evento}))
+      console.log("STATE STORAGED");
+      let retrievedObject = sessionStorage.getItem('nextProp');
+      let retrievedJson = JSON.parse(retrievedObject); 
+      console.log("lo que se guardo fue:");
+      console.log(retrievedJson);
+   }
 
 
   
     render() {
-        this.state.button_class = this.props.button_class;
-        this.state.redirect_to = this.props.redirect_to;
-        this.state.id_evento = this.props.id_evento;
-        sessionStorage.setItem('nextProp', JSON.stringify({id_Organizador_Table: this.state.id_evento}))
-
-        console.log("STATE STORAGED");
-        console.log(this.state);
+        
+        
 
         return(
             <button class={this.state.class_for_style} onClick={this.handleClick} >
-               
+               <a href={this.state.redirect_to}>
                   <i 
                      class={this.state.button_class}
                   >
                   </i>
-            
+            </a>
             </button>
         )
         

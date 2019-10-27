@@ -29,7 +29,7 @@ class App extends Component{
         this.setState({msg:"Intento de conexión fallido"});
         console.log(err);
       })
-  }
+  } 
 
   setterEvento(){
     const url = "https://localhost:5000/eventos/listar_eventos_activos";
