@@ -35,21 +35,22 @@ class ActionButton  extends Component {
   
    handleClick = () => {
     console.log('redireccionando a ... update evento');
-    //window.location.replace("./");
-    const div = document.createElement('div');
-    ReactDOM.render(<NewEventPage idEvent_recived = {this.state.id_evento} />, div);
     
-  ReactDOM.unmountComponentAtNode(div);
-  }
- 
+    //window.location.replace("./");
+   }
+    
+
 
   
     render() {
         this.state.button_class = this.props.button_class;
         this.state.redirect_to = this.props.redirect_to;
         this.state.id_evento = this.props.id_evento;
-        console.log("STATE BUTTON");
+        sessionStorage.setItem('nextProp', JSON.stringify({id_Organizador_Table: this.state.id_evento}))
+
+        console.log("STATE STORAGED");
         console.log(this.state);
+
         return(
             <button class={this.state.class_for_style} onClick={this.handleClick} >
                
