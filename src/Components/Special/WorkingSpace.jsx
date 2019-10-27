@@ -15,7 +15,7 @@ class WorkingSpace extends Component{
     }
 
     setfutureProps(){
-
+        /**los props del sgt componente ADIOS PAGINAS XD */
     }
     componentWillMount(){
       console.log("WSWillMount")
