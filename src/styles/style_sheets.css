@@ -1,0 +1,169 @@
+.mybutton{
+    border-radius: 6px;
+    border: none;
+    outline:none;
+    cursor: pointer;
+    padding: 10x 15px;
+    font-family: sans-serif;
+    font-size: 15px;    
+    background-color: #002D3D;
+    color: #FFFFFF;
+    text-align: center; 
+    width: 110px;
+    height:28px;    
+    line-height: 14px;       
+}
+.mybutton:hover {
+    background-color: #E6E9EE;
+    color: #002D3D;
+}
+.btnAdd{
+    border-radius: 5px;
+    border: none;
+    outline:none;
+    cursor: pointer;
+    padding: 10x 15px;
+    font-family: sans-serif;
+    font-size: 13px;    
+    background-color: #002D3D;
+    color: #FFFFFF;
+    text-align: center; 
+    width: 66px;
+    height:23px;    
+    line-height: 10px; 
+}
+.add{
+    background-color: #002D3D;
+    color: #FFFFFF;
+}
+.add:hover {
+    background-color: #E6E9EE;
+    color: #002D3D;
+}
+
+.form-group DatePicker{
+    background-color: #002D3D;
+}
+.form-container{
+    position: absolute; 
+    top: 20vh;
+    background: rgba(255,255,255,.8);
+    width: 300px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px #000;
+    
+}
+
+
+.bg{
+    background: url('../Components/Images/bg.jpg') no-repeat;
+    width: 100%;
+    height:100vh;
+}
+
+@media only screen and (max-width: 678px){
+    .bg{
+        background-size: 300%;
+    }
+}
+
+.component-header{
+    right: 0;
+    left: 0;
+    top: 0;
+    position:absolute;
+    height: 62px;
+    line-height: 62px;
+    display:flex;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.input-group>.input-group-append>.btn{
+    background-color: #3B83BD;
+    color: #FFFFFF; 
+}
+
+.component-header .component-logo.chart{
+    height: 50px;    
+    left: 5px;
+    top: 6px;
+}
+
+.panel-group>.panel-default>.panel-heading, .panel-default>.panel-heading{
+    height: 60px;
+    line-height:40px;
+}
+
+.panel-heading h1{
+    font-size: 22px;
+    margin-top: 10px;
+    
+}
+
+.form-group label{
+    font-size: 12px; 
+}
+
+.form-phases h1{
+    font-size: 2px; 
+}
+
+
+
+
+.pull-right{
+    margin-top: -20px;
+    border-radius: 4px;
+    background-color: #3B83BD;
+    color: #FFFFFF; 
+    cursor: pointer;
+    display: inline-block;
+    line-height: 28px;
+    padding: 0 12px;
+    text-decoration:none;
+}
+
+.iconMenu:hover {
+    background-color: #002D3D;
+    color: #6CDCD6;
+  }
+
+  .spinner input {
+    text-align: right;
+  }
+  
+  .input-group-btn-vertical {
+    position: relative;
+    white-space: nowrap;
+    width: 2%;
+    vertical-align: middle;
+    display: table-cell;
+  }
+  
+  .input-group-btn-vertical > .btn {
+    display: block;
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    margin-left: -1px;
+    position: relative;
+    border-radius: 0;
+  }
+  
+  .input-group-btn-vertical > .btn:first-child {
+    border-top-right-radius: 4px;
+  }
+  
+  .input-group-btn-vertical > .btn:last-child {
+    margin-top: -2px;
+    border-bottom-right-radius: 4px;
+  }
+  
+  .input-group-btn-vertical i {
+    position: absolute;
+    top: 0;
+    left: 4px;
+  }
