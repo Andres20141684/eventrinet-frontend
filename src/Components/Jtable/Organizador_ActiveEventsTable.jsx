@@ -17,7 +17,9 @@ class Organizador_ActiveEventsTable  extends Component {
       console.log("PROPS del active events"+this.props);
    }
    componentDidMount(){
-      Networking.populateDataOrgTab1(2).then((value) => {
+      let retrievedObject = sessionStorage.getItem('dataUser');
+      let retrievedJson = JSON.parse(retrievedObject);  
+      Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
          console.log(value);
          if(value == null){
             console.log('no hay algo aun');
@@ -36,6 +38,7 @@ class Organizador_ActiveEventsTable  extends Component {
       return false;
    }
    state = {
+      idUser_recived: 13,
       datos_tabla: {
          Eventos:[
          ]
@@ -43,11 +46,13 @@ class Organizador_ActiveEventsTable  extends Component {
   }
    handleClick = () => {
     console.log('this is:', this);
+    
   }
  
    
    tableData() {
-      
+      //this.setState.idUser_recived=this.props.idUser_recived;
+
         return this.state.datos_tabla.Eventos.map((element, index) => {
          
          const {idEvento, nombre,descripcion,fechaIni,
@@ -58,27 +63,30 @@ class Organizador_ActiveEventsTable  extends Component {
          <tr >
                <td >{nombre}</td>
                   <td >
+                     <ActionButton id_evento={idEvento} button_class ="fa fa-check-circle" redirect_to="/"/>
                      
-                     <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-check-circle"></i></button>
                      -
-                     <button class="btn_plus" onClick={this.handleClick} >
-                     {( {programaCompletado} ===1 )  ? <i class="fa fa-check-circle"></i> : <i class="fa fa-times-circle"></i> }
-                     </button>
                      
+                     <ActionButton id_evento={idEvento} button_class ={( {programaCompletado} ===1 )  ? "fa fa-check-circle":"fa fa-times-circle"} redirect_to="/"/>
 
                   </td> 
                <td>
-                  <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-edit"></i></button>
+                  
+                  <ActionButton id_evento={idEvento} button_class ="fa fa-edit" 
+                  onClick={this.handleClick} redirect_to="/organizerNewEvent"/>
+
                </td> 
                <td>
                
-                  <ActionButton button_class ="fa fa-plus"/>
+                  <ActionButton id_evento={idEvento} button_class ="fa fa-plus" redirect_to="/"/>
                </td> 
                <td>
-                  <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-play"></i></button>
+                  
+                  <ActionButton id_evento={idEvento} button_class ="fa fa-play" redirect_to="/"/>
                </td> 
                <td>
-                  <button class="btn_plus" onClick={this.handleClick} ><i class="fa fa-times"></i></button>
+                  
+                  <ActionButton id_evento={idEvento} button_class ="fa fa-times" redirect_to="/"/>
 
                </td> 
          </tr>
