@@ -19,6 +19,7 @@ class Organizador_ActiveEventsTable  extends Component {
    componentDidMount(){
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);  
+      this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
       Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
          console.log(value);
          if(value == null){
@@ -38,7 +39,7 @@ class Organizador_ActiveEventsTable  extends Component {
       return false;
    }
    state = {
-      idUser_recived: 13,
+      idUser_recived: 0,
       datos_tabla: {
          Eventos:[
          ]
@@ -72,7 +73,7 @@ class Organizador_ActiveEventsTable  extends Component {
                   </td> 
                <td>
                   
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-edit" 
+                  <ActionButton id_evento={idEvento} idUser_recived={this.state.idUser_recived} button_class ="fa fa-edit" 
                   onClick={this.handleClick} redirect_to="/organizerNewEvent"/>
 
                </td> 

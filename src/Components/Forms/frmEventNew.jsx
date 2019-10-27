@@ -32,7 +32,7 @@ export default class EventNew extends Component{
             numeroPropuestas:0,
             datajson:null,  
             form:frmCreateEvent  ,
-            id_recived: 0
+            data_recived: {}
 
         }
         this.handleChange = this.handleChange.bind(this)
@@ -43,7 +43,8 @@ export default class EventNew extends Component{
         this.handleCheckB=this.handleCheckB.bind(this)
       }
       componentWillMount(){
-        this.state.id_recived=this.props.id_recived;
+        this.state.data_recived=this.props.data_recived;
+        
       }
       handleCheckB(event,str){
         this.setState({[str]:!this.state[str]})
