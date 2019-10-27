@@ -9,8 +9,11 @@ class WorkingSpace extends Component{
         futureprops:{
 
         },
+        lastComponent:null,
+        nextComponent: null,
         currentComponent: NewIni
     }
+
     setfutureProps(){
 
     }
@@ -23,7 +26,10 @@ class WorkingSpace extends Component{
         
     }
     shouldComponentUpdate(nextProps,nextState){
-        return true;
+        if(this.state.nextComponent !== nextState.nextComponent){
+            return true;
+        }
+        return false;
 
     }
     setterEvento(){
