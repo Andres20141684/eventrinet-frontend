@@ -38,6 +38,8 @@ class ActionButton  extends Component {
     //window.location.replace("./");
     const div = document.createElement('div');
     ReactDOM.render(<NewEventPage idEvent_recived = {this.state.id_evento} />, div);
+    
+  ReactDOM.unmountComponentAtNode(div);
   }
  
 
