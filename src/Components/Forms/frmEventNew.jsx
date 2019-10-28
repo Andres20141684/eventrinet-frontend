@@ -8,6 +8,8 @@ export default class EventNew extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            idEvento:0,
+            idUsuario:0,
             nombre:'',
             descripcion:'',
             fIni: new Date(),
@@ -43,8 +45,79 @@ export default class EventNew extends Component{
         this.handleCheckB=this.handleCheckB.bind(this)
       }
       componentWillMount(){
-        this.state.data_recived=this.props.data_recived;
+        this.setState({data_recived:this.props.data_recived,idUsuario:this.props.data_recived.idOrganizador})
+        console.log(this.state.data_recived)
         
+      }
+
+      componentDidMount(){
+        console.log(this.state.data_recived)
+        var aux={}
+        aux.idEvento=this.state.data_recived.idEvento
+        aux=JSON.stringify(aux)
+        if(this.state.data_recived.idEvento!==0){
+          Networking.ShowEvent(aux).then(
+            (response)=>{
+              console.log(response);
+              this.setState({
+                nombre:response.nombre,
+                descripcion:response.descripcion,
+                fIni: new Date(response.fechaIni),
+                fFin: new Date(response.fechaFin),
+                lugar:response.lugar,
+                rdCategry:response.preferencia==='CATEGORIA'?true:false,
+                rdPropuest:response.preferencia==='PROPUESTA'?true:false,
+                comiteOrganizacional:response.comiteOrganizacional,
+                presidente:response.presidente,
+                evaluadores:response.evaluadores,
+                categorias:response.categorias,
+                tieneCameraRdy:response.tieneCameraRdy,
+                rdCamR:response.tieneCameraRdy===1?true:false,
+                fechPref:new Date(response.fechaMaxPref),            
+              })
+              if(response.fases.length!==0 && response.tieneCameraRdy===1){
+                const aux=response.fases.pop();
+                this.setState({
+                  fCRIni:new Date(aux.fechaFaseIni),
+                  fCRFin:new Date(aux.fechaFaseFin),
+                })
+              }
+              if(response.fases.length!==0){
+                console.log(response.fases[0])
+                var auxfases=[]
+                for(var i=0;i<response.fases.length;i++){
+                  auxfases[i]={};
+                  auxfases[i].nombre=response.fases[i].nombre;
+                  auxfases[i].descripcion=response.fases[i].descripcion;
+                  auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
+                  auxfases[i].fechaFaseIni=response.fases[i].fechaFaseIni;
+                  auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
+                  auxfases[i].fechaFaseFin=response.fases[i].fechaFaseFin;
+                  auxfases[i].secuencia=response.fases[i].secuencia;
+                  auxfases[i].reqArch=response.necesitaArchivo===1?true:false;
+                  auxfases[i].necesitaArchivo=response.necesitaArchivo;
+                  auxfases[i].reqEval=response.necesitaEvaluacion===1?true:false;
+                  auxfases[i].necesitaEvaluacion=response.necesitaEvaluacion;
+                  auxfases[i].criterios=response.criterios
+                  auxfases[i].camposPerson=[]
+                  for(var j=0;j<response.fases[i].camposPerson.length;j++){
+                    auxfases[i].camposPerson[j]=response.fases[i].camposPerson[j];
+                    auxfases[i].camposPerson[j].obli=auxfases[i].camposPerson[j].obligatorio===1?true:false;
+                  }
+                  auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();
+                }
+                this.setState({
+                  fases:auxfases
+                })
+              }
+              
+
+            })
+            .catch( (err) =>{
+              console.log("error en conexión");
+              console.log(err);
+            })
+        }
       }
       handleCheckB(event,str){
         this.setState({[str]:!this.state[str]})
