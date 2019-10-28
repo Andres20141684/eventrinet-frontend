@@ -13,7 +13,7 @@ class NewEventPage extends Component{
             idEvento: 0
         }
     }
-    componentWillMount(){
+    componentDidMount(){
 
         let retrievednextProp = sessionStorage.getItem('nextProp');
         let retrieveddataUser = sessionStorage.getItem('dataUser');
@@ -23,6 +23,8 @@ class NewEventPage extends Component{
         this.state.data_recived.idEvento = retrievedJsonnextProp.id_evento_nextProps;
         console.log("pinchi Armando aki ta tu id XDDD:");
         console.log(this.state.data_recived);
+        console.log(retrievedJsonnextProp);
+        sessionStorage.setItem("nextProp",null)
     }
     
     render(){

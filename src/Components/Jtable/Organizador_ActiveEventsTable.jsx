@@ -50,10 +50,20 @@ class Organizador_ActiveEventsTable  extends Component {
          ]
    }
   }
-   handleClick = () => {
-      console.log('this is:', this);
-    
-   }
+  
+      handleClick2 = () => {
+         console.log('redireccionando a ... update evento');
+         sessionStorage.setItem('nextProp',
+              JSON.stringify(
+                             {   idOrganizador_nextProps: this.state.idUser_recived,
+                                id_evento_nextProps: 0,
+                                nomb_evento: "none"
+                                
+                             }
+                          ))
+         //window.location.replace("./");
+      }
+
  
    
    tableData() {
@@ -78,7 +88,7 @@ class Organizador_ActiveEventsTable  extends Component {
                   </td> 
                <td>
                   
-                  <ActionButton id_evento={idEvento} idUser_recived={this.state.idUser_recived} button_class ="fa fa-edit" 
+                  <ActionButton id_evento={idEvento} nomb_evento ={nombre} idUser_recived={this.state.idUser_recived} button_class ="fa fa-edit" 
                   onClick={this.handleClick} redirect_to="/organizerNewEvent"/>
 
                </td> 
@@ -111,7 +121,7 @@ class Organizador_ActiveEventsTable  extends Component {
            <div class="panel panel mypanel" >
               <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                   <h3>Lista de Eventos activos</h3>
-                  <a  class="pull-right" href="/organizerNewEvent" value="Nuevo"style={{marginRight:30,marginBottom:20}}>Nuevo</a>
+                  <a  class="pull-right" onClick={this.handleClick2} href="/organizerNewEvent" value="Nuevo"style={{marginRight:30,marginBottom:20}}>Nuevo</a>
                </div>
               <div  class="table-responsive">
               <table class="table  table-hover">

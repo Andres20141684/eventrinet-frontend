@@ -15,7 +15,7 @@ class Login extends Component{
     user: "",
     pass: "",
     redirect:false
-    }
+  }
 
     onSubmitForm = (evt) => {
 
