@@ -21,7 +21,7 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{secuencia:1,camposPerson:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false}],
+            fases:[{idFase:0,secuencia:1,camposPerson:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:new Date(),
@@ -45,7 +45,7 @@ export default class EventNew extends Component{
         this.handleCheckB=this.handleCheckB.bind(this)
       }
       componentWillMount(){
-        this.setState({data_recived:this.props.data_recived,idUsuario:this.props.data_recived.idOrganizador})
+        this.setState({data_recived:this.props.data_recived,idUsuario:this.props.data_recived.idOrganizador,idEvento:this.props.data_recived.idEvento})
         console.log(this.state.data_recived)
         
       }
