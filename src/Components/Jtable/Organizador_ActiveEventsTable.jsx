@@ -17,9 +17,14 @@ class Organizador_ActiveEventsTable  extends Component {
       console.log("PROPS del active events"+this.props);
    }
    componentDidMount(){
+      
+      
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);  
       this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
+
+
+
       Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
          console.log(value);
          if(value == null){
@@ -46,9 +51,9 @@ class Organizador_ActiveEventsTable  extends Component {
    }
   }
    handleClick = () => {
-    console.log('this is:', this);
+      console.log('this is:', this);
     
-  }
+   }
  
    
    tableData() {
