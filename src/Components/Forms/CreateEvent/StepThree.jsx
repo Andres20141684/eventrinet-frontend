@@ -60,7 +60,7 @@ handleChangeFaseDate(value,i,str,str2){
 
 addClick() {
   this.setState(prevState => ({
-    values: [...prevState.values, {secuencia:this.state.values.length+1,camposPerson:[],criterios:[],reqArch:false,reqEval:false}]
+    values: [...prevState.values, {idFase:0,secuencia:this.state.values.length+1,camposPerson:[],criterios:[],reqArch:false,reqEval:false}]
   }));
 }
 
