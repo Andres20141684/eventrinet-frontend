@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import '../../styles/style_banner_top.css'
 import {Link}  from "react-router-dom";
+import Dashboard from '../Dashboard';
+import NewIni from './NewIni';
 
 function initialState(){
   let linkLogin = document.getElementById("linkLogin")
@@ -80,8 +82,26 @@ class BannerTop extends Component{
         name: "Iniciar Sesion",
         SignUp: "Registrarse",        
     }
-  }  
+    this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
+    this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
 
+  }  
+  handleNextChildComponentChange(_nextChildComponent){
+    console.log('cambiando', _nextChildComponent);
+      this.props.onNextChildComponentChange(_nextChildComponent);
+      
+  }
+  handleNextChildComponentChangeProps(_nextChildComponentProps){
+      this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+  }
+  handleClickAnnoucements = () => {
+    console.log('redireccionando a ... FakeNewIni evento');
+    this.handleNextChildComponentChange(Dashboard);
+  }
+  handleClickInicio= () => {
+    console.log('redireccionando a ... FakeNewIni evento');
+    this.handleNextChildComponentChange(NewIni);
+  }
   componentDidMount(){
     try{ //Verify if I'm logged
       let retrievedObject = sessionStorage.getItem('dataUser');
@@ -169,15 +189,15 @@ class BannerTop extends Component{
           <div class="collapse navbar-collapse" id="navbarNavDropdown" style={{}}>
             <ul class="nav navbar-nav">
               <li class="nav-item">
-                <Link class="nav-link" to="/"><b><font size="3" color="#6CDCD6">Inicio</font></b><span class="sr-only">(current)</span></Link>
+                <Link class="nav-link"  onClick={this.handleClickInicio}><b><font size="3" color="#6CDCD6">Inicio</font></b><span class="sr-only">(current)</span></Link>
               </li>
               
               <li class="nav-item">
                 <Link class="nav-link" to="/EventInscriptionPage"><b><font size="3" color="#6CDCD6">Eventos</font></b></Link>
               </li>
               
-              <li class="nav-item">
-                <Link class="nav-link" to="/announcements"><b><font size="3" color="#6CDCD6">Convocatoria</font></b></Link>
+              <li class="nav-item" >
+                <Link class="nav-link" onClick={this.handleClickAnnoucements} ><b><font size="3" color="#6CDCD6">Convocatoria</font></b></Link>
               </li>
               <li class="nav-item" class="nav dropdown" id="nav-item-opciones">
                 <Link class="nav-link dropdown-toggle" to="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></Link>

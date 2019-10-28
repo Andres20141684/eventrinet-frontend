@@ -56,11 +56,12 @@ class BannerBottom extends Component{
                     </ul>
                   </div>
                 </div>
+                
               </div>
-
               <div class="separatorSSJ">
                 <div class="divider div-transparent"></div>
               </div>
+              
 
               <div class="row footer-socialRow">
                 <div class="footer-awardsAndCerts hidden-xs hidden-sm col-md-6 col-lg-6">
