@@ -31,7 +31,8 @@ export default class EventNew extends Component{
             precios:0,
             numeroPropuestas:0,
             datajson:null,  
-            form:frmCreateEvent  
+            form:frmCreateEvent  ,
+            data_recived: {}
 
         }
         this.handleChange = this.handleChange.bind(this)
@@ -41,7 +42,10 @@ export default class EventNew extends Component{
         this.DateFormat=this.DateFormat.bind(this)
         this.handleCheckB=this.handleCheckB.bind(this)
       }
-
+      componentWillMount(){
+        this.state.data_recived=this.props.data_recived;
+        
+      }
       handleCheckB(event,str){
         this.setState({[str]:!this.state[str]})
       }

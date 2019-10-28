@@ -18,9 +18,7 @@ import NewEventPage from './../../Pages/NewEventPage';
 class ActionButton  extends Component {
    constructor(props) {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      console.log("ACTION BUTTON");
       
-      console.log("PROPS del ACTION BUTTON"+this.props);
    }
 
 
@@ -29,7 +27,8 @@ class ActionButton  extends Component {
       class_for_style: "btn_plus",
       redirect_to : "/#",
       button_class : "fa fa-plus ",
-      id_evento: "1"
+      id_evento: "1",
+      idUser_recived: 0
    }
 
   
@@ -38,27 +37,43 @@ class ActionButton  extends Component {
     
     //window.location.replace("./");
    }
-    
+   componentWillMount(){
+      this.state.button_class = this.props.button_class;
+      this.state.redirect_to = this.props.redirect_to;
+      this.state.id_evento = this.props.id_evento;
+      this.state.idUser_recived = this.props.idUser_recived;
+      sessionStorage.setItem('nextProp',
+         JSON.stringify(
+                        {   idOrganizador_nextProps: this.state.idUser_recived,
+                           id_evento_nextProps: this.state.id_evento
+                           
+                        }
+                     ))
+      console.log("STATE STORAGED");
+      let retrievedObject = sessionStorage.getItem('nextProp');
+      let retrievedJson = JSON.parse(retrievedObject); 
+      console.log("lo que se guardo fue:");
+      console.log(retrievedJson);
+   }
+   componentDidMount(){
+      //this.state.idOrganizador = this.props.idOrganizador;
+      
+   }
 
 
   
     render() {
-        this.state.button_class = this.props.button_class;
-        this.state.redirect_to = this.props.redirect_to;
-        this.state.id_evento = this.props.id_evento;
-        sessionStorage.setItem('nextProp', JSON.stringify({id_Organizador_Table: this.state.id_evento}))
-
-        console.log("STATE STORAGED");
-        console.log(this.state);
+        
+        
 
         return(
             <button class={this.state.class_for_style} onClick={this.handleClick} >
-               
+               <a href={this.state.redirect_to}>
                   <i 
                      class={this.state.button_class}
                   >
                   </i>
-            
+            </a>
             </button>
         )
         
