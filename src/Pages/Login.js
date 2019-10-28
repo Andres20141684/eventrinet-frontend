@@ -15,7 +15,7 @@ class Login extends Component{
     user: "",
     pass: "",
     redirect:false
-    }
+  }
 
     onSubmitForm = (evt) => {
 
@@ -26,14 +26,17 @@ class Login extends Component{
                   console.log(response);
                   let connectedUser = response;
                   console.log("Data del usuario",connectedUser);
-                  if (!(connectedUser == null)){
-                    console.log("estamos accediendoo bbecita prrr")
-                    console.log(connectedUser)
-                    sessionStorage.setItem('dataUser', JSON.stringify(connectedUser))
-                    this.setState({redirect:true})
+                  if (connectedUser.message ==="Usuario encontrado"){
+                    console.log("estamos accediendoo bbecita prrr");
+                    console.log(connectedUser);
+                    sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));
+                    this.setState({redirect:true});
+                    alert("Contraseña y/o usuario okii!");
                   }else{
-                    this.setState({redirect:false})
-                    alert("Contraseña y/o usuario incorrecto!")
+                    console.log("YIYIYIYYYYYYYYY salio false");
+                    alert("Contraseña y/o usuario incorrecto!");
+                    //this.setState({redirect:false});
+                    
                   }
                 }
         )

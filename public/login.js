@@ -131,15 +131,7 @@ if (err) {
 function onSignIn(googleUser) {
 	// Get the Google profile data (basic)
 	var profile = googleUser.getBasicProfile();
-	/*Networking.validar_sesion(
-		
-		profile.U3,
-		profile.ofa,
-		profile.wea
-		).then((value) => {
-		this.setState({datos_tabla1: value});   
-		
-  	});*/
+
 	console.log('Display the profile:')
 	console.log(profile)
 	console.log(profile.ig)
