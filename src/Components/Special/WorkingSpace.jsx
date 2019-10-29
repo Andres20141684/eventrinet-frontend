@@ -32,8 +32,7 @@ class WorkingSpace extends Component{
     }
     componentWillMount(){
       console.log("WSWillMount")
-      this.state.nextChildComponent=
-      this.props.nextComponent;
+      this.state.nextChildComponent= this.props.nextComponent;
       
       
     }
@@ -42,8 +41,7 @@ class WorkingSpace extends Component{
         
     }
     shouldComponentUpdate(nextProps,nextState){
-        if(this.state.nextChildComponent 
-          !== nextState.nextChildComponent){
+        if(this.state.nextChildComponent  !== nextState.nextChildComponent){
             return true;
         }
         return false;
@@ -62,9 +60,7 @@ class WorkingSpace extends Component{
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
       /> 
       <div>
-      <this.state.nextChildComponent
-        nextChildComponent={this.state.nextChildComponent}
-        nextChildComponentProps={this.state.nextChildComponentProps}
+      <this.state.nextChildComponent  
         onNextChildComponentChange={this.handleNextChildComponentChange}
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
         />
