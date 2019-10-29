@@ -135,9 +135,11 @@ class Organizador_ActiveEventsTable  extends Component {
         //console.log('this.props.data:', this.props.data);
         console.log('RENDER DE MRD! se loqueo');
          return (
+            
            <div class="panel panel mypanel" >
               <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                   <h3>Lista de Eventos activos</h3>
+                  
                   <a  class="pull-right" onClick={this.handleClickCrearActualizar} 
                   value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>
                </div>
