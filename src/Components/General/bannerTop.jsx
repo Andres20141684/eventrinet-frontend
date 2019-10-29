@@ -10,11 +10,13 @@ function initialState(){
   let linkSignUp = document.getElementById("linkSignUp")
   let myavatar = document.getElementById("myavatar")
   let itemOpciones = document.getElementById("nav-item-opciones")
+  let nameUser = document.getElementById("nameUser")
 
   linkLogin.style.display = "block"
   linkSignUp.style.display = "block"
   myavatar.style.display = "none"
   itemOpciones.style.display = "none"
+  nameUser.style.display = "none"
 }
 
 function logInState(){  
@@ -22,11 +24,13 @@ function logInState(){
   let linkSignUp = document.getElementById("linkSignUp")
   let myavatar = document.getElementById("myavatar")
   let itemOpciones = document.getElementById("nav-item-opciones")
-
+  let nameUser = document.getElementById("nameUser")
+  
   linkLogin.style.display = "none"
   linkSignUp.style.display = "none"
   myavatar.style.display = "block"
   itemOpciones.style.display = "block"
+  nameUser.style.display = "block"
 }
 
 function setRoles(listRoles){
@@ -138,6 +142,10 @@ class BannerTop extends Component{
       // I'm logged
       logInState()
       setRoles(retrievedJson.permisos)
+      console.log("json:",retrievedJson)
+      console.log("nombreree:",retrievedJson.infoUsuario.nombre)
+      this.setState({fullName: retrievedJson.infoUsuario.nombre + " "+ retrievedJson.infoUsuario.apePaterno + " "+ retrievedJson.infoUsuario.apeMaterno});
+      console.log("fullname: ",this.state.fullName)
 
     }catch(err){
       console.log(err)
@@ -156,13 +164,16 @@ class BannerTop extends Component{
       console.log("myavatar 0");
       let itemOpciones = document.getElementById("nav-item-opciones")
       console.log("itemOpciones 0");
-  
+      let nameUser = document.getElementById("nameUser")
+
       linkLogin.style.display = "block"
       linkSignUp.style.display = "block"
       myavatar.style.display = "none"
       itemOpciones.style.display = "none"
 
       console.log("HAAAAAAAAAAAAAAAAAAAAAAA 0");
+      nameUser.style.display = "none"
+      
       sessionStorage.setItem("dataUser",null)
       console.log("HAAAAAAAAAAAAAAAAAAAAAAA 1");
       let retrievedObject = sessionStorage.getItem('dataUser');
@@ -189,9 +200,9 @@ class BannerTop extends Component{
           <div class="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
               
               <div className="list-inline-item" align="right">
-               <a  className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.userName}</a>
                 <a href="/signUp" id="linkSignUp" className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.SignUp}</a>
                 <a href="/login"  id="linkLogin" className="nav"  style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name}</a>
+                <label id="nameUser" style={{color:"#6CDCD6",paddingRight:20}}>{this.state.fullName}</label>
               </div>
 
 

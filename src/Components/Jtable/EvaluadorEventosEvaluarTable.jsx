@@ -13,12 +13,12 @@ class EvaluadorEventosEvaluarTable extends Component {
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
      Networking.populateDataEvaTab(6).then((value) => {
             console.log(value);
-         if(value == null){
+         if(value.Eventos_Evaluador.length == 0){
             console.log('no hay algo aun');
             
          }else {
             console.log('si hay algo:');
-            this.setState({datos_tabla:value});
+            this.setState({datos_tabla:value.Eventos_Evaluador});
          }
             
       });

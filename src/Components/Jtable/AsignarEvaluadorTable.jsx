@@ -9,13 +9,14 @@ class AsignarEvaluadorTable extends Component {
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
       Networking.populateDataPresiTab_asignar_evaluadores(7).then((value) => {
          console.log(value);
-         if(value == null){
+         if(value.length == 0){
             console.log('no hay algo aun');
-            
+            this.setState({datos_tabla:[]});
          }else {
             console.log('si hay algo:');
-            this.setState({datos_tabla:value});
-         }
+            console.log(value);
+            this.setState({datos_tabla:value.Eventos});
+         }   
             
       });
       console.log("rzwetxrytcvygbuhnj"+this.props);
