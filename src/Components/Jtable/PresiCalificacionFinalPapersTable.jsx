@@ -9,12 +9,13 @@ class PresiCalificacionFinalPapersTable extends Component {
       console.log("HAAAAAAAAAAAAAAAAAAAAA")
       Networking.populateDataOrgTab1(8).then((value) => {
          console.log(value);
-         if(value == null){
+         if(value.Eventos.length == 0){
             console.log('no hay algo aun');
-            
+            this.setState({datos_tabla:[]});
          }else {
             console.log('si hay algo:');
-            this.setState({datos_tabla:value});
+            console.log(value);
+            this.setState({datos_tabla:value.Eventos});
          }   
             
       });
