@@ -3,6 +3,7 @@ import '../../styles/style_banner_top.css'
 import {Link}  from "react-router-dom";
 import Dashboard from '../Dashboard';
 import NewIni from './NewIni';
+import OrganActiveEvents from "./../../Pages/OrganActiveEvents.jsx";
 
 function initialState(){
   let linkLogin = document.getElementById("linkLogin")
@@ -100,7 +101,7 @@ class BannerTop extends Component{
   /** Manejadores de redireccion en modo de Mutacion */
   handleClicOrganizadorEventos = () => {
     console.log('redireccionando a ... Announcements evento');
-    this.handleNextChildComponentChange(Dashboard);
+    this.handleNextChildComponentChange(OrganActiveEvents);
   }
   handleClicEvents = () => {
     console.log('redireccionando a ... Announcements evento');
@@ -222,7 +223,7 @@ class BannerTop extends Component{
                   <li><Link id="itemMisInscrip" class="nav-link" to="#"><b><font size="3">Mis inscripciones</font></b></Link></li>
                   <li><Link id="itemMisProp" class="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div class="dropdown-divider"></div>
-                  <li><Link id="itemOrga" class="nav-link" to="/organActiveEvents"><b><font size="3">Organizador</font></b></Link></li>
+                  <li><Link id="itemOrga" class="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
                   <li><Link id="itemPresi" class="nav-link" to="/presidentEvents"><b><font size="3">Presidente</font></b></Link></li>
                   <li><Link id="itemEval" class="nav-link" to="/EvaluadorEventos" ><b><font size="3 ">Evaluador</font></b></Link></li>
                 </ul>

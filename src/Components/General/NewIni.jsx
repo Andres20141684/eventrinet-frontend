@@ -24,18 +24,22 @@ function Servicios(props){
             <div class="servicio-cont">
                 <div class="servicio-ind">
                     <img src="img/ilustracion2.svg" alt=""/>
-                    <h3>Name</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, qui?</p>
+                    <h3>Gestion de Eventos Academicos</h3>
+                    <p>Quieres difundir tus eventos académicos?
+                      Eventrinet contiene todas las herramientas necesarias
+                    </p>
                 </div>
                 <div class="servicio-ind">
                     <img src="./img/ilustracion4.png" alt=""/>
-                    <h3>Name</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, qui?</p>
+                    <h3>Inscripciones para ponentes y espectadores</h3>
+                    <p>Todo lo que se requiere para ser parte de un evento, tanto como
+                      expositor como ara espectador
+                    </p>
                 </div>
                 <div class="servicio-ind">
                     <img src="img/ilustracion3.svg" alt=""/>
-                    <h3>Name</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, qui?</p>
+                    <h3>Viajes a la Luna</h3>
+                    <p>Aqui tambien habrá un concierto de la Vaca Lola porque tiene cabeza, y se le perdio su cola :(</p>
                 </div>
             </div>
         </div>
@@ -49,14 +53,13 @@ function Presentacion(props){
         <div class="contenedor-sobre-nosotros">
             <img src="./img/ilustracion1.png" alt="" class="imagen-about-us"/>
             <div class="contenido-textos">
-                <h3><span>1</span>Los mejores productos</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt veniam eius aspernatur ad
-                    consequuntur aperiam minima sed dicta odit numquam sapiente quam eum, architecto animi pariatur,
-                    velit doloribus laboriosam ut.</p>
-                <h3><span>2</span>Los mejores productos</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt veniam eius aspernatur ad
-                    consequuntur aperiam minima sed dicta odit numquam sapiente quam eum, architecto animi pariatur,
-                    velit doloribus laboriosam ut.</p>
+                <h3><span>1</span>Las mejores organizaciones de eventos</h3>
+                <p>Se parte de la familia Eventrinet y empieza administrar tus eventos
+                   academicos y profesionales, call for papers, y mas.</p>
+                <h3><span>2</span>Las mejores acogidas</h3>
+                <p>Eventrinet es una plataforma de difucion de eventos
+                   alrededor del mundo y nuestro servicio es utilizado
+                   por grandes compañias, universidades entre otros.</p>
             </div>
         </div>
     </section>
@@ -112,7 +115,8 @@ class NewIni extends Component{
                   <h1 style={styles.textos_header_h1}>EVENTRINET gestion de eventos Academicos Peru</h1>
                   <h2 style={styles.textos_header_h2}>En construccion ...</h2>
                   <h1>{this.state.msg}</h1>
-                  <a href="#" className="specialButton" onClick={this.handleClick} >
+                  <a href="#" className="specialButton"
+                   onClick={this.handleClick} >
                 {this.state.transport}
                 </a>
               </div>

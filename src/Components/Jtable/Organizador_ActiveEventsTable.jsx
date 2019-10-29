@@ -3,26 +3,53 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
 import ActionButton from './ActionButton';
-
+import NewEventPage from './../../Pages/NewEventPage'
 const Networking = require('./../../Network/Networking.js') ;
 
 
 class Organizador_ActiveEventsTable  extends Component {
-   constructor(props) {
-      super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      console.log("HAAAAAAAAAAAAAAAAAAAAA");
+   constructor(props){
+      super(props);
+      this.state = {
+          msg: "Not Connected" ,
+          transport: "go to Fake Ini",
+          idUser_recived: 0,
+         datos_tabla: {
+                  Eventos:[
+                           ]
+         }
+      }
+      this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
+      this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+  
+    }
+    handleNextChildComponentChange(_nextChildComponent){
+      console.log('cambiando', _nextChildComponent);
+        this.props.onNextChildComponentChange(_nextChildComponent);
+        
+    }
+    handleNextChildComponentChangeProps(_nextChildComponentProps){
+        this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+    }
+    handleClickCrearActualizar = () => {
+      console.log('redireccionando a ... FakeNewIni evento');
+      this.handleNextChildComponentChangeProps({  
+         idOrganizador_nextProps: this.state.idUser_recived,
+         id_evento_nextProps: 0,
+         nomb_evento: "none"
+         
+      });
       
-      
-      
-      console.log("PROPS del active events"+this.props);
-   }
-   componentDidMount(){
+      this.handleNextChildComponentChange(NewEventPage);
+    }
+   
+   componentWillMount(){
       
       
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);  
       this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
-
+      console.log(retrievedJson);
 
 
       Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
@@ -43,13 +70,7 @@ class Organizador_ActiveEventsTable  extends Component {
       }
       return false;
    }
-   state = {
-      idUser_recived: 0,
-      datos_tabla: {
-         Eventos:[
-         ]
-   }
-  }
+  
   
       handleClick2 = () => {
          console.log('redireccionando a ... update evento');
@@ -80,30 +101,26 @@ class Organizador_ActiveEventsTable  extends Component {
                <td >{nombre}</td>
                   <td >
                      <ActionButton id_evento={idEvento} button_class ="fa fa-check-circle" redirect_to="/"/>
-                     
                      -
-                     
                      <ActionButton id_evento={idEvento} button_class ={( {programaCompletado} ===1 )  ? "fa fa-check-circle":"fa fa-times-circle"} redirect_to="/"/>
-
                   </td> 
                <td>
-                  
-                  <ActionButton id_evento={idEvento} nomb_evento ={nombre} idUser_recived={this.state.idUser_recived} button_class ="fa fa-edit" 
-                  onClick={this.handleClick} redirect_to="/organizerNewEvent"/>
-
+                  <ActionButton id_evento={idEvento} 
+                  nomb_evento ={nombre} 
+                  idUser_recived={this.state.idUser_recived} 
+                  button_class ="fa fa-edit" 
+                  onNextChildComponentChange={this.props.onNextChildComponentChange}
+                  onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                   redirect_to="/organizerNewEvent"/>
                </td> 
                <td>
-               
                   <ActionButton id_evento={idEvento} button_class ="fa fa-plus" redirect_to="/"/>
                </td> 
                <td>
-                  
                   <ActionButton id_evento={idEvento} button_class ="fa fa-play" redirect_to="/"/>
                </td> 
                <td>
-                  
                   <ActionButton id_evento={idEvento} button_class ="fa fa-times" redirect_to="/"/>
-
                </td> 
          </tr>
          )
@@ -112,7 +129,7 @@ class Organizador_ActiveEventsTable  extends Component {
   
   
      render() {
-      console.log(this.state.datos_tabla.Eventos.length);
+      //console.log(this.state.datos_tabla.Eventos.length);
       //superWait(this.state.datos_tabla.Eventos);
         //this.state = this.props.data
         //console.log('this.props.data:', this.props.data);
@@ -121,7 +138,8 @@ class Organizador_ActiveEventsTable  extends Component {
            <div class="panel panel mypanel" >
               <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                   <h3>Lista de Eventos activos</h3>
-                  <a  class="pull-right" onClick={this.handleClick2} href="/organizerNewEvent" value="Nuevo"style={{marginRight:30,marginBottom:20}}>Nuevo</a>
+                  <a  class="pull-right" onClick={this.handleClickCrearActualizar} 
+                  value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>
                </div>
               <div  class="table-responsive">
               <table class="table  table-hover">
