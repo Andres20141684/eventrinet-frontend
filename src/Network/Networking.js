@@ -126,7 +126,7 @@ export async function ShowEvent(data){
         console.log('INTENTO DE POST!! en ' +restURL 
         + 'eventos/listar_eventos_publicados');
         try {
-            console.log('RECIBI UN idOrganizador: ' + idOrganizador);
+            console.log('RECIBI UN idOrganizador:');
             let response = await fetch(restURL 
                 + 'eventos/listar_eventos_publicados', {
                 method: 'POST',
@@ -154,7 +154,7 @@ export async function getEventosConvocatoria() {
     console.log('INTENTO DE POST!! en ' +restURL 
     + 'eventos/listar_eventos_convocatoria');
     try {
-        console.log('RECIBI UN idOrganizador: ' + idOrganizador);
+        console.log('RECIBI UN idOrganizador: ');
         let response = await fetch(restURL 
             + 'eventos/listar_eventos_convocatoria', {
             method: 'POST',
