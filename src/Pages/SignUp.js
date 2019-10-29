@@ -5,7 +5,50 @@ import '../styles/style_signUp.css';
 import {Redirect}  from "react-router-dom";
 
 const Networking = require('../Network/Networking');
+/*
+function validarPassword(pass){
+   let  re;
+    if(pass.value != "") {
+    if(pass.value.length < 6) {
+      alert("Error: Password must contain at least six characters!");
+      pass.focus();
+      return false;
+    }
 
+    var user = document.getElementById("your-user");    
+    if(pass.value == user.value) {
+      alert("Error: Password must be different from Username!");
+      pass.focus();
+      return false;
+    }
+    re = /[0-9]/;
+    if(!re.test(pass.value)) {
+      alert("Error: password must contain at least one number (0-9)!");
+      pass.focus();
+      return false;
+    }
+    re = /[a-z]/;
+    if(!re.test(pass.value)) {
+      alert("Error: password must contain at least one lowercase letter (a-z)!");
+      pass.focus();
+      return false;
+    }
+    re = /[A-Z]/;
+    if(!re.test(pass.value)) {
+      alert("Error: password must contain at least one uppercase letter (A-Z)!");
+      pass.focus();
+      return false;
+    }
+  } else {
+    alert("Error: Please check that you've entered and confirmed your password!");
+    pass.focus();
+    return false;
+  }
+
+  alert("You entered a valid password: " + pass.value);
+  return true;
+} 
+*/
 class SingUp extends Component{
     state = {
         bannerLogin: BannerLogin,
@@ -18,7 +61,12 @@ class SingUp extends Component{
         redirect:false
     }
 
-    onSubmitForm = (evt) => {
+    onSubmitForm = (evt) => {      
+      
+      var pass = document.getElementById("alertPass");
+      /*if (validarPassword(pass)== false){
+        return
+      }*/
 
       evt.preventDefault()
       console.log("name "+this.state.name + " last name: " + this.state.last_name + " username: " +this.state.username + " pass: " + this.state.password + " email: "+ this.state.email )
@@ -106,6 +154,9 @@ class SingUp extends Component{
                   <label for="password">Contraseña</label>                  
                   <input type="password" name="password" id="password" class="input-text" placeholder="Contraseña" onChange={this.onChangePassword} required/>
                   <i class="fa fa-lock"></i>
+                </div>                
+                <div class="alert alert-primary" id="alertPass"role="alert" style={{display:'none'}}>
+                    La contraseña debe contener una letra mayúscula, un numero y tener una longitud mínima de 10 caracteres
                 </div>
                 <div class="form-row-last">
                   <input type="submit" name="Registrarse" class="register" value="Registrarse"/>
