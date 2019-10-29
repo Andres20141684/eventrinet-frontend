@@ -2,6 +2,43 @@ import {AsyncStorage} from 'react';
 
 const restURL = 'http://127.0.0.1:5000/api/';
 
+
+export async function crear_cuenta(var_email,var_last_name,var_name, var_username, var_password) {
+    console.log('Creando Usuario...');
+    try {        
+        let response = await fetch(restURL 
+            + 'crear_cuenta', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: var_email,
+                family_name: var_last_name,
+                given_name: var_name,
+                username: var_username,
+                password: var_password
+  
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);  
+        console.log(response);
+        console.log('Saving!!');
+  
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+  }
+
+
 export async function validar_sesion_ps(var_user,var_password) {
     console.log('INTENTO DE LOGIN!!');
     try {
