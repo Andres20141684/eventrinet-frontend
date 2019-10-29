@@ -2,7 +2,7 @@ import {AsyncStorage} from 'react';
 
 const restURL = 'http://127.0.0.1:5000/api/';
 
-export async function validar_sesion_ps(var_user,var_password) {
+export async function validar_sesion(var_user,var_password) {
     console.log('INTENTO DE LOGIN!!');
     try {
         console.log('RECIBI UN LOGIN con username: ' + var_user + var_password);

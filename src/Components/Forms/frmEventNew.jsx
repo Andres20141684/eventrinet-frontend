@@ -45,8 +45,12 @@ export default class EventNew extends Component{
         this.handleCheckB=this.handleCheckB.bind(this)
       }
       componentWillMount(){
-        this.setState({data_recived:this.props.data_recived,idUsuario:this.props.data_recived.idOrganizador,idEvento:this.props.data_recived.idEvento})
-        console.log(this.state.data_recived)
+        this.state.data_recived=this.props.data_recived;
+        console.log('Te lo dije');
+        console.log(this.state.data_recived);
+        this.setState(
+          {nombre : this.state.data_recived.nomb_evento}
+        );
         
       }
 

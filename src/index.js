@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
-import NewEventPage from './Pages/NewEventPage';
+//import NewEventPage from './Pages/NewEventPage';
 import AnnouncementPage from './Pages/AnnouncementPage';
 /**************************************/
-import OrganActiveEvents from './Pages/OrganActiveEvents';
+//import OrganActiveEvents from './Pages/OrganActiveEvents';
 import PresiCalificacionFinalPapers from './Pages/PresiCalificacionFinalPapers';
 import PresidentEvents from './Pages/PresidentEvents';
 import EvaluadorEventos from './Pages/EvaluadorEventos';
@@ -27,13 +27,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(<Router>
                     <Route path='/' exact component={App}/>
-                    <Route path='/organizerNewEvent' exact component={NewEventPage} />
+                    
                     <Route path='/announcements' exact component={AnnouncementPage} />
                     
                     <Route path='/propMyProposals' exact component={ProposerMyProposals} />
                     <Route path='/propDetailProposal' exact component={ProposerDetailProposal} />
                     
-                    <Route path='/organActiveEvents' exact component={OrganActiveEvents} />
+                    
                     <Route path='/presidentEvents' exact component={PresidentEvents} />
                     <Route path='/PresiCalificacionFinalPapers' exact component={PresiCalificacionFinalPapers} />
                     

@@ -5,8 +5,6 @@ import frmEventNew from '../Components/Forms/frmEventNew'
 
 class NewEventPage extends Component{
     state = {
-        bannTop : BannerTop,
-        bannBot : BannerBottom,
         formProceso: frmEventNew,
         data_recived: {
             idOrganizador: 0,
@@ -18,11 +16,12 @@ class NewEventPage extends Component{
         let retrieveddataUser = sessionStorage.getItem('dataUser');
         let retrievedJsonnextProp = JSON.parse(retrievednextProp);  
         let retrievedJsondataUser = JSON.parse(retrieveddataUser); 
-        this.state.data_recived.idOrganizador = retrievedJsondataUser.infoUsuario.idUsuario;
-        this.state.data_recived.idEvento = retrievedJsonnextProp.id_evento_nextProps;
+        this.state.data_recived = retrievedJsonnextProp;
         console.log("pinchi Armando aki ta tu id XDDD:");
-        console.log(this.state.data_recived);
-        console.log(retrievedJsonnextProp);
+        //console.log(this.state.data_recived);
+        //console.log(retrievedJsonnextProp);
+        console.log(this.props.nextChildComponentProps);
+        this.state.data_recived = retrievedJsonnextProp=this.props.nextChildComponentProps;
         //sessionStorage.setItem("nextProp",null)
     }
     
@@ -30,11 +29,12 @@ class NewEventPage extends Component{
         
         return(
         <div> 
-            <this.state.bannTop />
+            
             <div style={{marginBottom:25}} >
-                <this.state.formProceso data_recived={this.state.data_recived}/>
+                <this.state.formProceso 
+                data_recived={this.state.data_recived}/>
             </div>
-            <this.state.bannBot/>
+            
         </div>)
     }
 }
