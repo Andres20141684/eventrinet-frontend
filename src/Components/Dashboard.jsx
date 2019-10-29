@@ -43,11 +43,13 @@ class Dashboard extends Component{
   }
   componentWillMount(){
       
-      
+      /*
     let retrievedObject = sessionStorage.getItem('dataUser');
     let retrievedJson = JSON.parse(retrievedObject);  
     this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
     console.log(retrievedJson);
+    
+    
 
 
     Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
@@ -61,6 +63,7 @@ class Dashboard extends Component{
        }
        
     });
+    */
  }
  shouldComponentUpdate(nextProps, nextState){
     if(this.state.datos_tabla != nextState.datos_tabla){

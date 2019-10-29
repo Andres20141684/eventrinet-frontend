@@ -98,6 +98,10 @@ class BannerTop extends Component{
   handleNextChildComponentChangeProps(_nextChildComponentProps){
       this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
   }
+
+
+
+  
   /** Manejadores de redireccion en modo de Mutacion */
   handleClicOrganizadorEventos = () => {
     console.log('redireccionando a ... Announcements evento');
@@ -143,17 +147,29 @@ class BannerTop extends Component{
 
   clickLogOut () {
     try{
+      console.log("HAAAAAAAAAAAAAAAAAAAAAAA");
       let linkLogin = document.getElementById("linkLogin")
+      console.log("linkLogin 0");
       let linkSignUp = document.getElementById("linkSignUp")
+      console.log("linkSignUp 0");
       let myavatar = document.getElementById("myavatar")
+      console.log("myavatar 0");
       let itemOpciones = document.getElementById("nav-item-opciones")
+      console.log("itemOpciones 0");
   
       linkLogin.style.display = "block"
       linkSignUp.style.display = "block"
       myavatar.style.display = "none"
       itemOpciones.style.display = "none"
-      this.state.userName="";
+
+      console.log("HAAAAAAAAAAAAAAAAAAAAAAA 0");
       sessionStorage.setItem("dataUser",null)
+      console.log("HAAAAAAAAAAAAAAAAAAAAAAA 1");
+      let retrievedObject = sessionStorage.getItem('dataUser');
+      console.log("HAAAAAAAAAAAAAAAAAAAAAAA 2");
+      let retrievedJson = JSON.parse(retrievedObject); 
+      console.log("HAAAAAAAAAAAAAAAAAAAAAAA3");
+      console.log("json borradpo",retrievedJson)
     }catch(err){
       console.log(err)
     }    
