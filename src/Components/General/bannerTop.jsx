@@ -72,7 +72,7 @@ class BannerTop extends Component{
     super(props);
     this.state = {
         user: [],       
-        userName: "",
+        userName: "__",
         fullName:"",
         idUser:-1,
         myRoles:null,
@@ -86,22 +86,35 @@ class BannerTop extends Component{
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
 
   }  
+  handleClickEventos(){
+
+  }
   handleNextChildComponentChange(_nextChildComponent){
     console.log('cambiando', _nextChildComponent);
-      this.props.onNextChildComponentChange(_nextChildComponent);
+    this.props.onNextChildComponentChange(_nextChildComponent);
       
   }
   handleNextChildComponentChangeProps(_nextChildComponentProps){
       this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
   }
+  /** Manejadores de redireccion en modo de Mutacion */
+  handleClicOrganizadorEventos = () => {
+    console.log('redireccionando a ... Announcements evento');
+    this.handleNextChildComponentChange(Dashboard);
+  }
+  handleClicEvents = () => {
+    console.log('redireccionando a ... Announcements evento');
+    this.handleNextChildComponentChange(Dashboard);
+  }
   handleClickAnnoucements = () => {
-    console.log('redireccionando a ... FakeNewIni evento');
+    console.log('redireccionando a ... Announcements evento');
     this.handleNextChildComponentChange(Dashboard);
   }
   handleClickInicio= () => {
-    console.log('redireccionando a ... FakeNewIni evento');
+    console.log('redireccionando a ... Inicio evento');
     this.handleNextChildComponentChange(NewIni);
   }
+  /** metodos normales React */
   componentDidMount(){
     try{ //Verify if I'm logged
       let retrievedObject = sessionStorage.getItem('dataUser');
@@ -138,7 +151,7 @@ class BannerTop extends Component{
       linkSignUp.style.display = "block"
       myavatar.style.display = "none"
       itemOpciones.style.display = "none"
-      
+      this.state.userName="";
       sessionStorage.setItem("dataUser",null)
     }catch(err){
       console.log(err)
@@ -152,11 +165,14 @@ class BannerTop extends Component{
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
 
-          <Link to="/" target="_self" title="Volver al home"><img src="piruleta_loquisima.png" className="img-fluid"  width="200"/></Link>
+          <Link to="/" target="_self" title="Volver al home">
+            <img src="piruleta_loquisima.png" className="img-fluid"  width="200"/></Link>
             
           </div>          
           <div class="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
+              
               <div className="list-inline-item" align="right">
+               <a  className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.userName}</a>
                 <a href="/signUp" id="linkSignUp" className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.SignUp}</a>
                 <a href="/login"  id="linkLogin" className="nav"  style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name}</a>
               </div>
@@ -164,6 +180,7 @@ class BannerTop extends Component{
 
 
               <li class="nav-item dropdown" id="myavatar"   >
+                
                   <Link to="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
                     <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" class="avatar" alt="Avatar"/>
                   </Link>
@@ -193,7 +210,7 @@ class BannerTop extends Component{
               </li>
               
               <li class="nav-item">
-                <Link class="nav-link" to="/EventInscriptionPage"><b><font size="3" color="#6CDCD6">Eventos</font></b></Link>
+                <Link class="nav-link" onClick={this.handleClicEvents}><b><font size="3" color="#6CDCD6">Eventos</font></b></Link>
               </li>
               
               <li class="nav-item" >
@@ -232,7 +249,8 @@ export default BannerTop;
 var styles = {
   banner:{
     backgroundColor: '#002D3D',
-    paddintTop:0,
+    paddingTop:0,
+    paddingBottom:0,
     FontSize: 20,
     color:'#6CDCD6',
   }
@@ -246,5 +264,6 @@ var styles = {
     borderColor:'#002D3D',
     paddingLeft:30,
     paddingRight:30,
+    paddingBottom:10,
   }
 }

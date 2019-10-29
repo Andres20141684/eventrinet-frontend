@@ -13,18 +13,17 @@ class NewEventPage extends Component{
             idEvento: 0
         }
     }
-    componentDidMount(){
+    componentWillMount(){
 
         let retrievednextProp = sessionStorage.getItem('nextProp');
         let retrieveddataUser = sessionStorage.getItem('dataUser');
         let retrievedJsonnextProp = JSON.parse(retrievednextProp);  
         let retrievedJsondataUser = JSON.parse(retrieveddataUser); 
-        this.state.data_recived.idOrganizador = retrievedJsondataUser.infoUsuario.idUsuario;
-        this.state.data_recived.idEvento = retrievedJsonnextProp.id_evento_nextProps;
+        this.state.data_recived = retrievedJsonnextProp;
         console.log("pinchi Armando aki ta tu id XDDD:");
         console.log(this.state.data_recived);
         console.log(retrievedJsonnextProp);
-        sessionStorage.setItem("nextProp",null)
+        //sessionStorage.setItem("nextProp",null)
     }
     
     render(){
@@ -33,7 +32,8 @@ class NewEventPage extends Component{
         <div> 
             <this.state.bannTop />
             <div style={{marginBottom:25}} >
-                <this.state.formProceso data_recived={this.state.data_recived}/>
+                <this.state.formProceso 
+                data_recived={this.state.data_recived}/>
             </div>
             <this.state.bannBot/>
         </div>)

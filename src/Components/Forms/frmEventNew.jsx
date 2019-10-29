@@ -44,6 +44,11 @@ export default class EventNew extends Component{
       }
       componentWillMount(){
         this.state.data_recived=this.props.data_recived;
+        console.log('Te lo dije');
+        console.log(this.state.data_recived);
+        this.setState(
+          {nombre : this.state.data_recived.nomb_evento}
+        );
         
       }
       handleCheckB(event,str){

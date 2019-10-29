@@ -7,7 +7,7 @@ async function validar_sesion_ps(var_user,var_password) {
     try {
         console.log('RECIBI UN LOGIN: ' + var_user + var_password);
         let response = await fetch(restURL 
-            + 'validar_session_ps', {
+            + 'validar_session', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -37,9 +37,9 @@ async function validar_sesion_ps(var_user,var_password) {
 }
 
 async function validar_sesion(var_email,var_given_name,var_family_name) {
-    console.log('INTENTO DE LOGIN!!');
+    
     try {
-        console.log('RECIBI UN LOGIN: ' + var_email + var_given_name+ var_family_name);
+        
         let response = await fetch(restURL 
             + 'validar_session', {
             method: 'POST',
@@ -48,12 +48,13 @@ async function validar_sesion(var_email,var_given_name,var_family_name) {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                email: var_email,
-                family_name: var_family_name,
-                given_name: var_given_name
-
-            }),
+            body: JSON.stringify(
+				{
+					email: var_email,
+					family_name: var_family_name,
+					given_name: var_given_name
+				}
+			),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
         let responseJson = await response.json();
@@ -81,29 +82,7 @@ async function validar_sesion(var_email,var_given_name,var_family_name) {
 }
 
 var request=null;
-function renderButton() {
-	gapi.signi2.render(
-		'gSignIn',
-		{
-		'scope': 'profile email',
-		'width': 240,
-		'height': 50,
-		'longtitle': true,
-		'theme': ' dark',
-		'onsuccess': onSuccess,
-		'onfailure': onFailure
-		}
-	);
-}
-var superprofile = {
-	email: "_",
-	family_name: "_",
-	given_name: "_",
-	id: "_",
-	locale: "_",
-	name: "_",
-	picture: "_"
-}
+
 // Sign-in success callback
 function onSignIn1(googleUser) {
 	var profile = googleUser.getBasicProfile();
@@ -132,26 +111,23 @@ function onSignIn(googleUser) {
 	// Get the Google profile data (basic)
 	var profile = googleUser.getBasicProfile();
 
-	console.log('Display the profile:')
-	console.log(profile)
-	console.log(profile.ig)
-		console.log(profile.Eea)
-		console.log(profile.Paa)
-		console.log(profile.U3)
-		console.log(profile.ofa)
-		console.log(profile.wea)
-	// Retrieve the Google account data
-	gapi.client.load('oauth2', 'v2', function () {
-		request = gapi.client.oauth2.userinfo.get({
-			'userId': 'me'
-	});
+	console.log('Display the profile:');
+	console.log(profile);
+	console.log("ID",profile.getId());
+		console.log("NAME:",profile.getName());
+		console.log(profile.Paa);
+		console.log(profile.U3);
+		console.log(profile.ofa);
+		console.log(profile.wea);
+		validar_sesion(
 		
-		
-		console.log('Display the request:')
-		console.log(request)
-		getJsonGoogleUser();
-		
-	});
+			profile.U3,
+			profile.ofa,
+			profile.wea
+			).then((value) => {
+				respuestaVal= value 
+			
+		  });
 
 	
 }

@@ -42,12 +42,17 @@ class App extends Component{
   render() {
     return (
       <div>
+        
+        
+        
     <div className="App">
       
       <div>
       <this.state.workingSpace 
       nextComponent={this.state.initialComponent}/>
     </div>
+    
+    
     </div>
     <this.state.bannBot/>
     </div>

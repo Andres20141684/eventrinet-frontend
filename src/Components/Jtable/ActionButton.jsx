@@ -27,9 +27,9 @@ class ActionButton  extends Component {
       class_for_style: "btn_plus",
       redirect_to : "/#",
       button_class : "fa fa-plus ",
-      id_evento: "1",
+      id_evento: 0,
       idUser_recived: 0,
-      nomb_evento: "none"
+      nomb_evento: ""
    }
 
   

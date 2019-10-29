@@ -1,0 +1,15 @@
+.item {
+    width: 100%;
+    margin-bottom: 0px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .5);
+}
+
+.item > img{
+    width: 95%;
+    height: 95%;
+    object-fit: cover;
+    display: block;
+}
