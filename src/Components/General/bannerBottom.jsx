@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../styles/Jtab.css'; 
 class BannerBottom extends Component{
     state = {
       role: null
@@ -56,11 +55,12 @@ class BannerBottom extends Component{
                     </ul>
                   </div>
                 </div>
+                
               </div>
-
               <div class="separatorSSJ">
                 <div class="divider div-transparent"></div>
               </div>
+              
 
               <div class="row footer-socialRow">
                 <div class="footer-awardsAndCerts hidden-xs hidden-sm col-md-6 col-lg-6">
@@ -89,12 +89,12 @@ class BannerBottom extends Component{
                   <div class="footer-socialLinks">
                     <h4 class="footer-headLineH4 footer-socialHeader"> Síguenos en: <br/></h4>
                     <ul class="footer-unorderedList--social list-inline"> <br/>
-                          <li><a href="https://www.facebook.com/pucp"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                          <li><a href="https://www.youtube.com/pucp"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-                          <li><a href="https://www.instagram.com/?hl=en"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                          <li><a href="https://www.pinterest.com/"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
-                          <li><a href="https://twitter.com/?lang=en"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                          <li><a href="https://linkedin.com/?lang=en"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                          <li><a  href="https://www.facebook.com/pucp"><i style={styles.fa} class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                          <li><a href="https://www.youtube.com/pucp"><i style={styles.fa} class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                          <li><a href="https://www.instagram.com/?hl=en"><i style={styles.fa} class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                          <li><a href="https://www.pinterest.com/"><i style={styles.fa} class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                          <li><a href="https://twitter.com/?lang=en"><i style={styles.fa} class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                          <li><a href="https://linkedin.com/?lang=en"><i style={styles.fa} class="fa fa-linkedin" aria-hidden="true"></i></a></li>
                     </ul>
                   </div>
                 </div>
@@ -140,5 +140,9 @@ var styles = {
       paddingBottom: 5,
       color:'#6CDCD6',
     
+    },
+    fa:{
+      fontSize: "2.3rem",
+      color: "#ffffff"
     }
 }

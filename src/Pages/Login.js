@@ -21,7 +21,7 @@ class Login extends Component{
 
         evt.preventDefault()
 
-        Networking.validar_sesion_ps(this.state.user,this.state.pass).then(
+        Networking.validar_sesion(this.state.user,this.state.pass).then(
                 (response) => {
                   console.log(response);
                   let connectedUser = response;

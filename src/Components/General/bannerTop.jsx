@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import '../../styles/style_banner_top.css'
 import {Link}  from "react-router-dom";
+import Dashboard from '../Dashboard';
+import NewIni from './NewIni';
+import OrganActiveEvents from "./../../Pages/OrganActiveEvents.jsx";
 
 function initialState(){
   let linkLogin = document.getElementById("linkLogin")
@@ -74,7 +77,7 @@ class BannerTop extends Component{
     super(props);
     this.state = {
         user: [],       
-        userName: "",
+        userName: "__",
         fullName:"",
         idUser:-1,
         myRoles:null,
@@ -84,8 +87,39 @@ class BannerTop extends Component{
         name: "Iniciar Sesion",
         SignUp: "Registrarse",        
     }
-  }  
+    this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
+    this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
 
+  }  
+  handleClickEventos(){
+
+  }
+  handleNextChildComponentChange(_nextChildComponent){
+    console.log('cambiando', _nextChildComponent);
+    this.props.onNextChildComponentChange(_nextChildComponent);
+      
+  }
+  handleNextChildComponentChangeProps(_nextChildComponentProps){
+      this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+  }
+  /** Manejadores de redireccion en modo de Mutacion */
+  handleClicOrganizadorEventos = () => {
+    console.log('redireccionando a ... Announcements evento');
+    this.handleNextChildComponentChange(OrganActiveEvents);
+  }
+  handleClicEvents = () => {
+    console.log('redireccionando a ... Announcements evento');
+    this.handleNextChildComponentChange(Dashboard);
+  }
+  handleClickAnnoucements = () => {
+    console.log('redireccionando a ... Announcements evento');
+    this.handleNextChildComponentChange(Dashboard);
+  }
+  handleClickInicio= () => {
+    console.log('redireccionando a ... Inicio evento');
+    this.handleNextChildComponentChange(NewIni);
+  }
+  /** metodos normales React */
   componentDidMount(){
     try{ //Verify if I'm logged
       let retrievedObject = sessionStorage.getItem('dataUser');
@@ -142,10 +176,12 @@ class BannerTop extends Component{
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
 
-          <Link to="/" target="_self" title="Volver al home"><img src="piruleta_loquisima.png" className="img-fluid"  width="200"/></Link>
+          <Link onClick={this.handleClickInicio} target="_self" title="Volver al home">
+            <img src="piruleta_loquisima.png" className="img-fluid"  width="200"/></Link>
             
           </div>          
           <div class="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
+              
               <div className="list-inline-item" align="right">
                 <a href="/signUp" id="linkSignUp" className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.SignUp}</a>
                 <a href="/login"  id="linkLogin" className="nav"  style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name}</a>
@@ -155,6 +191,7 @@ class BannerTop extends Component{
 
 
               <li class="nav-item dropdown" id="myavatar"   >
+                
                   <Link to="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
                     <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" class="avatar" alt="Avatar"/>
                   </Link>
@@ -180,15 +217,15 @@ class BannerTop extends Component{
           <div class="collapse navbar-collapse" id="navbarNavDropdown" style={{}}>
             <ul class="nav navbar-nav">
               <li class="nav-item">
-                <Link class="nav-link" to="/"><b><font size="3" color="#6CDCD6">Inicio</font></b><span class="sr-only">(current)</span></Link>
+                <Link class="nav-link"  onClick={this.handleClickInicio}><b><font size="3" color="#6CDCD6">Inicio</font></b><span class="sr-only">(current)</span></Link>
               </li>
               
               <li class="nav-item">
-                <Link class="nav-link" to="/EventInscriptionPage"><b><font size="3" color="#6CDCD6">Eventos</font></b></Link>
+                <Link class="nav-link" onClick={this.handleClicEvents}><b><font size="3" color="#6CDCD6">Eventos</font></b></Link>
               </li>
               
-              <li class="nav-item">
-                <Link class="nav-link" to="/announcements"><b><font size="3" color="#6CDCD6">Convocatoria</font></b></Link>
+              <li class="nav-item" >
+                <Link class="nav-link" onClick={this.handleClickAnnoucements} ><b><font size="3" color="#6CDCD6">Convocatoria</font></b></Link>
               </li>
               <li class="nav-item" class="nav dropdown" id="nav-item-opciones">
                 <Link class="nav-link dropdown-toggle" to="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></Link>
@@ -196,7 +233,7 @@ class BannerTop extends Component{
                   <li><Link id="itemMisInscrip" class="nav-link" to="#"><b><font size="3">Mis inscripciones</font></b></Link></li>
                   <li><Link id="itemMisProp" class="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div class="dropdown-divider"></div>
-                  <li><Link id="itemOrga" class="nav-link" to="/organActiveEvents"><b><font size="3">Organizador</font></b></Link></li>
+                  <li><Link id="itemOrga" class="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
                   <li><Link id="itemPresi" class="nav-link" to="/presidentEvents"><b><font size="3">Presidente</font></b></Link></li>
                   <li><Link id="itemEval" class="nav-link" to="/EvaluadorEventos" ><b><font size="3 ">Evaluador</font></b></Link></li>
                 </ul>
@@ -223,7 +260,8 @@ export default BannerTop;
 var styles = {
   banner:{
     backgroundColor: '#002D3D',
-    paddintTop:0,
+    paddingTop:0,
+    paddingBottom:0,
     FontSize: 20,
     color:'#6CDCD6',
   }
@@ -237,5 +275,6 @@ var styles = {
     borderColor:'#002D3D',
     paddingLeft:30,
     paddingRight:30,
+    paddingBottom:10,
   }
 }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 //const stylesFile = require('../Styles/styles.js');
 //const styles = stylesFile.getStyle();
-import {defaultStyle} from '../styles/styles.js'
+import './../styles/dash_style.css';
 import Modal from 'react-awesome-modal';
 import { whileStatement } from '@babel/types';
 /**
@@ -27,7 +27,7 @@ class Dashboard extends Component{
 
         <div>
           <div class="container">
-          <div class="panel panel-default">
+          
                                       
           <div id="myCarousel" class="carousel slide" data-ride="carousel">
               
@@ -76,7 +76,7 @@ class Dashboard extends Component{
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
               </a>
-          </div></div></div>
+          </div></div>
 
 
             <div class="container text-left">   

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import BannerTop from '../Components/General/bannerTop';
-import BannerBottom from '../Components/General/bannerBottom'
 import '../styles/style_record.css'; 
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
@@ -9,7 +7,7 @@ import './../styles/style_gig_tittle.css'
 
 import Organizador_ActiveEventsTable from '../Components/Jtable/Organizador_ActiveEventsTable';
 import Organizador_HistoryventsTable from '../Components/Jtable/Organizador_HistoryventsTable';
-const Networking = require('./../Network/Networking.js') ;
+const Networking = require('../Network/Networking.js') ;
 function Botones(){
     return ( 
     <div>
@@ -32,26 +30,36 @@ function MainTittle(){
     )
 }
 class OrganActiveEvents extends Component{
-    state = {
-        bannTop : BannerTop,
-        bannBot : BannerBottom,
-        formActives: Organizador_ActiveEventsTable,
-        formRecord: Organizador_HistoryventsTable,
-        datos_tabla1:  null,
-        datos_tabla2: null,
-        msg: "Not Connected",
-        idOrganizador: 1
-    }
+    constructor(props){
+        super(props);
+        this.state = {
+            formActives: Organizador_ActiveEventsTable,
+            formRecord: Organizador_HistoryventsTable,
+            datos_tabla1:  null,
+            datos_tabla2: null,
+            msg: "Not Connected",
+            idOrganizador: 1
+        }
+        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
+        this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+    
+      }
+      handleNextChildComponentChange(_nextChildComponent){
+        console.log('cambiando', _nextChildComponent);
+          this.props.onNextChildComponentChange(_nextChildComponent);
+          
+      }
+      handleNextChildComponentChangeProps(_nextChildComponentProps){
+          this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+      }
+    
     
    
     render(){
         
-        //var inputServer = this.getData();
-        /* no se como xuxa hacemos pero aqui se optiene un JSON del piton xd */
 
         return(
             <div> 
-            <this.state.bannTop />
             <MainTittle/>
             <div class="container" >
                 <div class ="panel-body">
@@ -64,18 +72,23 @@ class OrganActiveEvents extends Component{
                             <TabPanel>
                                 
                                 <br/>
-                                <this.state.formActives  /> 
+                                <this.state.formActives  
+                                onNextChildComponentChange={this.props.onNextChildComponentChange} 
+                                onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                                />
                             </TabPanel>
                             <TabPanel> 
                                 
-                                < this.state.formRecord />
+                                < this.state.formRecord  
+                                onNextChildComponentChange={this.props.onNextChildComponentChange} 
+                                onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                                />
                             </TabPanel>
                         </Tabs>
                         <Botones/>
                     </div>
                 </div>
                 <br/><br/>
-            <this.state.bannBot/>
                 </div>
             
         );

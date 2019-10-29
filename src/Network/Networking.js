@@ -2,7 +2,6 @@ import {AsyncStorage} from 'react';
 
 const restURL = 'http://127.0.0.1:5000/api/';
 
-
 export async function crear_cuenta(var_email,var_last_name,var_name, var_username, var_password) {
     console.log('Creando Usuario...');
     try {        
@@ -39,7 +38,7 @@ export async function crear_cuenta(var_email,var_last_name,var_name, var_usernam
   }
 
 
-export async function validar_sesion_ps(var_user,var_password) {
+export async function validar_sesion(var_user,var_password) {
     console.log('INTENTO DE LOGIN!!');
     try {
         console.log('RECIBI UN LOGIN con username: ' + var_user + var_password);

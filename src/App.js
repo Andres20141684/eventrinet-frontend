@@ -5,30 +5,21 @@ import BannerBottom from './Components/General/bannerBottom';
 import './App.css'; 
 import { thisExpression } from '@babel/types';
 import WorkingSpace from './Components/Special/WorkingSpace';
+import NewIni from "./../src/Components/General/NewIni";
 const Networking = require('./Network/Networking.js') ;
 
 
 class App extends Component{
   state = {
-    bannTop : BannerTop,
     bannBot : BannerBottom,
     workingSpace : WorkingSpace,
-    msg: "Not Connected" 
+    msg: "Not Connected" ,
+    initialComponent: NewIni
   }
 
   componentWillMount(){
     console.log("AppWillMount")
-    Networking.saludar().then(
-      (response)=>{
-        
-        this.setState({msg:response.message});
-        console.log({msg:response.message});
-      })
-      .catch( (err) =>{
-        console.log("error en conexión");
-        this.setState({msg:"Intento de conexión fallido"});
-        console.log(err);
-      })
+    
   } 
 
   setterEvento(){
@@ -51,11 +42,17 @@ class App extends Component{
   render() {
     return (
       <div>
+        
+        
+        
     <div className="App">
-      <this.state.bannTop /> 
+      
       <div>
-      <this.state.workingSpace/>
+      <this.state.workingSpace 
+      nextComponent={this.state.initialComponent}/>
     </div>
+    
+    
     </div>
     <this.state.bannBot/>
     </div>
