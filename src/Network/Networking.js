@@ -1,6 +1,5 @@
 import {AsyncStorage} from 'react';
-
-const restURL = 'http://127.0.0.1:5000/api/';
+const restURL = 'http://174.129.92.182:5000/api/';
 
 export async function validar_sesion(var_user,var_password) {
     console.log('INTENTO DE LOGIN!!');
@@ -118,6 +117,35 @@ export async function populateDataOrgTab1(idOrganizador) {
         })
 */
         //console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function NetworkMutation_JAchievingData(props) {
+    console.log('INTENTO DE POST!! en ' +restURL 
+    + props.methodPath);
+    try {
+        console.log('RECIBI UN props: ' , props);
+        let response = await fetch(restURL + props.methodPath,
+            {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                props.JsonToBack
+            ),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);
+        console.log('Saving!!');
+
         return responseJson;  
     } catch (error) {
         console.error(error);

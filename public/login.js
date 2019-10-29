@@ -1,4 +1,4 @@
-const restURL = 'http://localhost:5000/api/';
+const restURL = 'http://174.129.92.182:5000/api/';
 
 var connectedUser = null;
 

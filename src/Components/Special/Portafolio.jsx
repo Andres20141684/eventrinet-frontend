@@ -10,7 +10,9 @@ class Portafolio extends Component{
     super(props);
     this.state = {
         msg: "Not Connected" ,
-        transport: "go to Fake Ini"
+        transport: "go to Fake Ini",
+        title: ""
+        
     }
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -26,6 +28,9 @@ class Portafolio extends Component{
   }
   componentWillMount(){
     console.log("AppWillMount")
+    this.setState(
+        {title: this.props.title}
+    );
     
   }
 
@@ -39,7 +44,7 @@ class Portafolio extends Component{
     
         <section class="portafolio">
             <div class="contenedor">
-                <h2 class="titulo">Portafolio</h2>
+                <h2 class="titulo">{this.state.title}</h2>
                 <div class="galeria-port">
                     <div class="imagen-port">
                         <img src="img/img1.jpg" alt=""/>
