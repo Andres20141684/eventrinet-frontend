@@ -12,7 +12,6 @@ class NewEventPage extends Component{
         }
     }
     componentWillMount(){
-
         let retrievednextProp = sessionStorage.getItem('nextProp');
         let retrieveddataUser = sessionStorage.getItem('dataUser');
         let retrievedJsonnextProp = JSON.parse(retrievednextProp);  
