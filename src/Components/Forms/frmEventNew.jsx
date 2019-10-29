@@ -49,7 +49,7 @@ export default class EventNew extends Component{
         console.log('Te lo dije');
         console.log(this.state.data_recived);
         this.setState(
-          {nombre : this.state.data_recived.nomb_evento}
+          {idUsuario: this.state.data_recived.idOrganizador_nextProps}
         );
         
       }
@@ -57,13 +57,14 @@ export default class EventNew extends Component{
       componentDidMount(){
         console.log(this.state.data_recived)
         var aux={}
-        aux.idEvento=this.state.data_recived.idEvento
+        aux.idEvento=this.state.data_recived.id_evento_nextProps
         aux=JSON.stringify(aux)
-        if(this.state.data_recived.idEvento!==0){
+        if(this.state.data_recived.id_evento_nextProps!==0){
           Networking.ShowEvent(aux).then(
             (response)=>{
               console.log(response);
               this.setState({
+                idEvento:this.state.data_recived.id_evento_nextProps,
                 nombre:response.nombre,
                 descripcion:response.descripcion,
                 fIni: new Date(response.fechaIni),

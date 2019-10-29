@@ -21,7 +21,7 @@ class NewEventPage extends Component{
         //console.log(this.state.data_recived);
         //console.log(retrievedJsonnextProp);
         console.log(this.props.nextChildComponentProps);
-        this.state.data_recived = retrievedJsonnextProp=this.props.nextChildComponentProps;
+        this.state.data_recived = this.props.nextChildComponentProps;
         //sessionStorage.setItem("nextProp",null)
     }
     
