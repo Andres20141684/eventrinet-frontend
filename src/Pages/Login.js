@@ -26,7 +26,7 @@ class Login extends Component{
                   console.log(response);
                   let connectedUser = response;
                   console.log("Data del usuario",connectedUser);
-                  if (connectedUser.message ==="Usuario encontrado"){
+                  if (connectedUser.succeed){
                     console.log("estamos accediendoo bbecita prrr");
                     console.log(connectedUser);
                     sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));

@@ -44,7 +44,7 @@ export async function validar_sesion_ps(var_user,var_password) {
     try {
         console.log('RECIBI UN LOGIN con username: ' + var_user + var_password);
         let response = await fetch(restURL 
-            + 'validar_session_ps', {
+            + 'validar_session', {
             method: 'POST',
             mode: 'cors',
             headers: {
