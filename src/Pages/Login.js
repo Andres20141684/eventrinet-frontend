@@ -3,18 +3,32 @@ import BannerLogin from '../Components/General/bannerLogin';
 import {Link}  from "react-router-dom";
 import '../styles/style_signUp.css'; 
 import {Redirect}  from "react-router-dom";
-import BannerTop from '../Components/General/bannerTop';
+import InscriptionEvent from '../Components/InscriptionEvent'
 
 const Networking = require('../Network/Networking');
 
 
 class Login extends Component{
-  state = {
-    bannerLogin: BannerLogin,
-    usuario : null,
-    user: "",
-    pass: "",
-    redirect:false
+  constructor(props){
+    super(props);
+    this.state = {
+      bannerLogin: BannerLogin,
+      usuario : null,
+      user: "",
+      pass: "",
+      redirect:false
+    }
+    this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
+    this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+
+  }
+  handleNextChildComponentChange(_nextChildComponent){
+    console.log('cambiando', _nextChildComponent);
+      this.props.onNextChildComponentChange(_nextChildComponent);
+      
+  }
+  handleNextChildComponentChangeProps(_nextChildComponentProps){
+      this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
   }
 
     onSubmitForm = (evt) => {
@@ -31,7 +45,7 @@ class Login extends Component{
                     console.log(connectedUser);
                     sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));
                     this.setState({redirect:true});
-                    alert("Contraseña y/o usuario okii!");
+                    alert("Contraseña y/o usuario correcta!");
                   }else{
                     console.log("YIYIYIYYYYYYYYY salio false");
                     alert("Contraseña y/o usuario incorrecto!");
@@ -44,7 +58,19 @@ class Login extends Component{
 
     renderRedirect = () => {
         if(this.state.redirect) {
-            return <Redirect to='/'></Redirect>
+          let  page = sessionStorage.getItem("currentPage");
+          console.log("page to redirect ",page);
+          /*if (page == "InscriptionEvent"){
+            this.handleNextChildComponentChange(InscriptionEvent);
+            return <Redirect to='/'               
+              onNextChildComponentChange={this.handleNextChildComponentChange}
+              onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
+            />
+          }else{
+            return <Redirect to='/' />
+          }*/
+          return <Redirect to='/' />
+          
         }
     }
 

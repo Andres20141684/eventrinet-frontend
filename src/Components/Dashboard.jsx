@@ -157,7 +157,12 @@ class Dashboard extends Component{
             </div></div> 
 
 
-        <Portafolio setEventos={this.state.datos_tabla} title="Eventos en convocatoria"/>
+        <Portafolio 
+            setEventos={this.state.datos_tabla} title="Eventos en convocatoria"
+            onNextChildComponentChange={this.handleNextChildComponentChange}
+            onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
+        />
+
         </div>
         
     
