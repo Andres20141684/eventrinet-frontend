@@ -9,27 +9,14 @@ const Networking = require('../Network/Networking');
 
 
 class Login extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      bannerLogin: BannerLogin,
-      usuario : null,
-      user: "",
-      pass: "",
-      redirect:false
-    }
-    this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
-    this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
-
+  state = {
+    bannerLogin: BannerLogin,
+    usuario : null,
+    user: "",
+    pass: "",
+    redirect:false
   }
-  handleNextChildComponentChange(_nextChildComponent){
-    console.log('cambiando', _nextChildComponent);
-      this.props.onNextChildComponentChange(_nextChildComponent);
-      
-  }
-  handleNextChildComponentChangeProps(_nextChildComponentProps){
-      this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
-  }
+    
 
     onSubmitForm = (evt) => {
 
@@ -60,15 +47,7 @@ class Login extends Component{
         if(this.state.redirect) {
           let  page = sessionStorage.getItem("currentPage");
           console.log("page to redirect ",page);
-          /*if (page == "InscriptionEvent"){
-            this.handleNextChildComponentChange(InscriptionEvent);
-            return <Redirect to='/'               
-              onNextChildComponentChange={this.handleNextChildComponentChange}
-              onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
-            />
-          }else{
-            return <Redirect to='/' />
-          }*/
+
           return <Redirect to='/' />
           
         }

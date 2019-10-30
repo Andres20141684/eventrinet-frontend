@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import "./../../styles/portafolio_styles.css";
 import InscriptionEvent from '../InscriptionEvent';
+import SendProposal from '../SendProposal';
 import {Link}  from "react-router-dom";
 
 const Networking = require('./../../Network/Networking.js') ;
@@ -48,7 +49,7 @@ class Portafolio extends Component{
 
     });*/
     
-    this.handleNextChildComponentChange(InscriptionEvent);
+    this.handleNextChildComponentChange(SendProposal);
   }
   
   render() {
