@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
 import ReactDOM from 'react-dom';
-import NewEventPage from './../../Pages/NewEventPage';
+import NewEventPage from './../../Pages/NewEventPage.jsx';
 /**
  * 
  * 
@@ -18,23 +18,47 @@ import NewEventPage from './../../Pages/NewEventPage';
 class ActionButton  extends Component {
    constructor(props) {
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      
+      this.state = {
+         //el tipo e boton por default es el plus
+         class_for_style: "btn_plus",
+         redirect_to : "/#",
+         button_class : "fa fa-plus ",
+         id_evento: 0,
+         idUser_recived: 0,
+         nomb_evento: ""
+      }
+      this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
+      this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+    
    }
 
-
-   state = {
-      //el tipo e boton por default es el plus
-      class_for_style: "btn_plus",
-      redirect_to : "/#",
-      button_class : "fa fa-plus ",
-      id_evento: "1",
-      idUser_recived: 0
-   }
+   handleNextChildComponentChange(_nextChildComponent){
+      console.log('cambiando', _nextChildComponent);
+        this.props.onNextChildComponentChange(_nextChildComponent);
+        
+    }
+    handleNextChildComponentChangeProps(_nextChildComponentProps){
+        this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+    }
+   
 
   
    handleClick = () => {
     console.log('redireccionando a ... update evento');
-    
+    sessionStorage.setItem('nextProp',
+         JSON.stringify(
+                        {   idOrganizador_nextProps: this.state.idUser_recived,
+                           id_evento_nextProps: this.state.id_evento,
+                           nomb_evento: this.state.nomb_evento
+                           
+                        }
+                     ))
+         this.handleNextChildComponentChangeProps({   idOrganizador_nextProps: this.state.idUser_recived,
+            id_evento_nextProps: this.state.id_evento,
+            nomb_evento: this.state.nomb_evento
+            
+         });
+         this.handleNextChildComponentChange(NewEventPage);
     //window.location.replace("./");
    }
    componentWillMount(){
@@ -42,18 +66,7 @@ class ActionButton  extends Component {
       this.state.redirect_to = this.props.redirect_to;
       this.state.id_evento = this.props.id_evento;
       this.state.idUser_recived = this.props.idUser_recived;
-      sessionStorage.setItem('nextProp',
-         JSON.stringify(
-                        {   idOrganizador_nextProps: this.state.idUser_recived,
-                           id_evento_nextProps: this.state.id_evento
-                           
-                        }
-                     ))
-      console.log("STATE STORAGED");
-      let retrievedObject = sessionStorage.getItem('nextProp');
-      let retrievedJson = JSON.parse(retrievedObject); 
-      console.log("lo que se guardo fue:");
-      console.log(retrievedJson);
+      this.state.nomb_evento = this.props.nomb_evento;
    }
    componentDidMount(){
       //this.state.idOrganizador = this.props.idOrganizador;
@@ -68,7 +81,7 @@ class ActionButton  extends Component {
 
         return(
             <button class={this.state.class_for_style} onClick={this.handleClick} >
-               <a href={this.state.redirect_to}>
+               <a >
                   <i 
                      class={this.state.button_class}
                   >

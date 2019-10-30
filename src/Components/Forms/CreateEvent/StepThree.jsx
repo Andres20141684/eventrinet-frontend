@@ -60,7 +60,7 @@ handleChangeFaseDate(value,i,str,str2){
 
 addClick() {
   this.setState(prevState => ({
-    values: [...prevState.values, {secuencia:this.state.values.length+1,camposPerson:[],criterios:[],reqArch:false,reqEval:false}]
+    values: [...prevState.values, {idFase:0,secuencia:this.state.values.length+1,camposPerson:[],criterios:[],reqArch:false,reqEval:false,necesitaArchivo:0,necesitaEvaluacion:0}]
   }));
 }
 
@@ -88,7 +88,7 @@ handleCheckboxChange = event =>{
 
   render() {
     return (
-      <form method="Post">
+      <div class="panel-group">
         <div>
         {this.state.values.map((el, index) => (
           <div key={index} class="panel panel-default">
@@ -115,7 +115,9 @@ handleCheckboxChange = event =>{
                     onChange={this.handleChange3}
                     handleChange4={this.handleChange4}
                     handleChangeFaseDate={this.handleChangeFaseDate}
-                    handleCheck={this.handleCheck}/>
+                    handleCheck={this.handleCheck}
+                    fechaAnt={index===0?null:this.state.values[index-1].faseFin}
+                    fechaMax={this.props.fechaIE}/>
                 </div>
             </div> 
           </div>
@@ -147,7 +149,8 @@ handleCheckboxChange = event =>{
                         type="date"
                         id="id_IniCamReady"
                         selected={this.props.fCRIni}
-                        minDate={new Date()}
+                        minDate={new Date(this.state.values[this.state.values.length-1].faseFin).setDate(this.state.values[this.state.values.length-1].faseFin.getDate() + 1)}
+                        maxDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRIni")}
                         class="form-control"
                         
@@ -160,6 +163,7 @@ handleCheckboxChange = event =>{
                         id="id_FinCamReady"
                         selected={this.props.fCRFin}
                         minDate={this.props.fCRIni}
+                        maxDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRFin")}
                         
                       />
@@ -172,19 +176,20 @@ handleCheckboxChange = event =>{
             </div>
 
             <h3>Fecha límite de elección de preferencias para los evaluadores</h3>            
-              <FormGroup action="" class="card card-body">  
+              <FormGroup class="card card-body">  
                   <Row>            
                   <div class="form-group col-md-3">                      
                       <DatePicker
                         selected={this.props.fechPref}
                         minDate={new Date()}
+                        maxDate={this.props.fechaMax}
                         onChange={(e)=> this.props.handleChange2(e,"fechPref")}
                         class="form-control"
                       />
                   </div>
                 </Row>        
               </FormGroup><br/>
-      </form>
+      </div>
     );
   }
 }

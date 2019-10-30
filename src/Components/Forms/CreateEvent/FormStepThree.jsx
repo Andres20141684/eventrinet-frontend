@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 class FormStepThree extends Component{
     render(){
         return(
-            <div clas="form-phases">
+            <div clas="panel-group">
                 
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
                 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -27,6 +27,7 @@ class FormStepThree extends Component{
                     <input type="text" class="form-control" name="actividad" id="actvidad" placeholder="Actividad" onChange={(e) => this.props.onChange(e,this.props.index,"nombre")} value={this.props.value.nombre}autoFocus required />
                 </div>
                 </Row>
+                
                 <Row>
                 <div class="form-group col-md-6">
                     <label>Descripcion</label>
@@ -36,24 +37,27 @@ class FormStepThree extends Component{
                         class="form-control" 
                         id="id_description_fase"
                         placeholder='Descripcion'                  
-                        onChange={(e) => this.props.onChange(e,this.props.index,"descripcion")} value={this.props.value.descripcion}         
+                        onChange={(e) => this.props.onChange(e,this.props.index,"descripcion")} value={this.props.value.descripcion}
+                        maxLength="200"         
                         />
                 </div>
                 </Row>
                 <Row>            
                 <div class="form-group col-md-3">
-                    <label >Fecha Inicio</label>
+                    <label >Fecha Inicio:</label>
                     <DatePicker
                       selected={this.props.value.faseIni}
-                      minDate={new Date()}
+                      minDate={this.props.index===0?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate() + 1)}
+                      maxDate={this.props.fechaMax}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseIni","fechaFaseIni")}
                     />
                 </div>
                 <div class="form-group col-md-3">
-                    <label >Fecha Fin</label>
+                    <label >Fecha Fin:</label>
                     <DatePicker
                       selected={this.props.value.faseFin}
                       minDate={this.props.value.faseIni}
+                      maxDate={this.props.fechaMax}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseFin","fechaFaseFin")}
                     />
                 </div>
@@ -78,19 +82,6 @@ class FormStepThree extends Component{
                 <h3>Evaluacion</h3>
                 <div class="panel panel-default">    
                 <div class="panel-body">
-                <Row>
-                <div class="form-group col-md-6">
-                    <label >Numero de evaluadores</label>
-                    <input 
-                        type="number" 
-                        name='nombre'
-                        class="form-control" 
-                        id="id_name_fase"       
-                        onChange={(e) => this.props.onChange(e,this.props.index,"numEvaluadores")}
-                        value={this.props.value.numEvaluadores}
-                        />
-                </div>
-                </Row>
                 <Row >
                 <div class="form-group col-md-6">                    
                     <div>
@@ -106,6 +97,21 @@ class FormStepThree extends Component{
                     </div>
                     <div>
                     {this.props.value.reqEval===true?
+                        <div>
+                            <Row>
+                            <div class="form-group col-md-6 form-inline">
+                                <label >Numero de evaluadores: </label>
+                                <input 
+                                style={{display:'inline-block'}}
+                                type="number" 
+                                name='nombre'
+                                class="form-control" 
+                                id="id_name_fase"       
+                                onChange={(e) => this.props.onChange(e,this.props.index,"numEvaluadores")}
+                                value={this.props.value.numEvaluadores}
+                                />
+                        </div>
+                        </Row>
                         <ArrayDinamic 
                         type='Criterio'
                         campo={this.props.criterios}
@@ -113,6 +119,7 @@ class FormStepThree extends Component{
                         index={this.props.index}
                         handleChange4={this.props.handleChange4}
                         handleCheck={this.props.handleCheck}/>
+                        </div>
                         :null}
                     
                     </div> 

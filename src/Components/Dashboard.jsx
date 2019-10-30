@@ -1,25 +1,76 @@
 import React, {Component} from 'react';
 //const stylesFile = require('../Styles/styles.js');
 //const styles = stylesFile.getStyle();
-import {defaultStyle} from '../styles/styles.js'
+import './../styles/dash_style.css';
 import Modal from 'react-awesome-modal';
 import { whileStatement } from '@babel/types';
+import Portafolio from './Special/Portafolio';
+import EventDetail from './EventDetail';
+const Networking = require('./../Network/Networking.js') ;
+
 /**
  * Necesito una lista de eventos, y na foto parq eru pueda
  */
 class Dashboard extends Component{
-  
-  constructor(props) {
+  constructor(props){
     super(props);
     this.state = {
-        visible : false,
-        role: null,
-        name: "Login",
-        data: null
-
+        msg: "Not Connected" ,
+        transport: "go to Fake Ini",
+        idUser_recived: 0,
+       datos_tabla: {
+                Eventos:[
+                         ]
+       }
     }
-  }
+    this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
+    this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
 
+  }
+  handleNextChildComponentChange(_nextChildComponent){
+    console.log('cambiando', _nextChildComponent);
+      this.props.onNextChildComponentChange(_nextChildComponent);
+      
+  }
+  handleNextChildComponentChangeProps(_nextChildComponentProps){
+      this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+  }
+  handleClickCrearActualizar = () => {
+    console.log('redireccionando a ... EventDetail evento');
+    
+    
+    this.handleNextChildComponentChange(EventDetail);
+  }
+  componentWillMount(){
+      
+      /*
+    let retrievedObject = sessionStorage.getItem('dataUser');
+    let retrievedJson = JSON.parse(retrievedObject);  
+    this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
+    console.log(retrievedJson);
+    
+    
+
+
+    Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
+       console.log(value);
+       if(value == null){
+          console.log('no hay algo aun');
+          
+       }else {
+          console.log('si hay algo:');
+          this.setState({datos_tabla:value});
+       }
+       
+    });
+    */
+ }
+ shouldComponentUpdate(nextProps, nextState){
+    if(this.state.datos_tabla != nextState.datos_tabla){
+       return true;
+    }
+    return false;
+ }
 
   render(){
     debugger;
@@ -27,7 +78,7 @@ class Dashboard extends Component{
 
         <div>
           <div class="container">
-          <div class="panel panel-default">
+          
                                       
           <div id="myCarousel" class="carousel slide" data-ride="carousel">
               
@@ -76,7 +127,7 @@ class Dashboard extends Component{
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
               </a>
-          </div></div></div>
+          </div></div>
 
 
             <div class="container text-left">   
@@ -106,8 +157,14 @@ class Dashboard extends Component{
             </div></div> 
 
 
+        <Portafolio 
+            setEventos={this.state.datos_tabla} title="Eventos en convocatoria"
+            onNextChildComponentChange={this.handleNextChildComponentChange}
+            onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
+        />
 
         </div>
+        
     
     
  

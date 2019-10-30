@@ -6,15 +6,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../../../styles/style_sheets.css';
 
+
 export default function ArrayOfChips(props) {
   let chipData =[];
   chipData= props.lista;
-  var aux='';
+  var aux;
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
     chipData.push(aux)
     props.handleadd(chipData,props.tag)
+    cancelCourse()
   };
 
   const handleDelete = chipToDelete => () => {
@@ -25,22 +27,26 @@ export default function ArrayOfChips(props) {
 
   const handleChange= (e) =>{
     aux={[props.label]: e.target.value }
-    
   }
 
+  const cancelCourse = () => { 
+    document.getElementById("create-course-form").reset();
+  }
   return (
     <div>
       <Row> 
+      <form id="create-course-form">
       <div class="input-group mb-3">
         <input 
-            type="email" 
+            type="email"
+            //value={data}
             name='email'
             class="form-control" 
             id="id_email"
             aria-label="Recipient's username" 
             aria-describedby="basic-addon2"
             onChange={handleChange}
-            style={{width: 360,position:"relative"}}/>
+            style={{width: 360/*,position:"relative"*/}}/>
         <div class="input-group-append">
           <button 
             class="btn btn-outline-secondary add"
@@ -51,10 +57,13 @@ export default function ArrayOfChips(props) {
             type="button">Agregar</button>
         </div>
       </div>
+      </form>
+      
       </Row>
       {chipData.map((data, index) => {
               return (
                 <Chip
+                  style={{fontSize:'20px'}}
                   key={index}
                   label={data[props.label]}
                   onDelete={handleDelete(data)}

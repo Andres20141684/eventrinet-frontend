@@ -8,6 +8,8 @@ export default class EventNew extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            idEvento:0,
+            idUsuario:0,
             nombre:'',
             descripcion:'',
             fIni: new Date(),
@@ -19,7 +21,7 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{secuencia:1,camposPerson:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false}],
+            fases:[{idFase:0,secuencia:1,camposPerson:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:new Date(),
@@ -41,10 +43,82 @@ export default class EventNew extends Component{
         this.handlePrint=this.handlePrint.bind(this)
         this.DateFormat=this.DateFormat.bind(this)
         this.handleCheckB=this.handleCheckB.bind(this)
+        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
       }
       componentWillMount(){
         this.state.data_recived=this.props.data_recived;
+        console.log('Te lo dije');
+        console.log(this.state.data_recived);
+        this.setState(
+          {idUsuario: this.state.data_recived.idOrganizador_nextProps}
+        );
         
+      }
+
+      handleNextChildComponentChange(_nextChildComponent){
+        console.log('cambiando', _nextChildComponent);
+          this.props.onNextChildComponentChange(_nextChildComponent);  
+      }
+
+      componentDidMount(){
+        console.log(this.state.data_recived)
+        var aux={}
+        aux.idEvento=this.state.data_recived.id_evento_nextProps
+        aux=JSON.stringify(aux)
+        if(this.state.data_recived.id_evento_nextProps!==0){
+          Networking.ShowEvent(aux).then(
+            (response)=>{
+              console.log(response);
+              this.setState({
+                idEvento:this.state.data_recived.id_evento_nextProps,
+                nombre:response.nombre,
+                descripcion:response.descripcion,
+                fIni: new Date(response.fechaIni),
+                fFin: new Date(response.fechaFin),
+                lugar:response.lugar,
+                rdCategry:response.preferencia==='CATEGORIA'?true:false,
+                rdPropuest:response.preferencia==='PROPUESTA'?true:false,
+                comiteOrganizacional:response.comiteOrganizacional,
+                presidente:response.presidente,
+                evaluadores:response.evaluadores,
+                categorias:response.categorias,
+                tieneCameraRdy:response.tieneCameraRdy,
+                rdCamR:response.tieneCameraRdy===1?true:false,
+                fechPref:new Date(response.fechaMaxPref),            
+              })
+              if(response.fases.length!==0 && response.tieneCameraRdy===1){
+                const aux=response.fases.pop();
+                this.setState({
+                  fCRIni:new Date(aux.fechaFaseIni),
+                  fCRFin:new Date(aux.fechaFaseFin),
+                })
+              }
+              if(response.fases.length!==0){
+                console.log(response.fases[0])
+                var auxfases=[]
+                for(var i=0;i<response.fases.length;i++){
+                  auxfases[i]=response.fases[i];
+                  auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
+                  auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
+                  auxfases[i].reqArch=response.necesitaArchivo===1?true:false;
+                  auxfases[i].reqEval=response.necesitaEvaluacion===1?true:false;
+                  auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();
+                  for(var j=0;j<response.fases[i].camposPerson.length;j++){
+                    auxfases[i].camposPerson[j].obli=auxfases[i].camposPerson[j].obligatorio===1?true:false;
+                  }
+                }
+                this.setState({
+                  fases:auxfases
+                })
+              }
+              
+
+            })
+            .catch( (err) =>{
+              console.log("error en conexión");
+              console.log(err);
+            })
+        }
       }
       handleCheckB(event,str){
         this.setState({[str]:!this.state[str]})
@@ -144,6 +218,7 @@ export default class EventNew extends Component{
               handleChangeRadio={this.handleChangeRadio}
               handleChange={this.handleChange} 
               handlePrint={this.handlePrint}
+              onNextChildComponentChange={this.handleNextChildComponentChange}
               />
           </div>
         )

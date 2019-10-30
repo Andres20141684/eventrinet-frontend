@@ -53,7 +53,6 @@ class ArrayDinamics extends Component{
               <div>
                   {this.state.array.map((value, index) => (
                       <div>
-                          <br/>
                           <Row>
                           <div class="form-group col-md-6">
                           <label for="title">Enunciado</label>
@@ -67,7 +66,6 @@ class ArrayDinamics extends Component{
                                 <input class="form-control" type="text" onChange={(e)=>this.handleChange5(e,index,"descripcion")} value={this.state.array[index].descripcion}/>
                             </div>}
                           </Row>
-                          <br/>
                           <Row>
                             {this.props.type==='Criterio'?null:
                               <div class="form-group col-md-6" >
@@ -78,7 +76,6 @@ class ArrayDinamics extends Component{
                             }
                               
                           </Row>
-                          <br/> 
                       </div>
                   ))}
                   <Row>
