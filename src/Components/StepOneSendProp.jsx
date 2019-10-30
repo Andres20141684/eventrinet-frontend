@@ -71,7 +71,85 @@ export default class StepOneSendProp extends React.Component {
   render () {
     return (
       <div>
-        <div class="panel-group">
+        <div class="panel-group mx-auto" style={{width: "600px"}}>
+        <div  class="panel panel-default">
+            <div class="panel-heading">
+              <h1>Autor
+                <a  style={{marginRight:10,marginBottom:10,float:"right"}}/>  
+              </h1>
+            </div>
+            <div class="panel-body">
+              <Row >
+              <div class="form-group col-md-12">
+                  <label >Nombres</label>
+                  <input 
+                      type="text" 
+                      name='nombre'
+                      class="form-control" 
+                      id="id_name"
+                      placeholder='Nombre'              
+                      onChange={this.props.handleChange}
+                      value={this.props.nombre}
+                      autoFocus/>
+              </div>
+              </Row>
+              <Row >
+              <div class="form-group col-md-12">
+                  <label >Apellidos</label>
+                  <input 
+                      type="text" 
+                      name='apellidos'
+                      class="form-control" 
+                      id="id_ap"
+                      placeholder='Apellidos'              
+                      onChange={this.props.handleChange}
+                      value={this.props.apellidos}
+                      autoFocus/>
+              </div>
+              </Row>
+              <Row >
+              <div class="form-group col-md-12">
+                  <label >Telefono principal</label>
+                  <input 
+                      type="text" 
+                      name='telf'
+                      class="form-control" 
+                      id="id_telf"
+                      placeholder='Telefono'              
+                      onChange={this.props.handleChange}
+                      value={this.props.telf}
+                      autoFocus/>
+              </div>
+              </Row>
+              <Row >
+              <div class="form-group col-md-12">
+                  <label >Correo electronico</label>
+                  <input 
+                      type="text" 
+                      name='email'
+                      class="form-control" 
+                      id="id_email"
+                      placeholder='Email'              
+                      onChange={this.props.handleChange}
+                      value={this.props.email}
+                      autoFocus/>
+              </div>
+              </Row>
+              <Row>
+              <div class="form-group col-md-12">
+                <label >Nivel de estudio</label> 
+                <select class="form-control" id="id_selectStudyLevel">
+                  <option>Primaria</option>
+                  <option>Secundaria</option>
+                  <option>Profesional </option>
+                  <option>Post-grado</option>
+                  <option>Otros...</option>
+                </select>
+              </div>
+              </Row>
+            </div> 
+          </div>
+
         {/*this.state.values.map((el, index) => (
           <div key={index} class="panel panel-default">
             <div class="panel-heading">

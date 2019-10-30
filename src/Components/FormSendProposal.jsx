@@ -66,7 +66,8 @@ export default function FormSendProposal(props) {
           </Step>
         ))}
       </Stepper>
-      <div>
+      <div style={{alignItems: "center"}}>
+      <div class=" mx-auto" style={{width:"700px"}}>
         {activeStep == steps.length - 1 ? (
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
@@ -98,6 +99,7 @@ export default function FormSendProposal(props) {
           </div>
         )}
       </div>
+      </div>
     </div>
   );
 }
@@ -105,7 +107,7 @@ export default function FormSendProposal(props) {
 var styles = {
   frmCreateEvent:{
     paddintTop: 20,
-    paddingBottom: 20,
+    paddingBottom: 120,
     paddingLeft: 50
   }
 }
