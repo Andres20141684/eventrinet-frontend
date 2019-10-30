@@ -6,18 +6,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../../../styles/style_sheets.css';
 
+
 export default function ArrayOfChips(props) {
   let chipData =[];
   chipData= props.lista;
   var aux;
-  var data;
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
-    data='';
     chipData.push(aux)
     props.handleadd(chipData,props.tag)
-    
+    cancelCourse()
   };
 
   const handleDelete = chipToDelete => () => {
@@ -27,18 +26,20 @@ export default function ArrayOfChips(props) {
   };
 
   const handleChange= (e) =>{
-    data=e.target.value;
     aux={[props.label]: e.target.value }
-    
   }
 
+  const cancelCourse = () => { 
+    document.getElementById("create-course-form").reset();
+  }
   return (
     <div>
       <Row> 
+      <form id="create-course-form">
       <div class="input-group mb-3">
         <input 
             type="email"
-            value={data}
+            //value={data}
             name='email'
             class="form-control" 
             id="id_email"
@@ -56,6 +57,8 @@ export default function ArrayOfChips(props) {
             type="button">Agregar</button>
         </div>
       </div>
+      </form>
+      
       </Row>
       {chipData.map((data, index) => {
               return (
