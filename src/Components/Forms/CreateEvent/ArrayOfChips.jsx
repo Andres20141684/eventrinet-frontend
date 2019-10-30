@@ -9,12 +9,15 @@ import '../../../styles/style_sheets.css';
 export default function ArrayOfChips(props) {
   let chipData =[];
   chipData= props.lista;
-  var aux='';
+  var aux;
+  var data;
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
+    data='';
     chipData.push(aux)
     props.handleadd(chipData,props.tag)
+    
   };
 
   const handleDelete = chipToDelete => () => {
@@ -24,6 +27,7 @@ export default function ArrayOfChips(props) {
   };
 
   const handleChange= (e) =>{
+    data=e.target.value;
     aux={[props.label]: e.target.value }
     
   }
@@ -33,14 +37,15 @@ export default function ArrayOfChips(props) {
       <Row> 
       <div class="input-group mb-3">
         <input 
-            type="email" 
+            type="email"
+            value={data}
             name='email'
             class="form-control" 
             id="id_email"
             aria-label="Recipient's username" 
             aria-describedby="basic-addon2"
             onChange={handleChange}
-            style={{width: 360,position:"relative"}}/>
+            style={{width: 360/*,position:"relative"*/}}/>
         <div class="input-group-append">
           <button 
             class="btn btn-outline-secondary add"

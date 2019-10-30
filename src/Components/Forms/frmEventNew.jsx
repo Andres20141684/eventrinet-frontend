@@ -21,7 +21,7 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{idFase:0,secuencia:1,camposPerson:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false}],
+            fases:[{idFase:0,secuencia:1,camposPerson:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:new Date(),
@@ -91,25 +91,15 @@ export default class EventNew extends Component{
                 console.log(response.fases[0])
                 var auxfases=[]
                 for(var i=0;i<response.fases.length;i++){
-                  auxfases[i]={};
-                  auxfases[i].nombre=response.fases[i].nombre;
-                  auxfases[i].descripcion=response.fases[i].descripcion;
+                  auxfases[i]=response.fases[i];
                   auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
-                  auxfases[i].fechaFaseIni=response.fases[i].fechaFaseIni;
                   auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
-                  auxfases[i].fechaFaseFin=response.fases[i].fechaFaseFin;
-                  auxfases[i].secuencia=response.fases[i].secuencia;
                   auxfases[i].reqArch=response.necesitaArchivo===1?true:false;
-                  auxfases[i].necesitaArchivo=response.necesitaArchivo;
                   auxfases[i].reqEval=response.necesitaEvaluacion===1?true:false;
-                  auxfases[i].necesitaEvaluacion=response.necesitaEvaluacion;
-                  auxfases[i].criterios=response.criterios
-                  auxfases[i].camposPerson=[]
+                  auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();
                   for(var j=0;j<response.fases[i].camposPerson.length;j++){
-                    auxfases[i].camposPerson[j]=response.fases[i].camposPerson[j];
                     auxfases[i].camposPerson[j].obli=auxfases[i].camposPerson[j].obligatorio===1?true:false;
                   }
-                  auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();
                 }
                 this.setState({
                   fases:auxfases
