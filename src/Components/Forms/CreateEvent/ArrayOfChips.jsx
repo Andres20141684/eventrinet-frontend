@@ -10,13 +10,16 @@ import '../../../styles/style_sheets.css';
 export default function ArrayOfChips(props) {
   let chipData =[];
   chipData= props.lista;
-  var aux;
+  var aux='';
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
-    chipData.push(aux)
+    if(aux!==''){
+      chipData.push(aux)
     props.handleadd(chipData,props.tag)
+    console.log(aux)
     cancelCourse()
+    }
   };
 
   const handleDelete = chipToDelete => () => {
@@ -27,25 +30,33 @@ export default function ArrayOfChips(props) {
 
   const handleChange= (e) =>{
     aux={[props.label]: e.target.value }
+    console.log(aux)
   }
 
   const cancelCourse = () => { 
     document.getElementById("create-course-form").reset();
   }
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSelect()
+    }
+  }
   return (
     <div>
       <Row> 
-      <form id="create-course-form">
+      <form id="create-course-form" onSubmit={e => { e.preventDefault(); }}>
       <div class="input-group mb-3">
         <input 
             type="email"
+            defaultValue=''
             //value={data}
-            name='email'
+            //name='email'
             class="form-control" 
             id="id_email"
             aria-label="Recipient's username" 
             aria-describedby="basic-addon2"
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             style={{width: 360/*,position:"relative"*/}}/>
         <div class="input-group-append">
           <button 
@@ -74,4 +85,3 @@ export default function ArrayOfChips(props) {
     </div>
   );
 }
-
