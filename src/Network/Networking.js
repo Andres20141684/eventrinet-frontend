@@ -1,5 +1,8 @@
 import {AsyncStorage} from 'react';
-const restURL = 'http://174.129.92.182:5000/api/';
+
+
+const restURL = 'http://localhost:5000/api/';
+
 
 export async function crear_cuenta(var_email,var_last_name,var_name, var_username, var_password) {
     console.log('Creando Usuario...');
@@ -122,51 +125,34 @@ export async function ShowEvent(data){
     }}
     
 
-    export async function getEventosPublicados() {
-        console.log('INTENTO DE POST!! en ' +restURL 
+export async function getEventosPublicados() {
+    try {
+        console.log('INTENTO DE GET!! en ' +restURL 
         + 'eventos/listar_eventos_publicados');
-        try {
-            console.log('RECIBI UN idOrganizador:');
-            let response = await fetch(restURL 
-                + 'eventos/listar_eventos_publicados', {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                }),
-            });
-            console.error('CATCH NO ALCANZADO, antes del await');
-            let responseJson = await response.json();
-            console.log('Saving!!');
-            console.log(responseJson);
-            console.log('Saving!!');
-    
-            return responseJson;  
-        } catch (error) {
-            console.error(error);
-            console.error('CATCH ALCANZADO :(');
-        }
-    } 
+        let response = await fetch(restURL+'eventos/listar_eventos_publicados' ,{
+            method:'GET'
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return {}
+    }
+      
+} 
 export async function getEventosConvocatoria() {
     console.log('INTENTO DE POST!! en ' +restURL 
     + 'eventos/listar_eventos_convocatoria');
     try {
-        console.log('RECIBI UN idOrganizador: ');
+        console.log('fetching getEventosConvocatoria() ');
         let response = await fetch(restURL 
             + 'eventos/listar_eventos_convocatoria', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-            }),
+            method: 'GET'
         });
         console.error('CATCH NO ALCANZADO, antes del await');
+        
         let responseJson = await response.json();
         console.log('Saving!!');
         console.log(responseJson);
@@ -178,7 +164,6 @@ export async function getEventosConvocatoria() {
         console.error('CATCH ALCANZADO :(');
     }
 }
-
 export async function populateDataOrgTab1(idOrganizador) {
     console.log('INTENTO DE POST!! en ' +restURL 
     + 'eventos/listar_eventos_activos');
