@@ -117,7 +117,7 @@ handleCheckboxChange = event =>{
                     handleChangeFaseDate={this.handleChangeFaseDate}
                     handleCheck={this.handleCheck}
                     fechaAnt={index===0?null:this.state.values[index-1].faseFin}
-                    fechaMax={this.props.fIni}/>
+                    fechaMax={this.props.fechaIE}/>
                 </div>
             </div> 
           </div>
@@ -150,7 +150,7 @@ handleCheckboxChange = event =>{
                         id="id_IniCamReady"
                         selected={this.props.fCRIni}
                         minDate={new Date(this.state.values[this.state.values.length-1].faseFin).setDate(this.state.values[this.state.values.length-1].faseFin.getDate() + 1)}
-                        maxDate={this.props.fechaMax}
+                        maxDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRIni")}
                         class="form-control"
                         
@@ -163,7 +163,7 @@ handleCheckboxChange = event =>{
                         id="id_FinCamReady"
                         selected={this.props.fCRFin}
                         minDate={this.props.fCRIni}
-                        maxDate={this.props.fechaMax}
+                        maxDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRFin")}
                         
                       />
