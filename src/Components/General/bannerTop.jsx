@@ -170,17 +170,15 @@ class BannerTop extends Component{
       linkSignUp.style.display = "block"
       myavatar.style.display = "none"
       itemOpciones.style.display = "none"
-
-      console.log("HAAAAAAAAAAAAAAAAAAAAAAA 0");
       nameUser.style.display = "none"
       
       sessionStorage.setItem("dataUser",null)
-      console.log("HAAAAAAAAAAAAAAAAAAAAAAA 1");
+      sessionStorage.setItem("currentPage",null)
+      
       let retrievedObject = sessionStorage.getItem('dataUser');
-      console.log("HAAAAAAAAAAAAAAAAAAAAAAA 2");
       let retrievedJson = JSON.parse(retrievedObject); 
-      console.log("HAAAAAAAAAAAAAAAAAAAAAAA3");
-      console.log("json borradpo",retrievedJson)
+      
+      console.log("json borrado",retrievedJson)
     }catch(err){
       console.log(err)
     }    

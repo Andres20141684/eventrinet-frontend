@@ -2,6 +2,9 @@ import React, {Component, useCallback} from 'react';
 import NewIni from "../General/NewIni";
 import { thisExpression } from "@babel/types";
 import BannerTop from '../General/bannerTop';
+import InscriptionEvent from '../../Components/InscriptionEvent';
+import SendProposal from '../../Components/SendProposal'
+
 /****************************************************************
  *           Estoy en construccion no me mires asi putho!!!! XD
  ***************************************************************/
@@ -39,6 +42,14 @@ class WorkingSpace extends Component{
     componentDidMount(){
         console.log("WSDidMount")
         
+        let  page = sessionStorage.getItem("currentPage");
+        console.log("page to redirect ",page);
+        if (page == "InscriptionEvent"){
+            this.handleNextChildComponentChange(InscriptionEvent);
+        }
+        if (page == "SendProposal"){
+          this.handleNextChildComponentChange(SendProposal);
+      }
     }
     shouldComponentUpdate(nextProps,nextState){
         if(this.state.nextChildComponent  !== nextState.nextChildComponent){
