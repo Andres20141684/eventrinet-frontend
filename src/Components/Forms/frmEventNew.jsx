@@ -43,6 +43,7 @@ export default class EventNew extends Component{
         this.handlePrint=this.handlePrint.bind(this)
         this.DateFormat=this.DateFormat.bind(this)
         this.handleCheckB=this.handleCheckB.bind(this)
+        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
       }
       componentWillMount(){
         this.state.data_recived=this.props.data_recived;
@@ -52,6 +53,11 @@ export default class EventNew extends Component{
           {idUsuario: this.state.data_recived.idOrganizador_nextProps}
         );
         
+      }
+
+      handleNextChildComponentChange(_nextChildComponent){
+        console.log('cambiando', _nextChildComponent);
+          this.props.onNextChildComponentChange(_nextChildComponent);  
       }
 
       componentDidMount(){
@@ -212,6 +218,7 @@ export default class EventNew extends Component{
               handleChangeRadio={this.handleChangeRadio}
               handleChange={this.handleChange} 
               handlePrint={this.handlePrint}
+              onNextChildComponentChange={this.handleNextChildComponentChange}
               />
           </div>
         )

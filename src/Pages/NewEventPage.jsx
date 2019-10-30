@@ -4,13 +4,19 @@ import BannerBottom from '../Components/General/bannerBottom'
 import frmEventNew from '../Components/Forms/frmEventNew'
 
 class NewEventPage extends Component{
-    state = {
-        formProceso: frmEventNew,
-        data_recived: {
+    constructor(props){
+        super(props);
+        this.state={
+            formProceso: frmEventNew,
+            data_recived: {
             idOrganizador: 0,
             idEvento: 0
         }
+        }
+        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
     }
+        
+    
     componentWillMount(){
         let retrievednextProp = sessionStorage.getItem('nextProp');
         let retrieveddataUser = sessionStorage.getItem('dataUser');
@@ -25,6 +31,10 @@ class NewEventPage extends Component{
         //sessionStorage.setItem("nextProp",null)
     }
     
+    handleNextChildComponentChange(_nextChildComponent){
+        console.log('cambiando', _nextChildComponent);
+          this.props.onNextChildComponentChange(_nextChildComponent);  
+      }
     render(){
         
         return(
@@ -32,7 +42,9 @@ class NewEventPage extends Component{
             
             <div style={{marginBottom:25}} >
                 <this.state.formProceso 
-                data_recived={this.state.data_recived}/>
+                data_recived={this.state.data_recived}
+                onNextChildComponentChange={this.handleNextChildComponentChange}
+                />
             </div>
             
         </div>)

@@ -6,11 +6,12 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import OrganActiveEvents from '../../../Pages/OrganActiveEvents.jsx';
 const Networking = require('../../../Network/Networking.js') ;
 
 class ModalDialog extends Component{
-    constructor(){
-      super();
+    constructor(props){
+      super(props);
       this.state={
         open:false,
         data:null,
@@ -20,6 +21,7 @@ class ModalDialog extends Component{
       this.handleClose=this.handleClose.bind(this)
       this.handleSave=this.handleSave.bind(this)
       this.handleExit=this.handleExit.bind(this)
+      this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -50,8 +52,14 @@ class ModalDialog extends Component{
         })
     }
 
+    handleNextChildComponentChange(_nextChildComponent){
+      console.log('cambiando', _nextChildComponent);
+        this.props.onNextChildComponentChange(_nextChildComponent);
+        
+    }
+
     handleExit(){
-      window.location.assign("/organActiveEvents");
+      this.handleNextChildComponentChange(OrganActiveEvents);
     }
     render(){
       return (
