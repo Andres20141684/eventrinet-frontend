@@ -173,6 +173,7 @@ class BannerTop extends Component{
   }
 
   clickLogOut () {
+    
     try{      
       let linkLogin = document.getElementById("linkLogin")
       let linkSignUp = document.getElementById("linkSignUp")
@@ -203,7 +204,6 @@ class BannerTop extends Component{
       }
 
       sessionStorage.setItem('tipoLogin',null)
-      
     }catch(err){
       console.log(err)
     }    
