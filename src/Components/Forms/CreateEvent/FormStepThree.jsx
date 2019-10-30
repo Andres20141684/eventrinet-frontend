@@ -27,6 +27,7 @@ class FormStepThree extends Component{
                     <input type="text" class="form-control" name="actividad" id="actvidad" placeholder="Actividad" onChange={(e) => this.props.onChange(e,this.props.index,"nombre")} value={this.props.value.nombre}autoFocus required />
                 </div>
                 </Row>
+                
                 <Row>
                 <div class="form-group col-md-6">
                     <label>Descripcion</label>
