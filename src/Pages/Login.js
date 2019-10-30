@@ -33,9 +33,9 @@ class Login extends Component{
                     sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));
                     sessionStorage.setItem('tipoLogin',"usuario")
                     this.setState({redirect:true});
-                    alert("Contraseña y/o usuario correcta!");
+                    alert("Contraseña y usuario correctos!");
                   }else{
-                    console.log("YIYIYIYYYYYYYYY salio false");
+                    console.log("No se logueo correctamente");
                     alert("Contraseña y/o usuario incorrecto!");
                     //this.setState({redirect:false});
                     
@@ -55,8 +55,6 @@ class Login extends Component{
     }
 
     onChageInputName = (evt) => {
-        console.log(evt.target)
-
         this.setState({user: evt.target.value});
     }
 
@@ -65,9 +63,7 @@ class Login extends Component{
     }
 
     onKeyDownName = (evt) => {
-        let user = evt.target.value
-
-        console.log(user.length)
+        let user = evt.target.value        
 
         if (user.length >= 20) {
             evt.preventDefault()
