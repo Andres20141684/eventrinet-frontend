@@ -5,6 +5,7 @@ import BannerTop from '../General/bannerTop';
 import InscriptionEvent from '../../Components/InscriptionEvent';
 import SendProposal from '../../Components/SendProposal'
 
+
 /****************************************************************
  *           Estoy en construccion no me mires asi putho!!!! XD
  ***************************************************************/
@@ -49,7 +50,7 @@ class WorkingSpace extends Component{
         }
         if (page == "SendProposal"){
           this.handleNextChildComponentChange(SendProposal);
-      }
+        }
     }
     shouldComponentUpdate(nextProps,nextState){
         if(this.state.nextChildComponent  !== nextState.nextChildComponent){

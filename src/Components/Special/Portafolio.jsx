@@ -152,6 +152,6 @@ class Portafolio extends Component{
     </div>
 
   );}
-}
+  }
 
 export default Portafolio;
