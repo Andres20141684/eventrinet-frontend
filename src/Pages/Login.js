@@ -3,7 +3,6 @@ import BannerLogin from '../Components/General/bannerLogin';
 import {Link}  from "react-router-dom";
 import '../styles/style_signUp.css'; 
 import {Redirect}  from "react-router-dom";
-import InscriptionEvent from '../Components/InscriptionEvent'
 
 const Networking = require('../Network/Networking');
 
@@ -33,9 +32,9 @@ class Login extends Component{
                     sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));
                     sessionStorage.setItem('tipoLogin',"usuario")
                     this.setState({redirect:true});
-                    alert("Contraseña y/o usuario correcta!");
+                    alert("Contraseña y usuario correctos!");
                   }else{
-                    console.log("YIYIYIYYYYYYYYY salio false");
+                    console.log("salio false: te equivocaste en poner los datos xd");
                     alert("Contraseña y/o usuario incorrecto!");
                     //this.setState({redirect:false});
                     
