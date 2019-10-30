@@ -264,15 +264,15 @@ class BannerTop extends Component{
           <div className="collapse navbar-collapse" id="navbarNavDropdown" style={{}}>
             <ul className="nav navbar-nav">
               <li className="nav-item">
-                <a className="nav-link"  onClick={this.handleClickInicio}><b><font size="3" color="#6CDCD6">Inicio</font></b><span className="sr-only">(current)</span></a>
+                <Link className="nav-link"  onClick={this.handleClickInicio}><b><font size="3" color="#6CDCD6">Inicio</font></b><span className="sr-only">(current)</span></Link>
               </li>
               
               <li className="nav-item">
-                <a className="nav-link" onClick={this.handleClicEvents}><b><font size="3" color="#6CDCD6">Eventos</font></b></a>
+                <Link className="nav-link" onClick={this.handleClicEvents}><b><font size="3" color="#6CDCD6">Eventos</font></b></Link>
               </li>
               
               <li className="nav-item" >
-                <a className="nav-link" onClick={this.handleClickAnnoucements} ><b><font size="3" color="#6CDCD6">Convocatoria</font></b></a>
+                <Link className="nav-link" onClick={this.handleClickAnnoucements} ><b><font size="3" color="#6CDCD6">Convocatoria</font></b></Link>
               </li>
               <li className="nav-item" className="nav dropdown" id="nav-item-opciones">
                 <Link className="nav-link dropdown-toggle" to="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></Link>
@@ -280,7 +280,7 @@ class BannerTop extends Component{
                   <li><Link id="itemMisInscrip" className="nav-link" to="#"><b><font size="3">Mis inscripciones</font></b></Link></li>
                   <li><Link id="itemMisProp" className="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div className="dropdown-divider"></div>
-                  <li><a id="itemOrga" className="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></a></li>
+                  <li><Link id="itemOrga" className="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
                   <li><Link id="itemPresi" className="nav-link" to="/presidentEvents"><b><font size="3">Presidente</font></b></Link></li>
                   <li><Link id="itemEval" className="nav-link" to="/EvaluadorEventos" ><b><font size="3 ">Evaluador</font></b></Link></li>
                 </ul>
