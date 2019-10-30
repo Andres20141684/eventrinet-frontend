@@ -76,7 +76,7 @@ class ModalDialog extends Component{
               <div>
               <DialogContent>
                 <DialogContentText>
-                  <h2>Esta seguro de guardar</h2>
+                  <h2>Está seguro de guardar?</h2>
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
@@ -103,7 +103,7 @@ class ModalDialog extends Component{
                       <CircularProgress />
                       </Fade>
                       <DialogContentText>
-                          <h2>Procesando</h2>
+                          <h2>Procesando...</h2>
                         </DialogContentText>
                   </DialogContent>
                   
@@ -114,7 +114,7 @@ class ModalDialog extends Component{
                     <div>
                       <DialogContent>
                         <DialogContentText>
-                          <h2>La transaccion fue exitosa</h2>
+                          <h2>La transacción fue exitosa</h2>
                         </DialogContentText>
                       </DialogContent>
                     </div>
@@ -122,7 +122,7 @@ class ModalDialog extends Component{
                     <div>
                       <DialogContent>
                         <DialogContentText>
-                          <h2>La transaccion fallo</h2>
+                          <h2>La transacción falló</h2>
                         </DialogContentText>
                       </DialogContent>
                     </div>

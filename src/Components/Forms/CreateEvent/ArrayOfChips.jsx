@@ -63,6 +63,7 @@ export default function ArrayOfChips(props) {
       {chipData.map((data, index) => {
               return (
                 <Chip
+                  style={{fontSize:'20px'}}
                   key={index}
                   label={data[props.label]}
                   onDelete={handleDelete(data)}
