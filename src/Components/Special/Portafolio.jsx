@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import "./../../styles/portafolio_styles.css";
-
+import InscriptionEvent from '../InscriptionEvent';
+import SendProposal from '../SendProposal';
 import {Link}  from "react-router-dom";
 
 const Networking = require('./../../Network/Networking.js') ;
@@ -10,7 +11,9 @@ class Portafolio extends Component{
     super(props);
     this.state = {
         msg: "Not Connected" ,
-        transport: "go to Fake Ini"
+        transport: "go to Fake Ini",
+        title: ""
+        
     }
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -18,7 +21,7 @@ class Portafolio extends Component{
   }
   handleNextChildComponentChange(_nextChildComponent){
     console.log('cambiando', _nextChildComponent);
-      this.props.onNextChildComponentChange(_nextChildComponent);
+    this.props.onNextChildComponentChange(_nextChildComponent);
       
   }
   handleNextChildComponentChangeProps(_nextChildComponentProps){
@@ -26,22 +29,39 @@ class Portafolio extends Component{
   }
   componentWillMount(){
     console.log("AppWillMount")
+    this.setState(
+        {title: this.props.title}
+    );
     
   }
 
   handleClick = () => {
     this.handleNextChildComponentChange('');
   }
-  render() {
+
+
+
+  handleOnclickEvent = () => {
+    console.log('redireccionando a ... Inscripcion evento');
+
+    /*
+    this.handleNextChildComponentChangeProps({
+
+    });*/
     
+    this.handleNextChildComponentChange(SendProposal);
+  }
+  
+  render() {
+        
   return (
     <div>
     
         <section class="portafolio">
             <div class="contenedor">
-                <h2 class="titulo">Portafolio</h2>
+                <h2 class="titulo">{this.state.title}</h2>
                 <div class="galeria-port">
-                    <div class="imagen-port">
+                    <div class="imagen-port" onClick={this.handleOnclickEvent}>
                         <img src="img/img1.jpg" alt=""/>
                         <div class="hover-galeria">
                             <img src="img/icono1.png" alt=""/>
