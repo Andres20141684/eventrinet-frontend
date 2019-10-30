@@ -2,39 +2,6 @@ const restURL = 'http://174.129.92.182:5000/api/';
 
 var connectedUser = null;
 
-async function validar_sesion_ps(var_user,var_password) {
-    console.log('INTENTO DE LOGIN!!');
-    try {
-        console.log('RECIBI UN LOGIN: ' + var_user + var_password);
-        let response = await fetch(restURL 
-            + 'validar_session', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user: var_user,
-                password: var_password
-
-            }),
-        });
-        console.error('CATCH NO ALCANZADO, antes del await');
-        let responseJson = await response.json();
-        console.log('Saving!!');
-		console.log(responseJson);
-		console.log(responseJson[0]);
-		console.log(response);
-		console.log(response[0]);
-        console.log('Saving!!');
-
-        return responseJson;  
-    } catch (error) {
-        console.error(error);
-        console.error('CATCH ALCANZADO :(');
-    }
-}
 
 async function validar_sesion(var_email,var_given_name,var_family_name) {
     
@@ -68,6 +35,7 @@ async function validar_sesion(var_email,var_given_name,var_family_name) {
 			let connectedUser = responseJson;
 			console.log("Data del usuario",connectedUser);
 			sessionStorage.setItem('dataUser', JSON.stringify(connectedUser))
+			sessionStorage.setItem('tipoLogin',"gmail")
 			alert("El correo esta registrado en Eventrinet!")
 			window.location.replace("./");
 		}else{
@@ -94,6 +62,7 @@ function onSignIn1(googleUser) {
 
       
 }
+/*
 var oauth2 = google.oauth2({
 	auth: auth,
 	version: 'v2'
@@ -107,6 +76,7 @@ if (err) {
 	console.log(res);
 }
 });
+*/
 function onSignIn(googleUser) {
 	// Get the Google profile data (basic)
 	var profile = googleUser.getBasicProfile();

@@ -2,6 +2,9 @@ import React, {Component, useCallback} from 'react';
 import NewIni from "../General/NewIni";
 import { thisExpression } from "@babel/types";
 import BannerTop from '../General/bannerTop';
+import InscriptionEvent from '../../Components/InscriptionEvent';
+import SendProposal from '../../Components/SendProposal'
+
 /****************************************************************
  *           Estoy en construccion no me mires asi putho!!!! XD
  ***************************************************************/
@@ -32,18 +35,24 @@ class WorkingSpace extends Component{
     }
     componentWillMount(){
       console.log("WSWillMount")
-      this.state.nextChildComponent=
-      this.props.nextComponent;
+      this.state.nextChildComponent= this.props.nextComponent;
       
       
     }
     componentDidMount(){
         console.log("WSDidMount")
         
+        let  page = sessionStorage.getItem("currentPage");
+        console.log("page to redirect ",page);
+        if (page == "InscriptionEvent"){
+            this.handleNextChildComponentChange(InscriptionEvent);
+        }
+        if (page == "SendProposal"){
+          this.handleNextChildComponentChange(SendProposal);
+      }
     }
     shouldComponentUpdate(nextProps,nextState){
-        if(this.state.nextChildComponent 
-          !== nextState.nextChildComponent){
+        if(this.state.nextChildComponent  !== nextState.nextChildComponent){
             return true;
         }
         return false;
@@ -62,9 +71,7 @@ class WorkingSpace extends Component{
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
       /> 
       <div>
-      <this.state.nextChildComponent
-        nextChildComponent={this.state.nextChildComponent}
-        nextChildComponentProps={this.state.nextChildComponentProps}
+      <this.state.nextChildComponent  
         onNextChildComponentChange={this.handleNextChildComponentChange}
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
         />
