@@ -24,6 +24,12 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  iconContainer: {
+    transform: 'scale(2)',
+  },
+  alternativeLabel:{
+    fontSize:'21px'
+  }
 }));
 
 function getSteps() {
@@ -67,7 +73,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map(label => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel classes={{iconContainer:classes.iconContainer,alternativeLabel: classes.alternativeLabel}}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
