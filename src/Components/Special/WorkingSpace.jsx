@@ -69,9 +69,11 @@ class WorkingSpace extends Component{
       <this.state.bannTop 
         onNextChildComponentChange={this.handleNextChildComponentChange}
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
+        
       /> 
       <div>
       <this.state.nextChildComponent  
+       nextChildComponentProps={this.state.nextChildComponentProps}
         onNextChildComponentChange={this.handleNextChildComponentChange}
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
         />
