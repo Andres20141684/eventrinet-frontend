@@ -55,8 +55,6 @@ class Login extends Component{
     }
 
     onChageInputName = (evt) => {
-        console.log(evt.target)
-
         this.setState({user: evt.target.value});
     }
 
@@ -66,9 +64,6 @@ class Login extends Component{
 
     onKeyDownName = (evt) => {
         let user = evt.target.value
-
-        console.log(user.length)
-
         if (user.length >= 20) {
             evt.preventDefault()
             return false
