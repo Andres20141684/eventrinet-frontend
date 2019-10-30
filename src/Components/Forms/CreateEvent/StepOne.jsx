@@ -38,13 +38,15 @@ export default class StepOne extends React.Component {
             <div class="form-group col-md-6">
                 <label>Descripcion</label>
                 <textarea 
+                    rows='7'
                     type="text" 
                     name='descripcion'
                     class="form-control" 
                     id="id_description"
                     placeholder='Descripcion'                  
                     onChange={this.props.handleChange}
-                    value={this.props.descripcion}              
+                    value={this.props.descripcion}       
+                    maxLength="200"       
                     />
             </div>
             </Row>
@@ -74,7 +76,7 @@ export default class StepOne extends React.Component {
                     placeholder="date_in"
                   />
                 </div>
-                <div class="form-group col-md">
+                <div class="form-group col-md-3">
                     <label >Fecha Fin </label>
                       <DatePicker
                         style={{position:"absolute"}}

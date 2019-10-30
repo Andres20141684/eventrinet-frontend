@@ -88,7 +88,7 @@ handleCheckboxChange = event =>{
 
   render() {
     return (
-      <form method="Post">
+      <div class="panel-group">
         <div>
         {this.state.values.map((el, index) => (
           <div key={index} class="panel panel-default">
@@ -176,7 +176,7 @@ handleCheckboxChange = event =>{
             </div>
 
             <h3>Fecha límite de elección de preferencias para los evaluadores</h3>            
-              <FormGroup action="" class="card card-body">  
+              <FormGroup class="card card-body">  
                   <Row>            
                   <div class="form-group col-md-3">                      
                       <DatePicker
@@ -189,7 +189,7 @@ handleCheckboxChange = event =>{
                   </div>
                 </Row>        
               </FormGroup><br/>
-      </form>
+      </div>
     );
   }
 }
