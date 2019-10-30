@@ -280,7 +280,7 @@ class BannerTop extends Component{
                   <li><Link id="itemMisInscrip" className="nav-link" to="#"><b><font size="3">Mis inscripciones</font></b></Link></li>
                   <li><Link id="itemMisProp" className="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div className="dropdown-divider"></div>
-                  <li><a id="itemOrga" className="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></a></li>
+                  <li><Link id="itemOrga" className="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
                   <li><Link id="itemPresi" className="nav-link" to="/presidentEvents"><b><font size="3">Presidente</font></b></Link></li>
                   <li><Link id="itemEval" className="nav-link" to="/EvaluadorEventos" ><b><font size="3 ">Evaluador</font></b></Link></li>
                 </ul>
