@@ -40,7 +40,7 @@ class OrganActiveEvents extends Component{
         datos_tabla1:  null,
         datos_tabla2: null,
         msg: "Not Connected",
-        idOrganizador: 1
+        idOrganizador: 5
     }
     
    
