@@ -18,11 +18,23 @@ class Dashboard extends Component{
         msg: "Not Connected" ,
         transport: "go to Fake Ini",
         idUser_recived: 0,
-       datos_tabla: {
-                Eventos:[
-                         ]
-       }
+       datos_tabla: {},
+       flag: false
+      
     }
+    Networking.getEventosConvocatoria().then((value) => {
+      console.log("lista de envetow convoctarioas",value);
+      if(value == null){
+         console.log('no hay convocatorias!');
+         
+      }else {
+         console.log('si hay convocatorias:');
+         this.setState({datos_tabla:value});
+         this.setState({flag:true})
+         console.log("asdassadasad",this.state.flag)
+         console.log(this.state.datos_tabla);
+      }
+    });
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
 
@@ -41,39 +53,19 @@ class Dashboard extends Component{
     
     this.handleNextChildComponentChange(EventDetail);
   }
-  componentWillMount(){
-      
-      /*
-    let retrievedObject = sessionStorage.getItem('dataUser');
-    let retrievedJson = JSON.parse(retrievedObject);  
-    this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
-    console.log(retrievedJson);
-    
-    
 
-
-    Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
-       console.log(value);
-       if(value == null){
-          console.log('no hay algo aun');
-          
-       }else {
-          console.log('si hay algo:');
-          this.setState({datos_tabla:value});
-       }
-       
-    });
-    */
- }
+ 
+ /** */
  shouldComponentUpdate(nextProps, nextState){
-    if(this.state.datos_tabla != nextState.datos_tabla){
-       return true;
+   if(nextState.datos_tabla != this.state.datos_tabla){
+     console.log("llegue y mori XD");
+     return true;
     }
-    return false;
+   return false;
+
  }
 
   render(){
-    debugger;
     return (
 
         <div>
@@ -156,12 +148,14 @@ class Dashboard extends Component{
             </div>
             </div></div> 
 
-
+        <div>
         <Portafolio 
             setEventos={this.state.datos_tabla} title="Eventos en convocatoria"
+            nextChildComponentProps={this.state.nextChildComponentProps}
             onNextChildComponentChange={this.handleNextChildComponentChange}
             onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
-        />
+                 ></Portafolio>
+        </div>
 
         </div>
         
