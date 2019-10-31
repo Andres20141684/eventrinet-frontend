@@ -15,7 +15,7 @@ export default class EventNew extends Component{
             fIni: new Date(),
             fFin: '',
             lugar:'',
-            rdCategry:false,
+            rdCategry:true,
             rdPropuest:false,
             comiteOrganizacional:[],
             presidente:[],

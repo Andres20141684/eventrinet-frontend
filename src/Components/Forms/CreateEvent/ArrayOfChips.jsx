@@ -34,7 +34,7 @@ export default function ArrayOfChips(props) {
   }
 
   const cancelCourse = () => { 
-    document.getElementById("create-course-form").reset();
+    document.getElementById(props.tag).reset();
   }
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -44,7 +44,7 @@ export default function ArrayOfChips(props) {
   return (
     <div>
       <Row> 
-      <form id="create-course-form" onSubmit={e => { e.preventDefault(); }}>
+      <form id={props.tag} onSubmit={e => { e.preventDefault(); }}>
       <div class="input-group mb-3">
         <input 
             type="email"
