@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import BannerLogin from '../Components/General/bannerLogin';
 import BannerBottom from '../Components/General/bannerBottom'
@@ -60,7 +61,10 @@ class SingUp extends Component{
         email: "",
         redirect:false
     }
-
+    componentWillMount(){
+      console.log("------------saving state----------");
+      sessionStorage.setItem('tipoSingUp',"gmail");
+    }
     onSubmitForm = (evt) => {      
       
       var pass = document.getElementById("alertPass");
@@ -117,6 +121,7 @@ class SingUp extends Component{
 
       
     render(){
+      
       return(
         <div>{this.renderRedirect()} 
           <div class="component-header"  width="300"  style={{paddingLeft:20}}>
@@ -165,6 +170,17 @@ class SingUp extends Component{
                   ¿Ya tienes una cuenta?
                   <a href="/login"  class="text-success">Iniciar sesión</a>
                 </div>
+                <div >
+                  <section className="loginButton">
+                  <script src= "./login.js"></script>
+                  <div  effect="fadeInUp">                                    
+                      <a href={this.state.pagPrev}>
+                      <div className="g-signin2" align="center" data-onsuccess="onSignIn" />
+                      </a>
+                  </div>
+                  </section>
+                </div>
+                <br/>
               </form>
               
             </div>

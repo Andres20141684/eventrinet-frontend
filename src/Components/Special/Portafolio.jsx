@@ -43,12 +43,24 @@ class Portafolio extends Component{
 
   handleOnclickEvent = () => {
     console.log('redireccionando a ... Inscripcion evento');
-
+    /*Networking.popuateEventConvocatoria(this.props.setEvent[0]).then((value) => {
+      console.log("lista de envetow convoctarioas",value);
+      if(value == null){
+         console.log('no hay convocatorias!');
+         
+      }else {
+         console.log('si hay convocatorias:');
+         this.setState({datos_tabla:value});
+         console.log(this.state.datos_tabla);
+      }
+    });
     /*
     this.handleNextChildComponentChangeProps({
 
     });*/
-    
+    console.log("evento convoc 1",this.props.setEventos)
+    console.log("evento convoc 1",this.props.setEventos.Eventos[0])
+    this.handleNextChildComponentChangeProps(this.props.setEventos.Eventos[0])
     this.handleNextChildComponentChange(SendProposal);
   }
   
@@ -56,7 +68,6 @@ class Portafolio extends Component{
         
   return (
     <div>
-    
         <section class="portafolio">
             <div class="contenedor">
                 <h2 class="titulo">{this.state.title}</h2>
