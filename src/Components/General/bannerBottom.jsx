@@ -3,6 +3,9 @@ class BannerBottom extends Component{
     state = {
       role: null
     }
+
+
+    
     render(){
       return (
         

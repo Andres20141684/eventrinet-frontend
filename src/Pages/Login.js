@@ -30,8 +30,13 @@ class Login extends Component{
                   if (connectedUser.succeed){
                     console.log("estamos accediendoo bbecita prrr");
                     console.log(connectedUser);
+
                     sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));
+
+
+                    
                     sessionStorage.setItem('tipoLogin',"usuario")
+
                     this.setState({redirect:true});
                     alert("Contraseña y usuario correctos!");
                   }else{
