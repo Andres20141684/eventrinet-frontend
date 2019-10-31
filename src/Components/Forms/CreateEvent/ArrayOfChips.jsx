@@ -10,13 +10,29 @@ import '../../../styles/style_sheets.css';
 export default function ArrayOfChips(props) {
   let chipData =[];
   chipData= props.lista;
-  var aux;
+  var aux='';
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
-    chipData.push(aux)
-    props.handleadd(chipData,props.tag)
-    cancelCourse()
+    if(aux!==''){
+      if(props.tag!=="categorias"){
+        let lastAtPos = aux[props.label].lastIndexOf('@');
+        let lastDotPos = aux[props.label].lastIndexOf('.');
+
+        if (!(lastAtPos < lastDotPos && lastAtPos > 0 && aux[props.label].indexOf('@@') == -1 && lastDotPos > 2 && (aux[props.label].length - lastDotPos) > 2)) {
+           console.log('jeremi')
+         }else{
+          chipData.push(aux)
+          props.handleadd(chipData,props.tag)
+          cancelCourse()
+         }
+      }else{
+        chipData.push(aux)
+        props.handleadd(chipData,props.tag)
+        cancelCourse()
+      }
+        
+    }
   };
 
   const handleDelete = chipToDelete => () => {
@@ -30,22 +46,29 @@ export default function ArrayOfChips(props) {
   }
 
   const cancelCourse = () => { 
-    document.getElementById("create-course-form").reset();
+    document.getElementById(props.tag).reset();
+  }
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSelect()
+    }
   }
   return (
     <div>
       <Row> 
-      <form id="create-course-form">
+      <form id={props.tag} onSubmit={e => { e.preventDefault(); }}>
       <div class="input-group mb-3">
         <input 
-            type="email"
+            type={props.tag==="categorias"?null:"email"}
+            defaultValue=''
             //value={data}
-            name='email'
+            //name='email'
             class="form-control" 
             id="id_email"
             aria-label="Recipient's username" 
             aria-describedby="basic-addon2"
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             style={{width: 360/*,position:"relative"*/}}/>
         <div class="input-group-append">
           <button 
@@ -74,4 +97,3 @@ export default function ArrayOfChips(props) {
     </div>
   );
 }
-

@@ -37,7 +37,8 @@ function logInState(){
 
 function setRoles(listRoles){
   console.log("listRoles",listRoles)
-
+  
+  let itemOpciones = document.getElementById("nav-item-opciones")
   let itemOrga = document.getElementById("itemOrga")
   let itemEval = document.getElementById("itemEval")
   let itemPresi = document.getElementById("itemPresi")
@@ -49,6 +50,7 @@ function setRoles(listRoles){
   itemPresi.style.display = "none"
   itemMisProp.style.display = "none"
   itemMisInscrip.style.display = "none"
+  itemOpciones.style.display = "block"
 
   if (!(listRoles[1]["Organizador"]==0)){
     itemOrga.style.display = "block"
@@ -70,6 +72,15 @@ function setRoles(listRoles){
     itemMisInscrip.style.display = "block"
     console.log("parti",listRoles[5]["Participante"])
   }  
+  if (
+        (listRoles[1]["Organizador"]==0) && 
+        (listRoles[2]["Presidente del Comité Académico"]==0) && 
+        (listRoles[3]["Evaluador"]==0) &&
+        (listRoles[4]["Postulante"]==0) && 
+        (listRoles[5]["Participante"]==0) 
+    ){
+    itemOpciones.style.display = "none"
+  }
 
 }
 
@@ -173,6 +184,7 @@ class BannerTop extends Component{
   }
 
   clickLogOut () {
+    
     try{      
       let linkLogin = document.getElementById("linkLogin")
       let linkSignUp = document.getElementById("linkSignUp")
@@ -203,7 +215,6 @@ class BannerTop extends Component{
       }
 
       sessionStorage.setItem('tipoLogin',null)
-      
     }catch(err){
       console.log(err)
     }    

@@ -1,7 +1,45 @@
 const restURL = 'http://174.129.92.182:5000/api/';
 
-var connectedUser = null;
 
+async function crear_cuenta(
+    var_email,
+    var_last_name,
+    var_name, 
+    var_username,
+     var_password) {
+    console.log('Creando Usuario...');
+    try {        
+        let response = await fetch(restURL 
+            + 'crear_cuenta', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: var_email,
+                family_name: var_last_name,
+                given_name: var_name,
+                username: var_username,
+                password: var_password
+  
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);  
+        console.log(response);
+        console.log('Saving!!');
+  
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+  }
 
 async function validar_sesion(var_email,var_given_name,var_family_name) {
     
@@ -36,6 +74,7 @@ async function validar_sesion(var_email,var_given_name,var_family_name) {
 			console.log("Data del usuario",connectedUser);
 			sessionStorage.setItem('dataUser', JSON.stringify(connectedUser))
 			sessionStorage.setItem('tipoLogin',"gmail")
+
 			alert("El correo esta registrado en Eventrinet!")
 			window.location.replace("./");
 		}else{
@@ -89,8 +128,42 @@ function onSignIn(googleUser) {
 		console.log(profile.U3);
 		console.log(profile.ofa);
 		console.log(profile.wea);
-		validar_sesion(
-		
+
+		let retrievedObject = sessionStorage.getItem('tipoSingUp');
+		//if(retrievedObject.tipo)
+		console.log("---------------------------------------");
+		console.log(retrievedObject);
+		if(retrievedObject=='gmail'){
+			console.log("---------------------------------------");
+			crear_cuenta(
+				profile.U3,
+				profile.ofa,
+				profile.wea ,
+				profile.ofa,
+				profile.wea 
+			).then(
+					(response) => {
+					console.log(response);
+					let connectedUser = response;
+					console.log("Data del usuario",connectedUser);
+					if (connectedUser.succeed){
+						console.log("estamos creando bbecita prrr");
+						console.log(connectedUser);
+						sessionStorage.setItem('dataUser', 
+						JSON.stringify(connectedUser));
+						
+					}else{
+						console.log("YIYI no se pudo crear cuenta");              
+					}
+						alert("usuario registrado")
+						sessionStorage.setItem('tipoSingUp','_');
+						window.location.replace("./");
+					}
+			)
+			return;
+		}else{
+			validar_sesion(
+			
 			profile.U3,
 			profile.ofa,
 			profile.wea
@@ -98,7 +171,7 @@ function onSignIn(googleUser) {
 				respuestaVal= value 
 			
 		  });
-
+		}
 	
 }
 var respuestaVal = null;
@@ -115,15 +188,22 @@ function getJsonGoogleUser(){
 		console.log('Name: ' + superprofile.given_name);
 		console.log('Image URL: ' + superprofile.family_name);
 		console.log('Email: ' + superprofile.email); // This is null if the 'email' scope is not present.
-		validar_sesion(
 		
-			resp.email,
-			resp.given_name,
-			resp.family_name
-			).then((value) => {
-				respuestaVal= value 
-			
-		  });
+		
+		if (retrievedJson != null ){//no es regitarr
+		console.log("---------------------------------------");
+		console.log(retrievedJson);
+		
+		
+			validar_sesion(
+				resp.email,
+				resp.given_name,
+				resp.family_name
+				).then((value) => {
+					respuestaVal= value
+			  });
+		 	return;
+		   }
 	
 	
 	});
@@ -158,3 +238,4 @@ function toJSON(p) {
 		catch (e) {}
 	}
 }
+
