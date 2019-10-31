@@ -7,9 +7,26 @@ class Organizador_HistoryventsTable extends Component {
    constructor(props) {
     
       super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+      this.state = {
+         idUser_recived:0,
+      datos_tabla: {
+                     Eventos:[
+                        
+                     ]
+      }
+   }
+   }
+   componentDidMount(){
       
-      console.log("HAAAAAAAAAAAAAAAAAAAAA")
-      Networking.populateDataOrgTab1(8).then((value) => {
+      let retrievedObject = sessionStorage.getItem('dataUser');
+      let retrievedJson = JSON.parse(retrievedObject);  
+      this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
+      
+
+
+      Networking.populateDataOrgTab2(this.state.idUser_recived)
+      .then((value) => {
+
          console.log(value);
          if(value == null){
             console.log('no hay algo aun');
@@ -20,17 +37,6 @@ class Organizador_HistoryventsTable extends Component {
          }   
             
       });
-   }
-   state = {
-      datos_tabla: {
-         Eventos:[
-            {  
-               nombre: 'Datos1', 
-               fechaLimitePref: '21/03/2019',
-               preferencia: 'Por Categoria' 
-            }
-         ]
-      }
    }
    handleClick = () => {
     console.log('this is:', this);

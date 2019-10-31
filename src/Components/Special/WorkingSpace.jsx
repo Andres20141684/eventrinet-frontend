@@ -11,13 +11,15 @@ import SendProposal from '../../Components/SendProposal'
  ***************************************************************/
 class WorkingSpace extends Component{
   constructor(props){
+
     super(props);
-      this.state = {
+    this.state = {
         bannTop : BannerTop,
 
         nextChildComponent: null,
         nextChildComponentProps:{}
     }
+
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
   }
@@ -34,6 +36,7 @@ class WorkingSpace extends Component{
     setfutureProps(){
         /**los props del sgt componente ADIOS PAGINAS XD */
     }
+    
     componentWillMount(){
       console.log("WSWillMount")
       this.state.nextChildComponent= this.props.nextComponent;
@@ -52,6 +55,7 @@ class WorkingSpace extends Component{
           this.handleNextChildComponentChange(SendProposal);
         }
     }
+
     shouldComponentUpdate(nextProps,nextState){
         if(this.state.nextChildComponent  !== nextState.nextChildComponent){
             return true;
