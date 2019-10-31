@@ -1,7 +1,7 @@
 import {AsyncStorage} from 'react';
 
 
-const restURL = 'http://localhost:5000/api/';
+const restURL = 'http://174.129.92.182:5000/api/';
 
 
 export async function crear_cuenta(var_email,var_last_name,var_name, var_username, var_password) {
