@@ -226,7 +226,7 @@ class BannerTop extends Component{
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
 
-          <a onClick={this.handleClickInicio} target="_self" title="Volver al home">
+          <a onClick={this.handleClickInicio} style={{cursor: "pointer"}} target="_self" title="Volver al home">
             <img src="piruleta_loquisima.png" className="img-fluid"  width="200"/></a>
             
           </div>          
