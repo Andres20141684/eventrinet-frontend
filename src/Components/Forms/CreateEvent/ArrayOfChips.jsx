@@ -15,10 +15,23 @@ export default function ArrayOfChips(props) {
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
     if(aux!==''){
-      chipData.push(aux)
-    props.handleadd(chipData,props.tag)
-    console.log(aux)
-    cancelCourse()
+      if(props.tag!=="categorias"){
+        let lastAtPos = aux[props.label].lastIndexOf('@');
+        let lastDotPos = aux[props.label].lastIndexOf('.');
+
+        if (!(lastAtPos < lastDotPos && lastAtPos > 0 && aux[props.label].indexOf('@@') == -1 && lastDotPos > 2 && (aux[props.label].length - lastDotPos) > 2)) {
+           console.log('jeremi')
+         }else{
+          chipData.push(aux)
+          props.handleadd(chipData,props.tag)
+          cancelCourse()
+         }
+      }else{
+        chipData.push(aux)
+        props.handleadd(chipData,props.tag)
+        cancelCourse()
+      }
+        
     }
   };
 
@@ -30,7 +43,6 @@ export default function ArrayOfChips(props) {
 
   const handleChange= (e) =>{
     aux={[props.label]: e.target.value }
-    console.log(aux)
   }
 
   const cancelCourse = () => { 
@@ -47,7 +59,7 @@ export default function ArrayOfChips(props) {
       <form id={props.tag} onSubmit={e => { e.preventDefault(); }}>
       <div class="input-group mb-3">
         <input 
-            type="email"
+            type={props.tag==="categorias"?null:"email"}
             defaultValue=''
             //value={data}
             //name='email'
