@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+/*import React, { Component } from 'react'
 import './../../styles/Jtab.css'
 
 const Networking = require('./../../Network/Networking.js') ;
@@ -28,7 +28,7 @@ class PresiCalificacionFinalPapersTable extends Component {
             fechalimite: '25/08/2019', 
             calEva: 'Si',
             calPresi:'No'
-         }*/] 
+         }*//*] 
   }
    handleClick = () => {
     console.log('this is:', this);
@@ -79,4 +79,108 @@ class PresiCalificacionFinalPapersTable extends Component {
      }
 }
 
-export default PresiCalificacionFinalPapersTable //exporting a component make it reusable and this is the beauty of react
+export default PresiCalificacionFinalPapersTable //exporting a component make it reusable and this is the beauty of react*/
+import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import '../../styles/style_sheets.css'
+import { is } from '@babel/types';
+import ActionButton from './ActionButton';
+//import NewEventPage from './../../Pages/NewEventPage' //aca debería estar el modificar fases, pero ni en back hay :'v
+const Networking = require('./../../Network/Networking.js') ;
+
+
+class PresiCalificacionFinalPapersTable  extends Component {
+   constructor(props) {
+    
+      super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+      this.state = {
+         idUser_recived:0,
+      datos_tabla: {
+                     Eventos:[
+                        
+                     ]
+      }
+   }
+   }
+   componentDidMount(){
+      
+      let retrievedObject = sessionStorage.getItem('dataUser');
+      let retrievedJson = JSON.parse(retrievedObject);  
+      this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
+      
+
+
+      Networking.populateDataPresiEvalFinal(this.state.idUser_recived)
+      .then((value) => {
+
+         console.log(value);
+         if(value == null){
+            console.log('no hay algo aun');
+            
+         }else {
+            console.log('si hay algo:');
+            this.setState({datos_tabla:value});
+         }   
+            
+      });
+   }
+   handleClick = () => {
+    console.log('this is:', this);
+  }
+  
+   renderTableData() {
+        return this.state.datos_tabla.Eventos.map((element, index) => {
+         const {idEvento, nombre,secuencia, numFases,fechaLimite} = element
+            return (
+            <tr >
+                <td>{nombre}</td>
+                <td align="center">{secuencia}/{numFases}</td>
+               <td align="center">{fechaLimite}</td>
+               <td align="center">
+                  <ActionButton id_evento={idEvento} button_class ="fa fa-check-circle" redirect_to="/"/>
+                  -
+                  <ActionButton id_evento={idEvento} button_class ="fa fa-minus-circle" redirect_to="/"/>
+               </td> 
+               <td align="center">
+                  <ActionButton id_evento={idEvento} button_class ="fa fa-plus" redirect_to="/"/>
+               </td> 
+            </tr>
+        )
+        })
+    }
+    renderTableHeader() {
+      return (
+         <tr>
+             <th width="40%">Lista de eventos</th>
+             <th>Fase actual / Fases totales </th>
+             <th>Fecha límite</th>
+             <th>Cal. Eval. -> Cal. Presi</th>
+             <th>Aprobar Propuestas</th>
+         </tr>
+
+     )
+     }
+  
+     render() {
+        //this.state = this.props.data
+        return (
+         <div class="panel panel mypanel" >
+         <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
+             <h3>Lista de eventos históricos</h3>
+          </div>
+         <div  class="table-responsive">
+             <table class="table  table-hover" >
+             <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
+               {this.renderTableHeader()}
+             </thead>
+                <tbody>{this.renderTableData()}</tbody>
+             </table>
+         </div>
+      </div>
+
+          
+        )
+     }
+}
+
+export default PresiCalificacionFinalPapersTable//exporting a component make it reusable and this is the beauty of react
