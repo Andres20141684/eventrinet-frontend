@@ -92,12 +92,12 @@ class Login extends Component{
                 
                 <div className="form-row">
                   <label for="your-user">Usuario</label>
-                  <input type="text" name="your-user" id="your-user" className="input-text" onChange={this.onChageInputName} onKeyDown={this.onKeyDownName} placeholder="Ingresar usuario" />
+                  <input type="text" name="your-user" id="your-user" className="input-text"  maxLength="11" onChange={this.onChageInputName} onKeyDown={this.onKeyDownName} placeholder="Ingresar usuario" />
                   <i className="fa fa-envelope"></i>
                 </div>
                 <div className="form-row">
                   <label for="password">Contraseña</label>
-                  <input type="password" name="password" id="password" className="input-text"  onChange={this.onChageInputPass} placeholder="Contraseña" required/>
+                  <input type="password" name="password" id="password" className="input-text"   maxLength="45" pattern=".{6,}" onChange={this.onChageInputPass} placeholder="Contraseña" required/>
                   <i className="fa fa-lock"></i>
                 </div>
                 <div className="form-row-last">                  

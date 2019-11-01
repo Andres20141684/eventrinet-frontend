@@ -31,6 +31,7 @@ export default class StepOne extends React.Component {
                     placeholder='Nombre'              
                     onChange={this.props.handleChange}
                     value={this.props.nombre}
+                    maxLength="45"
                     autoFocus/>
             </div>
             </Row>
@@ -60,7 +61,9 @@ export default class StepOne extends React.Component {
                     id="id_place"
                     placeholder='Lugar'                
                     onChange={this.props.handleChange}
-                    value={this.props.lugar}/>
+                    value={this.props.lugar}
+                    maxLength="150"
+                    />
             </div>
             </Row>
             <Row>            
