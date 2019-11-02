@@ -14,6 +14,7 @@ export default function ArrayOfChips(props) {
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
+    console.log(aux)
     if(aux!==''){
       if(props.tag!=="categorias"){
         let lastAtPos = aux[props.label].lastIndexOf('@');
@@ -22,18 +23,32 @@ export default function ArrayOfChips(props) {
         if (!(lastAtPos < lastDotPos && lastAtPos > 0 && aux[props.label].indexOf('@@') == -1 && lastDotPos > 2 && (aux[props.label].length - lastDotPos) > 2)) {
            console.log('jeremi')
          }else{
-          chipData.push(aux)
+           addElement(aux)
+          /*chipData.push(aux)
           props.handleadd(chipData,props.tag)
-          cancelCourse()
+          cancelCourse()*/
          }
       }else{
-        chipData.push(aux)
+        addElement(aux)
+        /*chipData.push(aux)
         props.handleadd(chipData,props.tag)
-        cancelCourse()
+        cancelCourse()*/
       }
         
     }
   };
+
+  const addElement=(elemt)=>{
+    console.log(chipData.indexOf(elemt))
+    for(let i=0; i<= chipData.length; i++){
+      console.log(chipData.indexOf(elemt))
+      if(chipData.indexOf(elemt) === -1) { // notice that there is a parenthesis after `id`.
+          chipData.push(elemt)
+          props.handleadd(chipData,props.tag)
+          cancelCourse()
+      }
+  }
+  }
 
   const handleDelete = chipToDelete => () => {
     chipData=chipData.filter(chipData=>chipData[props.label]!==chipToDelete[props.label]);
@@ -43,6 +58,7 @@ export default function ArrayOfChips(props) {
 
   const handleChange= (e) =>{
     aux={[props.label]: e.target.value }
+    console.log(aux)
   }
 
   const cancelCourse = () => { 

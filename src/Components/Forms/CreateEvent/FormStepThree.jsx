@@ -46,6 +46,10 @@ class FormStepThree extends Component{
                 <div class="form-group col-md-3">
                     <label >Fecha Inicio:</label>
                     <DatePicker
+                      type="date"
+                      id="input-date"
+                      name="date_in"
+                      placeholder="date_in"
                       selected={this.props.value.faseIni}
                       minDate={this.props.index===0?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate() + 1)}
                       maxDate={this.props.fechaMax}
@@ -55,6 +59,10 @@ class FormStepThree extends Component{
                 <div class="form-group col-md-3">
                     <label >Fecha Fin:</label>
                     <DatePicker
+                      type="date"
+                      id="input-date"
+                      name="date_in"
+                      placeholder="date_in"
                       selected={this.props.value.faseFin}
                       minDate={this.props.value.faseIni}
                       maxDate={this.props.fechaMax}
@@ -64,15 +72,17 @@ class FormStepThree extends Component{
               </Row>
                 <Row>                
                 <div class="form-group col-md-6">
-                    <label>Requiere adjuntar archivo (.pdf)</label>
-                    <div>
-                        <Form.Check
-                            type="checkBox" 
-                            name="formHorizontalRadios_1"
-                            id="formHorizontalRadios1"
-                            checked={this.props.value.reqArch}
-                            onClick={(e) => this.props.handleCheck(e,this.props.index,"reqArch","necesitaArchivo")}
-                        />
+                    <div class="form-group col-md-12" >
+                        <label>Requiere adjuntar archivo (.pdf)</label>
+                        <div>
+                            <Form.Check
+                                type="checkBox" 
+                                name="formHorizontalRadios_1"
+                                id="formHorizontalRadios1"
+                                checked={this.props.value.reqArch}
+                                onClick={(e) => this.props.handleCheck(e,this.props.index,"reqArch","necesitaArchivo")}
+                            />
+                        </div>
                     </div>
                 </div>
                 </Row>

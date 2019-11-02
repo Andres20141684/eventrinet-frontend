@@ -132,9 +132,9 @@ handleCheckboxChange = event =>{
             <h3>Camera Ready</h3>
             <div class="panel panel-default">  
             <div class="panel-body">   
-            <div>
-              <label>Requiere Camera Ready</label>
-            <input 
+            <div class="form-group col-md-3">
+              <label>Requiere Camera Ready: </label>
+              <input 
                 type="checkbox" 
                 checked={this.props.rdCamR}
                 onClick={(e)=>this.props.handleCheckB(e,"rdCamR")}
@@ -147,7 +147,9 @@ handleCheckboxChange = event =>{
                       <label >Fecha Inicio</label>
                       <DatePicker
                         type="date"
-                        id="id_IniCamReady"
+                        id="input-date"
+                        name="date_in"
+                        placeholder="date_in"
                         selected={this.props.fCRIni}
                         minDate={new Date(this.state.values[this.state.values.length-1].faseFin).setDate(this.state.values[this.state.values.length-1].faseFin.getDate() + 1)}
                         maxDate={this.props.fechaIE}
@@ -160,7 +162,9 @@ handleCheckboxChange = event =>{
                       <label >Fecha Fin</label>
                       <DatePicker
                         type="date"
-                        id="id_FinCamReady"
+                        id="input-date"
+                        name="date_in"
+                        placeholder="date_in"
                         selected={this.props.fCRFin}
                         minDate={this.props.fCRIni}
                         maxDate={this.props.fechaIE}
@@ -180,11 +184,14 @@ handleCheckboxChange = event =>{
                   <Row>            
                   <div class="form-group col-md-3">                      
                       <DatePicker
+                        type="date"
+                        id="input-date"
+                        name="date_in"
+                        placeholder="date_in"
                         selected={this.props.fechPref}
                         minDate={new Date()}
                         maxDate={this.props.fechaMax}
                         onChange={(e)=> this.props.handleChange2(e,"fechPref")}
-                        class="form-control"
                       />
                   </div>
                 </Row>        
