@@ -15,6 +15,7 @@ export default function ArrayOfChips(props) {
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
     if(aux!==''){
+      console.log(aux)
       if(props.tag!=="categorias"){
         let lastAtPos = aux[props.label].lastIndexOf('@');
         let lastDotPos = aux[props.label].lastIndexOf('.');
@@ -22,11 +23,15 @@ export default function ArrayOfChips(props) {
         if (!(lastAtPos < lastDotPos && lastAtPos > 0 && aux[props.label].indexOf('@@') == -1 && lastDotPos > 2 && (aux[props.label].length - lastDotPos) > 2)) {
            console.log('jeremi')
          }else{
+          console.log(aux)
+          
           chipData.push(aux)
           props.handleadd(chipData,props.tag)
           cancelCourse()
          }
       }else{
+        console.log(aux)
+        
         chipData.push(aux)
         props.handleadd(chipData,props.tag)
         cancelCourse()
@@ -34,6 +39,23 @@ export default function ArrayOfChips(props) {
         
     }
   };
+
+  /*const addElement=(aux)=>{
+    console.log(chipData)
+    let f=0;
+    console.log(chipData.indexOf(aux))
+    if(props.lista.indexOf(aux)===(-1)) { // notice that there is a parenthesis after `id`.
+        f=1;
+        console.log(f)
+    }
+    if(f===1){
+      console.log(f)
+      console.log(aux)
+          chipData.push(aux)
+          props.handleadd(chipData,props.tag)
+          cancelCourse()
+    }
+  }*/
 
   const handleDelete = chipToDelete => () => {
     chipData=chipData.filter(chipData=>chipData[props.label]!==chipToDelete[props.label]);
@@ -74,10 +96,9 @@ export default function ArrayOfChips(props) {
           <button 
             class="btn btn-outline-secondary add"
             variant="primary" 
-            type='button' 
+            type='email' 
             onClick={handleSelect}
-            style={{backgroundColor:"002D3D"}}
-            type="button">Agregar</button>
+            style={{backgroundColor:"002D3D"}}>Agregar</button>
         </div>
       </div>
       </form>

@@ -80,10 +80,10 @@ class ArrayDinamics extends Component{
                   ))}
                   <Row>
                       <Col>
-                      <input class="btn btn-primary"type="button" value="add more" onClick={() => this.addClick()} /> 
+                      <input class="btn btn-primary"type="button" value="Añadir" onClick={() => this.addClick()} /> 
                       </Col>
                       <Col>
-                      {this.state.array.length===1?null:<input class="btn btn-danger"type="button" value="delete" onClick={() => this.removeClick()} />} 
+                      {this.state.array.length===1?null:<input class="btn btn-danger"type="button" value="Borrar" onClick={() => this.removeClick()} />} 
                       </Col>
                   </Row>
                   

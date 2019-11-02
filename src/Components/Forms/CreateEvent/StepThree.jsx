@@ -108,6 +108,7 @@ handleCheckboxChange = event =>{
             <div class="panel-body">
               <div>
               <this.state.form_1 
+                    tamActual={this.state.values.length}
                     camposPerson="camposPerson"
                     criterios="criterios"
                     value={this.state.values[index]} 
@@ -117,7 +118,7 @@ handleCheckboxChange = event =>{
                     handleChangeFaseDate={this.handleChangeFaseDate}
                     handleCheck={this.handleCheck}
                     fechaAnt={index===0?null:this.state.values[index-1].faseFin}
-                    fechaMax={this.props.fechaIE}/>
+                    fechaPost={this.state.values.length-1===index?null:this.state.values[index-1].faseFin}/>
                 </div>
             </div> 
           </div>
@@ -132,9 +133,9 @@ handleCheckboxChange = event =>{
             <h3>Camera Ready</h3>
             <div class="panel panel-default">  
             <div class="panel-body">   
-            <div>
-              <label>Requiere Camera Ready</label>
-            <input 
+            <div class="form-group col-md-3">
+              <label>Requiere Camera Ready: </label>
+              <input 
                 type="checkbox" 
                 checked={this.props.rdCamR}
                 onClick={(e)=>this.props.handleCheckB(e,"rdCamR")}
@@ -147,10 +148,12 @@ handleCheckboxChange = event =>{
                       <label >Fecha Inicio</label>
                       <DatePicker
                         type="date"
-                        id="id_IniCamReady"
+                        id="input-date"
+                        name="date_in"
+                        placeholder="date_in"
                         selected={this.props.fCRIni}
-                        minDate={new Date(this.state.values[this.state.values.length-1].faseFin).setDate(this.state.values[this.state.values.length-1].faseFin.getDate() + 1)}
-                        maxDate={this.props.fechaIE}
+                        //minDate={new Date(this.state.values[this.state.values.length-1].faseFin).setDate(this.state.values[this.state.values.length-1].faseFin.getDate() + 1)}
+                        //maxDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRIni")}
                         class="form-control"
                         
@@ -160,10 +163,12 @@ handleCheckboxChange = event =>{
                       <label >Fecha Fin</label>
                       <DatePicker
                         type="date"
-                        id="id_FinCamReady"
+                        id="input-date"
+                        name="date_in"
+                        placeholder="date_in"
                         selected={this.props.fCRFin}
-                        minDate={this.props.fCRIni}
-                        maxDate={this.props.fechaIE}
+                        //minDate={this.props.fCRIni}
+                        //maxDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRFin")}
                         
                       />
@@ -174,17 +179,55 @@ handleCheckboxChange = event =>{
               
             </div>
             </div>
+            <div>
+              <h3>Fecha de realizacion del evento: </h3>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  
+                  <Row>            
+                  <div class="form-group col-md-3">
+                  <label >Fecha Inicio</label>
+                    <DatePicker
+                      type="date"
+                      selected={this.props.fechaIE}
+                      minDate={new Date()}
+                      onChange={(e)=> this.props.handleChange2(e,"fIni")}
+                      id="input-date"
+                      name="date_in"
+                      placeholder="date_in"
+                    />
+                  </div>
+                  <div class="form-group col-md-3">
+                      <label >Fecha Fin </label>
+                        <DatePicker
+                          style={{position:"absolute"}}
+                          type="date"
+                          selected={this.props.fechaFE}
+                          minDate={this.props.fechaIE}
+                          onChange={(e)=> this.props.handleChange2(e,"fFin")}
+                          id="input-date"
+                          name="date_in"
+                          placeholder="date_in"
+                        />
+                  </div>
+                  </Row>
+                  
+                </div>
+              </div>
+            </div>
 
             <h3>Fecha límite de elección de preferencias para los evaluadores</h3>            
               <FormGroup class="card card-body">  
                   <Row>            
                   <div class="form-group col-md-3">                      
                       <DatePicker
+                        type="date"
+                        id="input-date"
+                        name="date_in"
+                        placeholder="date_in"
                         selected={this.props.fechPref}
                         minDate={new Date()}
-                        maxDate={this.props.fechaMax}
                         onChange={(e)=> this.props.handleChange2(e,"fechPref")}
-                        class="form-control"
                       />
                   </div>
                 </Row>        
