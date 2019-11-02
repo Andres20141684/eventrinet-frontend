@@ -97,7 +97,7 @@ class Login extends Component{
                 </div>
                 <div className="form-row">
                   <label for="password">Contraseña</label>
-                  <input type="password" name="password" id="password" className="input-text"   maxLength="45" pattern=".{6,}" onChange={this.onChageInputPass} placeholder="Contraseña" required/>
+                  <input type="password" name="password" id="password" className="input-text"   maxLength="45" pattern=".{4,}" onChange={this.onChageInputPass} placeholder="Contraseña" required/>
                   <i className="fa fa-lock"></i>
                 </div>
                 <div className="form-row-last">                  

@@ -14,8 +14,8 @@ export default function ArrayOfChips(props) {
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
-    console.log(aux)
     if(aux!==''){
+      console.log(aux)
       if(props.tag!=="categorias"){
         let lastAtPos = aux[props.label].lastIndexOf('@');
         let lastDotPos = aux[props.label].lastIndexOf('.');
@@ -23,32 +23,39 @@ export default function ArrayOfChips(props) {
         if (!(lastAtPos < lastDotPos && lastAtPos > 0 && aux[props.label].indexOf('@@') == -1 && lastDotPos > 2 && (aux[props.label].length - lastDotPos) > 2)) {
            console.log('jeremi')
          }else{
-           addElement(aux)
-          /*chipData.push(aux)
+          console.log(aux)
+          
+          chipData.push(aux)
           props.handleadd(chipData,props.tag)
-          cancelCourse()*/
+          cancelCourse()
          }
       }else{
-        addElement(aux)
-        /*chipData.push(aux)
+        console.log(aux)
+        
+        chipData.push(aux)
         props.handleadd(chipData,props.tag)
-        cancelCourse()*/
+        cancelCourse()
       }
         
     }
   };
 
-  const addElement=(elemt)=>{
-    console.log(chipData.indexOf(elemt))
-    for(let i=0; i<= chipData.length; i++){
-      console.log(chipData.indexOf(elemt))
-      if(chipData.indexOf(elemt) === -1) { // notice that there is a parenthesis after `id`.
-          chipData.push(elemt)
+  /*const addElement=(aux)=>{
+    console.log(chipData)
+    let f=0;
+    console.log(chipData.indexOf(aux))
+    if(props.lista.indexOf(aux)===(-1)) { // notice that there is a parenthesis after `id`.
+        f=1;
+        console.log(f)
+    }
+    if(f===1){
+      console.log(f)
+      console.log(aux)
+          chipData.push(aux)
           props.handleadd(chipData,props.tag)
           cancelCourse()
-      }
-  }
-  }
+    }
+  }*/
 
   const handleDelete = chipToDelete => () => {
     chipData=chipData.filter(chipData=>chipData[props.label]!==chipToDelete[props.label]);
@@ -58,7 +65,6 @@ export default function ArrayOfChips(props) {
 
   const handleChange= (e) =>{
     aux={[props.label]: e.target.value }
-    console.log(aux)
   }
 
   const cancelCourse = () => { 
@@ -90,10 +96,9 @@ export default function ArrayOfChips(props) {
           <button 
             class="btn btn-outline-secondary add"
             variant="primary" 
-            type='button' 
+            type='email' 
             onClick={handleSelect}
-            style={{backgroundColor:"002D3D"}}
-            type="button">Agregar</button>
+            style={{backgroundColor:"002D3D"}}>Agregar</button>
         </div>
       </div>
       </form>

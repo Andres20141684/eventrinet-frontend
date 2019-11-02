@@ -52,7 +52,7 @@ class FormStepThree extends Component{
                       placeholder="date_in"
                       selected={this.props.value.faseIni}
                       minDate={this.props.index===0?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate() + 1)}
-                      maxDate={this.props.fechaMax}
+                      //maxDate={this.props.tamActual-1===this.props.index?null:this.props.fechaPost}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseIni","fechaFaseIni")}
                     />
                 </div>
@@ -65,7 +65,7 @@ class FormStepThree extends Component{
                       placeholder="date_in"
                       selected={this.props.value.faseFin}
                       minDate={this.props.value.faseIni}
-                      maxDate={this.props.fechaMax}
+                      //maxDate={this.props.fechaMax}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseFin","fechaFaseFin")}
                     />
                 </div>
