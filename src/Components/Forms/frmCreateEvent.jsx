@@ -56,11 +56,13 @@ export default function HorizontalLabelPositionBelowStepper(props) {
   
   
   const handleNext = () => {
+    window.scrollTo(0, 0);
     setActiveStep(prevActiveStep => prevActiveStep + 1);
     
   };
 
   const handleBack = () => {
+    window.scrollTo(0, 0);
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
