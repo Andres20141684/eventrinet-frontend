@@ -2,7 +2,7 @@ import {AsyncStorage} from 'react';
 
 
 
-const restURL = 'http://174.129.92.182:5000/api/';
+const restURL = 'http://localhost:5000/api/';
 
 
 export async function crear_cuenta(var_email,var_last_name,var_name, var_username, var_password) {
@@ -233,13 +233,11 @@ export async function populateDataOrgTab2(idOrganizador) {
     }
 }
 
-export async function populateDataEvaTab(idOrganizador) {
-    console.log('INTENTO DE POST!! en ' +restURL 
-    + 'eventos/listar_eventos_preferencias');
+export async function populateDataEvaTab(idPresidente) {
     try {
-        console.log('RECIBI UN idOrganizador: ' + idOrganizador);
+        console.log('RECIBI UN idPresidente: ' + idPresidente);
         let response = await fetch(restURL 
-            + 'eventos/listar_eventos_preferencias', {
+            + 'presidente/eventos/asignar_evaluadores', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -247,7 +245,7 @@ export async function populateDataEvaTab(idOrganizador) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                idUsuario: idOrganizador
+                idUsuario: idPresidente
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
@@ -262,13 +260,11 @@ export async function populateDataEvaTab(idOrganizador) {
     }
 }
 
-export async function populateDataPresiTab_asignar_evaluadores(idOrganizador) {
-    console.log('INTENTO DE POST!! en ' +restURL 
-    + 'eventos/presidente');
+export async function populateDataPresiEvalFinal(idPresidente) {
     try {
-        console.log('RECIBI UN idOrganizador: ' + idOrganizador);
+        console.log('RECIBI UN idPresidente: ' + idPresidente);
         let response = await fetch(restURL 
-            + 'presidente/eventos/asignar_evaluadores', {
+            + 'presidente/eventos/en_fase_evaluacion', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -276,7 +272,7 @@ export async function populateDataPresiTab_asignar_evaluadores(idOrganizador) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                idUsuario: idOrganizador
+                idUsuario: idPresidente
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');

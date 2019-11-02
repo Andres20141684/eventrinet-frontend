@@ -8,7 +8,7 @@ import AnnouncementPage from './Pages/AnnouncementPage';
 /**************************************/
 //import OrganActiveEvents from './Pages/OrganActiveEvents';
 import PresiCalificacionFinalPapers from './Pages/PresiCalificacionFinalPapers';
-import PresidentEvents from './Pages/PresidentEvents';
+//import PresidentEvents from './Pages/PresidentEvents';
 import EvaluadorEventos from './Pages/EvaluadorEventos';
 import Create_EventStep3 from './Pages/Create_EventStep3';
 import Prueba from './Pages/Prueba';
@@ -34,7 +34,7 @@ ReactDOM.render(<Router>
                     <Route path='/propDetailProposal' exact component={ProposerDetailProposal} />
                     
                     
-                    <Route path='/presidentEvents' exact component={PresidentEvents} />
+                    
                     <Route path='/PresiCalificacionFinalPapers' exact component={PresiCalificacionFinalPapers} />
                     
                     <Route path='/EvaluadorEventos' exact component={EvaluadorEventos} />

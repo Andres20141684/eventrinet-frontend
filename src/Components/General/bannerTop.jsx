@@ -4,6 +4,7 @@ import {Link}  from "react-router-dom";
 import Dashboard from '../Dashboard';
 import NewIni from './NewIni';
 import OrganActiveEvents from "./../../Pages/OrganActiveEvents.jsx";
+import PresiAsignarEvalEvents from "./../../Pages/PresiAsignarEvalEvents.jsx";
 import GoogleLogout from 'react-google-login';    
 
 
@@ -141,6 +142,10 @@ class BannerTop extends Component{
     console.log('redireccionando a ... Announcements evento');
     this.handleNextChildComponentChange(OrganActiveEvents);
   }
+  handleClicPresidenteEventos = () => {
+    console.log('redireccionando a ... Announcements evento?')
+    this.handleNextChildComponentChange(PresiAsignarEvalEvents)
+  }
   handleClicEvents = () => {
     console.log('redireccionando a ... Announcements evento');
     this.handleNextChildComponentChange(Dashboard);
@@ -226,7 +231,7 @@ class BannerTop extends Component{
         <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
 
-          <a onClick={this.handleClickInicio} target="_self" title="Volver al home">
+          <a onClick={this.handleClickInicio} style={{cursor: "pointer"}} target="_self" title="Volver al home">
             <img src="piruleta_loquisima.png" className="img-fluid"  width="200"/></a>
             
           </div>          
@@ -293,7 +298,7 @@ class BannerTop extends Component{
                   <li><Link id="itemMisProp" className="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div className="dropdown-divider"></div>
                   <li><Link id="itemOrga" className="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
-                  <li><Link id="itemPresi" className="nav-link" to="/presidentEvents"><b><font size="3">Presidente</font></b></Link></li>
+                  <li><Link id="itemPresi"className="nav-link"  onClick={this.handleClicPresidenteEventos}><b><font size="3">Presidente</font></b></Link></li>
                   <li><Link id="itemEval" className="nav-link" to="/EvaluadorEventos" ><b><font size="3 ">Evaluador</font></b></Link></li>
                 </ul>
               </li>

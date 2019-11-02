@@ -136,28 +136,28 @@ class SingUp extends Component{
 
                 <div class="form-row">
                   <label for="your-name">Nombres</label>
-                  <input type="text" name="your-name" id="your-name" class="input-text" placeholder="Nombres" required onChange={this.onChangeName} pattern=".[a-zA-Z\s]{2,50}"/>
+                  <input type="text" name="your-name" id="your-name" class="input-text" placeholder="Nombres" maxLength="45" required onChange={this.onChangeName} pattern=".[a-zA-Z\s]{2,50}"/>
                   <i class="fa fa-user"></i>
                 </div>
                 <div class="form-row">
                 <label for="your-lastname">Apellidos</label>
-                  <input type="text" name="your-lastname" id="your-lastname" class="input-text" placeholder="Apellidos" required onChange={this.onChangeLastName} pattern=".[a-zA-Z\s]{2,50}"/>
+                  <input type="text" name="your-lastname" id="your-lastname" class="input-text" placeholder="Apellidos" maxLength="45" required onChange={this.onChangeLastName} pattern=".[a-zA-Z\s]{2,50}"/>
                   <i class="fa fa-user"></i>
                 </div>
 
                 <div class="form-row">
                   <label for="your-user">Usuario</label>
-                  <input type="text" name="your-user" id="your-user" class="input-text" placeholder="Usuario" required onChange={this.onChangeUser}  pattern=".{6,}"  />
+                  <input type="text" name="your-user" id="your-user" class="input-text" placeholder="Usuario" maxLength="11" required onChange={this.onChangeUser}  pattern=".{6,}"  />
                   <i class="fa fa-user"></i>
                 </div>
                 <div class="form-row">
                   <label for="your-email">Email</label>
-                  <input type="text" name="your-email" id="your-email" class="input-text" placeholder="Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" onChange={this.onChangeEmail}/>
+                  <input type="text" name="your-email" id="your-email" class="input-text" placeholder="Email" maxLength="100" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" onChange={this.onChangeEmail}/>
                   <i class="fa fa-envelope"></i>
                 </div>
                 <div class="form-row">                  
                   <label for="password">Contraseña</label>                  
-                  <input type="password" name="password" id="password" class="input-text" placeholder="Contraseña" onChange={this.onChangePassword} required/>
+                  <input type="password" name="password" id="password" class="input-text" placeholder="Contraseña" maxLength="45" onChange={this.onChangePassword} required/>
                   <i class="fa fa-lock"></i>
                 </div>                
                 <div class="alert alert-primary" id="alertPass"role="alert" style={{display:'none'}}>
