@@ -94,14 +94,14 @@ export default class EventNew extends Component{
                 })
               }
               if(response.fases.length!==0){
-                console.log(response.fases[0])
+                console.log(response.fases)
                 var auxfases=[]
                 for(var i=0;i<response.fases.length;i++){
-                  auxfases[i]=response.fases[i];
+                  auxfases[i]=JSON.parse(JSON.stringify(response.fases[i]));
                   auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
                   auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
-                  auxfases[i].reqArch=response.necesitaArchivo===1?true:false;
-                  auxfases[i].reqEval=response.necesitaEvaluacion===1?true:false;
+                  auxfases[i].reqArch=auxfases[i].necesitaArchivo===1?true:false;
+                  auxfases[i].reqEval=auxfases[i].necesitaEvaluacion===1?true:false;
                   auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();
                   for(var j=0;j<response.fases[i].camposPerson.length;j++){
                     auxfases[i].camposPerson[j].obli=auxfases[i].camposPerson[j].obligatorio===1?true:false;

@@ -130,11 +130,11 @@ class PresiCalificacionFinalPapersTable  extends Component {
   
    renderTableData() {
         return this.state.datos_tabla.Eventos.map((element, index) => {
-         const {idEvento, nombre,secuencia, numFases,fechaLimite} = element
+         const {idEvento, nombre,secuencia, fasesTotales,fechaLimite} = element
             return (
             <tr >
                 <td>{nombre}</td>
-                <td align="center">{secuencia}/{numFases}</td>
+                <td align="center">{secuencia}/{fasesTotales}</td>
                <td align="center">{fechaLimite}</td>
                <td align="center">
                   <ActionButton id_evento={idEvento} button_class ="fa fa-check-circle" redirect_to="/"/>
