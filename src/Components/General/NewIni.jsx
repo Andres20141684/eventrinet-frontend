@@ -86,8 +86,16 @@ class NewIni extends Component{
       this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
   }
   componentWillMount(){
+    console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< comprobando")
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      // Great success! All the File APIs are supported.
+      alert('Great success! All the File APIs are supported.');
+    } else {
+      alert('The File APIs are not fully supported in this browser.');
+    }
+    console.log("comprobando >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
     console.log("AppWillMount")
-    Networking.saludar().then(
+    /*Networking.saludar().then(
       (response)=>{
         
         this.setState({msg:response.message});
@@ -97,7 +105,7 @@ class NewIni extends Component{
         console.log("error en conexión");
         this.setState({msg:"Intento de conexión fallido"});
         console.log(err);
-      })
+      })*/
   }
 
   handleClick = () => {
