@@ -44,6 +44,7 @@ class SendProposal extends Component{
             }
             //I'm logged
             console.log('redireccionando a ... inscribirse evento');
+            
             this.handleNextChildComponentChange(FormSendProposal);
 
         }catch(err){
@@ -124,7 +125,7 @@ class SendProposal extends Component{
             </div>
         </div>
     </div>
-</div>
+    </div>
         );
     }
 }

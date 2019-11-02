@@ -73,7 +73,8 @@ class Portafolio extends Component{
                 <h2 class="titulo">{this.state.title}</h2>
                 <div class="galeria-port">
                     <div class="imagen-port" onClick={this.handleOnclickEvent}>
-                        <img src="img/img1.jpg" alt=""/>
+                    <img src="http://awscommunitydaydublin.com/wp-content/uploads/2019/09/doom2-3.png" alt="event1"/>
+                  
                         <div class="hover-galeria">
                             <img src="img/icono1.png" alt=""/>
                             <p>Ver Evento</p>
