@@ -2,7 +2,7 @@ import {AsyncStorage} from 'react';
 
 
 
-const restURL = 'http://localhost:5000/api/';
+const restURL = 'http://174.129.92.182:5000/api/';
 
 
 export async function crear_cuenta(var_email,var_last_name,var_name, var_username, var_password) {
@@ -246,6 +246,58 @@ export async function populateDataEvaTab(idPresidente) {
             },
             body: JSON.stringify({
                 idUsuario: idPresidente
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);
+        console.log('Saving!!');
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function populateDataEvalElegirPref(idEvaluador) {
+    try {
+        console.log('RECIBI UN idEvaluador: ' + idEvaluador);
+        let response = await fetch(restURL 
+            + 'evaluador/eventos/listar_eventos_preferencias', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario: idEvaluador
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);
+        console.log('Saving!!');
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function populateDataEvalEvaluar(idEvaluador) {
+    try {
+        console.log('RECIBI UN idEvaluador: ' + idEvaluador);
+        let response = await fetch(restURL 
+            + 'evaluador/eventos/listar_eventos_evaluar', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario: idEvaluador
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');

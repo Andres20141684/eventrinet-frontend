@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
-import EvaluadorEventosTable from '../Components/Jtable/EvaluadorEventosTable';
+import EvaluadorEventosTable from '../Components/Jtable/EvaluadorEventosPrefTable';
 import EvaluadorEventosEvaluarTable from '../Components/Jtable/EvaluadorEventosEvaluarTable';
 import Row from 'react-bootstrap/Row';
 
