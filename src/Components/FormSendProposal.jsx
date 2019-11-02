@@ -6,6 +6,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import StepOneSendProp from './StepOneSendProp';
 import StepTwoSendProp from './StepTwoSendProp'
+import NewIni from './General/NewIni';
+import './../styles/modal.css';
 //import ModalDialog from './CreateEvent/ModalDialog'
 
 const useStyles = makeStyles(theme => ({
@@ -53,11 +55,20 @@ export default function FormSendProposal(props) {
 
 
   const handleFinish = () =>{
-      alert("Se ha enviado la propuesta!")
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+      //alert("Se ha enviado la propuesta!")
       //elaizar servicio para guardar propuesta
+
       
   }
+  const handle_redirect =() =>{
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+    props.onNextChildComponentChange(NewIni);
+  }
   return (
+    <div>
     <div className={classes.root} style={styles.frmCreateEvent}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map(label => (
@@ -70,7 +81,8 @@ export default function FormSendProposal(props) {
       <div class=" mx-auto" style={{width:"700px"}}>
         {activeStep == steps.length - 1 ? (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
+            <Typography className={classes.instructions}>{
+              getStepContent(activeStep,props)}</Typography>
             <button  
                 style={{float:'left'}}
                 class="mybutton"
@@ -100,6 +112,18 @@ export default function FormSendProposal(props) {
         )}
       </div>
       </div>
+      
+    </div>
+    <div id="myModal" class="modal">
+
+  
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>Se ha enviado la propuesta</p>
+          <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handle_redirect}>OK</button>
+        </div>
+
+    </div>
     </div>
   );
 }
@@ -109,5 +133,11 @@ var styles = {
     paddintTop: 20,
     paddingBottom: 120,
     paddingLeft: 50
+  }
+}
+window.onclick = function(event) {
+  var modal = document.getElementById("myModal");
+  if (event.target == modal) {
+    modal.style.display = "none";
   }
 }
