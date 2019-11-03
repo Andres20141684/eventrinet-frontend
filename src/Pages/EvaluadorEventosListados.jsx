@@ -5,8 +5,8 @@ import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import './../styles/style_gig_tittle.css'
 
-import PresiEventos_asignarEvaTable from '../Components/Jtable/PresiEventos_asignarEvaTable';
-import PresiCalificacionFinalPapersTable from '../Components/Jtable/PresiCalificacionFinalPapersTable';
+import EvaluadorEventosPrefTable from '../Components/Jtable/EvaluadorEventosPrefTable';
+import EvaluadorEventosEvaluarTable from '../Components/Jtable/EvaluadorEventosEvaluarTable';
 const Networking = require('../Network/Networking.js') ;
 function Botones(){
     return ( 
@@ -23,18 +23,18 @@ function Botones(){
 function MainTittle(){
     return ( <div>
     <div style={{marginLeft:15}}>
-        <h1><br/>Presidente - Mis eventos</h1>
+        <h1><br/>Evaluador - Eventos</h1>
     </div>
-    <div style={{marginLeft:40,marginTop:25}} ><h4>Gestión de eventos a asignar evaluadores y en fase de evaluación</h4></div>
+    <div style={{marginLeft:40,marginTop:25}} ><h4>Gestion de eventos a elegir preferencias y a evaluar</h4></div>
     </div>
     )
 }
-class PresiAsignarEvalEvents extends Component{
+class OrganActiveEvents extends Component{
     constructor(props){
         super(props);
         this.state = {
-            formActives: PresiEventos_asignarEvaTable,
-            formRecord: PresiCalificacionFinalPapersTable,
+            formActives: EvaluadorEventosPrefTable,
+            formRecord: EvaluadorEventosEvaluarTable,
             datos_tabla1:  null,
             datos_tabla2: null,
             msg: "Not Connected",
@@ -66,8 +66,8 @@ class PresiAsignarEvalEvents extends Component{
                     <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
 
                             <TabList>
-                                <Tab>Eventos a asignar evaluadores</Tab>
-                                <Tab>Eventos en fase de evaluación</Tab>
+                                <Tab>Eventos a elegir preferencias</Tab>
+                                <Tab>Eventos a evaluar</Tab>
                             </TabList>
                             <TabPanel>
                                 
@@ -96,5 +96,5 @@ class PresiAsignarEvalEvents extends Component{
 }
 
 
-export default PresiAsignarEvalEvents;
+export default OrganActiveEvents;
 
