@@ -1,8 +1,7 @@
 import {AsyncStorage} from 'react';
 
-
-
-const restURL = 'http://174.129.92.182:5000/api/';
+//const restURL = 'http://174.129.92.182:5000/api/';
+const restURL = 'http://localhost:5000/api/';
 
 export async function getInfoUsuario_byId(_idUsuario) {
     console.log('buscando por ID Usuario...');
@@ -263,13 +262,11 @@ export async function populateDataOrgTab2(idOrganizador) {
     }
 }
 
-export async function populateDataEvaTab(idOrganizador) {
-    console.log('INTENTO DE POST!! en ' +restURL 
-    + 'eventos/listar_eventos_preferencias');
+export async function populateDataEvaTab(idPresidente) {
     try {
-        console.log('RECIBI UN idOrganizador: ' + idOrganizador);
+        console.log('RECIBI UN idPresidente: ' + idPresidente);
         let response = await fetch(restURL 
-            + 'eventos/listar_eventos_preferencias', {
+            + 'presidente/eventos/asignar_evaluadores', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -277,7 +274,59 @@ export async function populateDataEvaTab(idOrganizador) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                idUsuario: idOrganizador
+                idUsuario: idPresidente
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);
+        console.log('Saving!!');
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function populateDataEvalElegirPref(idEvaluador) {
+    try {
+        console.log('RECIBI UN idEvaluador: ' + idEvaluador);
+        let response = await fetch(restURL 
+            + 'evaluador/eventos/listar_eventos_preferencias', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario: idEvaluador
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);
+        console.log('Saving!!');
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function populateDataEvalEvaluar(idEvaluador) {
+    try {
+        console.log('RECIBI UN idEvaluador: ' + idEvaluador);
+        let response = await fetch(restURL 
+            + 'evaluador/eventos/listar_eventos_evaluar', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario: idEvaluador
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
@@ -292,13 +341,11 @@ export async function populateDataEvaTab(idOrganizador) {
     }
 }
 
-export async function populateDataPresiTab_asignar_evaluadores(idOrganizador) {
-    console.log('INTENTO DE POST!! en ' +restURL 
-    + 'eventos/presidente');
+export async function populateDataPresiEvalFinal(idPresidente) {
     try {
-        console.log('RECIBI UN idOrganizador: ' + idOrganizador);
+        console.log('RECIBI UN idPresidente: ' + idPresidente);
         let response = await fetch(restURL 
-            + 'presidente/eventos/asignar_evaluadores', {
+            + 'presidente/eventos/en_fase_evaluacion', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -306,7 +353,7 @@ export async function populateDataPresiTab_asignar_evaluadores(idOrganizador) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                idUsuario: idOrganizador
+                idUsuario: idPresidente
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');

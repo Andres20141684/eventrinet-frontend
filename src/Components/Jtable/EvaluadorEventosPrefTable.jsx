@@ -51,7 +51,7 @@ class EvaluadorEventosPrefTable  extends Component {
       console.log(retrievedJson);
 
 
-      Networking.populateDataEvalEvaluar(retrievedJson.infoUsuario.idUsuario).then((value) => {
+      Networking.populateDataEvalElegirPref(retrievedJson.infoUsuario.idUsuario).then((value) => {
          console.log(value);
          if(value == null){
             console.log('no hay algo aun');
@@ -112,16 +112,16 @@ class EvaluadorEventosPrefTable  extends Component {
             
            <div class="panel panel mypanel" >
               <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                  <h3>Lista de eventos a evaluar</h3>
+                  <h3>Lista de eventos a elegir preferencias</h3>
                </div>
               <div  class="table-responsive">
               <table class="table  table-hover">
                <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                   <tr >
                      <th align= "left" scope="col">Lista de eventos</th>
-                     <th scope="col">Fase actual / Fases totales</th>
-                     <th scope="col">Fecha límite</th>
-                     <th scope="col" align="right" >Evaluar fase</th>
+                     <th scope="col">Fecha máxima</th>
+                     <th scope="col">Tipo de preferencia</th>
+                     <th scope="col" align="right" >Agregar preferencias</th>
                   </tr>
                </thead>
               <tbody>{this.tableData()}</tbody>

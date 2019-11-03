@@ -46,89 +46,103 @@ class FormStepThree extends Component{
                 <div class="form-group col-md-3">
                     <label >Fecha Inicio:</label>
                     <DatePicker
+                      type="date"
+                      id="input-date"
+                      name="date_in"
+                      placeholder="date_in"
                       selected={this.props.value.faseIni}
-                      minDate={this.props.index===0?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate() + 1)}
-                      maxDate={this.props.fechaMax}
+                      //minDate={this.props.index===0?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate() + 1)}
+                      //maxDate={this.props.tamActual-1===this.props.index?null:this.props.fechaPost}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseIni","fechaFaseIni")}
                     />
                 </div>
                 <div class="form-group col-md-3">
                     <label >Fecha Fin:</label>
                     <DatePicker
+                      type="date"
+                      id="input-date"
+                      name="date_in"
+                      placeholder="date_in"
                       selected={this.props.value.faseFin}
                       minDate={this.props.value.faseIni}
-                      maxDate={this.props.fechaMax}
+                      //maxDate={this.props.fechaMax}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseFin","fechaFaseFin")}
                     />
                 </div>
               </Row>
                 <Row>                
                 <div class="form-group col-md-6">
-                    <label>Requiere adjuntar archivo (.pdf)</label>
-                    <div>
-                        <Form.Check
-                            type="checkBox" 
-                            name="formHorizontalRadios_1"
-                            id="formHorizontalRadios1"
-                            checked={this.props.value.reqArch}
-                            onClick={(e) => this.props.handleCheck(e,this.props.index,"reqArch","necesitaArchivo")}
-                        />
+                    <div class="form-group col-md-12" >
+                        <label>Requiere adjuntar archivo (.pdf)</label>
+                        <div>
+                            <Form.Check
+                                type="checkBox" 
+                                name="formHorizontalRadios_1"
+                                id="formHorizontalRadios1"
+                                checked={this.props.value.reqArch}
+                                onClick={(e) => this.props.handleCheck(e,this.props.index,"reqArch","necesitaArchivo")}
+                            />
+                        </div>
                     </div>
                 </div>
                 </Row>
                 </div>
                 </div> 
                 
-                <h3>Evaluacion</h3>
-                <div class="panel panel-default">    
-                <div class="panel-body">
-                <Row >
-                <div class="form-group col-md-6">                    
+                <div>
+                    {this.props.index===0?null:
                     <div>
-                            <Col>
-                            <label for="title">Requiere de Criterios: </label>
-                            </Col>
-                            <Col><input
-                                type="checkBox" 
-                                checked={this.props.value.reqEval}
-                                onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
-                            />
-                            </Col>
+                        <h3>Evaluacion</h3>
+                            <div class="panel panel-default">    
+                            <div class="panel-body">
+                            <Row >
+                            <div class="form-group col-md-6">                    
+                                <div>
+                                        <Col>
+                                        <label for="title">Requiere de Criterios: </label>
+                                        </Col>
+                                        <Col><input
+                                            type="checkBox" 
+                                            checked={this.props.value.reqEval}
+                                            onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
+                                        />
+                                        </Col>
+                                </div>
+                                <div>
+                                {this.props.value.reqEval===true?
+                                    <div>
+                                        <Row>
+                                        <div class="form-group col-md-6 form-inline">
+                                            <label >Numero de evaluadores: </label>
+                                            <input 
+                                            style={{display:'inline-block'}}
+                                            type="number" 
+                                            name='nombre'
+                                            class="form-control" 
+                                            id="id_name_fase"       
+                                            onChange={(e) => this.props.onChange(e,this.props.index,"numEvaluadores")}
+                                            value={this.props.value.numEvaluadores}
+                                            />
+                                    </div>
+                                    </Row>
+                                    <ArrayDinamic 
+                                    type='Criterio'
+                                    campo={this.props.criterios}
+                                    value={this.props.value} 
+                                    index={this.props.index}
+                                    handleChange4={this.props.handleChange4}
+                                    handleCheck={this.props.handleCheck}/>
+                                    </div>
+                                    :null}
+                                
+                                </div> 
+                            </div>
+                            </Row>
+                            </div>
+                            </div> 
                     </div>
-                    <div>
-                    {this.props.value.reqEval===true?
-                        <div>
-                            <Row>
-                            <div class="form-group col-md-6 form-inline">
-                                <label >Numero de evaluadores: </label>
-                                <input 
-                                style={{display:'inline-block'}}
-                                type="number" 
-                                name='nombre'
-                                class="form-control" 
-                                id="id_name_fase"       
-                                onChange={(e) => this.props.onChange(e,this.props.index,"numEvaluadores")}
-                                value={this.props.value.numEvaluadores}
-                                />
-                        </div>
-                        </Row>
-                        <ArrayDinamic 
-                        type='Criterio'
-                        campo={this.props.criterios}
-                        value={this.props.value} 
-                        index={this.props.index}
-                        handleChange4={this.props.handleChange4}
-                        handleCheck={this.props.handleCheck}/>
-                        </div>
-                        :null}
-                    
-                    </div> 
-                </div>
-                </Row>
-                
-                   
-                </div>
-                </div>            
+                    }
+                </div>           
 
                 <h3>Campos personalizados</h3>
                 <div class="panel panel-default">

@@ -4,6 +4,8 @@ import {Link}  from "react-router-dom";
 import Dashboard from '../Dashboard';
 import NewIni from './NewIni';
 import OrganActiveEvents from "./../../Pages/OrganActiveEvents.jsx";
+import PresiAsignarEvalEvents from "./../../Pages/PresiAsignarEvalEvents.jsx";
+import EvaluadorEventosListados from "./../../Pages/EvaluadorEventosListados.jsx";
 import GoogleLogout from 'react-google-login';    
 
 
@@ -140,6 +142,13 @@ class BannerTop extends Component{
   handleClicOrganizadorEventos = () => {
     console.log('redireccionando a ... Announcements evento');
     this.handleNextChildComponentChange(OrganActiveEvents);
+  }
+  handleClicPresidenteEventos = () => {
+    console.log('redireccionando a ... Announcements evento?')
+    this.handleNextChildComponentChange(PresiAsignarEvalEvents)
+  }
+  handleClicEvaluadorEventosListados = () => {
+    this.handleNextChildComponentChange(EvaluadorEventosListados)
   }
   handleClicEvents = () => {
     console.log('redireccionando a ... Announcements evento');
@@ -293,8 +302,8 @@ class BannerTop extends Component{
                   <li><Link id="itemMisProp" className="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div className="dropdown-divider"></div>
                   <li><Link id="itemOrga" className="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
-                  <li><Link id="itemPresi" className="nav-link" to="/presidentEvents"><b><font size="3">Presidente</font></b></Link></li>
-                  <li><Link id="itemEval" className="nav-link" to="/EvaluadorEventos" ><b><font size="3 ">Evaluador</font></b></Link></li>
+                  <li><Link id="itemPresi"className="nav-link"  onClick={this.handleClicPresidenteEventos}><b><font size="3">Presidente</font></b></Link></li>
+                  <li><Link id="itemEval"className="nav-link"  onClick={this.handleClicEvaluadorEventosListados}><b><font size="3">Evaluador</font></b></Link></li>
                 </ul>
               </li>
             </ul>
