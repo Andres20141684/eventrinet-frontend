@@ -51,7 +51,7 @@ class FormStepThree extends Component{
                       name="date_in"
                       placeholder="date_in"
                       selected={this.props.value.faseIni}
-                      minDate={this.props.index===0?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate() + 1)}
+                      //minDate={this.props.index===0?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate() + 1)}
                       //maxDate={this.props.tamActual-1===this.props.index?null:this.props.fechaPost}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseIni","fechaFaseIni")}
                     />
@@ -89,56 +89,60 @@ class FormStepThree extends Component{
                 </div>
                 </div> 
                 
-                <h3>Evaluacion</h3>
-                <div class="panel panel-default">    
-                <div class="panel-body">
-                <Row >
-                <div class="form-group col-md-6">                    
+                <div>
+                    {this.props.index===0?null:
                     <div>
-                            <Col>
-                            <label for="title">Requiere de Criterios: </label>
-                            </Col>
-                            <Col><input
-                                type="checkBox" 
-                                checked={this.props.value.reqEval}
-                                onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
-                            />
-                            </Col>
+                        <h3>Evaluacion</h3>
+                            <div class="panel panel-default">    
+                            <div class="panel-body">
+                            <Row >
+                            <div class="form-group col-md-6">                    
+                                <div>
+                                        <Col>
+                                        <label for="title">Requiere de Criterios: </label>
+                                        </Col>
+                                        <Col><input
+                                            type="checkBox" 
+                                            checked={this.props.value.reqEval}
+                                            onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
+                                        />
+                                        </Col>
+                                </div>
+                                <div>
+                                {this.props.value.reqEval===true?
+                                    <div>
+                                        <Row>
+                                        <div class="form-group col-md-6 form-inline">
+                                            <label >Numero de evaluadores: </label>
+                                            <input 
+                                            style={{display:'inline-block'}}
+                                            type="number" 
+                                            name='nombre'
+                                            class="form-control" 
+                                            id="id_name_fase"       
+                                            onChange={(e) => this.props.onChange(e,this.props.index,"numEvaluadores")}
+                                            value={this.props.value.numEvaluadores}
+                                            />
+                                    </div>
+                                    </Row>
+                                    <ArrayDinamic 
+                                    type='Criterio'
+                                    campo={this.props.criterios}
+                                    value={this.props.value} 
+                                    index={this.props.index}
+                                    handleChange4={this.props.handleChange4}
+                                    handleCheck={this.props.handleCheck}/>
+                                    </div>
+                                    :null}
+                                
+                                </div> 
+                            </div>
+                            </Row>
+                            </div>
+                            </div> 
                     </div>
-                    <div>
-                    {this.props.value.reqEval===true?
-                        <div>
-                            <Row>
-                            <div class="form-group col-md-6 form-inline">
-                                <label >Numero de evaluadores: </label>
-                                <input 
-                                style={{display:'inline-block'}}
-                                type="number" 
-                                name='nombre'
-                                class="form-control" 
-                                id="id_name_fase"       
-                                onChange={(e) => this.props.onChange(e,this.props.index,"numEvaluadores")}
-                                value={this.props.value.numEvaluadores}
-                                />
-                        </div>
-                        </Row>
-                        <ArrayDinamic 
-                        type='Criterio'
-                        campo={this.props.criterios}
-                        value={this.props.value} 
-                        index={this.props.index}
-                        handleChange4={this.props.handleChange4}
-                        handleCheck={this.props.handleCheck}/>
-                        </div>
-                        :null}
-                    
-                    </div> 
-                </div>
-                </Row>
-                
-                   
-                </div>
-                </div>            
+                    }
+                </div>           
 
                 <h3>Campos personalizados</h3>
                 <div class="panel panel-default">
