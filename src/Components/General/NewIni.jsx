@@ -89,9 +89,9 @@ class NewIni extends Component{
     console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< comprobando")
     if (window.File && window.FileReader && window.FileList && window.Blob) {
       // Great success! All the File APIs are supported.
-      alert('Great success! All the File APIs are supported.');
+      console.log('Great success! All the File APIs are supported.');
     } else {
-      alert('The File APIs are not fully supported in this browser.');
+      console.error('The File APIs are not fully supported in this browser.');
     }
     console.log("comprobando >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
     console.log("AppWillMount")
@@ -180,7 +180,7 @@ var styles = {
   },
   headerStyle:{
     width: "100%",
-    height: "600px",
+    height: "400px",
     background: "#bc4e9c",
     /* fallback for old browsers */
     background: 
@@ -194,7 +194,7 @@ var styles = {
   }
   ,
   waveStyle:{
-    height: "150px",
+    height: "70px",
     overflow: "hidden",
     position: "absolute",
     bottom: 0,
@@ -206,7 +206,7 @@ var styles = {
   },
   pathStyle:{
     stroke: "none",
-    fill: "#fff"
+    fill: "#ffffff"
   }
 ,
 /****** */

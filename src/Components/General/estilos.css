@@ -27,7 +27,7 @@ body {
 
 header {
     width: 100%;
-    height: 600px;
+    height: 400px;
     background: #002D3D;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, rgba(0, 45, 61, 0.555), rgba(19, 136, 179, 0.678)), url(portada.jpg);
@@ -57,7 +57,7 @@ nav > a:hover{
 
 header .textos-header{
     display: flex;
-    height: 430px;
+    height: 400px;
     width: 100%;
     align-items: center;
     justify-content: center;
@@ -75,7 +75,9 @@ header .textos-header{
     font-weight: 300;
     color:#fff;
 }
-
+.titulo{
+    font-size: 45px;
+}
 .wave{
     position: absolute;
     bottom: 0;
@@ -85,7 +87,7 @@ header .textos-header{
 /* About us */
 
 main .sobre-nosotros{
-    padding: 30px 0 60px 0;
+    padding: 0px 0 60px 0;
 }
 .contenedor-sobre-nosotros{
     display: flex;
@@ -252,7 +254,9 @@ main .sobre-nosotros{
     header{
         background-position: center;
     }
-
+    .titulo{
+        font-size: 28px;
+    }
     .contenedor-sobre-nosotros{
         flex-direction: column;
         justify-content: center;
@@ -327,7 +331,9 @@ main .sobre-nosotros{
     .textos-header h2{
         font-size: 20px;
     }
-
+    .titulo{
+        font-size: 20px;
+    }
     /* ABOUT US */
 
     .imagen-about-us{

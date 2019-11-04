@@ -18,10 +18,13 @@ class Dashboard extends Component{
         msg: "Not Connected" ,
         transport: "go to Fake Ini",
         idUser_recived: 0,
-       datos_tabla: {},
+       datos_tabla: {Eventos:[]},
+       
        flag: false
       
     }
+    /**aqui falta la condicional cuando es convocarotira o es evento publicados para asistentes */
+    //por defecto es convocatoria por mientras
     Networking.getEventosConvocatoria().then((value) => {
       console.log("lista de envetow convoctarioas",value);
       if(value == null){
