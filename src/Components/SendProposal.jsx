@@ -14,7 +14,8 @@ class SendProposal extends Component{
         super(props);
         this.state = {
             msg: "Not Connected",
-            idOrganizador: 1
+            idOrganizador: 1,
+            eventriEvent:{}
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -52,6 +53,11 @@ class SendProposal extends Component{
         }
         return
       }
+      componentDidMount(){
+          console.log("props");
+          console.log(this.props.nextChildComponentProps);
+          this.setState({eventriEvent: this.props.nextChildComponentProps});
+      }
    
     render(){
 
@@ -62,12 +68,14 @@ class SendProposal extends Component{
             <div class="row" id="gradient">
                 <div class="col-md-4" style={{paddingBottom:"20px"}}>
                     <img src="img/img3.jpg" class="img-responsive" alt=""/>
+                    <h1 style={{fontSize:"25px"},{color:"black"}}>Evento:</h1>
+                    <h1 style={{fontSize:"20px"}}> {this.state.eventriEvent.nombre}</h1>
                 </div>
                 <div class="col-md-8" id="overview">
                     <div class="row">
                         
                         <div class="col-xs-5 col-md-5 text-center" id="fan">
-                            <h1>15 AGO</h1>
+                            <h1>{this.state.eventriEvent.fechaFin}</h1>
                         </div>
 
                         <div class="col-xs-4 col-md-4" id="hits">

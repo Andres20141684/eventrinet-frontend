@@ -152,10 +152,13 @@ class BannerTop extends Component{
   }
   handleClicEvents = () => {
     console.log('redireccionando a ... Announcements evento');
+    
+    this.handleNextChildComponentChangeProps({mode:1});
     this.handleNextChildComponentChange(Dashboard);
   }
   handleClickAnnoucements = () => {
     console.log('redireccionando a ... Announcements evento');
+    this.handleNextChildComponentChangeProps({mode:2});
     this.handleNextChildComponentChange(Dashboard);
   }
   handleClickInicio= () => {
@@ -343,6 +346,7 @@ var styles = {
     borderColor:'#002D3D',
     paddingLeft:30,
     paddingRight:30,
-    paddingBottom:10,
+    paddingBottom:0,
+    "margin-bottom":0
   }
 }

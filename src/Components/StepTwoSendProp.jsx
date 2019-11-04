@@ -57,21 +57,23 @@ var reader;
 
 
 function handleFileSelect(evt) {
-  //evt.stopPropagation();
+  evt.stopPropagation();
   evt.preventDefault();
-
   var files = evt.dataTransfer.files; // FileList object.
-
-  // files is a FileList of File objects. List some properties.
-  var output = [];
-  for (var i = 0, f; f = files[i]; i++) {
-    console.log("intento 1 de lectura")
-    console.log(f);
-    output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                f.size, ' bytes </li>');
+  if(files.length >1){
+    alert("Solo un archivo PDF putho");
+    return;
   }
-  document.getElementById('list').innerHTML = '<div class = "container"><ul>' + output.join('') + '</ul></div>';
-  
+    // files is a FileList of File objects. List some properties.
+
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                  f.size, ' bytes ','</li>');
+                  //f.lastModifiedDate.toLocaleDateString(), '</li>');
+    }
+    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+
   /*************************************** */
   var progress = document.querySelector('.percent');
   progress.style.width = '0%';
@@ -81,21 +83,21 @@ function handleFileSelect(evt) {
   reader.onerror = errorHandler;
   reader.onprogress = updateProgress;
   reader.onabort = function(e) {
-      alert('File read cancelled');
+    alert('File read cancelled');
   };
   reader.onloadstart = function(e) {
     document.getElementById('progress_bar').className = 'loading';
   };
   reader.onload = function(e) {
-    console.log("Lo lei!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     // Ensure that the progress bar displays 100% at the end.
     progress.style.width = '100%';
     progress.textContent = '100%';
+    console.log("Inteno de redireccion dentro del evento : "," reader.result ");
+    console.log(reader);
+    console.log(reader.result);
     setTimeout("document.getElementById('progress_bar').className='';", 2000);
   }
-
-
-
+  reader.readAsBinaryString(files[0]);
 
 }
 
@@ -189,14 +191,14 @@ export default class StepTwoSendProp extends React.Component {
                   aria-describedby="inputGroupFileAddon01"/>
                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                 <br/>
+
                 <div class="panel panel-default">
+
                   <div id="drop_zone">Arrastra tus archivos aqui :)</div>
-                  <button onclick="abortRead();">Cancel read</button>
-                  <div id="progress_bar">
-                    <div class="percent">0%</div></div>
+                  <button type="button" class="btn btn-success" style={{width:"126px"}} onclick="abortRead();">Cancel read</button>
+                  <div id="progress_bar"><div class="percent">0%</div></div>
                   <output id="list"></output>
                 </div>
-                <br/>
 
 
               </div>

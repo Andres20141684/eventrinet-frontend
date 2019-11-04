@@ -13,7 +13,7 @@
 }
 
 .imagen-port{
-    width: 24%;
+    width: 35%;
     margin-bottom: 10px;
     overflow: hidden;
     position: relative;
@@ -52,4 +52,7 @@
 
 .imagen-port:hover .hover-galeria{
     transform: scale(1);
+}
+#miniEventDetail{
+    color: #fff;
 }
