@@ -32,14 +32,14 @@ class Organizador_ActiveEventsTable  extends Component {
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
     handleClickCrearActualizar = () => {
-      console.log('redireccionando a ... FakeNewIni evento');
+      console.log('redireccionando a ... NewEventPage evento');
       this.handleNextChildComponentChangeProps({  
          idOrganizador_nextProps: this.state.idUser_recived,
          id_evento_nextProps: 0,
          nomb_evento: "none"
          
       });
-      
+      console.log('redireccionando a ... NewEventPage evento');
       this.handleNextChildComponentChange(NewEventPage);
     }
    
@@ -142,6 +142,8 @@ class Organizador_ActiveEventsTable  extends Component {
                   
                   <a  class="pull-right" onClick={this.handleClickCrearActualizar} 
                   value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>
+
+
                </div>
               <div  class="table-responsive">
               <table class="table  table-hover">
