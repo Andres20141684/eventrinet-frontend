@@ -15,7 +15,10 @@ class WorkingSpace extends Component{
     super(props);
     this.state = {
         bannTop : BannerTop,
-
+        /*new base de navegacion inherente del working space*/
+        historyNavegation: [],
+        lastChildComponent:null,
+        /* fin */
         nextChildComponent: null,
         nextChildComponentProps:{}
     }
@@ -38,14 +41,13 @@ class WorkingSpace extends Component{
     }
     
     componentWillMount(){
-      console.log("WSWillMount")
-      this.state.nextChildComponent= this.props.nextComponent;
-      
+      console.log("WSWillMount");
+      this.state.nextChildComponentProps = this.props.baseComponentProps;
+      this.state.nextChildComponent= this.props.baseComponent;
       
     }
     componentDidMount(){
         console.log("WSDidMount")
-        
         let  page = sessionStorage.getItem("currentPage");
         console.log("page to redirect ",page);
         if (page == "InscriptionEvent"){
