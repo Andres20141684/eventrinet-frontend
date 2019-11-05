@@ -46,9 +46,6 @@ class NewEventPage extends Component{
                 data_recived={this.state.data_recived}
                 onNextChildComponentChange={this.handleNextChildComponentChange}
                 />
-                <div>
-                <button style={{float:'left'}} class="mybutton"  variant="contained" color="primary" /*onClick={this.handleNextChildComponentChange(OrganActiveEvents)}*/>Cancelar</button>
-                </div>
             </div>
             
         </div>)
