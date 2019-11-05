@@ -56,17 +56,13 @@ class ArrayDinamics extends Component{
                           <Row>
                           <div class="form-group col-md-6">
                           <label for="title">Enunciado</label>
-                                <input class="form-control" type="text" onChange={(e)=>this.handleChange5(e,index,"enunciado")} value={this.state.array[index].enunciado}/>
+                                <input class="form-control" type="text" maxLength="200" onChange={(e)=>this.handleChange5(e,index,"enunciado")} value={this.state.array[index].enunciado}/>
                           </div>
-                          </Row>
-                          <Row>
                             {this.props.type==='Criterio'?null:
                             <div  class="form-group col-md-6">
                                 <label for="title">Descripcion</label>                                
-                                <input class="form-control" type="text" onChange={(e)=>this.handleChange5(e,index,"descripcion")} value={this.state.array[index].descripcion}/>
+                                <input class="form-control" type="text" maxLength="200"  onChange={(e)=>this.handleChange5(e,index,"descripcion")} value={this.state.array[index].descripcion}/>
                             </div>}
-                          </Row>
-                          <Row>
                             {this.props.type==='Criterio'?null:
                               <div class="form-group col-md-6" >
                             <label for="title">Obligatorio</label>
@@ -83,7 +79,7 @@ class ArrayDinamics extends Component{
                       <input class="btn btn-primary"type="button" value="Añadir" onClick={() => this.addClick()} /> 
                       </Col>
                       <Col>
-                      {this.state.array.length===1?null:<input class="btn btn-danger"type="button" value="Borrar" onClick={() => this.removeClick()} />} 
+                      {this.state.array.length===1?null:<input class="btn btn-primary"type="button" value="Eliminar" onClick={() => this.removeClick()} />} 
                       </Col>
                   </Row>
                   
