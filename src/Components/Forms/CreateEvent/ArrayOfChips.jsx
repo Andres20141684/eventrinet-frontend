@@ -24,38 +24,42 @@ export default function ArrayOfChips(props) {
            console.log('jeremi')
          }else{
           console.log(aux)
-          
+          addElement(aux)
+          /*
           chipData.push(aux)
           props.handleadd(chipData,props.tag)
-          cancelCourse()
+          cancelCourse()*/
          }
       }else{
         console.log(aux)
-        
+        addElement(aux)
+        /*
         chipData.push(aux)
         props.handleadd(chipData,props.tag)
-        cancelCourse()
+        cancelCourse()*/
       }
         
     }
   };
 
-  /*const addElement=(aux)=>{
-    console.log(chipData)
-    let f=0;
-    console.log(chipData.indexOf(aux))
-    if(props.lista.indexOf(aux)===(-1)) { // notice that there is a parenthesis after `id`.
+  const addElement=(aux)=>{
+    console.log(props.lista)
+    console.log(props.lista.indexOf(aux))
+    var f=0;
+    for(let i=0; i <props.lista.length;i++){
+      if(JSON.stringify(props.lista[i])===JSON.stringify(aux)){
         f=1;
-        console.log(f)
+        console.log("Numero de iteracion: ")
+        console.log(i)
+        break;
+      }
     }
-    if(f===1){
-      console.log(f)
-      console.log(aux)
-          chipData.push(aux)
-          props.handleadd(chipData,props.tag)
-          cancelCourse()
+    if(f===0) { // notice that there is a parenthesis after `id`.
+        chipData.push(aux)
+        props.handleadd(chipData,props.tag)
+        cancelCourse()
     }
-  }*/
+  }
 
   const handleDelete = chipToDelete => () => {
     chipData=chipData.filter(chipData=>chipData[props.label]!==chipToDelete[props.label]);
@@ -91,14 +95,17 @@ export default function ArrayOfChips(props) {
             aria-describedby="basic-addon2"
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            style={{width: 360/*,position:"relative"*/}}/>
+            style={{width: 360/*,position:"relative"*/}}
+            disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}/>
         <div class="input-group-append">
           <button 
             class="btn btn-outline-secondary add"
             variant="primary" 
             type='email' 
             onClick={handleSelect}
+            disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}
             style={{backgroundColor:"002D3D"}}>Agregar</button>
+            
         </div>
       </div>
       </form>
