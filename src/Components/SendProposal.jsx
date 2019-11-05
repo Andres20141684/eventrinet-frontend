@@ -15,7 +15,8 @@ class SendProposal extends Component{
         this.state = {
             msg: "Not Connected",
             idOrganizador: 1,
-            eventriEvent:{}
+            eventriEvent:{},
+            categorias:['Machine Learning','Machine Learning nombre largote']
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -53,11 +54,47 @@ class SendProposal extends Component{
         }
         return
       }
+      getDatafromApi(){
+        Networking.NetworkMutation_JAchievingData(
+            {
+              methodPath: 'categorias/listarCategoriasXEvento',
+              JsonToBack:{
+                  idEvento: this.props.nextChildComponentProps.idEvento
+              }
+            }
+            ).then((value) => {
+          console.log(value);
+          if(value == null){
+             console.log('no hay algo aun');
+             
+          }else {
+             console.log('si hay algo:');
+             this.setState({categorias: value});
+             //this.renderCategories();
+          }
+          
+       });
+      }
       componentDidMount(){
           console.log("props");
           console.log(this.props.nextChildComponentProps);
           this.setState({eventriEvent: this.props.nextChildComponentProps});
+          this.getDatafromApi();
+          
       }
+      renderCategories(){
+            return this.state.categorias.map(
+                (element) => { const {descripcion}=element
+                    return(
+                        <li> {descripcion} </li>
+                        
+                        
+                    )
+                    
+                }
+            )
+      }
+     
    
     render(){
 
@@ -80,12 +117,9 @@ class SendProposal extends Component{
 
                         <div class="col-xs-4 col-md-4" id="hits">
                             <p style={{color:"black"}}>Categorias</p>
-                            <ul class="pb-product-details-ul" >
-                                <li>Machine Learning</li>
-                                <li>Machine Learning nombre largote</li>
-                                <li>Machine Learning</li>
-                                <li>Machine Learning</li>                                
-                            </ul>
+                            
+                            <ul class="pb-product-details-ul" id="eventCategories" >
+                            {this.renderCategories()}</ul>
                         </div>                        
                            
                         <div class="col-xs-3 col-md-3 text-center" >
@@ -95,7 +129,8 @@ class SendProposal extends Component{
                     </div>
                     <br/><br/>
                     <div class="row">
-                        <button type="button" class="btn btn-success form-control text-center" onClick={this.handleClicInscripcionEvento}>Enviar Propuesta</button>
+                        <button type="button" class="btn btn-success form-control text-center" 
+                        onClick={this.handleClicInscripcionEvento}>Enviar Propuesta</button>
                     </div>    
                 </div>
             </div>

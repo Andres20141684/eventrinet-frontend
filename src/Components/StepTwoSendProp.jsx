@@ -7,6 +7,7 @@ import '../styles/style_sheets.css'
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/style_sheets.css';
 import '../styles/files_style.css';
+import { NetworkMutation_JAchievingData } from '../Network/Networking';
 
 /****/
 
@@ -96,8 +97,34 @@ function handleFileSelect(evt) {
     console.log(reader);
     console.log(reader.result);
     setTimeout("document.getElementById('progress_bar').className='';", 2000);
+    NetworkMutation_JAchievingData(
+      {
+        methodPath: 'propuesta/registrar_propuesta',
+        JsonToBack:{
+          paper: reader.result,/** ARCHIVO */
+          idEvento:1,
+          idUsuario: 13,
+          nombre: "Evento de JIN SAYAJIN",
+          coautores: "A",
+          RptaCamposPers: [],
+          categorias: []},
+  
+      }
+    ).then((value) => {
+      console.log(value);
+      if(value == null){
+        console.error('FALLO FATAL');
+      }else {
+         console.log('si hay algo:');
+      }
+      
+   });
+  
+  
   }
   reader.readAsBinaryString(files[0]);
+  /********* PRUEBA DE ENVIO DE ARCHIVO ******* */
+  
 
 }
 
@@ -108,15 +135,28 @@ function handleDragOver(evt) {
 }
 
 export default class StepTwoSendProp extends React.Component {
- 
+  getData(){
+    console.log("Conec");
+  }
   componentDidMount(){
-    
+    this.getData();
     var dropZone = document.getElementById('drop_zone');
     dropZone.addEventListener('dragover', handleDragOver, false);
     dropZone.addEventListener('drop', handleFileSelect, false);
     var reader;
     var progress = document.querySelector('.percent');
     //document.getElementById('drop_zone').addEventListener('change', handleFileSelect, false);
+    /********* CATEGORTIAS DEL EVENTO ****** */
+    /*var categories = [];
+    for (var i = 0, f; f = files[i]; i++) {
+      categories.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                  f.size, ' bytes ','</li>');
+                  //f.lastModifiedDate.toLocaleDateString(), '</li>');
+    }
+    document.getElementById('list').innerHTML = '<ul>' + categories.join('') + '</ul>';*/
+  
+  
+  
   }
   render () {
     
@@ -193,7 +233,6 @@ export default class StepTwoSendProp extends React.Component {
                 <br/>
 
                 <div class="panel panel-default">
-
                   <div id="drop_zone">Arrastra tus archivos aqui :)</div>
                   <button type="button" class="btn btn-success" style={{width:"126px"}} onclick="abortRead();">Cancel read</button>
                   <div id="progress_bar"><div class="percent">0%</div></div>

@@ -10,9 +10,6 @@ import NewEventPage from './../../Pages/NewEventPage.jsx';
 
 ******************************* BOTTON EN CONSTRUCCION XDDDDDDDDDDDDDDDDDDDD (JEREMI SE LA COME)
 
-
-
-
  */
 
 class ActionButton  extends Component {

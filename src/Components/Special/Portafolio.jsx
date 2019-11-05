@@ -7,22 +7,15 @@ import {Link}  from "react-router-dom";
 const Networking = require('./../../Network/Networking.js') ;
 function ImagePort(props){
     return(
-            
-            <div class="imagen-port" onClick={props.onClick} style={{width: "35%"}}>
-            
+            <div class="imagen-port" onClick={props.onClick} style={{width: "30%"}}>
                 <img src={props.URL} alt="event1"/>
                 <div class="hover-galeria">
                     <img src="img/icono1.png" alt=""/><p>Ver detalles del Evento</p><br/>
-
                     <h3 id="miniEventDetail">{props.eventriEvent.nombre}</h3>
                     <h3 id="miniEventDetail">Lugar: {props.eventriEvent.lugar}</h3>
                     <p>{props.eventriEvent.fechaIni}</p>
-                    
                 </div>
             </div>
-                
-            
-            
     );
 }
 class Portafolio extends Component{
@@ -60,15 +53,12 @@ class Portafolio extends Component{
   renderImagePortTotal(){
     var i=2;
     return this.props.setEventos.Eventos.map((element) => {
-        const {idEvento} = element; i=i+1;
-        return (
+        const {idEvento} = element; i=i+1; return (
             <ImagePort
                 onClick={() => this.multiHandleClickrenderImagePort(element)}
                 eventriEvent={element}
                 URL={this.state.URLimgs[i]}
             />
-           
-            
         )
         
      })
@@ -124,7 +114,7 @@ class Portafolio extends Component{
   return (
     <div>
         <section class="portafolio">
-            <div class="contenedor">
+            <div class="contenedor" style={{"max-width": "1200px"}}>
                 <h2 class="titulo">{this.state.title}</h2>
                 <div class="galeria-port">
                     {this.renderImagePortTotal()}

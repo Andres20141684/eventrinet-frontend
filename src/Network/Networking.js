@@ -1,7 +1,7 @@
 import {AsyncStorage} from 'react';
 
-const restURL = 'http://174.129.92.182:5000/api/';
-//const restURL = 'http://localhost:5000/api/';
+//const restURL = 'http://174.129.92.182:5000/api/';
+const restURL = 'http://localhost:5000/api/';
 
 export async function getInfoUsuario_byId(_idUsuario) {
     console.log('buscando por ID Usuario...');
@@ -371,6 +371,7 @@ export async function populateDataPresiEvalFinal(idPresidente) {
 export async function NetworkMutation_JAchievingData(props) {
     console.log('INTENTO DE POST!! en ' +restURL 
     + props.methodPath);
+    console.log('RECIBI UN props: ' , props);
     try {
         console.log('RECIBI UN props: ' , props);
         let response = await fetch(restURL + props.methodPath,
