@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
 import frmEventNew from '../Components/Forms/frmEventNew'
+import OrganActiveEvents from './OrganActiveEvents';
 
 class NewEventPage extends Component{
     constructor(props){
@@ -45,6 +46,9 @@ class NewEventPage extends Component{
                 data_recived={this.state.data_recived}
                 onNextChildComponentChange={this.handleNextChildComponentChange}
                 />
+                <div>
+                <button style={{float:'left'}} class="mybutton"  variant="contained" color="primary" /*onClick={this.handleNextChildComponentChange(OrganActiveEvents)}*/>Cancelar</button>
+                </div>
             </div>
             
         </div>)
