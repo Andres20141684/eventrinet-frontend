@@ -11,7 +11,7 @@ import PresiCalificacionFinalPapers from './Pages/PresiCalificacionFinalPapers';
 //import PresidentEvents from './Pages/PresidentEvents';
 //import EvaluadorEventos from './Pages/EvaluadorEventos';
 import Create_EventStep3 from './Pages/Create_EventStep3';
-import Prueba from './Pages/Prueba';
+//import Prueba from './Pages/Prueba';
 import Login from './Pages/Login';
 import SelectedEvent from './Pages/SelectedEvent';
 import EventInscriptionPage from './Pages/EventInscriptionPage';

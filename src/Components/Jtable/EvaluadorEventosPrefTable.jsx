@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
 import ActionButton from './ActionButton';
+import ElegirPrefCategorias from './../../Pages/ElegirPrefCategorias.jsx'
 //import NewEventPage from './../../Pages/NewEventPage' //aca debería estar el modificar fases, pero ni en back hay :'v
 const Networking = require('./../../Network/Networking.js') ;
 
@@ -13,7 +14,6 @@ class EvaluadorEventosPrefTable  extends Component {
       this.state = {
           msg: "Not Connected" ,
           transport: "go to Fake Ini",
-          idUser_recived: 0,
          datos_tabla: {
             Eventos_Evaluador:[
                            ]
@@ -84,6 +84,10 @@ class EvaluadorEventosPrefTable  extends Component {
          //window.location.replace("./");
       }
 
+      elegirPrefCat = () =>{
+         this.props.onNextChildComponentChange(ElegirPrefCategorias);
+      }
+
  
    
    tableData() {
@@ -99,7 +103,13 @@ class EvaluadorEventosPrefTable  extends Component {
                <td>{preferencia}</td>
                
                <td align="center">
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-plus" redirect_to="/"/>
+                  <ActionButton id_evento={idEvento} 
+                  nomb_evento ={nombre} 
+                  idUser_recived={this.state.idUser_recived} 
+                  button_class ="fa fa-plus" 
+                  onNextChildComponentChange={this.elegirPrefCat}
+                  onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                   redirect_to="/"/>
                </td> 
          </tr>
          )
