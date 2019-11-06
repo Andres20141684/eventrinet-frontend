@@ -28,9 +28,25 @@ class ForgotPassword extends Component{
 
   onSubmitForm = (evt) => {
     evt.preventDefault()
-    alert("Correo enviado!")
-    let inputEmail = document.getElementById("your-email");
-    inputEmail.value="";
+
+    Networking.validar_sesion(this.state.email).then(
+      (response) => {
+        console.log("Data del usuario",response);
+        if (response.succeed){
+          console.log(response);
+          let inputEmail = document.getElementById("your-email");
+          inputEmail.value="";
+          /************************************************************** */
+          /****TENGO QUE LLAMAR A UNA FUNCION QUE ENVIE EL CORREO :'V *** */
+          /************************************************************** */
+          alert("Revise su bandeja de entrada")
+        }else{
+          console.log("No existe el correo");
+          alert("No existe una cuenta asociada al correo ");
+        }
+      } 
+    )
+    
   }
 
   render(){

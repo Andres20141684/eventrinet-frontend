@@ -170,15 +170,29 @@ class BannerTop extends Component{
     try{ //Verify if I'm logged
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);      
+      console.log("retrievedJson",retrievedJson)
 
       let linkLogin = document.getElementById("linkLogin")
       let linkSignUp = document.getElementById("linkSignUp")
       let myavatar = document.getElementById("myavatar")
 
       if (retrievedJson == null){ //I'm not logged
+        let retrievedObject = localStorage.getItem('localDataUser');
+        let retrievedJson = JSON.parse(retrievedObject);      
+        console.log("retrievedJson",retrievedJson)
+        if (retrievedJson == null){
         initialState()
         console.log("No estoy logeado!")
         return
+        }else{
+          // I'm logged
+          logInState()
+          setRoles(retrievedJson.permisos)
+          console.log("json:",retrievedJson)
+          console.log("nombreree:",retrievedJson.infoUsuario.nombre)
+          this.setState({fullName: retrievedJson.infoUsuario.nombre + " "+ retrievedJson.infoUsuario.apePaterno + " "+ retrievedJson.infoUsuario.apeMaterno});
+          console.log("fullname: ",this.state.fullName)
+        }
       }
       
       // I'm logged

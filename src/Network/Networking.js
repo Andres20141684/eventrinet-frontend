@@ -102,6 +102,35 @@ export async function validar_sesion(var_user,var_password) {
     }
   }
 
+
+  export async function recordar_contraseña(var_email) {
+    console.log('Servicio envio correo electronico con contraseña');
+    try {        
+        let response = await fetch(restURL 
+            + 'recordar_contrasena', {
+            method: 'POST',
+            mode: 'cors',
+            headers: { Accept: 'application/json', 'Content-Type': 'application/json',},
+            body: JSON.stringify({
+                email: var_email
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);  
+        console.log(response);
+        console.log('Saving!!');
+
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+}
+
+
 export async function saludar(){
     try {
         let response = await fetch(restURL+'hola' ,{

@@ -45,12 +45,17 @@ class  Login extends Component{
             console.log("estamos accediendoo bbecita prrr");
             console.log(connectedUser);
 
-            sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));
-
-
+            sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));            
             
-            sessionStorage.setItem('tipoLogin',"usuario")
+            if (document.getElementById("rememberMeCheck").checked){
+              console.log("Recordar cuenta")              
+              localStorage.setItem('localDataUser', JSON.stringify(connectedUser));
+            }else{
+              console.log("No recordar cuenta")
+              localStorage.setItem('localDataUser', null);
+            }
 
+            sessionStorage.setItem('tipoLogin',"usuario")
             this.setState({redirect:true});
             //alert("Contraseña y usuario correctos!");
           }else{
