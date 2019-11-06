@@ -11,8 +11,22 @@ import '../../../styles/style_sheets.css';
 
 
 export default class StepOne extends React.Component {
+  constructor(){
+    super();
+    this.state={
+      auxCat:''
+    }
+    this.handleAuxChange=this.handleAuxChange.bind(this)
+  }
+
+  handleAuxChange(e,str){
+    this.setState({
+      [str]:e.target.value
+    })
+    console.log(this.state)
+  }
   
-  
+
   render () {
     return (
       <div>
@@ -73,7 +87,14 @@ export default class StepOne extends React.Component {
             <div class="panel-heading"><h1>Categorias</h1></div>
             <div class="panel-body">
               <div class="form-group col-md-6">
-              <ArrayOfChips lista={this.props.categorias} handleadd={this.props.handleChange2} tag="categorias" label="descripcion"/>
+              <ArrayOfChips 
+              auxLabel='auxCat'
+              aux={this.state.auxCat} 
+              handlechange={this.handleAuxChange} 
+              lista={this.props.categorias} 
+              handleadd={this.props.handleChange2} 
+              tag="categorias" 
+              label="descripcion"/>
               </div>
             </div>
           </div>
