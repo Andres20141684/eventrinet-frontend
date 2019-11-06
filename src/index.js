@@ -26,25 +26,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(<Router>
-                    <Route path='/' exact component={App}/>
-                    
-                    <Route path='/announcements' exact component={AnnouncementPage} />
-                    
-                    <Route path='/propMyProposals' exact component={ProposerMyProposals} />
-                    <Route path='/propDetailProposal' exact component={ProposerDetailProposal} />
-                    
-                    
-                    
-                    <Route path='/PresiCalificacionFinalPapers' exact component={PresiCalificacionFinalPapers} />
-
-                    <Route path='/createEventStep3' exact component={Create_EventStep3} />
-                    <Route path='/prueba' exact component={Prueba} />                    
-                    <Route path='/login' exact component={Login} />
-                    <Route path='/SelectedEvent' exact component={SelectedEvent} />
-                    <Route path='/EventInscriptionPage' exact component={EventInscriptionPage} />
-                    
-                    <Route path='/signUp' exact component={SignUp} />
-                    </Router>,
+                     <Route path='/'  exact component={App}/>
+                     <Route path='/login' exact component={Login} />
+                     <Route path='/signUp' exact component={SignUp} />
+                  </Router>,
                  document.getElementById('root')
                  );
 // If you want your app to work offline and load faster, you can change

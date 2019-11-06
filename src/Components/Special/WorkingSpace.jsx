@@ -42,8 +42,8 @@ class WorkingSpace extends Component{
     
     componentWillMount(){
       console.log("WSWillMount");
-      this.state.nextChildComponentProps = this.props.baseComponentProps;
-      this.state.nextChildComponent= this.props.baseComponent;
+      this.state.nextChildComponentProps = this.props.nextComponentProps;
+      this.state.nextChildComponent= this.props.nextComponent;
       
     }
     componentDidMount(){
@@ -86,8 +86,7 @@ class WorkingSpace extends Component{
         />
     </div>
     </div>
-    <div>
-    </div></div>
+    </div>
     );}
   }
   
