@@ -8,18 +8,7 @@ import './../styles/style_gig_tittle.css'
 import Organizador_ActiveEventsTable from '../Components/Jtable/Organizador_ActiveEventsTable';
 import Organizador_HistoryventsTable from '../Components/Jtable/Organizador_HistoryventsTable';
 const Networking = require('../Network/Networking.js') ;
-function Botones(){
-    return ( 
-    <div>
-        <h2><br/></h2>
-        <h3>
-        <button class="mybutton" style={{float:'left'}}>Atras</button>
-        <button class="mybutton" style={{float:'right'}}>Guardar</button>
-        <br/><br/>
-        </h3>
-    </div>
-    )
-}
+
 function MainTittle(){
     return ( <div>
     <div style={{marginLeft:15}}>
@@ -85,7 +74,6 @@ class OrganActiveEvents extends Component{
                                 />
                             </TabPanel>
                         </Tabs>
-                        <Botones/>
                     </div>
                 </div>
                 <br/><br/>
