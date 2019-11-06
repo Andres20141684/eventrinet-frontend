@@ -59,6 +59,7 @@ class AdminPageMainTable extends Component {
                 <td>{fechaIniPermiso}</td>
                 <td>{fechaFinPermiso}</td>
                 <td>
+                    
                     <ActionButton
                         idUser_recived={this.state.idUser_recived} 
                         button_class ="fa fa-times" 
