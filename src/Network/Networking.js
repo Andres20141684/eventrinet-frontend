@@ -102,6 +102,35 @@ export async function validar_sesion(var_user,var_password) {
     }
   }
 
+
+  export async function cambiar_contrasena(var_email) {
+    console.log('Servicio envio correo electronico con contraseña');
+    try {        
+        let response = await fetch(restURL 
+            + 'cambiar_contrasena', {
+            method: 'POST',
+            mode: 'cors',
+            headers: { Accept: 'application/json', 'Content-Type': 'application/json',},
+            body: JSON.stringify({
+                datoUsuario: var_email
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);  
+        console.log(response);
+        console.log('Saving!!');
+
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+}
+
+
 export async function saludar(){
     try {
         let response = await fetch(restURL+'hola' ,{
@@ -168,6 +197,24 @@ export async function getEventosPublicados() {
         console.log(responseJson);
         return responseJson;
 
+    } catch (error){
+        console.log(error);
+        return {}
+    }
+      
+} 
+
+
+export async function listarOrganizadores() {
+    try {
+        console.log('INTENTO DE GET!! en ' +restURL 
+        + 'listar_organizadores_activos');
+        let response = await fetch(restURL+'listar_organizadores_activos' ,{
+            method:'GET'
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
     } catch (error){
         console.log(error);
         return {}
@@ -421,6 +468,56 @@ export async function populateDataPresiTab_en_fase_evaluacion(idOrganizador) {
         console.log('Saving!!');
         console.log(responseJson);
         console.log('Saving!!');
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function listar_categoriasPorEvento(_idEvento) {
+    
+    try {
+        console.log('RECIBI UN param: ' + _idEvento);
+        let response = await fetch(restURL 
+            + 'categorias/listarCategoriasXEvento', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: _idEvento
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function registrar_PrefXCat(idEvento, idUsuario, idCategoria) {
+    
+    try {
+        console.log('RECIBI UN param: ' + idEvento);
+        let response = await fetch(restURL 
+            + 'evaluador/registrar_preferencias_categoria', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: idEvento,
+                idEvaluador : idUsuario,
+                idCategoria : idCategoria
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
         return responseJson;  
     } catch (error) {
         console.error(error);

@@ -8,18 +8,7 @@ import './../styles/style_gig_tittle.css'
 import EvaluadorEventosPrefTable from '../Components/Jtable/EvaluadorEventosPrefTable';
 import EvaluadorEventosEvaluarTable from '../Components/Jtable/EvaluadorEventosEvaluarTable';
 const Networking = require('../Network/Networking.js') ;
-function Botones(){
-    return ( 
-    <div>
-        <h2><br/></h2>
-        <h3>
-        <button class="mybutton" style={{float:'left'}}>Atras</button>
-        <button class="mybutton" style={{float:'right'}}>Guardar</button>
-        <br/><br/>
-        </h3>
-    </div>
-    )
-}
+
 function MainTittle(){
     return ( <div>
     <div style={{marginLeft:15}}>
@@ -29,7 +18,7 @@ function MainTittle(){
     </div>
     )
 }
-class OrganActiveEvents extends Component{
+class EvaluadorEventosListados extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -85,7 +74,6 @@ class OrganActiveEvents extends Component{
                                 />
                             </TabPanel>
                         </Tabs>
-                        <Botones/>
                     </div>
                 </div>
                 <br/><br/>
@@ -96,5 +84,5 @@ class OrganActiveEvents extends Component{
 }
 
 
-export default OrganActiveEvents;
+export default EvaluadorEventosListados;
 

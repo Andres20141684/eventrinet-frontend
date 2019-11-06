@@ -95,7 +95,7 @@ class NewIni extends Component{
     }
     console.log("comprobando >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
     console.log("AppWillMount")
-    /*Networking.saludar().then(
+    Networking.saludar().then(
       (response)=>{
         
         this.setState({msg:response.message});
@@ -105,7 +105,7 @@ class NewIni extends Component{
         console.log("error en conexión");
         this.setState({msg:"Intento de conexión fallido"});
         console.log(err);
-      })*/
+      })
   }
 
   handleClick = () => {

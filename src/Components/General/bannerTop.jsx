@@ -8,7 +8,7 @@ import PresiAsignarEvalEvents from "./../../Pages/PresiAsignarEvalEvents.jsx";
 import EvaluadorEventosListados from "./../../Pages/EvaluadorEventosListados.jsx";
 import GoogleLogout from 'react-google-login';    
 import PropoMyProposals from '../../Pages/ProposerMyProposals';
-
+import AdminPageMainTable from '../Jtable/AdminPageMainTable';
 
 function initialState(){
   let linkLogin = document.getElementById("linkLogin")
@@ -16,7 +16,7 @@ function initialState(){
   let myavatar = document.getElementById("myavatar")
   let itemOpciones = document.getElementById("nav-item-opciones")
   let nameUser = document.getElementById("nameUser")
-
+  
   linkLogin.style.display = "block"
   linkSignUp.style.display = "block"
   myavatar.style.display = "none"
@@ -47,12 +47,14 @@ function setRoles(listRoles){
   let itemPresi = document.getElementById("itemPresi")
   let itemMisProp = document.getElementById("itemMisProp")
   let itemMisInscrip = document.getElementById("itemMisInscrip")
+  let itemAdmin = document.getElementById("itemAdmin")
 
   itemOrga.style.display = "none"
   itemEval.style.display = "none"
   itemPresi.style.display = "none"
   itemMisProp.style.display = "none"
   itemMisInscrip.style.display = "none"
+  itemAdmin.style.display = "none"
   itemOpciones.style.display = "block"
 
   if (!(listRoles[1]["Organizador"]==0)){
@@ -74,13 +76,18 @@ function setRoles(listRoles){
   if (!(listRoles[5]["Participante"]==0)){
     itemMisInscrip.style.display = "block"
     console.log("parti",listRoles[5]["Participante"])
-  }  
+  }
+  if (!(listRoles[6]["Administrador"]==0)){
+    itemAdmin.style.display = "block"
+    console.log("admin",listRoles[5]["Administrador"])
+  }
   if (
         (listRoles[1]["Organizador"]==0) && 
         (listRoles[2]["Presidente del Comité Académico"]==0) && 
         (listRoles[3]["Evaluador"]==0) &&
         (listRoles[4]["Postulante"]==0) && 
-        (listRoles[5]["Participante"]==0) 
+        (listRoles[5]["Participante"]==0) &&
+        (listRoles[6]["Administrador"]==0) 
     ){
     itemOpciones.style.display = "none"
   }
@@ -150,6 +157,9 @@ class BannerTop extends Component{
     console.log('redireccionando a ... Announcements evento?')
     this.handleNextChildComponentChange(PresiAsignarEvalEvents)
   }
+  handleClicAdmin = () => {
+    this.handleNextChildComponentChange(AdminPageMainTable)
+  }
   handleClicEvaluadorEventosListados = () => {
     this.handleNextChildComponentChange(EvaluadorEventosListados)
   }
@@ -173,15 +183,29 @@ class BannerTop extends Component{
     try{ //Verify if I'm logged
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);      
+      console.log("retrievedJson",retrievedJson)
 
       let linkLogin = document.getElementById("linkLogin")
       let linkSignUp = document.getElementById("linkSignUp")
       let myavatar = document.getElementById("myavatar")
 
       if (retrievedJson == null){ //I'm not logged
+        let retrievedObject = localStorage.getItem('localDataUser');
+        let retrievedJson = JSON.parse(retrievedObject);      
+        console.log("retrievedJson",retrievedJson)
+        if (retrievedJson == null){
         initialState()
         console.log("No estoy logeado!")
         return
+        }else{
+          // I'm logged
+          logInState()
+          setRoles(retrievedJson.permisos)
+          console.log("json:",retrievedJson)
+          console.log("nombreree:",retrievedJson.infoUsuario.nombre)
+          this.setState({fullName: retrievedJson.infoUsuario.nombre + " "+ retrievedJson.infoUsuario.apePaterno + " "+ retrievedJson.infoUsuario.apeMaterno});
+          console.log("fullname: ",this.state.fullName)
+        }
       }
       
       // I'm logged
@@ -307,9 +331,12 @@ class BannerTop extends Component{
                   <li><Link id="itemMisInscrip" className="nav-link" to="#"><b><font size="3">Mis inscripciones</font></b></Link></li>
                   <li><Link id="itemMisProp" className="nav-link" to="#"onClick={this.handleClicPostulanteEventos}><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div className="dropdown-divider"></div>
-                  <li><Link id="itemOrga" className="nav-link" to="#" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
-                  <li><Link id="itemPresi"className="nav-link" to="#" onClick={this.handleClicPresidenteEventos}><b><font size="3">Presidente</font></b></Link></li>
-                  <li><Link id="itemEval"className="nav-link" to="#" onClick={this.handleClicEvaluadorEventosListados}><b><font size="3">Evaluador</font></b></Link></li>
+
+                  <li><Link id="itemOrga" className="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
+                  <li><Link id="itemPresi"className="nav-link"  onClick={this.handleClicPresidenteEventos}><b><font size="3">Presidente</font></b></Link></li>
+                  <li><Link id="itemEval"className="nav-link"  onClick={this.handleClicEvaluadorEventosListados}><b><font size="3">Evaluador</font></b></Link></li>
+                  <li><Link id="itemAdmin"className="nav-link"  onClick={this.handleClicAdmin}><b><font size="3">Administrador del sistema</font></b></Link></li>
+
                 </ul>
               </li>
             </ul>
