@@ -163,6 +163,21 @@ export default class StepTwoSendProp extends React.Component {
   
   
   }
+  renderOptions(){
+    return this.state.datos_tabla.Eventos.map((element, index) => {
+         
+      const {idEvento, nombre,descripcion,fechaIni,
+         fechaFin,lugar,precios,numFases,estado,
+         preferencia,tieneCameraRdy,programaCompletado,
+         fechaMaxPref,numeroPropuestas} = element
+      return (
+      
+           <>
+           </>
+      )
+   })
+
+  }
   render () {
     
     
