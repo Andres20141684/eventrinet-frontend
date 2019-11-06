@@ -26,9 +26,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(<Router>
-                     <Route path='/'  exact component={App}/>
                      <Route path='/login' exact component={Login} />
                      <Route path='/signUp' exact component={SignUp} />
+                     <Route path='/' exact  component={App}/>
+                     
                   </Router>,
                  document.getElementById('root')
                  );

@@ -304,9 +304,9 @@ class BannerTop extends Component{
                   <li><Link id="itemMisInscrip" className="nav-link" to="#"><b><font size="3">Mis inscripciones</font></b></Link></li>
                   <li><Link id="itemMisProp" className="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div className="dropdown-divider"></div>
-                  <li><Link id="itemOrga" className="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
-                  <li><Link id="itemPresi"className="nav-link"  onClick={this.handleClicPresidenteEventos}><b><font size="3">Presidente</font></b></Link></li>
-                  <li><Link id="itemEval"className="nav-link"  onClick={this.handleClicEvaluadorEventosListados}><b><font size="3">Evaluador</font></b></Link></li>
+                  <li><Link id="itemOrga" className="nav-link" to="#" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
+                  <li><Link id="itemPresi"className="nav-link" to="#" onClick={this.handleClicPresidenteEventos}><b><font size="3">Presidente</font></b></Link></li>
+                  <li><Link id="itemEval"className="nav-link" to="#" onClick={this.handleClicEvaluadorEventosListados}><b><font size="3">Evaluador</font></b></Link></li>
                 </ul>
               </li>
             </ul>
@@ -347,6 +347,6 @@ var styles = {
     paddingLeft:30,
     paddingRight:30,
     paddingBottom:0,
-    "margin-bottom":0
+    marginBottom:0
   }
 }
