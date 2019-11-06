@@ -108,6 +108,7 @@ handleCheckboxChange = event =>{
             <div class="panel-body">
               <div>
               <this.state.form_1 
+                    numEval={this.props.presidente.length+this.props.evaluadores.length}
                     tamActual={this.state.values.length}
                     camposPerson="camposPerson"
                     criterios="criterios"
