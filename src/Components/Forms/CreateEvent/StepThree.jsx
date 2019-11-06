@@ -60,7 +60,7 @@ handleChangeFaseDate(value,i,str,str2){
 
 addClick() {
   this.setState(prevState => ({
-    values: [...prevState.values, {idFase:0,secuencia:this.state.values.length+1,camposPerson:[],criterios:[],reqArch:false,reqEval:false,necesitaArchivo:0,necesitaEvaluacion:0}]
+    values: [...prevState.values, {idFase:0,secuencia:this.state.values.length+1,camposPerson:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false,necesitaArchivo:0,necesitaEvaluacion:0}]
   }));
 }
 
@@ -95,10 +95,10 @@ handleCheckboxChange = event =>{
             <div class="panel-heading">
               <h1>Fase 0{index+1}
               <a  style={{marginRight:10,marginBottom:10,float:"right"}}>
-              {index===this.state.values.length-1?<input
+              {index>0 && index===this.state.values.length-1?<input
                     type="button"
                     value="Eliminar fase"
-                    class="btn btn-danger"
+                    class="btn btn-primary"
                     onClick={() => this.removeClick(index)}
                     style={{float:'right'}}
                 />:null}
@@ -124,7 +124,7 @@ handleCheckboxChange = event =>{
           </div>
         ))}        
                                 
-          <input type="button"  class="btn btn-primary" value="Agregar mas fases" onClick={() => this.addClick()} />           
+          <input type="button"  class="btn btn-primary" value="Agregar fase" onClick={() => this.addClick()} />           
         </div>
             
             <br/>

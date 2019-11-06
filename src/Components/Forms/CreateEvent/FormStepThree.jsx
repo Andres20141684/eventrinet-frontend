@@ -24,7 +24,7 @@ class FormStepThree extends Component{
                 <Row >
                 <div class="form-group col-md-6">
                     <label >Actividad</label>
-                    <input type="text" class="form-control" name="actividad" id="actvidad" placeholder="Actividad" onChange={(e) => this.props.onChange(e,this.props.index,"nombre")} value={this.props.value.nombre}autoFocus required />
+                    <input type="text" class="form-control" name="actividad" id="actvidad" maxLength="200" placeholder="Actividad" onChange={(e) => this.props.onChange(e,this.props.index,"nombre")} value={this.props.value.nombre}autoFocus required />
                 </div>
                 </Row>
                 
@@ -72,9 +72,10 @@ class FormStepThree extends Component{
               </Row>
                 <Row>                
                 <div class="form-group col-md-6">
-                    <div class="form-group col-md-12" >
+                    <div class="form-group col-md-7" >
                         <label>Requiere adjuntar archivo (.pdf)</label>
-                        <div>
+                    </div>
+                        <div class="form-group col-md-5">
                             <Form.Check
                                 type="checkBox" 
                                 name="formHorizontalRadios_1"
@@ -83,7 +84,7 @@ class FormStepThree extends Component{
                                 onClick={(e) => this.props.handleCheck(e,this.props.index,"reqArch","necesitaArchivo")}
                             />
                         </div>
-                    </div>
+                    
                 </div>
                 </Row>
                 </div>
@@ -97,17 +98,17 @@ class FormStepThree extends Component{
                             <div class="panel-body">
                             <Row >
                             <div class="form-group col-md-6">                    
-                                <div>
-                                        <Col>
-                                        <label for="title">Requiere de Criterios: </label>
-                                        </Col>
-                                        <Col><input
-                                            type="checkBox" 
-                                            checked={this.props.value.reqEval}
-                                            onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
-                                        />
-                                        </Col>
+                                <div class="form-group col-md-6">
+                                    <label for="title">Requiere de Criterios: </label>
+                                </div>       
+                                <div class="form-group col-md-6" ><input
+                                    type="checkBox" 
+                                    checked={this.props.value.reqEval}
+                                    onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
+                                />
                                 </div>
+                            </div>
+                            <div class="form-group col-md-6">    
                                 <div>
                                 {this.props.value.reqEval===true?
                                     <div>
