@@ -59,7 +59,7 @@ class ActionButton  extends Component {
             
          }
          );
-         this.handleNextChildComponentChange();
+         this.handleNextChildComponentChange(NewEventPage);
     //window.location.replace("./");
    }
    componentWillMount(){
