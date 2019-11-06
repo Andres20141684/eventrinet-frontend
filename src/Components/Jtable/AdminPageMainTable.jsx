@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './../styles/Jtab.css'
-import ActionButton from '../Components/Jtable/ActionButton';
+import ActionButton from './ActionButton';
 
 
-const Networking = require('./../Network/Networking.js') ;
+const Networking = require('../Network/Networking') ;
 
 class AdminPageMainTable extends Component {
    constructor(props) {

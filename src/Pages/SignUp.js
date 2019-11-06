@@ -51,21 +51,31 @@ function validarPassword(pass){
 } 
 */
 class SingUp extends Component{
-    state = {
-        bannerLogin: BannerLogin,
-        bannBot : BannerBottom,
-        name: "",
-        last_name: "",
-        password: "",
-        username: "",
-        email: "",
-        redirect:false
-    }
-    componentWillMount(){
-      console.log("------------saving state----------");
-      sessionStorage.setItem('tipoSingUp',"gmail");
-    }
-    onSubmitForm = (evt) => {      
+  constructor(props){
+    super(props);
+    this.state = {      
+      usuario : null
+    } 
+    this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
+    this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+  }
+
+  handleNextChildComponentChange(_nextChildComponent){
+    console.log('cambiando', _nextChildComponent);
+      this.props.onNextChildComponentChange(_nextChildComponent);
+      
+  }
+
+  handleNextChildComponentChangeProps(_nextChildComponentProps){
+      this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+  }
+  
+  componentWillMount(){
+    console.log("------------saving state----------");
+    sessionStorage.setItem('tipoSingUp',"gmail");
+  }
+  
+  onSubmitForm = (evt) => {      
       
       var pass = document.getElementById("alertPass");
       /*if (validarPassword(pass)== false){
