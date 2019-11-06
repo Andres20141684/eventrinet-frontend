@@ -16,7 +16,8 @@ class SendProposal extends Component{
             msg: "Not Connected",
             idOrganizador: 1,
             eventriEvent:{},
-            categorias:['Machine Learning','Machine Learning nombre largote']
+            categorias:['Machine Learning','Machine Learning nombre largote'],
+            asd: "vjglhbjftbvroauyberwuarytwgtwg"
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -46,15 +47,17 @@ class SendProposal extends Component{
             }
             //I'm logged
             console.log('redireccionando a ... inscribirse evento');
-            
+            this.handleNextChildComponentChangeProps({
+                evento: this.state.eventriEvent,
+                categorias: this.state.categorias
+            });
             this.handleNextChildComponentChange(FormSendProposal);
-
         }catch(err){
             console.log(err)            
         }
         return
       }
-      getDatafromApi(){
+      getCategoriasfromApi(){
         Networking.NetworkMutation_JAchievingData(
             {
               methodPath: 'categorias/listarCategoriasXEvento',
@@ -79,7 +82,7 @@ class SendProposal extends Component{
           console.log("props");
           console.log(this.props.nextChildComponentProps);
           this.setState({eventriEvent: this.props.nextChildComponentProps});
-          this.getDatafromApi();
+          this.getCategoriasfromApi();
           
       }
       renderCategories(){
@@ -87,8 +90,6 @@ class SendProposal extends Component{
                 (element) => { const {descripcion}=element
                     return(
                         <li> {descripcion} </li>
-                        
-                        
                     )
                     
                 }
@@ -99,10 +100,11 @@ class SendProposal extends Component{
     render(){
 
         return(
-            <div class="container">
+            <div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="row" id="gradient">
+
                 <div class="col-md-4" style={{paddingBottom:"20px"}}>
                     <img src="img/img3.jpg" class="img-responsive" alt=""/>
                     <h1 style={{fontSize:"25px"},{color:"black"}}>Evento:</h1>
@@ -112,7 +114,7 @@ class SendProposal extends Component{
                     <div class="row">
                         
                         <div class="col-xs-5 col-md-5 text-center" id="fan">
-                            <h1>{this.state.eventriEvent.fechaFin}</h1>
+                            <h2>{this.state.eventriEvent.fechaFin}</h2>
                         </div>
 
                         <div class="col-xs-4 col-md-4" id="hits">
@@ -133,39 +135,58 @@ class SendProposal extends Component{
                         onClick={this.handleClicInscripcionEvento}>Enviar Propuesta</button>
                     </div>    
                 </div>
-            </div>
-            <div class="row">
+
+                <div class="container">
                 <Tabs defaultIndex={0}>
-                                <TabList>
-                                    <Tab>Descripción</Tab>
-                                    <Tab>Lugar</Tab>
-                                    <Tab>Comités</Tab>
-                                    <Tab>Contacto</Tab>
-                                    <Tab>Directrices para el envio</Tab>  
-                                </TabList>
+                    <TabList>
+                        <Tab>Descripción</Tab>
+                        <Tab>Lugar</Tab>
+                        <Tab>Comités</Tab>
+                        <Tab>Contacto</Tab>
+                        <Tab>Directrices para el envio</Tab>  
+                    </TabList>
 
-                                <TabPanel>
-                                    <p>Compartir evento</p>
-                                </TabPanel>
-                                
-                                <TabPanel>
-                                    <p>Compartir evento</p>
-                                </TabPanel>
-                                
-                                <TabPanel>
-                                    <p>Compartir evento</p>               
-                                </TabPanel>
+                    <TabPanel>
+                        <br/><br/>
+                        <h2>{this.state.eventriEvent.descripcion}</h2>
+                        <br/><br/>
+                    </TabPanel>
+                    
+                    <TabPanel>
+                    <br/><br/>
+                        <h2>{this.state.eventriEvent.lugar}</h2>
+                        <br/><br/>
+                    </TabPanel>
+                    
+                    <TabPanel>
+                        <h2> Comite Organizacional </h2>   
+                        <h4>Este man</h4>  
+                        <h4>Esta Woman</h4>  
+                        <h4>Este man</h4>  
+                        <h2> Comite Academico </h2>  
+                        <h4>Esta Woman</h4>  
+                        <h4>Este men</h4>  
+                        <h4>Este men</h4>  
+                        <h4>Esta Woman</h4>                
+                    </TabPanel>
 
-                                <TabPanel>
-                                    <p>Compartir evento</p>               
-                                </TabPanel>
+                    <TabPanel>
+                    <br/><br/>
+                        <h2>{this.state.asd}</h2>   
+                        <br/><br/>            
+                    </TabPanel>
 
-                                <TabPanel>
-                                    <p>Compartir evento</p>               
-                                </TabPanel>
-
-                            </Tabs>                      
+                    <TabPanel>
+                    <br/><br/>
+                        <h2>{this.state.eventriEvent.descripcion}</h2> 
+                        <br/><br/>              
+                    </TabPanel>
+                </Tabs>                      
             </div>
+
+
+            </div>
+            
         </div>
     </div>
     </div>

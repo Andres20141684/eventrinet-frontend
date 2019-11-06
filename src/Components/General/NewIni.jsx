@@ -18,25 +18,25 @@ function nav(props){
 }
 function Servicios(props){
   return(
-      <section class="about-services">
-        <div class="contenedor">
-            <h2 class="titulo">Nuestros servicios</h2>
-            <div class="servicio-cont">
-                <div class="servicio-ind">
+      <section className="about-services">
+        <div className="contenedor">
+            <h2 v="titulo">Nuestros servicios</h2>
+            <div className="servicio-cont">
+                <div className="servicio-ind">
                     <img src="img/ilustracion2.svg" alt=""/>
                     <h3>Gestion de Eventos Academicos</h3>
                     <p>Quieres difundir tus eventos académicos?
                       Eventrinet contiene todas las herramientas necesarias
                     </p>
                 </div>
-                <div class="servicio-ind">
+                <div className="servicio-ind">
                     <img src="./img/ilustracion4.png" alt=""/>
                     <h3>Inscripciones para ponentes y espectadores</h3>
                     <p>Todo lo que se requiere para ser parte de un evento, tanto como
                       expositor como ara espectador
                     </p>
                 </div>
-                <div class="servicio-ind">
+                <div className="servicio-ind">
                     <img src="img/ilustracion3.svg" alt=""/>
                     <h3>Viajes a la Luna</h3>
                     <p>Aqui tambien habrá un concierto de la Vaca Lola porque tiene cabeza, y se le perdio su cola :(</p>
@@ -48,11 +48,11 @@ function Servicios(props){
 }
 function Presentacion(props){
   return(
-    <section class="contenedor sobre-nosotros">
-        <h2 class="titulo">Nuestro producto</h2>
-        <div class="contenedor-sobre-nosotros">
-            <img src="./img/ilustracion1.png" alt="" class="imagen-about-us"/>
-            <div class="contenido-textos">
+    <section className="contenedor sobre-nosotros">
+        <h2 className="titulo">Nuestro producto</h2>
+        <div className="contenedor-sobre-nosotros">
+            <img src="./img/ilustracion1.png" alt="" className="imagen-about-us"/>
+            <div className="contenido-textos">
                 <h3><span>1</span>Las mejores organizaciones de eventos</h3>
                 <p>Se parte de la familia Eventrinet y empieza administrar tus eventos
                    academicos y profesionales, call for papers, y mas.</p>
@@ -118,7 +118,7 @@ class NewIni extends Component{
     <div>
     <header>
         
-        <div class="textos-header" >
+        <div className="textos-header" >
                   
                   <h1 style={styles.textos_header_h1}>EVENTRINET gestion de eventos Academicos Peru</h1>
                   <h2 style={styles.textos_header_h2}>En construccion ...</h2>
@@ -128,7 +128,7 @@ class NewIni extends Component{
                 {this.state.transport}
                 </a>
               </div>
-              <div class="wave" style={styles.waveStyle}
+              <div className="wave" style={styles.waveStyle}
               //style={{height: "150px"},{overflow: "hidden"}}
                 //style="height: 150px; overflow: hidden;"
                 >
@@ -147,19 +147,19 @@ class NewIni extends Component{
     <main>
         <Presentacion/>
         
-        <section class="clientes contenedor">
-            <h2 class="titulo">Que dicen nuestros clientes</h2>
-            <div class="cards">
-                <div class="card">
+        <section className="clientes contenedor">
+            <h2 className="titulo">Que dicen nuestros clientes</h2>
+            <div className="cards">
+                <div className="card">
                     <img src="img/face1.jpg" alt=""/>
-                    <div class="contenido-texto-card">
+                    <div className="contenido-texto-card">
                         <h4>Name</h4>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, sapiente!</p>
                     </div>
                 </div>
-                <div class="card">
+                <div className="card">
                     <img src="img/face2.jpg" alt=""/>
-                    <div class="contenido-texto-card">
+                    <div className="contenido-texto-card">
                         <h4>Name</h4>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, sapiente!</p>
                     </div>
