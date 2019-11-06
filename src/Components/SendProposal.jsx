@@ -17,7 +17,7 @@ class SendProposal extends Component{
             idOrganizador: 1,
             eventriEvent:{},
             categorias:['Machine Learning','Machine Learning nombre largote'],
-            asd: "vjglhbjftcvykbuvytvjhgvjkdzbjkvhbsukfebvuosebrvusberuvybsoeubvroauyberwuarytwgtwg"
+            asd: "vjglhbjftbvroauyberwuarytwgtwg"
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -47,15 +47,17 @@ class SendProposal extends Component{
             }
             //I'm logged
             console.log('redireccionando a ... inscribirse evento');
-            
+            this.handleNextChildComponentChangeProps({
+                evento: this.state.eventriEvent,
+                categorias: this.state.categorias
+            });
             this.handleNextChildComponentChange(FormSendProposal);
-
         }catch(err){
             console.log(err)            
         }
         return
       }
-      getDatafromApi(){
+      getCategoriasfromApi(){
         Networking.NetworkMutation_JAchievingData(
             {
               methodPath: 'categorias/listarCategoriasXEvento',
@@ -80,7 +82,7 @@ class SendProposal extends Component{
           console.log("props");
           console.log(this.props.nextChildComponentProps);
           this.setState({eventriEvent: this.props.nextChildComponentProps});
-          this.getDatafromApi();
+          this.getCategoriasfromApi();
           
       }
       renderCategories(){

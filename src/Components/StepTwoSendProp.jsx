@@ -138,6 +138,11 @@ export default class StepTwoSendProp extends React.Component {
   getData(){
     console.log("Conec");
   }
+  componentWillMount(){
+    console.log("StepTwoSendProp props");
+    console.log(this.props);
+
+  }
   componentDidMount(){
     this.getData();
     var dropZone = document.getElementById('drop_zone');

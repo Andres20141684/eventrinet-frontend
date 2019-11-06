@@ -39,6 +39,7 @@ function getStepContent(stepIndex,props) {
 }
 
 export default function FormSendProposal(props) {
+  
   console.log("FormSendProposal props:");
   console.log(props);
   
@@ -49,7 +50,6 @@ export default function FormSendProposal(props) {
   
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
-    
   };
 
   const handleBack = () => {

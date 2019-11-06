@@ -22,6 +22,8 @@ export default class StepOneSendProp extends React.Component {
   }
 
   componentWillMount(){
+    console.log("StepOneSendProp props");
+    console.log(this.props);
     this.setState({values:this.props.fases})
   }
   DateFormat(date,json,tag){
