@@ -179,7 +179,7 @@ class SingUp extends Component{
                 <div class="hint-text small" style={{textAlign:"center"}}>
                   ¿Ya tienes una cuenta?
                   <a href="/login"  class="text-success">Iniciar sesión</a>
-                </div>
+                </div>                
                 <div >
                   <section className="loginButton">
                   <script src= "./login.js"></script>

@@ -1,7 +1,7 @@
 import {AsyncStorage} from 'react';
 
-const restURL = 'http://174.129.92.182:5000/api/';
-//const restURL = 'http://localhost:5000/api/';
+//const restURL = 'http://174.129.92.182:5000/api/';
+const restURL = 'http://localhost:5000/api/';
 
 export async function getInfoUsuario_byId(_idUsuario) {
     console.log('buscando por ID Usuario...');
@@ -103,16 +103,16 @@ export async function validar_sesion(var_user,var_password) {
   }
 
 
-  export async function recordar_contraseña(var_email) {
+  export async function cambiar_contrasena(var_email) {
     console.log('Servicio envio correo electronico con contraseña');
     try {        
         let response = await fetch(restURL 
-            + 'recordar_contrasena', {
+            + 'cambiar_contrasena', {
             method: 'POST',
             mode: 'cors',
             headers: { Accept: 'application/json', 'Content-Type': 'application/json',},
             body: JSON.stringify({
-                email: var_email
+                datoUsuario: var_email
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
@@ -197,6 +197,24 @@ export async function getEventosPublicados() {
         console.log(responseJson);
         return responseJson;
 
+    } catch (error){
+        console.log(error);
+        return {}
+    }
+      
+} 
+
+
+export async function listarOrganizadores() {
+    try {
+        console.log('INTENTO DE GET!! en ' +restURL 
+        + 'listar_organizadores_activos');
+        let response = await fetch(restURL+'listar_organizadores_activos' ,{
+            method:'GET'
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
     } catch (error){
         console.log(error);
         return {}

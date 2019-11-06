@@ -45,15 +45,8 @@ class  Login extends Component{
             console.log("estamos accediendoo bbecita prrr");
             console.log(connectedUser);
 
-            sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));            
-            
-            if (document.getElementById("rememberMeCheck").checked){
-              console.log("Recordar cuenta")              
-              localStorage.setItem('localDataUser', JSON.stringify(connectedUser));
-            }else{
-              console.log("No recordar cuenta")
-              localStorage.setItem('localDataUser', null);
-            }
+            sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));
+            console.log("No recordar cuenta");
 
             sessionStorage.setItem('tipoLogin',"usuario")
             this.setState({redirect:true});
@@ -123,16 +116,8 @@ class  Login extends Component{
                 <input type="submit" name="Iniciar sesion"className="btn btn-primary btn-block" value="Iniciar Sesion"/>
               </div>                         
             </form>
-            <div className="row" style={{paddingLeft:"45px" ,paddingRight:"45px"}}>
-              <Col  >
-                <div className="form-check" style={{float:"left", fontSize:"15px"}}>
-                  <input type="checkbox" class="form-check-input" id="rememberMeCheck"/>
-                  <label className="form-check-label" for="rememberMeCheck" style={{paddingLeft:"20px"}}>Recuérdame</label>
-                </div>
-              </Col>
-              <Col>
+            <div className="row" style={{float:"right",paddingRight:"50px"}}>
                 <a onClick={this.handleClickForgotPass} style={styles.link} onMouseOver ={styles.onHoverLink}>Has olvidado tu contraseña?</a>
-              </Col>
             </div>
             
             <div id="errorMsg" className="alert alert-warning" role="alert" style={{marginBottom:0, marginTop:"20px", display:"none"}}></div>
@@ -176,6 +161,7 @@ export default Login;
 
 var styles = {
   link:{
+    paddingRight:"20px",
     float:"right", 
     fontSize:"15px",
     cursor:"pointer",

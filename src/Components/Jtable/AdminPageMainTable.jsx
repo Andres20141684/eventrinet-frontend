@@ -1,62 +1,65 @@
 import React, { Component } from 'react'
-import './../styles/Jtab.css'
+import '../../styles/styles'
 import ActionButton from './ActionButton';
+import FormOtorgarPermisos from './FormOtorgarPermisos'
 
-
-const Networking = require('../Network/Networking') ;
+const Networking = require('../../Network/Networking') ;
 
 class AdminPageMainTable extends Component {
-   constructor(props) {
-    
-      super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      this.state = {
-         idUser_recived:0,
-      datos_tabla: {
-                     Eventos:[
-                        
-                     ]
-      }
-   }
-   }
-   componentDidMount(){
-      
-      let retrievedObject = sessionStorage.getItem('dataUser');
-      let retrievedJson = JSON.parse(retrievedObject);  
-      //this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
-      
+    constructor(props) {
+        super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+        this.state = {
+            idUser_recived:0,
+            datos_tabla: {
+                Organizadores:[
+                ]
+            }
+        }
+        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
+        this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+    }
 
-/*
-      Networking.populateDataOrgTab2(this.state.idUser_recived)
-      .then((value) => {
+    handleNextChildComponentChange(_nextChildComponent){
+      console.log('cambiando', _nextChildComponent);
+        this.props.onNextChildComponentChange(_nextChildComponent);
+        
+    }
+    handleNextChildComponentChangeProps(_nextChildComponentProps){
+        this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+    }
 
-         console.log(value);
-         if(value == null){
+   componentDidMount(){      
+        Networking.listarOrganizadores()
+        .then((value) => {
+            console.log("lista organ",value);
+            if(value == null){
             console.log('no hay algo aun');
-            
-         }else {
+            }else {
             console.log('si hay algo:');
+            console.log(value);
             this.setState({datos_tabla:value});
-         }   
+            }   
             
-      });*/
+        });
    }
    handleClick = () => {
     console.log('this is:', this);
   }
-  
+  handleClickPermiso = () => {
+    this.handleNextChildComponentChange(FormOtorgarPermisos);
+
+  }
    renderTableData() {
-        return this.state.datos_tabla.Eventos.map((element, index) => {
-         const {idEvento, nombre,email,vigInicio,vigFin} = element
+        return this.state.datos_tabla.Organizadores.map((element, index) => {
+         const {correo,fechaFinPermiso,fechaIniPermiso, idPermisosEspeciales,idUsuario, nombComp} = element
             return (
             <tr >
-                <td>{nombre}</td>
-                <td>{email}</td>
-                <td>{vigInicio}</td>
-                <td>{vigFin}</td>
+                <td>{nombComp}</td>
+                <td>{correo}</td>
+                <td>{fechaIniPermiso}</td>
+                <td>{fechaFinPermiso}</td>
                 <td>
-                    <ActionButton 
-                        id_evento={idEvento} 
-                        nomb_evento ={nombre} 
+                    <ActionButton
                         idUser_recived={this.state.idUser_recived} 
                         button_class ="fa fa-times" 
                         onNextChildComponentChange={this.props.onNextChildComponentChange}
@@ -88,23 +91,24 @@ class AdminPageMainTable extends Component {
             <div style={{marginLeft:15}}>
                 <h1><br/>Otorgar permiso de crear evento</h1>
             </div>
-            <div style={{marginLeft:40,marginTop:25}} ><h4>Gestión de eventos a asignar evaluadores y en fase de evaluación</h4></div>            
 
-            <div class="panel panel mypanel" >
-            <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                <h3>Lista de organizadores que pueden crear evento</h3>
-                <a  class="pull-right" onClick={this.handleClickCrearActualizar} 
-                  value="Nuevo" style={{marginRight:30,marginBottom:20}}>Otorgar permiso</a>
+            <div className="container">
+            <div class="panel panel mypanel ">
+                <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
+                    <h3>Lista de organizadores que pueden crear evento</h3>
+                    <a  class="pull-right" onClick={this.handleClickPermiso} 
+                        style={{marginRight:30,marginBottom:20}}>Otorgar permiso</a>
+                </div>
+                <div  class="table-responsive">
+                    <table class="table  table-hover" >
+                    <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
+                    {this.renderTableHeader()}
+                    </thead>
+                        <tbody>{this.renderTableData()}</tbody>
+                    </table>
+                </div>
             </div>
-            <div  class="table-responsive">
-                <table class="table  table-hover" >
-                <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
-                {this.renderTableHeader()}
-                </thead>
-                    <tbody>{this.renderTableData()}</tbody>
-                </table>
             </div>
-        </div>
     </div>
         )
      }

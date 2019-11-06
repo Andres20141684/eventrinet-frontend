@@ -10,7 +10,7 @@ class ForgotPassword extends Component{
   constructor(props){
     super(props);
     this.state = {      
-      usuario : null
+      val_usuario : null
     } 
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -26,23 +26,24 @@ class ForgotPassword extends Component{
       this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
   }
 
+  onChangeInputEmail = (evt) =>{
+    this.setState({val_usuario: evt.target.value});
+  }
+
   onSubmitForm = (evt) => {
     evt.preventDefault()
 
-    Networking.validar_sesion(this.state.email).then(
+    Networking.cambiar_contrasena(this.state.val_usuario).then(
       (response) => {
-        console.log("Data del usuario",response);
+        console.log("Intento de cambiar contraseña",response);
         if (response.succeed){
           console.log(response);
           let inputEmail = document.getElementById("your-email");
-          inputEmail.value="";
-          /************************************************************** */
-          /****TENGO QUE LLAMAR A UNA FUNCION QUE ENVIE EL CORREO :'V *** */
-          /************************************************************** */
-          alert("Revise su bandeja de entrada")
+          inputEmail.value="";          
+          alert(response.message)
         }else{
-          console.log("No existe el correo");
-          alert("No existe una cuenta asociada al correo ");
+          console.log("No existe el correo o usuario");
+          alert(response.message);
         }
       } 
     )
@@ -61,15 +62,16 @@ class ForgotPassword extends Component{
 
           <div className="form-v5-content">
             <form className="form-detail"  type="post" onSubmit={this.onSubmitForm}>
-              <h2>Recuperar contraseña</h2>
+              <h2>Cambiar contraseña</h2>
               
-              <div className="form-row">                  
-                <input type="email" name="your-email" id="your-email" className="input-text" onChange={this.onChangeInputEmail} placeholder="Ingresar correo electronico" />
-                <i className="fa fa-envelope" style={{top:"18%"}}></i>
+              <div className="form-row">
+                <label> Nombre de usuario o dirección de correo electrónico</label>
+                <input name="your-email" id="your-email" className="input-text" onChange={this.onChangeInputEmail} autoFocus maxLength="45"/>
+                <i className="fa fa-envelope" style={{top:"48%"}}></i>
               </div>
               
               <div className="form-row">
-                <input type="submit" name="Iniciar sesion"className="btn btn-primary btn-block" value="Enviar nueva contraseña"/>
+                <input type="submit" name="Iniciar sesion"className="btn btn-primary btn-block" value="Obtener una contraseña nueva "/>
               </div>                         
             </form>
                           

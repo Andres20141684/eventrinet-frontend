@@ -7,6 +7,7 @@ import OrganActiveEvents from "./../../Pages/OrganActiveEvents.jsx";
 import PresiAsignarEvalEvents from "./../../Pages/PresiAsignarEvalEvents.jsx";
 import EvaluadorEventosListados from "./../../Pages/EvaluadorEventosListados.jsx";
 import GoogleLogout from 'react-google-login';    
+import AdminPageMainTable from '../Jtable/AdminPageMainTable';
 
 
 function initialState(){
@@ -15,7 +16,7 @@ function initialState(){
   let myavatar = document.getElementById("myavatar")
   let itemOpciones = document.getElementById("nav-item-opciones")
   let nameUser = document.getElementById("nameUser")
-
+  
   linkLogin.style.display = "block"
   linkSignUp.style.display = "block"
   myavatar.style.display = "none"
@@ -46,12 +47,14 @@ function setRoles(listRoles){
   let itemPresi = document.getElementById("itemPresi")
   let itemMisProp = document.getElementById("itemMisProp")
   let itemMisInscrip = document.getElementById("itemMisInscrip")
+  let itemAdmin = document.getElementById("itemAdmin")
 
   itemOrga.style.display = "none"
   itemEval.style.display = "none"
   itemPresi.style.display = "none"
   itemMisProp.style.display = "none"
   itemMisInscrip.style.display = "none"
+  itemAdmin.style.display = "none"
   itemOpciones.style.display = "block"
 
   if (!(listRoles[1]["Organizador"]==0)){
@@ -73,13 +76,18 @@ function setRoles(listRoles){
   if (!(listRoles[5]["Participante"]==0)){
     itemMisInscrip.style.display = "block"
     console.log("parti",listRoles[5]["Participante"])
-  }  
+  }
+  if (!(listRoles[6]["Administrador"]==0)){
+    itemAdmin.style.display = "block"
+    console.log("admin",listRoles[5]["Administrador"])
+  }
   if (
         (listRoles[1]["Organizador"]==0) && 
         (listRoles[2]["Presidente del Comité Académico"]==0) && 
         (listRoles[3]["Evaluador"]==0) &&
         (listRoles[4]["Postulante"]==0) && 
-        (listRoles[5]["Participante"]==0) 
+        (listRoles[5]["Participante"]==0) &&
+        (listRoles[6]["Administrador"]==0) 
     ){
     itemOpciones.style.display = "none"
   }
@@ -146,6 +154,9 @@ class BannerTop extends Component{
   handleClicPresidenteEventos = () => {
     console.log('redireccionando a ... Announcements evento?')
     this.handleNextChildComponentChange(PresiAsignarEvalEvents)
+  }
+  handleClicAdmin = () => {
+    this.handleNextChildComponentChange(AdminPageMainTable)
   }
   handleClicEvaluadorEventosListados = () => {
     this.handleNextChildComponentChange(EvaluadorEventosListados)
@@ -321,6 +332,7 @@ class BannerTop extends Component{
                   <li><Link id="itemOrga" className="nav-link" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
                   <li><Link id="itemPresi"className="nav-link"  onClick={this.handleClicPresidenteEventos}><b><font size="3">Presidente</font></b></Link></li>
                   <li><Link id="itemEval"className="nav-link"  onClick={this.handleClicEvaluadorEventosListados}><b><font size="3">Evaluador</font></b></Link></li>
+                  <li><Link id="itemAdmin"className="nav-link"  onClick={this.handleClicAdmin}><b><font size="3">Administrador del sistema</font></b></Link></li>
                 </ul>
               </li>
             </ul>
