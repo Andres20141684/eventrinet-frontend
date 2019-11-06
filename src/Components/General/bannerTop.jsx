@@ -7,6 +7,7 @@ import OrganActiveEvents from "./../../Pages/OrganActiveEvents.jsx";
 import PresiAsignarEvalEvents from "./../../Pages/PresiAsignarEvalEvents.jsx";
 import EvaluadorEventosListados from "./../../Pages/EvaluadorEventosListados.jsx";
 import GoogleLogout from 'react-google-login';    
+import PropoMyProposals from '../../Pages/ProposerMyProposals';
 
 
 function initialState(){
@@ -135,10 +136,12 @@ class BannerTop extends Component{
       this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
   }
 
-
-
   
   /** Manejadores de redireccion en modo de Mutacion */
+  handleClicPostulanteEventos = () => {
+    console.log('redireccionando a ... PropoMyProposals');
+    this.handleNextChildComponentChange(PropoMyProposals);
+  }
   handleClicOrganizadorEventos = () => {
     console.log('redireccionando a ... Announcements evento');
     this.handleNextChildComponentChange(OrganActiveEvents);
@@ -302,7 +305,7 @@ class BannerTop extends Component{
                 <Link className="nav-link dropdown-toggle" to="#" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false"><b><font size="3" color="#6CDCD6">Opciones</font></b></Link>
                 <ul className="dropdown-menu">
                   <li><Link id="itemMisInscrip" className="nav-link" to="#"><b><font size="3">Mis inscripciones</font></b></Link></li>
-                  <li><Link id="itemMisProp" className="nav-link" to="/propoMyProposals"><b><font size="3">Mis propuestas</font></b></Link></li>
+                  <li><Link id="itemMisProp" className="nav-link" to="#"onClick={this.handleClicPostulanteEventos}><b><font size="3">Mis propuestas</font></b></Link></li>
                   <div className="dropdown-divider"></div>
                   <li><Link id="itemOrga" className="nav-link" to="#" onClick={this.handleClicOrganizadorEventos}><b><font size="3">Organizador</font></b></Link></li>
                   <li><Link id="itemPresi"className="nav-link" to="#" onClick={this.handleClicPresidenteEventos}><b><font size="3">Presidente</font></b></Link></li>

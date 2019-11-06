@@ -23,12 +23,6 @@ class App extends Component{
       xd: null,
       pathGottenbyDunkUser:""
     }
-    console.log(this.props);
-    let str = this.props.location.search.split('?');
-    console.log("splited: ",str[1]);
-    if(this.props.location.search==='?eventrito'){
-      this.state.initialComponent=SendProposal;
-    }
     
     
   }

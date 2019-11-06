@@ -13,18 +13,25 @@ class Proposer_ActiveEventsTable  extends Component {
       //Networking.populateDataOrgTab1(8).then((value) => {
             //this.setState({datos_tabla: value});   
       //});
+      this.state = {
+         datos_tabla1: []
+
+      }
       console.log("Holiboni"+this.props);
    }
    
    handleClick = () => {
-    console.log('this is:', this);
-  }
+      console.log('this is:', this);
+   }
 
    handleClickMore = () => {
+
    
    }
-     
-   renderProposals(listProp){
+   
+   renderProposals(listProp) {
+
+      /* el Link se va al detalle de propuesta */
       return listProp.map((element, index) => {
          const { prop, fase, estado, fechaLim } = element 
          return(
@@ -32,16 +39,18 @@ class Proposer_ActiveEventsTable  extends Component {
                <td> {index+1} &nbsp;&nbsp; {prop} </td>
                <td> {fase} </td>
                <td> {estado} </td>
-               <td> {fechaLim } </td>
+               <td> {fechaLim} </td>
                <td>
-                  <Link  to="/propDetailProposal"><i class="fa fa-plus-circle"/></Link>
+                  <Link  
+                  to="#"><i 
+                  class="fa fa-plus-circle"/></Link>
                </td> 
             </tr>
          )})
    }
    
    tableData() {
-      return this.state.chupetines_AE.map((element, index) => {
+      return this.props.data.map((element, index) => {
          const { evento,listProp} = element 
          var idAccordion = "accordion"+ index
          return(            
@@ -49,9 +58,15 @@ class Proposer_ActiveEventsTable  extends Component {
                   
                   <div class="card-header" id={"heading-"+String(idAccordion)+ "-2"}>
                      <h5 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target={"#collapse"+String(idAccordion)+"2"}
-                        aria-expanded="true" aria-controls={"collapse"+String(idAccordion)+"2"}>
-                        {evento}
+                        <button 
+                           class="btn btn-link" 
+                           type="button" 
+                           onClick = {this.handleClickMore}
+                           data-toggle="collapse" 
+                           data-target={"#collapse"+String(idAccordion)+"2"}
+                           aria-expanded="true" 
+                           aria-controls={"collapse"+String(idAccordion)+"2"}>
+                           {evento}
                         </button>
                      </h5>
                   </div>
@@ -81,10 +96,15 @@ class Proposer_ActiveEventsTable  extends Component {
             )
          })
 
-    }
-  
-      render() {
-         this.state = this.props.data      
+   }
+   componentWillMount(){
+      console.log("<<proposerAcTable: ",this.props );
+      this.setState({
+         datos_tabla: this.props.data
+      });
+   }
+   render() {
+               
          return (
          <div class="accordion" id="accordionExample275">
             {this.tableData()}

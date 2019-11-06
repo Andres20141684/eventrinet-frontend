@@ -39,6 +39,9 @@ function getStepContent(stepIndex,props) {
 }
 
 export default function FormSendProposal(props) {
+  console.log("FormSendProposal props:");
+  console.log(props);
+  
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -57,9 +60,6 @@ export default function FormSendProposal(props) {
   const handleFinish = () =>{
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
-      //alert("Se ha enviado la propuesta!")
-      //elaizar servicio para guardar propuesta
-
       
   }
   const handle_redirect =() =>{
@@ -104,7 +104,12 @@ export default function FormSendProposal(props) {
           <div>
             <Typography className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
             <div>
-              <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
+              <button  
+                  style={{float:'right'}} 
+                  class="mybutton"  
+                  variant="contained" 
+                  color="primary" 
+                  onClick={handleNext}>
               Siguiente
               </button>
             </div>
@@ -114,16 +119,19 @@ export default function FormSendProposal(props) {
       </div>
       
     </div>
+    <div class="container">
     <div id="myModal" class="modal">
-
-  
         <div class="modal-content">
           <span class="close">&times;</span>
           <p>Se ha enviado la propuesta</p>
-          <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handle_redirect}>OK</button>
+          <button  style={{float:'right'}}
+           class="mybutton"  
+           variant="contained" 
+           color="primary" 
+           onClick={handle_redirect}>OK</button>
         </div>
 
-    </div>
+    </div></div>
     </div>
   );
 }
