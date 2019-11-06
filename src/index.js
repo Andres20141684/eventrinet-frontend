@@ -11,7 +11,7 @@ import PresiCalificacionFinalPapers from './Pages/PresiCalificacionFinalPapers';
 //import PresidentEvents from './Pages/PresidentEvents';
 //import EvaluadorEventos from './Pages/EvaluadorEventos';
 import Create_EventStep3 from './Pages/Create_EventStep3';
-import Prueba from './Pages/Prueba';
+//import Prueba from './Pages/Prueba';
 import Login from './Pages/Login';
 import SelectedEvent from './Pages/SelectedEvent';
 import EventInscriptionPage from './Pages/EventInscriptionPage';
@@ -37,8 +37,7 @@ ReactDOM.render(<Router>
                     
                     <Route path='/PresiCalificacionFinalPapers' exact component={PresiCalificacionFinalPapers} />
 
-                    <Route path='/createEventStep3' exact component={Create_EventStep3} />
-                    <Route path='/prueba' exact component={Prueba} />                    
+                    <Route path='/createEventStep3' exact component={Create_EventStep3} />              
                     <Route path='/login' exact component={Login} />
                     <Route path='/SelectedEvent' exact component={SelectedEvent} />
                     <Route path='/EventInscriptionPage' exact component={EventInscriptionPage} />

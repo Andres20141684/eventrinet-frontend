@@ -50,12 +50,16 @@ class ActionButton  extends Component {
                            
                         }
                      ))
-         this.handleNextChildComponentChangeProps({   idOrganizador_nextProps: this.state.idUser_recived,
+         this.handleNextChildComponentChangeProps(
+            { 
+
+             idOrganizador_nextProps: this.state.idUser_recived,
             id_evento_nextProps: this.state.id_evento,
             nomb_evento: this.state.nomb_evento
             
-         });
-         this.handleNextChildComponentChange(NewEventPage);
+         }
+         );
+         this.handleNextChildComponentChange();
     //window.location.replace("./");
    }
    componentWillMount(){

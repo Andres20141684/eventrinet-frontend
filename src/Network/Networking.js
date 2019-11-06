@@ -1,7 +1,7 @@
 import {AsyncStorage} from 'react';
 
-//const restURL = 'http://174.129.92.182:5000/api/';
-const restURL = 'http://localhost:5000/api/';
+const restURL = 'http://174.129.92.182:5000/api/';
+//const restURL = 'http://localhost:5000/api/';
 
 export async function getInfoUsuario_byId(_idUsuario) {
     console.log('buscando por ID Usuario...');
@@ -421,6 +421,30 @@ export async function populateDataPresiTab_en_fase_evaluacion(idOrganizador) {
         console.log('Saving!!');
         console.log(responseJson);
         console.log('Saving!!');
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function listar_categoriasPorEvento(_idEvento) {
+    
+    try {
+        console.log('RECIBI UN param: ' + _idEvento);
+        let response = await fetch(restURL 
+            + 'categorias/listarCategoriasXEvento', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: _idEvento
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
         return responseJson;  
     } catch (error) {
         console.error(error);

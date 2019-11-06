@@ -235,7 +235,7 @@ class BannerTop extends Component{
     
     return (
       <div id="bannerTop" style={styles.banner}><br/>              
-        <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
+        <div className="list-inline-item d-flex flex-column flex-md-row align-items-right ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
 
           <a onClick={this.handleClickInicio} style={{cursor: "pointer"}} target="_self" title="Volver al home">
@@ -250,7 +250,7 @@ class BannerTop extends Component{
                   />                  
                 )}    
             />
-          <div className="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
+          <div className="nav navbar-nav navbar-right ml-auto" style={{alignItems:"right",paddingRight:20}}>
               
               <div className="list-inline-item" align="right">
                 <a href="/signUp" id="linkSignUp" className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.SignUp}</a>

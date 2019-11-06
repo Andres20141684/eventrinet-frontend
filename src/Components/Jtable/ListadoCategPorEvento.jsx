@@ -3,11 +3,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
 import ActionButton from './ActionButton';
+import ElegirPrefCategorias from './../../Pages/ElegirPrefCategorias.jsx'
 //import NewEventPage from './../../Pages/NewEventPage' //aca debería estar el modificar fases, pero ni en back hay :'v
 const Networking = require('./../../Network/Networking.js') ;
 
 
-class EvaluadorEventosPrefTable  extends Component {
+class ListadoCategPorEvento  extends Component {
    constructor(props){
       super(props);
       this.state = {
@@ -15,7 +16,7 @@ class EvaluadorEventosPrefTable  extends Component {
           transport: "go to Fake Ini",
           idUser_recived: 0,
          datos_tabla: {
-            Eventos_Evaluador:[
+            Categorias:[
                            ]
          }
       }
@@ -42,7 +43,7 @@ class EvaluadorEventosPrefTable  extends Component {
       //this.handleNextChildComponentChange(NewEventPage);
     }
    
-   componentWillMount(){
+   componentDidMount(){
       
       
       let retrievedObject = sessionStorage.getItem('dataUser');
@@ -50,8 +51,7 @@ class EvaluadorEventosPrefTable  extends Component {
       this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
       console.log(retrievedJson);
 
-
-      Networking.populateDataEvalEvaluar(retrievedJson.infoUsuario.idUsuario).then((value) => {
+      Networking.listar_categoriasPorEvento(this.props.idEvento).then((value) => {
          console.log(value);
          if(value == null){
             console.log('no hay algo aun');
@@ -64,9 +64,14 @@ class EvaluadorEventosPrefTable  extends Component {
       });
    }
    shouldComponentUpdate(nextProps, nextState){
+
       if(this.state.datos_tabla != nextState.datos_tabla){
          return true;
       }
+      if(nextProps.idEvento!=this.props.idEvento){
+         console.log("<<cambio mi idEvento<<<",nextState.idEvento,"-",this.state.idEvento);
+         return true;
+     }
       return false;
    }
   
@@ -84,23 +89,22 @@ class EvaluadorEventosPrefTable  extends Component {
          //window.location.replace("./");
       }
 
+      elegirPrefCat = () =>{
+         this.props.onNextChildComponentChange(ElegirPrefCategorias);
+      }
+
  
    
    tableData() {
       //this.setState.idUser_recived=this.props.idUser_recived;
 
-        return this.state.datos_tabla.Eventos_Evaluador.map((element, index) => {
+        return this.state.datos_tabla.Categorias.map((element, index) => {
          
-         const {faseActual, fasesTotales, fechaLimite, idEvento,nombre} = element
+         const {idCategoria,descripcion} = element
          return (
          <tr >
-               <td >{nombre}</td>
-               <td align="left">{faseActual}/{fasesTotales}</td>
-               <td >{fechaLimite}</td>
-               
-               <td align="center">
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-plus" redirect_to="/"/>
-               </td> 
+               <td><input type="checkbox"/></td>
+               <td >{descripcion}</td>
          </tr>
          )
       })
@@ -112,19 +116,19 @@ class EvaluadorEventosPrefTable  extends Component {
             
            <div class="panel panel mypanel" >
               <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                  <h3>Lista de eventos a evaluar</h3>
+                  <h3>Lista de eventos a elegir preferencias</h3>
                </div>
               <div  class="table-responsive">
               <table class="table  table-hover">
                <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                   <tr >
-                     <th align= "left" scope="col">Lista de eventos</th>
-                     <th scope="col" align="right">Fase actual / Fases totales</th>
-                     <th scope="col">Fecha límite</th>
-                     <th scope="col" align="right" >Evaluar fase</th>
+                  <th width="5%"><input type="checkbox"/></th>
+                     <th align= "left" scope="col">Lista de categorías</th>
+                     
                   </tr>
                </thead>
               <tbody>{this.tableData()}</tbody>
+              
               </table>
               </div>
            </div>
@@ -132,4 +136,4 @@ class EvaluadorEventosPrefTable  extends Component {
      }
 }
 
-export default EvaluadorEventosPrefTable
+export default ListadoCategPorEvento
