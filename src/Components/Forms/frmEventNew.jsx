@@ -3,6 +3,8 @@ import frmCreateEvent from './frmCreateEvent'
 import { string } from 'prop-types';
 import '../../styles/style_sheets.css'
 import { thisExpression } from '@babel/types';
+import OrganActiveEvents from '../../Pages/OrganActiveEvents';
+
 const Networking = require('../../Network/Networking.js') ;
 export default class EventNew extends Component{
     constructor(props) {
@@ -56,10 +58,12 @@ export default class EventNew extends Component{
       }
 
       handleNextChildComponentChange(_nextChildComponent){
-        console.log('cambiando', _nextChildComponent);
+        console.log('redireccionando a ... ORGAN ACCTIVE evento');
           this.props.onNextChildComponentChange(_nextChildComponent);  
       }
-
+      handleClick = () => {
+        this.handleNextChildComponentChange(OrganActiveEvents);
+      }
       componentDidMount(){
         console.log(this.state.data_recived)
         var aux={}
@@ -186,7 +190,8 @@ export default class EventNew extends Component{
 
       render() {    
         return (
-          <div className='container'>
+          <div>
+            <div className='container'>
               <this.state.form
               nombre={this.state.nombre} 
               descripcion={this.state.descripcion}
@@ -221,6 +226,15 @@ export default class EventNew extends Component{
               onNextChildComponentChange={this.handleNextChildComponentChange}
               />
           </div>
+          <div>
+                <button style={{float:'left'}} 
+                class="mybutton"  variant="contained" 
+                color="primary"
+                 onClick={this.handleClick}>
+                   Cancelar</button>
+                </div>
+          </div>
+          
         )
         }
 

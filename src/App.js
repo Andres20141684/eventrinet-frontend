@@ -24,19 +24,27 @@ class App extends Component{
     
   } 
 
+
+
   render() {
+    
     return (
       <div>
-        <div className="App">
-          <div id="defaultMutableWorkingSpace">
-            <this.state.workingSpace 
-              baseComponent={this.state.initialComponent}
-              baseComponentProps = {this.state.initialComponentProps}
-            />
-          </div>
-        </div>
-        <this.state.bannBot/>
-      </div>
+      <div className="App">
+      <div>
+      <this.state.workingSpace 
+
+      
+      nextComponent={this.state.initialComponent}
+      nextComponentProps = {this.state.initialComponentProps}
+      
+      />
+    </div>
+    
+    
+    </div>
+    <this.state.bannBot/>
+    </div>
   );}
 }
 

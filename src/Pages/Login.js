@@ -38,7 +38,7 @@ class Login extends Component{
                     sessionStorage.setItem('tipoLogin',"usuario")
 
                     this.setState({redirect:true});
-                    alert("Contraseña y usuario correctos!");
+                    //alert("Contraseña y usuario correctos!");
                   }else{
                     console.log("No se logueo correctamente");
                     alert("Contraseña y/o usuario incorrecto!");

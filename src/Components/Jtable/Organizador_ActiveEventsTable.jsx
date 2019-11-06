@@ -32,14 +32,14 @@ class Organizador_ActiveEventsTable  extends Component {
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
     handleClickCrearActualizar = () => {
-      console.log('redireccionando a ... FakeNewIni evento');
+      console.log('redireccionando a ... NewEventPage evento');
       this.handleNextChildComponentChangeProps({  
          idOrganizador_nextProps: this.state.idUser_recived,
          id_evento_nextProps: 0,
          nomb_evento: "none"
          
       });
-      
+      console.log('redireccionando a ... NewEventPage evento');
       this.handleNextChildComponentChange(NewEventPage);
     }
    
@@ -99,28 +99,44 @@ class Organizador_ActiveEventsTable  extends Component {
          return (
          <tr >
                <td >{nombre}</td>
-                  <td >
-                     <ActionButton id_evento={idEvento} button_class ="fa fa-check-circle" redirect_to="/"/>
-                     -
-                     <ActionButton id_evento={idEvento} button_class ={( {programaCompletado} ===1 )  ? "fa fa-check-circle":"fa fa-times-circle"} redirect_to="/"/>
-                  </td> 
+               <td >{estado}</td>
+               <td >{fechaIni}</td>
+               <td >{fechaFin}</td>
+
                <td>
-                  <ActionButton id_evento={idEvento} 
-                  nomb_evento ={nombre} 
-                  idUser_recived={this.state.idUser_recived} 
-                  button_class ="fa fa-edit" 
-                  onNextChildComponentChange={this.props.onNextChildComponentChange}
-                  onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                   redirect_to="/organizerNewEvent"/>
+                  <ActionButton 
+                        id_evento={idEvento} 
+                        nomb_evento ={nombre} 
+                        idUser_recived={this.state.idUser_recived} 
+                        button_class ="fa fa-edit" 
+                        onNextChildComponentChange={this.props.onNextChildComponentChange}
+                        onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                        redirect_to="/"
+                  />
                </td> 
+
                <td>
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-plus" redirect_to="/"/>
+                  <ActionButton 
+                     id_evento={idEvento} 
+                     nomb_evento ={nombre} 
+                     idUser_recived={this.state.idUser_recived} 
+                     button_class ="fa fa-play" 
+                     onNextChildComponentChange={this.props.onNextChildComponentChange}
+                     onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                     redirect_to="/"
+                  />
                </td> 
+
                <td>
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-play" redirect_to="/"/>
-               </td> 
-               <td>
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-times" redirect_to="/"/>
+                  <ActionButton
+                     id_evento={idEvento} 
+                     nomb_evento ={nombre} 
+                     idUser_recived={this.state.idUser_recived} 
+                     button_class ="fa fa-times" 
+                     onNextChildComponentChange={this.props.onNextChildComponentChange}
+                     onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                     redirect_to="/"
+                  />
                </td> 
          </tr>
          )
@@ -142,15 +158,18 @@ class Organizador_ActiveEventsTable  extends Component {
                   
                   <a  class="pull-right" onClick={this.handleClickCrearActualizar} 
                   value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>
+
+
                </div>
               <div  class="table-responsive">
               <table class="table  table-hover">
                <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                   <tr >
                      <th align= "left" scope="col">Lista de eventos</th>
-                     <th scope="col">Call for Papers-> Prog. comp. </th>
+                     <th scope="col">Estado actual</th>
+                     <th scope="col">Fecha Inicio </th>
+                     <th scope="col">Fecha Fin </th>
                      <th scope="col">Editar</th>
-                     <th scope="col">Seg. de fases</th>
                      <th scope="col">Publicar evento</th>
                      <th scope="col">Cancelar</th>
                   </tr>

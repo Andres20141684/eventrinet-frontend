@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
 import frmEventNew from '../Components/Forms/frmEventNew'
+import OrganActiveEvents from './OrganActiveEvents';
 
 class NewEventPage extends Component{
     constructor(props){
