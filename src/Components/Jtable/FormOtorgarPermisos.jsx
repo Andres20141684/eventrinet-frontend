@@ -16,13 +16,15 @@ class FormularioPermiso extends Component {
             idUser_recived:0,
             fechaFin:new Date(),
             fechaIni:new Date(),
-            categorias:[],
+            usuarios:[],
+            auxUsuarios:'',
             datos_tabla: {
                 Eventos:[        
                 ]
             }
         }
         this.handleChangeDate=this.handleChangeDate.bind(this);
+        this.handleAuxChange=this.handleAuxChange.bind(this)
     }
 
     handleChangeDate(value,label){
@@ -31,11 +33,18 @@ class FormularioPermiso extends Component {
           })
 
     }
-    handleChange2(value){
+    handleChange2(value,label){
         this.setState({
-            categorias : this.state.categorias.push(value)
-          })
-    }
+          [label]:value
+        })
+      }
+
+    handleAuxChange(e,str){
+        this.setState({
+          [str]:e.target.value
+        })
+        console.log(this.state)
+      }
     
      render() {
         return (
@@ -44,7 +53,14 @@ class FormularioPermiso extends Component {
                 <Row>
                 <div class="form-group col-md-6">
                     <label >Correo del usuario</label>
-                    <ArrayOfChips lista={this.state.categorias} handleadd={this.handleChange2} tag="categorias" label="descripcion"/>
+                    <ArrayOfChips 
+                    auxLabel='auxUsuarios'
+                    aux={this.state.auxUsuarios}
+                    lista={this.state.usuarios} 
+                    handlechange={this.handleAuxChange}
+                    handleadd={this.handleChange2} 
+                    tag="usuarios" 
+                    label="descripcion"/>          
                 </div>
                 </Row>
                 <FormGroup action="" class="card card-body" style={{border:"none"}}>
@@ -111,14 +127,18 @@ class FormOtorgarPermisos extends Component {
     render() {
         return (
         <div>
-            <div style={{marginLeft:15}} className="container">
-                <h1><br/>Otorgar permiso de crear evento</h1>
-            </div>
+            <div>
+                <div style={{marginLeft:15}} className="container">
+                    <h1><br/>Otorgar permiso de crear evento</h1>
+                </div>
 
-            <div className="container">
-                <FormularioPermiso />
+                <div className="form-v5-content">
+                    <FormularioPermiso />
+                    <button className="btn btn-primary " style={{float:"right"}} >Guardar</button>
+                </div>            
             </div>
-    </div>
+            <br/><br/>
+        </div>
         )
      }
 }
