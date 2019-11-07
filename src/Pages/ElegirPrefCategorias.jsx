@@ -11,20 +11,6 @@ import EvaluadorEventosListados from './EvaluadorEventosListados';
 
 const Networking = require('../Network/Networking.js') ;
 
-
-/*
-
-function Botones(){
-    return ( 
-    <div>
-        <h2><br/></h2>
-        <h3>
-        <button class="mybutton" onClick={elegirPrefCat} style={{float:'left'}}>Atras</button>
-        <br/><br/>
-        </h3>
-    </div>
-    )
-}*/
 function MainTittle(){
     return ( <div>
     <div style={{marginLeft:15}}>
@@ -44,7 +30,7 @@ class ElegirPrefCategorias extends Component{
             datos_tabla1:  null,
             datos_tabla2: null,
             msg: "Not Connected",
-            idOrganizador: 1,
+            idEvaluador : 1,
             nombre_evento : "Evento 1",
             idEvento : 9999
         }
@@ -63,16 +49,20 @@ class ElegirPrefCategorias extends Component{
       }
 
       componentDidMount(){
+
           this.setState({
             nombre_evento : this.props.nextChildComponentProps.nomb_evento,
-            idEvento : this.props.nextChildComponentProps.id_evento_nextProps
+            idEvento : this.props.nextChildComponentProps.id_evento_nextProps,
+            idEvaluador : this.props.nextChildComponentProps.idUser_recived,
           });
-          console.log("<<<<<<<<<",this.props.idEvento);
+          console.log("<<<<<<<<<",this.props.nextChildComponentProps.idUser_recived);
       }
     
     shouldComponentUpdate(nextProps,nextState){
         if(nextState.idEvento!= this.state.idEvento){
             console.log("<<cambio mi idEvento<<<",nextState.idEvento,"-",this.state.idEvento);
+            console.log("<<idEvaluador<<",nextState.idEvaluador);
+            console.log("<<Nombre del evento<<",nextState.nombre_evento);
             return true;
         }
         return false;
@@ -107,6 +97,7 @@ class ElegirPrefCategorias extends Component{
                                     onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                     onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                                     idEvento = {this.props.nextChildComponentProps.id_evento_nextProps}
+                                    idEvaluador = {this.props.nextChildComponentProps.idUser_recived}
                                 />
                             </TabPanel>
                             
