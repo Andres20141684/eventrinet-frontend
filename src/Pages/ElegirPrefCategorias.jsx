@@ -88,7 +88,6 @@ class ElegirPrefCategorias extends Component{
                                 <Tab>Lista de categorías por evento</Tab>
                             </TabList>
                             <TabPanel>
-                                
                                 <br/>
                                 <this.state.formActives  
                                     onNextChildComponentChange={this.props.onNextChildComponentChange} 

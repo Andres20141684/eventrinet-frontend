@@ -4,6 +4,7 @@ import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
 import ActionButton from './ActionButton';
 import ElegirPrefCategorias from './../../Pages/ElegirPrefCategorias.jsx'
+import EvaluadorEventosListados from './../../Pages/EvaluadorEventosListados.jsx';
 import Checkbox from "./Checkbox";
 
 const Networking = require('./../../Network/Networking.js') ;
@@ -20,6 +21,7 @@ class ListadoCategPorEvento extends Component {
           Categorias:[
                          ]          
        },
+       PreferenciasXCategoria : [999],
        rememberMe: false,
        idEvento: 0,
        //idEvaluador : 0,
@@ -33,7 +35,6 @@ class ListadoCategPorEvento extends Component {
           {}
         )          
     }
-    //OPTIONS = ['kk', 'asco','asdas'];
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
  }
@@ -57,11 +58,12 @@ class ListadoCategPorEvento extends Component {
     console.log("antes? :",OPTIONS);
     OPTIONS = value.Categorias.map( (e) =>e.idCategoria);
     console.log("dsps? :",OPTIONS);
-    jason = OPTIONS.reduce((jason, value, key) => { jason[value] = true; return jason; }, {});
+    // < LINEAS SUPER IMPORTANTES
+    jason = OPTIONS.reduce((jason, value, key) => { jason[value] = false; return jason; }, {});
     console.log("nuevo options",jason);
     this.setState({checkboxes:jason});
-
-    this.selectAllCheckboxes(false);
+    //LINEAS SUPER IMPORTANTES />
+    //this.selectAllCheckboxes(false);
     if(value == null){
       console.log('no hay algo aun');
       
@@ -69,6 +71,38 @@ class ListadoCategPorEvento extends Component {
       console.log('si hay algo: A ACTUALIZAR EL ESTADO');
       this.setState({datos_tabla:value});
       console.log("obviamente no lo va a actualizr :V ",this.state.datos_tabla.Categorias.map( (e) => e.descripcion));
+      //OPTIONS = this.state.datos_tabla.Categorias.map( (e) => e.descripcion);
+    }
+    
+  });
+
+  Networking.ListarPrefXCateg(this.props.idEvento, retrievedJson.infoUsuario.idUsuario).then((value) => {
+    console.log("INazuma eleven <3",value.PreferenciasXCategoria.length ==0);
+    if(value.PreferenciasXCategoria.length == 0){
+      console.log('No tenía preferencias');
+
+      /* 
+      CODIGO
+      o nel :V
+      */
+
+      
+    }
+    else {
+      console.log('Tenia preferencias... ahora debo pintarlas en front');
+      this.state.PreferenciasXCategoria = value.PreferenciasXCategoria;
+      console.log("obviamente no lo va a actualizr :V ",this.state.PreferenciasXCategoria , value.PreferenciasXCategoria);
+      console.log("state.checkboxes",this.state.checkboxes);
+      //testo!!
+      //this.state.checkboxes[1] = true;
+      console.log("state.checkboxes antes",this.state.checkboxes);
+      for (var i=0; i<this.state.PreferenciasXCategoria.length; i++ ) {
+        //console.log("for i in ",this.state.PreferenciasXCategoria[i]);
+        let keys = this.state.PreferenciasXCategoria[i];
+        this.state.checkboxes[keys] = true;
+    }
+    console.log("state.checkboxes dsps",this.state.checkboxes);
+    this.setState({checkboxes:this.state.checkboxes});
       //OPTIONS = this.state.datos_tabla.Categorias.map( (e) => e.descripcion);
     }
     
@@ -91,9 +125,9 @@ class ListadoCategPorEvento extends Component {
   //OPTIONS = ['sda','asdas'];
   }
 
-elegirPrefCat = () =>{
-  this.props.onNextChildComponentChange(ElegirPrefCategorias);
-}
+  elegirPrefCat = () =>{
+    this.props.onNextChildComponentChange(EvaluadorEventosListados);
+ }
 
   selectAllCheckboxes = isSelected => {
     Object.keys(this.state.checkboxes).forEach(checkbox => {
@@ -121,29 +155,48 @@ elegirPrefCat = () =>{
     }));
   };
 
+
+
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
+    let data = {};
+    let Categorias = [];
+    let e = {};
 
     Object.keys(this.state.checkboxes)
       .filter(checkbox => this.state.checkboxes[checkbox])
       .forEach(checkbox => {
         console.log("Se va a insertar: ",this.state.idEvento, this.state.idUser_recived, checkbox);
-          /*Networking.registrar_PrefXCat(this.state.idEvento, this.state.idUser_recived, checkbox).then((value) => {
+        e = JSON.parse(JSON.stringify({
+          idCategoria: parseInt(checkbox)
+      }));
+      Categorias.push(e);
+      });
+      data = JSON.stringify({
+        idEvento: this.state.idEvento,
+        idUsuario: this.state.idUser_recived,
+        Categorias : Categorias
+      });
+      console.log("LO Q MANDO A BACK ES: ",data);
+      Networking.registrar_PrefXCat(data).then((value) => {
             console.log(value);
             if(value == null){
                console.log('devolvio null pero no se q devuelve el back :V');
                
             }else {
-               console.log('Se inserto :V');
+               console.log('Se inserto o actualizó pref :V');
                
             }
             
-         });*/
-      });
-  };
+         });
+         alert("¡Se han guardado los cambios!")
 
+         this.elegirPrefCat();
+      
+  };
+//este uso... le pasas un nombre/idCategoria par
   createCheckbox = option => (
-    console.log("option del createCheckBox", option),
+    //console.log("option del createCheckBox", option),
     <Checkbox
       label={option}
       isSelected={this.state.checkboxes[option]}
@@ -155,9 +208,8 @@ elegirPrefCat = () =>{
   createCheckboxes = () => OPTIONS.map(this.createCheckbox);
 
   
-  createCheckboxes2 = () => this.state.datos_tabla.Categorias.map( (e) => e.descripcion).map(this.createCheckbox);
 
-
+  
 
   tableData() {
     return this.state.datos_tabla.Categorias.map((element, index) => { 
@@ -180,11 +232,17 @@ elegirPrefCat = () =>{
       <div className="container">
         <div className="row mt-5">
           <div className="col-sm-12">
-            <form onSubmit={this.handleFormSubmit}>
+            <form onSubmit={this.handleFormSubmit}
+            
+            onNextChildComponentChange={this.elegirPrefCat}
+                  onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+            >
 
             <div className="form-group mt-2">
             <button type="submit" className="btn btn-primary" style={{float:'right'}} >
                   Guardar
+
+                  
                 </button>
               </div>
               
