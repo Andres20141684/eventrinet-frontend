@@ -140,6 +140,7 @@ class FormStepThree extends Component{
                                     </div>
                                     </Row>
                                     <ArrayDinamic 
+                                    id='idCriterio'
                                     type='Criterio'
                                     campo={this.props.criterios}
                                     value={this.props.value} 
@@ -165,6 +166,7 @@ class FormStepThree extends Component{
                     <div class="form-group col-md-12">
                         <div class="input-group mb-6">
                             <ArrayDinamic 
+                            id='idCamposPEnun'
                             campo={this.props.camposPerson}
                             value={this.props.value} 
                             index={this.props.index}
