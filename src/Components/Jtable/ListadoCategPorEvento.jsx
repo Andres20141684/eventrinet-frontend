@@ -5,7 +5,7 @@ import { is } from '@babel/types';
 import ActionButton from './ActionButton';
 import ElegirPrefCategorias from './../../Pages/ElegirPrefCategorias.jsx'
 import Checkbox from './Checkbox'
-//import NewEventPage from './../../Pages/NewEventPage' //aca debería estar el modificar fases, pero ni en back hay :'v
+
 const Networking = require('./../../Network/Networking.js') ;
 
 //var OPTIONS = ["One", "Two", "Three"];
@@ -15,8 +15,6 @@ class ListadoCategPorEvento  extends Component {
    constructor(props){
       super(props);
       this.state = {
-          msg: "Not Connected" ,
-          transport: "go to Fake Ini",
           idUser_recived: 0,
          datos_tabla: {
             Categorias:[
@@ -24,10 +22,7 @@ class ListadoCategPorEvento  extends Component {
          },
          rememberMe: false,
          idEvento: 0,
-         //idEvaluador : idUsuario,
-         idCategoria : 0,
-
-         opciones : [],
+         //idEvaluador : 0,
 
 
          checkboxes: OPTIONS.reduce(
@@ -73,13 +68,24 @@ class ListadoCategPorEvento  extends Component {
   
     handleFormSubmit = formSubmitEvent => {
       formSubmitEvent.preventDefault();
-  
       Object.keys(this.state.checkboxes)
         .filter(checkbox => this.state.checkboxes[checkbox])
         .forEach(checkbox => {
-          console.log(checkbox, "is selected.");
+          console.log("Se va a insertar: ",this.state.idEvento, this.state.idUser_recived, checkbox);
+          /*Networking.registrar_PrefXCat(this.state.idEvento, this.state.idUser_recived, checkbox).then((value) => {
+            console.log(value);
+            if(value == null){
+               console.log('devolvio null pero no se q devuelve el back :V');
+               
+            }else {
+               console.log('Se inserto :V');
+               
+            }
+            
+         });*/
+
         });
-        /* AQUI DEBO LLAMAR AL NETWORKING PARA Q INSERTE LAS PREF POR CATEGORIA */
+        
     };
   
     createCheckbox = option => (
@@ -104,17 +110,9 @@ class ListadoCategPorEvento  extends Component {
     handleNextChildComponentChangeProps(_nextChildComponentProps){
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
-    handleClickRegistrarPref = () => {
-      console.log('redireccionando a ... FakeNewIni evento');
-      this.handleNextChildComponentChangeProps({  
-         idOrganizador_nextProps: this.state.idUser_recived,
-         id_evento_nextProps: 0, //para q se actualice el evento no?
-         nomb_evento: "none"
-         
-      });
+  
       
       //this.handleNextChildComponentChange(NewEventPage);
-    }
    componentWillMount(){
          console.log("WILL MOUNT")
          let retrievedObject = sessionStorage.getItem('dataUser');
@@ -142,6 +140,13 @@ class ListadoCategPorEvento  extends Component {
    componentDidMount(){
       console.log("DID MOUNT");
       console.log("jxjx",this.state.datos_tabla);
+
+      this.setState({
+        //nombre_evento : this.props.nextChildComponentProps.nomb_evento,
+        idEvento : this.props.idEvento,
+        //idEvaluador : this.props.nextChildComponentProps.idOrganizador_nextProps,
+      });
+      console.log("<<<<<<<<<ID evento",this.state.idEvento);
       
       
       //OPTIONS = ['sda','asdas'];
@@ -157,6 +162,7 @@ class ListadoCategPorEvento  extends Component {
      }
       return false;
    }*/
+   
 
       elegirPrefCat = () =>{
          this.props.onNextChildComponentChange(ElegirPrefCategorias);

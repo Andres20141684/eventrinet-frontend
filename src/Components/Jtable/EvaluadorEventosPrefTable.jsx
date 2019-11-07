@@ -22,6 +22,7 @@ class EvaluadorEventosPrefTable  extends Component {
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+      this.elegirPrefCat = this.elegirPrefCat.bind(this);
   
     }
     handleNextChildComponentChange(_nextChildComponent){
@@ -39,7 +40,7 @@ class EvaluadorEventosPrefTable  extends Component {
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);  
       this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
-      console.log("kks todos",this.state.idUser_recived0);
+      //console.log("kks todos",this.state.idUser_recived0);
       console.log(retrievedJson);
 
 
@@ -51,16 +52,19 @@ class EvaluadorEventosPrefTable  extends Component {
          }else {
             console.log('si hay algo:');
             this.setState({datos_tabla:value});
+            this.setState({idUser_recived : retrievedJson.infoUsuario.idUsuario});
+            console.log("XD ID USER : ", this.state.idUser_recived);
          }
          
       });
    }
-   shouldComponentUpdate(nextProps, nextState){
+   /*shouldComponentUpdate(nextProps, nextState){
       if(this.state.datos_tabla != nextState.datos_tabla){
+         console.log("update component",this.state.idUser_recived);
          return true;
       }
       return false;
-   }
+   }*/
 
       elegirPrefCat = () =>{
          this.props.onNextChildComponentChange(ElegirPrefCategorias);
@@ -81,13 +85,14 @@ class EvaluadorEventosPrefTable  extends Component {
                
                <td align="center">
                   <ActionButton 
+                  button_class ="fa fa-plus" 
                   id_evento={idEvento} 
                   nomb_evento ={nombre} 
                   idUser_recived={this.state.idUser_recived} 
-                  button_class ="fa fa-plus" 
+
                   onNextChildComponentChange={this.elegirPrefCat}
                   onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                   redirect_to="/"/>
+                  />
                </td> 
          </tr>
          )

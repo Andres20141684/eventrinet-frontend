@@ -26,9 +26,6 @@ class ElegirPrefCategorias extends Component{
         super(props);
         this.state = {
             formActives: ListadoCategPorEvento,
-            //formRecord: Organizador_HistoryventsTable,
-            datos_tabla1:  null,
-            datos_tabla2: null,
             msg: "Not Connected",
             idEvaluador : 1,
             nombre_evento : "Evento 1",
@@ -53,9 +50,9 @@ class ElegirPrefCategorias extends Component{
           this.setState({
             nombre_evento : this.props.nextChildComponentProps.nomb_evento,
             idEvento : this.props.nextChildComponentProps.id_evento_nextProps,
-            idEvaluador : this.props.nextChildComponentProps.idUser_recived,
+            idEvaluador : this.props.nextChildComponentProps.idOrganizador_nextProps,
           });
-          console.log("<<<<<<<<<",this.props.nextChildComponentProps.idUser_recived);
+         // console.log("<<<<<<<<<ID evaluador",this.state.idEvaluador); //AQUI NO VA A MOSTRAR EL VERDADERO ID
       }
     
     shouldComponentUpdate(nextProps,nextState){
@@ -68,13 +65,13 @@ class ElegirPrefCategorias extends Component{
         return false;
 
     }
+    
     elegirPrefCat = () =>{
         this.props.onNextChildComponentChange(EvaluadorEventosListados);
      }
    
     render(){
         
-
         return(
             <div> 
     <div style={{marginLeft:15}}>
