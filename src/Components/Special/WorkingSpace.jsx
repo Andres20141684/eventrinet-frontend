@@ -41,21 +41,39 @@ class WorkingSpace extends Component{
     }
     
     componentWillMount(){
-      console.log("WSWillMount");
+      
       this.state.nextChildComponentProps = this.props.nextComponentProps;
       this.state.nextChildComponent= this.props.nextComponent;
-      
+      let page = sessionStorage.getItem("currentPage");
+
+      if(!(page === null)){
+        console.log("page to redirect ",page);
+        if (page == "InscriptionEvent"){
+          this.state.nextChildComponent=InscriptionEvent;
+        }
+        if (page == "SendProposal"){
+          this.state.nextChildComponent=SendProposal;
+        }
+        
+      }else{
+        console.log("page to redirect ","NULLLLLL");
+      }
+      console.log("WSWillMount");
+      console.log("WSWillMount -> props: ",this.state.nextChildComponentProps);
+      console.log("WSWillMount -> comp : ",this.state.nextChildComponent);
     }
     componentDidMount(){
-        console.log("WSDidMount")
+        /*console.log("WSDidMount")
         let  page = sessionStorage.getItem("currentPage");
         console.log("page to redirect ",page);
         if (page == "InscriptionEvent"){
             this.handleNextChildComponentChange(InscriptionEvent);
         }
         if (page == "SendProposal"){
+          dc
+          this.handleNextChildComponentChangeProps(this.state.nextChildComponentProps);
           this.handleNextChildComponentChange(SendProposal);
-        }
+        }*/
     }
 
     shouldComponentUpdate(nextProps,nextState){
