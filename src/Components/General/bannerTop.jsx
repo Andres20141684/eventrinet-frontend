@@ -254,6 +254,7 @@ class BannerTop extends Component{
       }
 
       sessionStorage.setItem('tipoLogin',null)
+      window.location.replace("./");
     }catch(err){
       console.log(err)
     }    

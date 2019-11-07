@@ -70,7 +70,7 @@ class Portafolio extends Component{
   }
   multiHandleClickrenderImagePort(i){
     console.log("llegue soy :", );
-    this.handleNextChildComponentChangeProps(i)
+    this.handleNextChildComponentChangeProps({evento:i,categorias:[]});
     this.handleNextChildComponentChange(SendProposal);
 
   }
