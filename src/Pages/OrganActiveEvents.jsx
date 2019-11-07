@@ -32,15 +32,15 @@ class OrganActiveEvents extends Component{
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
     
-      }
-      handleNextChildComponentChange(_nextChildComponent){
-        console.log('cambiando', _nextChildComponent);
-          this.props.onNextChildComponentChange(_nextChildComponent);
-          
-      }
-      handleNextChildComponentChangeProps(_nextChildComponentProps){
-          this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
-      }
+    }
+    handleNextChildComponentChange(_nextChildComponent){
+    console.log('cambiando', _nextChildComponent);
+        this.props.onNextChildComponentChange(_nextChildComponent);
+        
+    }
+    handleNextChildComponentChangeProps(_nextChildComponentProps){
+        this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+    }
     
     
    

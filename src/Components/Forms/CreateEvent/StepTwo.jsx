@@ -9,19 +9,40 @@ import ArrayOfChips from './ArrayOfChips'
 import '../../../styles/style_sheets.css'; 
 
 class StepTwo extends Component{    
+    constructor(){
+        super();
+        this.state={
+            auxPresi:'',
+            auxComiteA:'',
+            auxComiteO:'',
+        }
+        this.handleAuxChange=this.handleAuxChange.bind(this)
+    }
+    handleAuxChange(e,str){
+        this.setState({
+          [str]:e.target.value
+        })
+      }
 
-    formComiteOrganizacional(props){
+   /* formComiteOrganizacional(props){
         return (            
             <div class="panel panel-default">
             <div class="panel-heading"><h1>Comité Organizacional</h1></div>
             <div class="panel-body">
                 <div class="form-group col-md-6">
-                <ArrayOfChips lista={props.comite1} handleadd={props.handleChange2} tag="comiteOrganizacional" label="correo"/> 
+                <ArrayOfChips 
+                auxLabel='auxComiteO'
+                aux={props.auxComiteO} 
+                handlechange={props.handleAuxChange} 
+                lista={props.comite1} 
+                handleadd={props.handleChange2} 
+                tag="comiteOrganizacional" 
+                label="correo"/> 
                 </div>
             </div>
             </div>
         )
-    }
+    }*/
 
     formComiteAcademico(props){
         return (            
@@ -32,7 +53,14 @@ class StepTwo extends Component{
                     <div class="form-group col-md-6">
                         <label> Presidente</label>
                         <div style={{marginLeft: 13}}>
-                        <ArrayOfChips lista={props.presidente} handleadd={props.handleChange2} tag="presidente" label="correo"/>                          
+                        <ArrayOfChips 
+                        auxLabel='auxPresi'
+                        aux={props.auxPresi} 
+                        handlechange={props.handleAuxChange} 
+                        lista={props.presidente} 
+                        handleadd={props.handleChange2} 
+                        tag="presidente" 
+                        label="correo"/>                          
                         </div>
                     </div>
                 </Row> 
@@ -67,7 +95,14 @@ class StepTwo extends Component{
                     <div class="form-group col-md-6">
                         <label> Evaluadores</label>
                         <div style={{marginLeft: 13}}>
-                        <ArrayOfChips lista={props.evaluadores} handleadd={props.handleChange2} tag="evaluadores" label="correo"/>                         
+                        <ArrayOfChips 
+                        auxLabel='auxComiteA'
+                        aux={props.auxComiteA} 
+                        handlechange={props.handleAuxChange} 
+                        lista={props.evaluadores} 
+                        handleadd={props.handleChange2} 
+                        tag="evaluadores" 
+                        label="correo"/>                         
                         </div>
                     </div>
                 </Row> 
@@ -79,9 +114,87 @@ class StepTwo extends Component{
     render(){
         return(        
             <div class="panel-group">
-                <this.formComiteOrganizacional {...this.props}/>            
+                <div class="panel panel-default">
+                <div class="panel-heading"><h1>Comité Organizacional</h1></div>
+                <div class="panel-body">
+                    <div class="form-group col-md-6">
+                    <ArrayOfChips 
+                    auxLabel='auxComiteO'
+                    aux={this.state.auxComiteO} 
+                    handlechange={this.handleAuxChange} 
+                    lista={this.props.comite1} 
+                    handleadd={this.props.handleChange2} 
+                    tag="comiteOrganizacional" 
+                    label="correo"/> 
+                    </div>
+                </div>
+                </div>
+                {/*<this.formComiteOrganizacional {...this.props}/>*/}            
                 <br></br>
-                <this.formComiteAcademico {...this.props}/>       
+                {/*<this.formComiteAcademico {...this.props}/> */}   
+                    
+                <div class="panel panel-default">
+                <div class="panel-heading"><h1>Comité Académico</h1></div>
+                <div class="panel-body"> 
+                    <Row >
+                        <div class="form-group col-md-6">
+                            <label> Presidente</label>
+                            <div style={{marginLeft: 13}}>
+                            <ArrayOfChips 
+                            auxLabel='auxPresi'
+                            aux={this.state.auxPresi} 
+                            handlechange={this.handleAuxChange} 
+                            lista={this.props.presidente} 
+                            handleadd={this.props.handleChange2} 
+                            tag="presidente" 
+                            label="correo"/>                          
+                            </div>
+                        </div>
+                    </Row> 
+                    
+                    <Row>
+                    <div class="form-group col-md-6">
+                        <label> Criterio para evaluar preferencia de evaluadores:</label>
+                        <div class="form-group col-md-6">                    
+                        <div>
+                            <Form.Check
+                                type="radio" inline
+                                checked={this.props.rdCategry}
+                                label="Categorias"
+                                name="formHorizontalRadios_1"
+                                id="rdCategry"
+                                onClick={(e)=>this.props.handleChangeRadio(e,"rdPropuest")}
+                            />
+                            <Form.Check
+                                type="radio" inline
+                                checked={this.props.rdPropuest}
+                                label="Propuestas"
+                                name="formHorizontalRadios_1"
+                                id="rdPropuest"
+                                onClick={(e)=>this.props.handleChangeRadio(e,"rdCategry")}
+                            />
+                        </div>
+                    </div>
+                    </div>
+                    </Row>
+
+                    <Row >
+                        <div class="form-group col-md-6">
+                            <label> Evaluadores</label>
+                            <div style={{marginLeft: 13}}>
+                            <ArrayOfChips 
+                            auxLabel='auxComiteA'
+                            aux={this.state.auxComiteA} 
+                            handlechange={this.handleAuxChange} 
+                            lista={this.props.evaluadores} 
+                            handleadd={this.props.handleChange2} 
+                            tag="evaluadores" 
+                            label="correo"/>                         
+                            </div>
+                        </div>
+                    </Row> 
+                </div>
+                </div>   
                 <br></br>            
             </div>
         );

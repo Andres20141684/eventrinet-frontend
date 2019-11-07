@@ -33,17 +33,18 @@ function MainTittle(){
 
 
 class ProposerDetailProposal extends Component{
-    state = {
-        bannTop : BannerTop,
-        bannBot : BannerBottom,
-
-    }
+    constructor(props) {
+        super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
+        //console.log("HAAAAAAAAAAAAAAAAAAAAA")
+        //Networking.populateDataOrgTab1(8).then((value) => {
+              //this.setState({datos_tabla: value});   
+        //});
+        console.log("Holiboni"+this.props);
+     }
     
    
     render(){
         return(
-            <div > 
-            <this.state.bannTop />
             <div style={{justifyContent: "center", alignItems: "center"}}>
             <MainTittle/>
             
@@ -119,8 +120,6 @@ class ProposerDetailProposal extends Component{
             <Botones/> 
             <br/><br/>
             </div>
-        <this.state.bannBot/>
-        </div>
             
         );
     }

@@ -138,6 +138,11 @@ export default class StepTwoSendProp extends React.Component {
   getData(){
     console.log("Conec");
   }
+  componentWillMount(){
+    console.log("StepTwoSendProp props");
+    console.log(this.props);
+
+  }
   componentDidMount(){
     this.getData();
     var dropZone = document.getElementById('drop_zone');
@@ -157,6 +162,21 @@ export default class StepTwoSendProp extends React.Component {
   
   
   
+  }
+  renderOptions(){
+    return this.state.datos_tabla.Eventos.map((element, index) => {
+         
+      const {idEvento, nombre,descripcion,fechaIni,
+         fechaFin,lugar,precios,numFases,estado,
+         preferencia,tieneCameraRdy,programaCompletado,
+         fechaMaxPref,numeroPropuestas} = element
+      return (
+      
+           <>
+           </>
+      )
+   })
+
   }
   render () {
     

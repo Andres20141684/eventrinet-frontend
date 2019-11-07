@@ -82,7 +82,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
       <div>
         {activeStep === steps.length - 1 ? (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
+            <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
             <button  
                 style={{float:'left'}}
                 class="mybutton"
@@ -94,7 +94,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
+            <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
             <div>
               {activeStep===0?
               null
