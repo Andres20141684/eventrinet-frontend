@@ -138,6 +138,11 @@ export default class StepTwoSendProp extends React.Component {
   getData(){
     console.log("Conec");
   }
+  componentWillMount(){
+    console.log("StepTwoSendProp props");
+    console.log(this.props);
+
+  }
   componentDidMount(){
     this.getData();
     var dropZone = document.getElementById('drop_zone');
@@ -157,6 +162,16 @@ export default class StepTwoSendProp extends React.Component {
   
   
   
+  }
+  renderOptions(){
+    return this.state.datos_tabla.Eventos.map((element, index) => {
+         
+      const {descripcion} = element
+      return (
+        <option>{descripcion} </option>
+      )
+   })
+
   }
   render () {
     
@@ -211,6 +226,7 @@ export default class StepTwoSendProp extends React.Component {
                     <option>Inteligencia </option>
                     <option>Automirision experta</option>
                     <option>sebiwis</option>
+                    {this.renderOptions()}
                   </select>
                 </div>
                 <div class=" col-xs-3 col-md-3"style={{float: "left", paddingRight:0}}>

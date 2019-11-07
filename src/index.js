@@ -11,8 +11,8 @@ import PresiCalificacionFinalPapers from './Pages/PresiCalificacionFinalPapers';
 //import PresidentEvents from './Pages/PresidentEvents';
 //import EvaluadorEventos from './Pages/EvaluadorEventos';
 import Create_EventStep3 from './Pages/Create_EventStep3';
-//import Prueba from './Pages/Prueba';
-import Login from './Pages/Login';
+import LoginPage from './Pages/LoginPage';
+
 import SelectedEvent from './Pages/SelectedEvent';
 import EventInscriptionPage from './Pages/EventInscriptionPage';
 import ProposerMyProposals from './Pages/ProposerMyProposals';
@@ -26,9 +26,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 ReactDOM.render(<Router>
+
                      <Route path='/'  exact component={App}/>
-                     <Route path='/login' exact component={Login} />
+                     <Route path='/login' exact component={LoginPage} />
                      <Route path='/signUp' exact component={SignUp} />
+                     
                   </Router>,
                  document.getElementById('root')
                  );

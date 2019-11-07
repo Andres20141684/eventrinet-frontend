@@ -23,7 +23,7 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{idFase:0,secuencia:1,camposPerson:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
+            fases:[{idFase:0,secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:new Date(),
@@ -115,7 +115,7 @@ export default class EventNew extends Component{
                   fases:auxfases
                 })
               }
-              
+              console.log(auxfases)
 
             })
             .catch( (err) =>{

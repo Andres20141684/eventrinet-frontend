@@ -9,6 +9,17 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 class FormStepThree extends Component{
+    constructor(){
+        super();
+        this.handleValNum=this.handleValNum.bind(this)
+    }
+    handleValNum(e){
+        console.log(parseInt(e.target.value))
+        console.log(this.props)
+        if(parseInt(e.target.value)<=this.props.numEval){
+            this.props.onChange(e,this.props.index,"numEvaluadores")
+        }
+    }
     render(){
         return(
             <div clas="panel-group">
@@ -108,6 +119,8 @@ class FormStepThree extends Component{
                                 />
                                 </div>
                             </div>
+                            </Row>
+                            <Row>
                             <div class="form-group col-md-6">    
                                 <div>
                                 {this.props.value.reqEval===true?
@@ -121,12 +134,13 @@ class FormStepThree extends Component{
                                             name='nombre'
                                             class="form-control" 
                                             id="id_name_fase"       
-                                            onChange={(e) => this.props.onChange(e,this.props.index,"numEvaluadores")}
+                                            onChange={this.handleValNum}
                                             value={this.props.value.numEvaluadores}
                                             />
                                     </div>
                                     </Row>
                                     <ArrayDinamic 
+                                    id='idCriterio'
                                     type='Criterio'
                                     campo={this.props.criterios}
                                     value={this.props.value} 
@@ -149,9 +163,10 @@ class FormStepThree extends Component{
                 <div class="panel panel-default">
                 <div class="panel-body">
                 <Row >
-                    <div class="form-group col-md-6">
-                        <div class="input-group mb-3">
+                    <div class="form-group col-md-12">
+                        <div class="input-group mb-6">
                             <ArrayDinamic 
+                            id='idCamposPEnun'
                             campo={this.props.camposPerson}
                             value={this.props.value} 
                             index={this.props.index}

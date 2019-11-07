@@ -60,7 +60,7 @@ handleChangeFaseDate(value,i,str,str2){
 
 addClick() {
   this.setState(prevState => ({
-    values: [...prevState.values, {idFase:0,secuencia:this.state.values.length+1,camposPerson:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false,necesitaArchivo:0,necesitaEvaluacion:0}]
+    values: [...prevState.values, {idFase:0,secuencia:this.state.values.length+1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false,necesitaArchivo:0,necesitaEvaluacion:0}]
   }));
 }
 
@@ -108,6 +108,7 @@ handleCheckboxChange = event =>{
             <div class="panel-body">
               <div>
               <this.state.form_1 
+                    numEval={this.props.presidente.length+this.props.evaluadores.length}
                     tamActual={this.state.values.length}
                     camposPerson="camposPerson"
                     criterios="criterios"

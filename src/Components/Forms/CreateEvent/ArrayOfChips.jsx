@@ -8,13 +8,14 @@ import '../../../styles/style_sheets.css';
 
 
 export default function ArrayOfChips(props) {
-  let chipData =[];
+  var chipData =[];
   chipData= props.lista;
-  var aux='';
+  //var auxLocal=props.aux
+  var aux={[props.label]:props.aux}
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
-    if(aux!==''){
+    if(props.aux!==''){
       console.log(aux)
       if(props.tag!=="categorias"){
         let lastAtPos = aux[props.label].lastIndexOf('@');
@@ -24,7 +25,7 @@ export default function ArrayOfChips(props) {
            console.log('jeremi')
          }else{
           console.log(aux)
-          addElement(aux)
+          addElement()
           /*
           chipData.push(aux)
           props.handleadd(chipData,props.tag)
@@ -32,7 +33,7 @@ export default function ArrayOfChips(props) {
          }
       }else{
         console.log(aux)
-        addElement(aux)
+        addElement()
         /*
         chipData.push(aux)
         props.handleadd(chipData,props.tag)
@@ -42,7 +43,7 @@ export default function ArrayOfChips(props) {
     }
   };
 
-  const addElement=(aux)=>{
+  const addElement=()=>{
     console.log(props.lista)
     console.log(props.lista.indexOf(aux))
     var f=0;
@@ -56,7 +57,7 @@ export default function ArrayOfChips(props) {
     }
     if(f===0) { // notice that there is a parenthesis after `id`.
         chipData.push(aux)
-        props.handleadd(chipData,props.tag)
+        //props.handleadd(chipData,props.tag)
         cancelCourse()
     }
   }
@@ -68,11 +69,15 @@ export default function ArrayOfChips(props) {
   };
 
   const handleChange= (e) =>{
+    console.log(props)
     aux={[props.label]: e.target.value }
+    props.handlechange(e,props.auxLabel)
   }
 
   const cancelCourse = () => { 
-    document.getElementById(props.tag).reset();
+    //document.getElementById(props.tag).reset();
+    var e={target:{value:''}};
+    props.handlechange(e,props.auxLabel)
   }
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -86,8 +91,7 @@ export default function ArrayOfChips(props) {
       <div class="input-group mb-3">
         <input 
             type={props.tag==="categorias"?null:"email"}
-            defaultValue=''
-            //value={data}
+            value={props.aux}
             //name='email'
             class="form-control" 
             id="id_email"
@@ -111,7 +115,7 @@ export default function ArrayOfChips(props) {
       </form>
       
       </Row>
-      {chipData.map((data, index) => {
+      {props.lista.map((data, index) => {
               return (
                 <Chip
                   style={{fontSize:'20px'}}
