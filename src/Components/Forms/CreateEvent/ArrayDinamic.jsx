@@ -19,7 +19,7 @@ class ArrayDinamics extends Component{
 
       addClick() {
         this.setState(prevState => ({
-            array: [...prevState.array, {descripcion:'',enunciado:'',obli: false, obligatorio:0}],
+            array: [...prevState.array, {[this.props.id]:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],
             size:this.state.size+1
         }));
       }
