@@ -15,7 +15,7 @@ export default function ArrayOfChips(props) {
   // This come from the select form onChange
   const handleSelect = ()=> {
     //setChipData([...chipData, aux]);
-    if(aux!==''){
+    if(props.aux!==''){
       console.log(aux)
       if(props.tag!=="categorias"){
         let lastAtPos = aux[props.label].lastIndexOf('@');
