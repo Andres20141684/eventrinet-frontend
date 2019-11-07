@@ -6,44 +6,45 @@ import './App.css';
 import { thisExpression } from '@babel/types';
 import WorkingSpace from './Components/Special/WorkingSpace';
 import NewIni from "./../src/Components/General/NewIni";
+import EventDetail from './Components/EventDetail';
+import SendProposal from './Components/SendProposal';
 const Networking = require('./Network/Networking.js') ;
 
 
 class App extends Component{
-  state = {
-    bannBot : BannerBottom_,
-    workingSpace : WorkingSpace,
-    msg: "Not Connected" ,
-    initialComponent: NewIni,
-    initialComponentProps:{},
-    xd: null
+  constructor(props){
+    super(props);
+    this.state = {
+      bannBot : BannerBottom_,
+      workingSpace : WorkingSpace,
+      msg: "Not Connected" ,
+      initialComponent: NewIni,
+      initialComponentProps:{},
+      xd: null,
+      pathGottenbyDunkUser:""
+    }
+    
+    
   }
+  
 
   componentWillMount(){
-    console.log("AppWillMount")
-    
+    console.log("AppWillMount");
   } 
-
-
 
   render() {
     
     return (
       <div>
-      <div className="App">
-      <div>
-      <this.state.workingSpace 
-
-      
-      nextComponent={this.state.initialComponent}
-      nextComponentProps = {this.state.initialComponentProps}
-      
-      />
-    </div>
-    
-    
-    </div>
-    <this.state.bannBot/>
+        <div className="App">
+          <div>
+            <this.state.workingSpace 
+              nextComponent={this.state.initialComponent}
+              nextComponentProps = {this.state.initialComponentProps}
+            />
+          </div>
+        </div>
+        <this.state.bannBot/>
     </div>
   );}
 }

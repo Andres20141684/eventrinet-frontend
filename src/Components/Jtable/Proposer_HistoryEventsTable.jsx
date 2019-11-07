@@ -14,6 +14,9 @@ class Proposer_HistoryEventsTable  extends Component {
             
       });
       console.log("rzwetxrytcvygbuhnj"+this.props);
+      this.state = {
+         datos_tabla1: []
+      }
    }
    
    handleClick = () => {
@@ -35,7 +38,7 @@ class Proposer_HistoryEventsTable  extends Component {
    }
    
    tableData() {
-      return this.state.chupetines_RE.map((element, index) => {
+      return this.props.data.map((element, index) => {
          const { evento,listProp} = element 
          var idAccordion = "accordion"+ index
          return(            
@@ -66,17 +69,23 @@ class Proposer_HistoryEventsTable  extends Component {
             )
          })
 
-    }
+   }
+   componentWillMount(){
+      console.log("<<proposerAcTable: ",this.props );
+      this.setState({
+         datos_tabla: this.props.data
+      });
+   }
   
-      render() {
-         this.state = this.props.data      
-         return (
-         <div class="accordion" id="accordionExample276">
-            {this.tableData()}
-         </div>
-            
-         )
-     }
+   render() {
+      this.state = this.props.data      
+      return (
+      <div class="accordion" id="accordionExample276">
+         {this.tableData()}
+      </div>
+         
+      )
+   }
 }
 
 export default Proposer_HistoryEventsTable
