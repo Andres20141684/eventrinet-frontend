@@ -103,7 +103,6 @@ class ElegirPrefCategorias extends Component{
         <h2><br/></h2>
         <h3>
         <button class="mybutton" onClick={this.elegirPrefCat} style={{float:'left'}}>Atras</button>
-        <button class="mybutton" style={{float:'right'}}>Guardar</button>
         <br/><br/>
         </h3>
     </div>
