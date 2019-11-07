@@ -41,14 +41,22 @@ class SendProposal extends Component{
                 console.log("No estoy logeado!")
                 alert("No has iniciado sesión!")                
 
-                sessionStorage.setItem('currentPage', "SendProposal");			    
+                sessionStorage.setItem('currentPage', "SendProposal");	
+                //parche temporal
+                sessionStorage.setItem('currentProps', JSON.stringify({
+                    evento:this.props.nextChildComponentProps.evento,
+                    categorias:this.state.categorias
+                }));	//parche temporal
+                this.handleNextChildComponentChangeProps({
+                    evento:this.state.eventriEvent,categorias:this.state.categorias
+                });	    
 			    window.location.replace("./login");
                 return
             }
             //I'm logged
             console.log('redireccionando a ... inscribirse evento');
             this.handleNextChildComponentChangeProps({
-                evento: this.state.eventriEvent,
+                evento: this.props.nextChildComponentProps.evento,
                 categorias: this.state.categorias
             });
             this.handleNextChildComponentChange(FormSendProposal);
@@ -62,14 +70,13 @@ class SendProposal extends Component{
             {
               methodPath: 'categorias/listarCategoriasXEvento',
               JsonToBack:{
-                  idEvento: this.props.nextChildComponentProps.idEvento
+                  idEvento: this.props.nextChildComponentProps.evento.idEvento
               }
             }
-            ).then((value) => {
+            ).then((value) =>  {
           console.log(value);
           if(value == null){
              console.log('no hay algo aun');
-             
           }else {
              console.log('si hay algo:');
              this.setState({categorias: value});
@@ -80,9 +87,11 @@ class SendProposal extends Component{
       }
       componentDidMount(){
           console.log("props");
+        
           console.log(this.props.nextChildComponentProps);
-          this.setState({eventriEvent: this.props.nextChildComponentProps});
-          this.getCategoriasfromApi();
+          this.setState({eventriEvent: this.props.nextChildComponentProps.evento});
+          this.getCategoriasfromApi(); 
+          
           
       }
       renderCategories(){
