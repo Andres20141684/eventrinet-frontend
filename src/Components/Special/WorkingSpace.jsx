@@ -44,6 +44,9 @@ class WorkingSpace extends Component{
       
       this.state.nextChildComponentProps = this.props.nextComponentProps;
       this.state.nextChildComponent= this.props.nextComponent;
+      console.log("WSWillMount");
+      console.log("WSWillMount -> props: ",this.state.nextChildComponentProps);
+      console.log("WSWillMount -> comp : ",this.state.nextChildComponent);
       let page = sessionStorage.getItem("currentPage");
 
       if(!(page === null)){
@@ -54,7 +57,14 @@ class WorkingSpace extends Component{
         if (page == "SendProposal"){
           this.state.nextChildComponent=SendProposal;
         }
-        
+        let alternativeProps =  sessionStorage.getItem("currentProps");
+        console.log("currentProps to redirect ",alternativeProps);
+        //console.log("currentProps to redirect ",JSON.parse(alternativeProps));
+        console.log("currentProps to redirect ", JSON.parse(alternativeProps));
+        //console.log("currentProps to redirect ",JSON.stringify(JSON.parse(alternativeProps)));
+        if(!(alternativeProps === null)){
+          this.state.nextChildComponentProps=JSON.parse(alternativeProps);
+        }
       }else{
         console.log("page to redirect ","NULLLLLL");
       }

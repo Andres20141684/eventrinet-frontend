@@ -42,6 +42,11 @@ class SendProposal extends Component{
                 alert("No has iniciado sesión!")                
 
                 sessionStorage.setItem('currentPage', "SendProposal");	
+                //parche temporal
+                sessionStorage.setItem('currentProps', JSON.stringify({
+                    evento:this.props.nextChildComponentProps.evento,
+                    categorias:this.state.categorias
+                }));	//parche temporal
                 this.handleNextChildComponentChangeProps({
                     evento:this.state.eventriEvent,categorias:this.state.categorias
                 });	    
@@ -68,7 +73,7 @@ class SendProposal extends Component{
                   idEvento: this.props.nextChildComponentProps.evento.idEvento
               }
             }
-            ).then((value) => {
+            ).then((value) =>  {
           console.log(value);
           if(value == null){
              console.log('no hay algo aun');
@@ -82,7 +87,7 @@ class SendProposal extends Component{
       }
       componentDidMount(){
           console.log("props");
-          
+        
           console.log(this.props.nextChildComponentProps);
           this.setState({eventriEvent: this.props.nextChildComponentProps.evento});
           this.getCategoriasfromApi(); 

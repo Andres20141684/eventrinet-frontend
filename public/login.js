@@ -75,10 +75,10 @@ async function validar_sesion(var_email,var_given_name,var_family_name) {
 			sessionStorage.setItem('dataUser', JSON.stringify(connectedUser))
 			sessionStorage.setItem('tipoLogin',"gmail")
 
-			alert("El correo esta registrado en Eventrinet!")
+			console.log("El correo esta registrado en Eventrinet!")
 			window.location.replace("./");
 		}else{
-			alert("El correo no esta registrado en Eventrinet!")
+			console.log("El correo no esta registrado en Eventrinet!")
 		}
 
         return responseJson;
@@ -155,7 +155,7 @@ function onSignIn(googleUser) {
 					}else{
 						console.log("YIYI no se pudo crear cuenta");              
 					}
-						alert("usuario registrado")
+					console.log("usuario registrado")
 						sessionStorage.setItem('tipoSingUp','_');
 						window.location.replace("./");
 					}
@@ -212,7 +212,7 @@ function getJsonGoogleUser(){
 }
 // Sign-in failure callback
 function onFailure(error) {
-	alert(error);
+	console.log(error);
 }
 
 // Sign out the user

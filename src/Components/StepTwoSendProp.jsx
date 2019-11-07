@@ -166,14 +166,9 @@ export default class StepTwoSendProp extends React.Component {
   renderOptions(){
     return this.state.datos_tabla.Eventos.map((element, index) => {
          
-      const {idEvento, nombre,descripcion,fechaIni,
-         fechaFin,lugar,precios,numFases,estado,
-         preferencia,tieneCameraRdy,programaCompletado,
-         fechaMaxPref,numeroPropuestas} = element
+      const {descripcion} = element
       return (
-      
-           <>
-           </>
+        <option>{descripcion} </option>
       )
    })
 
@@ -231,6 +226,7 @@ export default class StepTwoSendProp extends React.Component {
                     <option>Inteligencia </option>
                     <option>Automirision experta</option>
                     <option>sebiwis</option>
+                    {this.renderOptions()}
                   </select>
                 </div>
                 <div class=" col-xs-3 col-md-3"style={{float: "left", paddingRight:0}}>
