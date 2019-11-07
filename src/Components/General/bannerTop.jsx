@@ -7,7 +7,7 @@ import OrganActiveEvents from "./../../Pages/OrganActiveEvents.jsx";
 import PresiAsignarEvalEvents from "./../../Pages/PresiAsignarEvalEvents.jsx";
 import EvaluadorEventosListados from "./../../Pages/EvaluadorEventosListados.jsx";
 import GoogleLogout from 'react-google-login';    
-import PropoMyProposals from '../../Pages/ProposerMyProposals';
+import PropoMyProposals from '../../Pages/ProposerMyProposals.jsx';
 import AdminPageMainTable from '../Jtable/AdminPageMainTable';
 
 function initialState(){
@@ -77,7 +77,7 @@ function setRoles(listRoles){
     itemMisInscrip.style.display = "block"
     console.log("parti",listRoles[5]["Participante"])
   }
-  if (!(listRoles[6]["Administrador"]==0)){
+  if (!(listRoles[0]["Administrador"]==0)){
     itemAdmin.style.display = "block"
     console.log("admin",listRoles[5]["Administrador"])
   }
