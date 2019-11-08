@@ -497,7 +497,7 @@ export async function listar_categoriasPorEvento(_idEvento) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
     }
-}
+}/*
 export async function registrar_PrefXCat(idEvento, idUsuario, idCategoria) {
     
     try {
@@ -512,7 +512,7 @@ export async function registrar_PrefXCat(idEvento, idUsuario, idCategoria) {
             },
             body: JSON.stringify({
                 idEvento: idEvento,
-                idEvaluador : idUsuario,
+                idUsuario : idUsuario,
                 idCategoria : idCategoria
             }),
         });
@@ -523,4 +523,48 @@ export async function registrar_PrefXCat(idEvento, idUsuario, idCategoria) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
     }
+}*/
+export async function ListarPrefXCateg(idEvento, idUsuario) {
+    
+    try {
+        console.log('RECIBI UN param: ' + idEvento);
+        let response = await fetch(restURL 
+            + 'preferencias/listarPreferenciasXCategoria', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: idEvento,
+                idEvaluador : idUsuario
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
 }
+
+export async function registrar_PrefXCat(data){
+
+    try {
+        let response = await fetch(restURL+'evaluador/registrar_preferencias_categoria' ,{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }}
+

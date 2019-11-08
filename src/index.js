@@ -15,8 +15,8 @@ import LoginPage from './Pages/LoginPage';
 
 import SelectedEvent from './Pages/SelectedEvent';
 import EventInscriptionPage from './Pages/EventInscriptionPage';
-import ProposerMyProposals from './Pages/ProposerMyProposals';
-import ProposerDetailProposal from './Pages/ProposerDetailProposal';
+//import ProposerMyProposals from './Pages/ProposerMyProposals';
+//import ProposerDetailProposal from './Pages/ProposerDetailProposal';
 import SignUp from './Pages/SignUp';
 /************************************* */
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';

@@ -14,6 +14,7 @@ class EvaluadorEventosPrefTable  extends Component {
       this.state = {
           msg: "Not Connected" ,
           transport: "go to Fake Ini",
+          idUser_recived : 0,
          datos_tabla: {
             Eventos_Evaluador:[
                            ]
@@ -21,6 +22,7 @@ class EvaluadorEventosPrefTable  extends Component {
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+      this.elegirPrefCat = this.elegirPrefCat.bind(this);
   
     }
     handleNextChildComponentChange(_nextChildComponent){
@@ -30,17 +32,7 @@ class EvaluadorEventosPrefTable  extends Component {
     handleNextChildComponentChangeProps(_nextChildComponentProps){
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
-    handleClickRegistrarPref = () => {
-      console.log('redireccionando a ... FakeNewIni evento');
-      this.handleNextChildComponentChangeProps({  
-         idOrganizador_nextProps: this.state.idUser_recived,
-         id_evento_nextProps: 0, //para q se actualice el evento no?
-         nomb_evento: "none"
-         
-      });
-      
-      //this.handleNextChildComponentChange(NewEventPage);
-    }
+   
    
    componentWillMount(){
       
@@ -48,6 +40,7 @@ class EvaluadorEventosPrefTable  extends Component {
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);  
       this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
+      //console.log("kks todos",this.state.idUser_recived0);
       console.log(retrievedJson);
 
 
@@ -59,30 +52,19 @@ class EvaluadorEventosPrefTable  extends Component {
          }else {
             console.log('si hay algo:');
             this.setState({datos_tabla:value});
+            this.setState({idUser_recived : retrievedJson.infoUsuario.idUsuario});
+            console.log("XD ID USER : ", this.state.idUser_recived);
          }
          
       });
    }
-   shouldComponentUpdate(nextProps, nextState){
+   /*shouldComponentUpdate(nextProps, nextState){
       if(this.state.datos_tabla != nextState.datos_tabla){
+         console.log("update component",this.state.idUser_recived);
          return true;
       }
       return false;
-   }
-  
-  
-      handleClick2 = () => {
-         console.log('redireccionando a ... update evento');
-         sessionStorage.setItem('nextProp',
-              JSON.stringify(
-                             {   idOrganizador_nextProps: this.state.idUser_recived,
-                                id_evento_nextProps: 0,
-                                nomb_evento: "none"
-                                
-                             }
-                          ))
-         //window.location.replace("./");
-      }
+   }*/
 
       elegirPrefCat = () =>{
          this.props.onNextChildComponentChange(ElegirPrefCategorias);
@@ -92,7 +74,6 @@ class EvaluadorEventosPrefTable  extends Component {
    
    tableData() {
       //this.setState.idUser_recived=this.props.idUser_recived;
-
         return this.state.datos_tabla.Eventos_Evaluador.map((element, index) => {
          
          const {fechaMaxPref,idEvento,nombre,preferencia} = element
@@ -103,13 +84,15 @@ class EvaluadorEventosPrefTable  extends Component {
                <td>{preferencia}</td>
                
                <td align="center">
-                  <ActionButton id_evento={idEvento} 
+                  <ActionButton 
+                  button_class ="fa fa-plus" 
+                  id_evento={idEvento} 
                   nomb_evento ={nombre} 
                   idUser_recived={this.state.idUser_recived} 
-                  button_class ="fa fa-plus" 
+
                   onNextChildComponentChange={this.elegirPrefCat}
                   onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                   redirect_to="/"/>
+                  />
                </td> 
          </tr>
          )
