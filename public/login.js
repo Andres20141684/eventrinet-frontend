@@ -1,12 +1,10 @@
-const restURL = 'http://174.129.92.182:5000/api/';
+//const restURL = 'http://18.212.120.240:5000/api/';
 
-
+const restURL = 'http://localhost:5000/api/';
 async function crear_cuenta(
     var_email,
-    var_last_name,
-    var_name, 
-    var_username,
-     var_password) {
+	var_last_name
+	) {
     console.log('Creando Usuario...');
     try {        
         let response = await fetch(restURL 
@@ -20,10 +18,7 @@ async function crear_cuenta(
             body: JSON.stringify({
                 email: var_email,
                 family_name: var_last_name,
-                given_name: var_name,
-                username: var_username,
-                password: var_password
-  
+                given_name: var_name
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
@@ -137,8 +132,6 @@ function onSignIn(googleUser) {
 			console.log("---------------------------------------");
 			crear_cuenta(
 				profile.U3,
-				profile.ofa,
-				profile.wea ,
 				profile.ofa,
 				profile.wea 
 			).then(
