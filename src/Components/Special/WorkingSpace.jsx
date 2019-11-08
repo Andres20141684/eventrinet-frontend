@@ -58,7 +58,7 @@ class WorkingSpace extends Component{
           this.state.nextChildComponent=SendProposal;
         }
         let alternativeProps =  sessionStorage.getItem("currentProps");
-        console.log("currentProps to redirect ",alternativeProps);
+        //console.log("currentProps to redirect ",alternativeProps);
         //console.log("currentProps to redirect ",JSON.parse(alternativeProps));
         console.log("currentProps to redirect ", JSON.parse(alternativeProps));
         //console.log("currentProps to redirect ",JSON.stringify(JSON.parse(alternativeProps)));
