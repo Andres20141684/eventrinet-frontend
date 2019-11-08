@@ -95,19 +95,27 @@ function handleFileSelect(evt) {
     progress.textContent = '100%';
     console.log("Inteno de redireccion dentro del evento : "," reader.result ");
     console.log(reader);
-    console.log(reader.result);
+    //console.log(reader.result);
     setTimeout("document.getElementById('progress_bar').className='';", 2000);
     NetworkMutation_JAchievingData(
       {
         methodPath: 'propuesta/registrar_propuesta',
         JsonToBack:{
-          paper: reader.result,/** ARCHIVO */
-          idEvento:1,
-          idUsuario: 13,
-          nombre: "Evento de JIN SAYAJIN",
-          coautores: "A",
-          RptaCamposPers: [],
-          categorias: []},
+            idEvento: 1,
+            idUsuario: 10,
+            anho: 2019,
+            nombre : "La sexta propuesta de Pepito con respuesta de campos personalizados y categorias",
+            coautores : "Los beffis de Pepito",
+            categorias: [
+              { idCategoria:1 },
+              { idCategoria:2 }
+            ],
+            RptaCamposPers: [
+              { respuesta:"Primera afirmación, segunda afirmación y tercera :3" },
+              { respuesta:"Aquí no sé qué poner" }
+            ],
+            paper: reader.result,/** ARCHIVO */
+        },
   
       }
     ).then((value) => {
@@ -164,7 +172,7 @@ export default class StepTwoSendProp extends React.Component {
   
   }
   renderOptions(){
-    return this.state.datos_tabla.Eventos.map((element, index) => {
+    return this.props.nextChildComponentProps.Categorias.map((element, index) => {
          
       const {descripcion} = element
       return (

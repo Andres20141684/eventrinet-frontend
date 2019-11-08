@@ -1,6 +1,6 @@
 import {AsyncStorage} from 'react';
 
-//const restURL = 'http://174.129.92.182:5000/api/';
+//const restURL = 'http://34.235.112.27:5000/api/';
 const restURL = 'http://localhost:5000/api/';
 
 export async function getInfoUsuario_byId(_idUsuario) {
@@ -443,6 +443,7 @@ export async function NetworkMutation_JAchievingData(props) {
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
+        return null;
     }
 }
 
