@@ -64,7 +64,9 @@ class WorkingSpace extends Component{
         //console.log("currentProps to redirect ",JSON.stringify(JSON.parse(alternativeProps)));
         if(!(alternativeProps === null)){
           this.state.nextChildComponentProps=JSON.parse(alternativeProps);
+          sessionStorage.setItem("currentProps",null);
         }
+        sessionStorage.setItem("currentPage",null);
       }else{
         console.log("page to redirect ","NULLLLLL");
       }
