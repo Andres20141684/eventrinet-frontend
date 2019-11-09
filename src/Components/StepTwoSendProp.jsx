@@ -101,20 +101,22 @@ function handleFileSelect(evt) {
       {
         methodPath: 'propuesta/registrar_propuesta',
         JsonToBack:{
-            idEvento: 1,
-            idUsuario: 10,
+            idEvento: 252,
+            idUsuario: 13,
             anho: 2019,
-            nombre : "La sexta propuesta de Pepito con respuesta de campos personalizados y categorias",
-            coautores : "Los beffis de Pepito",
+            paper: reader.result,/** ARCHIVO */
+            nombre : "Como transformarte en SSJ, DBsuer ylo del i en la espalda es mentira",
+            coautores : "Yo, yo",
             categorias: [
               { idCategoria:1 },
-              { idCategoria:2 }
+              { idCategoria:2 },
+              { idCategoria:39 }
             ],
             RptaCamposPers: [
-              { respuesta:"Primera afirmación, segunda afirmación y tercera :3" },
-              { respuesta:"Aquí no sé qué poner" }
+              { respuesta:"Kameeeeeee Hameeeeee" },
+              { respuesta:"HAAAAAAAAAAAAAAAAA!!!" }
             ],
-            paper: reader.result,/** ARCHIVO */
+            
         },
   
       }
@@ -150,6 +152,10 @@ export default class StepTwoSendProp extends React.Component {
     console.log("StepTwoSendProp props");
     console.log(this.props);
 
+
+  }
+  componentWillMount(){
+    
   }
   componentDidMount(){
     this.getData();
@@ -245,7 +251,7 @@ export default class StepTwoSendProp extends React.Component {
             </div>
           </div>
           <br></br>
-          <div class="panel panel-default">
+          <div class="panel panel-default" >
             <div class="panel-heading"><h1>Archivo</h1></div>
             <div class="panel-body">
               <div class="form-group col-md-12"style={{paddingLeft:0}}>
@@ -256,7 +262,7 @@ export default class StepTwoSendProp extends React.Component {
                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                 <br/>
 
-                <div class="panel panel-default">
+                <div class="panel panel-default" >
                   <div id="drop_zone">Arrastra tus archivos aqui :)</div>
                   <button type="button" class="btn btn-success" style={{width:"126px"}} onclick="abortRead();">Cancel read</button>
                   <div id="progress_bar"><div class="percent">0%</div></div>
