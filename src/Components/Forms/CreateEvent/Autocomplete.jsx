@@ -76,7 +76,7 @@ const languages = [
     return languages.filter(language => regex.test(language.name));
   };*/
   
-  const getSuggestionValue = suggestion => new String(suggestion.nombre+' '+suggestion.correo);
+  const getSuggestionValue = suggestion => new String(suggestion.nombre+','+suggestion.correo);
   
   const renderSuggestion = suggestion => <span><div>{suggestion.nombre}</div><div>{suggestion.correo}</div></span>;
   
@@ -86,6 +86,7 @@ const languages = [
       super();
   
       this.state = {
+        correo:'',
         value: '',
         suggestions: [],//getSuggestions('')
         items:[]
@@ -115,8 +116,13 @@ const languages = [
           })
     }
     onChange = (event, { newValue }) => {
+      var resp=newValue.split(',');
+      if(resp.length==1){
+        resp[1]=''
+      }
       this.setState({
-        value: newValue
+        value: resp[0],
+        correo:resp[1]
       });
     };
   
