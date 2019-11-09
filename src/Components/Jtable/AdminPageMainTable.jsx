@@ -19,7 +19,10 @@ class AdminPageMainTable extends Component {
             show:false,
             nameUserSelected:'',
             emailUserSelected:'',
-            idUsuarioSelected:0
+            idUsuarioSelected:0,
+            dateIniSelected:[],
+            dateFinSelected:[]
+
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -32,15 +35,22 @@ class AdminPageMainTable extends Component {
     handleNextChildComponentChangeProps(_nextChildComponentProps){
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
-    showModal = (evt,var_id,var_nomb,var_correo) => {
+    showModal = (evt,var_id,var_nomb,var_correo,var_fechaIni,var_fechaFin) => {
+        let yyIni=var_fechaIni.substr(0,4); let yyFin=var_fechaFin.substr(0,4);
+        let mmIni=var_fechaIni.substr(8,2); let mmFin=var_fechaFin.substr(8,2);
+        let ddIni=var_fechaIni.substr(5,2); let ddFin=var_fechaFin.substr(5,2);
+
         this.setState({
             nameUserSelected:var_nomb,
             emailUserSelected:var_correo,
-            idUsuarioSelected:var_id
-            
+            idUsuarioSelected:var_id,
+            dateIniSelected:[parseInt(yyIni),parseInt(mmIni),parseInt(ddIni)],
+            dateFinSelected: [parseInt(yyFin),parseInt(mmFin),parseInt(ddFin)]
         })
                 
         console.log("idUSUARIO !",this.state.idUsuarioSelected)
+        let aux= new Date(2018, 9,11)
+        console.log("fehca",aux)
       };
       
       componentDidMount(){      
@@ -74,7 +84,7 @@ class AdminPageMainTable extends Component {
                     <button class="btn btn-primary btn-xs"
                             data-title="Edit" data-toggle="modal" data-target="#modalPerm" 
                             onClick={e => {
-                                this.showModal(e,idUsuario,nombComp,correo);
+                                this.showModal(e,idUsuario,nombComp,correo,fechaIniPermiso,fechaFinPermiso);
                            }}
                              ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
                 <td><p data-placement="top" data-toggle="tooltip" title="Eliminar usuario"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td> 
@@ -85,10 +95,11 @@ class AdminPageMainTable extends Component {
     renderTableHeader() {
       return (
          <tr>
-             <th width="35%">Nombre completo</th>
-             <th width="27%">Correo</th>
-             <th width="12%">Vigencia Inicio</th>
-             <th width="12%">Vigencia Fin</th>
+             <th width="30%">Nombre completo</th>
+             <th width="25%">Correo</th>
+             <th width="10">Organizador</th>
+             <th width="11%">Vigencia Inicio</th>
+             <th width="11%">Vigencia Fin</th>
              <th width="7%">Editar</th>
              <th width="7%">Eliminar</th>
          </tr>
@@ -105,6 +116,8 @@ class AdminPageMainTable extends Component {
                         idUsuarioSelected={this.state.idUsuarioSelected}
                         nameUserSelected={this.state.nameUserSelected}
                         emailUserSelected={this.state.emailUserSelected}
+                        dateFinSelected={this.state.dateFinSelected}
+                        dateIniSelected={this.state.dateIniSelected}
                     />
             </div>
             <div style={{marginLeft:15}}>

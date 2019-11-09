@@ -137,12 +137,12 @@ class PresiCalificacionFinalPapersTable  extends Component {
                 <td align="center">{secuencia}/{fasesTotales}</td>
                <td align="center">{fechaLimite}</td>
                <td align="center">
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-minus-circle" redirect_to="/"/>
+                  <ActionButton id_evento={idEvento} clickeable ={false} button_class ="fa fa-minus-circle" />
                   -
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-minus-circle" redirect_to="/"/>
+                  <ActionButton id_evento={idEvento} clickeable ={false} button_class ="fa fa-minus-circle" />
                </td> 
                <td align="center">
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-plus" redirect_to="/"/>
+                  <ActionButton id_evento={idEvento} clickeable ={true} button_class ="fa fa-plus" redirect_to="/"/>
                </td> 
             </tr>
         )

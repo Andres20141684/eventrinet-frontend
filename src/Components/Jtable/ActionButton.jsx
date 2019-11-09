@@ -22,7 +22,8 @@ class ActionButton  extends Component {
          button_class : "fa fa-plus ",
          id_evento: 0,
          idUser_recived: 0,
-         nomb_evento: ""
+         nomb_evento: "",
+         clickeable: true
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -42,6 +43,7 @@ class ActionButton  extends Component {
   
    handleClick = () => {
     console.log('redireccionando a ... update evento');
+   if (this.state.clickeable){
     sessionStorage.setItem('nextProp',
          JSON.stringify(
                         {   idOrganizador_nextProps: this.state.idUser_recived,
@@ -61,6 +63,10 @@ class ActionButton  extends Component {
          );
          this.handleNextChildComponentChange(NewEventPage);
     //window.location.replace("./");
+      }
+      else{
+         console.log("no esta habilitado para hacer clicks")
+      }
    }
    componentWillMount(){
       this.state.button_class = this.props.button_class;
@@ -68,6 +74,7 @@ class ActionButton  extends Component {
       this.state.id_evento = this.props.id_evento;
       this.state.idUser_recived = this.props.idUser_recived;
       this.state.nomb_evento = this.props.nomb_evento;
+      this.state.clickeable = this.props.clickeable;
    }
    componentDidMount(){
       //this.state.idOrganizador = this.props.idOrganizador;

@@ -13,9 +13,10 @@ class FormularioPermiso extends Component {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = {
             idUser_recived:0,
-            fechaFin:new Date(),
-            fechaIni:new Date(),
             add_user:"",
+            fechaIni:new Date(),
+            fechaFin:new Date()
+            
         }
         this.handleChangeDate=this.handleChangeDate.bind(this);
         
@@ -59,8 +60,21 @@ class FormularioPermiso extends Component {
     }
     
      render() {
+        if (this.props.dateIniSelected[0] == 0){
+            this.setState({
+                fechaFin: new Date(),
+                fechaIni: new Date(),
+              })
+        }else{
+            this.setState({
+                fechaIni:new Date(this.props.dateIniSelected[0],this.props.dateIniSelected[1],this.props.dateIniSelected[2]),
+                fechaFin:new Date(this.props.dateFinSelected[0],this.props.dateFinSelected[1],this.props.dateFinSelected[2]),
 
+            })
+
+        }
         return (
+            
             <div className="modal-body" style={{paddingBottom:'0px'}}>
                 <div class="form-group row">
                     <label for="staticName" class="col-sm-4 col-form-label">Nombre completo</label>
@@ -142,7 +156,9 @@ class ModalPermisos extends Component {
                         <FormularioPermiso 
                         idUsuarioSelected={this.props.idUsuarioSelected}
                         nameUserSelected={this.props.nameUserSelected}
-                        emailUserSelected={this.props.emailUserSelected}/>                        
+                        emailUserSelected={this.props.emailUserSelected}
+                        dateFinSelected={this.props.dateFinSelected}
+                        dateIniSelected={this.props.dateIniSelected}/>  
                         </div>
                     </div>
             </div>
