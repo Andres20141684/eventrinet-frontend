@@ -85,7 +85,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
 import ActionButton from './ActionButton';
-//import NewEventPage from './../../Pages/NewEventPage' //aca debería estar el modificar fases, pero ni en back hay :'v
+import EvaluacionPresidente from  './EvaluacionPresidente';
 const Networking = require('./../../Network/Networking.js') ;
 
 
@@ -142,7 +142,7 @@ class PresiCalificacionFinalPapersTable  extends Component {
                   <ActionButton id_evento={idEvento} clickeable ={false} button_class ="fa fa-minus-circle" />
                </td> 
                <td align="center">
-                  <ActionButton id_evento={idEvento} clickeable ={true} button_class ="fa fa-plus" redirect_to="/"/>
+                  <ActionButton id_evento={idEvento} clickeable ={true} redirect={EvaluacionPresidente} button_class ="fa fa-plus" />
                </td> 
             </tr>
         )
