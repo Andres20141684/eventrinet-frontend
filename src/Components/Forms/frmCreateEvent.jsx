@@ -79,36 +79,71 @@ export default function HorizontalLabelPositionBelowStepper(props) {
           </Step>
         ))}
       </Stepper>
-      <div>
+      <div class=' form-group col-md-12'>
         {activeStep === steps.length - 1 ? (
           <div>
             <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
-            <button  
-                style={{float:'left'}}
+            <div class=' form-group col-md-12'>
+              <div class='col-md-4'>
+                  <button  
+                  style={{float:'left'}}
+                  class="mybutton"
+                  onClick={props.handleCancel}
+                >
+                  Cancelar
+                </button>
+              </div>
+              <div class='col-md-1'></div>
+              <div class='col-md-2'>
+                <button  
+                style={{float:'rigth'}}
                 class="mybutton"
                 onClick={handleBack}
               >
                 Regresar
               </button>
-            <ModalDialog {...props}/>
+              </div>
+              <div class='col-md-1'></div>
+              <div class='col-md-4'>
+                <ModalDialog {...props}/>
+              </div>
+              
+            </div>
+            
           </div>
         ) : (
-          <div>
+          <div class= 'form-group  col-md-12'>
             <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
-            <div>
-              {activeStep===0?
-              null
-              :
-              <button  
+            <div class= 'form-group col-md-12'>
+              <div class='col-md-4'>
+                <button  
                 style={{float:'left'}}
                 class="mybutton"
-                onClick={handleBack}
+                onClick={props.handleCancel}
               >
-                Regresar
-              </button>}
-              <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
-              Siguiente
+                Cancelar
               </button>
+              </div>
+              <div class='col-md-1'></div>
+              <div class='col-md-2'>
+                {activeStep===0?
+                  null
+                  :
+                  <button  
+                    style={{float:'right'}}
+                    class="mybutton"
+                    onClick={handleBack}
+                  >
+                    Regresar
+                  </button>}
+              </div>
+              <div class='col-md-1'></div>
+              <div class='col-md-4'>
+                <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
+                Siguiente
+                </button>
+              </div>
+              
             </div>
           </div>
         )}

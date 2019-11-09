@@ -64,7 +64,7 @@ const languages = [
   // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_special_characters
   const escapeRegexCharacters = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   
-  const getSuggestions = value => {
+  /*const getSuggestions = value => {
     const escapedValue = escapeRegexCharacters(value.trim());
   
     if (escapedValue === '') {
@@ -74,11 +74,11 @@ const languages = [
     const regex = new RegExp('^' + escapedValue, 'i');
   
     return languages.filter(language => regex.test(language.name));
-  };
+  };*/
   
-  const getSuggestionValue = suggestion => suggestion.name;
+  const getSuggestionValue = suggestion => new String(suggestion.nombre+' '+suggestion.correo);
   
-  const renderSuggestion = suggestion => <span><div>{suggestion.name}</div><div>{suggestion.year}</div></span>;
+  const renderSuggestion = suggestion => <span><div>{suggestion.nombre}</div><div>{suggestion.correo}</div></span>;
   
   // prettier-ignore
   class Autocompleter extends Component { // eslint-disable-line no-undef
@@ -87,10 +87,33 @@ const languages = [
   
       this.state = {
         value: '',
-        suggestions: getSuggestions('')
+        suggestions: [],//getSuggestions('')
+        items:[]
       };
+      this.getSuggestions=this.getSuggestions.bind(this);
     }
   
+    getSuggestions = value => {
+        const escapedValue = escapeRegexCharacters(value.trim());
+        console.log(this.state)
+        if (escapedValue === '') {
+          return [];
+        }
+      
+        const regex = new RegExp('^' + escapedValue, 'i');
+      
+        return this.state.items.filter(item => regex.test(item.nombre));
+      };
+    componentWillMount(){
+        Networking.listar_usuarios().then((response)=>{
+            this.setState({items:response.correos})
+            console.log(response);
+          })
+          .catch( (err) =>{
+            console.log("error en conexión");
+            console.log(err);
+          })
+    }
     onChange = (event, { newValue }) => {
       this.setState({
         value: newValue
@@ -98,8 +121,9 @@ const languages = [
     };
   
     onSuggestionsFetchRequested = ({ value }) => {
+        
       this.setState({
-        suggestions: getSuggestions(value)
+        suggestions: this.getSuggestions(value)
       });
     };
   
