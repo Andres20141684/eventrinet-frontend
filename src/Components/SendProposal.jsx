@@ -16,7 +16,9 @@ class SendProposal extends Component{
             msg: "Not Connected",
             idOrganizador: 1,
             eventriEvent:{},
-            categorias:['Machine Learning','Machine Learning nombre largote'],
+            Categorias:[
+                {descripcion:'Machine Learning'},
+                {descripcion:'Machine Learning nombre largote'}],
             asd: "vjglhbjftbvroauyberwuarytwgtwg"
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
@@ -45,7 +47,7 @@ class SendProposal extends Component{
                 //parche temporal
                 sessionStorage.setItem('currentProps', JSON.stringify({
                     evento:this.props.nextChildComponentProps.evento,
-                    categorias:this.state.categorias
+                    Categorias:this.state.Categorias
                 }));	//parche temporal
                 this.handleNextChildComponentChangeProps({
                     evento:this.state.eventriEvent,categorias:this.state.categorias
@@ -57,7 +59,7 @@ class SendProposal extends Component{
             console.log('redireccionando a ... inscribirse evento');
             this.handleNextChildComponentChangeProps({
                 evento: this.props.nextChildComponentProps.evento,
-                categorias: this.state.categorias
+                Categorias: this.state.Categorias
             });
             this.handleNextChildComponentChange(FormSendProposal);
         }catch(err){
@@ -70,7 +72,8 @@ class SendProposal extends Component{
             {
               methodPath: 'categorias/listarCategoriasXEvento',
               JsonToBack:{
-                  idEvento: this.props.nextChildComponentProps.evento.idEvento
+                  idEvento: 
+                  this.props.nextChildComponentProps.evento.idEvento
               }
             }
             ).then((value) =>  {
@@ -79,23 +82,23 @@ class SendProposal extends Component{
              console.log('no hay algo aun');
           }else {
              console.log('si hay algo:');
-             this.setState({categorias: value});
+             this.setState({Categorias: value.Categorias});
              //this.renderCategories();
           }
           
        });
       }
       componentDidMount(){
-          console.log("props");
+          console.log("props heredados del Dashboard->Protafolio->imageport");
         
-          console.log(this.props.nextChildComponentProps);
+          console.log('nextChildComponentProps',this.props.nextChildComponentProps);
           this.setState({eventriEvent: this.props.nextChildComponentProps.evento});
           this.getCategoriasfromApi(); 
           
           
       }
       renderCategories(){
-            return this.state.categorias.map(
+            return this.state.Categorias.map(
                 (element) => { const {descripcion}=element
                     return(
                         <li> {descripcion} </li>
