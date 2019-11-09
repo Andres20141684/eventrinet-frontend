@@ -4,6 +4,7 @@ import '.././styles/style_sheets.css'
 import { is } from '@babel/types';
 import ActionButton from '../Components/Jtable/ActionButton';
 import ChipsLista from '../Components/ListOfChips';
+import { Dialog } from '@material-ui/core';
 
 const Networking = require('../Network/Networking.js') ;
 
@@ -21,18 +22,21 @@ class AsignEvalPropuesta  extends Component {
     constructor(props){
        super(props);
        this.state = {
+           open:false,
            nombre:'Evento 1',
            msg: "Not Connected" ,
            transport: "go to Fake Ini",
            idUser_recived: 0,
           datos_tabla: {
-                   propuestas:[{nombre:'Gleen ',evaluadores:[{id:0,nombre:'Juan',correo:'ret@pucp.pe'}]}
+                   propuestas:[{nombre:'Gleen ',evaluadores:[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]}
                             ]
           }
        }
        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
        this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
-       this.handleChangeArray=this.handleChangeArray.bind(this)
+       this.handleDeleteArray=this.handleDeleteArray.bind(this);
+       this.handleClickOpen=this.handleClickOpen.bind(this);
+       this.handleClose=this.handleClose.bind(this)
    
      }
      handleNextChildComponentChange(_nextChildComponent){
@@ -43,6 +47,15 @@ class AsignEvalPropuesta  extends Component {
      handleNextChildComponentChangeProps(_nextChildComponentProps){
          this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
      }
+
+     handleClickOpen(){
+      this.setState({open:true})   
+    }
+
+    handleClose () {
+      this.setState({open:false})  
+    }
+
      handleClickCrearActualizar = () => {
        /*console.log('redireccionando a ... NewEventPage evento');
        this.handleNextChildComponentChangeProps({  
@@ -97,12 +110,16 @@ class AsignEvalPropuesta  extends Component {
           //window.location.replace("./");
        }
 
-       handleChangeArray(e,index){
-          var tabla=this.state.datos_tabla.propuestas
-          tabla[index].evaluadores=e;
+       handleDeleteArray(e,index){
+          console.log('Datos: ',e,' En el index',index)
+          var tabla=JSON.parse(JSON.stringify(this.state.datos_tabla))
+
+          tabla.propuestas[index].evaluadores=e;
           this.setState({
              datos_tabla:tabla
           })
+          console.log(tabla)
+          console.log(this.state)
        }
  
   
@@ -120,11 +137,23 @@ class AsignEvalPropuesta  extends Component {
           <tr >
                 <td >{nombre}</td>
                 <td>
-                   <ChipsLista
-                   index={index}
-                   lista={element.evaluadores}
-                   handleChangeArray={this.handleChangeArray}
-                   ></ChipsLista>
+                   {element.evaluadores.length==0?null:
+                      <ChipsLista
+                      index={index}
+                      lista={element.evaluadores}
+                      handleChangeArray={this.handleDeleteArray}
+                      ></ChipsLista>
+                   }
+                </td>
+                <td>
+                   <button  class="btn btn-primary" onClick={this.handleClickOpen}>+</button>
+                   <Dialog
+                     open={this.state.open}
+                     onClose={this.handleClose}
+                     aria-labelledby="responsive-dialog-title"
+                     disableBackdropClick={true}
+                   ></Dialog>
+                   
                 </td>
                 
           </tr>
@@ -142,7 +171,7 @@ class AsignEvalPropuesta  extends Component {
           return (
              <div>
                 <div>
-                <div class='Container'>
+                <div class='container'>
                 <div class='panel-body'>
                 <div class="panel" >
                   <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
@@ -155,7 +184,8 @@ class AsignEvalPropuesta  extends Component {
                   <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                      <tr >
                         <th width="30%" align= "left" scope="col">Papers</th>
-                        <th width="70%" scope="col">Evaluadores</th>
+                        <th width="60%" scope="col">Evaluadores</th>
+                        <th width="10" scope='col'>Añadir</th>
                      </tr>
                   </thead>
                   <tbody>{this.tableData()}</tbody>
