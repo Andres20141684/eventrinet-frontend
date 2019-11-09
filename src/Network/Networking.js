@@ -102,6 +102,38 @@ export async function validar_sesion(var_user,var_password) {
     }
   }
 
+  export async function crear_organizador(var_email, var_date_ini, var_date_fin) {
+    console.log('Dando permisos de organizador...');
+    try {        
+        let response = await fetch(restURL 
+            + 'insertar_permisos_crear_evento', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                    correo: var_email,
+                    fechaIni: var_date_ini,
+                    fechaFin: var_date_fin
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);  
+        console.log(response);
+        console.log('Saving!!');
+  
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+  }
+
 
   export async function cambiar_contrasena(var_email) {
     console.log('Servicio envio correo electronico con contraseña');

@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import '../../styles/styles'
-import Row from 'react-bootstrap/Row';
-import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css";
-import { FormGroup } from '@material-ui/core';
 import '../../styles/style_sheets.css'; 
-import ModalPermisos from './ModalPermisos'
+import ModalPermisos from './ModalPermisos';
+import $ from 'jquery'
 
 const Networking = require('../../Network/Networking') ;
 
@@ -26,8 +24,6 @@ class AdminPageMainTable extends Component {
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
     }
-
-
     handleNextChildComponentChange(_nextChildComponent){
       console.log('cambiando', _nextChildComponent);
         this.props.onNextChildComponentChange(_nextChildComponent);
@@ -72,7 +68,7 @@ class AdminPageMainTable extends Component {
             <tr >
                 <td>{nombComp}</td>
                 <td>{correo}</td>
-                <td>{idUsuario}</td>                
+                <td>{fechaIniPermiso}</td>                
                 <td>{fechaFinPermiso}</td>
                 <td><p data-placement="top" data-toggle="tooltip" title="Editar permisos" >
                     <button class="btn btn-primary btn-xs"
@@ -118,14 +114,14 @@ class AdminPageMainTable extends Component {
             <div className="container">
             <div class="panel panel mypanel ">
                 <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                    <h3>Lista de organizadores que pueden crear evento</h3>
+                    <h3>Lista de usuarios</h3>
                     
                 </div>
                 <br/>
                 <input class="form-control" id="myInput" type="text" placeholder="Buscar.."/>
                 <br/>
                 <div  class="table-responsive">
-                    <table class="table  table-hover" >
+                    <table class="table  table-hover table-list-search" >
                     <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                     {this.renderTableHeader()}
                     </thead>
@@ -134,6 +130,7 @@ class AdminPageMainTable extends Component {
                 </div>
             </div>
             </div>
+            <br/>
     </div>
         )
      }

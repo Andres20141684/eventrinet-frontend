@@ -43,7 +43,7 @@ class FormularioPermiso extends Component {
         let dataFin= this.DateFormat(this.state.fechaFin);
         console.log(" Datos a enviar",this.state.add_user," ",dataIni, " ",dataFin);
        
-        Networking.crear_organizador(this.props.idUsuarioSelected, dataIni, dataFin).then(
+        Networking.crear_organizador(this.props.emailUserSelected, dataIni, dataFin).then(
             (response) => {
               console.log(response);
               console.log("Data del json",response);
@@ -109,8 +109,7 @@ class FormularioPermiso extends Component {
                 </Row>
                 </FormGroup>                
                 <div className="modal-footer" style={{paddingRight:"0px"}}>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" onClick={this.handleClickAdd} class="btn btn-primary">Agregar</button>
+                    <button type="button" onClick={this.handleClickAdd} class="btn btn-primary"  data-dismiss="modal">Agregar</button>
                 </div>
             
             </div>        
@@ -144,7 +143,7 @@ class ModalPermisos extends Component {
                         idUsuarioSelected={this.props.idUsuarioSelected}
                         nameUserSelected={this.props.nameUserSelected}
                         emailUserSelected={this.props.emailUserSelected}/>                        
-                        *</div>
+                        </div>
                     </div>
             </div>
         )
