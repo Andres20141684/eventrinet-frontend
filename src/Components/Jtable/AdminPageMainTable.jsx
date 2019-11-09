@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import '../../styles/styles'
-import ActionButton from './ActionButton';
-import FormOtorgarPermisos from './FormOtorgarPermisos'
+import Row from 'react-bootstrap/Row';
+import DatePicker from "react-datepicker"; 
+import "react-datepicker/dist/react-datepicker.css";
+import { FormGroup } from '@material-ui/core';
+import '../../styles/style_sheets.css'; 
+import ModalPermisos from './ModalPermisos'
 
 const Networking = require('../../Network/Networking') ;
 
@@ -13,11 +17,16 @@ class AdminPageMainTable extends Component {
             datos_tabla: {
                 Organizadores:[
                 ]
-            }
+            },
+            show:false,
+            nameUserSelected:'',
+            emailUserSelected:'',
+            idUsarioSelected:0
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
     }
+
 
     handleNextChildComponentChange(_nextChildComponent){
       console.log('cambiando', _nextChildComponent);
@@ -27,8 +36,18 @@ class AdminPageMainTable extends Component {
     handleNextChildComponentChangeProps(_nextChildComponentProps){
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
-
-   componentDidMount(){      
+    showModal = (evt,var_id,var_nomb,var_correo) => {
+        this.setState({
+            nameUserSelected:var_nomb,
+            emailUserSelected:var_correo,
+            idUsarioSelected:var_id
+            
+        })
+                
+        console.log("idUSUARIO !",this.state.idUsarioSelected)
+      };
+      
+      componentDidMount(){      
         Networking.listarOrganizadores()
         .then((value) => {
             console.log("lista organ",value);
@@ -45,16 +64,7 @@ class AdminPageMainTable extends Component {
    handleClick = () => {
     console.log('this is:', this);
   }
-  handleClickPermisos (idUsuario,correo,nombComp) {
-    this.handleNextChildComponentChange(FormOtorgarPermisos);
-    this.handleNextChildComponentChangeProps(
-        {idUser:idUsuario,
-          email:correo,
-          nombre: nombComp
-        }
-    );
 
-  }
    renderTableData() {
         return this.state.datos_tabla.Organizadores.map((element, index) => {
          const {correo,fechaFinPermiso,fechaIniPermiso, idPermisosEspeciales,idUsuario, nombComp} = element
@@ -62,13 +72,16 @@ class AdminPageMainTable extends Component {
             <tr >
                 <td>{nombComp}</td>
                 <td>{correo}</td>
-                <td>{fechaIniPermiso}</td>                
+                <td>{idUsuario}</td>                
                 <td>{fechaFinPermiso}</td>
                 <td><p data-placement="top" data-toggle="tooltip" title="Editar permisos" >
-                    <button class="btn btn-primary btn-xs" 
-                            data-title="Edit" data-toggle="modal" data-target="#edit" 
-                            onClick={this.handleClickPermiso(idUsuario,correo,nombComp)} ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                <td><p data-placement="top" data-toggle="tooltip" title="Borrar"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td> 
+                    <button class="btn btn-primary btn-xs"
+                            data-title="Edit" data-toggle="modal" data-target="#modalPerm" 
+                            onClick={e => {
+                                this.showModal(e,idUsuario,nombComp,correo);
+                           }}
+                             ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                <td><p data-placement="top" data-toggle="tooltip" title="Eliminar usuario"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td> 
             </tr>
         )
         })
@@ -86,11 +99,18 @@ class AdminPageMainTable extends Component {
 
      )
      }
-  
+     
      render() {
         //this.state = this.props.data
         return (
         <div>
+            <div class="modal fade" id="modalPerm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <ModalPermisos 
+                        idUsarioSelected={this.state.idUsarioSelected}
+                        nameUserSelected={this.state.nameUserSelected}
+                        emailUserSelected={this.state.emailUserSelected}
+                    />
+            </div>
             <div style={{marginLeft:15}}>
                 <h1><br/>Otorgar permiso de crear evento</h1>
             </div>
