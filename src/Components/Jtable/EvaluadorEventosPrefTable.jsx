@@ -89,7 +89,7 @@ class EvaluadorEventosPrefTable  extends Component {
                   id_evento={idEvento} 
                   nomb_evento ={nombre} 
                   idUser_recived={this.state.idUser_recived} 
-
+                  //cambiar condicionar para elegirPrefCat o elegirPrefProp
                   onNextChildComponentChange={this.elegirPrefCat}
                   onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                   />

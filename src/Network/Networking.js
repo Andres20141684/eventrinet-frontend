@@ -566,5 +566,51 @@ export async function registrar_PrefXCat(data){
     } catch (error){
         console.log(error);
         return error
-    }}
+    }
+}
+
+export async function ListarPrefXProp(idEvento, idUsuario) {
+    
+    try {
+        console.log('RECIBI UN param: ' + idEvento);
+        let response = await fetch(restURL 
+            + 'propuestas_categoria/listarPropuestasConCategorias', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: idEvento,
+                idEvaluador : idUsuario
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+
+export async function registrar_PrefXProp(data){
+
+    try {
+        let response = await fetch(restURL+'evaluador/registrar_preferencias_propuesta' ,{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
 
