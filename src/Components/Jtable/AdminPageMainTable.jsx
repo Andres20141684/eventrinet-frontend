@@ -21,7 +21,7 @@ class AdminPageMainTable extends Component {
             show:false,
             nameUserSelected:'',
             emailUserSelected:'',
-            idUsarioSelected:0
+            idUsuarioSelected:0
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -40,11 +40,11 @@ class AdminPageMainTable extends Component {
         this.setState({
             nameUserSelected:var_nomb,
             emailUserSelected:var_correo,
-            idUsarioSelected:var_id
+            idUsuarioSelected:var_id
             
         })
                 
-        console.log("idUSUARIO !",this.state.idUsarioSelected)
+        console.log("idUSUARIO !",this.state.idUsuarioSelected)
       };
       
       componentDidMount(){      
@@ -106,7 +106,7 @@ class AdminPageMainTable extends Component {
         <div>
             <div class="modal fade" id="modalPerm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <ModalPermisos 
-                        idUsarioSelected={this.state.idUsarioSelected}
+                        idUsuarioSelected={this.state.idUsuarioSelected}
                         nameUserSelected={this.state.nameUserSelected}
                         emailUserSelected={this.state.emailUserSelected}
                     />
