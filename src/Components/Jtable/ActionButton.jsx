@@ -57,8 +57,7 @@ class ActionButton  extends Component {
             {
              idOrganizador_nextProps: this.state.idUser_recived,
             id_evento_nextProps: this.state.id_evento,
-            nomb_evento: this.state.nomb_evento
-            
+            nomb_evento: this.state.nomb_evento,
          }
          );
          this.handleNextChildComponentChange(this.props.redirect);
@@ -74,7 +73,7 @@ class ActionButton  extends Component {
       this.state.id_evento = this.props.id_evento;
       this.state.idUser_recived = this.props.idUser_recived;
       this.state.nomb_evento = this.props.nomb_evento;
-      this.state.clickeable = this.props.clickeable;
+      this.state.clickeable = this.props.clickeable;      
    }
    componentDidMount(){
       //this.state.idOrganizador = this.props.idOrganizador;

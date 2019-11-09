@@ -9,70 +9,41 @@ import '../../styles/style_sheets.css';
 const Networking = require('../../Network/Networking') ;
 
 class FormularioPermiso extends Component {
-    constructor(props) {
-        super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-        this.state = {
-            idUser_recived:0,
-            add_user:"",
-            fechaIni:new Date(),
-            fechaFin:new Date()
-            
-        }
-        this.handleChangeDate=this.handleChangeDate.bind(this);
-        
+    constructor(props){
+        super(props);
     }
-
-    handleChangeDate(value,label){
-        this.setState({
-            [label]:value
-          })
-
-    }
-    handleChange2(value,label){
-        this.setState({
-          [label]:value
-        })
-      }
     onChageInput = (evt) => {
         this.setState({add_user: evt.target.value});
-    }
+    } 
+    
     DateFormat(date){
-         return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
-    }
-    handleClickAdd = () => {
-        let dataIni= this.DateFormat(this.state.fechaIni);
-        let dataFin= this.DateFormat(this.state.fechaFin);
-        console.log(" Datos a enviar",this.state.add_user," ",dataIni, " ",dataFin);
-       
-        Networking.crear_organizador(this.props.emailUserSelected, dataIni, dataFin).then(
-            (response) => {
-              console.log(response);
-              console.log("Data del json",response);
-              if (response.succeed){                
-                console.log("Se agrego permiso",response);
-              }else{
-                console.log("No se dio permiso");
-                console.log(response.message);                
-              }
-            }
-          )
-
+        return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
     }
     
-     render() {
-        if (this.props.dateIniSelected[0] == 0){
-            this.setState({
-                fechaFin: new Date(),
-                fechaIni: new Date(),
-              })
-        }else{
-            this.setState({
-                fechaIni:new Date(this.props.dateIniSelected[0],this.props.dateIniSelected[1],this.props.dateIniSelected[2]),
-                fechaFin:new Date(this.props.dateFinSelected[0],this.props.dateFinSelected[1],this.props.dateFinSelected[2]),
+    handleClickUpdatePermisos (){
+        console.log("this.props nieto ",this.props)
+        console.log("dateininSelected",this.props.dateIniSelected)
+        console.log("dateFinSelected",this.props.dateFinSelected)
+        
+        let dataIni= this.DateFormat(this.props.dateIniSelected);
+        let dataFin= this.DateFormat(this.props.dateFinSelected);
+        console.log(" Datos a actulizar ",this.props.idUsuarioSelected," ",dataIni, " ",dataFin);
+    
+        Networking.crear_organizador(this.props.emailUserSelected, dataIni, dataFin).then(
+            (response) => {
+                if (response.succeed){                
+                    console.log("Se agrego permiso",response);
+                }else{
+                    console.log("No se dio permiso");
+                    console.log(response.message);                
+                }
+                this.props.myCallback();                
+                console.log("this.props",this.props)
+            }
+        )
+    }
 
-            })
-
-        }
+     render() {        
         return (
             
             <div className="modal-body" style={{paddingBottom:'0px'}}>
@@ -97,11 +68,10 @@ class FormularioPermiso extends Component {
                             type="date"
                             id="input-date"
                             name="date_in"
-                            minDate= {new Date()}
-                            maxDate={this.state.fechaFin>this.state.fechaIni?this.state.fechaFin:null}
+                            minDate= {new Date()}                            
                             placeholder="date_in"
-                            selected={this.state.fechaIni}
-                            onChange={(e)=>this.handleChangeDate(e,"fechaIni")}
+                            selected={this.props.dateIniSelected}
+                            onChange={(e)=> this.props.handleChangeDate(e,"dateIniSelected")}
                             onKeyDown={this.onKeyDownDate}
                             className="form-control"
                         />
@@ -110,20 +80,20 @@ class FormularioPermiso extends Component {
                   <div class="form-group date" style={{paddingLeft:"0px"}}>
                       <label style={{paddingLeft:"15px"}}>Fecha Fin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                       <DatePicker
-                        minDate= {new Date()}
                         type="date"
                         id="input-date"
                         name="date_in"
+                        minDate= {new Date()}
                         placeholder="date_in"
-                        selected={this.state.fechaFin}
-                        onChange={(e)=>this.handleChangeDate(e,"fechaFin")}
+                        selected={this.props.dateFinSelected}
+                        onChange={(e)=> this.props.handleChangeDate(e,"dateFinSelected")}
                         className="form-control"
                       />
                   </div>
                 </Row>
                 </FormGroup>                
                 <div className="modal-footer" style={{paddingRight:"0px"}}>
-                    <button type="button" onClick={this.handleClickAdd} class="btn btn-primary"  data-dismiss="modal">Agregar</button>
+                    <button type="button" onClick={(e)=>this.handleClickUpdatePermisos()} class="btn btn-primary"  data-dismiss="modal">Agregar</button>
                 </div>
             
             </div>        
@@ -132,16 +102,16 @@ class FormularioPermiso extends Component {
 }
 
 
-class ModalPermisos extends Component {
-    render(){        
-        console.log(this.props.show);
+class ModalPermisos extends Component {    
+    render(){           
         console.log("Datos pasados")
         console.log(this.props.idUsuarioSelected);
         console.log(this.props.nameUserSelected);
         console.log(this.props.emailUserSelected);
-        if(this.props.show == false){
-            return null;
-        }
+        console.log("flag permiso",this.props.flagPermiso);
+        console.log("dateFinSelected",this.props.dateFinSelected)
+        console.log("dateIniSelected",this.props.dateIniSelected)
+        
         return(
             
             <div>
@@ -153,12 +123,7 @@ class ModalPermisos extends Component {
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <FormularioPermiso 
-                        idUsuarioSelected={this.props.idUsuarioSelected}
-                        nameUserSelected={this.props.nameUserSelected}
-                        emailUserSelected={this.props.emailUserSelected}
-                        dateFinSelected={this.props.dateFinSelected}
-                        dateIniSelected={this.props.dateIniSelected}/>  
+                        <FormularioPermiso {...this.props}/> 
                         </div>
                     </div>
             </div>

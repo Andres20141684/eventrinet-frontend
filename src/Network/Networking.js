@@ -122,8 +122,7 @@ export async function validar_sesion(var_user,var_password) {
         console.error('CATCH NO ALCANZADO, antes del await');
         let responseJson = await response.json();
         console.log('Saving!!');
-        console.log(responseJson);  
-        console.log(response);
+        console.log(responseJson);        
         console.log('Saving!!');
   
         return responseJson;  
@@ -237,11 +236,11 @@ export async function getEventosPublicados() {
 } 
 
 
-export async function listarOrganizadores() {
+export async function listarUsuarios() {
     try {
         console.log('INTENTO DE GET!! en ' +restURL 
-        + 'listar_organizadores_activos');
-        let response = await fetch(restURL+'listar_organizadores_activos' ,{
+        + '/usuario/listar_permisos_usuarios');
+        let response = await fetch(restURL+'usuario/listar_permisos_usuarios' ,{
             method:'GET'
         });
         let responseJson = response.json();
