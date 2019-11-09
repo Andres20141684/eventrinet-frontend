@@ -6,21 +6,21 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import OrganActiveEvents from '../../../Pages/OrganActiveEvents.jsx';
-const Networking = require('../../../Network/Networking.js') ;
+//import OrganActiveEvents from '../../../Pages/OrganActiveEvents.jsx';
+//const Networking = require('../../../Network/Networking.js') ;
 
-class ModalDialog extends Component{
+class ModalLoader extends Component{
     constructor(props){
       super(props);
       this.state={
         open:false,
         data:null,
-        succeed:''
+        isLoading:false
       }
       this.handleClickOpen=this.handleClickOpen.bind(this)
       this.handleClose=this.handleClose.bind(this)
       this.handleSave=this.handleSave.bind(this)
-      this.handleExit=this.handleExit.bind(this)
+      //this.handleExit=this.handleExit.bind(this)
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
     }
 
@@ -40,7 +40,7 @@ class ModalDialog extends Component{
     }
 
     handleSave () {
-      this.setState({succeed:'wait'})
+      /*this.setState({succeed:'wait'})
       Networking.insertNewEvent(this.state.data).then(
         (response)=>{
           this.setState({succeed:response.succeed})
@@ -49,7 +49,7 @@ class ModalDialog extends Component{
         .catch( (err) =>{
           console.log("error en conexión");
           console.log(err);
-        })
+        })*/
     }
 
     handleNextChildComponentChange(_nextChildComponent){
@@ -58,9 +58,9 @@ class ModalDialog extends Component{
         
     }
 
-    handleExit(){
+    /*handleExit(){
       this.handleNextChildComponentChange(OrganActiveEvents);
-    }
+    }*/
     render(){
       debugger;
       return (
@@ -147,4 +147,4 @@ class ModalDialog extends Component{
     
   }
 
-  export default ModalDialog;
+  export default ModalLoader;

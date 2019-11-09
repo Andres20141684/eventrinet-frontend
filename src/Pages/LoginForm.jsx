@@ -5,6 +5,7 @@ import '../styles/style_signUp.css';
 import {Redirect}  from "react-router-dom";
 import Col from 'react-bootstrap/Col';
 import ForgotPassword from './ForgotPassword';
+import ModalLoader from '../Components/General/ModalLoader';
 
 
 const Networking = require('../Network/Networking');
@@ -17,7 +18,9 @@ class  Login extends Component{
       usuario : null,
       user: "",
       pass: "",
-      redirect:false
+      redirect:false,
+      isLoading:false,
+      buttonLoadingText:"Iniciar sesión"
     } 
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -35,6 +38,7 @@ class  Login extends Component{
 
   onSubmitForm = (evt) => {
       evt.preventDefault()
+      this.setState({isLoading:true, buttonLoadingText:"Cargando..."});
 
       Networking.validar_sesion(this.state.user,this.state.pass).then(
         (response) => {
@@ -42,7 +46,7 @@ class  Login extends Component{
           let connectedUser = response;
           console.log("Data del usuario",connectedUser);
           if (connectedUser.succeed){
-            console.log("estamos accediendoo bbecita prrr");
+            console.log("estamos accediendoo");
             console.log(connectedUser);
 
             sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));
@@ -113,7 +117,7 @@ class  Login extends Component{
                 <i className="fa fa-lock"></i>
               </div>
               <div className="form-row">
-                <input type="submit" name="Iniciar sesion"className="btn btn-primary btn-block" value="Iniciar Sesion"/>
+                <input type="submit" name="Iniciar sesion"className="btn btn-primary btn-block" value={this.state.buttonLoadingText} disabled={this.state.isLoading}/>
               </div>                         
             </form>
             <div className="row" style={{float:"right",paddingRight:"50px"}}>
@@ -148,8 +152,7 @@ class  Login extends Component{
               </div>
               <br/>
           </div>
-          
-        </div>          
+        </div>     
       </div>
     )
   }
