@@ -54,10 +54,10 @@ function Presentacion(props){
             <img src="./img/ilustracion1.png" alt="" className="imagen-about-us"/>
             <div className="contenido-textos">
                 <h3><span>1</span>Las mejores organizaciones de eventos</h3>
-                <p>Se parte de la familia Eventrinet y empieza administrar tus eventos
-                   academicos y profesionales, call for papers, y mas.</p>
+                <p>Sé parte de la familia Eventrinet y empieza administrar tus eventos
+                   académicos y profesionales, call for papers, y más.</p>
                 <h3><span>2</span>Las mejores acogidas</h3>
-                <p>Eventrinet es una plataforma de difucion de eventos
+                <p>Eventrinet es una plataforma de difución de eventos
                    alrededor del mundo y nuestro servicio es utilizado
                    por grandes compañias, universidades entre otros.</p>
             </div>
@@ -119,7 +119,7 @@ class NewIni extends Component{
         
         <div className="textos-header" >
                   
-                  <h1 style={styles.textos_header_h1}>Sistema de gestión de eventos Académicos</h1>
+                  <h1 style={styles.textos_header_h1}>Sistema de gestión de eventos académicos</h1>
                   <h1>{this.state.msg}</h1>
               </div>
               <div className="wave" style={styles.waveStyle}
