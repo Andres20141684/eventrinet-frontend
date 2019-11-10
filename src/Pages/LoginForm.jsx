@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
 import BannerLogin from '../Components/General/bannerLogin';
 import {Link}  from "react-router-dom";
-import '../styles/style_signUp.css'; 
+import '../styles/style_signUp.css';
 import {Redirect}  from "react-router-dom";
 import Col from 'react-bootstrap/Col';
 import ForgotPassword from './ForgotPassword';
 import ModalLoader from '../Components/General/ModalLoader';
 
-
 const Networking = require('../Network/Networking');
-
 
 class  Login extends Component{
   constructor(props){
     super(props);
-    this.state = {      
+    this.state = {
       usuario : null,
       user: "",
       pass: "",
       redirect:false,
       isLoading:false,
       buttonLoadingText:"Iniciar sesión"
-    } 
+    }
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
   }
@@ -29,7 +27,7 @@ class  Login extends Component{
   handleNextChildComponentChange(_nextChildComponent){
     console.log('cambiando', _nextChildComponent);
       this.props.onNextChildComponentChange(_nextChildComponent);
-      
+
   }
 
   handleNextChildComponentChangeProps(_nextChildComponentProps){
@@ -37,6 +35,7 @@ class  Login extends Component{
   }
 
   onSubmitForm = (evt) => {
+    debugger;
       evt.preventDefault()
       this.setState({isLoading:true, buttonLoadingText:"Cargando..."});
 
@@ -70,7 +69,7 @@ class  Login extends Component{
         console.log("page to redirect ",page);
 
         return <Redirect to='/' />
-        
+
       }
   }
 
@@ -83,7 +82,7 @@ class  Login extends Component{
   }
 
   onKeyDownName = (evt) => {
-      let user = evt.target.value        
+      let user = evt.target.value
 
       if (user.length >= 20) {
           evt.preventDefault()
@@ -105,7 +104,7 @@ class  Login extends Component{
           <div className="form-v5-content">
             <form className="form-detail"  type="post" onSubmit={this.onSubmitForm}>
               <h2>Eventrinet</h2>
-              
+
               <div className="form-row">
                 <label for="your-user">Usuario</label>
                 <input type="text" name="your-user" id="your-user" className="input-text"  maxLength="11" onChange={this.onChageInputName} onKeyDown={this.onKeyDownName} placeholder="Ingresar usuario" />
@@ -118,42 +117,41 @@ class  Login extends Component{
               </div>
               <div className="form-row">
                 <input type="submit" name="Iniciar sesion"className="btn btn-primary btn-block" value={this.state.buttonLoadingText} disabled={this.state.isLoading} on/>
-              </div>                         
+              </div>
             </form>
             <div className="row" style={{float:"right",paddingRight:"50px"}}>
-                <a onClick={this.handleClickForgotPass} style={styles.link} onMouseOver ={styles.onHoverLink}>Has olvidado tu contraseña?</a>
+              <a onClick={this.handleClickForgotPass} style={styles.link} onMouseOver ={styles.onHoverLink}>Has olvidado tu contraseña?</a>
             </div>
-            
-            <div id="errorMsg" className="alert alert-warning" role="alert" style={{marginBottom:0, marginTop:"20px", display:"none"}}></div>
-            
-            <div className="col-xs-12">
-                <div className="divider dividerSign">
-                <strong className="divider-title ng-binding">o</strong>
-                </div>
-              </div>
-            
-              <div >
-                <section className="loginButton">
-                <script src= "./login.js"></script>
-                <div  effect="fadeInUp">                                    
-                    <a href={this.state.pagPrev}>
-                    <div className="g-signin2" align="center" data-onsuccess="onSignIn" />
-                    </a>
-                </div>
-                </section>
-              </div>
-              <br/>
 
-              <div className="hint-text small" style={{textAlign:"center"}}>
-                ¿No tienes una cuenta?
-                <a className="text-success" href="/signUp">
-                  Registrate ahora!
-                </a>
+            <div id="errorMsg" className="alert alert-warning" role="alert" style={{marginBottom:0, marginTop:"20px", display:"none"}}></div>
+
+            <div className="col-xs-12">
+              <div className="divider dividerSign">
+                <strong className="divider-title ng-binding">o</strong>
               </div>
-              <br/>
+            </div>
+
+            <div >
+              <section className="loginButton">
+                <script src= "./login.js"></script>
+                <div  effect="fadeInUp">
+                  <a href={this.state.pagPrev}>
+                    <div className="g-signin2" align="center" data-onsuccess="onSignIn" />
+                  </a>
+                </div>
+              </section>
+            </div>
+            <br/>
+
+            <div className="hint-text small" style={{textAlign:"center"}}>
+                ¿No tienes una cuenta?
+              <a className="text-success" href="/signUp">
+                  Registrate ahora!
+              </a>
+            </div>
+            <br/>
           </div>
         </div>
-        <ModalLoader open={false}/>
       </div>
     )
   }
@@ -166,7 +164,7 @@ export default Login;
 var styles = {
   link:{
     paddingRight:"20px",
-    float:"right", 
+    float:"right",
     fontSize:"15px",
     cursor:"pointer",
     textDecoration: "none",

@@ -11,9 +11,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 class ModalLoader extends Component{
     constructor(props){
+      console.log(props);
       super(props);
       this.state={
-        open:false
+        open:this.props.open
       }
       this.handleClickOpen=this.handleClickOpen.bind(this)
       this.handleClose=this.handleClose.bind(this)
@@ -21,39 +22,39 @@ class ModalLoader extends Component{
     }
 
     componentWillReceiveProps(nextProps) {
-      
+
     }
-    
+
     handleClickOpen(){
-      this.props.handlePrint();
-      this.setState({open:true})   
+      //this.props.handlePrint();
+      this.setState({open:true})
     }
-  
+
     handleClose () {
-      this.setState({open:false})  
+      this.setState({open:false})
     }
-  
+
     handleNextChildComponentChange(_nextChildComponent){
       console.log('cambiando', _nextChildComponent);
         this.props.onNextChildComponentChange(_nextChildComponent);
-        
+
     }
 
     render(){
-      debugger;
       return (
-        <Dialog 
+        this.state.open &&
+        <Dialog
             open = {this.state.open}
             onClose={this.handleClose}
             aria-labelledby="responsive-dialog-title"
-            disableBackdropClick={true}> 
+            disableBackdropClick={true}>
             <DialogContent>
                 <DialogContentText><p>Cargando...</p></DialogContentText>
             </DialogContent>
         </Dialog>
       );
     }
-    
+
   }
 
   export default ModalLoader;
