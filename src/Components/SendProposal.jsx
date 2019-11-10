@@ -5,6 +5,7 @@ import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import './../styles/InscriptionEvent.css'
 import FormSendProposal from './FormSendProposal';
+import FrmSendPropuesta from './FrmSendPropuesta';
 
 const Networking = require('../Network/Networking.js') ;
 
@@ -24,89 +25,89 @@ class SendProposal extends Component{
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
     
-      }
-      handleNextChildComponentChange(_nextChildComponent){
-        console.log('cambiando', _nextChildComponent);
-          this.props.onNextChildComponentChange(_nextChildComponent);
-          
-      }
-      handleNextChildComponentChangeProps(_nextChildComponentProps){
-          this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
-      }
-    
-      handleClicInscripcionEvento = () => {
-        try{ //Verify if I'm logged
-            let retrievedObject = sessionStorage.getItem('dataUser');
-            let retrievedJson = JSON.parse(retrievedObject);
-            
-            if (retrievedJson == null){ //I'm not logged
-                console.log("No estoy logeado!")
-                alert("No has iniciado sesión!")                
-
-                sessionStorage.setItem('currentPage', "SendProposal");	
-                //parche temporal
-                sessionStorage.setItem('currentProps', JSON.stringify({
-                    evento:this.props.nextChildComponentProps.evento,
-                    Categorias:this.state.Categorias
-                }));	//parche temporal
-                this.handleNextChildComponentChangeProps({
-                    evento:this.state.eventriEvent,categorias:this.state.categorias
-                });	    
-			    window.location.replace("./login");
-                return
-            }
-            //I'm logged
-            console.log('redireccionando a ... inscribirse evento');
-            this.handleNextChildComponentChangeProps({
-                evento: this.props.nextChildComponentProps.evento,
-                Categorias: this.state.Categorias
-            });
-            this.handleNextChildComponentChange(FormSendProposal);
-        }catch(err){
-            console.log(err)            
-        }
-        return
-      }
-      getCategoriasfromApi(){
-        Networking.NetworkMutation_JAchievingData(
-            {
-              methodPath: 'categorias/listarCategoriasXEvento',
-              JsonToBack:{
-                  idEvento: 
-                  this.props.nextChildComponentProps.evento.idEvento
-              }
-            }
-            ).then((value) =>  {
-          console.log(value);
-          if(value == null){
-             console.log('no hay algo aun');
-          }else {
-             console.log('si hay algo:');
-             this.setState({Categorias: value.Categorias});
-             //this.renderCategories();
-          }
-          
-       });
-      }
-      componentDidMount(){
-          console.log("props heredados del Dashboard->Protafolio->imageport");
+    }
+    handleNextChildComponentChange(_nextChildComponent){
+    console.log('cambiando', _nextChildComponent);
+        this.props.onNextChildComponentChange(_nextChildComponent);
         
-          console.log('nextChildComponentProps',this.props.nextChildComponentProps);
-          this.setState({eventriEvent: this.props.nextChildComponentProps.evento});
-          this.getCategoriasfromApi(); 
-          
-          
-      }
-      renderCategories(){
-            return this.state.Categorias.map(
-                (element) => { const {descripcion}=element
-                    return(
-                        <li> {descripcion} </li>
-                    )
-                    
-                }
-            )
-      }
+    }
+    handleNextChildComponentChangeProps(_nextChildComponentProps){
+        this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+    }
+    
+    handleClicInscripcionEvento = () => {
+    try{ //Verify if I'm logged
+        let retrievedObject = sessionStorage.getItem('dataUser');
+        let retrievedJson = JSON.parse(retrievedObject);
+        
+        if (retrievedJson == null){ //I'm not logged
+            console.log("No estoy logeado!")
+            alert("No has iniciado sesión!")                
+
+            sessionStorage.setItem('currentPage', "SendProposal");	
+            //parche temporal
+            sessionStorage.setItem('currentProps', JSON.stringify({
+                evento:this.props.nextChildComponentProps.evento,
+                Categorias:this.state.Categorias
+            }));	//parche temporal
+            this.handleNextChildComponentChangeProps({
+                evento:this.state.eventriEvent,categorias:this.state.categorias
+            });	    
+            window.location.replace("./login");
+            return
+        }
+        //I'm logged
+        console.log('redireccionando a ... inscribirse evento');
+        this.handleNextChildComponentChangeProps({
+            evento: this.props.nextChildComponentProps.evento,
+            Categorias: this.state.Categorias
+        });
+        this.handleNextChildComponentChange(FrmSendPropuesta);
+    }catch(err){
+        console.log(err)            
+    }
+    return
+    }
+    getCategoriasfromApi(){
+        Networking.NetworkMutation_JAchievingData(
+        {
+            methodPath: 'categorias/listarCategoriasXEvento',
+            JsonToBack:{
+                idEvento: 
+                this.props.nextChildComponentProps.evento.idEvento
+            }
+        }
+        ).then((value) =>  {
+        console.log(value);
+        if(value == null){
+            console.log('no hay algo aun');
+        }else {
+            console.log('si hay algo:');
+            this.setState({Categorias: value.Categorias});
+            //this.renderCategories();
+        }
+        
+    });
+    }
+    componentDidMount(){
+        console.log("props heredados del Dashboard->Protafolio->imageport");
+    
+        console.log('nextChildComponentProps',this.props.nextChildComponentProps);
+        this.setState({eventriEvent: this.props.nextChildComponentProps.evento});
+        this.getCategoriasfromApi(); 
+        
+        
+    }
+    renderCategories(){
+        return this.state.Categorias.map(
+            (element) => { const {descripcion}=element
+                return(
+                    <li> {descripcion} </li>
+                )
+                
+            }
+        )
+    }
      
    
     render(){
@@ -137,7 +138,9 @@ class SendProposal extends Component{
                         </div>                        
                            
                         <div class="col-xs-3 col-md-3 text-center" >
-                            <button class="btn"><i class="fa fa-share-alt" aria-hidden="true"/></button>
+                            <button class="btn">
+                                <i class="fa fa-share-alt" aria-hidden="true"/>
+                                </button>
                             <p>Compartir evento</p>
                         </div>
                     </div>

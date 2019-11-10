@@ -44,7 +44,7 @@ class WorkingSpace extends Component{
       
       this.state.nextChildComponentProps = this.props.nextComponentProps;
       this.state.nextChildComponent= this.props.nextComponent;
-      console.log("WSWillMount");
+      console.log("WSWillMount ***");
       console.log("WSWillMount -> props: ",this.state.nextChildComponentProps);
       console.log("WSWillMount -> comp : ",this.state.nextChildComponent);
       let page = sessionStorage.getItem("currentPage");

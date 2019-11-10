@@ -8,9 +8,11 @@ import StepOneSendProp from './StepOneSendProp';
 import StepTwoSendProp from './StepTwoSendProp'
 import NewIni from './General/NewIni';
 import './../styles/modal.css';
+import PropoMyProposals from '../Pages/ProposerMyProposals';
 //import ModalDialog from './CreateEvent/ModalDialog'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => (
+  {
   root: {
     width: '90%',
   },
@@ -60,12 +62,12 @@ export default function FormSendProposal(props) {
   const handleFinish = () =>{
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
-      
+    console.log("final",props);
   }
   const handle_redirect =() =>{
     var modal = document.getElementById("myModal");
     modal.style.display = "none";
-    props.onNextChildComponentChange(NewIni);
+    props.onNextChildComponentChange(PropoMyProposals);
   }
   return (
     <div>
@@ -102,7 +104,10 @@ export default function FormSendProposal(props) {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
+            <Typography 
+            className={classes.instructions}>
+              {getStepContent(activeStep,props)}
+              </Typography>
             <div>
               <button  
                   style={{float:'right'}} 
@@ -120,7 +125,7 @@ export default function FormSendProposal(props) {
       
     </div>
     <div class="container">
-    <div id="myModal" class="modal">
+    <div id="myModal" class="modal" style={{width: "50px"},{align: "center"}}>
         <div class="modal-content">
           <span class="close">&times;</span>
           <p>Se ha enviado la propuesta</p>

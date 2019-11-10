@@ -3,7 +3,8 @@
 const restURL = 'http://localhost:5000/api/';
 async function crear_cuenta(
     var_email,
-	var_last_name
+	var_last_name,
+	var_name
 	) {
     console.log('Creando Usuario...');
     try {        
