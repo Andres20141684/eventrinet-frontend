@@ -117,7 +117,7 @@ class  Login extends Component{
                 <i className="fa fa-lock"></i>
               </div>
               <div className="form-row">
-                <input type="submit" name="Iniciar sesion"className="btn btn-primary btn-block" value={this.state.buttonLoadingText} disabled={this.state.isLoading}/>
+                <input type="submit" name="Iniciar sesion"className="btn btn-primary btn-block" value={this.state.buttonLoadingText} disabled={this.state.isLoading} on/>
               </div>                         
             </form>
             <div className="row" style={{float:"right",paddingRight:"50px"}}>
@@ -152,7 +152,8 @@ class  Login extends Component{
               </div>
               <br/>
           </div>
-        </div>     
+        </div>
+        <ModalLoader open={false}/>
       </div>
     )
   }
