@@ -53,22 +53,19 @@ class FormPropsxFasePresidente extends Component {
      render() {
          
         return (
-            <div> 
+            <div>              
             <div class="accordion" id="accordionExample">
   <div class="card">
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
 
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Collapsible Group Item #1
+          Development of a computer Vaca lola
         </button>
-        <label class="btn btn-link" type="text" >
-          Aceptado
-        </label>
+        <h2 type="text">ACEPTADO</h2>
         <button style={{background:"none", border:"none"}}>
             <a><i className ="fa fa-paperclip" /></a>
-        </button>
-        <span class="glyphicon glyphicon-chevron-right pull-right"type="button" data-target="#collapseOne"aria-expanded="true"  aria-hidden="true"></span>        
+        </button>        
 
       </h2>
     </div>

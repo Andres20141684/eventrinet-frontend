@@ -121,7 +121,6 @@ class AdminPageMainTable extends Component {
                 <tr >
                     <td>{nomComp}</td>
                     <td>{correo}</td>
-                    <td>{correo}</td>
                     <td>-</td>                
                     <td>-</td>
                     <td><p data-placement="top" data-toggle="tooltip" title="Editar permisos" >
@@ -139,8 +138,7 @@ class AdminPageMainTable extends Component {
             return (
             <tr >
                 <td>{nomComp}</td>
-                <td>{correo}</td>
-                <td>{correo}</td>
+                <td>{correo}</td>                
                 <td>{fechaIniPermiso}</td>                
                 <td>{fechaFinPermiso}</td>
                 <td><p data-placement="top" data-toggle="tooltip" title="Editar permisos" >
@@ -158,9 +156,8 @@ class AdminPageMainTable extends Component {
     renderTableHeader() {
       return (
          <tr>
-             <th width="30%">Nombre completo</th>
-             <th width="25%">Correo</th>
-             <th width="10">Organizador</th>
+             <th width="40%">Nombre completo</th>
+             <th width="25%">Correo</th>        
              <th width="11%">Vigencia Inicio</th>
              <th width="11%">Vigencia Fin</th>
              <th width="7%">Editar</th>

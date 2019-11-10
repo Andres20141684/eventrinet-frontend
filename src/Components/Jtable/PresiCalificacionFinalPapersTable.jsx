@@ -106,7 +106,7 @@ class PresiCalificacionFinalPapersTable  extends Component {
         return (
          <div class="panel panel mypanel" >
          <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-             <h3>Lista de eventos históricos</h3>
+             <h3>Lista de eventos en evaluación</h3>
           </div>
          <div  class="table-responsive">
              <table class="table  table-hover" >
