@@ -1,7 +1,7 @@
 import {AsyncStorage} from 'react';
 
-//const restURL = 'http://34.235.112.27:5000/api/';
-const restURL = 'http://localhost:5000/api/';
+const restURL = 'http://34.235.112.27:5000/api/';
+//const restURL = 'http://localhost:5000/api/';
 
 export async function getInfoUsuario_byId(_idUsuario) {
     console.log('buscando por ID Usuario...');

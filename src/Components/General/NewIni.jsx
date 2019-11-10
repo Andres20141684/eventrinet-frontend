@@ -71,7 +71,6 @@ class NewIni extends Component{
     super(props);
     this.state = {
         msg: "Not Connected" ,
-        transport: "go to Fake Ini"
     }
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -120,13 +119,8 @@ class NewIni extends Component{
         
         <div className="textos-header" >
                   
-                  <h1 style={styles.textos_header_h1}>EVENTRINET gestion de eventos Academicos Peru</h1>
-                  <h2 style={styles.textos_header_h2}>En construccion ...</h2>
+                  <h1 style={styles.textos_header_h1}>Sistema de gestión de eventos Académicos</h1>
                   <h1>{this.state.msg}</h1>
-                  <a href="#" className="specialButton"
-                   onClick={this.handleClick} >
-                {this.state.transport}
-                </a>
               </div>
               <div className="wave" style={styles.waveStyle}
               //style={{height: "150px"},{overflow: "hidden"}}
