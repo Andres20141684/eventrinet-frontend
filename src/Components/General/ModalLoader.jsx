@@ -6,8 +6,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
-//import OrganActiveEvents from '../../../Pages/OrganActiveEvents.jsx';
-//const Networking = require('../../../Network/Networking.js') ;
 
 class ModalLoader extends Component{
     constructor(props){

@@ -35,7 +35,6 @@ class  Login extends Component{
   }
 
   onSubmitForm = (evt) => {
-    debugger;
       evt.preventDefault()
       this.setState({isLoading:true, buttonLoadingText:"Cargando..."});
 

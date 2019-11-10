@@ -29,14 +29,14 @@ class ModalDialog extends Component{
         this.setState({data:nextProps.datajson})
       }
     }
-    
+
     handleClickOpen(){
       this.props.handlePrint();
-      this.setState({open:true})   
+      this.setState({open:true})
     }
-  
+
     handleClose () {
-      this.setState({open:false})  
+      this.setState({open:false})
     }
 
     handleSave () {
@@ -55,14 +55,13 @@ class ModalDialog extends Component{
     handleNextChildComponentChange(_nextChildComponent){
       console.log('cambiando', _nextChildComponent);
         this.props.onNextChildComponentChange(_nextChildComponent);
-        
+
     }
 
     handleExit(){
       this.handleNextChildComponentChange(OrganActiveEvents);
     }
     render(){
-      debugger;
       return (
         <div>
           <button style={{float:'right'}} class="mybutton" onClick={this.handleClickOpen}>Guardar</button>
@@ -87,7 +86,7 @@ class ModalDialog extends Component{
                 <button onClick={this.handleSave} color="primary" autoFocus>
                   Aceptar
                 </button>
-              </DialogActions>  
+              </DialogActions>
               </div>
               :
               <div>
@@ -107,7 +106,7 @@ class ModalDialog extends Component{
                           <h2>Procesando...</h2>
                         </DialogContentText>
                   </DialogContent>
-                  
+
                 </div>
                 :
                 <div>
@@ -132,19 +131,19 @@ class ModalDialog extends Component{
                       <button onClick={this.handleExit} color="primary" autoFocus>
                         Aceptar
                       </button>
-                    </DialogActions> 
+                    </DialogActions>
                 </div>
                 }
               </div>
               }
             </div>
 
-            
+
           </Dialog>
         </div>
       );
     }
-    
+
   }
 
   export default ModalDialog;
