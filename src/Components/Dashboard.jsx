@@ -6,6 +6,7 @@ import Modal from 'react-awesome-modal';
 import { whileStatement } from '@babel/types';
 import Portafolio from './Special/Portafolio';
 import EventDetail from './EventDetail';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const Networking = require('./../Network/Networking.js') ;
 
 /**
@@ -19,47 +20,38 @@ class Dashboard extends Component{
         transport: "go to Fake Ini",
         idUser_recived: 0,
        datos_tabla: {Eventos:[]},
-       
-       flag: false
-      
+       flag: false,
+       isLoading:false
     }
     /**aqui falta la condicional cuando es convocarotira o es evento publicados para asistentes */
     //por defecto es convocatoria por mientras
-    Networking.getEventosConvocatoria().then((value) => {
-      console.log("lista de envetow convoctarioas",value);
-      if(value == null){
-         console.log('no hay convocatorias!');
-         
-      }else {
-         console.log('si hay convocatorias:');
-         this.setState({datos_tabla:value});
-         this.setState({flag:true})
-         console.log("asdassadasad",this.state.flag)
-         console.log(this.state.datos_tabla);
-      }
-    });
+
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
 
   }
+
   handleNextChildComponentChange(_nextChildComponent){
     console.log('cambiando', _nextChildComponent);
       this.props.onNextChildComponentChange(_nextChildComponent);
-      
+
   }
+
   handleNextChildComponentChangeProps(_nextChildComponentProps){
       this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
   }
+
   handleClickCrearActualizar = () => {
+
     console.log('redireccionando a ... EventDetail evento');
-    
-    
     this.handleNextChildComponentChange(EventDetail);
+
   }
 
- 
+
  /** */
  shouldComponentUpdate(nextProps, nextState){
+
    if(nextState.datos_tabla != this.state.datos_tabla){
      console.log("llegue y mori XD");
      return true;
@@ -67,58 +59,35 @@ class Dashboard extends Component{
    return false;
 
  }
+ componentWillMount(){
+   this.setState({isLoading:true})
+   Networking.getEventosConvocatoria().then((value) => {
+     console.log("lista de envetow convoctarioas",value);
+     if(value == null){
+        console.log('no hay convocatorias!');
 
+     }else {
+        console.log('si hay convocatorias:');
+        this.setState({datos_tabla:value});
+        this.setState({flag:true})
+        console.log("asdassadasad",this.state.flag)
+        console.log(this.state.datos_tabla);
+     }
+   });
+   this.setState({isLoading:false})
+ }
   render(){
     return (
-
-        
-        <Portafolio 
+      <div>
+        <Portafolio
             setEventos={this.state.datos_tabla} title="Eventos en convocatoria"
             nextChildComponentProps={this.state.nextChildComponentProps}
             onNextChildComponentChange={this.handleNextChildComponentChange}
             onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
         ></Portafolio>
-        
-    
-    
- 
-        
+      </div>
     );
   }
 }
 
 export default Dashboard;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
