@@ -5,8 +5,8 @@ const restURL = 'http://52.201.202.133:5000/api/';
 
 export async function getInfoUsuario_byId(_idUsuario) {
     console.log('buscando por ID Usuario...');
-    try {        
-        let response = await fetch(restURL 
+    try {
+        let response = await fetch(restURL
             + 'usuario/datosPersonales', {
             method: 'POST',
             mode: 'cors',
@@ -16,17 +16,17 @@ export async function getInfoUsuario_byId(_idUsuario) {
             },
             body: JSON.stringify({
                 idUsuario: _idUsuario
-  
+
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
         let responseJson = await response.json();
         console.log('Saving!!');
-        console.log(responseJson);  
+        console.log(responseJson);
         console.log(response);
         console.log('Saving!!');
-  
-        return responseJson;  
+
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -36,8 +36,8 @@ export async function getInfoUsuario_byId(_idUsuario) {
 
 export async function crear_cuenta(var_email,var_last_name,var_name, var_username, var_password) {
     console.log('Creando Usuario...');
-    try {        
-        let response = await fetch(restURL 
+    try {
+        let response = await fetch(restURL
             + 'crear_cuenta', {
             method: 'POST',
             mode: 'cors',
@@ -51,17 +51,17 @@ export async function crear_cuenta(var_email,var_last_name,var_name, var_usernam
                 given_name: var_name,
                 username: var_username,
                 password: var_password
-  
+
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
         let responseJson = await response.json();
         console.log('Saving!!');
-        console.log(responseJson);  
+        console.log(responseJson);
         console.log(response);
         console.log('Saving!!');
-  
-        return responseJson;  
+
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -73,7 +73,7 @@ export async function validar_sesion(var_user,var_password) {
     console.log('INTENTO DE LOGIN!!');
     try {
         console.log('RECIBI UN LOGIN con username: ' + var_user + var_password);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'validar_session', {
             method: 'POST',
             mode: 'cors',
@@ -84,17 +84,17 @@ export async function validar_sesion(var_user,var_password) {
             body: JSON.stringify({
                 user: var_user,
                 password: var_password
-  
+
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
         let responseJson = await response.json();
         console.log('Saving!!');
-        console.log(responseJson);  
+        console.log(responseJson);
         console.log(response);
         console.log('Saving!!');
-  
-        return responseJson;  
+
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -104,8 +104,8 @@ export async function validar_sesion(var_user,var_password) {
 
   export async function crear_organizador(var_email, var_date_ini, var_date_fin) {
     console.log('Dando permisos de organizador...');
-    try {        
-        let response = await fetch(restURL 
+    try {
+        let response = await fetch(restURL
             + 'insertar_permisos_crear_evento', {
             method: 'POST',
             mode: 'cors',
@@ -122,10 +122,10 @@ export async function validar_sesion(var_user,var_password) {
         console.error('CATCH NO ALCANZADO, antes del await');
         let responseJson = await response.json();
         console.log('Saving!!');
-        console.log(responseJson);        
+        console.log(responseJson);
         console.log('Saving!!');
-  
-        return responseJson;  
+
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -136,8 +136,8 @@ export async function validar_sesion(var_user,var_password) {
 
   export async function cambiar_contrasena(var_email) {
     console.log('Servicio envio correo electronico con contraseña');
-    try {        
-        let response = await fetch(restURL 
+    try {
+        let response = await fetch(restURL
             + 'cambiar_contrasena', {
             method: 'POST',
             mode: 'cors',
@@ -149,11 +149,11 @@ export async function validar_sesion(var_user,var_password) {
         console.error('CATCH NO ALCANZADO, antes del await');
         let responseJson = await response.json();
         console.log('Saving!!');
-        console.log(responseJson);  
+        console.log(responseJson);
         console.log(response);
         console.log('Saving!!');
 
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -215,11 +215,11 @@ export async function ShowEvent(data){
         console.log(error);
         return error
     }}
-    
+
 
 export async function getEventosPublicados() {
     try {
-        console.log('INTENTO DE GET!! en ' +restURL 
+        console.log('INTENTO DE GET!! en ' +restURL
         + 'eventos/listar_eventos_publicados');
         let response = await fetch(restURL+'eventos/listar_eventos_publicados' ,{
             method:'GET'
@@ -232,13 +232,13 @@ export async function getEventosPublicados() {
         console.log(error);
         return {}
     }
-      
-} 
+
+}
 
 
 export async function listarUsuarios() {
     try {
-        console.log('INTENTO DE GET!! en ' +restURL 
+        console.log('INTENTO DE GET!! en ' +restURL
         + '/usuario/listar_permisos_usuarios');
         let response = await fetch(restURL+'usuario/listar_permisos_usuarios' ,{
             method:'GET'
@@ -250,36 +250,36 @@ export async function listarUsuarios() {
         console.log(error);
         return {}
     }
-      
-} 
+
+}
 export async function getEventosConvocatoria() {
-    console.log('INTENTO DE POST!! en ' +restURL 
+    console.log('INTENTO DE POST!! en ' +restURL
     + 'eventos/listar_eventos_convocatoria');
     try {
         console.log('fetching getEventosConvocatoria() ');
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'eventos/listar_eventos_convocatoria', {
             method: 'GET'
         });
         console.error('CATCH NO ALCANZADO, antes del await');
-        
+
         let responseJson = await response.json();
         console.log('Saving!!');
         console.log(responseJson);
         console.log('Saving!!');
 
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
     }
 }
 export async function populateDataOrgTab1(idOrganizador) {
-    console.log('INTENTO DE POST!! en ' +restURL 
+    console.log('INTENTO DE POST!! en ' +restURL
     + 'eventos/listar_eventos_activos');
     try {
         console.log('RECIBI UN idOrganizador: ' + idOrganizador);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'eventos/listar_eventos_activos', {
             method: 'POST',
             mode: 'cors',
@@ -305,7 +305,7 @@ export async function populateDataOrgTab1(idOrganizador) {
         })
 */
         //console.log(responseJson);
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -313,10 +313,10 @@ export async function populateDataOrgTab1(idOrganizador) {
 }
 
 export async function populateDataOrgTab2(idOrganizador) {
-    
+
     try {
         console.log('RECIBI UN idOrganizador: ' + idOrganizador);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'eventos/listar_eventos_historial', {
             method: 'POST',
             mode: 'cors',
@@ -333,7 +333,7 @@ export async function populateDataOrgTab2(idOrganizador) {
         console.log('Saving!!');
         console.log(responseJson);
         console.log('Saving!!');
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -343,7 +343,7 @@ export async function populateDataOrgTab2(idOrganizador) {
 export async function populateDataEvaTab(idPresidente) {
     try {
         console.log('RECIBI UN idPresidente: ' + idPresidente);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'presidente/eventos/asignar_evaluadores', {
             method: 'POST',
             mode: 'cors',
@@ -360,7 +360,7 @@ export async function populateDataEvaTab(idPresidente) {
         console.log('Saving!!');
         console.log(responseJson);
         console.log('Saving!!');
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -369,7 +369,7 @@ export async function populateDataEvaTab(idPresidente) {
 export async function populateDataEvalElegirPref(idEvaluador) {
     try {
         console.log('RECIBI UN idEvaluador: ' + idEvaluador);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'evaluador/eventos/listar_eventos_preferencias', {
             method: 'POST',
             mode: 'cors',
@@ -386,7 +386,7 @@ export async function populateDataEvalElegirPref(idEvaluador) {
         console.log('Saving!!');
         console.log(responseJson);
         console.log('Saving!!');
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -395,7 +395,7 @@ export async function populateDataEvalElegirPref(idEvaluador) {
 export async function populateDataEvalEvaluar(idEvaluador) {
     try {
         console.log('RECIBI UN idEvaluador: ' + idEvaluador);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'evaluador/eventos/listar_eventos_evaluar', {
             method: 'POST',
             mode: 'cors',
@@ -412,7 +412,7 @@ export async function populateDataEvalEvaluar(idEvaluador) {
         console.log('Saving!!');
         console.log(responseJson);
         console.log('Saving!!');
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -422,7 +422,7 @@ export async function populateDataEvalEvaluar(idEvaluador) {
 export async function populateDataPresiEvalFinal(idPresidente) {
     try {
         console.log('RECIBI UN idPresidente: ' + idPresidente);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'presidente/eventos/en_fase_evaluacion', {
             method: 'POST',
             mode: 'cors',
@@ -439,7 +439,7 @@ export async function populateDataPresiEvalFinal(idPresidente) {
         console.log('Saving!!');
         console.log(responseJson);
         console.log('Saving!!');
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -447,7 +447,7 @@ export async function populateDataPresiEvalFinal(idPresidente) {
 }
 
 export async function NetworkMutation_JAchievingData(props) {
-    console.log('INTENTO DE POST!! en ' +restURL 
+    console.log('INTENTO DE POST!! en ' +restURL
     + props.methodPath);
     console.log('RECIBI UN props: ' , props);
     try {
@@ -470,7 +470,7 @@ export async function NetworkMutation_JAchievingData(props) {
         console.log(responseJson);
         console.log('Saving!!');
 
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -479,11 +479,11 @@ export async function NetworkMutation_JAchievingData(props) {
 }
 
 export async function populateDataPresiTab_en_fase_evaluacion(idOrganizador) {
-    console.log('INTENTO DE POST!! en ' +restURL 
+    console.log('INTENTO DE POST!! en ' +restURL
     + 'presidente/eventos/en_fase_evaluacion');
     try {
         console.log('RECIBI UN idOrganizador: ' + idOrganizador);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'presidente/eventos/en_fase_evaluacion', {
             method: 'POST',
             mode: 'cors',
@@ -500,17 +500,17 @@ export async function populateDataPresiTab_en_fase_evaluacion(idOrganizador) {
         console.log('Saving!!');
         console.log(responseJson);
         console.log('Saving!!');
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
     }
 }
 export async function listar_categoriasPorEvento(_idEvento) {
-    
+
     try {
         console.log('RECIBI UN param: ' + _idEvento);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'categorias/listarCategoriasXEvento', {
             method: 'POST',
             mode: 'cors',
@@ -524,17 +524,17 @@ export async function listar_categoriasPorEvento(_idEvento) {
         });
         let responseJson = await response.json();
         console.log(responseJson);
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
     }
 }/*
 export async function registrar_PrefXCat(idEvento, idUsuario, idCategoria) {
-    
+
     try {
         console.log('RECIBI UN param: ' + idEvento);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'evaluador/registrar_preferencias_categoria', {
             method: 'POST',
             mode: 'cors',
@@ -550,17 +550,17 @@ export async function registrar_PrefXCat(idEvento, idUsuario, idCategoria) {
         });
         let responseJson = await response.json();
         console.log(responseJson);
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
     }
 }*/
 export async function ListarPrefXCateg(idEvento, idUsuario) {
-    
+
     try {
         console.log('RECIBI UN param: ' + idEvento);
-        let response = await fetch(restURL 
+        let response = await fetch(restURL
             + 'preferencias/listarPreferenciasXCategoria', {
             method: 'POST',
             mode: 'cors',
@@ -575,7 +575,7 @@ export async function ListarPrefXCateg(idEvento, idUsuario) {
         });
         let responseJson = await response.json();
         console.log(responseJson);
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -599,4 +599,3 @@ export async function registrar_PrefXCat(data){
         console.log(error);
         return error
     }}
-

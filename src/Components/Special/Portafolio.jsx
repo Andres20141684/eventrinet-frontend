@@ -4,6 +4,7 @@ import InscriptionEvent from '../InscriptionEvent';
 import SendProposal from '../SendProposal';
 import Spinner from 'react-bootstrap/Spinner';
 import {Link}  from "react-router-dom";
+import ModalLoader from '../General/ModalLoader';
 
 const Networking = require('./../../Network/Networking.js') ;
 function ImagePort(props){
@@ -152,16 +153,17 @@ class Portafolio extends Component{
   console.log("is loading = ",this.state.isLoading);
   return (
     this.state.isLoading ?
-    <div>
+    (<div>
         <section class="portafolio">
             <div className="contenedor" style={{maxWidth: "1200px"}}>
                 <h2 class="titulo">{this.state.title}</h2>
+                <ModalLoader />
                 <div class="galeria-port">
                     {this.renderImagePortTotal()}
                 </div>
             </div>
         </section>
-    </div> : <Spinner />
+    </div>) : <Spinner />
 
   );}
   }
