@@ -11,7 +11,8 @@ import './../styles/modal.css';
 import PropoMyProposals from '../Pages/ProposerMyProposals';
 //import ModalDialog from './CreateEvent/ModalDialog'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => (
+  {
   root: {
     width: '90%',
   },
@@ -61,7 +62,7 @@ export default function FormSendProposal(props) {
   const handleFinish = () =>{
     var modal = document.getElementById("myModal");
     modal.style.display = "block";
-      
+    console.log("final",props);
   }
   const handle_redirect =() =>{
     var modal = document.getElementById("myModal");
@@ -103,7 +104,10 @@ export default function FormSendProposal(props) {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
+            <Typography 
+            className={classes.instructions}>
+              {getStepContent(activeStep,props)}
+              </Typography>
             <div>
               <button  
                   style={{float:'right'}} 
