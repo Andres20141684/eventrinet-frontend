@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/style_sheets.css';
 import { assignmentExpression } from '@babel/types';
+import JTable from './Jtable/JTable';
 
 class StepTwoSendPropuesta extends React.Component {
     constructor(){
@@ -175,6 +176,41 @@ componentDidMount(){
    })
 
   }
+  renderHeaders(){
+    return(
+      <tr >
+          <th align= "left" scope="col">Lista de eventos</th>
+          <th scope="col">Estado actual</th>
+          <th scope="col">Fecha Inicio </th>
+          <th scope="col">Fecha Fin </th>
+          <th scope="col">Editar</th>
+          <th scope="col">Publicar evento</th>
+          <th scope="col">Cancelar</th>
+      </tr>
+  )
+  }
+  handleChecked(){
+
+  }
+  renderBody(){
+    return this.props.Categorias.map((element, index) => {
+         
+      const {idCategoria, descripcion} = element
+      return (
+      <tr >
+            <td >{index+1} &nbsp;&nbsp; {descripcion}</td>
+            <td >
+            <input
+            type="checkbox"
+            checked={false}
+            onChange={this.handleChecked(idCategoria)}
+          />
+              </td>
+
+            
+      </tr>
+      )});
+  }
   render () {
     return (
       <div>
@@ -220,27 +256,13 @@ componentDidMount(){
             <Row >
             <div class="form-group col-md-12">              
                 <div class="col-xs-9 col-md-9" style={{paddingLeft:0}}>
-                  <select 
-                  class="form-control" 
-                  id="id_selectCategory"
-                  >
-                    <option>Machine Learning</option>
-                    <option>Redes</option>
-                    <option>Inteligencia </option>
-                    <option>Automirision experta</option>
-                    <option>sebiwis</option>
-                    {this.renderOptions()}
-                  </select>
+                  <JTable
+                      headers={this.renderHeaders}
+                      body={this.renderBody}
+                  />
                 </div>
-                <div 
-                class=" col-xs-3 col-md-3"
-                style={{float: "left", paddingRight:0}}
-                onClick={this.handleAddCategorie}>
-                  <button type="button" class="btn btn-success" style={{width:"126px"}}>Agregar</button>
-                </div>
-                <ul id="CategorieList">
-
-                </ul>
+                
+                
               </div>
               </Row>
             </div>

@@ -95,7 +95,7 @@ class FrmSendPropuesta extends React.Component {
     };
   
     handleBack = () => {
-      if(this.state===0){
+      if(this.state==0){
         this.handleNextChildComponentChange(SendProposal);
         return;
       }
@@ -154,7 +154,7 @@ class FrmSendPropuesta extends React.Component {
     render() {
         console.log("rendering frmSendPropuesta");
         return (
-           <div style={styles.frmCreateEvent}>
+           <div  style={styles.frmCreateEvent}>
              <h1>Registro de Propuesta para el _Evento_</h1>
                 <div style={{alignItems: "center"}}
                       class=" mx-auto" style={{width:"700px"}}
@@ -228,8 +228,7 @@ var styles = {
       paddintTop: 20,
       paddingBottom: 120,
       paddingLeft: 50,
-    
-        width: '90%',
+      width: '90%',
     }
   }
   window.onclick = function(event) {

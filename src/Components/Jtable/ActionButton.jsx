@@ -45,14 +45,6 @@ class ActionButton  extends Component {
    handleClick = () => {
     console.log('redireccionando a ... update evento');
    if (this.state.clickeable){
-    sessionStorage.setItem('nextProp',
-         JSON.stringify(
-                        {   idOrganizador_nextProps: this.state.idUser_recived,
-                           id_evento_nextProps: this.state.id_evento,
-                           nomb_evento: this.state.nomb_evento
-                           
-                        }
-                     ))
          this.handleNextChildComponentChangeProps(
             {
              idOrganizador_nextProps: this.state.idUser_recived,
@@ -83,9 +75,6 @@ class ActionButton  extends Component {
 
   
     render() {
-        
-        
-
         return(
             <button class={this.state.class_for_style} onClick={this.handleClick} >
                <a >
