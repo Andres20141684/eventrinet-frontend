@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Networking = require('../Network/Networking.js') ;
 
-const options=[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:0,nombre:'Pepito',correo:'pepex@pucp.pe'}]
+const options=[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:2,nombre:'Pepito',correo:'pepex@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]
 var aux=[]
 function MainTittle(props){
     console.log(props)
@@ -37,7 +37,8 @@ class AsignEvalPropuesta  extends Component {
            msg: "Not Connected" ,
            transport: "go to Fake Ini",
            idUser_recived: 0,
-          datos_tabla: [{nombre:'Gleen ',evaluadores:[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]}
+          datos_tabla: [{nombre:'Gleen ',evaluadores:[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]},
+          {nombre:'Jose',evaluadores:[]}
                             ]
        }
        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
@@ -60,9 +61,10 @@ class AsignEvalPropuesta  extends Component {
          this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
      }
 
-     handleClickOpen(){
+     handleClickOpen(index){
         console.log('GAAAAA',this.state.open)
         //this.state.open=true
+      this.filtradoOpciones(index);
       this.setState({open:true})   
     }
 
@@ -152,12 +154,14 @@ class AsignEvalPropuesta  extends Component {
        }
 
    filtradoOpciones(index){
+      aux=options
       for(var i=0;i<this.state.datos_tabla[index].evaluadores.length;i++){
-         aux=options.filter(opt=>opt.correo!=this.state.datos_tabla[index].evaluadores[i].correo)
+         aux=aux.filter(opt=>opt.correo!==this.state.datos_tabla[index].evaluadores[i].correo)
+         console.log("Valor de aux: ",aux)
+         console.log("Valor de options",options)
       }
       console.log(aux)
-
-      return aux;
+      //return aux;
       
    }
  
@@ -186,7 +190,7 @@ class AsignEvalPropuesta  extends Component {
                 </td>
                 <td component={'span'}>
                  
-                   <button style={{float:'right'}} class="btn btn-outline-secondary add" variant="primary"onClick={this.handleClickOpen} disabled={element.evaluadores.length<4?false:true}>+</button>
+                   <button style={{float:'right'}} class="btn btn-outline-secondary add" variant="primary"onClick={()=>this.handleClickOpen(index)} disabled={element.evaluadores.length<4?false:true}>+</button>
                      <Dialog component={'span'}
                         open={this.state.open===true?true:false}
                         onClose={this.handleClose}
@@ -202,7 +206,7 @@ class AsignEvalPropuesta  extends Component {
                                     <div >
                                        <Select component={'span'} style={{fontSize:'18px', maxWidth: "250px", margin: " auto" }} 
                                        placeholder="Elige Evaluador" 
-                                       options={options} 
+                                       options={aux} 
                                        noDataLabel="No evaluador encontrado"
                                        onChange={values => this.setValues(values)}
                                        dropdownHeight={this.state.dropdownHeight}
@@ -259,8 +263,8 @@ class AsignEvalPropuesta  extends Component {
                 <div class="panel" >
                   <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                      <h3>{this.state.nombre}</h3>
-                     <a  class="pull-right" onClick={this.handleClickCrearActualizar} 
-                     value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>
+                     {/*<a  class="pull-right" onClick={this.handleClickCrearActualizar} 
+                     value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>*/}
                   </div>
                   <div  class="table-responsive">
                   <table class="table  table-hover">
