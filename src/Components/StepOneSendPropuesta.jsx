@@ -39,7 +39,7 @@ defaultMutableHandle(e){
     return (
       <div>
         
-          <h1>Ingresa los datos del Autor</h1>
+          <h1>Ingresa los datos del Autor y Co-autores</h1>
             <div class="panel-group mx-auto" style={{width: "600px"}}>
               <div  class="panel panel-default">
                 <div class="panel-heading">

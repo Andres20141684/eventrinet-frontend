@@ -110,7 +110,7 @@ class StepTwoSendPropuesta extends React.Component {
     
     this.state.reader.onload = this.handleOnLoad;
 
-    this.state.reader.readAsBinaryString(files[0]);
+    this.state.reader.readAsDataURL(files[0]);
     /********* PRUEBA DE ENVIO DE ARCHIVO ******* */
   } 
 
@@ -120,19 +120,24 @@ class StepTwoSendPropuesta extends React.Component {
   evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
   }
 
-
+  shouldComponentUpdate(nextState,nextProps){
+    if(nextProps.categorias != this.props.Categorias){
+      return true;
+    }
+    return false;
+  }
 
 
 /** ARCHIVO */
-getData(){
-  console.log("Conec");
-}
-componentWillMount(){
-  console.log("StepTwoSendProp props");
-  console.log(this.props);
+  getData(){
+    console.log("Conec");
+  }
+  componentWillMount(){
+    console.log("StepTwoSendProp props");
+    console.log(this.props);
 
 
-}
+  }
   componentWillMount(){
     
   }

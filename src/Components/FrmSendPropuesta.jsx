@@ -41,14 +41,18 @@ class FrmSendPropuesta extends React.Component {
         authorLastname: "",
         telefono: "",
         email: "",
-        academicLevel: "",
+        academicLevel: "Secundaria",
         /* step 2 */
         actividad: "",
         resumen: "",
         categorias: [],
         archivo: null,
         /****************** */
-        modal:0
+        modal:0,
+        data:null,// /api/camposPEnun/listarCamposPEnunXFase
+        fase : 1,
+
+        CamposPers: []
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -77,7 +81,6 @@ class FrmSendPropuesta extends React.Component {
         let retrievedJson = JSON.parse(retrievedObject);  
         this.setState({myId: retrievedJson.infoUsuario.idUsuario});
 
-
     }
 
    componentDidMount(){
@@ -90,6 +93,9 @@ class FrmSendPropuesta extends React.Component {
       if(this.state.currentstep != nextState.currentstep){
          return true;
       }
+      if(this.state.modal != nextState.modal){
+        return true;
+     }
       return false;
    }
   
@@ -120,7 +126,6 @@ class FrmSendPropuesta extends React.Component {
     handleFinish = () =>{
       //console.log("getttttte",document.getElementById("myModal"));
       
-      //document.getElementById("myModal").modal({backdrop: "static"});
       console.log("final",this.state);
       /********aqui debo enviar******** */
       Networking.NetworkMutation_JAchievingData(
@@ -132,7 +137,11 @@ class FrmSendPropuesta extends React.Component {
               anho: 2019,
               paper: this.state.archivo,
               nombre : this.state.actividad,
-              coautores : this.state.authorName,
+              coautores : this.state.authorName
+                          + "&" +this.state.authorLastname
+                          + "&" +this.state.telefono
+                          + "&" +this.state.email
+                          + "&" +this.state.academicLevel,
               categorias: this.state.categorias,
               RptaCamposPers: [
                 { respuesta:"Kameeeeeee Hameeeeee" },
@@ -210,12 +219,11 @@ class FrmSendPropuesta extends React.Component {
           return 'Uknown stepIndex';
       }
     }
-    changeMsgDialog(_msg){
-      this.setState({msgDialog:_msg});
-    }
+  
     makeDetallePropuesta(){
 
     }
+    //falta satedo -2 en la que muestro resumen de la propuesta
     //-1 = error 
     // 0 = enviando 
     // 1 = exitoso envio
@@ -269,39 +277,36 @@ class FrmSendPropuesta extends React.Component {
         case 0:
           return(
             <div>
-              
+              nullll
             </div>
           );
         case 1:
           return(
           <div>
             <button  
-                style={{float:'right'}}
+                style={{float:'center'}}
                 class="mybutton"  
                 variant="contained" 
                 color="primary" 
                 data-dismiss="modal"
                 onClick={()=>this.handle_redirect(i)}
                 >
-                Volver a Mis Propuestas
+                Mis Propuestas
             </button>
           </div>
           );
       }
     }
-  renderModal(i){
-    
-        return (
-          <JModal
-              class ="modal fade"
-              id= "myModal"
+    renderModal(i){
+      return (
+        <JModal
+          class ="modal fade"
+          id= "myModal"
               head={this.makeHeadModal(i)}
-              body={()=>this.makeModalLoad(i)}
-              footer={()=>this.makefooterModal(i)}
+              body={this.makeModalLoad(i)}
+              footer={this.makefooterModal(i)}
           />
-        );
-    
-      
+      );
     }
     render() {
         console.log("rendering frmSendPropuesta");
@@ -354,23 +359,28 @@ class FrmSendPropuesta extends React.Component {
                       </button>
                     </div>
                 </div>
-
                 
                 <JModal
                   class ="modal fade"
                   id= "myModal"
-                  head={this.makeHeadModal(this.state.modal)}
-                  body={()=>this.makeModalLoad(this.state.modal)}
-                  footer={()=>this.makefooterModal(this.state.modal)}
-              />
+                  
+                      head={this.makeHeadModal(this.state.modal)}
+                      body={this.makeModalLoad(this.state.modal)}
+                      footer={this.makefooterModal(this.state.modal)}
+                    
+                  />
 
-                
+
+                      
+
+
+
            </div>
         )
     }
 }
 
-export default FrmSendPropuesta;  //exporting a component make it reusable and this is the beauty of react
+export default FrmSendPropuesta;
 
 var styles = {
     frmCreateEvent:{
