@@ -33,6 +33,7 @@ class AsignEvalPropuesta  extends Component {
            labelField: "nombre",
            valueField: "nombre",
            dropdownHeight: "100px",
+           currentIndex:0,
            nombre:'Evento 1',
            msg: "Not Connected" ,
            transport: "go to Fake Ini",
@@ -62,17 +63,18 @@ class AsignEvalPropuesta  extends Component {
      }
 
      handleClickOpen(index){
-        console.log('GAAAAA',this.state.open)
+      console.log('Llego al open index:',index)
         //this.state.open=true
       this.filtradoOpciones(index);
-      this.setState({open:true})   
+      this.setState({open:true,currentIndex:index})   
     }
 
     handleClose=()=> {
-      this.setState({open:false,clearable:false})  
+      this.setState({open:false,clearable:false,currentIndex:0})  
     }
 
     handleSave=(index)=>{
+      console.log('llego al guardado con el index: ',index)
       var tabla=[...this.state.datos_tabla]
       tabla[index].evaluadores.push(JSON.parse(JSON.stringify(this.state.selectValues[0])))
       this.setState({datos_tabla:tabla,selectValues:[]})
@@ -92,7 +94,20 @@ class AsignEvalPropuesta  extends Component {
      }
     
     componentWillMount(){
-       
+       var listaAux=[];
+       var object={};
+      Networking.PropuestaxEvento(JSON.stringify({idEvento:1})).then((value)=>{
+         console.log(value)
+         value.Propuestas.map((element,index)=>{
+            object={nombre:element.nombre,evaluadores:[]}
+            listaAux.push(object);
+            console.log(object)
+            console.log(listaAux)
+         })
+         this.setState({datos_tabla:listaAux})   
+         console.log(this.state.datos_tabla) 
+      })   
+      
        /*
        let retrievedObject = sessionStorage.getItem('dataUser');
        let retrievedJson = JSON.parse(retrievedObject);  
@@ -112,6 +127,7 @@ class AsignEvalPropuesta  extends Component {
           
        });*/
     }
+
     shouldComponentUpdate(nextProps, nextState){
        if(this.state.datos_tabla!= nextState.datos_tabla){
           console.log(this.state.datos_tabla)
@@ -154,6 +170,7 @@ class AsignEvalPropuesta  extends Component {
        }
 
    filtradoOpciones(index){
+      console.log('LLego al filtrado con el index: ',index)
       aux=options
       for(var i=0;i<this.state.datos_tabla[index].evaluadores.length;i++){
          aux=aux.filter(opt=>opt.correo!==this.state.datos_tabla[index].evaluadores[i].correo)
@@ -161,8 +178,7 @@ class AsignEvalPropuesta  extends Component {
          console.log("Valor de options",options)
       }
       console.log(aux)
-      //return aux;
-      
+      //return aux; 
    }
  
   
@@ -171,7 +187,6 @@ class AsignEvalPropuesta  extends Component {
        //this.setState.idUser_recived=this.props.idUser_recived;
  
          return this.state.datos_tabla.map((element, index) => {
-          
           const {idEvento, nombre,evaluadores,fechaIni,
              fechaFin,lugar,precios,numFases,estado,
              preferencia,tieneCameraRdy,programaCompletado,
@@ -234,7 +249,7 @@ class AsignEvalPropuesta  extends Component {
                               <button onClick={this.handleClose} color="primary">
                                  Rechazar
                               </button>
-                              <button onClick={()=>this.handleSave(index)} color="primary" autoFocus>
+                              <button onClick={()=>this.handleSave(this.state.currentIndex)} color="primary" autoFocus>
                                  Aceptar
                               </button>
                            </DialogActions>  
