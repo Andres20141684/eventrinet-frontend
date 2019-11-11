@@ -191,7 +191,6 @@ export default class EventNew extends Component{
 
       render() {    
         return (
-          <div>
             <div className='container'>
               <this.state.form
               nombre={this.state.nombre} 
@@ -225,15 +224,8 @@ export default class EventNew extends Component{
               handleChange={this.handleChange} 
               handlePrint={this.handlePrint}
               onNextChildComponentChange={this.handleNextChildComponentChange}
+              handleCancel={this.handleClick}
               />
-          </div>
-          <div>
-                <button style={{float:'left'}} 
-                class="mybutton"  variant="contained" 
-                color="primary"
-                 onClick={this.handleClick}>
-                   Cancelar</button>
-                </div>
           </div>
           
         )
