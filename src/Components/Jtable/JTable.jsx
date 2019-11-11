@@ -14,14 +14,12 @@ class JTable  extends Component {
           msg: "Not Connected" ,
           transport: "go to Fake Ini",
           idUser_recived: 0,
-         datos_tabla: { }
       }
 
     }
     
    
    componentWillMount(){
-      
    }
    shouldComponentUpdate(nextProps, nextState){
       if(this.state.datos_tabla != nextState.datos_tabla){
@@ -34,10 +32,10 @@ class JTable  extends Component {
    }
   
    tableData() {
-        return this.props.renderBody();
+        return this.props.body();
     }
    renderHeaders(){
-        return this.props.renderHeaders();
+        return this.props.headers();
 
    }
   
@@ -49,7 +47,9 @@ class JTable  extends Component {
                     <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                         {this.renderHeaders()}
                     </thead>
-                    <tbody>{this.tableData()}</tbody>
+                    <tbody>
+                       {this.tableData()}
+                     </tbody>
                 </table>
               </div>
            </div>
@@ -57,4 +57,4 @@ class JTable  extends Component {
      }
 }
 
-export default JTable;  //exporting a component make it reusable and this is the beauty of react
+export default JTable;  
