@@ -8,6 +8,7 @@ import WorkingSpace from './Components/Special/WorkingSpace';
 import NewIni from "./../src/Components/General/NewIni";
 import EventDetail from './Components/EventDetail';
 import SendProposal from './Components/SendProposal';
+import Dashboard from './Components/Dashboard';
 const Networking = require('./Network/Networking.js') ;
 
 
@@ -18,7 +19,7 @@ class App extends Component{
       bannBot : BannerBottom_,
       workingSpace : WorkingSpace,
       msg: "Not Connected" ,
-      initialComponent: NewIni,
+      initialComponent: Dashboard,
       initialComponentProps:{},
       xd: null,
       pathGottenbyDunkUser:""
