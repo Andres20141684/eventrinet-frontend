@@ -609,3 +609,17 @@ export async function registrar_PrefXCat(data){
         return error
     }}
 
+
+export async function listar_usuarios(){
+    try{
+        let response = await fetch(restURL+'usuario/listar_correos' ,{
+            method:'GET',
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    }catch(error){
+        console.log(error);
+        return error
+    }
+}
