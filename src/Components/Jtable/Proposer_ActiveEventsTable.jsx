@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import $ from 'jquery';
 import {Link}  from "react-router-dom";
-const Networking = require('./../../Network/Networking.js') ;
+import { NetworkMutation_JAchievingData } from '../../Network/Networking';
 
 
 class Proposer_ActiveEventsTable  extends Component {
@@ -14,10 +14,11 @@ class Proposer_ActiveEventsTable  extends Component {
             //this.setState({datos_tabla: value});   
       //});
       this.state = {
+         idProposer: 0,
          datos_tabla1: []
 
       }
-      console.log("Holiboni"+this.props);
+      console.log("Holiboni",this.props);
    }
    
    handleClick = () => {
@@ -28,7 +29,30 @@ class Proposer_ActiveEventsTable  extends Component {
 
    
    }
-   
+   componentDidMount(){
+      /** existirá el servicio de obtener los eventos y adentro las categorias con mi Id */
+      var idUser = sessionStorage.getItem('dataUser');
+      let retrievedJson = JSON.parse(idUser);  
+      this.setState({idProposer:retrievedJson.infoUsuario.idUser});
+      console.log("ProposerPanel-> IdUser: ", this.state.idProposer);
+      NetworkMutation_JAchievingData(
+         {
+           methodPath: 'propuesta/listarPropuestasXEvento',
+           JsonToBack:{
+               idEvento: 252
+           },
+     
+         }
+       ).then((value) => {
+         console.log(value);
+         if(value == null){
+           console.error('FALLO FATAL, modo hardcode activado');
+         }else {
+            console.log('si hay algo:');
+         }
+         
+      });
+   }
    renderProposals(listProp) {
 
       /* el Link se va al detalle de propuesta */

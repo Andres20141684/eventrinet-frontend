@@ -50,13 +50,13 @@ class FormularioPermiso extends Component {
                 <div class="form-group row">
                     <label for="staticName" class="col-sm-4 col-form-label">Nombre completo</label>
                     <div class="col-sm-6">
-                        <input type="text" readonly class="form-control" id="staticName" value={this.props.nameUserSelected}/>
+                        <input type="text" readonly class="form-control-plaintext" id="staticName" value={this.props.nameUserSelected}/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-4 col-form-label">Correo electronico</label>
                     <div class="col-sm-6">
-                        <input type="text" readonly class="form-control" id="staticEmail" value={this.props.emailUserSelected}/>
+                        <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.emailUserSelected}/>
                     </div>
                 </div>
 
@@ -118,7 +118,7 @@ class ModalPermisos extends Component {
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content" style={{paddingBottom:"0px",paddingRight:"5px",paddingTop:"0px"}}>
                         <div class="modal-header" style={{paddingBottom:"5px"}}>
-                            <h3 style={{marginTop:"0px", marginBottom:"0px"}}>Agregar permiso de organizador</h3>
+                            <h3 style={{marginTop:"0px", marginBottom:"0px"}}>Agregar permiso para crear eventos</h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>

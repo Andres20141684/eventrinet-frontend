@@ -14,11 +14,11 @@ export default class StepOneSendProp extends React.Component {
     this.state={
       values: [{ }]
     }
-    this.handleChange3=this.handleChange3.bind(this)
-    this.handleChange4=this.handleChange4.bind(this)
+    this.handleChange3=this.handleChange3.bind(this);
+    this.handleChange4=this.handleChange4.bind(this);
     this.handleChangeFaseDate=this.handleChangeFaseDate.bind(this)
-    this.DateFormat=this.DateFormat.bind(this)
-    this.handleCheck=this.handleCheck.bind(this)
+    this.DateFormat=this.DateFormat.bind(this);
+    this.handleCheck=this.handleCheck.bind(this);
   }
 
   componentWillMount(){
@@ -33,7 +33,7 @@ export default class StepOneSendProp extends React.Component {
   handleCheck(event,i,str,str2){
     let val = this.state.values;
     val[i][str]=!val[i][str]
-    val[i][str2]=val[i][str]===true?1:0
+    val[i][str2]=val[i][str]=== true ? 1 : 0 
     this.setState({ values:val})
     this.props.handleChange2(this.state.values,"fases")
   }
@@ -61,14 +61,18 @@ export default class StepOneSendProp extends React.Component {
   
   addClick() {
     this.setState(prevState => ({
-      values: [...prevState.values, {idFase:0,secuencia:this.state.values.length+1,camposPerson:[],criterios:[],reqArch:false,reqEval:false}]
+      values: [...prevState.values, 
+        {idFase:0,secuencia:this.state.values.length+1,camposPerson:[],criterios:[],
+          reqArch:false,reqEval:false}]
     }));
+    
   }
   removeClick(i) {
     let val = [...this.state.values];
     val.splice(i, 1);
     this.setState({ values:val });
-    this.props.handleChange2(val,"fases")
+    this.props.handleChange2(val,"fases");
+    console.log(this.state.values);
   }
   render () {
     return (
