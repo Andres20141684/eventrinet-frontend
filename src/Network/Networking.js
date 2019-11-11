@@ -569,3 +569,96 @@ export async function registrar_PrefXCat(data){
         return error
     }}
 
+export async function listarPropuestasXFase(idEvento, idUsuario) {
+    try {
+        console.log('RECIBI UN param: ' + idEvento);
+        let response = await fetch(restURL 
+            + 'evaluador/listarPropuestasXFase', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: idEvento,
+                idUsuario : idUsuario
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function listarCriteriosXFase(_idFase) {
+    
+    try {
+        let response = await fetch(restURL 
+            + 'criterios/ListarCriteriosXFase', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idFase: _idFase
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function faseActual(idEvento) {
+    
+    try {
+        let response = await fetch(restURL 
+            + 'evaluador/faseActual', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: idEvento
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function listarCamposRptaXFase(idPropuesta, idFase) {
+    try {
+        let response = await fetch(restURL 
+            + 'camposPEnun/listarCamposRptaXFase', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idPropuesta: idPropuesta,
+                idFase : idFase
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
