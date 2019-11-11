@@ -70,6 +70,7 @@ export default class EventNew extends Component{
         aux.idEvento=this.state.data_recived.id_evento_nextProps
         aux=JSON.stringify(aux)
         if(this.state.data_recived.id_evento_nextProps!==0){
+          console.log("<<<<<<<<<<<<<<<<<     JSONNNNNNN", aux);
           Networking.ShowEvent(aux).then(
             (response)=>{
               console.log(response);
