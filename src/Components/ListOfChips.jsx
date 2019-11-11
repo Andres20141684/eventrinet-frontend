@@ -18,10 +18,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function ChipsLista(props) {
   const classes = useStyles();
-  const [chipData, setChipData] = React.useState(props.lista);
-
+  //const [chipData, setChipData] = React.useState(props.lista);
+  var chipData=props.lista
   const handleDelete = chipToDelete => () => {
-    setChipData(chips => chips.filter(chip => chip.id !== chipToDelete.id));
+    //setChipData(chips => chips.filter(chip => chip.id !== chipToDelete.id));
+    chipData=chipData.filter(chip => chip.id !== chipToDelete.id)
     console.log("En lista de chips:", chipData,'En la lista padre',props.lista)
     props.handleChangeArray(chipData,props.index)
   };

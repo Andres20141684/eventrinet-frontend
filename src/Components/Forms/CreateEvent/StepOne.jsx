@@ -35,11 +35,11 @@ export default class StepOne extends React.Component {
           <div class="panel panel-default">
             <div class="panel-heading"><h1>Datos Generales</h1></div>
             <div class="panel-body">
-              <div>
+              {/*<div>
                 <Row>
                 <Autocompleter></Autocompleter>
                 </Row>
-              </div>
+              </div>*/}
             <Row >
             <div class="form-group col-md-6">
                 <label >Nombre</label>
