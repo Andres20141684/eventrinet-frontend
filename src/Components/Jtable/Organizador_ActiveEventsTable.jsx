@@ -24,10 +24,11 @@ class Organizador_ActiveEventsTable  extends Component {
             
          }
          }
+         
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
-  
+      //this.handleClickCrearActualizar=this.handleNextChildComponentChange.bind(this);
     }
     handleNextChildComponentChange(_nextChildComponent){
       console.log('cambiando', _nextChildComponent);
@@ -172,8 +173,9 @@ class Organizador_ActiveEventsTable  extends Component {
               <div className="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                   <h3>Lista de Eventos activos</h3>
                   
-                  <a className="pull-right" id="btnCrearEvento"onClick={this.handleClickCrearActualizar} 
-                  value="Nuevo" style={{marginRight:30,marginBottom:20, color:"white"}}>Nuevo</a>
+                  <a  class="pull-right" onClick={()=>this.handleClickCrearActualizar( 
+                           this.state.idUser_recived, 0,  'ARMANDO SE LA COMEEEE')} 
+                  value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>
 
 
                </div>

@@ -15,7 +15,19 @@ class EventDetail extends Component{
         msg: "Not Connected" ,
         transport: "go to Fake Ini",
         idUser_recived: 0,
-        Evento:null
+        /*viene de los props */
+        event:{
+          nombre:"<Nombre de evento>",
+          imagen: "http://awscommunitydaydublin.com/wp-content/uploads/2019/09/doom2-3.png",
+        },
+        /* viene en los props */
+        fase: 0,
+        proposal:{
+          nombre:"nombre de la propuesta",
+          detalle:"detalle de la propuesta",
+          estado:"estado de la propuesta",
+          fase : 0
+        }
     }
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -29,19 +41,19 @@ class EventDetail extends Component{
   handleNextChildComponentChangeProps(_nextChildComponentProps){
       this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
   }
-  handleClickCrearActualizar = () => {
+  handleRedireccion = () => {
     console.log('redireccionando a ... FakeNewIni evento');
-    this.handleNextChildComponentChangeProps({  
-       idOrganizador_nextProps: this.state.idUser_recived,
-       id_evento_nextProps: 0,
-       nomb_evento: "none"
-       
-    });
-    
+    /* nuevos props? */
+    this.handleNextChildComponentChangeProps(
+            {
+            /* ... */
+            }
+    );
+    /** a donde redirijir? */
     this.handleNextChildComponentChange(null);
   }
   componentWillMount(){
-      
+      /** obtengo  el idUsuario */
       
     let retrievedObject = sessionStorage.getItem('dataUser');
     let retrievedJson = JSON.parse(retrievedObject);  
@@ -51,19 +63,15 @@ class EventDetail extends Component{
 
  }
  shouldComponentUpdate(nextProps, nextState){
-    if(this.state.datos_tabla != nextState.datos_tabla){
+    if(this.state.propuesta != nextState.propuesta){
        return true;
     }
     return false;
  }
 
   render(){
-    debugger;
     return (
-
-      <></>
-    
- 
+<></>
         
     );
   }
