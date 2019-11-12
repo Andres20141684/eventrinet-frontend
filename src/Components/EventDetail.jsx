@@ -71,7 +71,7 @@ class EventDetail extends Component{
 
   render(){
     return (
-
+<></>
         
     );
   }
