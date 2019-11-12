@@ -97,12 +97,13 @@ class EvaluadorEvaluarPropuestas extends Component{
             console.log("<<nomb_fase<<",nextState.nomb_fase);
             return true;
         }
-        return false;
+        return true;
     }*/
    
     render(){
         //console.log("nombre de la fase: ",nombre_DE_fase);
-        console.log("PROPs del render??? ",this.props); //AQUI SI ESTAN LOS PROPSSSSS
+        //console.log("PROPs del render??? ",this.props); //AQUI SI ESTAN LOS PROPSSSSS
+        console.log("Render DONDE NO CHAPA EL NOMBRE: ",this.props);
         
         return(
             <div> 

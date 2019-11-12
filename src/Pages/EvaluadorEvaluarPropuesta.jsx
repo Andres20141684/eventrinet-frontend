@@ -13,8 +13,7 @@ import EvaluadorEvaluarPropuestas from './EvaluadorEvaluarPropuestas';
 const Networking = require('../Network/Networking.js') ;
 
 var numCriterios=0;
-var indiceRadioB = 4;
-
+var arreglo_aux = [];
 class EvaluadorEvaluarPropuesta extends Component{
     constructor(props){
         super(props);
@@ -61,6 +60,7 @@ class EvaluadorEvaluarPropuesta extends Component{
       handleNextChildComponentChangeProps(_nextChildComponentProps){
           this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
       }
+      
      componentWillMount(){
         console.log("WILL MOUNT")
         let retrievedObject = sessionStorage.getItem('dataUser');
@@ -69,9 +69,9 @@ class EvaluadorEvaluarPropuesta extends Component{
       console.log(retrievedJson);
       this.state.idEvento = this.props.idEvento;
     
-      console.log("PROPS DEL BOTON: ",this.props);
-      console.log("id FASE JHAHAJAH",this.props.nextChildComponentProps.idFase);
-    
+      //console.log("PROPS DEL BOTON: ",this.props);
+      //console.log("id FASE JHAHAJAH",this.props.nextChildComponentProps.idFase);
+
       Networking.listarCriteriosXFase(this.props.nextChildComponentProps.idFase).then((value) => {
         console.log(value);
     
@@ -82,10 +82,14 @@ class EvaluadorEvaluarPropuesta extends Component{
           console.log('si hay algo: A ACTUALIZAR EL ESTADO');
           this.setState({datos_tabla:value});
           console.log("TABLA criterios: ",this.state.datos_tabla);
+          numCriterios = this.state.datos_tabla.Criterios.length;
+          for(let i=0; i<numCriterios;i++){
+              this.state.rptasCriterios[i] = 1;
+              arreglo_aux[i]=1;
+          }
         }
         
       });
-
       Networking.listarCamposRptaXFase(this.props.nextChildComponentProps.idPropuesta,this.props.nextChildComponentProps.idFase).then((value) => {
         console.log(value);
     
@@ -99,12 +103,35 @@ class EvaluadorEvaluarPropuesta extends Component{
         }
         
       });
-    
-      }
+
+      Networking.mostrarCalificacionXPropuesta(retrievedJson.infoUsuario.idUsuario, this.props.nextChildComponentProps.idFase,this.props.nextChildComponentProps.idPropuesta).then((value) => {
+        console.log("INazuma eleven <3",value);
+        if(value/*.Evaluacion.length*/ === 0){
+          console.log('No tenía evaluacion');       
+        }
+        else {
+          console.log('Tenia evaluacion... ahora debo pintarlas en front');
+          this.state.calificacionFinal = value/*.Evaluacion*/.calificacion;
+          this.state.nivelExperticia = value/*.Evaluacion*/.experticia;
+          this.state.obsPostulante = value/*.Evaluacion*/.obsPart;
+          this.state.obsPresi = value/*.Evaluacion*/.obsPresi;
+          this.state.coevaluador = value/*.Evaluacion*/.evalExt;
+          //falta criterios
+
+          /*for (var i=0; i<this.state.PreferenciasXCategoria.length; i++ ) {
+            //console.log("for i in ",this.state.PreferenciasXCategoria[i]);
+            let keys = this.state.PreferenciasXCategoria[i];
+            this.state.checkboxes[keys] = true;
+        }*/
+        //this.setState({checkboxes:this.state.checkboxes});
+        }
+        
+      });
+
+    }
 
       componentDidMount(){
-          console.log("PROPS DE EVALUADOR EVALUAR PROPUESTA: ",this.props);
-
+          //console.log("PROPS DE EVALUADOR EVALUAR PROPUESTA: ",this.props);
           this.setState({
             nombre_evento : this.props.nextChildComponentProps.nomb_evento,
             idEvento : this.props.nextChildComponentProps.id_evento_nextProps,
@@ -116,26 +143,13 @@ class EvaluadorEvaluarPropuesta extends Component{
 
             //idFase : this.props.idFase
           });
-         console.log("+++++<ID evaluador",this.state.idEvento); //AQUI NO VA A MOSTRAR EL VERDADERO ID
+         //console.log("+++++< this.state.rptasCrit unos: ",this.state.rptasCriterios); //AQUI NO VA A MOSTRAR EL VERDADERO ID
       }
-    
-      /*shouldComponentUpdate(nextProps,nextState){
-        if(nextState.idEvento!= this.state.idEvento){ //aqui se actualizan los states 
-            console.log("<<cambio mi idEvento<<<",nextState.idEvento,"-",this.state.idEvento);
-            console.log("<<idEvaluador<<",nextState.idEvaluador);
-            console.log("<<Nombre del evento<<",nextState.nombre_evento);
-            console.log("<<idFase<<",nextState.idFasee);
-            return true;
-        }
-        return false;
-
-    }*/
     
     evaluadorEvaluarPropuestas = () =>{
         this.props.onNextChildComponentChange(EvaluadorEvaluarPropuestas);
      }
      onRadioChange = (e, name) =>{
-       console.log("e: ",e.target.value);
        this.setState({
          [name] : e.target.value
        });
@@ -144,22 +158,28 @@ class EvaluadorEvaluarPropuesta extends Component{
       this.setState({
         [fieldName] : event.target.value 
       });
-      //console.log(this.state.obsPostulante);
     }
     onRadioChange2 = (e, index) =>{
-      console.log("e: ",e.target.value);
-      this.state.rptasCriterios[index] = e.target.value
-      /*this.setState({
-        rptasCriterios[index] : e.target.value
-      });*/
-      console.log("avr cual cambia: ",this.state.rptasCriterios ,this.state.rptasCriterios[index]);
+      //this.state.rptasCriterios[[index]] = parseInt(e.target.value)
+      arreglo_aux[[index]] = parseInt(e.target.value)
+      this.setState({
+        rptasCriterios : arreglo_aux
+      });
+      //console.log("avr cual cambia: ",this.state.rptasCriterios ,this.state.rptasCriterios[index]);
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      if (this.state.rptasCriterios/*[0]*/ == nextState.rptasCriterios/*[0]*/){
+        return true;
+      }
+      if(arreglo_aux != []){
+        return true;
+      }
+      return false;  
+    }
+
+
      ListarCriterios(){
-      numCriterios = this.state.datos_tabla.Criterios.length;
-      for(let i=0; i<numCriterios;i++){
-        this.state.rptasCriterios[i] = 1;
-    }
-      console.log(this.state.rptasCriterios);
       return this.state.datos_tabla.Criterios.map((element, index) => {
         const {idCriterio, enunciado, idFase} = element
            return (
@@ -280,13 +300,52 @@ class EvaluadorEvaluarPropuesta extends Component{
        })
      }
      guardarCambios= () =>{
-       console.log("LO QUE VOY A MANDAR PARA GUARDAR...: ",this.state.idEvaluador, this.state.idFase, this.state.idPropuesta, this.state.calificacionFinal, this.state.nivelExperticia, this.state.obsPostulante, this.state.obsPresi, this.state.coevaluador)
+       let data = {};
+       let e = {};
+       let crits = [];
+       //console.log("LAS RESPueSTAS DE CRIT", this.state.rptasCriterios);
+
+       this.state.datos_tabla.Criterios.map((element, index) => { 
+        const {idCriterio,enunciado, idFase} = element;
+        e = JSON.parse(JSON.stringify({
+          idCriterio: parseInt(idCriterio),
+          calificacion : parseInt(this.state.rptasCriterios[index])
+        }));
+        crits.push(e);
+        //console.log("EL E PES: ", e, this.state.rptasCriterios[index]);
+       });
+       //console.log("criterios : ",crits);
+
+
+       data = JSON.stringify({
+        idUsuario: this.state.idEvaluador,
+        idFase: this.state.idFase,
+        idPropuesta : this.state.idPropuesta,
+        calificacion : parseInt(this.state.calificacionFinal),
+        experticia : parseInt(this.state.nivelExperticia),
+        obsPart : this.state.obsPostulante,
+        obsPresi : this.state.obsPresi,
+        evalExt : this.state.coevaluador,
+        Criterios : crits
+      });
+       console.log("LO QUE VOY A MANDAR PARA GUARDAR...: ",data);
+       
+       Networking.registrarCalificacionXPropuesta(data).then((value) => {
+        console.log(value);
+        if(value == null){
+           console.log('devolvio null pero no se q devuelve el back :V');
+           
+        }else {
+           console.log('Se inserto o actualizó pref :V');
+           //alert("¡Se han guardado los cambios!");
+        }  
+      });
+      alert("¡Se han guardado los cambios!");
+     
       this.props.onNextChildComponentChange(EvaluadorEvaluarPropuestas);
    }
    
     render(){
-      //console.log("PROPs del last page :", this.props);
-        
         return(
           <div> 
     <div style={{marginLeft:15}}>

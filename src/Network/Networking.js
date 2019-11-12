@@ -567,7 +567,8 @@ export async function registrar_PrefXCat(data){
     } catch (error){
         console.log(error);
         return error
-    }}
+    }
+}
 
 export async function listarPropuestasXFase(idEvento, idUsuario) {
     try {
@@ -652,6 +653,47 @@ export async function listarCamposRptaXFase(idPropuesta, idFase) {
             body: JSON.stringify({
                 idPropuesta: idPropuesta,
                 idFase : idFase
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function registrarCalificacionXPropuesta(data){
+    try {
+        let response = await fetch(restURL+'evaluador/registrarCalificacionXPropuesta' ,{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
+export async function mostrarCalificacionXPropuesta(idUsuario, idFase, idPropuesta) {
+    try {
+        let response = await fetch(restURL 
+            + 'evaluador/mostrarCalificacionXPropuesta', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario : idUsuario,
+                idFase : idFase,
+                idPropuesta: idPropuesta
             }),
         });
         let responseJson = await response.json();
