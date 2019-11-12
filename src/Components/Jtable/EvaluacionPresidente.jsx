@@ -9,7 +9,7 @@ import FormPropsxFasePresidente from './FormPropsxFasePresidente'
 const Networking = require('../../Network/Networking') ;
 
 class EvaluacionPresidente extends Component {
-    constructor(props) {
+    constructor(props) { 
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = {
             idEvento:0,
