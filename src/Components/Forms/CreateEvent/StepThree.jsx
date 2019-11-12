@@ -155,6 +155,7 @@ handleCheckboxChange = event =>{
                         selected={this.props.fCRIni}
                         //minDate={new Date(this.state.values[this.state.values.length-1].faseFin).setDate(this.state.values[this.state.values.length-1].faseFin.getDate() + 1)}
                         //maxDate={this.props.fechaIE}
+                        maxDate={this.props.fCRFin!==''?this.props.fCRFin:this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRIni")}
                         class="form-control"
                         
@@ -168,6 +169,7 @@ handleCheckboxChange = event =>{
                         name="date_in"
                         placeholder="date_in"
                         selected={this.props.fCRFin}
+                        disabled={this.props.fCRIni===''?true:false}
                         //minDate={this.props.fCRIni}
                         //maxDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRFin")}
@@ -180,7 +182,7 @@ handleCheckboxChange = event =>{
               
             </div>
             </div>
-            <div>
+            {/*<div>
               <h3>Fecha de realizacion del evento: </h3>
               <div class="panel panel-default">
                 <div class="panel-body">
@@ -215,7 +217,7 @@ handleCheckboxChange = event =>{
                   
                 </div>
               </div>
-            </div>
+            </div>*/}
 
             <h3>Fecha límite de elección de preferencias para los evaluadores</h3>            
               <FormGroup class="card card-body">  
