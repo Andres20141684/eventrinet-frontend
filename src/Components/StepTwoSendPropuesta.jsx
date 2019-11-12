@@ -9,10 +9,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import '../styles/style_sheets.css';
 import { assignmentExpression } from '@babel/types';
 import JTable from './Jtable/JTable';
+import JCardForm from './Special/JCardForm';
 
 class StepTwoSendPropuesta extends React.Component {
-    constructor(){
-      super();
+    constructor(props){
+      super(props);
       this.state={
         categorias: [],
         progress:null,
@@ -110,7 +111,7 @@ class StepTwoSendPropuesta extends React.Component {
     
     this.state.reader.onload = this.handleOnLoad;
 
-    this.state.reader.readAsBinaryString(files[0]);
+    this.state.reader.readAsDataURL(files[0]);
     /********* PRUEBA DE ENVIO DE ARCHIVO ******* */
   } 
 
@@ -120,19 +121,24 @@ class StepTwoSendPropuesta extends React.Component {
   evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
   }
 
-
+  shouldComponentUpdate(nextState,nextProps){
+    if(nextProps.categorias != this.props.Categorias){
+      return true;
+    }
+    return false;
+  }
 
 
 /** ARCHIVO */
-getData(){
-  console.log("Conec");
-}
-componentWillMount(){
-  console.log("StepTwoSendProp props");
-  console.log(this.props);
+  getData(){
+    console.log("Conec");
+  }
+  componentWillMount(){
+    console.log("StepTwoSendProp props");
+    console.log(this.props);
 
 
-}
+  }
   componentWillMount(){
     
   }
@@ -215,61 +221,74 @@ componentWillMount(){
       )});
   }
   render () {
+    const inputPaperDescripcion =[
+      {
+        label:"Titulo",
+        category:'textArea',
+        name:'titulo',
+        placeholder:'Titulo', 
+        id:"id_Titulo",           
+        onChange:this.defaultMutableHandle,
+        value:this.props.titulo,
+      },
+      {
+        label:"Resumen",
+        category:'textBox',
+        name:'resumen',
+        placeholder:'Resumen' ,
+        id:"id_resumen",             
+        onChange:this.defaultMutableHandle,
+        value:this.props.resumen
+      }
+      ,
+      
+    ]
+    const inputCategorias= [
+      {
+        label:"Escge las categorias a participar",
+        category:'Jtable',
+        id:"id_resumen",             
+        headers:this.renderHeaders,
+        body:this.renderBody
+      }
+    ]
     return (
       <div>
         <h1>Ingresa los detalles de la propuesta y sube un archivo</h1>
+
+        <JCardForm
+          arrayOfInputData={inputPaperDescripcion}
+          cardHeadingText = "Escribe una breve reseña de tu propuesta"
+        />
+        
+        <JCardForm
+          arrayOfInputData={inputCategorias}
+          cardHeadingText = "Escoge tus Categorias"
+        />
+
         <div class="panel-group mx-auto" style={{width: "600px"}}>
-          <div class="panel panel-default">
-            <div class="panel-heading"><h1>Descripcion</h1></div>
-            <div class="panel-body">
-            <Row >
-            <div class="form-group col-md-12">
-                <label >Actividades</label>
-                <input 
-                    type="text" 
-                    name='actividad'
-                    class="form-control" 
-                    id="id_actividades"
-                    placeholder='Actividades'              
-                    onChange={this.defaultMutableHandle}
-                    value={this.props.actividades}
-                    autoFocus/>
-            </div>
-            </Row>
-            <Row>
-            <div class="form-group col-md-12">
-                <label>Resumen</label>
-                <textarea 
-                    type="text" 
-                    name='resumen'
-                    class="form-control" 
-                    id="id_resumen"
-                    placeholder='Resumen'
-                    onChange={this.defaultMutableHandle}
-                    value={this.props.resumen}              
-                    />
-            </div>
-            </Row>
-            </div>
-          </div>
+          
+          
           <br></br>
+
+
+
+
           <div class="panel panel-default">
             <div class="panel-heading"><h1>Categorías</h1></div>
             <div class="panel-body">
-            <Row >
-            <div class="form-group col-md-12">              
-                <div class="col-xs-9 col-md-9" style={{paddingLeft:0}}>
-                    <JTable
-                        headers={this.renderHeaders}
-                        body={this.renderBody}
-                    />
-                </div>
-                
-                
-              </div>
-              </Row>
+
+            
+
+
+
+
             </div>
           </div>
+
+
+
+
           <br></br>
           <div class="panel panel-default" >
             <div class="panel-heading"><h1>Archivo</h1></div>
