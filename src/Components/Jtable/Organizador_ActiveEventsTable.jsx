@@ -59,7 +59,14 @@ class Organizador_ActiveEventsTable  extends Component {
       let retrievedJson = JSON.parse(retrievedObject);  
       this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
       console.log(retrievedJson);
-
+      
+      console.log("flag permisos", retrievedJson.permisos[7]);
+      if (retrievedJson.permisos[7]){
+         let btnCrearEvent = document.getElementById("btnCrearEvento");
+         //btnCrearEvent.display="block";
+         console.log("Cambios realizados");
+      }
+      
 
       Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
          console.log(value);
@@ -163,12 +170,12 @@ class Organizador_ActiveEventsTable  extends Component {
          return (
             
            <div class="panel panel mypanel" >
-              <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
+              <div className="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                   <h3>Lista de Eventos activos</h3>
                   
                   <a  class="pull-right" onClick={()=>this.handleClickCrearActualizar( 
                            this.state.idUser_recived, 0,  'ARMANDO SE LA COMEEEE')} 
-                  value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>
+                  value="Nuevo" style={{marginRight:30,marginBottom:20, color:"white"}}>Nuevo</a>
 
 
                </div>

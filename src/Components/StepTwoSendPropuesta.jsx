@@ -278,16 +278,8 @@ class StepTwoSendPropuesta extends React.Component {
             <div class="panel-heading"><h1>Categorías</h1></div>
             <div class="panel-body">
 
-            
-
-
-
-
             </div>
           </div>
-
-
-
 
           <br></br>
           <div class="panel panel-default" >

@@ -31,7 +31,7 @@ export default class StepOne extends React.Component {
   render () {
     return (
       <div>
-        <div class="panel-group">
+        <div class="panel-group" style={styles.panel}>
           <div class="panel panel-default">
             <div class="panel-heading"><h1>Datos Generales</h1></div>
             <div class="panel-body">
@@ -41,7 +41,7 @@ export default class StepOne extends React.Component {
                 </Row>
               </div>*/}
             <Row >
-            <div class="form-group col-md-6">
+            <div class="form-group col-md">
                 <label >Nombre</label>
                 <input 
                     type="text" 
@@ -56,7 +56,7 @@ export default class StepOne extends React.Component {
             </div>
             </Row>
             <Row>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md">
                 <label>Descripcion</label>
                 <textarea 
                     rows='7'
@@ -72,7 +72,7 @@ export default class StepOne extends React.Component {
             </div>
             </Row>
             <Row>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md">
                 <label >Lugar</label>
                 <input 
                     type="text" 
@@ -92,7 +92,7 @@ export default class StepOne extends React.Component {
           <div class="panel panel-default">
             <div class="panel-heading"><h1>Categorias</h1></div>
             <div class="panel-body">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md">
               <ArrayOfChips 
               auxLabel='auxCat'
               aux={this.state.auxCat} 
@@ -114,5 +114,12 @@ export default class StepOne extends React.Component {
 var styles = {
   rotulos:{
     paddingRight: 80,
+  },
+  panel:{
+    margin:'auto',
+    maxWidth:'620px',
+    minWidth:'330px',
+    paddingRight:'2%',
+    paddingLeft:'2%',
   }
 }

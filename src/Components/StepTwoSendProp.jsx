@@ -262,7 +262,7 @@ export default class StepTwoSendProp extends React.Component {
 
                 <div class="panel panel-default" >
                   <div id="drop_zone">Arrastra tus archivos aqui :)</div>
-                  <button type="button" class="btn btn-success" style={{width:"126px"}} onclick="abortRead();">Cancel read</button>
+                  <button type="button" class="btn btn-success" style={{width:"126px"}} onclick="abortRead();">Cancelar carga</button>
                   <div id="progress_bar"><div class="percent">0%</div></div>
                   <output id="list"></output>
                 </div>
