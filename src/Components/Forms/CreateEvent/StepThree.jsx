@@ -88,7 +88,7 @@ handleCheckboxChange = event =>{
 
   render() {
     return (
-      <div class="panel-group">
+      <div class="panel-group" style={styles.panel}>
         <div>
         {this.state.values.map((el, index) => (
           <div key={index} class="panel panel-default">
@@ -124,18 +124,18 @@ handleCheckboxChange = event =>{
             </div> 
           </div>
         ))}        
-                                
-          <input type="button"  class="btn btn-primary" value="Agregar fase" onClick={() => this.addClick()} />           
+                         
+          <input type="button" style={{marginTop:'20px'}} class="btn btn-primary" value="Agregar fase" onClick={() => this.addClick()} />           
         </div>
             
             <br/>
 
             <div>
-            <h3>Camera Ready</h3>
+            <h3>Camera Ready</h3> 
             <div class="panel panel-default">  
             <div class="panel-body">   
-            <div class="form-group col-md-3">
-              <label>Requiere Camera Ready: </label>
+            <div >
+              <label>Requiere Camera Ready: &nbsp;&nbsp;</label>
               <input 
                 type="checkbox" 
                 checked={this.props.rdCamR}
@@ -240,3 +240,16 @@ handleCheckboxChange = event =>{
   }
 }
 export default StepThree;
+
+var styles = {
+  rotulos:{
+    paddingRight: 80,
+  },
+  panel:{
+    margin:'auto',
+    maxWidth:'620px',
+    minWidth:'330px',
+    paddingRight:'2%',
+    paddingLeft:'2%',
+  }
+}

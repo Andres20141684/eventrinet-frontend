@@ -87,19 +87,20 @@ export default function ArrayOfChips(props) {
   return (
     <div>
       <Row> 
-      <form id={props.tag} onSubmit={e => { e.preventDefault(); }}>
-      <div class="input-group mb-3">
+      <form id={props.tag} onSubmit={e => { e.preventDefault(); }} style={{width:'100%'}}>
+      <div class="input-group mb" style={{paddingBottom:'10px'}} >
         <input 
             type={props.tag==="categorias"?null:"email"}
             value={props.aux}
             //name='email'
-            class="form-control" 
+            className="form-control" 
             id="id_email"
             aria-label="Recipient's username" 
             aria-describedby="basic-addon2"
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            style={{width: 360/*,position:"relative"*/}}
+            style={{width:"85%"}}
+            //style={{width: 360/*,position:"relative"*/}}
             disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}/>
         <div class="input-group-append">
           <button 
@@ -108,8 +109,7 @@ export default function ArrayOfChips(props) {
             type='email' 
             onClick={handleSelect}
             disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}
-            style={{backgroundColor:"002D3D"}}>Agregar</button>
-            
+            style={{backgroundColor:"002D3D", borderTopRightRadius:'4px', borderBottomRightRadius:'4px'}}>Agregar</button>
         </div>
       </div>
       </form>
@@ -118,7 +118,7 @@ export default function ArrayOfChips(props) {
       {props.lista.map((data, index) => {
               return (
                 <Chip
-                  style={{fontSize:'20px'}}
+                  style={{fontSize:'16px'}}
                   key={index}
                   label={data[props.label]}
                   onDelete={handleDelete(data)}

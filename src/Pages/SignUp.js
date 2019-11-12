@@ -178,10 +178,13 @@ class SingUp extends Component{
                 <div >
                   <section className="loginButton">
                     <div>Registrarse con Gmail</div>
-                  <script src= "./login.js"/> 
+                  <script src= "./login.js">
+                  </script> 
                   <div  effect="fadeInUp">                                    
                       <a>
-                      <div className="g-signin2" align="center" data-onsuccess="onSignUp" />
+                      <div className="g-signin2" align="center" data-onsuccess="onSignUp" data-width="180px"data-height="53px" style={{color:'blue'}}>
+                        <span class="buttonText">Googlsse</span>
+                      </div>
                       </a>
                   </div>
                   </section>                  
