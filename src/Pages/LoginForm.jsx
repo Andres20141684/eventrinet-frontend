@@ -56,7 +56,8 @@ class  Login extends Component{
           }else{
             console.log("No se logueo correctamente");
             console.log("Contraseña y/o usuario incorrecto!");            
-            this.setState({redirect:false});
+            this.setState({redirect:false,isLoading:false,buttonLoadingText:"Iniciar sesión"});
+            alert("Contraseña o usuario incorrectos!");
           }
         }
       )
