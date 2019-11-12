@@ -37,14 +37,14 @@ class FrmSendPropuesta extends React.Component {
         step2:StepTwoSendPropuesta,
         Propuesta: null,
         /* step 1 */
-        authorName: "",
+        authorName: "*",
         authorLastname: "",
         telefono: "",
         email: "",
         academicLevel: "Secundaria",
         /* step 2 */
-        actividad: "",
-        resumen: "",
+        titulo: "",
+        resumen: "*****",
         categorias: [],
         archivo: null,
         /****************** */
@@ -136,7 +136,7 @@ class FrmSendPropuesta extends React.Component {
               idUsuario: 13,
               anho: 2019,
               paper: this.state.archivo,
-              nombre : this.state.actividad,
+              nombre : this.state.titulo,
               coautores : this.state.authorName
                           + "&" +this.state.authorLastname
                           + "&" +this.state.telefono
@@ -200,6 +200,7 @@ class FrmSendPropuesta extends React.Component {
       }
       /** input */
       this.state[value.to] = value.value;
+      console.log("resulta:",this.state[value.to]);
     }
 
     
@@ -209,11 +210,19 @@ class FrmSendPropuesta extends React.Component {
         case 0:
           return <this.state.step1 
                   multiHandle={this.handleValue}
+                  authorName={this.state.authorName}
+                  authorLastname={this.state.authorLastname}
+                  telefono={this.state.telefono}
+                  email={this.state.email}
+                  academicLevel={this.state.academicLevel}
                 />;
         case 1:        
-          return <this.state.step2 
+          return <this.state.step2
+                  multiHandle={this.handleValue} 
                   Categorias={this.props.nextChildComponentProps.Categorias}
-                  multiHandle={this.handleValue}
+                  titulo={this.state.titulo}
+                  resumen={this.state.resumen}
+                  selectedCategorias= {this.state.categorias}
                 />;
         default:
           return 'Uknown stepIndex';
