@@ -16,12 +16,19 @@ class Organizador_ActiveEventsTable  extends Component {
           idUser_recived: 0,
          datos_tabla: {
                   Eventos:[
-                           ]
+                           ],
+         data_default: {  
+            idOrganizador_nextProps: 0,
+            id_evento_nextProps: 0,
+            nomb_evento: "none"
+            
          }
+         }
+         
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
-  
+      //this.handleClickCrearActualizar=this.handleNextChildComponentChange.bind(this);
     }
     handleNextChildComponentChange(_nextChildComponent){
       console.log('cambiando', _nextChildComponent);
@@ -31,14 +38,16 @@ class Organizador_ActiveEventsTable  extends Component {
     handleNextChildComponentChangeProps(_nextChildComponentProps){
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
-    handleClickCrearActualizar = () => {
+    handleClickCrearActualizar(idO,idE,nom) {
       console.log('redireccionando a ... NewEventPage evento');
-      this.handleNextChildComponentChangeProps({  
-         idOrganizador_nextProps: this.state.idUser_recived,
-         id_evento_nextProps: 0,
-         nomb_evento: "none"
+      let dataFlow = {   
+         idOrganizador_nextProps: idO,
+         id_evento_nextProps: idE,
+         nomb_evento: nom
          
-      });
+      }
+      console.log('Enviando a Armando se la come',dataFlow);
+      this.handleNextChildComponentChangeProps(dataFlow);
       console.log('redireccionando a ... NewEventPage evento');
       this.handleNextChildComponentChange(NewEventPage);
     }
@@ -109,7 +118,8 @@ class Organizador_ActiveEventsTable  extends Component {
                         nomb_evento ={nombre} 
                         idUser_recived={this.state.idUser_recived} 
                         button_class ="fa fa-edit" 
-                        onNextChildComponentChange={this.props.onNextChildComponentChange}
+                        onNextChildComponentChange={()=>this.handleClickCrearActualizar( 
+                           this.state.idUser_recived, element.idEvento,  element.nombre)}
                         onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                         redirect_to="/"
                   />
@@ -156,7 +166,8 @@ class Organizador_ActiveEventsTable  extends Component {
               <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                   <h3>Lista de Eventos activos</h3>
                   
-                  <a  class="pull-right" onClick={this.handleClickCrearActualizar} 
+                  <a  class="pull-right" onClick={()=>this.handleClickCrearActualizar( 
+                           this.state.idUser_recived, 0,  'ARMANDO SE LA COMEEEE')} 
                   value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>
 
 

@@ -44,8 +44,7 @@ class FakeNewIni extends Component{
     return (
       <header className="App-header">
         <p className="logo">EVENTRINET(fake)</p>
-        <p>Gestión de tus eventos academicos</p>
-        <p> En construccion ...</p>
+        <p>Gestión de tus eventos academicos</p>        
         <h1>{this.state.msg}</h1>
         <button onClick={this.handleClick} >
                {this.state.transport}

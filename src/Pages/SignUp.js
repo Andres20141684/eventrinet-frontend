@@ -87,20 +87,17 @@ class SingUp extends Component{
             
       Networking.crear_cuenta(this.state.email,this.state.last_name,this.state.name, this.state.username, this.state.password).then(
           (response) => {
-            console.log(response);
-            let connectedUser = response;
-            console.log("Data del usuario",connectedUser);
-            if (connectedUser.succeed){
+            console.log(response);            
+            console.log("Data del usuario",response);
+            if (response.succeed){
               console.log("estamos accediendoo bbecita prrr");
-              console.log(connectedUser);
+              console.log(response);
 
-              //sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));
-              //sessionStorage.setItem('tipoLogin',"usuario")
               this.setState({redirect:true});
             }else{
               console.log("YIYI no se pudo crear cuenta");              
             }
-            alert(connectedUser.message)
+            alert(response.message)
           }
       )
     }
@@ -177,21 +174,23 @@ class SingUp extends Component{
                 </div>
                 <div class="form-row-last">
                   <input type="submit" name="Registrarse" class="register" value="Registrarse"/>
-                </div>
+                </div>                                
+                <div >
+                  <section className="loginButton">
+                    <div>Registrarse con Gmail</div>
+                  <script src= "./login.js"/> 
+                  <div  effect="fadeInUp">                                    
+                      <a>
+                      <div className="g-signin2" align="center" data-onsuccess="onSignUp" />
+                      </a>
+                  </div>
+                  </section>                  
+                </div>                
+                <hr width="90%" />
                 <div class="hint-text small" style={{textAlign:"center"}}>
                   ¿Ya tienes una cuenta?
                   <a href="/login"  class="text-success">Iniciar sesión</a>
                 </div>                
-                <div >
-                  <section className="loginButton">
-                  <script src= "./login.js"></script>
-                  <div  effect="fadeInUp">                                    
-                      <a href={this.state.pagPrev}>
-                      <div className="g-signin2" align="center" data-onsuccess="onSignIn" />
-                      </a>
-                  </div>
-                  </section>
-                </div>
                 <br/>
               </form>
               

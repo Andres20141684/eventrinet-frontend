@@ -1,8 +1,17 @@
 import {AsyncStorage} from 'react';
-
-//const restURL = 'http://34.235.112.27:5000/api/';
+//const restURL = 'http://52.201.202.133:5000/api/';
 const restURL = 'http://localhost:5000/api/';
 
+export async function getMyId(){
+
+
+
+    let retrievedObject = sessionStorage.getItem('dataUser');
+    let retrievedJson = JSON.parse(retrievedObject);  
+
+    return retrievedJson.infoUsuario.idUsuario;
+      
+}
 export async function getInfoUsuario_byId(_idUsuario) {
     console.log('buscando por ID Usuario...');
     try {        
@@ -102,6 +111,37 @@ export async function validar_sesion(var_user,var_password) {
     }
   }
 
+  export async function crear_organizador(var_email, var_date_ini, var_date_fin) {
+    console.log('Dando permisos de organizador...');
+    try {        
+        let response = await fetch(restURL 
+            + 'insertar_permisos_crear_evento', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                    correo: var_email,
+                    fechaIni: var_date_ini,
+                    fechaFin: var_date_fin
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);        
+        console.log('Saving!!');
+  
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+  }
+
 
   export async function cambiar_contrasena(var_email) {
     console.log('Servicio envio correo electronico con contraseña');
@@ -145,7 +185,23 @@ export async function saludar(){
         return error
     }
 }
+export async function getPaper(numProp){
+    console.log('propuesta/devolver_paper/59',numProp);
+    try {
+        let response = await fetch(restURL+'propuesta/devolver_paper/59' ,{
+            method:'GET'
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        
 
+          return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
 
 
 export async function insertNewEvent(data){
@@ -205,11 +261,11 @@ export async function getEventosPublicados() {
 } 
 
 
-export async function listarOrganizadores() {
+export async function listarUsuarios() {
     try {
         console.log('INTENTO DE GET!! en ' +restURL 
-        + 'listar_organizadores_activos');
-        let response = await fetch(restURL+'listar_organizadores_activos' ,{
+        + '/usuario/listar_permisos_usuarios');
+        let response = await fetch(restURL+'usuario/listar_permisos_usuarios' ,{
             method:'GET'
         });
         let responseJson = response.json();
@@ -702,5 +758,19 @@ export async function mostrarCalificacionXPropuesta(idUsuario, idFase, idPropues
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
+    }
+}
+
+export async function listar_usuarios(){
+    try{
+        let response = await fetch(restURL+'usuario/listar_correos' ,{
+            method:'GET',
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    }catch(error){
+        console.log(error);
+        return error
     }
 }

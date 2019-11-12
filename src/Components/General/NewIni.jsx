@@ -54,10 +54,10 @@ function Presentacion(props){
             <img src="./img/ilustracion1.png" alt="" className="imagen-about-us"/>
             <div className="contenido-textos">
                 <h3><span>1</span>Las mejores organizaciones de eventos</h3>
-                <p>Se parte de la familia Eventrinet y empieza administrar tus eventos
-                   academicos y profesionales, call for papers, y mas.</p>
+                <p>Sé parte de la familia Eventrinet y empieza administrar tus eventos
+                   académicos y profesionales, call for papers, y más.</p>
                 <h3><span>2</span>Las mejores acogidas</h3>
-                <p>Eventrinet es una plataforma de difucion de eventos
+                <p>Eventrinet es una plataforma de difución de eventos
                    alrededor del mundo y nuestro servicio es utilizado
                    por grandes compañias, universidades entre otros.</p>
             </div>
@@ -71,7 +71,9 @@ class NewIni extends Component{
     super(props);
     this.state = {
         msg: "Not Connected" ,
-        transport: "go to Fake Ini"
+        link_propuestabase64: '#',
+        lastLink:"_",
+        attempt:0
     }
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -95,6 +97,7 @@ class NewIni extends Component{
     }
     console.log("comprobando >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
     console.log("AppWillMount")
+    
     Networking.saludar().then(
       (response)=>{
         
@@ -106,11 +109,38 @@ class NewIni extends Component{
         this.setState({msg:"Intento de conexión fallido"});
         console.log(err);
       })
-  }
+    
+      
 
+ 
+
+
+  }
+  componentDidMount(){
+    console.log("a-->", document.getElementById('JinSSJ'));
+  }
+  handleClickB = () => {
+    console.log("a-->", document.getElementById('JinSSJ'));
+    
+    Networking.getPaper(59).then(
+      (response)=>{
+        this.state.attempt=this.state.attempt+1;
+        console.log(">>>>>>>>>>>>>>>>>> Se descargo again ,", this.state.attempt);
+        this.setState({link_propuestabase64:response.Propuesta});
+        //window.download(response.Propuesta, 'Save');
+        document.getElementById('JinSSJ').click();
+        
+      })
+      .catch( (err) =>{
+        console.log("error en conexión Propuesta");
+      })
+  }
   handleClick = () => {
     console.log('redireccionando a ... FakeNewIni evento');
-    this.handleNextChildComponentChange(FakeNewIni);
+    
+    
+    
+
   }
   render() {
     
@@ -120,13 +150,22 @@ class NewIni extends Component{
         
         <div className="textos-header" >
                   
-                  <h1 style={styles.textos_header_h1}>EVENTRINET gestion de eventos Academicos Peru</h1>
-                  <h2 style={styles.textos_header_h2}>En construccion ...</h2>
+                  <h1 style={styles.textos_header_h1}>Sistema de gestión de eventos académicos</h1>
                   <h1>{this.state.msg}</h1>
-                  <a href="#" className="specialButton"
-                   onClick={this.handleClick} >
-                {this.state.transport}
-                </a>
+
+                  <button  
+                            id="button_finish"
+                            style={{float:'center'}} 
+                            class="mybutton" 
+                            color="primary" 
+                            onClick={this.handleClickB}
+                            >
+                      Finalizar
+                      </button>
+                  <a id='JinSSJ' onClick={this.handleClick}
+                  className="specialButton" href={this.state.link_propuestabase64} download="file.pdf" > Paper SSJ</a>
+
+
               </div>
               <div className="wave" style={styles.waveStyle}
               //style={{height: "150px"},{overflow: "hidden"}}

@@ -70,6 +70,7 @@ export default class EventNew extends Component{
         aux.idEvento=this.state.data_recived.id_evento_nextProps
         aux=JSON.stringify(aux)
         if(this.state.data_recived.id_evento_nextProps!==0){
+          console.log("<<<<<<<<<<<<<<<<<     JSONNNNNNN", aux);
           Networking.ShowEvent(aux).then(
             (response)=>{
               console.log(response);
@@ -190,7 +191,6 @@ export default class EventNew extends Component{
 
       render() {    
         return (
-          <div>
             <div className='container'>
               <this.state.form
               nombre={this.state.nombre} 
@@ -224,15 +224,8 @@ export default class EventNew extends Component{
               handleChange={this.handleChange} 
               handlePrint={this.handlePrint}
               onNextChildComponentChange={this.handleNextChildComponentChange}
+              handleCancel={this.handleClick}
               />
-          </div>
-          <div>
-                <button style={{float:'left'}} 
-                class="mybutton"  variant="contained" 
-                color="primary"
-                 onClick={this.handleClick}>
-                   Cancelar</button>
-                </div>
           </div>
           
         )
