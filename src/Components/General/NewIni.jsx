@@ -71,6 +71,9 @@ class NewIni extends Component{
     super(props);
     this.state = {
         msg: "Not Connected" ,
+        link_propuestabase64: '#',
+        lastLink:"_",
+        attempt:0
     }
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -94,6 +97,7 @@ class NewIni extends Component{
     }
     console.log("comprobando >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
     console.log("AppWillMount")
+    
     Networking.saludar().then(
       (response)=>{
         
@@ -105,11 +109,38 @@ class NewIni extends Component{
         this.setState({msg:"Intento de conexión fallido"});
         console.log(err);
       })
-  }
+    
+      
 
+ 
+
+
+  }
+  componentDidMount(){
+    console.log("a-->", document.getElementById('JinSSJ'));
+  }
+  handleClickB = () => {
+    console.log("a-->", document.getElementById('JinSSJ'));
+    
+    Networking.getPaper(59).then(
+      (response)=>{
+        this.state.attempt=this.state.attempt+1;
+        console.log(">>>>>>>>>>>>>>>>>> Se descargo again ,", this.state.attempt);
+        this.setState({link_propuestabase64:response.Propuesta});
+        //window.download(response.Propuesta, 'Save');
+        document.getElementById('JinSSJ').click();
+        
+      })
+      .catch( (err) =>{
+        console.log("error en conexión Propuesta");
+      })
+  }
   handleClick = () => {
     console.log('redireccionando a ... FakeNewIni evento');
-    this.handleNextChildComponentChange(FakeNewIni);
+    
+    
+    
+
   }
   render() {
     
@@ -121,6 +152,20 @@ class NewIni extends Component{
                   
                   <h1 style={styles.textos_header_h1}>Sistema de gestión de eventos académicos</h1>
                   <h1>{this.state.msg}</h1>
+
+                  <button  
+                            id="button_finish"
+                            style={{float:'center'}} 
+                            class="mybutton" 
+                            color="primary" 
+                            onClick={this.handleClickB}
+                            >
+                      Finalizar
+                      </button>
+                  <a id='JinSSJ' onClick={this.handleClick}
+                  className="specialButton" href={this.state.link_propuestabase64} download="file.pdf" > Paper SSJ</a>
+
+
               </div>
               <div className="wave" style={styles.waveStyle}
               //style={{height: "150px"},{overflow: "hidden"}}
