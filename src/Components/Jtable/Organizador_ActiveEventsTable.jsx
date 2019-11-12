@@ -175,7 +175,7 @@ class Organizador_ActiveEventsTable  extends Component {
                   
                   <a  class="pull-right" onClick={()=>this.handleClickCrearActualizar( 
                            this.state.idUser_recived, 0,  'ARMANDO SE LA COMEEEE')} 
-                  value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>
+                  value="Nuevo" style={{marginRight:30,marginBottom:20, color:"white"}}>Nuevo</a>
 
 
                </div>
