@@ -217,7 +217,7 @@ componentWillMount(){
   render () {
     return (
       <div>
-        <h1>Ingresa los detalles de la propuesta y sube un archivo</h1>
+        <h3>Ingresa los detalles de la propuesta y sube un archivo</h3>
         <div class="panel-group mx-auto" style={{width: "600px"}}>
           <div class="panel panel-default">
             <div class="panel-heading"><h1>Descripcion</h1></div>
