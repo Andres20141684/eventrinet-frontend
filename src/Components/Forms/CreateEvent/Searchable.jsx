@@ -3,71 +3,57 @@ import Select from "react-dropdown-select";
 import Chip from '@material-ui/core/Chip';
 import Row from 'react-bootstrap/Row';
 
-const Networking = require('../../../Network/Networking.js') ;
-const options=[{id:0,nombre:'Juan    f',correo:'ret@pucp.pe'},{id:2,nombre:'Pepito',correo:'pepex@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]
-const aux=[]
+
 export default class Searchable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            options:[],
             clearable:false,
             selectValues: [],
             labelField: "nombre", // el que se muestra en el select
-            valueField: "idUsuario", //
+            valueField: "idUsuario", // 
             dropdownHeight: "100px",
             searchBy:'nombre', //busca por esa propiedad
-            usuarios:[]
+            usuarios:[],
+            filterList:[],
         }
         this.setValues=this.setValues.bind(this);
         this.handleSelect=this.handleSelect.bind(this);
         this.handleDelete=this.handleDelete.bind(this);
-        this.itemRenderer=this.itemRenderer.bind(this)
     }
 
     componentWillMount(){
-        Networking.listar_usuarios().then((response)=>{
-            this.setState({options:response.correos})
-            console.log(response);
-          })
-          .catch( (err) =>{
-            console.log("error en conexión");
-            console.log(err);
-          })
+        this.setState({usuarios:this.props.lista,filterList:this.props.options})
+    }
+    componentDidUpdate(prevProps, prevState, snapshot){
+        if(prevState.usuarios!==this.state.usuarios){
+            this.filtradoOpciones()
+        }
     }
 
-    itemRenderer = ({ item, itemIndex, props, state, methods }) => (
-        <div key={item[this.state.valueField]} onClick={() => methods.addItem(item)}>
-          <div style={{ margin: "10px" }}>
-            <label>{item[this.state.labelField]}</label>
-            <br/>
-            <label>{item.correo}</label>
-          </div>
-        </div>
-      );
-
     setValues = selectValues => this.setState({ selectValues:selectValues,clearable:true});
-
-    
 
     handleSelect(){
         var user=[...this.state.usuarios];
         user.push(this.state.selectValues[0]);
         this.setState({usuarios:user,selectValues:[],clearable:false});
+        this.props.handleadd(user,this.props.tag);
     }
     handleDelete(data){
         var chipData=[...this.state.usuarios]
         chipData=chipData.filter(chip => chip.idUsuario !== data.idUsuario)
         this.setState({usuarios:chipData})
+        this.props.handleadd(chipData,this.props.tag);
     }
     filtradoOpciones(){
-        aux=[...this.state.options]
+        var aux=[...this.state.filterList]
         for(var i=0;i<this.state.usuarios.length;i++){
-           aux=aux.filter(opt=>opt.correo!==this.state.usuarios.evaluadores[i].correo)
+           aux=aux.filter(opt=>opt.correo!==this.state.usuarios[i].correo)
            console.log("Valor de aux: ",aux)
-           console.log("Valor de options",this.state.options)
+           console.log("Valor de options",this.props.options)
         }
-        console.log(aux) 
+        this.setState({filterList:aux})
+
      }
     
     render() {
@@ -82,20 +68,16 @@ export default class Searchable extends Component {
                             class="form-control" 
                             component={'span'} style={{fontSize:'18px', width: "350px"}} 
                             placeholder="Elige Ususario" 
-                            options={this.state.options} 
+                            options={this.props.options} 
                             noDataLabel="Usuario no encontrado"
                             onChange={values => this.setValues(values)}
                             dropdownHeight={this.state.dropdownHeight}
                             labelField={this.state.labelField}
                             valueField={this.state.valueField}
                             values={[...this.state.selectValues]}
-                            //dropdownGap={5}
+                            disabled={this.props.tag!=='presidente'?false:this.props.lista.length===0?false:true}
                             searchBy={this.state.searchBy}
                             clearable={this.state.clearable}
-                            /*itemRenderer={
-                                (item, itemIndex, props, state, methods) =>
-                                    this.itemRenderer(item, itemIndex, props, state, methods)
-                            }*/
                             />
                         </div> 
                         <div class="input-group-append">
@@ -104,7 +86,7 @@ export default class Searchable extends Component {
                             variant="primary" 
                             type='email' 
                             onClick={this.handleSelect}
-                            //disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}
+                            disabled={this.props.tag!=='presidente'?false:this.props.lista.length===0?false:true}
                             style={{backgroundColor:"002D3D", borderTopRightRadius:'4px', borderBottomRightRadius:'4px'}}>Agregar</button>
                         </div>
                         <div>
@@ -125,7 +107,7 @@ export default class Searchable extends Component {
                         <Chip
                         style={{fontSize:'16px'}}
                         key={index}
-                        label={data.nombre}
+                        label={data.correo}
                         onDelete={()=>this.handleDelete(data)}
                         />
                     );
