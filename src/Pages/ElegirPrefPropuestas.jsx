@@ -5,7 +5,7 @@ import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import './../styles/style_gig_tittle.css'
 
-import ListadoCategPorEvento from '../Components/Jtable/ListadoCategPorEvento';
+import ListadoPropPorEvento from '../Components/Jtable/ListadoPropPorEvento';
 import { tryStatement } from '@babel/types';
 import EvaluadorEventosListados from './EvaluadorEventosListados';
 
@@ -14,18 +14,18 @@ const Networking = require('../Network/Networking.js') ;
 function MainTittle(){
     return ( <div>
     <div style={{marginLeft:15}}>
-        <h1><br/>Preferencias por categorías</h1>
+        <h1><br/>Preferencias por Propuestas</h1>
     </div>
-    <div style={{marginLeft:40,marginTop:25}} ><h4>Lista de categorías del evento:</h4></div>
+    <div style={{marginLeft:40,marginTop:25}} ><h4>Lista de Propuestas del evento:</h4></div>
     
     </div>
     )
 }
-class ElegirPrefCategorias extends Component{
+class ElegirPrefPropuestas extends Component{
     constructor(props){
         super(props);
         this.state = {
-            formActives: ListadoCategPorEvento,
+            formActives: ListadoPropPorEvento,
             msg: "Not Connected",
             idEvaluador : 1,
             nombre_evento : "Evento 1",
@@ -33,7 +33,7 @@ class ElegirPrefCategorias extends Component{
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
-        this.elegirPrefCat = this.elegirPrefCat.bind(this);
+        this.elegirPrefProp = this.elegirPrefProp.bind(this);
     
       }
       handleNextChildComponentChange(_nextChildComponent){
@@ -47,11 +47,11 @@ class ElegirPrefCategorias extends Component{
 
       componentDidMount(){
 
-        this.setState({
+          this.setState({
             nombre_evento : this.props.nextChildComponentProps.nomb_evento,
             idEvento : this.props.nextChildComponentProps.id_evento_nextProps,
             idEvaluador : this.props.nextChildComponentProps.idOrganizador_nextProps,
-        });
+          });
          // console.log("<<<<<<<<<ID evaluador",this.state.idEvaluador); //AQUI NO VA A MOSTRAR EL VERDADERO ID
       }
     
@@ -66,7 +66,7 @@ class ElegirPrefCategorias extends Component{
 
     }
     
-    elegirPrefCat = () =>{
+    elegirPrefProp = () =>{
         this.props.onNextChildComponentChange(EvaluadorEventosListados);
      }
    
@@ -77,7 +77,7 @@ class ElegirPrefCategorias extends Component{
     <div style={{marginLeft:15}}>
         <h1 style={{fontSize:35}}><br/>{this.state.nombre_evento}</h1>
     </div>
-    <div style={{marginLeft:40,marginTop:25}} ><h2>Preferencias por categorías</h2></div>
+    <div style={{marginLeft:40,marginTop:25}} ><h2>Preferencias por Propuesta</h2></div>
             
             <div class="container" >
                 <div class ="panel-body">
@@ -85,7 +85,7 @@ class ElegirPrefCategorias extends Component{
                     <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
 
                             <TabList>
-                                <Tab>Lista de categorías por evento</Tab>
+                                <Tab>Lista de Propuestas por evento</Tab>
                             </TabList>
                             <TabPanel>
                                 <br/>
@@ -95,14 +95,14 @@ class ElegirPrefCategorias extends Component{
                                     idEvento = {this.props.nextChildComponentProps.idEvento}
                                     idEvaluador = {this.props.nextChildComponentProps.idUser_}
                                 />
-                                {console.log("X.X",this.props.nextChildComponentProps)}
+                               {console.log("e.e",this.props.nextChildComponentProps)}
                             </TabPanel>
                             
                         </Tabs>
                         <div>
         <h2><br/></h2>
         <h3>
-        <button class="mybutton" onClick={this.elegirPrefCat} style={{float:'left'}}>Atras</button>
+        <button class="mybutton" onClick={this.elegirPrefProp} style={{float:'left'}}>Atras</button>
         <br/><br/>
         </h3>
     </div>
@@ -118,5 +118,5 @@ class ElegirPrefCategorias extends Component{
 }
 
 
-export default ElegirPrefCategorias;
+export default ElegirPrefPropuestas;
 

@@ -8,8 +8,15 @@ import EvaluacionPresidente from  './EvaluacionPresidente';
 /**
  *  
  * 
-******************************* BOTTON EN CONSTRUCCION XDDDDDDDDDDDDDDDDDDDD (JEREMI SE LA COME)
+********************* BOTTON EN DESUSO XDDDDDDDDDDDDDDD (JEREMI SE LA COME)
  */
+
+
+ /*************** BOTON DEPRECADO ***************
+  * MEJOR USA JActionButton.jsx 
+  * porque se entiende mejor y hace casi lo mismo
+  * y es reutilizable
+*************************************************** */
 
 class ActionButton  extends Component {
    constructor(props) {
@@ -74,7 +81,8 @@ class ActionButton  extends Component {
   
     render() {
         return(
-            <button class={this.state.class_for_style} onClick={this.props.onNextChildComponentChange} >
+            <button class={this.state.class_for_style} 
+            onClick={this.props.onNextChildComponentChange} >
                <a >
                   <i 
                      class={this.state.button_class}

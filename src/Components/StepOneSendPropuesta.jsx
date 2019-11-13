@@ -53,7 +53,6 @@ renderacademicLevel(){
         placeholder:'Nombre', 
         id:"id_name",           
         onChange:this.defaultMutableHandle,
-        value:"",
       },
       {
         label:"Apellidos",
@@ -62,7 +61,6 @@ renderacademicLevel(){
         placeholder:'Apellidos', 
         id:"id_ap",           
         onChange:this.defaultMutableHandle,
-        value:""
       }
     ]
     const inputContacto =[
@@ -73,7 +71,6 @@ renderacademicLevel(){
         placeholder:'Telefono', 
         id:"id_telf",           
         onChange:this.defaultMutableHandle,
-        value:this.props.telefono,
       },
       {
         label:"Correo electronico",
@@ -82,7 +79,6 @@ renderacademicLevel(){
         placeholder:'Email' ,
         id:"id_email",             
         onChange:this.defaultMutableHandle,
-        value:""
       },
       {
         label:"Nivel de estudios",
@@ -97,13 +93,12 @@ renderacademicLevel(){
 
     return (
       <div>
-        
           <h1>Ingresa los datos del Autor y Co-autores</h1>
             
               
               <JCardForm
                 arrayOfInputData={inputGenerales}
-                cardHeadingText = "Datos Generales del CoAutor"
+                cardHeadingText = "Datos Generales de los Autores"
                 value = {this.props.authorName}
               />
               <JCardForm
@@ -112,7 +107,7 @@ renderacademicLevel(){
               />
 
 
-            </div>
+      </div>
       
     )
   }
