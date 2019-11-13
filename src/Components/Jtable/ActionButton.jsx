@@ -81,7 +81,8 @@ class ActionButton  extends Component {
   
     render() {
         return(
-            <button class={this.state.class_for_style} onClick={this.props.onNextChildComponentChange} >
+            <button class={this.state.class_for_style} 
+            onClick={this.props.onNextChildComponentChange} >
                <a >
                   <i 
                      class={this.state.button_class}

@@ -1,6 +1,6 @@
 import {AsyncStorage} from 'react';
-//const restURL = 'http://52.201.202.133:5000/api/';
-const restURL = 'http://localhost:5000/api/';
+const restURL = 'http://52.201.202.133:5000/api/';
+//const restURL = 'http://localhost:5000/api/';
 
 export async function getMyId(){
     let retrievedObject = sessionStorage.getItem('dataUser');
@@ -578,6 +578,7 @@ export async function registrar_PrefXCat(idEvento, idUsuario, idCategoria) {
         console.error('CATCH ALCANZADO :(');
     }
 }*/
+
 export async function ListarPrefXCateg(idEvento, idUsuario) {
     
     try {
@@ -597,7 +598,7 @@ export async function ListarPrefXCateg(idEvento, idUsuario) {
         });
         let responseJson = await response.json();
         console.log(responseJson);
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -608,6 +609,76 @@ export async function registrar_PrefXCat(data){
 
     try {
         let response = await fetch(restURL+'evaluador/registrar_preferencias_categoria' ,{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
+
+export async function listar_propuestasPorEvento(_idEvento) {
+    
+    try {
+        console.log('RECIBI UN param: ' + _idEvento);
+        let response = await fetch(restURL 
+            + 'propuesta/listarPropuestasXEvento', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: _idEvento
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+
+export async function ListarPrefXProp(idEvento, idUsuario) {
+    
+    try {
+        console.log('RECIBI UN param: ' + idEvento+" "+idUsuario);
+        let response = await fetch(restURL 
+            + 'propuestas_categoria/listarPropuestasConCategorias', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: idEvento,
+                idUsuario : idUsuario
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+
+export async function registrar_PrefXProp(data){
+
+    try {
+        let response = await fetch(restURL+'evaluador/registrar_preferencias_propuesta' ,{
             method:'POST',
             mode:'cors',
             headers: {Accept:"application/json","Content-Type":"application/json"},

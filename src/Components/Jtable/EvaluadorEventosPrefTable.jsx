@@ -3,7 +3,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
 import ActionButton from './ActionButton';
-import ElegirPrefCategorias from './../../Pages/ElegirPrefCategorias.jsx'
+import ElegirPrefCategorias from './../../Pages/ElegirPrefCategorias.jsx';
+import ElegirPrefPropuestas from './../../Pages/ElegirPrefPropuestas.jsx';
+import { stringify } from 'querystring';
 //import NewEventPage from './../../Pages/NewEventPage' //aca debería estar el modificar fases, pero ni en back hay :'v
 const Networking = require('./../../Network/Networking.js') ;
 
@@ -22,8 +24,9 @@ class EvaluadorEventosPrefTable  extends Component {
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
-      this.elegirPrefCat = this.elegirPrefCat.bind(this);
-  
+      //this.elegirPrefCat = this.elegirPrefCat.bind(this);
+      //this.elegirPrefProp = this.elegirPrefProp.bind(this);
+      this.handleSelectPreference = this.handleSelectPreference.bind(this);
     }
     handleNextChildComponentChange(_nextChildComponent){
         this.props.onNextChildComponentChange(_nextChildComponent);
@@ -64,17 +67,45 @@ class EvaluadorEventosPrefTable  extends Component {
          return true;
       }
       return false;
-   }*/
+   }
 
       elegirPrefCat = () =>{
          this.props.onNextChildComponentChange(ElegirPrefCategorias);
       }
 
- 
+      elegirPrefProp = () =>{
+         this.props.onNextChildComponentChange(ElegirPrefPropuestas);
+      }
+      */
+      handleSelectPreference(preferencia,nombre,id){
+         console.log(preferencia)
+         let retrievedObject = sessionStorage.getItem('dataUser');
+         let retrievedJson = JSON.parse(retrievedObject);  
+         let idUser= retrievedJson.infoUsuario.idUsuario;
+         console.log(retrievedJson);
+         this.props.onNextChildComponentChangeProps(
+            {
+               idUser_:idUser,
+               nomb_evento: nombre,
+               idEvento:id
+            }
+            );
+         if(preferencia == 'CATEGORIA'){
+            console.log("entre x catego")
+           
+            this.props.onNextChildComponentChange(ElegirPrefCategorias);
+            console.log(ElegirPrefCategorias)
+         }else{
+            console.log("entre x propuesta")
+            this.props.onNextChildComponentChange(ElegirPrefPropuestas);
+            console.log(ElegirPrefPropuestas)
+
+         }
+      }
    
    tableData() {
       //this.setState.idUser_recived=this.props.idUser_recived;
-        return this.state.datos_tabla.Eventos_Evaluador.map((element, index) => {
+        return this.state.datos_tabla.Eventos_Evaluador.map((element) => {
          
          const {fechaMaxPref,idEvento,nombre,preferencia} = element
          return (
@@ -85,19 +116,26 @@ class EvaluadorEventosPrefTable  extends Component {
                
                <td align="center">
                   <ActionButton 
-                  button_class ="fa fa-plus" 
+                  button_class ="fa fa-plus"
                   id_evento={idEvento} 
                   nomb_evento ={nombre} 
                   idUser_recived={this.state.idUser_recived} 
-
-                  onNextChildComponentChange={this.elegirPrefCat}
-                  onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                  //cambiar condicionar para elegirPrefCat o elegirPrefProp
+                  //onNextChildComponentChange={this.elegirPrefCat}
+                  //onNextChildComponentChange={this.elegirPrefProp}
+                  onNextChildComponentChange={()=>this.handleSelectPreference(
+                     element.preferencia,
+                     element.nombre,
+                     element.idEvento
+                     )}
+                  onNextChildComponentChangeProps=
+                  {this.props.onNextChildComponentChangeProps}
                   />
                </td> 
          </tr>
          )
       })
-    }
+   }
   
   
      render() {
