@@ -8,6 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import {DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import Select from "react-dropdown-select";
 import DialogTitle from '@material-ui/core/DialogTitle';
+import PresiEventos_asignarEvaTable from '../Components/Jtable/PresiEventos_asignarEvaTable';
 
 const Networking = require('../Network/Networking.js') ;
 
@@ -55,6 +56,7 @@ class AsignEvalPropuesta  extends Component {
      }
 
      setValues = selectValues => this.setState({ selectValues:selectValues,clearable:true});
+
      handleNextChildComponentChange(_nextChildComponent){
        console.log('cambiando', _nextChildComponent);
          this.props.onNextChildComponentChange(_nextChildComponent);
@@ -83,17 +85,16 @@ class AsignEvalPropuesta  extends Component {
       
        this.handleClose()
     }
-     handleClickCrearActualizar = () => {
-       /*console.log('redireccionando a ... NewEventPage evento');
-       this.handleNextChildComponentChangeProps({  
-          idOrganizador_nextProps: this.state.idUser_recived,
-          id_evento_nextProps: 0,
-          nomb_evento: "none"
-          
-       });
-       console.log('redireccionando a ... NewEventPage evento');
-       this.handleNextChildComponentChange(NewEventPage);*/
+     handleClickRetroceder = () => {
+       this.handleNextChildComponentChange(PresiEventos_asignarEvaTable);
      }
+
+     handleClickGuardar = () => {
+        var aux={idEvento:this.state.idEvento}
+        aux.Propuestas=[...this.state.datos_tabla]
+      Networking.InsertarEvaluadorAPaper(JSON.stringify(aux)).then((value)=>{console.log(value)})
+      this.handleNextChildComponentChange(PresiEventos_asignarEvaTable);
+    }
     
     componentWillMount(){
        var listaAux=[];
@@ -107,7 +108,7 @@ class AsignEvalPropuesta  extends Component {
       Networking.PropuestaxEvento(JSON.stringify({idEvento:1})).then((value)=>{
          console.log(value)
          value.Propuestas.map((element,index)=>{
-            object={nombre:element.nombre,evaluadores:element.Evaluadores}
+            object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores}
             listaAux.push(object);
             console.log(object);
             console.log(listaAux);
@@ -154,19 +155,6 @@ class AsignEvalPropuesta  extends Component {
        return false
     }
    
-   
-       handleClick2 = () => {
-          console.log('redireccionando a ... update evento');
-          sessionStorage.setItem('nextProp',
-               JSON.stringify(
-                              {   idOrganizador_nextProps: this.state.idUser_recived,
-                                 id_evento_nextProps: 0,
-                                 nomb_evento: "none"
-                                 
-                              }
-                           ))
-          //window.location.replace("./");
-       }
 
        handleDeleteArray(e,index){
           console.log('Datos: ',e,' En el index',index)
@@ -186,7 +174,6 @@ class AsignEvalPropuesta  extends Component {
          console.log("Valor de aux: ",aux)
       }
       console.log(aux)
-      //return aux; 
    }
  
   
@@ -300,6 +287,12 @@ class AsignEvalPropuesta  extends Component {
                   </thead>
                   <tbody>{this.tableData()}</tbody>
                   </table>
+                  </div>
+                  <div>
+                  <button class="mybutton" onClick={()=>this.handleClickRetroceder} style={{float:'left'}}>Atras</button>
+                  </div>
+                  <div>
+                  <button class="mybutton" onClick={()=>this.elegirPrefCat} style={{float:'left'}}>Guardar</button>
                   </div>
                </div>
                 </div>
