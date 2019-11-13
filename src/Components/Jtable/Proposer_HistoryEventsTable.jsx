@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion';
 
 const Networking = require('../../Network/Networking.js') ;
 
@@ -36,36 +39,33 @@ class Proposer_HistoryEventsTable  extends Component {
             </tr>
          )})
    }
-   
+    
    tableData() {
       return this.props.data.map((element, index) => {
          const { evento,listProp} = element 
          var idAccordion = "accordion"+ index
+         var indexEvent=index
          return(            
-               <div class="card z-depth-0 bordered">
-                  
-                  <div class="card-header" id={"heading-"+String(idAccordion)+ "-2"}>
-                     <h5 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target={"#collapse"+String(idAccordion)+"2"}
-                        aria-expanded="true" aria-controls={"collapse"+String(idAccordion)+"2"}>
-                        {evento}
-                        </button>
-                     </h5>
-                  </div>
-                  
-                  <div id={"collapse"+String(idAccordion)+"2"} class="collapse" aria-labelledby={"heading-"+String(idAccordion)+ "-2"}
-                     data-parent="#accordionExample276">
-                     <div class="card-body">
-                        
-                        <div  class="table-responsive">
-                        <table class="table  table-hover">
-                           <tbody>{this.renderProposals(listProp)}</tbody>
-                        </table>
-                        </div>                        
-                     
+            <Card>
+               <Card.Header className="col-md-12">
+                  <h5 class="mb-0">
+                  <Accordion.Toggle as={Button} variant="link" eventKey={indexEvent}>
+                     <button class="btn btn-link" type="button">
+                     {evento}
+                     </button>
+                  </Accordion.Toggle>
+                  </h5>
+               </Card.Header>
+               <Accordion.Collapse eventKey={indexEvent}>
+                  <div class="card-body">
+                     <div  class="table-responsive">
+                     <table class="table  table-hover">
+                        <tbody>{this.renderProposals(listProp)}</tbody>
+                     </table>
                      </div>
                   </div>
-               </div>
+               </Accordion.Collapse>
+            </Card>
             )
          })
 
@@ -80,10 +80,9 @@ class Proposer_HistoryEventsTable  extends Component {
    render() {
       this.state = this.props.data      
       return (
-      <div class="accordion" id="accordionExample276">
-         {this.tableData()}
-      </div>
-         
+         <Accordion defaultActiveKey="0" id="accordionExample275" className="table-responsive">
+            {this.tableData()}
+         </Accordion>
       )
    }
 }

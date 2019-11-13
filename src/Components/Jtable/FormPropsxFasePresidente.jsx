@@ -312,7 +312,7 @@ class FormPropsxFasePresidente extends Component {
                   </Accordion.Toggle>
                 </div>
                 
-              </Card.Header>
+              </Card.Header> 
             
               <Accordion.Collapse eventKey={indexEvent}>
                 <div  class="table-responsive" style={{paddingTop:'20px',paddingLeft:'20%', paddingRight:'20%'}}>
