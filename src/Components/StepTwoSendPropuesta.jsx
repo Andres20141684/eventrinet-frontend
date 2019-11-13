@@ -121,7 +121,6 @@ class StepTwoSendPropuesta extends React.Component {
         placeholder:'Titulo', 
         id:"id_Titulo",           
         onChange:this.defaultMutableHandle,
-        value:this.props.titulo,
       },
       {
         label:"Resumen",
@@ -130,7 +129,6 @@ class StepTwoSendPropuesta extends React.Component {
         placeholder:'Resumen' ,
         id:"id_resumen",             
         onChange:this.defaultMutableHandle,
-        value:this.props.resumen
       }
       ,
       
@@ -152,7 +150,6 @@ class StepTwoSendPropuesta extends React.Component {
         placeholder:'Titulo', 
         id:"id_Titulo",           
         onChange:this.defaultMutableHandle,
-        value:this.props.titulo,
       },
       {
         id:"drop_zone",
