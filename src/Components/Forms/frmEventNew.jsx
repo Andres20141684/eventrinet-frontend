@@ -180,7 +180,7 @@ export default class EventNew extends Component{
       handlePrint(event){
         var auxjson= JSON.parse(JSON.stringify(this.state));
         console.log(auxjson)
-
+        delete auxjson.options;
         delete auxjson.form;
         delete auxjson.datajson;
         
