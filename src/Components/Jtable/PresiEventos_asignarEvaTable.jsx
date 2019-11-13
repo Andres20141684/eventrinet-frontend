@@ -3,6 +3,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
 import ActionButton from './ActionButton';
+import JActionButton from '../Special/JActionButton';
+import AsignEvalPropuesta from '../../Pages/Asign_Eval_Propuest';
+import NewEventPage from '../../Pages/NewEventPage';
 //import NewEventPage from './../../Pages/NewEventPage' //aca debería estar el modificar fases, pero ni en back hay :'v
 const Networking = require('./../../Network/Networking.js') ;
 
@@ -41,7 +44,24 @@ class PresiEventos_asignarEvaTable  extends Component {
       
       //this.handleNextChildComponentChange(NewEventPage);
     }
-   
+    handleClickAddEval =(idE)=>{
+      console.log("retrievedJson");
+      this.handleNextChildComponentChangeProps({   
+         idEvento: idE,
+      });
+      console.log("redireccion para AsignEvalPropuesta");
+      this.handleNextChildComponentChange(AsignEvalPropuesta);
+   }
+   handleEditButton =(idO,idE,nom)=>{
+      let dataFlow = {   
+         idOrganizador_nextProps: idO,
+         id_evento_nextProps: idE,
+         nomb_evento: nom
+         
+      }
+      this.handleNextChildComponentChangeProps(dataFlow);
+      this.handleNextChildComponentChange(NewEventPage);
+   }
    componentWillMount(){
       
       
@@ -100,16 +120,18 @@ class PresiEventos_asignarEvaTable  extends Component {
                <td>{inicioEvaluacion}</td>
                
                <td align="center">
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-plus" redirect_to="/"/>
+                  <JActionButton 
+                   button_class ="fa fa-plus" 
+                     idEvento={idEvento} 
+                     onClick={()=>this.handleClickAddEval(element.idEvento)}/>
                </td> 
                <td align="center">
-                  <ActionButton id_evento={idEvento} 
-                  nomb_evento ={nombre} 
-                  idUser_recived={this.state.idUser_recived} 
-                  button_class ="fa fa-edit" 
-                  onNextChildComponentChange={this.props.onNextChildComponentChange}
-                  onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                   redirect_to="/organizerNewEvent"/>
+               <JActionButton
+                     onClick = {()=>this.handleEditButton(this.state.idUser_recived,
+                        element.idEvento,
+                        element.nombre)}
+                     button_class ="fa fa-edit" 
+                  />
                </td> 
          </tr>
          )

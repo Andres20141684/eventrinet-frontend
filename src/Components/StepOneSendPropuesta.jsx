@@ -53,7 +53,7 @@ renderacademicLevel(){
         placeholder:'Nombre', 
         id:"id_name",           
         onChange:this.defaultMutableHandle,
-        value:"",
+        value:'',
       },
       {
         label:"Apellidos",
@@ -97,13 +97,12 @@ renderacademicLevel(){
 
     return (
       <div>
-        
           <h1>Ingresa los datos del Autor y Co-autores</h1>
             
               
               <JCardForm
                 arrayOfInputData={inputGenerales}
-                cardHeadingText = "Datos Generales del CoAutor"
+                cardHeadingText = "Datos Generales de los Autores"
                 value = {this.props.authorName}
               />
               <JCardForm
@@ -112,7 +111,7 @@ renderacademicLevel(){
               />
 
 
-            </div>
+      </div>
       
     )
   }

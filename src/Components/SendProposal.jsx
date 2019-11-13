@@ -4,7 +4,6 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import './../styles/InscriptionEvent.css'
-import FormSendProposal from './FormSendProposal';
 import FrmSendPropuesta from './FrmSendPropuesta';
 
 const Networking = require('../Network/Networking.js') ;

@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 //const stylesFile = require('../Styles/styles.js');
 //const styles = stylesFile.getStyle();
 import './../styles/dash_style.css';
-import Modal from 'react-awesome-modal';
-import { whileStatement } from '@babel/types';
-import Portafolio from '../Components/Special/Portafolio';
 /**
  * Necesito una lista de eventos, y na foto parq eru pueda
  */
@@ -71,8 +68,21 @@ class EventDetail extends Component{
 
   render(){
     return (
-<></>
-        
+      <section className="contenedor sobre-nosotros">
+        <h2 className="titulo">Nuestro producto</h2>
+        <div className="contenedor-sobre-nosotros">
+            <img src="./img/ilustracion1.png" alt="" className="imagen-about-us"/>
+            <div className="contenido-textos">
+                <h3><span>1</span>Las mejores organizaciones de eventos</h3>
+                <p>Sé parte de la familia Eventrinet y empieza administrar tus eventos
+                   académicos y profesionales, call for papers, y más.</p>
+                <h3><span>2</span>Las mejores acogidas</h3>
+                <p>Eventrinet es una plataforma de difución de eventos
+                   alrededor del mundo y nuestro servicio es utilizado
+                   por grandes compañias, universidades entre otros.</p>
+            </div>
+        </div>
+    </section>
     );
   }
 }

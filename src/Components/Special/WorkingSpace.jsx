@@ -1,6 +1,4 @@
 import React, {Component, useCallback} from 'react';
-import NewIni from "../General/NewIni";
-import { thisExpression } from "@babel/types";
 import BannerTop from '../General/bannerTop';
 import InscriptionEvent from '../../Components/InscriptionEvent';
 import SendProposal from '../../Components/SendProposal'
@@ -14,15 +12,16 @@ class WorkingSpace extends Component{
 
     super(props);
     this.state = {
+        idUser : -1,
         bannTop : BannerTop,
-        /*new base de navegacion inherente del working space*/
+        /*new: base de navegacion inherente del working space*/
         historyNavegation: [],
         lastChildComponent:null,
-        /* fin */
+        /* fin -> aun no conectado pero ya casi*/
         nextChildComponent: null,
-        nextChildComponentProps:{}
+        nextChildComponentProps:{ idUser:0}
     }
-
+    this.getDataUser=this.getDataUser.bind(this);
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
   }
@@ -39,9 +38,11 @@ class WorkingSpace extends Component{
     setfutureProps(){
         /**los props del sgt componente ADIOS PAGINAS XD */
     }
-    
-    componentWillMount(){
+    getDataUser(){
       
+    }
+    componentWillMount(){
+      window.scrollTo(0, 0);
       this.state.nextChildComponentProps = this.props.nextComponentProps;
       this.state.nextChildComponent= this.props.nextComponent;
       console.log("WSWillMount ***");
@@ -63,13 +64,18 @@ class WorkingSpace extends Component{
         console.log("currentProps to redirect ", JSON.parse(alternativeProps));
         //console.log("currentProps to redirect ",JSON.stringify(JSON.parse(alternativeProps)));
         if(!(alternativeProps === null)){
+
           this.state.nextChildComponentProps=JSON.parse(alternativeProps);
+          this.state.nextChildComponentProps.idUser= this.props.idUser;
           sessionStorage.setItem("currentProps",null);
         }
         sessionStorage.setItem("currentPage",null);
+        /** esto es porque ya use los props y page que estaban en memoria */
       }else{
         console.log("page to redirect ","NULLLLLL");
       }
+      
+      
       console.log("WSWillMount");
       console.log("WSWillMount -> props: ",this.state.nextChildComponentProps);
       console.log("WSWillMount -> comp : ",this.state.nextChildComponent);
