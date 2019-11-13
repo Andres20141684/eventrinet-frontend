@@ -174,11 +174,7 @@ class StepTwoSendPropuesta extends React.Component {
           arrayOfInputData={inputCategorias}
           cardHeadingText = "Escoge tus Categorias"
         />
-        <JCardForm
-          arrayOfInputData={inputCategorias}
-          cardHeadingText = "Escoge tus Categorias"
-        />
-        
+
         <JCardForm
           arrayOfInputData={inputArchivo}
           cardHeadingText = "Sube tu archivo :) "

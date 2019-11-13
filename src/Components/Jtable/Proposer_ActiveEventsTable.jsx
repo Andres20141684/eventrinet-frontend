@@ -7,15 +7,13 @@ import { NetworkMutation_JAchievingData } from '../../Network/Networking';
 import JTable from './JTable';
 import JActionButton from '../Special/JActionButton';
 import EventDetail from '../EventDetail';
+import Accordion from 'react-bootstrap/Accordion';
 
 
 class Proposer_ActiveEventsTable  extends Component {
    constructor(props) {
-      super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-      //console.log("HAAAAAAAAAAAAAAAAAAAAA")
-      //Networking.populateDataOrgTab1(8).then((value) => {
-            //this.setState({datos_tabla: value});   
-      //});
+      super(props) 
+      
       this.state = {
          idProposer: 0,
          datos_tabla1: []
@@ -74,41 +72,9 @@ class Proposer_ActiveEventsTable  extends Component {
          const { idEvento,nombEvento,faseActual,totFases,listProp} = evento 
          console.log("llegue 0",evento);
          var idAccordion = "accordion"+ index
-         return(            
-               <div class="card z-depth-0 bordered">
-                  
-                  <div class="card-header" id={"heading-"+String(idAccordion)+ "-2"} key={idEvento}>
-                     <h5 class="mb-0">
-                        <button 
-                           class="btn btn-link" 
-                           type="button" 
-                           onClick = {this.handleClickMore}
-                           data-toggle="collapse" 
-                           data-target={"#collapse"+String(idAccordion)+"2"}
-                           aria-expanded="true" 
-                           aria-controls={"collapse"+String(idAccordion)+"2"}>
-                           {nombEvento} - Fase: {faseActual}/{totFases}
-                        </button>
-                     </h5>
-                  </div>
-                  
-                  <div id={"collapse"+String(idAccordion)+"2"} class="collapse" aria-labelledby={"heading-"+String(idAccordion)+ "-2"}
-                     data-parent="#accordionExample275">
-                     <div class="card-body">                
-                        <JTable
-                        
-                           body ={()=>this.renderProposals(evento)}
-                           headers={()=>(<tr >
-                                          <th align= "left" scope="col">Nombre de la propuesta</th>
-                                          <th scope="col">N° Fases Comp. </th>
-                                          <th scope="col">Estado</th>
-                                          <th scope="col">Fecha límite</th>
-                                          <th align="right" scope="col">Detalle</th>
-                                          </tr>)}
-                           
-                        />
-                     </div>
-                  </div>
+         return( 
+          <div>
+            
                </div>
             )
          })
@@ -122,10 +88,14 @@ class Proposer_ActiveEventsTable  extends Component {
    }
    render() {
                
-         return (
-         <div class="accordion" id="accordionExample275">
-            {this.tableData()}
-         </div>
+      return (
+        <div>
+        <Accordion defaultActiveKey="0" className="table-responsive">
+                {this.tableData()}
+        </Accordion> 
+        </div>
+
+
             
          )
      }

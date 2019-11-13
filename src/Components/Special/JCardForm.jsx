@@ -16,8 +16,10 @@ class JCardForm extends Component {
             _inputs.push(
                 <Row >
                     <div class="form-group col-md-12">
+                    <div class ="col-md-2">
                         <label >{inputData.label}</label>
-                    <input 
+                        </div>
+                        <div class ="col-md-10"><input 
                         type="text" 
                         class="form-control"
                         name={inputData.name}
@@ -26,7 +28,7 @@ class JCardForm extends Component {
                         onChange={inputData.onChange}
                         value={()=>inputData.value}
                         autoFocus
-                    />
+                    /></div>
                     </div>
                 </Row>
             );    
@@ -35,8 +37,8 @@ class JCardForm extends Component {
             _inputs.push(
             <Row>
               <div class="form-group col-md-12">
-              <label >{inputData.label}</label> 
-                <select 
+              <div class ="col-md-2"><label >{inputData.label}</label></div> 
+              <div class ="col-md-10"><select 
                         name={inputData.name}
                         class="form-control" 
                         id={inputData.id}
@@ -44,7 +46,7 @@ class JCardForm extends Component {
                   
                     {inputData.options}
                 </select>
-              </div>
+              </div></div>
               </Row>
               ); 
         }
@@ -84,13 +86,15 @@ class JCardForm extends Component {
             _inputs.push(
             <Row>
               <div class="form-group col-md-12">
-              <label>Subir propuesta. El archivo debe estar en formato PDF (extension PDF)</label>
+              <div class ="col-md-4"><label>Subir propuesta. El archivo debe 
+                  estar en formato PDF (extension PDF)</label></div>
+                  <div class ="col-md-8">
               
               <JUpload
                     id={inputData.id}
                     onSuccesLoad={inputData.onChange}
                 />
-                </div>
+                </div></div>
               </Row>
               ); 
         }

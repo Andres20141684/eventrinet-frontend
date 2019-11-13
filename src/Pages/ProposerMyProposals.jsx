@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
-
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import '../styles/style_record.css'; 
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
