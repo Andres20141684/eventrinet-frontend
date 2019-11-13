@@ -67,6 +67,7 @@ class WorkingSpace extends Component{
         //console.log("currentProps to redirect ",JSON.stringify(JSON.parse(alternativeProps)));
         if(!(alternativeProps === null)){
           this.state.nextChildComponentProps=JSON.parse(alternativeProps);
+          this.state.nextChildComponentProps.idUser= this.props.idUser;
           sessionStorage.setItem("currentProps",null);
         }
         sessionStorage.setItem("currentPage",null);
@@ -74,7 +75,7 @@ class WorkingSpace extends Component{
       }else{
         console.log("page to redirect ","NULLLLLL");
       }
-      this.getDataUser();
+      
       
       console.log("WSWillMount");
       console.log("WSWillMount -> props: ",this.state.nextChildComponentProps);

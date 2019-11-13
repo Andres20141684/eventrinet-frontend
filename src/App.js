@@ -57,6 +57,7 @@ class App extends Component{
         <div className="App">
           <div>
             <this.state.workingSpace 
+              idUser={this.state.idUser}
               nextComponent={this.state.initialComponent}
               nextComponentProps = {this.state.initialComponentProps}
             />

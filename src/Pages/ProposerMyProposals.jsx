@@ -60,7 +60,8 @@ class PropoMyProposals extends Component{
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
    componentWillMount(){
-    this.setState({idUser: this.props.nextChildComponentProps.idUser});
+       console.log("ProposerMyProposals",this.props);
+    //this.setState({idUser: this.props.nextChildComponentProps.idUser});
    
     var activeEvents = //state is by default an object
          [
@@ -82,7 +83,7 @@ class PropoMyProposals extends Component{
             {
             methodPath: 'postulante/listarEventosActivosConPropuestas',
             JsonToBack:{
-                idUsuario: this.state.idUser
+                idUsuario: this.props.nextChildComponentProps.idUser
             },
             }
         ).then((value) => {
