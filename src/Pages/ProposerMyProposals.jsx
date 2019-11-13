@@ -61,6 +61,12 @@ class PropoMyProposals extends Component{
     handleNextChildComponentChangeProps(_nextChildComponentProps){
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
+    shouldComponentUpdate(nextState, nextProps){
+        if(nextState.idUser != this.state.idUser){
+            return true;
+        }
+        return false;
+    }
    componentWillMount(){
        console.log("ProposerMyProposals",this.props);
     //this.setState({idUser: this.props.nextChildComponentProps.idUser});
@@ -90,7 +96,7 @@ class PropoMyProposals extends Component{
             }
         ).then((value) => {
             console.log(value);
-            if(value == null || value.succeed==false){
+            if(value === null || value.succeed===false){
             console.error('FALLO FATAL, modo hardcode activado');
             }else {
             console.log('si hay algo:');

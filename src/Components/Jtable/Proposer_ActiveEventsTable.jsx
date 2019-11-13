@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import $ from 'jquery';
 import {Link}  from "react-router-dom";
 import { NetworkMutation_JAchievingData } from '../../Network/Networking';
 import JTable from './JTable';
 import JActionButton from '../Special/JActionButton';
 import EventDetail from '../EventDetail';
 import Accordion from 'react-bootstrap/Accordion';
+import { Card } from '@material-ui/core';
+import Button from 'react-bootstrap/Button';
 
 
 class Proposer_ActiveEventsTable  extends Component {
@@ -67,16 +68,120 @@ class Proposer_ActiveEventsTable  extends Component {
             </tr>
          )})
    }
-   
+   showModalDetalle(){
+
+   }
+
+
+
+   handleDetail =(idE,nom)=>{
+    
+    this.handleNextChildComponentChangeProps({   
+      id_evento_nextProps: idE,
+      nomb_evento: nom
+      
+   });
+    //this.handleNextChildComponentChange(NewEventPage);
+ }
    tableData() {
       return this.props.data.map((evento, index) => {
          const { idEvento,nombEvento,faseActual,totFases,listProp} = evento 
          console.log("llegue 0",evento);
          var idAccordion = "accordion"+ index
+         var idIndex = "customCheck"+ index
+        var indexEvent =index
          return( 
           <div>
-            
-               </div>
+          <div>
+            <Card>
+              <Card.Header 
+                    className="col-md-12" 
+                    id={"heading-"+String(idAccordion)+ "-2"}
+                    key={idEvento}
+                    >
+              
+              <div className="custom-control custom-checkbox  col-md-1">
+              {idAccordion}
+                    <label class="custom-control-label" for={idIndex}/>
+                </div>
+                
+                <div className="col-md-6">
+                  <a  data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" 
+                  onClick={e => {this.showModalDetalle();}}>
+                  {nombEvento}
+                  </a>
+                </div>
+                
+                <div className="col-md-2">
+                  {"En fase"}
+                </div>
+                
+                <div className="col-md-1">
+                  <a  data-title="Edit" data-toggle="modal" data-target="#modalObs" 
+                  onClick={e => {this.showModalDetalle();}}>
+                    <JActionButton
+                     onClick = {()=>this.handleDetail(evento.idEvento,
+                                                               evento.nombre)}
+                     button_class ="fa fa-file" 
+                  />
+                  </a>
+                </div>
+                <div className="col-md-1" style={{float:'right', width:'50px'}}>
+                  <Accordion.Toggle as={Button} variant="link" eventKey={indexEvent}>
+                    <a><i class="fa fa-angle-down"/></a>
+                  </Accordion.Toggle>
+                </div>
+              </Card.Header>
+              <Accordion.Collapse eventKey={indexEvent}>
+                      <JTable
+                        body ={()=>this.renderProposals(evento)}
+                        headers={()=>(<tr >
+                                       <th align= "left" scope="col">Nombre de la propuesta</th>
+                                       <th scope="col">N° Fases Comp. </th>
+                                       <th scope="col">Estado</th>
+                                       <th scope="col">Fecha límite</th>
+                                       <th align="right" scope="col">Detalle</th>
+                                       </tr>)}
+                      />
+              </Accordion.Collapse>
+              </Card>
+          </div>
+
+               <div class="card z-depth-0 bordered">
+                  
+                  <div class="card-header" id={"heading-"+String(idAccordion)+ "-2"} key={idEvento}>
+                     <h5 class="mb-0">
+                        <button 
+                           class="btn btn-link" 
+                           type="button" 
+                           onClick = {this.handleClickMore}
+                           data-toggle="collapse" 
+                           data-target={"#collapse"+String(idAccordion)+"2"}
+                           aria-expanded="true" 
+                           aria-controls={"collapse"+String(idAccordion)+"2"}>
+                           {nombEvento} - Fase: {faseActual}/{totFases}
+                        </button>
+                     </h5>
+                  </div>
+                  
+                  <div id={"collapse"+String(idAccordion)+"2"} class="collapse" aria-labelledby={"heading-"+String(idAccordion)+ "-2"}
+                     data-parent="#accordionExample275">
+                     <div class="card-body">                
+                        <JTable
+                        
+                           body ={()=>this.renderProposals(evento)}
+                           headers={()=>(<tr >
+                                          <th align= "left" scope="col">Nombre de la propuesta</th>
+                                          <th scope="col">N° Fases Comp. </th>
+                                          <th scope="col">Estado</th>
+                                          <th scope="col">Fecha límite</th>
+                                          <th align="right" scope="col">Detalle</th>
+                                          </tr>)}
+                           
+                        />
+                     </div>
+                  </div>
+               </div></div>
             )
          })
 
@@ -95,7 +200,6 @@ class Proposer_ActiveEventsTable  extends Component {
                 {this.tableData()}
         </Accordion> 
         </div>
-
 
             
          )
