@@ -100,7 +100,7 @@ class FormularioPermiso extends Component {
         )
      }
 }
-
+ 
 
 class ModalPermisos extends Component {    
     render(){           

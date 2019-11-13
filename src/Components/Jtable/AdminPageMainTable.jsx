@@ -121,7 +121,7 @@ class AdminPageMainTable extends Component {
                 <tr >
                     <td>{nomComp}</td>
                     <td>{correo}</td>
-                    <td>-</td>                
+                    <td>-</td>                 
                     <td>-</td>
                     <td><p data-placement="top" data-toggle="tooltip" title="Editar permisos" >
                         <button class="btn btn-primary btn-xs"
@@ -166,7 +166,7 @@ class AdminPageMainTable extends Component {
 
      )
      }
-     
+       
      render() {        
         return (
         <div>

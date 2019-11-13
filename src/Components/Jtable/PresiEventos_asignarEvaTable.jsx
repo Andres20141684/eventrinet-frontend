@@ -8,7 +8,7 @@ const Networking = require('./../../Network/Networking.js') ;
 
 
 class PresiEventos_asignarEvaTable  extends Component {
-   constructor(props){
+   constructor(props){ 
       super(props);
       this.state = {
           msg: "Not Connected" ,
@@ -79,7 +79,7 @@ class PresiEventos_asignarEvaTable  extends Component {
                                 id_evento_nextProps: 0,
                                 nomb_evento: "none"
                                 
-                             }
+                             } 
                           ))
          //window.location.replace("./");
       }
@@ -123,7 +123,7 @@ class PresiEventos_asignarEvaTable  extends Component {
            <div class="panel panel mypanel" >
               <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                   <h3>Lista de eventos a asignar evaluador</h3>
-               </div>
+               </div> 
               <div  class="table-responsive">
               <table class="table  table-hover">
                <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
