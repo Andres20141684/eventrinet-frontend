@@ -6,6 +6,7 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import FormPropsxFasePresidente from './FormPropsxFasePresidente'
+import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
 const Networking = require('../../Network/Networking') ;
 
 class EvaluacionPresidente extends Component {
@@ -76,6 +77,9 @@ class EvaluacionPresidente extends Component {
       this.setState({tabIndex:index});
       console.log(this.state.tabIndex)
   }
+  handleReturn(){
+    //this.handleNextChildComponentChange(PresiAsignarEvalEvents);
+  }
      render() {
          
         return (
@@ -123,6 +127,31 @@ class EvaluacionPresidente extends Component {
                                     />
                             </TabPanel>
                         </Tabs>
+                        <div>
+                        <button  
+                            style={{float:'left'}}
+                            class="mybutton"
+                            onClick={this.handleReturn}
+                            >
+                                Regresar
+                        </button>
+                        <div style={{display: 'flex', justifyContent: 'center',width:'96px'}}>
+                        <button  
+                            class="mybutton"
+                            //onClick={props.handleCancel}
+                            >
+                                Rechazar
+                        </button>
+                        </div>
+
+                        <button  
+                            style={{float:'right'}}
+                            class="mybutton"
+                            //onClick={props.handleCancel}
+                            >
+                                Aprobar
+                        </button>                            
+                        </div>
                     </div>
                 </div>
                 <br/><br/>

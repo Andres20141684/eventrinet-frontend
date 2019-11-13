@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
-import $ from 'jquery';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import {Link}  from "react-router-dom";
 import { NetworkMutation_JAchievingData } from '../../Network/Networking';
 import JTable from './JTable';
