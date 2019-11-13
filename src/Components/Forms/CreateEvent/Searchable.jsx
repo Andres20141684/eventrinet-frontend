@@ -29,6 +29,9 @@ export default class Searchable extends Component {
         if(prevState.usuarios!==this.state.usuarios){
             this.filtradoOpciones()
         }
+        if(prevState.selectValues!==this.state.selectValues && this.state.selectValues.length===0){
+            this.setState({clearable:false})
+        }
     }
 
     setValues = selectValues => this.setState({ selectValues:selectValues,clearable:true});
