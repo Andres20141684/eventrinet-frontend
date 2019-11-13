@@ -62,11 +62,13 @@ class EvaluadorEventos extends Component{
                                     
                                 </TabPanel>
                                 <TabPanel> 
-                                    <div>{/*
+                                    <div>{
                                     <this.state.formEventosEvaluarTable
                                     onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                     onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                                    />*/}</div>
+
+                                    
+                                    />}</div>
                                 
                                 </TabPanel>
                             </Tabs>

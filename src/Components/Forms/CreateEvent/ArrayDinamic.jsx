@@ -55,7 +55,7 @@ class ArrayDinamics extends Component{
                       <div>
                           <Row>
                           <div class="form-group col-md">
-                          <label for="title">Enunciado</label>
+                                <label for="title">{this.props.type} {index+1}</label>
                                 <input class="form-control" type="text" maxLength="200" onChange={(e)=>this.handleChange5(e,index,"enunciado")} value={this.state.array[index].enunciado}/>
                           </div>
                             {this.props.type==='Criterio'?null:
