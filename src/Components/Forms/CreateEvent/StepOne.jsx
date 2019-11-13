@@ -8,8 +8,6 @@ import '../../../styles/style_sheets.css'
 import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css";
 import '../../../styles/style_sheets.css';
-import Autocompleter from './Autocomplete';
-import Searchable from './Searchable';
 
 
 export default class StepOne extends React.Component {
@@ -36,12 +34,6 @@ export default class StepOne extends React.Component {
           <div class="panel panel-default">
             <div class="panel-heading"><h1>Datos Generales</h1></div>
             <div class="panel-body">
-              {/*<div>
-                <Row>
-                  <Searchable></Searchable>
-                <Autocompleter></Autocompleter>
-                </Row>
-              </div>*/}
             <Row >
             <div class="form-group col-md">
                 <label >Nombre</label>

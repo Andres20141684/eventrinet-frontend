@@ -98,6 +98,12 @@ class AsignEvalPropuesta  extends Component {
     componentWillMount(){
        var listaAux=[];
        var object={};
+
+       Networking.EvaluadorxEvento(JSON.stringify({idEvento:1})).then((value)=>{
+         console.log(value);
+         this.setState({options:value.correos});
+      })
+
       Networking.PropuestaxEvento(JSON.stringify({idEvento:1})).then((value)=>{
          console.log(value)
          value.Propuestas.map((element,index)=>{
@@ -110,10 +116,7 @@ class AsignEvalPropuesta  extends Component {
          console.log(this.state.datos_tabla); 
       });   
 
-      Networking.EvaluadorxEvento(JSON.stringify({idEvento:1})).then((value)=>{
-         console.log(value);
-         this.setState({options:value.correos});
-      })
+      
       
        /*
        let retrievedObject = sessionStorage.getItem('dataUser');
@@ -177,12 +180,10 @@ class AsignEvalPropuesta  extends Component {
        }
 
    filtradoOpciones(index){
-      console.log('LLego al filtrado con el index: ',index)
       aux=[...this.state.options]
       for(var i=0;i<this.state.datos_tabla[index].evaluadores.length;i++){
          aux=aux.filter(opt=>opt.correo!==this.state.datos_tabla[index].evaluadores[i].correo)
          console.log("Valor de aux: ",aux)
-         console.log("Valor de options",options)
       }
       console.log(aux)
       //return aux; 

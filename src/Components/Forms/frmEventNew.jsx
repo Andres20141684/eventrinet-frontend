@@ -35,7 +35,8 @@ export default class EventNew extends Component{
             precios:0,
             numeroPropuestas:0,
             datajson:null,  
-            form:frmCreateEvent  ,
+            form:frmCreateEvent,
+            options:[],
             data_recived: {}
 
         }
@@ -48,6 +49,17 @@ export default class EventNew extends Component{
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
       }
       componentWillMount(){
+
+        Networking.listar_usuarios().then((response)=>{ //Listar todos los ususarios activos
+          this.setState({options:response.correos})
+          console.log(response);
+        })
+        .catch( (err) =>{
+          console.log("error en conexión");
+          console.log(err);
+        })
+
+
         this.state.data_recived=this.props.data_recived;
         console.log('Te lo dije');
         console.log(this.state.data_recived);
@@ -134,6 +146,7 @@ export default class EventNew extends Component{
         this.setState({
           [label]:value
         })
+        console.log(this.state[label])
       }
     
       handleChange(event) {
@@ -218,6 +231,7 @@ export default class EventNew extends Component{
               fCRFin={this.state.fCRFin}
 
               datajson={this.state.datajson}
+              options={this.state.options}
 
               handleCheckB={this.handleCheckB}
               handleChange2={this.handleChange2}
