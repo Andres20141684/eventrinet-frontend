@@ -27,7 +27,9 @@ class ModalObsAdicional extends Component{
       )
     })
   }
+  handleClickUpdateComentarios = () => {
 
+  }
   render(){
     return(
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -39,6 +41,11 @@ class ModalObsAdicional extends Component{
               </button>
           </div>
           {this.formComentario()}
+
+          <div className="modal-footer" style={{paddingRight:"0px"}}>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" onClick={(e)=>this.handleClickUpdateComentarios()} class="btn btn-primary"  data-dismiss="modal">Aceptar</button>
+          </div>
           </div>
       </div>    
     )
@@ -53,18 +60,30 @@ class ModalReasignarEvaluador extends Component{
       listaEvalReemplazo:[],
     }
   }
+  handleClickUpdateEvaluador = () => {
 
+  }
   render(){ 
     return(
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style={{paddingBottom:"0px",paddingRight:"5px",paddingTop:"0px"}}>
         <div class="modal-header" style={{paddingBottom:"5px"}}>
-            <h3 style={{marginTop:"0px", marginBottom:"0px"}}>Observaciones  para el postulante</h3>
+            <h3 style={{marginTop:"0px", marginBottom:"0px"}}>Reasignar Evaluador</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <ArrayOfChips 
+        <div className="modal-body" style={{paddingBottom:'0px'}}>
+            <div class="form-group row">
+              <label for="staticName" class="col-sm-4 col-form-label">Evaluador actual</label>
+              <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" id="staticName" value={"Sebastian"}/>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticName" class="col-sm-4 col-form-label">Titulo</label>
+              <div class="col-sm-6">
+              <ArrayOfChips 
                     auxLabel='auxevaluadorReemplazo'
                     aux={this.state.evaluadorReemplazo} 
                     //handlechange={this.handleAuxChange} 
@@ -72,7 +91,13 @@ class ModalReasignarEvaluador extends Component{
                     //handleadd={this.props.handleChange2} 
                     tag="evaluadorReemplazo" 
                     label="correo"/> 
-
+              </div>              
+            </div>
+        </div>
+        <div className="modal-footer" style={{paddingRight:"0px"}}>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" onClick={(e)=>this.handleClickUpdateEvaluador()} class="btn btn-primary"  data-dismiss="modal">Aceptar</button>
+        </div>
         </div>
       </div>    
   )
@@ -82,9 +107,22 @@ class ModalReasignarEvaluador extends Component{
 class ModalDetalleDeEvaluador extends Component{
   render(){
     return(
-      <div>
-        holiboniiii
-      </div>
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content" style={{paddingBottom:"0px",paddingRight:"5px",paddingTop:"0px"}}>
+          <div class="modal-header" style={{paddingBottom:"5px"}}>
+              <h3 style={{marginTop:"0px", marginBottom:"0px"}}>Detalle de la propuesta</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div className="modal-body" style={{paddingBottom:'0px'}}>
+            <div class="form-group row">
+              <label for="staticName" class="col-sm-4 col-form-label">Holi boni perry</label>
+            </div>
+            
+          </div>
+          </div>
+      </div> 
     )
   }
 }
@@ -101,7 +139,7 @@ class ModalDetallePropuesta extends Component{
           </div>
           <div className="modal-body" style={{paddingBottom:'0px'}}>
             <div class="form-group row">
-              <label for="staticName" class="col-sm-4 col-form-label">Nombre completo</label>
+              <label for="staticName" class="col-sm-4 col-form-label">Titulo</label>
               <div class="col-sm-6">
                   <input type="text" readonly class="form-control-plaintext" id="staticName" value={this.props.nombreEvento}/>
               </div>
@@ -223,7 +261,7 @@ class FormPropsxFasePresidente extends Component {
             </a>
             </td>  
             <td>
-            <a  data-title="Edit" data-toggle="modal" data-target="#modalReasigEval" onClick={e => {this.showModalDetalle();}}>
+            <a  data-title="Edit" data-toggle="modal" data-target="#modalDetalleDeEv" onClick={e => {this.showModalDetalle();}}>
               <ActionButton id_evento={this.state.idEvento} button_class ="fa fa-plus" redirect_to="/"/>              
             </a>
             </td>  
@@ -254,7 +292,7 @@ class FormPropsxFasePresidente extends Component {
                 </div>
                 
                 <div className="col-md-6">
-                  <a  data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={e => {this.showModalDetalle();}}>
+                  <a  data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={e => {this.showModalDetalle();}} style={{color:"#337ab7", cursor:'pointer'}}>
                   {nombre}
                   </a>
                 </div>
