@@ -22,7 +22,7 @@ class FormStepThree extends Component{
     }
     render(){
         return(
-            <div clas="panel-group">
+            <div clas="panel-group" style={styles.panel}>
                 
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
                 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -33,14 +33,14 @@ class FormStepThree extends Component{
                 <div class="panel panel-default">                
                 <div class="panel-body">
                 <Row >
-                <div class="form-group col-md-6">
+                <div class="form-group col-md">
                     <label >Actividad</label>
                     <input type="text" class="form-control" name="actividad" id="actvidad" maxLength="200" placeholder="Actividad" onChange={(e) => this.props.onChange(e,this.props.index,"nombre")} value={this.props.value.nombre}autoFocus required />
                 </div>
                 </Row>
                 
                 <Row>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md">
                     <label>Descripcion</label>
                     <textarea 
                         type="text" 
@@ -54,7 +54,7 @@ class FormStepThree extends Component{
                 </div>
                 </Row>
                 <Row>            
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                     <label >Fecha Inicio:</label>
                     <DatePicker
                       type="date"
@@ -67,7 +67,7 @@ class FormStepThree extends Component{
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseIni","fechaFaseIni")}
                     />
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-5">
                     <label >Fecha Fin:</label>
                     <DatePicker
                       type="date"
@@ -82,52 +82,61 @@ class FormStepThree extends Component{
                 </div>
               </Row>
                 <Row>                
-                <div class="form-group col-md-6">
-                    <div class="form-group col-md-7" >
+                <div class="form-group col-md">
+                    <div class="form-group col" style={{paddingLeft:'0px'}}>
                         <label>Requiere adjuntar archivo (.pdf)</label>
+                        <Form.Check
+                            type="checkBox" 
+                            name="formHorizontalRadios_1"
+                            id="formHorizontalRadios1"
+                            checked={this.props.value.reqArch}
+                            onClick={(e) => this.props.handleCheck(e,this.props.index,"reqArch","necesitaArchivo")}
+                        />
                     </div>
-                        <div class="form-group col-md-5">
-                            <Form.Check
-                                type="checkBox" 
-                                name="formHorizontalRadios_1"
-                                id="formHorizontalRadios1"
-                                checked={this.props.value.reqArch}
-                                onClick={(e) => this.props.handleCheck(e,this.props.index,"reqArch","necesitaArchivo")}
-                            />
-                        </div>
-                    
                 </div>
                 </Row>
                 </div>
                 </div> 
                 
-                <div>
-                    {this.props.index===0?null:
+                <div>                  
                     <div>
                         <h3>Evaluacion</h3>
                             <div class="panel panel-default">    
                             <div class="panel-body">
                             <Row >
-                            <div class="form-group col-md-6">                    
-                                <div class="form-group col-md-6">
-                                    <label for="title">Requiere de Criterios: </label>
-                                </div>       
-                                <div class="form-group col-md-6" ><input
+                            <div class="form-group col-md">
+                                <label for="title">Requiere de Evaluacion: &nbsp;&nbsp;</label>
+                                <input
                                     type="checkBox" 
                                     checked={this.props.value.reqEval}
                                     onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
                                 />
-                                </div>
                             </div>
                             </Row>
                             <Row>
-                            <div class="form-group col-md-6">    
+                            <div class="form-group col-md">    
                                 <div>
                                 {this.props.value.reqEval===true?
                                     <div>
                                         <Row>
-                                        <div class="form-group col-md-6 form-inline">
-                                            <label >Numero de evaluadores: </label>
+                                        <div class="form-group col-md-5">
+                                            <label >Fecha Evaluacion Inicial:</label>
+                                            <DatePicker
+                                            type="date"
+                                            id="input-date"
+                                            name="date_in"
+                                            placeholder="date_in"
+                                            selected={this.props.value.faseEvalIni}
+                                            minDate={this.props.value.faseIni}
+                                            maxDate={this.props.value.faseFin}
+                                            //maxDate={this.props.fechaMax}
+                                            onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseEvalIni","fechaEvalIni")}
+                                            />
+                                        </div>
+                                        </Row>
+                                        <Row>
+                                        <div class="form-group col-md">
+                                            <label >Numero de evaluadores: &nbsp;&nbsp;&nbsp;</label>
                                             <input 
                                             style={{display:'inline-block'}}
                                             type="number" 
@@ -156,7 +165,6 @@ class FormStepThree extends Component{
                             </div>
                             </div> 
                     </div>
-                    }
                 </div>           
 
                 <h3>Campos personalizados</h3>
@@ -167,6 +175,7 @@ class FormStepThree extends Component{
                         <div class="input-group mb-6">
                             <ArrayDinamic 
                             id='idCamposPEnun'
+                            type='Campo Personalizado'
                             campo={this.props.camposPerson}
                             value={this.props.value} 
                             index={this.props.index}
@@ -181,3 +190,17 @@ class FormStepThree extends Component{
     }
 }
 export default FormStepThree;
+
+var styles = {
+    rotulos:{
+      paddingRight: 80,
+    },
+    panel:{
+      margin:'auto',
+      maxWidth:'620px',
+      minWidth:'330px',
+      paddingRight:'2%',
+      paddingLeft:'2%',
+    }
+  }
+  

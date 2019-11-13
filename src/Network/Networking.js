@@ -1,8 +1,14 @@
 import {AsyncStorage} from 'react';
+//const restURL = 'http://52.201.202.133:5000/api/';
+const restURL = 'http://localhost:5000/api/';
 
-const restURL = 'http://52.201.202.133:5000/api/';
-//const restURL = 'http://localhost:5000/api/';
+export async function getMyId(){
+    let retrievedObject = sessionStorage.getItem('dataUser');
+    let retrievedJson = JSON.parse(retrievedObject);  
 
+    return retrievedJson.infoUsuario.idUsuario;
+      
+}
 export async function getInfoUsuario_byId(_idUsuario) {
     console.log('buscando por ID Usuario...');
     try {        
@@ -176,8 +182,24 @@ export async function saludar(){
         return error
     }
 }
+        
+export async function getPaper(numProp){
+    console.log('propuesta/devolver_paper/59',numProp);
+    try {
+        let response = await fetch(restURL+'propuesta/devolver_paper/59' ,{
+            method:'GET'
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        
 
+          return responseJson;
 
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
 
 export async function insertNewEvent(data){
 
@@ -646,3 +668,205 @@ export async function registrar_PrefXProp(data){
     }
 }
 
+export async function listarPropuestasXFase(idEvento, idUsuario) {
+    try {
+        console.log('RECIBI UN param: ' + idEvento);
+        let response = await fetch(restURL 
+            + 'evaluador/listarPropuestasXFase', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: idEvento,
+                idUsuario : idUsuario
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function listarCriteriosXFase(_idFase) {
+    
+    try {
+        let response = await fetch(restURL 
+            + 'criterios/ListarCriteriosXFase', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idFase: _idFase
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function faseActual(idEvento) {
+    
+    try {
+        let response = await fetch(restURL 
+            + 'evaluador/faseActual', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: idEvento
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function listarCamposRptaXFase(idPropuesta, idFase) {
+    try {
+        let response = await fetch(restURL 
+            + 'camposPEnun/listarCamposRptaXFase', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idPropuesta: idPropuesta,
+                idFase : idFase
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function registrarCalificacionXPropuesta(data){
+    try {
+        let response = await fetch(restURL+'evaluador/registrarCalificacionXPropuesta' ,{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
+export async function mostrarCalificacionXPropuesta(idUsuario, idFase, idPropuesta) {
+    try {
+        let response = await fetch(restURL 
+            + 'evaluador/mostrarCalificacionXPropuesta', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario : idUsuario,
+                idFase : idFase,
+                idPropuesta: idPropuesta
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+
+export async function listar_usuarios(){
+    try{
+        let response = await fetch(restURL+'usuario/listar_correos' ,{
+            method:'GET',
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    }catch(error){
+        console.log(error);
+        return error
+    }
+}
+
+export async function PropuestaxEvento(idEvento){
+    try {
+        let response= await fetch(restURL+'eventos/asignacionesFaseActual',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: idEvento
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+
+export async function EvaluadorxEvento(idEvento){
+    try {
+        let response= await fetch(restURL+'evaluador/listar_correos',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: idEvento
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+
+
+export async function InsertarEvaluadorAPaper(data){
+    try {
+        let response= await fetch(restURL+'propuesta/asignarEvaluadoresXFaseActual',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}

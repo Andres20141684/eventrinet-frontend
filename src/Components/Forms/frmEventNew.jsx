@@ -14,7 +14,7 @@ export default class EventNew extends Component{
             idUsuario:0,
             nombre:'',
             descripcion:'',
-            fIni: new Date(),
+            fIni: '',
             fFin: '',
             lugar:'',
             rdCategry:true,
@@ -26,7 +26,7 @@ export default class EventNew extends Component{
             fases:[{idFase:0,secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
             tieneCameraRdy:0,
             rdCamR:false,
-            fCRIni:new Date(),
+            fCRIni:'',
             fCRFin:'',
             fechPref:new Date(),            
             fechaMaxPref:'',
@@ -70,6 +70,7 @@ export default class EventNew extends Component{
         aux.idEvento=this.state.data_recived.id_evento_nextProps
         aux=JSON.stringify(aux)
         if(this.state.data_recived.id_evento_nextProps!==0){
+          console.log("<<<<<<<<<<<<<<<<<     JSONNNNNNN", aux);
           Networking.ShowEvent(aux).then(
             (response)=>{
               console.log(response);
@@ -104,6 +105,7 @@ export default class EventNew extends Component{
                   auxfases[i]=JSON.parse(JSON.stringify(response.fases[i]));
                   auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
                   auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
+                  auxfases[i].faseEvalIni=new Date(response.fases[i].fechaEvalIni)
                   auxfases[i].reqArch=auxfases[i].necesitaArchivo===1?true:false;
                   auxfases[i].reqEval=auxfases[i].necesitaEvaluacion===1?true:false;
                   auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();
@@ -190,7 +192,6 @@ export default class EventNew extends Component{
 
       render() {    
         return (
-          <div>
             <div className='container'>
               <this.state.form
               nombre={this.state.nombre} 
@@ -224,15 +225,8 @@ export default class EventNew extends Component{
               handleChange={this.handleChange} 
               handlePrint={this.handlePrint}
               onNextChildComponentChange={this.handleNextChildComponentChange}
+              handleCancel={this.handleClick}
               />
-          </div>
-          <div>
-                <button style={{float:'left'}} 
-                class="mybutton"  variant="contained" 
-                color="primary"
-                 onClick={this.handleClick}>
-                   Cancelar</button>
-                </div>
           </div>
           
         )

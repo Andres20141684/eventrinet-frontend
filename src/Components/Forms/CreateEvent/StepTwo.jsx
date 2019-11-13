@@ -50,7 +50,7 @@ class StepTwo extends Component{
             <div class="panel-heading"><h1>Comité Académico</h1></div>
             <div class="panel-body"> 
                 <Row >
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md">
                         <label> Presidente</label>
                         <div style={{marginLeft: 13}}>
                         <ArrayOfChips 
@@ -66,9 +66,9 @@ class StepTwo extends Component{
                 </Row> 
                 
                 <Row>
-                <div class="form-group col-md-6">
+                <div class="form-group col">
                     <label> Criterio para evaluar preferencia de evaluadores:</label>
-                    <div class="form-group col-md-6">                    
+                    <div class="form-group col">                    
                     <div>
                         <Form.Check
                             type="radio" inline
@@ -113,11 +113,11 @@ class StepTwo extends Component{
 
     render(){
         return(        
-            <div class="panel-group">
+            <div class="panel-group"style={styles.panel}>
                 <div class="panel panel-default">
                 <div class="panel-heading"><h1>Comité Organizacional</h1></div>
                 <div class="panel-body">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col">
                     <ArrayOfChips 
                     auxLabel='auxComiteO'
                     aux={this.state.auxComiteO} 
@@ -137,7 +137,7 @@ class StepTwo extends Component{
                 <div class="panel-heading"><h1>Comité Académico</h1></div>
                 <div class="panel-body"> 
                     <Row >
-                        <div class="form-group col-md-6">
+                        <div class="form-group col">
                             <label> Presidente</label>
                             <div style={{marginLeft: 13}}>
                             <ArrayOfChips 
@@ -153,9 +153,9 @@ class StepTwo extends Component{
                     </Row> 
                     
                     <Row>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col">
                         <label> Criterio para evaluar preferencia de evaluadores:</label>
-                        <div class="form-group col-md-6">                    
+                        <div class="form-group col">                    
                         <div>
                             <Form.Check
                                 type="radio" inline
@@ -179,7 +179,7 @@ class StepTwo extends Component{
                     </Row>
 
                     <Row >
-                        <div class="form-group col-md-6">
+                        <div class="form-group col">
                             <label> Evaluadores</label>
                             <div style={{marginLeft: 13}}>
                             <ArrayOfChips 
@@ -202,3 +202,17 @@ class StepTwo extends Component{
 }
 
 export default StepTwo;
+
+var styles = {
+    rotulos:{
+      paddingRight: 80,
+    },
+    panel:{
+      margin:'auto',
+      maxWidth:'620px',
+      minWidth:'330px',
+      paddingRight:'2%',
+      paddingLeft:'2%',
+    }
+  }
+  

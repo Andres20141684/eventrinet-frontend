@@ -3,13 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Typography from '@material-ui/core/Typography';
 import './../styles/modal.css';
 import StepOneSendPropuesta from './StepOneSendPropuesta';
 import StepTwoSendPropuesta from './StepTwoSendPropuesta';
 import SendProposal from './SendProposal';
+import JModal from './Special/JModal';
+import Jloading from './Special/Jloading';
 import PropoMyProposals from '../Pages/ProposerMyProposals';
-import { thisExpression } from '@babel/types';
+const Networking = require('./../../src/Network/Networking') ;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,6 +29,7 @@ class FrmSendPropuesta extends React.Component {
     constructor(){
       super();
       this.state={
+        myId:0,
         msgDialog: "",
         steps:['Autores', 'Información'],
         currentstep:0,
@@ -35,21 +37,29 @@ class FrmSendPropuesta extends React.Component {
         step2:StepTwoSendPropuesta,
         Propuesta: null,
         /* step 1 */
-        authorName: "",
+        authorName: "*",
         authorLastname: "",
         telefono: "",
         email: "",
-        academicLevel: "",
+        academicLevel: "Secundaria",
         /* step 2 */
-        actividad: "",
-        resumen: "",
+        titulo: "",
+        resumen: "*****",
         categorias: [],
         archivo: null,
+        /****************** */
+        modal:0,
+        data:null,// /api/camposPEnun/listarCamposPEnunXFase
+        fase : 1,
+
+        CamposPers: []
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
     
       this.handleValue=this.handleValue.bind(this);
+      this.makeModalLoad=this.makeModalLoad.bind(this);
+      this.makefooterModal=this.makefooterModal.bind(this);
     
     }
     handleNextChildComponentChange(_nextChildComponent){
@@ -67,6 +77,10 @@ class FrmSendPropuesta extends React.Component {
 
     componentWillMount(){
         console.log("FrmSendPropuesta:",this.props);
+        let retrievedObject = sessionStorage.getItem('dataUser');
+        let retrievedJson = JSON.parse(retrievedObject);  
+        this.setState({myId: retrievedJson.infoUsuario.idUsuario});
+
     }
 
    componentDidMount(){
@@ -79,6 +93,9 @@ class FrmSendPropuesta extends React.Component {
       if(this.state.currentstep != nextState.currentstep){
          return true;
       }
+      if(this.state.modal != nextState.modal){
+        return true;
+     }
       return false;
    }
   
@@ -95,8 +112,9 @@ class FrmSendPropuesta extends React.Component {
     };
   
     handleBack = () => {
-      if(this.state===0){
+      if(this.state==0){
         this.handleNextChildComponentChange(SendProposal);
+        console.log("No redirije la wea");
         return;
       }
       this.setState({currentstep:0});
@@ -106,56 +124,204 @@ class FrmSendPropuesta extends React.Component {
     };
 
     handleFinish = () =>{
-      var modal = document.getElementById("myModal");
-      modal.style.display = "block";
+      //console.log("getttttte",document.getElementById("myModal"));
+      
       console.log("final",this.state);
       /********aqui debo enviar******** */
-      /**************luego redireccionar************ */
-      //this.handleNextChildComponentChange(PropoMyProposals);
+      Networking.NetworkMutation_JAchievingData(
+        {
+          methodPath: 'propuesta/registrar_propuesta',
+          JsonToBack:{
+              idEvento: this.props.nextChildComponentProps.evento.idEvento,
+              idUsuario: 13,
+              anho: 2019,
+              paper: this.state.archivo,
+              nombre : this.state.titulo,
+              coautores : this.state.authorName
+                          + "&" +this.state.authorLastname
+                          + "&" +this.state.telefono
+                          + "&" +this.state.email
+                          + "&" +this.state.academicLevel,
+              categorias: this.state.categorias,
+              RptaCamposPers: [
+                { respuesta:"Kameeeeeee Hameeeeee" },
+                { respuesta:"HAAAAAAAAAAAAAAAAA!!!" }
+              ],
+              
+          },
+        }
+      ).then((value) => {
+        console.log(value);
+        if(value == null || value.succeed==false){
+          console.error('FALLO FATAL');
+          /************** si fallo mensaje de error************ */
+          this.setState({modal:-1});
+        }else {
+           console.log('si hay algo:');
+          //this.handleNextChildComponentChange(PropoMyProposals);
+          this.setState({modal:1});
+        }
+     });
+     this.setState({modal:0});
+      
+      
     }
 /**************************************** */
-    handle_redirect =() =>{
-      document.getElementById("myModal").style.display = "none";
+    handle_redirect (i){
+      //document.getElementById("myModal").style.display = "none";
       console.log("redireccion del buton ok");
+      switch (i) {
+        case 1: this.props.onNextChildComponentChange(PropoMyProposals); 
+      }
     }
     
     handleValue(value){ 
       console.log("Handle_input",value.to,value.value);
       /* dropbox select */
       if(value.to =='categorias'){
-        console.log("Categoria concatenada:",value.value);
-        this.state.categorias.push(value.value);
+
+        console.log("Categoria a tratar:",value.value.value);
+        if(value.value.mode=='add'){
+          console.log("agregando:",value.value.value);
+          this.state.categorias.push({'idCategoria':value.value.value});
+        }else if(value.value.mode=='rmv'){
+          console.log("quitando:",value.value.value);
+          let sp= value.value.value;
+          for( var i = 0; i < this.state.categorias.length; i++){ 
+             if ( this.state.categorias[i]['idCategoria'] === sp) {
+              this.state.categorias.splice(i, 1); 
+             }
+          }
+
+        }
+        console.log("resulta:",this.state.categorias);
         
         return;
       }
       /** input */
       this.state[value.to] = value.value;
+      console.log("resulta:",this.state[value.to]);
     }
 
     
     renderStep(i){
       switch (i) {
+        
         case 0:
           return <this.state.step1 
                   multiHandle={this.handleValue}
+                  authorName={this.state.authorName}
+                  authorLastname={this.state.authorLastname}
+                  telefono={this.state.telefono}
+                  email={this.state.email}
+                  academicLevel={this.state.academicLevel}
                 />;
         case 1:        
-          return <this.state.step2 
+          return <this.state.step2
+                  multiHandle={this.handleValue} 
                   Categorias={this.props.nextChildComponentProps.Categorias}
-                  multiHandle={this.handleValue}
+                  titulo={this.state.titulo}
+                  resumen={this.state.resumen}
+                  selectedCategorias= {this.state.categorias}
                 />;
         default:
           return 'Uknown stepIndex';
       }
     }
-    changeMsgDialog(_msg){
-      this.setState({msgDialog:_msg});
+  
+    makeDetallePropuesta(){
+
+    }
+    //falta satedo -2 en la que muestro resumen de la propuesta
+    //-1 = error 
+    // 0 = enviando 
+    // 1 = exitoso envio
+    makeHeadModal(i){
+      switch (i) {
+        case -1:
+            return 'Algo paso :(';
+        case 0: 
+            return 'Enviando Formulario:';
+        case 1:
+            return 'Felicitaciones :D';
+      }
+    } 
+    makeModalLoad(i){
+      switch (i) {
+        case -1:
+            return (
+              <div>
+                <h1>Error en el envio, intentalo mas tarde</h1>
+              </div>
+            );
+        case 0: 
+            return(
+              <div>
+                <Jloading />
+              </div>
+            );
+        case 1:
+            return (
+              <div><h1>Se envió el formulario exitosamente</h1></div>
+            );
+      }
+    }
+    makefooterModal(i){
+      switch (i) {
+        case -1:
+          return (
+            <div>
+              <button  
+                  style={{float:'right'}}
+                  class="mybutton"  
+                  variant="contained" 
+                  color="primary" 
+                  data-dismiss="modal"
+                  onClick={()=>this.handle_redirect(i)}
+                >
+                OK
+              </button>
+            </div>
+            );
+        case 0:
+          return(
+            <div>
+              nullll
+            </div>
+          );
+        case 1:
+          return(
+          <div>
+            <button  
+                style={{float:'center'}}
+                class="mybutton"  
+                variant="contained" 
+                color="primary" 
+                data-dismiss="modal"
+                onClick={()=>this.handle_redirect(i)}
+                >
+                Mis Propuestas
+            </button>
+          </div>
+          );
+      }
+    }
+    renderModal(i){
+      return (
+        <JModal
+          class ="modal fade"
+          id= "myModal"
+              head={this.makeHeadModal(i)}
+              body={this.makeModalLoad(i)}
+              footer={this.makefooterModal(i)}
+          />
+      );
     }
     render() {
         console.log("rendering frmSendPropuesta");
         return (
-           <div style={styles.frmCreateEvent}>
-             <h1>Registro de Propuesta para el _Evento_</h1>
+           <div  style={styles.frmCreateEvent}>
+             <h1>Registro de propuesta para el _Evento_</h1>
                 <div style={{alignItems: "center"}}
                       class=" mx-auto" style={{width:"700px"}}
                 >
@@ -177,13 +343,16 @@ class FrmSendPropuesta extends React.Component {
                       >
                         Regresar
                       </button>
-
                       <button  
                             id="button_finish"
                             style={{float:'right'}} 
                             class="mybutton" 
                             color="primary" 
-                            onClick={this.handleFinish}>
+                            onClick={this.handleFinish}
+                            data-toggle="modal" 
+                            data-target="#myModal"
+                            data-backdrop="static"
+                            >
                       Finalizar
                       </button>
                       </div>
@@ -198,43 +367,43 @@ class FrmSendPropuesta extends React.Component {
                       Siguiente
                       </button>
                     </div>
-
-
                 </div>
+                
+                <JModal
+                  class ="modal fade"
+                  id= "myModal"
+                  
+                      head={this.makeHeadModal(this.state.modal)}
+                      body={this.makeModalLoad(this.state.modal)}
+                      footer={this.makefooterModal(this.state.modal)}
+                    
+                  />
 
-                <div class="container">
-                  <div id="myModal" class="modal" style={{width: "50px"},{align: "center"}}>
-                      <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <p>{this.state.msgDialog}</p>
-                        <button  style={{float:'right'}}
-                        class="mybutton"  
-                        variant="contained" 
-                        color="primary" 
-                        onClick={this.handle_redirect}>OK</button>
-                    </div>
-                  </div>
-                </div>
+
+                      
+
+
 
            </div>
         )
     }
 }
 
-export default FrmSendPropuesta;  //exporting a component make it reusable and this is the beauty of react
+export default FrmSendPropuesta;
 
 var styles = {
     frmCreateEvent:{
       paddintTop: 20,
       paddingBottom: 120,
       paddingLeft: 50,
-    
-        width: '90%',
+      width: '90%',
     }
   }
-  window.onclick = function(event) {
-    var modal = document.getElementById("myModal");
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
+ /*
+  $(document).ready(function(){
+    $("#button_finish").click(function(){
+      $("#myModal3").modal({backdrop: "static"});
+    });
+  });
+
+  */
