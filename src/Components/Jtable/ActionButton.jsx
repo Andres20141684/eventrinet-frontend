@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import NewEventPage from './../../Pages/NewEventPage.jsx';
 import EvaluacionPresidente from  './EvaluacionPresidente';
 /**
- * 
+ *  
  * 
 ******************************* BOTTON EN CONSTRUCCION XDDDDDDDDDDDDDDDDDDDD (JEREMI SE LA COME)
  */
