@@ -15,9 +15,11 @@ class FormStepThree extends Component{
     }
     handleValNum(e){
         console.log(parseInt(e.target.value))
-        console.log(this.props)
+        console.log(this.props.value.numEvaluadores)
         if(parseInt(e.target.value)<=this.props.numEval){
             this.props.onChange(e,this.props.index,"numEvaluadores")
+        }else{
+            this.props.onChange({target:{value:''}},this.props.index,"numEvaluadores")
         }
     }
     render(){
@@ -97,7 +99,8 @@ class FormStepThree extends Component{
                 </Row>
                 </div>
                 </div> 
-                
+                {this.props.index===0?null
+                :
                 <div>                  
                     <div>
                         <h3>Evaluacion</h3>
@@ -145,6 +148,7 @@ class FormStepThree extends Component{
                                             id="id_name_fase"       
                                             onChange={this.handleValNum}
                                             value={this.props.value.numEvaluadores}
+                                            disabled={this.props.numEval===0?true:false}
                                             />
                                     </div>
                                     </Row>
@@ -165,7 +169,8 @@ class FormStepThree extends Component{
                             </div>
                             </div> 
                     </div>
-                </div>           
+                </div>     
+                }     
 
                 <h3>Campos personalizados</h3>
                 <div class="panel panel-default">

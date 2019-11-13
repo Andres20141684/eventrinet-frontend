@@ -30,15 +30,20 @@ export default class Searchable extends Component {
         if(prevState.usuarios!==this.state.usuarios){
             this.filtradoOpciones()
         }
+        if(prevState.selectValues!==this.state.selectValues && this.state.selectValues.length===0){
+            this.setState({clearable:false})
+        }
     }
 
     setValues = selectValues => this.setState({ selectValues:selectValues,clearable:true});
 
     handleSelect(){
-        var user=[...this.state.usuarios];
-        user.push(this.state.selectValues[0]);
-        this.setState({usuarios:user,selectValues:[],clearable:false});
-        this.props.handleadd(user,this.props.tag);
+        if(this.state.selectValues.length!==0){
+            var user=[...this.state.usuarios];
+            user.push(this.state.selectValues[0]);
+            this.setState({usuarios:user,selectValues:[],clearable:false});
+            this.props.handleadd(user,this.props.tag);
+        }
     }
     handleDelete(data){
         var chipData=[...this.state.usuarios]
@@ -47,7 +52,7 @@ export default class Searchable extends Component {
         this.props.handleadd(chipData,this.props.tag);
     }
     filtradoOpciones(){
-        var aux=[...this.state.filterList]
+        var aux=[...this.props.options]
         for(var i=0;i<this.state.usuarios.length;i++){
            aux=aux.filter(opt=>opt.correo!==this.state.usuarios[i].correo)
            console.log("Valor de aux: ",aux)
@@ -70,7 +75,7 @@ export default class Searchable extends Component {
                                 class="form-control" 
                                 component={'span'} style={{fontSize:'18px'}} 
                                 placeholder="Elige Ususario" 
-                                options={this.props.options} 
+                                options={this.state.filterList} 
                                 noDataLabel="Usuario no encontrado"
                                 onChange={values => this.setValues(values)}
                                 dropdownHeight={this.state.dropdownHeight}

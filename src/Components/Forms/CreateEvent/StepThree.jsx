@@ -37,8 +37,9 @@ handleCheck(event,i,str,str2){
   this.props.handleChange2(this.state.values,"fases")
 }
 handleChange3(event,i,str) {
-  let val = this.state.values;
+  let val = [...this.state.values];
   val[i][str] = event.type==="checkBox"?event.target.checked:event.target.value
+  console.log(val[i])
   this.setState({ values:val });
   this.props.handleChange2(this.state.values,"fases")
   console.log(this.state)
@@ -108,7 +109,7 @@ handleCheckboxChange = event =>{
             <div class="panel-body">
               <div>
               <this.state.form_1 
-                    numEval={this.props.presidente.length+this.props.evaluadores.length}
+                    numEval={this.props.evaluadores.length}
                     tamActual={this.state.values.length}
                     camposPerson="camposPerson"
                     criterios="criterios"
