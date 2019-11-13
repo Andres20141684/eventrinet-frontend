@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import ArrayOfChips from '../Forms/CreateEvent/ArrayOfChips';
 const Networking = require('../../Network/Networking') ;
  
-
+ 
 class ModalObsAdicional extends Component{
   formComentario(){
     //Debo conseguir todos los comentaros de los evaluadore
