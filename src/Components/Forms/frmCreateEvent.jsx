@@ -87,17 +87,6 @@ export default function HorizontalLabelPositionBelowStepper(props) {
           <div>
             <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
             <div class=' form-group col-md-12'>
-              <div class='col-md-4'>
-                  <button  
-                  style={{float:'left'}}
-                  class="mybutton"
-                  onClick={props.handleCancel}
-                >
-                  Cancelar
-                </button>
-              </div>
-              <div class='col-md-1'></div>
-              <div class='col-md-2'>
                 <button  
                 style={{float:'rigth'}}
                 class="mybutton"
@@ -105,47 +94,35 @@ export default function HorizontalLabelPositionBelowStepper(props) {
               >
                 Regresar
               </button>
-              </div>
-              <div class='col-md-1'></div>
-              <div class='col-md-4'>
                 <ModalDialog {...props}/>
-              </div>
-              
             </div>
             
           </div>
         ) : (
           <div class= 'form-group  col-md-12'>
             <Typography component={'span'} className={classes.instructions}>{getStepContent(activeStep,props)}</Typography>
-            <div class= 'form-group col-md-12'>
-              <div class='col-md-4'>
-                <button  
-                style={{float:'left'}}
-                class="mybutton"
-                onClick={props.handleCancel}
-              >
-                Cancelar
-              </button>
-              </div>
-              <div class='col-md-1'></div>
-              <div class='col-md-2'>
+            <div >
+              <div >
                 {activeStep===0?
-                  null
+                  <button  
+                    style={{float:'left'}}
+                    class="mybutton"
+                    onClick={props.handleCancel}
+                  >
+                    Regresar
+                  </button>
                   :
                   <button  
-                    style={{float:'right'}}
+                    style={{float:'left'}}
                     class="mybutton"
                     onClick={handleBack}
                   >
                     Regresar
                   </button>}
               </div>
-              <div class='col-md-1'></div>
-              <div class='col-md-4'>
                 <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
                 Siguiente
                 </button>
-              </div>
               
             </div>
           </div>

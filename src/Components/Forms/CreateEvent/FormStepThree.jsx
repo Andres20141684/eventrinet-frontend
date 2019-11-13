@@ -54,7 +54,7 @@ class FormStepThree extends Component{
                 </div>
                 </Row>
                 <Row>            
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                     <label >Fecha Inicio:</label>
                     <DatePicker
                       type="date"
@@ -67,7 +67,7 @@ class FormStepThree extends Component{
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseIni","fechaFaseIni")}
                     />
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-5">
                     <label >Fecha Fin:</label>
                     <DatePicker
                       type="date"
@@ -98,15 +98,14 @@ class FormStepThree extends Component{
                 </div>
                 </div> 
                 
-                <div>
-                    {this.props.index===0?null:
+                <div>                  
                     <div>
                         <h3>Evaluacion</h3>
                             <div class="panel panel-default">    
                             <div class="panel-body">
                             <Row >
                             <div class="form-group col-md">
-                                <label for="title">Requiere de Criterios: &nbsp;&nbsp;</label>
+                                <label for="title">Requiere de Evaluacion: &nbsp;&nbsp;</label>
                                 <input
                                     type="checkBox" 
                                     checked={this.props.value.reqEval}
@@ -120,7 +119,23 @@ class FormStepThree extends Component{
                                 {this.props.value.reqEval===true?
                                     <div>
                                         <Row>
-                                        <div class="form-group col-md form-inline">
+                                        <div class="form-group col-md-5">
+                                            <label >Fecha Evaluacion Inicial:</label>
+                                            <DatePicker
+                                            type="date"
+                                            id="input-date"
+                                            name="date_in"
+                                            placeholder="date_in"
+                                            selected={this.props.value.faseEvalIni}
+                                            minDate={this.props.value.faseIni}
+                                            maxDate={this.props.value.faseFin}
+                                            //maxDate={this.props.fechaMax}
+                                            onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseEvalIni","fechaEvalIni")}
+                                            />
+                                        </div>
+                                        </Row>
+                                        <Row>
+                                        <div class="form-group col-md">
                                             <label >Numero de evaluadores: &nbsp;&nbsp;&nbsp;</label>
                                             <input 
                                             style={{display:'inline-block'}}
@@ -150,7 +165,6 @@ class FormStepThree extends Component{
                             </div>
                             </div> 
                     </div>
-                    }
                 </div>           
 
                 <h3>Campos personalizados</h3>
@@ -161,6 +175,7 @@ class FormStepThree extends Component{
                         <div class="input-group mb-6">
                             <ArrayDinamic 
                             id='idCamposPEnun'
+                            type='Campo Personalizado'
                             campo={this.props.camposPerson}
                             value={this.props.value} 
                             index={this.props.index}

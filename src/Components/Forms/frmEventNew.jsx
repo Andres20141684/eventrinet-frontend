@@ -14,7 +14,7 @@ export default class EventNew extends Component{
             idUsuario:0,
             nombre:'',
             descripcion:'',
-            fIni: new Date(),
+            fIni: '',
             fFin: '',
             lugar:'',
             rdCategry:true,
@@ -26,7 +26,7 @@ export default class EventNew extends Component{
             fases:[{idFase:0,secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
             tieneCameraRdy:0,
             rdCamR:false,
-            fCRIni:new Date(),
+            fCRIni:'',
             fCRFin:'',
             fechPref:new Date(),            
             fechaMaxPref:'',
@@ -35,7 +35,8 @@ export default class EventNew extends Component{
             precios:0,
             numeroPropuestas:0,
             datajson:null,  
-            form:frmCreateEvent  ,
+            form:frmCreateEvent,
+            options:[],
             data_recived: {}
 
         }
@@ -48,6 +49,17 @@ export default class EventNew extends Component{
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
       }
       componentWillMount(){
+
+        Networking.listar_usuarios().then((response)=>{ //Listar todos los ususarios activos
+          this.setState({options:response.correos})
+          console.log(response);
+        })
+        .catch( (err) =>{
+          console.log("error en conexión");
+          console.log(err);
+        })
+
+
         this.state.data_recived=this.props.data_recived;
         console.log('Te lo dije');
         console.log(this.state.data_recived);
@@ -105,6 +117,7 @@ export default class EventNew extends Component{
                   auxfases[i]=JSON.parse(JSON.stringify(response.fases[i]));
                   auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
                   auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
+                  auxfases[i].faseEvalIni=new Date(response.fases[i].fechaEvalIni)
                   auxfases[i].reqArch=auxfases[i].necesitaArchivo===1?true:false;
                   auxfases[i].reqEval=auxfases[i].necesitaEvaluacion===1?true:false;
                   auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();
@@ -133,6 +146,7 @@ export default class EventNew extends Component{
         this.setState({
           [label]:value
         })
+        console.log(this.state[label])
       }
     
       handleChange(event) {
@@ -217,6 +231,7 @@ export default class EventNew extends Component{
               fCRFin={this.state.fCRFin}
 
               datajson={this.state.datajson}
+              options={this.state.options}
 
               handleCheckB={this.handleCheckB}
               handleChange2={this.handleChange2}
