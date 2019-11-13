@@ -79,7 +79,7 @@ class PresiEventos_asignarEvaTable  extends Component {
                                 id_evento_nextProps: 0,
                                 nomb_evento: "none"
                                 
-                             }
+                             } 
                           ))
          //window.location.replace("./");
       }

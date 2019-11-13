@@ -5,21 +5,125 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-
+import ArrayOfChips from '../Forms/CreateEvent/ArrayOfChips';
 const Networking = require('../../Network/Networking') ;
  
-class ModalObsAdicional extends Component{
 
+class ModalObsAdicional extends Component{
+  formComentario(){
+    //Debo conseguir todos los comentaros de los evaluadore
+    let evaluadores=[];
+
+    return evaluadores.map((element, index) => {
+      const {evaluador,comentario} = element
+      var indexEvent =index
+      return (
+        <div class="form-group row">
+              <label for="staticEmail" class="col-sm-4 col-form-label">{evaluador}</label>
+              <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={comentario}/>
+              </div>
+        </div>
+      )
+    })
+  }
+
+  render(){
+    return(
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content" style={{paddingBottom:"0px",paddingRight:"5px",paddingTop:"0px"}}>
+          <div class="modal-header" style={{paddingBottom:"5px"}}>
+              <h3 style={{marginTop:"0px", marginBottom:"0px"}}>Observaciones  para el postulante</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          {this.formComentario()}
+          </div>
+      </div>    
+    )
+  }
 }
 
 class ModalReasignarEvaluador extends Component{
+  constructor(){
+    super();
+    this.state={
+      evaluadorReemplazo:'',
+      listaEvalReemplazo:[],
+    }
+  }
 
+  render(){ 
+    return(
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style={{paddingBottom:"0px",paddingRight:"5px",paddingTop:"0px"}}>
+        <div class="modal-header" style={{paddingBottom:"5px"}}>
+            <h3 style={{marginTop:"0px", marginBottom:"0px"}}>Observaciones  para el postulante</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <ArrayOfChips 
+                    auxLabel='auxevaluadorReemplazo'
+                    aux={this.state.evaluadorReemplazo} 
+                    //handlechange={this.handleAuxChange} 
+                    lista={this.state.listaEvalReemplazo} 
+                    //handleadd={this.props.handleChange2} 
+                    tag="evaluadorReemplazo" 
+                    label="correo"/> 
+
+        </div>
+      </div>    
+  )
+}
 }
 
 class ModalDetalleDeEvaluador extends Component{
-
+  render(){
+    return(
+      <div>
+        holiboniiii
+      </div>
+    )
+  }
 }
-
+class ModalDetallePropuesta extends Component{
+  render(){
+    return(
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content" style={{paddingBottom:"0px",paddingRight:"5px",paddingTop:"0px"}}>
+          <div class="modal-header" style={{paddingBottom:"5px"}}>
+              <h3 style={{marginTop:"0px", marginBottom:"0px"}}>Detalle de la propuesta</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div className="modal-body" style={{paddingBottom:'0px'}}>
+            <div class="form-group row">
+              <label for="staticName" class="col-sm-4 col-form-label">Nombre completo</label>
+              <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" id="staticName" value={this.props.nombreEvento}/>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-4 col-form-label">Resumen</label>
+              <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.resumen}/>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="staticEmail" class="col-sm-4 col-form-label">Autor</label>
+              <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.autor}/>
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>        
+    )
+  }
+}
 
 
 class FormPropsxFasePresidente extends Component { 
@@ -113,16 +217,25 @@ class FormPropsxFasePresidente extends Component {
             <td>{calificacion}</td>
             <td>{experticie}</td>
             <td>
+            
+            <a  data-title="Edit" data-toggle="modal" data-target="#modalReasigEval" onClick={e => {this.showModalDetalle();}}>
               <ActionButton id_evento={this.state.idEvento} button_class ="fa fa-arrow-right" redirect_to="/"/>              
+            </a>
             </td>  
             <td>
+            <a  data-title="Edit" data-toggle="modal" data-target="#modalReasigEval" onClick={e => {this.showModalDetalle();}}>
               <ActionButton id_evento={this.state.idEvento} button_class ="fa fa-plus" redirect_to="/"/>              
+            </a>
             </td>  
         </tr>
         </tbody>
      )
   })
-}
+  }
+
+  showModalDetalle = () => {
+
+  }
 
   tableData() {
     //this.setState.idUser_recived=this.props.idUser_recived;
@@ -141,9 +254,9 @@ class FormPropsxFasePresidente extends Component {
                 </div>
                 
                 <div className="col-md-6">
-                  <Accordion.Toggle as={Button} variant="link" eventKey={indexEvent}>
+                  <a  data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={e => {this.showModalDetalle();}}>
                   {nombre}
-                  </Accordion.Toggle>
+                  </a>
                 </div>
                 
                 <div className="col-md-2">
@@ -151,12 +264,14 @@ class FormPropsxFasePresidente extends Component {
                 </div>
                 
                 <div className="col-md-1">
-                  <ActionButton id_evento={this.state.idEvento} button_class ="fa fa-file" redirect_to="/"/>
-                </div>
-                <div className="col-md-1" style={{float:'right', width:'15px'}}>
-                  <a>
-                    <i class="fa fa-angle-down"/>
+                  <a  data-title="Edit" data-toggle="modal" data-target="#modalObs" onClick={e => {this.showModalDetalle();}}>
+                    <ActionButton id_evento={this.state.idEvento} button_class ="fa fa-file" redirect_to="/"/>
                   </a>
+                </div>
+                <div className="col-md-1" style={{float:'right', width:'50px'}}>
+                  <Accordion.Toggle as={Button} variant="link" eventKey={indexEvent}>
+                    <a><i class="fa fa-angle-down"/></a>
+                  </Accordion.Toggle>
                 </div>
                 
               </Card.Header>
@@ -190,6 +305,19 @@ class FormPropsxFasePresidente extends Component {
             <Accordion defaultActiveKey="0" className="table-responsive">
                 {this.tableData()}
             </Accordion> 
+            
+            <div className="modal fade" id="modalDetalleDeEv" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <ModalDetalleDeEvaluador />
+            </div>
+            <div className="modal fade" id="modalReasigEval" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <ModalReasignarEvaluador />
+            </div>
+            <div className="modal fade" id="modalObs" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <ModalObsAdicional />
+            </div>
+            <div className="modal fade" id="modalDetalleProp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <ModalDetallePropuesta />
+            </div>
           </div>
         )
      }
