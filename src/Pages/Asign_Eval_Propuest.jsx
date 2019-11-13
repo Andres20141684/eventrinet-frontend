@@ -8,7 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import {DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import Select from "react-dropdown-select";
 import DialogTitle from '@material-ui/core/DialogTitle';
-import PresiEventos_asignarEvaTable from '../Components/Jtable/PresiEventos_asignarEvaTable';
+import PresiAsignarEvalEvents from './PresiAsignarEvalEvents';
 
 const Networking = require('../Network/Networking.js') ;
 
@@ -41,9 +41,7 @@ class AsignEvalPropuesta  extends Component {
            msg: "Not Connected" ,
            transport: "go to Fake Ini",
            idUser_recived: 0,
-          datos_tabla: [{nombre:'Gleen ',evaluadores:[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]},
-          {nombre:'Jose',evaluadores:[]}
-                            ]
+          datos_tabla: [ ]
        }
        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
        this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -51,7 +49,8 @@ class AsignEvalPropuesta  extends Component {
        this.handleClickOpen=this.handleClickOpen.bind(this);
        this.handleClose=this.handleClose.bind(this);
        this.setValues=this.setValues.bind(this);
-       this.filtradoOpciones=this.filtradoOpciones.bind(this)
+       this.filtradoOpciones=this.filtradoOpciones.bind(this);
+       this.handleClickRetroceder=this.handleClickRetroceder.bind(this)
    
      }
 
@@ -86,26 +85,32 @@ class AsignEvalPropuesta  extends Component {
        this.handleClose()
     }
      handleClickRetroceder = () => {
-       this.handleNextChildComponentChange(PresiEventos_asignarEvaTable);
+        console.log('estoy retrocediendo')
+       this.handleNextChildComponentChange(PresiAsignarEvalEvents);
      }
 
      handleClickGuardar = () => {
         var aux={idEvento:this.state.idEvento}
         aux.Propuestas=[...this.state.datos_tabla]
-      Networking.InsertarEvaluadorAPaper(JSON.stringify(aux)).then((value)=>{console.log(value)})
-      this.handleNextChildComponentChange(PresiEventos_asignarEvaTable);
+        console.log(JSON.stringify(aux))
+      Networking.InsertarEvaluadorAPaper(JSON.stringify(aux)).then((value)=>{
+         console.log(value)
+         this.handleNextChildComponentChange(PresiAsignarEvalEvents);
+      })
     }
     
     componentWillMount(){
        var listaAux=[];
        var object={};
 
-       Networking.EvaluadorxEvento(JSON.stringify({idEvento:1})).then((value)=>{
+       console.log(this.props.nextChildComponentProps.idEvento)
+       this.setState({idEvento:this.props.nextChildComponentProps.idEvento})
+       Networking.EvaluadorxEvento(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
          console.log(value);
          this.setState({options:value.correos});
       })
 
-      Networking.PropuestaxEvento(JSON.stringify({idEvento:1})).then((value)=>{
+      Networking.PropuestaxEvento(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
          console.log(value)
          value.Propuestas.map((element,index)=>{
             object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores}
@@ -200,7 +205,9 @@ class AsignEvalPropuesta  extends Component {
                 </td>
                 <td component={'span'}>
                  
-                   <button style={{float:'right'}} class="btn btn-outline-secondary add" variant="primary"onClick={()=>this.handleClickOpen(index)} disabled={element.evaluadores.length<4?false:true}>+</button>
+                 
+                   <button style={{float:'right'}} 
+                   class="btn_plus fa fa-plus" onClick={()=>this.handleClickOpen(index)} disabled={element.evaluadores.length<4?false:true}></button>
                      <Dialog component={'span'}
                         open={this.state.open===true?true:false}
                         onClose={this.handleClose}
@@ -208,13 +215,12 @@ class AsignEvalPropuesta  extends Component {
                         disableBackdropClick={false}
                      >
                       <div>
-                         <DialogTitle>Seleccione un Evaluador</DialogTitle>
-                           <DialogContent component={'span'} style={{height:'200px',width:'350px'}}>
-                              <div class='col-md-2'></div>
+                         <DialogTitle class="modal-header" style={{paddingBottom:"5px"}}>Seleccione un Evaluador</DialogTitle>
+                           <DialogContent component={'span'} style={{height:'150px',width:'350px'}}>
                               <div class='col-md-8'>
                                  <DialogContentText component={'span'}>
                                     <div >
-                                       <Select component={'span'} style={{fontSize:'18px', maxWidth: "250px", margin: " auto" }} 
+                                       <Select component={'span'} style={{fontSize:'18px', width: "270px", margin: " auto" }} 
                                        placeholder="Elige Evaluador" 
                                        options={aux} 
                                        noDataLabel="No evaluador encontrado"
@@ -227,24 +233,27 @@ class AsignEvalPropuesta  extends Component {
                                        clearable={this.state.clearable}
                                        />
                                     </div>
+                                    <br/>
                                  </DialogContentText>
                               </div>
                               {this.state.selectValues.length===0?null:
                               <div class='form-group'>
                                  <DialogContentText>
                                  <br/>
-                                 <label>Nombre:{this.state.selectValues[0].nombre}</label>
-                                 <br/>
-                                 <label>Correo:{this.state.selectValues[0].correo}</label>
+                                 <div>
+                                 <label style={{fontSize:'14px'}}>Nombre: {this.state.selectValues[0].nombre}</label>
+                                 </div>
+                                 <div>
+                                 <label style={{fontSize:'14px',paddingTop:'10px'}} >Correo: {this.state.selectValues[0].correo}</label>
+                                 </div>                                 
                                  </DialogContentText>
                               </div>}
-                              <div class='col-md-2'></div>
                            </DialogContent>
                            <DialogActions component={'span'}>
-                              <button onClick={this.handleClose} color="primary">
+                              <button style={{float:'left'}} className="mybutton"  variant="contained" color="primary"  onClick={this.handleClose} color="primary">
                                  Rechazar
                               </button>
-                              <button onClick={()=>this.handleSave(this.state.currentIndex)} color="primary" autoFocus>
+                              <button style={{float:'right'}} className="mybutton"  variant="contained" color="primary"  onClick={()=>this.handleSave(this.state.currentIndex)} color="primary" autoFocus>
                                  Aceptar
                               </button>
                            </DialogActions>  
@@ -289,10 +298,10 @@ class AsignEvalPropuesta  extends Component {
                   </table>
                   </div>
                   <div>
-                  <button class="mybutton" onClick={()=>this.handleClickRetroceder} style={{float:'left'}}>Atras</button>
+                  <button class="mybutton" onClick={this.handleClickRetroceder} style={{float:'left'}}>Atras</button>
                   </div>
                   <div>
-                  <button class="mybutton" onClick={()=>this.elegirPrefCat} style={{float:'left'}}>Guardar</button>
+                  <button class="mybutton" onClick={this.handleClickGuardar} style={{float:'right'}}>Guardar</button>
                   </div>
                </div>
                 </div>
