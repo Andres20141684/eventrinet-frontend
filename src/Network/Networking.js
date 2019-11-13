@@ -771,3 +771,57 @@ export async function listar_usuarios(){
         return error
     }
 }
+
+export async function PropuestaxEvento(idEvento){
+    try {
+        let response= await fetch(restURL+'eventos/asignacionesFaseActual',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: idEvento
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+
+export async function EvaluadorxEvento(idEvento){
+    try {
+        let response= await fetch(restURL+'evaluador/listar_correos',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: idEvento
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+
+
+export async function InsertarEvaluadorAPaper(data){
+    try {
+        let response= await fetch(restURL+'propuesta/asignarEvaluadoresXFaseActual',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}

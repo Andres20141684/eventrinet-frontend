@@ -14,7 +14,7 @@ export default class EventNew extends Component{
             idUsuario:0,
             nombre:'',
             descripcion:'',
-            fIni: new Date(),
+            fIni: '',
             fFin: '',
             lugar:'',
             rdCategry:true,
@@ -26,7 +26,7 @@ export default class EventNew extends Component{
             fases:[{idFase:0,secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
             tieneCameraRdy:0,
             rdCamR:false,
-            fCRIni:new Date(),
+            fCRIni:'',
             fCRFin:'',
             fechPref:new Date(),            
             fechaMaxPref:'',
@@ -105,6 +105,7 @@ export default class EventNew extends Component{
                   auxfases[i]=JSON.parse(JSON.stringify(response.fases[i]));
                   auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
                   auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
+                  auxfases[i].faseEvalIni=new Date(response.fases[i].fechaEvalIni)
                   auxfases[i].reqArch=auxfases[i].necesitaArchivo===1?true:false;
                   auxfases[i].reqEval=auxfases[i].necesitaEvaluacion===1?true:false;
                   auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();

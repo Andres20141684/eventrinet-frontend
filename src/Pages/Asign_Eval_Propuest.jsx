@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Networking = require('../Network/Networking.js') ;
 
-const options=[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:0,nombre:'Pepito',correo:'pepex@pucp.pe'}]
+const options=[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:2,nombre:'Pepito',correo:'pepex@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]
 var aux=[]
 function MainTittle(props){
     console.log(props)
@@ -27,17 +27,21 @@ class AsignEvalPropuesta  extends Component {
     constructor(props){
        super(props);
        this.state = {
+           idEvento:1,
+           optiones:[],
            open:false,
            clearable:true,
            selectValues: [],
            labelField: "nombre",
            valueField: "nombre",
            dropdownHeight: "100px",
+           currentIndex:0,
            nombre:'Evento 1',
            msg: "Not Connected" ,
            transport: "go to Fake Ini",
            idUser_recived: 0,
-          datos_tabla: [{nombre:'Gleen ',evaluadores:[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]}
+          datos_tabla: [{nombre:'Gleen ',evaluadores:[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]},
+          {nombre:'Jose',evaluadores:[]}
                             ]
        }
        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
@@ -60,17 +64,19 @@ class AsignEvalPropuesta  extends Component {
          this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
      }
 
-     handleClickOpen(){
-        console.log('GAAAAA',this.state.open)
+     handleClickOpen(index){
+      console.log('Llego al open index:',index)
         //this.state.open=true
-      this.setState({open:true})   
+      this.filtradoOpciones(index);
+      this.setState({open:true,currentIndex:index})   
     }
 
     handleClose=()=> {
-      this.setState({open:false,clearable:false})  
+      this.setState({open:false,clearable:false,currentIndex:0})  
     }
 
     handleSave=(index)=>{
+      console.log('llego al guardado con el index: ',index)
       var tabla=[...this.state.datos_tabla]
       tabla[index].evaluadores.push(JSON.parse(JSON.stringify(this.state.selectValues[0])))
       this.setState({datos_tabla:tabla,selectValues:[]})
@@ -90,7 +96,25 @@ class AsignEvalPropuesta  extends Component {
      }
     
     componentWillMount(){
-       
+       var listaAux=[];
+       var object={};
+      Networking.PropuestaxEvento(JSON.stringify({idEvento:1})).then((value)=>{
+         console.log(value)
+         value.Propuestas.map((element,index)=>{
+            object={nombre:element.nombre,evaluadores:element.Evaluadores}
+            listaAux.push(object);
+            console.log(object);
+            console.log(listaAux);
+         })
+         this.setState({datos_tabla:listaAux});   
+         console.log(this.state.datos_tabla); 
+      });   
+
+      Networking.EvaluadorxEvento(JSON.stringify({idEvento:1})).then((value)=>{
+         console.log(value);
+         this.setState({options:value.correos});
+      })
+      
        /*
        let retrievedObject = sessionStorage.getItem('dataUser');
        let retrievedJson = JSON.parse(retrievedObject);  
@@ -110,6 +134,7 @@ class AsignEvalPropuesta  extends Component {
           
        });*/
     }
+
     shouldComponentUpdate(nextProps, nextState){
        if(this.state.datos_tabla!= nextState.datos_tabla){
           console.log(this.state.datos_tabla)
@@ -152,13 +177,15 @@ class AsignEvalPropuesta  extends Component {
        }
 
    filtradoOpciones(index){
+      console.log('LLego al filtrado con el index: ',index)
+      aux=[...this.state.options]
       for(var i=0;i<this.state.datos_tabla[index].evaluadores.length;i++){
-         aux=options.filter(opt=>opt.correo!=this.state.datos_tabla[index].evaluadores[i].correo)
+         aux=aux.filter(opt=>opt.correo!==this.state.datos_tabla[index].evaluadores[i].correo)
+         console.log("Valor de aux: ",aux)
+         console.log("Valor de options",options)
       }
       console.log(aux)
-
-      return aux;
-      
+      //return aux; 
    }
  
   
@@ -167,7 +194,6 @@ class AsignEvalPropuesta  extends Component {
        //this.setState.idUser_recived=this.props.idUser_recived;
  
          return this.state.datos_tabla.map((element, index) => {
-          
           const {idEvento, nombre,evaluadores,fechaIni,
              fechaFin,lugar,precios,numFases,estado,
              preferencia,tieneCameraRdy,programaCompletado,
@@ -186,7 +212,7 @@ class AsignEvalPropuesta  extends Component {
                 </td>
                 <td component={'span'}>
                  
-                   <button style={{float:'right'}} class="btn btn-outline-secondary add" variant="primary"onClick={this.handleClickOpen} disabled={element.evaluadores.length<4?false:true}>+</button>
+                   <button style={{float:'right'}} class="btn btn-outline-secondary add" variant="primary"onClick={()=>this.handleClickOpen(index)} disabled={element.evaluadores.length<4?false:true}>+</button>
                      <Dialog component={'span'}
                         open={this.state.open===true?true:false}
                         onClose={this.handleClose}
@@ -202,7 +228,7 @@ class AsignEvalPropuesta  extends Component {
                                     <div >
                                        <Select component={'span'} style={{fontSize:'18px', maxWidth: "250px", margin: " auto" }} 
                                        placeholder="Elige Evaluador" 
-                                       options={options} 
+                                       options={aux} 
                                        noDataLabel="No evaluador encontrado"
                                        onChange={values => this.setValues(values)}
                                        dropdownHeight={this.state.dropdownHeight}
@@ -230,7 +256,7 @@ class AsignEvalPropuesta  extends Component {
                               <button onClick={this.handleClose} color="primary">
                                  Rechazar
                               </button>
-                              <button onClick={()=>this.handleSave(index)} color="primary" autoFocus>
+                              <button onClick={()=>this.handleSave(this.state.currentIndex)} color="primary" autoFocus>
                                  Aceptar
                               </button>
                            </DialogActions>  
@@ -259,8 +285,8 @@ class AsignEvalPropuesta  extends Component {
                 <div class="panel" >
                   <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                      <h3>{this.state.nombre}</h3>
-                     <a  class="pull-right" onClick={this.handleClickCrearActualizar} 
-                     value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>
+                     {/*<a  class="pull-right" onClick={this.handleClickCrearActualizar} 
+                     value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>*/}
                   </div>
                   <div  class="table-responsive">
                   <table class="table  table-hover">

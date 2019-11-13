@@ -20,7 +20,7 @@ class App extends Component{
       bannBot : BannerBottom_,
       workingSpace : WorkingSpace,
       msg: "Not Connected" ,
-      initialComponent: NewIni,
+      initialComponent: AsignEvalPropuesta,
       initialComponentProps:{},
       xd: null,
       pathGottenbyDunkUser:""

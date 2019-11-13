@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../../../styles/style_sheets.css';
 import Autocompleter from './Autocomplete';
+import Searchable from './Searchable';
 
 
 export default class StepOne extends React.Component {
@@ -37,6 +38,7 @@ export default class StepOne extends React.Component {
             <div class="panel-body">
               {/*<div>
                 <Row>
+                  <Searchable></Searchable>
                 <Autocompleter></Autocompleter>
                 </Row>
               </div>*/}
@@ -86,6 +88,36 @@ export default class StepOne extends React.Component {
                     />
             </div>
             </Row>
+            <label >Fechas de la Realizacion del evento:</label><br/>  
+            <Row>           
+                  <div class="form-group col-md-6"> 
+                  <label >Fecha Inicio</label>
+                    <DatePicker
+                      type="date"
+                      selected={this.props.fechaIE}
+                      minDate={new Date()}
+                      maxDate={this.props.fechaFE!==''?this.props.fechaFE:null}
+                      onChange={(e)=> this.props.handleChange2(e,"fIni")}
+                      id="input-date"
+                      name="date_in"
+                      placeholder="date_in"
+                    />
+                  </div>
+                  <div class="form-group col-md-5">
+                      <label >Fecha Fin </label>
+                        <DatePicker
+                          style={{position:"absolute"}}
+                          type="date"
+                          selected={this.props.fechaFE}
+                          minDate={this.props.fechaIE!==''?this.props.fechaIE:new Date()}
+                          disabled={this.props.fechaIE===''?true:false}
+                          onChange={(e)=> this.props.handleChange2(e,"fFin")}
+                          id="input-date"
+                          name="date_in"
+                          placeholder="date_in"
+                        />
+                  </div>
+                  </Row>
             </div>
           </div>
           <br></br>
