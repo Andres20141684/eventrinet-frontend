@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
-import $ from 'jquery';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import {Link}  from "react-router-dom";
 import { NetworkMutation_JAchievingData } from '../../Network/Networking';
-
+import Accordion from 'react-bootstrap/Accordion';
 
 class Proposer_ActiveEventsTable  extends Component {
    constructor(props) {
@@ -12,7 +13,7 @@ class Proposer_ActiveEventsTable  extends Component {
       //console.log("HAAAAAAAAAAAAAAAAAAAAA")
       //Networking.populateDataOrgTab1(8).then((value) => {
             //this.setState({datos_tabla: value});   
-      //});
+      //}); 
       this.state = {
          idProposer: 0,
          datos_tabla1: []
@@ -77,46 +78,41 @@ class Proposer_ActiveEventsTable  extends Component {
       return this.props.data.map((element, index) => {
          const { evento,listProp} = element 
          var idAccordion = "accordion"+ index
+         var indexEvent =index
          return(            
-               <div class="card z-depth-0 bordered">
-                  
-                  <div class="card-header" id={"heading-"+String(idAccordion)+ "-2"}>
-                     <h5 class="mb-0">
-                        <button 
-                           class="btn btn-link" 
-                           type="button" 
-                           onClick = {this.handleClickMore}
-                           data-toggle="collapse" 
-                           data-target={"#collapse"+String(idAccordion)+"2"}
-                           aria-expanded="true" 
-                           aria-controls={"collapse"+String(idAccordion)+"2"}>
-                           {evento}
-                        </button>
-                     </h5>
-                  </div>
-                  
-                  <div id={"collapse"+String(idAccordion)+"2"} class="collapse" aria-labelledby={"heading-"+String(idAccordion)+ "-2"}
-                     data-parent="#accordionExample275">
-                     <div class="card-body">
-                        
-                        <div  class="table-responsive">
-                        <table class="table  table-hover">
-                           <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
-                              <tr >
-                                 <th align= "left" scope="col">Nombre de la propuesta</th>
-                                 <th scope="col">N° Fases Comp. </th>
-                                 <th scope="col">Estado</th>
-                                 <th scope="col">Fecha límite</th>
-                                 <th align="right" scope="col">Detalle</th>
-                              </tr>
-                           </thead>
-                           <tbody>{this.renderProposals(listProp)}</tbody>
-                        </table>
-                        </div>                        
-                     
+            <Card>
+               <Card.Header className="col" id={"heading-"+String(idAccordion)+ "-2"}>                  
+                  <h5 class="mb-0">
+                  <Accordion.Toggle as={Button} variant="link" eventKey={indexEvent}>
+                     <button 
+                        class="btn btn-link" 
+                        type="button" 
+                        onClick = {this.handleClickMore}
+                        >
+                        {evento}
+                     </button>
+                  </Accordion.Toggle>
+                  </h5>
+               </Card.Header>
+               <Accordion.Collapse eventKey={indexEvent}>
+                  <div class="card-body">
+                     <div  class="table-responsive">
+                     <table class="table  table-hover">
+                        <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
+                           <tr >
+                              <th align= "left" scope="col">Nombre de la propuesta</th>
+                              <th scope="col">N° Fases Comp. </th>
+                              <th scope="col">Estado</th>
+                              <th scope="col">Fecha límite</th>
+                              <th align="right" scope="col">Detalle</th>
+                           </tr>
+                        </thead>
+                        <tbody>{this.renderProposals(listProp)}</tbody>
+                     </table>
                      </div>
                   </div>
-               </div>
+               </Accordion.Collapse>
+               </Card>
             )
          })
 
@@ -130,10 +126,9 @@ class Proposer_ActiveEventsTable  extends Component {
    render() {
                
          return (
-         <div class="accordion" id="accordionExample275">
-            {this.tableData()}
-         </div>
-            
+            <Accordion defaultActiveKey="0" id="accordionExample275" className="table-responsive">
+               {this.tableData()}
+            </Accordion>
          )
      }
 }

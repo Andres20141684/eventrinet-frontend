@@ -19,7 +19,7 @@ function MainTittle(){
     )
 }
 class PresiAsignarEvalEvents extends Component{
-    constructor(props){
+    constructor(props){ 
         super(props);
         this.state = {
             formActives: PresiEventos_asignarEvaTable,

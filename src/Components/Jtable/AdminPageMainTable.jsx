@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import '../../styles/styles'
+//import '../../styles/styles'
 import "react-datepicker/dist/react-datepicker.css";
-import '../../styles/style_sheets.css'; 
+//import '../../styles/style_sheets.css'; 
 import ModalPermisos from './ModalPermisos';
-import $ from 'jquery'
 
 const Networking = require('../../Network/Networking') ;
 
