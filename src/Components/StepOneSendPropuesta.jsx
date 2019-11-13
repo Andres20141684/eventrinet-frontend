@@ -53,7 +53,7 @@ renderacademicLevel(){
         placeholder:'Nombre', 
         id:"id_name",           
         onChange:this.defaultMutableHandle,
-        value:"",
+        value:'',
       },
       {
         label:"Apellidos",

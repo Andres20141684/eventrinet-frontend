@@ -3,10 +3,10 @@ import 'react-simple-datepicker/dist/index.css';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import "react-datepicker/dist/react-datepicker.css";
-import '../styles/style_sheets.css'
 import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/style_sheets.css';
+import '../styles/styles_dropzone.css';
 import { assignmentExpression } from '@babel/types';
 import JTable from './Jtable/JTable';
 import JCardForm from './Special/JCardForm';
@@ -299,10 +299,14 @@ class StepTwoSendPropuesta extends React.Component {
 
 
                 <div class="panel panel-default" >
-                  <div id="drop_zone">Arrastra tus archivos aqui :)</div>
-                  <button type="button" class="btn btn-success" style={{width:"126px"}} onclick="abortRead();">Cancel read</button>
-                  <div id="progress_bar"><div class="percent">0%</div></div>
-                  
+                  <div className="containerDZ">
+                    <div id="drop_zone">Arrastra tus archivos aqui :)</div>
+                      <button type="button" class="btn btn-success" 
+                              style={{width:"126px"}} onclick="abortRead();">
+                                Cancel subida de archivo
+                      </button>
+                    <div id="progress_bar"><div class="percent">0%</div></div>
+                  </div>
                   
                   <output id="list"></output>
                 </div>
