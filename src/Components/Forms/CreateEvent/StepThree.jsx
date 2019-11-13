@@ -88,7 +88,7 @@ handleCheckboxChange = event =>{
 
   render() {
     return (
-      <div class="panel-group">
+      <div class="panel-group" style={styles.panel}>
         <div>
         {this.state.values.map((el, index) => (
           <div key={index} class="panel panel-default">
@@ -124,18 +124,18 @@ handleCheckboxChange = event =>{
             </div> 
           </div>
         ))}        
-                                
-          <input type="button"  class="btn btn-primary" value="Agregar fase" onClick={() => this.addClick()} />           
+                         
+          <input type="button" style={{marginTop:'20px'}} class="btn btn-primary" value="Agregar fase" onClick={() => this.addClick()} />           
         </div>
             
             <br/>
 
             <div>
-            <h3>Camera Ready</h3>
+            <h3>Camera Ready</h3> 
             <div class="panel panel-default">  
             <div class="panel-body">   
-            <div class="form-group col-md-3">
-              <label>Requiere Camera Ready: </label>
+            <div >
+              <label>Requiere Camera Ready: &nbsp;&nbsp;</label>
               <input 
                 type="checkbox" 
                 checked={this.props.rdCamR}
@@ -145,7 +145,7 @@ handleCheckboxChange = event =>{
             </div>
               {this.props.rdCamR===true?<FormGroup action="" class="card card-body">
                   <Row>            
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-6">
                       <label >Fecha Inicio</label>
                       <DatePicker
                         type="date"
@@ -153,14 +153,16 @@ handleCheckboxChange = event =>{
                         name="date_in"
                         placeholder="date_in"
                         selected={this.props.fCRIni}
+                        minDate={new Date()}
                         //minDate={new Date(this.state.values[this.state.values.length-1].faseFin).setDate(this.state.values[this.state.values.length-1].faseFin.getDate() + 1)}
                         //maxDate={this.props.fechaIE}
+                        maxDate={this.props.fCRFin!==''?this.props.fCRFin:this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRIni")}
                         class="form-control"
                         
                       />
                   </div>
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-5">
                       <label >Fecha Fin</label>
                       <DatePicker
                         type="date"
@@ -168,6 +170,8 @@ handleCheckboxChange = event =>{
                         name="date_in"
                         placeholder="date_in"
                         selected={this.props.fCRFin}
+                        disabled={this.props.fCRIni===''?true:false}
+                        minDate={this.props.fCRIni}
                         //minDate={this.props.fCRIni}
                         //maxDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRFin")}
@@ -180,7 +184,7 @@ handleCheckboxChange = event =>{
               
             </div>
             </div>
-            <div>
+            {/*<div>
               <h3>Fecha de realizacion del evento: </h3>
               <div class="panel panel-default">
                 <div class="panel-body">
@@ -215,12 +219,12 @@ handleCheckboxChange = event =>{
                   
                 </div>
               </div>
-            </div>
+            </div>*/}
 
             <h3>Fecha límite de elección de preferencias para los evaluadores</h3>            
               <FormGroup class="card card-body">  
                   <Row>            
-                  <div class="form-group col-md-3">                      
+                  <div class="form-group col-md-6">                      
                       <DatePicker
                         type="date"
                         id="input-date"
@@ -238,3 +242,16 @@ handleCheckboxChange = event =>{
   }
 }
 export default StepThree;
+
+var styles = {
+  rotulos:{
+    paddingRight: 80,
+  },
+  panel:{
+    margin:'auto',
+    maxWidth:'620px',
+    minWidth:'330px',
+    paddingRight:'2%',
+    paddingLeft:'2%',
+  }
+}
