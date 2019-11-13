@@ -72,7 +72,7 @@ class ModalDialog extends Component{
             disableBackdropClick={true}
           >
             <div>
-              {this.state.succeed===''?
+              {this.state.succeed===''? 
               <div>
               <DialogContent>
                 <DialogContentText>
@@ -80,12 +80,8 @@ class ModalDialog extends Component{
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <button onClick={this.handleClose} color="primary">
-                  Rechazar
-                </button>
-                <button onClick={this.handleSave} color="primary" autoFocus>
-                  Aceptar
-                </button>
+                <button type="button"  onClick={this.handleClose}  className="btn btn-secondary">Cerrar</button>
+                <button type="button" onClick={this.handleSave} className="btn btn-primary"  autoFocus>Aceptar</button>
               </DialogActions>
               </div>
               :
