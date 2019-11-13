@@ -47,11 +47,11 @@ class ElegirPrefCategorias extends Component{
 
       componentDidMount(){
 
-          this.setState({
+        this.setState({
             nombre_evento : this.props.nextChildComponentProps.nomb_evento,
             idEvento : this.props.nextChildComponentProps.id_evento_nextProps,
             idEvaluador : this.props.nextChildComponentProps.idOrganizador_nextProps,
-          });
+        });
          // console.log("<<<<<<<<<ID evaluador",this.state.idEvaluador); //AQUI NO VA A MOSTRAR EL VERDADERO ID
       }
     
@@ -92,9 +92,10 @@ class ElegirPrefCategorias extends Component{
                                 <this.state.formActives  
                                     onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                     onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                                    idEvento = {this.props.nextChildComponentProps.id_evento_nextProps}
-                                    idEvaluador = {this.props.nextChildComponentProps.idUser_recived}
+                                    idEvento = {this.props.nextChildComponentProps.idEvento}
+                                    idEvaluador = {this.props.nextChildComponentProps.idUser_}
                                 />
+                                {console.log("X.X",this.props.nextChildComponentProps)}
                             </TabPanel>
                             
                         </Tabs>

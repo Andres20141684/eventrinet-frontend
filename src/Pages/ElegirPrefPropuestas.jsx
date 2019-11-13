@@ -92,9 +92,10 @@ class ElegirPrefPropuestas extends Component{
                                 <this.state.formActives  
                                     onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                     onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                                    idEvento = {this.props.nextChildComponentProps.id_evento_nextProps}
-                                    idEvaluador = {this.props.nextChildComponentProps.idUser_recived}
+                                    idEvento = {this.props.nextChildComponentProps.idEvento}
+                                    idEvaluador = {this.props.nextChildComponentProps.idUser_}
                                 />
+                               {console.log("e.e",this.props.nextChildComponentProps)}
                             </TabPanel>
                             
                         </Tabs>
@@ -117,5 +118,5 @@ class ElegirPrefPropuestas extends Component{
 }
 
 
-export default ElegirPrefPropuesta;
+export default ElegirPrefPropuestas;
 

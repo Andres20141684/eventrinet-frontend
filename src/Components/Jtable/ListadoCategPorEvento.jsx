@@ -51,7 +51,7 @@ class ListadoCategPorEvento extends Component {
   let retrievedJson = JSON.parse(retrievedObject);  
   this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
   console.log(retrievedJson);
-
+  console.log('%%this.props.idEvento: ',this.props.idEvento);
 
   Networking.listar_categoriasPorEvento(this.props.idEvento).then((value) => {
     console.log(value);
@@ -77,7 +77,9 @@ class ListadoCategPorEvento extends Component {
   });
 
   Networking.ListarPrefXCateg(this.props.idEvento, retrievedJson.infoUsuario.idUsuario).then((value) => {
-    console.log("INazuma eleven <3",value.PreferenciasXCategoria.length ==0);
+    //console.log("INazuma eleven <3",value.PreferenciasXCategoria.length ==0);
+    //console.log("INazuma eleven <3",value.PreferenciasXCategoria.length ==0);
+    console.log(value);
     if(value.PreferenciasXCategoria.length == 0){
       console.log('No tenía preferencias');
 

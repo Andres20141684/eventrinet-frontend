@@ -600,6 +600,32 @@ export async function registrar_PrefXCat(data){
         return error
     }
 }
+//falta
+export async function listar_propuestasPorEvento(_idEvento,_idEvaluador) {
+    
+    try {
+        console.log('RECIBI UN param: ' + _idEvento+" "+_idEvaluador);
+        let response = await fetch(restURL 
+            + 'propuesta/listarPropuestasXEvento', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: _idEvento,
+                idEvaluador : _idEvaluador
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
 
 export async function ListarPrefXProp(idEvento, idUsuario) {
     

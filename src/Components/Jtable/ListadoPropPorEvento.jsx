@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
 import ActionButton from './ActionButton';
-import ElegirPrefPropuesta from '../../Pages/ElegirPrefPropuesta.jsx'
+import ElegirPrefPropuesta from '../../Pages/ElegirPrefPropuestas.jsx'
 import EvaluadorEventosListados from '../../Pages/EvaluadorEventosListados.jsx';
-import Checkbox from "./Checkbox";
+import RadioButton from "./RadioButton";
 
 const Networking = require('../../Network/Networking.js') ;
 
@@ -26,7 +26,7 @@ class ListadoPropPorEvento extends Component {
        rememberMe: false,
        idEvento: 0,
        //idEvaluador : 0,
-        checkboxes: OPTIONS.reduce(
+        radioButtons: OPTIONS.reduce(
           (options, option) => (
             { //json , a cada uno de los Strings , le asignas false
             ...options,
@@ -49,20 +49,21 @@ class ListadoPropPorEvento extends Component {
   componentWillMount(){
     console.log("WILL MOUNT")
     let retrievedObject = sessionStorage.getItem('dataUser');
-  let retrievedJson = JSON.parse(retrievedObject);  
+  let retrievedJson = JSON.parse(retrievedObject);
   this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
   console.log(retrievedJson);
-
-
-  Networking.listarelegirPrefProp(this.props.idEvento).then((value) => {
-    console.log(value);
+  console.log("cosas IMPORTANTES:",this.props);
+  console.log('&&this.props.idEvento: ',this.props.idEvento);  
+//listar simple de todas las propuestas del evento
+  Networking.listar_propuestasPorEvento(this.props.idEvento,this.props.idEvaluador).then((value) => {
+    console.log("____",value);
     console.log("antes? :",OPTIONS);
-    OPTIONS = value.Categorias.map( (e) =>e.idCategoria);
+    OPTIONS = value.Propuestas.map( (e) =>e.idPropuesta);
     console.log("dsps? :",OPTIONS);
     // < LINEAS SUPER IMPORTANTES
-    jason = OPTIONS.reduce((jason, value, key) => { jason[value] = false; return jason; }, {});
+    jason = OPTIONS.reduce( (jason, value, key) => { jason[value] = 0; return jason; }, {});
     console.log("nuevo options",jason);
-    this.setState({checkboxes:jason});
+    this.setState({radioButtons:jason});
     //LINEAS SUPER IMPORTANTES />
     //this.selectAllCheckboxes(false);
     if(value == null){
@@ -71,39 +72,34 @@ class ListadoPropPorEvento extends Component {
     }else {
       console.log('si hay algo: A ACTUALIZAR EL ESTADO');
       this.setState({datos_tabla:value});
-      console.log("obviamente no lo va a actualizr :V ",this.state.datos_tabla.Categorias.map( (e) => e.descripcion));
+      console.log("obviamente no lo va a actualizr :V ",this.state.datos_tabla.Propuestas.map( (e) => e.descripcion));
       //OPTIONS = this.state.datos_tabla.Categorias.map( (e) => e.descripcion);
     }
     
   });
-
+  //listar preferencias para un evaluador con las elecciones editadas
   Networking.ListarPrefXProp(this.props.idEvento, retrievedJson.infoUsuario.idUsuario).then((value) => {
-    console.log("INazuma eleven <3",value.PreferenciasXCategoria.length ==0);
+    console.log("INazuma eleven <3",thisvalue.PreferenciasXPropuestas.length ==0);
     if(value.PreferenciasXCategoria.length == 0){
       console.log('No tenía preferencias');
-
-      /* 
-      CODIGO
-      o nel :V
-      */
-
-      
+      //CODIGO
+      //o nel :V
     }
     else {
       console.log('Tenia preferencias... ahora debo pintarlas en front');
       this.state.PreferenciasXCategoria = value.PreferenciasXCategoria;
       console.log("obviamente no lo va a actualizr :V ",this.state.PreferenciasXCategoria , value.PreferenciasXCategoria);
-      console.log("state.checkboxes",this.state.checkboxes);
+      console.log("state.radioButtons",this.state.radioButtons);
       //testo!!
       //this.state.checkboxes[1] = true;
-      console.log("state.checkboxes antes",this.state.checkboxes);
+      console.log("state.radioButtons antes",this.state.radioButtons);
       for (var i=0; i<this.state.PreferenciasXCategoria.length; i++ ) {
         //console.log("for i in ",this.state.PreferenciasXCategoria[i]);
         let keys = this.state.PreferenciasXCategoria[i];
-        this.state.checkboxes[keys] = true;
+        this.state.radioButtons[keys] = true;
     }
-    console.log("state.checkboxes dsps",this.state.checkboxes);
-    this.setState({checkboxes:this.state.checkboxes});
+    console.log("state.radioButtons dsps",this.state.radioButtons);
+    this.setState({radioButtons:this.state.radioButtons});
       //OPTIONS = this.state.datos_tabla.Categorias.map( (e) => e.descripcion);
     }
     
@@ -113,7 +109,7 @@ class ListadoPropPorEvento extends Component {
   componentDidMount(){
   console.log("DID MOUNT");
   console.log("jxjx",this.state.datos_tabla);
-  console.log(this.state.checkboxes);
+  console.log(this.state.radioButtons);
 
   this.setState({
   //nombre_evento : this.props.nextChildComponentProps.nomb_evento,
@@ -126,12 +122,12 @@ class ListadoPropPorEvento extends Component {
   //OPTIONS = ['sda','asdas'];
   }
 
-  elegirPrefCat = () =>{
+  elegirPrefProp = () =>{
     this.props.onNextChildComponentChange(EvaluadorEventosListados);
  }
 
-  selectAllCheckboxes = isSelected => {
-    Object.keys(this.state.checkboxes).forEach(checkbox => {
+  /*selectAllCheckboxes = isSelected => {
+    Object.keys(this.state.radioButtons).forEach(checkbox => {
       this.setState(prevState => ({
         checkboxes: {
           ...prevState.checkboxes,
@@ -139,19 +135,19 @@ class ListadoPropPorEvento extends Component {
         }
       }));
     });
-  };
+  };*/
 
-  selectAll = () => this.selectAllCheckboxes(true);
+  //selectAll = () => this.selectAllCheckboxes(true);
 
-  deselectAll = () => this.selectAllCheckboxes(false);
+  //deselectAll = () => this.selectAllCheckboxes(false);
 
-  handleCheckboxChange = changeEvent => {
+  handleRadioButtonChange = changeEvent => {
     const { name } = changeEvent.target;
 
     this.setState(prevState => ({
-      checkboxes: {
-        ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name]
+      radioButtons: {
+        ...prevState.radioButtons,
+        [name]: !prevState.radioButtons[name]
       }
     }));
   };
@@ -164,19 +160,19 @@ class ListadoPropPorEvento extends Component {
     let Propuestas = [];
     let e = {};
 
-    Object.keys(this.state.checkboxes)
-      .filter(checkbox => this.state.checkboxes[checkbox])
+    Object.keys(this.state.radioButtons)
+      .filter(checkbox => this.state.radioButtons[checkbox])
       .forEach(checkbox => {
         console.log("Se va a insertar: ",this.state.idEvento, this.state.idUser_recived, checkbox);
         e = JSON.parse(JSON.stringify({
           idCategoria: parseInt(checkbox)
       }));
-      Categorias.push(e);
+      Propuestas.push(e);
       });
       data = JSON.stringify({
         idEvento: this.state.idEvento,
         idUsuario: this.state.idUser_recived,
-        Categorias : Categorias
+        Propuestas : Propuestas
       });
       console.log("LO Q MANDO A BACK ES: ",data);
       Networking.registrar_PrefXCat(data).then((value) => {
@@ -196,31 +192,34 @@ class ListadoPropPorEvento extends Component {
       
   };
 //este uso... le pasas un nombre/idCategoria par
-  createCheckbox = option => (
+  createRadioButton = option => (
     //console.log("option del createCheckBox", option),
-    <Checkbox
-      label={option}
-      isSelected={this.state.checkboxes[option]}
-      onCheckboxChange={this.handleCheckboxChange}
+    <RadioButton
+      //label={option}
+      isSelected={this.state.radioButtons[option]}
+      onRadioButtonChange={this.handleRadioButtonChange}
       key={option}
     />
   );
 
-  createCheckboxes = () => OPTIONS.map(this.createCheckbox);
+  createRadioButtons = () => OPTIONS.map(this.createRadioButton);
   
 
   tableData() {
-    return this.state.datos_tabla.Categorias.map((element, index) => { 
-     const {idCategoria,descripcion} = element
+    return this.state.datos_tabla.Propuestas.map((element) => { 
+    //return OPTIONS.map((element) => { 
+     const {idPropuesta,nombre,nombrePropuesta} = element
      return (
       <tr >
-        <td>{index+1}</td>
-        <td >{descripcion}</td>
+        {//<td>{index+1}</td>
+        }
+        <td >{element.nombre}</td>
+        <td >{element.nombrePropuesta}</td>
         <td >{
-          this.createCheckbox(idCategoria)
+          //this.createCheckbox(idCategoria)
+          //this.createRadioButton(idPropuesta)
         }     </td>
-        
-        
+        {console.log("--------------Elemento",element)}        
       </tr>
       )
     })
@@ -232,7 +231,7 @@ class ListadoPropPorEvento extends Component {
           <div className="col-sm-12">
             <form onSubmit={this.handleFormSubmit}
             
-            onNextChildComponentChange={this.elegirPrefCat}
+            onNextChildComponentChange={this.elegirPrefProp}
                   onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
             >
 
@@ -244,20 +243,6 @@ class ListadoPropPorEvento extends Component {
                 </button>
               </div>
               
-                <button
-                  type="button"
-                  className="btn btn-outline-primary mr-2"  style={{float:'right'}}
-                  onClick={this.selectAll}
-                >
-                  Marcar todos
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outline-primary mr-2"  style={{float:'right'}}
-                  onClick={this.deselectAll}
-                >
-                  Desmarcar todos
-                </button>
                 
 
             <div  class="table-responsive">
@@ -265,7 +250,7 @@ class ListadoPropPorEvento extends Component {
                   <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                     <tr >
                     <th width="5%" align="left" scope="col">N°</th>
-                        <th align= "left" scope="col">Lista de categorías</th>
+                        <th align= "left" scope="col">Lista de Propuestas</th>
                         <th width="5%" align="right" scope="col"></th>
                         
                     </tr>
@@ -284,4 +269,4 @@ class ListadoPropPorEvento extends Component {
   }
 }
 
-export default ListadoCategPorEvento;
+export default ListadoPropPorEvento;
