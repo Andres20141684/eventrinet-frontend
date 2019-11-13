@@ -27,6 +27,8 @@ class AsignEvalPropuesta  extends Component {
     constructor(props){
        super(props);
        this.state = {
+           idEvento:1,
+           optiones:[],
            open:false,
            clearable:true,
            selectValues: [],
@@ -99,14 +101,19 @@ class AsignEvalPropuesta  extends Component {
       Networking.PropuestaxEvento(JSON.stringify({idEvento:1})).then((value)=>{
          console.log(value)
          value.Propuestas.map((element,index)=>{
-            object={nombre:element.nombre,evaluadores:[]}
+            object={nombre:element.nombre,evaluadores:element.Evaluadores}
             listaAux.push(object);
-            console.log(object)
-            console.log(listaAux)
+            console.log(object);
+            console.log(listaAux);
          })
-         this.setState({datos_tabla:listaAux})   
-         console.log(this.state.datos_tabla) 
-      })   
+         this.setState({datos_tabla:listaAux});   
+         console.log(this.state.datos_tabla); 
+      });   
+
+      Networking.EvaluadorxEvento(JSON.stringify({idEvento:1})).then((value)=>{
+         console.log(value);
+         this.setState({options:value.correos});
+      })
       
        /*
        let retrievedObject = sessionStorage.getItem('dataUser');
@@ -171,7 +178,7 @@ class AsignEvalPropuesta  extends Component {
 
    filtradoOpciones(index){
       console.log('LLego al filtrado con el index: ',index)
-      aux=options
+      aux=[...this.state.options]
       for(var i=0;i<this.state.datos_tabla[index].evaluadores.length;i++){
          aux=aux.filter(opt=>opt.correo!==this.state.datos_tabla[index].evaluadores[i].correo)
          console.log("Valor de aux: ",aux)

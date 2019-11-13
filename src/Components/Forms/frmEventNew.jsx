@@ -105,6 +105,7 @@ export default class EventNew extends Component{
                   auxfases[i]=JSON.parse(JSON.stringify(response.fases[i]));
                   auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
                   auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
+                  auxfases[i].faseEvalIni=new Date(response.fases[i].fechaEvalIni)
                   auxfases[i].reqArch=auxfases[i].necesitaArchivo===1?true:false;
                   auxfases[i].reqEval=auxfases[i].necesitaEvaluacion===1?true:false;
                   auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();

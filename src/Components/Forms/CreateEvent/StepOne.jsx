@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../../../styles/style_sheets.css';
 import Autocompleter from './Autocomplete';
+import Searchable from './Searchable';
 
 
 export default class StepOne extends React.Component {
@@ -37,6 +38,7 @@ export default class StepOne extends React.Component {
             <div class="panel-body">
               {/*<div>
                 <Row>
+                  <Searchable></Searchable>
                 <Autocompleter></Autocompleter>
                 </Row>
               </div>*/}
@@ -88,7 +90,7 @@ export default class StepOne extends React.Component {
             </Row>
             <label >Fechas de la Realizacion del evento:</label><br/>  
             <Row>           
-                  <div class="form-group col-md-3"> 
+                  <div class="form-group col-md-6"> 
                   <label >Fecha Inicio</label>
                     <DatePicker
                       type="date"
@@ -101,7 +103,7 @@ export default class StepOne extends React.Component {
                       placeholder="date_in"
                     />
                   </div>
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-5">
                       <label >Fecha Fin </label>
                         <DatePicker
                           style={{position:"absolute"}}

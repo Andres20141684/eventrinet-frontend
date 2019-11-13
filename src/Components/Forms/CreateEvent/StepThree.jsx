@@ -145,7 +145,7 @@ handleCheckboxChange = event =>{
             </div>
               {this.props.rdCamR===true?<FormGroup action="" class="card card-body">
                   <Row>            
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-6">
                       <label >Fecha Inicio</label>
                       <DatePicker
                         type="date"
@@ -153,6 +153,7 @@ handleCheckboxChange = event =>{
                         name="date_in"
                         placeholder="date_in"
                         selected={this.props.fCRIni}
+                        minDate={new Date()}
                         //minDate={new Date(this.state.values[this.state.values.length-1].faseFin).setDate(this.state.values[this.state.values.length-1].faseFin.getDate() + 1)}
                         //maxDate={this.props.fechaIE}
                         maxDate={this.props.fCRFin!==''?this.props.fCRFin:this.props.fechaIE}
@@ -161,7 +162,7 @@ handleCheckboxChange = event =>{
                         
                       />
                   </div>
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-5">
                       <label >Fecha Fin</label>
                       <DatePicker
                         type="date"
@@ -170,6 +171,7 @@ handleCheckboxChange = event =>{
                         placeholder="date_in"
                         selected={this.props.fCRFin}
                         disabled={this.props.fCRIni===''?true:false}
+                        minDate={this.props.fCRIni}
                         //minDate={this.props.fCRIni}
                         //maxDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRFin")}
@@ -222,7 +224,7 @@ handleCheckboxChange = event =>{
             <h3>Fecha límite de elección de preferencias para los evaluadores</h3>            
               <FormGroup class="card card-body">  
                   <Row>            
-                  <div class="form-group col-md-3">                      
+                  <div class="form-group col-md-6">                      
                       <DatePicker
                         type="date"
                         id="input-date"

@@ -34,7 +34,7 @@ export default function ChipsLista(props) {
           <Chip
             style={{fontSize:'20px'}}
             key={data.id}
-            label={data.nombre+':'+data.correo}
+            label={data.nombre}
             onDelete={handleDelete(data)}
             className={classes.chip}
           />
