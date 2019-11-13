@@ -367,7 +367,7 @@ class FrmSendPropuesta extends React.Component {
                             data-target="#myModal"
                             data-backdrop="static"
                             >
-                      Finalizar
+                        Finalizar
                       </button>
                       </div>
                         <div>

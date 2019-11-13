@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Row from 'react-bootstrap/Row';
 import JTable from '../Jtable/JTable';
+import JUpload from './JUpload';
 class JCardForm extends Component {
     constructor(props){
         super(props);
@@ -78,7 +79,21 @@ class JCardForm extends Component {
               </Row>
             ); 
         }
-          
+        if(inputData.category === 'JUpload'){
+            {console.log("agregue una JUpload")}
+            _inputs.push(
+            <Row>
+              <div class="form-group col-md-12">
+              <label>Subir propuesta. El archivo debe estar en formato PDF (extension PDF)</label>
+              
+              <JUpload
+                    id={inputData.id}
+                    onSuccesLoad={inputData.onChange}
+                />
+                </div>
+              </Row>
+              ); 
+        }
         
         });
         

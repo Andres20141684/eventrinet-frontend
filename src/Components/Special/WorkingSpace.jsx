@@ -1,6 +1,4 @@
 import React, {Component, useCallback} from 'react';
-import NewIni from "../General/NewIni";
-import { thisExpression } from "@babel/types";
 import BannerTop from '../General/bannerTop';
 import InscriptionEvent from '../../Components/InscriptionEvent';
 import SendProposal from '../../Components/SendProposal'
@@ -66,6 +64,7 @@ class WorkingSpace extends Component{
         console.log("currentProps to redirect ", JSON.parse(alternativeProps));
         //console.log("currentProps to redirect ",JSON.stringify(JSON.parse(alternativeProps)));
         if(!(alternativeProps === null)){
+
           this.state.nextChildComponentProps=JSON.parse(alternativeProps);
           this.state.nextChildComponentProps.idUser= this.props.idUser;
           sessionStorage.setItem("currentProps",null);

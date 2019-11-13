@@ -10,6 +10,7 @@ import '../styles/styles_dropzone.css';
 import { assignmentExpression } from '@babel/types';
 import JTable from './Jtable/JTable';
 import JCardForm from './Special/JCardForm';
+import JUpload from './Special/JUpload';
 
 class StepTwoSendPropuesta extends React.Component {
     constructor(props){
@@ -20,105 +21,20 @@ class StepTwoSendPropuesta extends React.Component {
         reader:null
       }
       this.defaultMutableHandle=this.defaultMutableHandle.bind(this);
-      this.handleFileSelect=this.handleFileSelect.bind(this);
+      
 
-      this.abortRead=this.abortRead.bind(this);
-      this.updateProgress=this.updateProgress.bind(this);
-      this.handleDragOver=this.handleDragOver.bind(this);
+      
       this.handleOnLoad=this.handleOnLoad.bind(this);
       this.renderBody=this.renderBody.bind(this);
       this.renderHeaders=this.renderHeaders.bind(this);
       this.handleChecked=this.handleChecked.bind(this);
 }
-/** ARCHIVO */ 
-  abortRead() {
-    this.state.reader.abort();
-  }
-  updateProgress(evt) {
-  var progress = document.querySelector('.percent');
-  // evt is an ProgressEvent.
-  if (evt.lengthComputable) {
-    var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
-    // Increase the progress bar length.
-    if (percentLoaded < 100) {
-      progress.style.width = percentLoaded + '%';
-      progress.textContent = percentLoaded + '%';
-    }
-  }
-  }
-  errorHandler(evt) {
-  switch(evt.target.error.code) {
-    case evt.target.error.NOT_FOUND_ERR:
-      alert('File Not Found!');
-      break;
-    case evt.target.error.NOT_READABLE_ERR:
-      alert('File is not readable');
-      break;
-    case evt.target.error.ABORT_ERR:
-      break; // noop
-    default:
-      alert('An error occurred reading this file.');
-  };
-  }
-  handleOnLoad(e){
-    var progress = document.querySelector('.percent');
-    progress.style.width = '100%';
-    progress.textContent = '100%';
-    console.log("Inteno de redireccion dentro del evento : "," reader.result ");
 
-    setTimeout("document.getElementById('progress_bar').className='';", 2000);
-    console.log("<<<<< se leyo putho!!!!>>>>");
-    //console.log("e",e);
-    console.log("this.state.reader",this.state.reader.result);
-    
+  handleOnLoad(result){
     this.props.multiHandle(
       {to:'archivo', 
-      value:this.state.reader.result
+      value:result
     });
-  }
-  handleFileSelect(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    var files = evt.dataTransfer.files; // aqui un objeto FileList .
-    if(files.length >1){
-      alert("Solo un archivo PDF putho");
-      return;
-    }
-      // files is a FileList of File objects. List some properties.
-
-    var output = [];
-    for (var i = 0, f; f = files[i]; i++) {
-      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                  f.size, ' bytes ','</li>');
-                  //f.lastModifiedDate.toLocaleDateString(), '</li>'); no se porque xux a no puedo leer ese atributo
-    }
-    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-
-    /*************************************** */
-    var progress = document.querySelector('.percent');
-    progress.style.width = '0%';
-    progress.textContent = '0%';
-
-    this.state.reader = new FileReader();
-    this.state.reader.onerror = this.errorHandler;
-    this.state.reader.onprogress = this.updateProgress;
-    this.state.reader.onabort = function(e) {
-      alert('File read cancelled');
-    };
-    this.state.reader.onloadstart = function(e) {
-      document.getElementById('progress_bar').className = 'loading';
-    };
-    
-    this.state.reader.onload = this.handleOnLoad;
-
-    this.state.reader.readAsDataURL(files[0]);
-    /********* PRUEBA DE ENVIO DE ARCHIVO ******* */
-  } 
-
-  handleDragOver(evt) {
-  evt.stopPropagation();
-  evt.preventDefault();
-  evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
   }
 
   shouldComponentUpdate(nextState,nextProps){
@@ -128,46 +44,22 @@ class StepTwoSendPropuesta extends React.Component {
     return false;
   }
 
-
-/** ARCHIVO */
-  getData(){
-    console.log("Conec");
-  }
   componentWillMount(){
     console.log("StepTwoSendProp props");
     console.log(this.props);
-
-
   }
   componentWillMount(){
-    
+  }
+  onSuccesLoad(archivo){
+
   }
   componentDidMount(){
-    this.getData();
-    var dropZone = document.getElementById('drop_zone');
-    dropZone.addEventListener('dragover', this.handleDragOver, false);
-    dropZone.addEventListener('drop', this.handleFileSelect, false);
-    
-    this.state.progress = document.querySelector('.percent');
-
   }
   DateFormat(date,json,tag){
     let aux=date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
     json[tag]=aux
   }
-  handleAddCategorie=() =>{
-    /*
-    var output = [];
-    
-    output.push('<li><strong>', document.getElementById('id_selectCategory').value ,'</li>');
-    console.log('Pruebas handleAddCategorie:');
-    //categorias.concat(document.getElementById('id_selectCategory').value);
-    this.props.multiHandle({to:'categorias',value:document.getElementById('id_selectCategory').value});
-    //console.log(document.getElementById('id_selectCategory'));
-    //console.log(document.getElementById('id_selectCategory').value);
-    document.getElementById('CategorieList').innerHTML =  output.join('') ;
-  */
-  }
+  
   defaultMutableHandle(e){
     this.props.multiHandle({to:e.target.name,value:e.target.value});
   }
@@ -254,7 +146,18 @@ class StepTwoSendPropuesta extends React.Component {
     ]
     const inputArchivo=[
       {
-
+        label:"Titulo",
+        category:'textArea',
+        name:'titulo',
+        placeholder:'Titulo', 
+        id:"id_Titulo",           
+        onChange:this.defaultMutableHandle,
+        value:this.props.titulo,
+      },
+      {
+        id:"drop_zone",
+        category:'JUpload',
+        onChange: this.handleOnLoad,
       }
 
     ]
@@ -271,54 +174,16 @@ class StepTwoSendPropuesta extends React.Component {
           arrayOfInputData={inputCategorias}
           cardHeadingText = "Escoge tus Categorias"
         />
-
-        <div class="panel-group mx-auto" style={{width: "600px"}}>
-          
-
-          <br></br>
-          <div class="panel panel-default" >
-            <div class="panel-heading"><h1>Sube tu archivo</h1></div>
-            <div class="panel-body">
-
-            </div>
-          </div>
-
-          <br></br>
-          <div class="panel panel-default" >
-            <div class="panel-heading"><h1>Archivo</h1></div>
-            <div class="panel-body">
-              <div class="form-group col-md-12"style={{paddingLeft:0}}>
-              <label>Subir propuesta. El archivo debe estar en formato PDF (extension PDF)</label>
-              <div class="custom-file" >
-
-                <input type="file" class="custom-file-input" id="inputGroupFile01"
-                  aria-describedby="inputGroupFileAddon01"/>
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                <br/>
-
-
-
-                <div class="panel panel-default" >
-                  <div className="containerDZ">
-                    <div id="drop_zone">Arrastra tus archivos aqui :)</div>
-                      <button type="button" class="btn btn-success" 
-                              style={{width:"126px"}} onclick="abortRead();">
-                                Cancel subida de archivo
-                      </button>
-                    <div id="progress_bar"><div class="percent">0%</div></div>
-                  </div>
-                  
-                  <output id="list"></output>
-                </div>
-
-
-              </div>
-              
-              </div>
-            </div>
-          </div>
-          <br></br>
-        </div>      
+        <JCardForm
+          arrayOfInputData={inputCategorias}
+          cardHeadingText = "Escoge tus Categorias"
+        />
+        
+        <JCardForm
+          arrayOfInputData={inputArchivo}
+          cardHeadingText = "Sube tu archivo :) "
+        />
+    
       </div>
     )
   }
