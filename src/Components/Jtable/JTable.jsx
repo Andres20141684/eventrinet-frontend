@@ -59,7 +59,7 @@ class JTable  extends Component {
   
      render() {
          return (
-           <div class="panel panel mypanel" >
+           <div class="panel panel mypanel" style={{height: "100px"}, {overflow: "auto"}}>
               {this.topHead()}
               <div  class="table-responsive">
                 <table class="table  table-hover">

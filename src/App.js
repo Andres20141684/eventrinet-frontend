@@ -25,13 +25,29 @@ class App extends Component{
       xd: null,
       pathGottenbyDunkUser:""
     }
-    
+    this.getDataUser=this.getDataUser.bind(this);
     
   }
-  
+  getDataUser(){
+    console.log("App will get DataUser: ***");
+    let retrievedObject = sessionStorage.getItem('dataUser');
+    let retrievedJson = JSON.parse(retrievedObject);      
+    console.log("retrievedJson",retrievedJson)
+    try{
+      this.state.initialComponentProps.idUser=retrievedJson.infoUsuario.idUsuario;
+      this.setState({idUser:retrievedJson.infoUsuario.idUsuario });
+    }catch(e){
+      console.error(e);
+      console.error("no se encontro nada en el sessionStorage");
+      this.setState({idUser: 0 });
+      
+
+    }
+  }
 
   componentWillMount(){
-    console.log("AppWillMount");
+    console.log("AppWillMount", this.props);
+    this.getDataUser();
   } 
 
   render() {

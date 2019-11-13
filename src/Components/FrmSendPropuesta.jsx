@@ -152,8 +152,8 @@ class FrmSendPropuesta extends React.Component {
                           + "&" +this.state.academicLevel,
               categorias: this.state.categorias,
               RptaCamposPers: [
-                { respuesta:"Kameeeeeee Hameeeeee" },
-                { respuesta:"HAAAAAAAAAAAAAAAAA!!!" }
+                {idCampopersonalizado:1, respuesta:"Kameeeeeee Hameeeeee" },
+                {idCampopersonalizado:2, respuesta:"HAAAAAAAAAAAAAAAAA!!!" }
               ],
               
           },

@@ -11,7 +11,7 @@ class JCardForm extends Component {
         const _inputs= [];
         this.props.arrayOfInputData.forEach(inputData => {
             {console.log("inputData",inputData)}
-        if (inputData.category == 'textArea') {
+        if (inputData.category === 'textArea') {
             _inputs.push(
                 <Row >
                     <div class="form-group col-md-12">
@@ -29,7 +29,7 @@ class JCardForm extends Component {
                 </Row>
             );    
         } 
-        if(inputData.category == 'comboBox'){
+        if(inputData.category === 'comboBox'){
             _inputs.push(
             <Row>
               <div class="form-group col-md-12">
@@ -46,7 +46,7 @@ class JCardForm extends Component {
               </Row>
               ); 
         }
-        if(inputData.category == 'Jtable'){
+        if(inputData.category === 'Jtable'){
             {console.log("agregue una tabla")}
             _inputs.push(
             <Row>
@@ -59,7 +59,7 @@ class JCardForm extends Component {
               </Row>
               ); 
         }
-        if(inputData.category == 'textBox'){
+        if(inputData.category === 'textBox'){
             _inputs.push(
             <Row>
               <div class="form-group col-md-12">
@@ -87,7 +87,7 @@ class JCardForm extends Component {
                     <div class="panel-heading">
                         <h1>
                             {this.props.cardHeadingText}
-                            <a style={{marginRight:10,marginBottom:10,float:"right"}}/>  
+                            <a href='' style={{marginRight:10,marginBottom:10,float:"right"}}></a>  
                         </h1>
                     </div>
 

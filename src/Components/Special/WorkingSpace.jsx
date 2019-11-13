@@ -14,15 +14,16 @@ class WorkingSpace extends Component{
 
     super(props);
     this.state = {
+        idUser : -1,
         bannTop : BannerTop,
-        /*new base de navegacion inherente del working space*/
+        /*new: base de navegacion inherente del working space*/
         historyNavegation: [],
         lastChildComponent:null,
-        /* fin */
+        /* fin -> aun no conectado pero ya casi*/
         nextChildComponent: null,
-        nextChildComponentProps:{}
+        nextChildComponentProps:{ idUser:0}
     }
-
+    this.getDataUser=this.getDataUser.bind(this);
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
   }
@@ -39,7 +40,9 @@ class WorkingSpace extends Component{
     setfutureProps(){
         /**los props del sgt componente ADIOS PAGINAS XD */
     }
-    
+    getDataUser(){
+      
+    }
     componentWillMount(){
       window.scrollTo(0, 0);
       this.state.nextChildComponentProps = this.props.nextComponentProps;
@@ -67,9 +70,12 @@ class WorkingSpace extends Component{
           sessionStorage.setItem("currentProps",null);
         }
         sessionStorage.setItem("currentPage",null);
+        /** esto es porque ya use los props y page que estaban en memoria */
       }else{
         console.log("page to redirect ","NULLLLLL");
       }
+      this.getDataUser();
+      
       console.log("WSWillMount");
       console.log("WSWillMount -> props: ",this.state.nextChildComponentProps);
       console.log("WSWillMount -> comp : ",this.state.nextChildComponent);
