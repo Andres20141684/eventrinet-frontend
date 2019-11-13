@@ -22,7 +22,7 @@ export default function ChipsLista(props) {
   var chipData=props.lista
   const handleDelete = chipToDelete => () => {
     //setChipData(chips => chips.filter(chip => chip.id !== chipToDelete.id));
-    chipData=chipData.filter(chip => chip.id !== chipToDelete.id)
+    chipData=chipData.filter(chip => chip.idUsuario !== chipToDelete.idUsuario)
     console.log("En lista de chips:", chipData,'En la lista padre',props.lista,'Con index:',props.index)
     props.handleChangeArray(chipData,props.index)
   };
@@ -33,7 +33,7 @@ export default function ChipsLista(props) {
         return (
           <Chip
             style={{fontSize:'20px'}}
-            key={data.id}
+            key={data.idUsuario}
             label={data.nombre}
             onDelete={handleDelete(data)}
             className={classes.chip}
