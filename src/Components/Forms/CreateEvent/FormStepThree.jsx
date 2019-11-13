@@ -97,7 +97,8 @@ class FormStepThree extends Component{
                 </Row>
                 </div>
                 </div> 
-                
+                {this.props.index===0?null
+                :
                 <div>                  
                     <div>
                         <h3>Evaluacion</h3>
@@ -165,7 +166,8 @@ class FormStepThree extends Component{
                             </div>
                             </div> 
                     </div>
-                </div>           
+                </div>     
+                }     
 
                 <h3>Campos personalizados</h3>
                 <div class="panel panel-default">
