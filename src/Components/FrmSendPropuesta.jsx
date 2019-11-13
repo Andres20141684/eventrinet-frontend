@@ -330,7 +330,7 @@ class FrmSendPropuesta extends React.Component {
         console.log("rendering frmSendPropuesta");
         return (
            <div  style={styles.frmCreateEvent}>
-             <h1>Registro de Propuesta para el _Evento_</h1>
+             <h1>Registro de propuesta para el _Evento_</h1>
                 <div style={{alignItems: "center"}}
                       class=" mx-auto" style={{width:"700px"}}
                 >

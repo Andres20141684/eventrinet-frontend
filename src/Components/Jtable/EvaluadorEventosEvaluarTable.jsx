@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
-import ActionButton from './ActionButton';
+import ActionButtonFASE from './ActionButtonFASE';
+import EvaluadorEvaluarPropuestas from './../../Pages/EvaluadorEvaluarPropuestas';
+
 //import NewEventPage from './../../Pages/NewEventPage' //aca debería estar el modificar fases, pero ni en back hay :'v
 const Networking = require('./../../Network/Networking.js') ;
+
+
 
 
 class EvaluadorEventosPrefTable  extends Component {
@@ -17,7 +21,9 @@ class EvaluadorEventosPrefTable  extends Component {
          datos_tabla: {
             Eventos_Evaluador:[
                            ]
-         }
+         },
+         idFase : 0,
+         nomb_fase : ""
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -30,18 +36,7 @@ class EvaluadorEventosPrefTable  extends Component {
     handleNextChildComponentChangeProps(_nextChildComponentProps){
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
-    handleClickRegistrarPref = () => {
-      console.log('redireccionando a ... FakeNewIni evento');
-      this.handleNextChildComponentChangeProps({  
-         idOrganizador_nextProps: this.state.idUser_recived,
-         id_evento_nextProps: 0, //para q se actualice el evento no?
-         nomb_evento: "none"
-         
-      });
-      
-      //this.handleNextChildComponentChange(NewEventPage);
-    }
-   
+
    componentWillMount(){
       
       
@@ -67,43 +62,75 @@ class EvaluadorEventosPrefTable  extends Component {
       if(this.state.datos_tabla != nextState.datos_tabla){
          return true;
       }
+      if (this.state.nomb_fase != nextState.nomb_fase){//no hace nada :V
+         console.log("COMPONENT UPDATE: nomb fase: ", this.state.nomb_fase. nextState.nomb_fase)
+         return true;
+      }
       return false;
    }
-  
-  
-      handleClick2 = () => {
-         console.log('redireccionando a ... update evento');
-         sessionStorage.setItem('nextProp',
-              JSON.stringify(
-                             {   idOrganizador_nextProps: this.state.idUser_recived,
-                                id_evento_nextProps: 0,
-                                nomb_evento: "none"
-                                
-                             }
-                          ))
-         //window.location.replace("./");
-      }
 
+   evaluarEvaluador = () =>{
+      this.props.onNextChildComponentChange(EvaluadorEvaluarPropuestas);
+   }
  
    
    tableData() {
+
       //this.setState.idUser_recived=this.props.idUser_recived;
 
         return this.state.datos_tabla.Eventos_Evaluador.map((element, index) => {
          
          const {faseActual, fasesTotales, fechaLimite, idEvento,nombre} = element
+
+         Networking.faseActual(idEvento).then((value) => {
+            console.log(value);
+        
+            if(value == null){
+                console.log('no hay algo aun');
+                
+            }else {
+                console.log('si hay algo: A ACTUALIZAR EL ESTADO');
+                console.log("nombre_fase:############################ ",value.Fase.nombre);
+                console.log("else LE CAMBIE EL ID FASE?", this.state.idFase);
+                this.state.nomb_fase = value.Fase.nombre;
+                this.state.idFase = value.Fase.idFase;
+                console.log("else LE CAMBIE EL ID FASE?", this.state.idFase);
+                
+
+            }
+            //console.log("else LE CAMBIE EL ID FASE?", this.state.idFase);
+            
+            });
+            
+            
+
          return (
          <tr >
                <td >{nombre}</td>
                <td align="left">{faseActual}/{fasesTotales}</td>
                <td >{fechaLimite}</td>
-               
+
                <td align="center">
-                  <ActionButton id_evento={idEvento} button_class ="fa fa-plus" redirect_to="/"/>
+                  <ActionButtonFASE 
+                  button_class ="fa fa-plus" 
+                  id_evento={idEvento} 
+                  nomb_evento ={nombre} //nombre
+                  idUser_recived={this.state.idUser_recived} 
+                  ///*este es el prop del sig comp*/idFase = {this.state.idFase}//{id_fase} //los estoy mandando vacíos
+                  /*este se va a settear*/nomb_fase = {this.state.nomb_fase}//{nombre_fase}//AQUI SE SETTEAN LOS PROPS PARA EL SIG COMPONENTE
+
+                  onNextChildComponentChange={this.evaluarEvaluador}
+                  onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+
+                  button_class ="fa fa-plus"
+                  />
                </td> 
          </tr>
          )
-      })
+      }
+      )
+
+      
     }
   
   

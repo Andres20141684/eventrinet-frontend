@@ -280,10 +280,14 @@ class StepTwoSendPropuesta extends React.Component {
             <div class="panel-heading"><h1>Sube tu archivo</h1></div>
             <div class="panel-body">
 
+            </div>
+          </div>
 
+          <br></br>
+          <div class="panel panel-default" >
+            <div class="panel-heading"><h1>Archivo</h1></div>
+            <div class="panel-body">
               <div class="form-group col-md-12"style={{paddingLeft:0}}>
-
-
               <label>Subir propuesta. El archivo debe estar en formato PDF (extension PDF)</label>
               <div class="custom-file" >
 

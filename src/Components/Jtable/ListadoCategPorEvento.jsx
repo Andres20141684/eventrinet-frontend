@@ -54,7 +54,11 @@ class ListadoCategPorEvento extends Component {
 
 
   Networking.listar_categoriasPorEvento(this.props.idEvento).then((value) => {
-    console.log(value);
+    if(value == null){
+      console.log('no hay algo aun');
+      
+    }else {
+      console.log(value);
     console.log("antes? :",OPTIONS);
     OPTIONS = value.Categorias.map( (e) =>e.idCategoria);
     console.log("dsps? :",OPTIONS);
@@ -64,10 +68,6 @@ class ListadoCategPorEvento extends Component {
     this.setState({checkboxes:jason});
     //LINEAS SUPER IMPORTANTES />
     //this.selectAllCheckboxes(false);
-    if(value == null){
-      console.log('no hay algo aun');
-      
-    }else {
       console.log('si hay algo: A ACTUALIZAR EL ESTADO');
       this.setState({datos_tabla:value});
       console.log("obviamente no lo va a actualizr :V ",this.state.datos_tabla.Categorias.map( (e) => e.descripcion));
@@ -77,34 +77,34 @@ class ListadoCategPorEvento extends Component {
   });
 
   Networking.ListarPrefXCateg(this.props.idEvento, retrievedJson.infoUsuario.idUsuario).then((value) => {
-    console.log("INazuma eleven <3",value.PreferenciasXCategoria.length ==0);
-    if(value.PreferenciasXCategoria.length == 0){
-      console.log('No tenía preferencias');
+    //console.log("INazuma eleven <3",value.PreferenciasXCategoria.length ==0);
+    if (value == null){
 
-      /* 
-      CODIGO
-      o nel :V
-      */
-
+    }
+    else{
+      if(value.PreferenciasXCategoria.length == 0){
+        console.log('No tenía preferencias');
+      }
+      else {
+        console.log('Tenia preferencias... ahora debo pintarlas en front');
+        this.state.PreferenciasXCategoria = value.PreferenciasXCategoria;
+        console.log("obviamente no lo va a actualizr :V ",this.state.PreferenciasXCategoria , value.PreferenciasXCategoria);
+        console.log("state.checkboxes",this.state.checkboxes);
+        //testo!!
+        //this.state.checkboxes[1] = true;
+        console.log("state.checkboxes antes",this.state.checkboxes);
+        for (var i=0; i<this.state.PreferenciasXCategoria.length; i++ ) {
+          //console.log("for i in ",this.state.PreferenciasXCategoria[i]);
+          let keys = this.state.PreferenciasXCategoria[i];
+          this.state.checkboxes[keys] = true;
+      }
+      console.log("state.checkboxes dsps",this.state.checkboxes);
+      this.setState({checkboxes:this.state.checkboxes});
+        //OPTIONS = this.state.datos_tabla.Categorias.map( (e) => e.descripcion);
+      }
       
     }
-    else {
-      console.log('Tenia preferencias... ahora debo pintarlas en front');
-      this.state.PreferenciasXCategoria = value.PreferenciasXCategoria;
-      console.log("obviamente no lo va a actualizr :V ",this.state.PreferenciasXCategoria , value.PreferenciasXCategoria);
-      console.log("state.checkboxes",this.state.checkboxes);
-      //testo!!
-      //this.state.checkboxes[1] = true;
-      console.log("state.checkboxes antes",this.state.checkboxes);
-      for (var i=0; i<this.state.PreferenciasXCategoria.length; i++ ) {
-        //console.log("for i in ",this.state.PreferenciasXCategoria[i]);
-        let keys = this.state.PreferenciasXCategoria[i];
-        this.state.checkboxes[keys] = true;
-    }
-    console.log("state.checkboxes dsps",this.state.checkboxes);
-    this.setState({checkboxes:this.state.checkboxes});
-      //OPTIONS = this.state.datos_tabla.Categorias.map( (e) => e.descripcion);
-    }
+    
     
   });
 
