@@ -75,7 +75,10 @@ export default function HorizontalLabelPositionBelowStepper(props) {
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map(label => (
           <Step key={label}>
-            <StepLabel classes={{iconContainer:classes.iconContainer,alternativeLabel: classes.alternativeLabel}}>{label}</StepLabel>
+            <StepLabel 
+            classes={{
+              iconContainer:classes.iconContainer,
+            alternativeLabel: classes.alternativeLabel}}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>

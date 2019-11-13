@@ -44,7 +44,7 @@ class PropoMyProposals extends Component{
             datos_tabla1:  null,
             datos_tabla2: null,
             msg: "Not Connected",
-            idOrganizador: 1
+            idUsuario: 13
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -59,6 +59,8 @@ class PropoMyProposals extends Component{
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
    componentWillMount(){
+
+   
     var activeEvents = //state is by default an object
          [
             { evento: 'Evento del mundo mundial', 
@@ -94,6 +96,12 @@ class PropoMyProposals extends Component{
         datos_tabla2: recordEvents
      }); 
    }
+   componentDidMount(){
+    var idUser = sessionStorage.getItem('dataUser');
+    let retrievedJson = JSON.parse(idUser);  
+    this.setState({idProposer:retrievedJson.infoUsuario.idUser});
+    console.log("ProposerPanel-> IdUser: ", this.state.idUsuario);
+   }
     render(){
         
         return(
@@ -111,6 +119,7 @@ class PropoMyProposals extends Component{
                                 
                                 <br/>
                                 <this.state.formActives 
+                                    idUsuario={this.state.idUsuario}
                                     data={this.state.datos_tabla1} 
                                     onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                     onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}

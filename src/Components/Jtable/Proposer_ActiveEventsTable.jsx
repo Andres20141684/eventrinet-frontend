@@ -4,6 +4,8 @@ import '../../styles/style_sheets.css'
 import $ from 'jquery';
 import {Link}  from "react-router-dom";
 import { NetworkMutation_JAchievingData } from '../../Network/Networking';
+import JTable from './JTable';
+import JActionButton from '../Special/JActionButton';
 
 
 class Proposer_ActiveEventsTable  extends Component {
@@ -21,6 +23,7 @@ class Proposer_ActiveEventsTable  extends Component {
       console.log("Holiboni",this.props);
    }
    
+
    handleClick = () => {
       console.log('this is:', this);
    }
@@ -31,17 +34,13 @@ class Proposer_ActiveEventsTable  extends Component {
    }
    componentDidMount(){
       /** existirá el servicio de obtener los eventos y adentro las categorias con mi Id */
-      var idUser = sessionStorage.getItem('dataUser');
-      let retrievedJson = JSON.parse(idUser);  
-      this.setState({idProposer:retrievedJson.infoUsuario.idUser});
-      console.log("ProposerPanel-> IdUser: ", this.state.idProposer);
+      
       NetworkMutation_JAchievingData(
          {
-           methodPath: 'propuesta/listarPropuestasXEvento',
+           methodPath: 'postulante/listarEventosActivosConPropuestas',
            JsonToBack:{
-               idEvento: 252
+               idUsuario: this.props.idUsuario
            },
-     
          }
        ).then((value) => {
          console.log(value);
@@ -49,10 +48,11 @@ class Proposer_ActiveEventsTable  extends Component {
            console.error('FALLO FATAL, modo hardcode activado');
          }else {
             console.log('si hay algo:');
+            console.log("ProposerPanel: ", value);
          }
-         
       });
    }
+   handleEditButton(){}
    renderProposals(listProp) {
 
       /* el Link se va al detalle de propuesta */
@@ -65,6 +65,12 @@ class Proposer_ActiveEventsTable  extends Component {
                <td> {estado} </td>
                <td> {fechaLim} </td>
                <td>
+                  <JActionButton
+                  onClick = {()=>this.handleEditButton(
+                                 
+                              )}
+                  button_class ="fa fa-edit"
+                  />
                   <Link  
                   to="#"><i 
                   class="fa fa-plus-circle"/></Link>
@@ -113,7 +119,17 @@ class Proposer_ActiveEventsTable  extends Component {
                            <tbody>{this.renderProposals(listProp)}</tbody>
                         </table>
                         </div>                        
-                     
+                        <JTable
+                        
+                           body ={()=>this.renderProposals(listProp)}
+                           headers={()=>(<tr >
+                                    <th align= "left" scope="col">Nombre de la propuesta</th>
+                                    <th scope="col">N° Fases Comp. </th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Fecha límite</th>
+                                    <th align="right" scope="col">Detalle</th>
+                           </tr>)}
+                        />
                      </div>
                   </div>
                </div>

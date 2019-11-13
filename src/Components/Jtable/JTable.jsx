@@ -18,7 +18,9 @@ class JTable  extends Component {
 
     }
     
-   
+   componentDidMount(){
+      
+   }
    componentWillMount(){
    }
    shouldComponentUpdate(nextProps, nextState){
@@ -30,18 +32,35 @@ class JTable  extends Component {
      }
       return false;
    }
-  
+   topHead(){
+      try{
+         return this.props.head();
+      }catch{
+         return  (<div></div>);
+      }
+   }
    tableData() {
-        return this.props.body();
+      try{
+         return this.props.body();
+      }catch{
+         return  (<div></div>);
+      }
+        
     }
    renderHeaders(){
-        return this.props.headers();
+      try{
+         return this.props.headers();
+      }catch{
+         return  (<div></div>);
+      }
+        
 
    }
   
      render() {
          return (
            <div class="panel panel mypanel" >
+              {this.topHead()}
               <div  class="table-responsive">
                 <table class="table  table-hover">
                     <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>

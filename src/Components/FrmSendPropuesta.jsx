@@ -12,7 +12,8 @@ import Jloading from './Special/Jloading';
 import PropoMyProposals from '../Pages/ProposerMyProposals';
 const Networking = require('./../../src/Network/Networking') ;
 
-const useStyles = makeStyles(theme => ({
+const classes =makeStyles(theme => ({
+
   root: {
     width: '90%',
   },
@@ -23,7 +24,14 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  iconContainer: {
+    transform: 'scale(2)',
+  },
+  alternativeLabel:{
+    fontSize:'21px'
+  }
 }));
+
 
 class FrmSendPropuesta extends React.Component {
     constructor(){
@@ -163,7 +171,7 @@ class FrmSendPropuesta extends React.Component {
         }
      });
      this.setState({modal:0});
-      
+     window.scrollTo(0, 0);
       
     }
 /**************************************** */
@@ -318,6 +326,7 @@ class FrmSendPropuesta extends React.Component {
       );
     }
     render() {
+      
         console.log("rendering frmSendPropuesta");
         return (
            <div  style={styles.frmCreateEvent}>
@@ -329,7 +338,12 @@ class FrmSendPropuesta extends React.Component {
                     activeStep={this.state.currentstep} alternativeLabel>
                     {this.state.steps.map(label => (
                         <Step key={label}>
-                          <StepLabel>{label}</StepLabel>
+                          <StepLabel 
+            classes={{
+              iconContainer:classes.iconContainer,
+            alternativeLabel: classes.alternativeLabel}}>
+              {label}</StepLabel>
+          
                         </Step>
                   ))}
                 </Stepper>

@@ -41,7 +41,7 @@ class WorkingSpace extends Component{
     }
     
     componentWillMount(){
-      
+      window.scrollTo(0, 0);
       this.state.nextChildComponentProps = this.props.nextComponentProps;
       this.state.nextChildComponent= this.props.nextComponent;
       console.log("WSWillMount ***");

@@ -252,6 +252,12 @@ class StepTwoSendPropuesta extends React.Component {
         body:this.renderBody
       }
     ]
+    const inputArchivo=[
+      {
+
+      }
+
+    ]
     return (
       <div>
         <h1>Ingresa los detalles de la propuesta y sube un archivo</h1>
@@ -268,43 +274,32 @@ class StepTwoSendPropuesta extends React.Component {
 
         <div class="panel-group mx-auto" style={{width: "600px"}}>
           
-          
-          <br></br>
-
-
-
-
-          <div class="panel panel-default">
-            <div class="panel-heading"><h1>Categorías</h1></div>
-            <div class="panel-body">
-
-            
-
-
-
-
-            </div>
-          </div>
-
-
-
 
           <br></br>
           <div class="panel panel-default" >
-            <div class="panel-heading"><h1>Archivo</h1></div>
+            <div class="panel-heading"><h1>Sube tu archivo</h1></div>
             <div class="panel-body">
+
+
               <div class="form-group col-md-12"style={{paddingLeft:0}}>
+
+
               <label>Subir propuesta. El archivo debe estar en formato PDF (extension PDF)</label>
               <div class="custom-file" >
+
                 <input type="file" class="custom-file-input" id="inputGroupFile01"
                   aria-describedby="inputGroupFileAddon01"/>
                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                 <br/>
 
+
+
                 <div class="panel panel-default" >
                   <div id="drop_zone">Arrastra tus archivos aqui :)</div>
                   <button type="button" class="btn btn-success" style={{width:"126px"}} onclick="abortRead();">Cancel read</button>
                   <div id="progress_bar"><div class="percent">0%</div></div>
+                  
+                  
                   <output id="list"></output>
                 </div>
 

@@ -4,6 +4,7 @@ import '../../styles/style_sheets.css'
 import { is } from '@babel/types';
 import ActionButton from './ActionButton';
 import NewEventPage from './../../Pages/NewEventPage'
+import JActionButton from '../Special/JActionButton';
 const Networking = require('./../../Network/Networking.js') ;
 
 
@@ -51,7 +52,17 @@ class Organizador_ActiveEventsTable  extends Component {
       console.log('redireccionando a ... NewEventPage evento');
       this.handleNextChildComponentChange(NewEventPage);
     }
-   
+
+   handleEditButton =(idO,idE,nom)=>{
+      let dataFlow = {   
+         idOrganizador_nextProps: idO,
+         id_evento_nextProps: idE,
+         nomb_evento: nom
+         
+      }
+      this.handleNextChildComponentChangeProps(dataFlow);
+      this.handleNextChildComponentChange(NewEventPage);
+   }
    componentWillMount(){
       
       
@@ -99,53 +110,41 @@ class Organizador_ActiveEventsTable  extends Component {
    tableData() {
       //this.setState.idUser_recived=this.props.idUser_recived;
 
-        return this.state.datos_tabla.Eventos.map((element, index) => {
+        return this.state.datos_tabla.Eventos.map((evento, index) => {
          
          const {idEvento, nombre,descripcion,fechaIni,
             fechaFin,lugar,precios,numFases,estado,
             preferencia,tieneCameraRdy,programaCompletado,
-            fechaMaxPref,numeroPropuestas} = element
+            fechaMaxPref,numeroPropuestas} = evento
          return (
          <tr >
-               <td >{nombre}</td>
+               <td >{index+1} &nbsp;&nbsp; {nombre}</td>
                <td >{estado}</td>
                <td >{fechaIni}</td>
                <td >{fechaFin}</td>
 
                <td>
-                  <ActionButton 
-                        id_evento={idEvento} 
-                        nomb_evento ={nombre} 
-                        idUser_recived={this.state.idUser_recived} 
-                        button_class ="fa fa-edit" 
-                        onNextChildComponentChange={()=>this.handleClickCrearActualizar( 
-                           this.state.idUser_recived, element.idEvento,  element.nombre)}
-                        onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                        redirect_to="/"
+                  <JActionButton
+                     onClick = {()=>this.handleEditButton(this.state.idUser_recived,
+                                                               evento.idEvento,
+                                                               evento.nombre)}
+                     button_class ="fa fa-edit" 
                   />
                </td> 
 
                <td>
-                  <ActionButton 
-                     id_evento={idEvento} 
-                     nomb_evento ={nombre} 
-                     idUser_recived={this.state.idUser_recived} 
+               <JActionButton
+                     onClick = {()=>this.handleRedirectClick(this.state.idUser_recived,
+                                                               evento.idEvento)}
                      button_class ="fa fa-play" 
-                     onNextChildComponentChange={this.props.onNextChildComponentChange}
-                     onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                     redirect_to="/"
                   />
                </td> 
 
                <td>
-                  <ActionButton
-                     id_evento={idEvento} 
-                     nomb_evento ={nombre} 
-                     idUser_recived={this.state.idUser_recived} 
+                  <JActionButton
+                     onClick = {()=>this.handleRedirectClick(this.state.idUser_recived,
+                                                               evento.idEvento)}
                      button_class ="fa fa-times" 
-                     onNextChildComponentChange={this.props.onNextChildComponentChange}
-                     onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                     redirect_to="/"
                   />
                </td> 
          </tr>
@@ -153,13 +152,22 @@ class Organizador_ActiveEventsTable  extends Component {
       })
     }
   
-  
+    renderHeaders(){
+       return(
+         <tr >
+            <th align= "left" scope="col">Lista de eventos</th>
+            <th scope="col">Estado actual</th>
+            <th scope="col">Fecha Inicio </th>
+            <th scope="col">Fecha Fin </th>
+            <th scope="col">Editar</th>
+            <th scope="col">Publicar evento</th>
+            <th scope="col">Cancelar</th>
+         </tr>
+       );
+    }
      render() {
-      //console.log(this.state.datos_tabla.Eventos.length);
-      //superWait(this.state.datos_tabla.Eventos);
-        //this.state = this.props.data
-        //console.log('this.props.data:', this.props.data);
-        console.log('RENDER DE MRD! se loqueo');
+      
+      
          return (
             
            <div class="panel panel mypanel" >
@@ -175,15 +183,7 @@ class Organizador_ActiveEventsTable  extends Component {
               <div  class="table-responsive">
               <table class="table  table-hover">
                <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
-                  <tr >
-                     <th align= "left" scope="col">Lista de eventos</th>
-                     <th scope="col">Estado actual</th>
-                     <th scope="col">Fecha Inicio </th>
-                     <th scope="col">Fecha Fin </th>
-                     <th scope="col">Editar</th>
-                     <th scope="col">Publicar evento</th>
-                     <th scope="col">Cancelar</th>
-                  </tr>
+               {this.renderHeaders()}
                </thead>
               <tbody>{this.tableData()}</tbody>
               </table>
