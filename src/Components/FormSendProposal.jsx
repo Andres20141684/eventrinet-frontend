@@ -6,7 +6,6 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import StepOneSendProp from './StepOneSendProp';
 import StepTwoSendProp from './StepTwoSendProp'
-import NewIni from './General/NewIni';
 import './../styles/modal.css';
 import PropoMyProposals from '../Pages/ProposerMyProposals';
 //import ModalDialog from './CreateEvent/ModalDialog'
@@ -81,7 +80,7 @@ export default function FormSendProposal(props) {
       </Stepper>
       <div style={{alignItems: "center"}}>
       <div class=" mx-auto" style={{width:"700px"}}>
-        {activeStep == steps.length - 1 ? (
+        {activeStep === steps.length - 1 ? (
           <div>
             <Typography className={classes.instructions}>{
               getStepContent(activeStep,props)}</Typography>
@@ -150,7 +149,7 @@ var styles = {
 }
 window.onclick = function(event) {
   var modal = document.getElementById("myModal");
-  if (event.target == modal) {
+  if (event.target === modal) {
     modal.style.display = "none";
   }
 }

@@ -4,17 +4,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 //import NewEventPage from './Pages/NewEventPage';
-import AnnouncementPage from './Pages/AnnouncementPage';
+//import AnnouncementPage from './Pages/AnnouncementPage';
 /**************************************/
 //import OrganActiveEvents from './Pages/OrganActiveEvents';
-import PresiCalificacionFinalPapers from './Pages/PresiCalificacionFinalPapers';
+//import PresiCalificacionFinalPapers from './Pages/PresiCalificacionFinalPapers';
 //import PresidentEvents from './Pages/PresidentEvents';
 //import EvaluadorEventos from './Pages/EvaluadorEventos';
-import Create_EventStep3 from './Pages/Create_EventStep3';
+//import Create_EventStep3 from './Pages/Create_EventStep3';
 import LoginPage from './Pages/LoginPage';
 
-import SelectedEvent from './Pages/SelectedEvent';
-import EventInscriptionPage from './Pages/EventInscriptionPage';
+//import SelectedEvent from './Pages/SelectedEvent';
+//import EventInscriptionPage from './Pages/EventInscriptionPage';
 //import ProposerMyProposals from './Pages/ProposerMyProposals';
 //import ProposerDetailProposal from './Pages/ProposerDetailProposal';
 import SignUp from './Pages/SignUp';

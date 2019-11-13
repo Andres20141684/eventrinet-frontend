@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import BannerTop from '../Components/General/bannerTop';
 import BannerBottom from '../Components/General/bannerBottom'
-
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import '../styles/style_record.css'; 
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
@@ -10,7 +12,8 @@ import './../styles/style_gig_tittle.css'
 
 import Proposer_ActiveEventsTable from '../Components/Jtable/Proposer_ActiveEventsTable';
 import Proposer_HistoryEventsTable from '../Components/Jtable/Proposer_HistoryEventsTable';
-const Networking = require('../Network/Networking.js') ;
+
+import {NetworkMutation_JAchievingData} from '../Network/Networking.js';
 
 function Botones(){
     return ( 
@@ -44,7 +47,7 @@ class PropoMyProposals extends Component{
             datos_tabla1:  null,
             datos_tabla2: null,
             msg: "Not Connected",
-            idOrganizador: 1
+            idUser: -1
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -59,40 +62,45 @@ class PropoMyProposals extends Component{
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
    componentWillMount(){
+       console.log("ProposerMyProposals",this.props);
+    //this.setState({idUser: this.props.nextChildComponentProps.idUser});
+   
     var activeEvents = //state is by default an object
          [
-            { evento: 'Evento del mundo mundial', 
-                listProp: [{prop:'Propuesta 1', fase: '2', estado: 'Enviado',fechaLim: '23/23/23'},
-                {prop:'Propuesta 2', fase: '2', estado: 'Enviado',fechaLim: '23/23/23'},
-                {prop:'Propuesta 3', fase: '2', estado: 'Pendiente de envio',fechaLim: '23/23/23'}] 
-            },
-            { evento: 'Evento de Glenko en floro', 
-                listProp: [{prop:'internet de mis cosas', fase: '2', estado: 'Enviado',fechaLim: '23/23/23'},
-                {prop:'Propuesta 2', fase: '2', estado: 'Rechazado',fechaLim: '23/23/23'},
-                ] 
-            },
-            { evento: 'Evento Graficos Monas Chinas', 
-                listProp: [{prop:'Machine Learning', fase: '2', estado: 'Pendiendte de envio',fechaLim: '23/23/23'},
-                ] 
-            }
+            
         ];
      
      var recordEvents = //state is by default an object
          [
-            { evento: 'Evento Historico 1', 
-                listProp: [{prop:'El pequeño delfin que hacia biribiri'},
-                {prop:'Cosas del internet'}]
-            },
-            { evento: 'EventSoft 2012', 
-                listProp: [{prop:'Propuesta 1'},
-                {prop:'Aladdin y su laptop'}]
-            }
+            
         ];
      
      this.setState({
         datos_tabla1: activeEvents,
         datos_tabla2: recordEvents
      }); 
+   }
+   componentDidMount(){
+        NetworkMutation_JAchievingData(
+            {
+            methodPath: 'postulante/listarEventosActivosConPropuestas',
+            JsonToBack:{
+                idUsuario: this.props.nextChildComponentProps.idUser
+            },
+            }
+        ).then((value) => {
+            console.log(value);
+            if(value == null || value.succeed==false){
+            console.error('FALLO FATAL, modo hardcode activado');
+            }else {
+            console.log('si hay algo:');
+            console.log("ProposerPanel: ", value);
+            this.setState({
+                datos_tabla1: value.Eventos
+             });
+            }
+        });
+         
    }
     render(){
         
@@ -111,6 +119,7 @@ class PropoMyProposals extends Component{
                                 
                                 <br/>
                                 <this.state.formActives 
+                                    idUser={this.state.idUser}
                                     data={this.state.datos_tabla1} 
                                     onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                     onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}

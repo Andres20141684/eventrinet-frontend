@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Row from 'react-bootstrap/Row';
 import JTable from '../Jtable/JTable';
+import JUpload from './JUpload';
 class JCardForm extends Component {
     constructor(props){
         super(props);
@@ -11,30 +12,33 @@ class JCardForm extends Component {
         const _inputs= [];
         this.props.arrayOfInputData.forEach(inputData => {
             {console.log("inputData",inputData)}
-        if (inputData.category == 'textArea') {
+        if (inputData.category === 'textArea') {
             _inputs.push(
                 <Row >
                     <div class="form-group col-md-12">
+                    <div class ="col-md-2">
                         <label >{inputData.label}</label>
-                    <input 
+                        </div>
+                        <div class ="col-md-10"><input 
                         type="text" 
                         class="form-control"
                         name={inputData.name}
                         id={inputData.id}
                         placeholder={inputData.placeholder}              
                         onChange={inputData.onChange}
+                        value={()=>inputData.value}
                         autoFocus
-                    />
+                    /></div>
                     </div>
                 </Row>
             );    
         } 
-        if(inputData.category == 'comboBox'){
+        if(inputData.category === 'comboBox'){
             _inputs.push(
             <Row>
               <div class="form-group col-md-12">
-              <label >{inputData.label}</label> 
-                <select 
+              <div class ="col-md-2"><label >{inputData.label}</label></div> 
+              <div class ="col-md-10"><select 
                         name={inputData.name}
                         class="form-control" 
                         id={inputData.id}
@@ -42,11 +46,11 @@ class JCardForm extends Component {
                   
                     {inputData.options}
                 </select>
-              </div>
+              </div></div>
               </Row>
               ); 
         }
-        if(inputData.category == 'Jtable'){
+        if(inputData.category === 'Jtable'){
             {console.log("agregue una tabla")}
             _inputs.push(
             <Row>
@@ -59,7 +63,7 @@ class JCardForm extends Component {
               </Row>
               ); 
         }
-        if(inputData.category == 'textBox'){
+        if(inputData.category === 'textBox'){
             _inputs.push(
             <Row>
               <div class="form-group col-md-12">
@@ -77,7 +81,23 @@ class JCardForm extends Component {
               </Row>
             ); 
         }
-          
+        if(inputData.category === 'JUpload'){
+            {console.log("agregue una JUpload")}
+            _inputs.push(
+            <Row>
+              <div class="form-group col-md-12">
+              <div class ="col-md-4"><label>Subir propuesta. El archivo debe 
+                  estar en formato PDF (extension PDF)</label></div>
+                  <div class ="col-md-8">
+              
+              <JUpload
+                    id={inputData.id}
+                    onSuccesLoad={inputData.onChange}
+                />
+                </div></div>
+              </Row>
+              ); 
+        }
         
         });
         
@@ -87,7 +107,7 @@ class JCardForm extends Component {
                     <div class="panel-heading">
                         <h1>
                             {this.props.cardHeadingText}
-                            <a style={{marginRight:10,marginBottom:10,float:"right"}}/>  
+                            <a href='' style={{marginRight:10,marginBottom:10,float:"right"}}></a>  
                         </h1>
                     </div>
 
