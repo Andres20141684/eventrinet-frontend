@@ -8,7 +8,7 @@ import '../../../styles/style_sheets.css';
 
 
 export default function ArrayOfChips(props) {
-  var chipData =[];
+  var chipData =[]; 
   chipData= props.lista;
   //var auxLocal=props.aux
   var aux={[props.label]:props.aux}
@@ -104,12 +104,12 @@ export default function ArrayOfChips(props) {
             disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}/>
         <div class="input-group-append">
           <button 
-            class="btn btn-outline-secondary add"
+            class="btn btn-secondary add"
             variant="primary" 
             type='email' 
             onClick={handleSelect}
             disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}
-            style={{backgroundColor:"002D3D", borderTopRightRadius:'4px', borderBottomRightRadius:'4px'}}>Agregar</button>
+            style={{backgroundColor:"002D3D", color:'white', borderTopRightRadius:'4px', borderBottomRightRadius:'4px'}}>Agregar</button>
         </div>
       </div>
       </form>
