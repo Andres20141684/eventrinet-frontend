@@ -63,7 +63,7 @@ class ListadoPropuestasAEvaluar extends Component {
       console.log('no hay algo aun');
       
     }else {
-      console.log('si hay algo: A ACTUALIZAR EL ESTADO');
+      console.log('si hay algo:L 4 you');
       this.setState({datos_tabla:value});
       console.log("TABLA: ",this.state.datos_tabla.Propuestas);
     }
@@ -103,8 +103,8 @@ class ListadoPropuestasAEvaluar extends Component {
      return (
       <tr >
     <td>{nombre}</td>
-     <td >{estado}</td>
-     <td >{ultimaModif}</td>
+     <td >{flgCalif==1?"EVALUADO":"NO EVALUADO"}</td>
+     <td >{flgCalif==1?ultimaModif:""}</td>
 
      <td align="center">
      <ActionButtonFASE 

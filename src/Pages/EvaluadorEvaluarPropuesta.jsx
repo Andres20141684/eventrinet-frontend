@@ -33,8 +33,8 @@ class EvaluadorEvaluarPropuesta extends Component{
             idPropuesta : 0,
             nomb_propuesta : "",
 
-            calificacionFinal : 1,
-            nivelExperticia : 1,
+            calificacionFinal : 0,
+            nivelExperticia : 0,
             obsPostulante : "",
             obsPresi : "",
             coevaluador : "",
@@ -84,9 +84,10 @@ class EvaluadorEvaluarPropuesta extends Component{
           console.log("TABLA criterios: ",this.state.datos_tabla);
           numCriterios = this.state.datos_tabla.Criterios.length;
           for(let i=0; i<numCriterios;i++){
-              this.state.rptasCriterios[i] = 1;
-              arreglo_aux[i]=1;
+              this.state.rptasCriterios[i] = 0;
+              arreglo_aux[i]=0;
           }
+          this.setState({rptasCriterios:arreglo_aux});
         }
         
       });
@@ -106,24 +107,25 @@ class EvaluadorEvaluarPropuesta extends Component{
 
       Networking.mostrarCalificacionXPropuesta(retrievedJson.infoUsuario.idUsuario, this.props.nextChildComponentProps.idFase,this.props.nextChildComponentProps.idPropuesta).then((value) => {
         console.log("INazuma eleven <3",value);
-        if(value/*.Evaluacion.length*/ === 0){
+        if(value.tieneCalif == 0){
           console.log('No tenía evaluacion');       
         }
         else {
           console.log('Tenia evaluacion... ahora debo pintarlas en front');
-          this.state.calificacionFinal = value/*.Evaluacion*/.calificacion;
-          this.state.nivelExperticia = value/*.Evaluacion*/.experticia;
-          this.state.obsPostulante = value/*.Evaluacion*/.obsPart;
-          this.state.obsPresi = value/*.Evaluacion*/.obsPresi;
-          this.state.coevaluador = value/*.Evaluacion*/.evalExt;
+          this.state.calificacionFinal = value.calificacion;
+          this.state.nivelExperticia = value.experticia;
+          this.state.obsPostulante = value.obsPart;
+          this.state.obsPresi = value.obsPresi;
+          this.state.coevaluador = value.evalExt;
           //falta criterios
 
-          /*for (var i=0; i<this.state.PreferenciasXCategoria.length; i++ ) {
+          for (var i=0; i<value.Criterios.length; i++ ) {
             //console.log("for i in ",this.state.PreferenciasXCategoria[i]);
-            let keys = this.state.PreferenciasXCategoria[i];
-            this.state.checkboxes[keys] = true;
-        }*/
-        //this.setState({checkboxes:this.state.checkboxes});
+            //let keys = this.state.PreferenciasXCategoria[i];
+            this.state.rptasCriterios[i] = value.Criterios[i].calificacion;
+            arreglo_aux[i]=value.Criterios[i].calificacion;
+        }
+        this.setState({rptasCriterios:arreglo_aux});
         }
         
       });
@@ -175,7 +177,7 @@ class EvaluadorEvaluarPropuesta extends Component{
       if(arreglo_aux != []){
         return true;
       }
-      return false;  
+      return true;  
     }
 
 
@@ -184,27 +186,33 @@ class EvaluadorEvaluarPropuesta extends Component{
         const {idCriterio, enunciado, idFase} = element
            return (
              <div>
-            <h1 style={{fontSize:15}}><br/>{index+1}. {enunciado}</h1>            
+            <h1 style={{fontSize:18}}><br/>{index+1}. {enunciado}</h1>
+            <div  class="table-responsive">
+        <table class="table  table-hover">
+        <tbody><tr><td>            
             <input type="radio"  //name={"radio".concat((indiceRadioB+index).toString())}
                                    value={1}
                                    checked={this.state.rptasCriterios[index] == 1} 
-                                   onChange={event => this.onRadioChange2(event, index)} />Muy malo
-            <input type="radio" // name={"radio".concat((indiceRadioB+index).toString())}
+                                   onChange={event => this.onRadioChange2(event, index)} />Muy malo</td>
+            <td><input type="radio" // name={"radio".concat((indiceRadioB+index).toString())}
                                    value={2}
                                    checked={this.state.rptasCriterios[index] == 2} 
-                                   onChange={event => this.onRadioChange2(event, index)} />Malo
-            <input type="radio"  //name={"radio".concat((indiceRadioB+index).toString())}
+                                   onChange={event => this.onRadioChange2(event, index)} />Malo</td>
+            <td><input type="radio"  //name={"radio".concat((indiceRadioB+index).toString())}
                                    value={3}
                                    checked={this.state.rptasCriterios[index] == 3} 
-                                   onChange={event => this.onRadioChange2(event, index)} />Regular
-            <input type="radio" // name={"radio".concat((indiceRadioB+index).toString())}
+                                   onChange={event => this.onRadioChange2(event, index)} />Regular</td>
+            <td><input type="radio" // name={"radio".concat((indiceRadioB+index).toString())}
                                    value={4}
                                    checked={this.state.rptasCriterios[index] == 4} 
-                                   onChange={event => this.onRadioChange2(event, index)} />Bueno
-            <input type="radio" // name={"radio".concat((indiceRadioB+index).toString())}
+                                   onChange={event => this.onRadioChange2(event, index)} />Bueno</td>
+            <td><input type="radio" // name={"radio".concat((indiceRadioB+index).toString())}
                                    value={5}
                                    checked={this.state.rptasCriterios[index] == 5} 
-                                   onChange={event => this.onRadioChange2(event, index)} />Muy bueno
+                                   onChange={event => this.onRadioChange2(event, index)} />Muy bueno</td>
+                                   </tr></tbody></table>
+        </div> 
+                                   
                                    </div>
        )
        })
@@ -212,49 +220,57 @@ class EvaluadorEvaluarPropuesta extends Component{
      ListarCalificacion(){
       return (
         <div>
-        <h1 style={{fontSize:15}}>Calificación final</h1>
+        <h1 style={{fontSize:18}}>Calificación final</h1>
+        <div  class="table-responsive">
+        <table class="table  table-hover">
+        <tbody><tr><td>
             <input type="radio" //name="radio2" 
                                    value={1}
                                    checked={this.state.calificacionFinal == 1} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Muy malo
-            <input type="radio" //name="radio2" 
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Muy malo</td>
+            <td><input type="radio" //name="radio2" 
                                    value={2}
                                    checked={this.state.calificacionFinal ==2} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Malo
-            <input type="radio" //name="radio2" 
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Malo</td>
+            <td><input type="radio" //name="radio2" 
                                    value={3}
                                    checked={this.state.calificacionFinal == 3} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Regular
-            <input type="radio" //name="radio2" 
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Regular</td>
+            <td><input type="radio" //name="radio2" 
                                    value={4}
                                    checked={this.state.calificacionFinal == 4} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Bueno
-            <input type="radio" //name="radio2" 
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Bueno</td>
+            <td><input type="radio" //name="radio2" 
                                    value={5}
                                    checked={this.state.calificacionFinal == 5} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Muy bueno
-                                 
-        <h1 style={{fontSize:15}}>Nivel de experticia</h1>  
-            <input type="radio"// name="radio3" 
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Muy bueno</td>
+                                   </tr></tbody></table>
+        </div>          
+
+        <h1 style={{fontSize:18}}>Nivel de experticia</h1>  
+        <div  class="table-responsive">
+        <table class="table  table-hover">
+        <tbody><tr><td><input type="radio" // name="radio3" 
                                    value={1}
                                    checked={this.state.nivelExperticia == 1} 
-                                   onChange={event => this.onRadioChange(event, "nivelExperticia")} />Bajo
-            <input type="radio"//name="radio3" 
+                                   onChange={event => this.onRadioChange(event, "nivelExperticia")} />Bajo</td>
+           <td><input type="radio"//name="radio3" 
                                    value={2}
                                    checked={this.state.nivelExperticia ==2} 
-                                   onChange={event => this.onRadioChange(event, "nivelExperticia")} />Medio
-            <input type="radio"// name="radio3" 
+                                   onChange={event => this.onRadioChange(event, "nivelExperticia")} />Medio</td>
+           <td> <input type="radio"// name="radio3" 
                                    value={3}
                                    checked={this.state.nivelExperticia == 3} 
-                                   onChange={event => this.onRadioChange(event, "nivelExperticia")} />Alto
-        </div>           
+                                   onChange={event => this.onRadioChange(event, "nivelExperticia")} />Alto</td>
+                                   </tr></tbody></table>
+        </div></div>           
    )
      }
      
      ListarObservaciones(){
            return (
             <div>
-            <h1 style={{fontSize:15}}>Para el Postulante:</h1>
+            <h1 style={{fontSize:18}}>Para el Postulante:</h1>
             <textarea 
                     rows='5'
                     type="text" 
@@ -264,7 +280,7 @@ class EvaluadorEvaluarPropuesta extends Component{
                     maxLength="300"       
                     />
 
-            <h1 style={{fontSize:15}}>Para el Presidente:</h1>
+            <h1 style={{fontSize:18}}>Para el Presidente:</h1>
             <textarea 
                     rows='5'
                     type="text" 
@@ -281,7 +297,7 @@ class EvaluadorEvaluarPropuesta extends Component{
      Coevaluador(){
       return (
         <div>
-        <h1 style={{fontSize:15}}>Este campo será llenado si la calificación no fue realizada por el mismo evaluador</h1> 
+        <h1 style={{fontSize:18}}>Este campo será llenado si la calificación no fue realizada por el mismo evaluador</h1> 
         <input size="40" value={this.state.coevaluador} onChange={event => this.handleChange(event,"coevaluador")}/>
         </div>         
    )
@@ -291,8 +307,8 @@ class EvaluadorEvaluarPropuesta extends Component{
         const {campoPerEnun, campoPerDesc, rpta} = element
            return (
              <div>
-           <h1 style={{fontSize:15}}>{index+1}. {campoPerEnun}</h1>     
-           <h1 style={{fontSize:15}}>Respuesta del participante: {rpta}</h1>    
+           <h1 style={{fontSize:18}}>{index+1}. {campoPerEnun}</h1>     
+           <h1 style={{fontSize:15}}>Respuesta: {rpta}</h1>    
            <br/>
            </div>    
      
