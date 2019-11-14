@@ -66,6 +66,7 @@ class ModalDialog extends Component{
         <div>
           <button style={{float:'right'}} class="mybutton" onClick={this.handleClickOpen}>Guardar</button>
           <Dialog
+            component={'span'}
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="responsive-dialog-title"
@@ -74,7 +75,7 @@ class ModalDialog extends Component{
             <div>
               {this.state.succeed===''? 
               <div>
-              <DialogContent>
+              <DialogContent component={'span'}>
                 <DialogContentText>
                   <h2>Está seguro de guardar?</h2>
                 </DialogContentText>
@@ -88,7 +89,7 @@ class ModalDialog extends Component{
               <div>
                 {this.state.succeed==='wait'?
                 <div>
-                  <DialogContent>
+                  <DialogContent component={'span'}>
                     <Fade
                       in={this.state.succeed === 'wait'}
                       style={{
