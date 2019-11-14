@@ -21,6 +21,7 @@ class EvaluadorEvaluarPropuesta extends Component{
             formActives: ListadoPropuestasAEvaluar,
             msg: "Not Connected",
             idEvaluador : 1,
+            link_propuestabase64: '#',
             nombre_evento : "Evento 1",
             idEvento : 9999,
             idFase : 12345,
@@ -178,6 +179,25 @@ class EvaluadorEvaluarPropuesta extends Component{
         return true;
       }
       return true;  
+    }
+    handleClick = () => {
+      console.log('redireccionando a ... FakeNewIni evento');
+    }
+    handleClickB = () => {
+      console.log("a-->", document.getElementById('JinSSJ'));
+      
+      Networking.getPaper2(/*this.state.idPropuesta*/59).then(
+        (response)=>{
+          //this.state.attempt=this.state.attempt+1;
+          //console.log(">>>>>>>>>>>>>>>>>> Se descargo again ,", this.state.attempt);
+          this.setState({link_propuestabase64:response.Propuesta});
+          //window.download(response.Propuesta, 'Save');
+          document.getElementById('JinSSJ').click();
+          
+        })
+        .catch( (err) =>{
+          console.log("error en conexión Propuesta");
+        })
     }
 
 
@@ -366,7 +386,8 @@ class EvaluadorEvaluarPropuesta extends Component{
           <div> 
     <div style={{marginLeft:15}}>
         <h1 style={{fontSize:35}}><br/>{this.state.nombre_evento}</h1>
-        <h3><button class="btn" style={{float:'right'}}><i class="fa fa-download"></i> Descargar propuesta</button></h3>
+        <h3><button class="btn" style={{float:'right'}} onClick={this.handleClickB} ><i class="fa fa-download"></i> Descargar propuesta</button><a id='JinSSJ' onClick={this.handleClick}
+                  className="specialButton" href={this.state.link_propuestabase64} download="file.pdf" > Paper SSJ</a></h3>
     </div>
         <div style={{marginLeft:40,marginTop:25}} ><h3>{this.state.nomb_fase}</h3></div>
         <div style={{marginLeft:40,marginTop:25}} ><h2>{this.state.nomb_propuesta}</h2></div>

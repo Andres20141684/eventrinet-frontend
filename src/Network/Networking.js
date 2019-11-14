@@ -200,6 +200,23 @@ export async function getPaper(numProp){
         return error
     }
 }
+export async function getPaper2(idPropuesta) {
+    
+    try {
+        let response = await fetch(restURL+'propuesta/devolver_paper/'+(idPropuesta.toString()) ,{
+            method:'GET',
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        
+
+          return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
 
 export async function insertNewEvent(data){
 
