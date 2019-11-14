@@ -8,7 +8,7 @@ import JTable from './JTable';
 import JActionButton from '../Special/JActionButton';
 import EventDetail from '../EventDetail';
 import Accordion from 'react-bootstrap/Accordion';
-import { Card } from '@material-ui/core';
+import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 
@@ -89,99 +89,64 @@ class Proposer_ActiveEventsTable  extends Component {
          console.log("llegue 0",evento);
          var idAccordion = "accordion"+ index
          var idIndex = "customCheck"+ index
-        var indexEvent =index
+          var indexEvent =idEvento
          return( 
-          <div>
-          <div>
-            <Card>
-              <Card.Header 
-                    className="col-md-12" 
-                    id={"heading-"+String(idAccordion)+ "-2"}
-                    key={idEvento}
-                    >
-              
-              <div className="custom-control custom-checkbox  col-md-1">
-              {idAccordion}
-                    <label class="custom-control-label" for={idIndex}/>
-                </div>
-                
-                <div className="col-md-6">
-                  <a  data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" 
-                  onClick={e => {this.showModalDetalle();}}>
-                  {nombEvento}
-                  </a>
-                </div>
-                
-                <div className="col-md-2">
-                  {"En fase"}
-                </div>
-                
-                <div className="col-md-1">
-                  <a  data-title="Edit" data-toggle="modal" data-target="#modalObs" 
-                  onClick={e => {this.showModalDetalle();}}>
-                    <JActionButton
-                     onClick = {()=>this.handleDetail(evento.idEvento,
-                                                               evento.nombre)}
-                     button_class ="fa fa-file" 
-                  />
-                  </a>
-                </div>
-                <div className="col-md-1" style={{float:'right', width:'50px'}}>
-                  <Accordion.Toggle as={Button} variant="link" eventKey={indexEvent}>
-                    <a><i class="fa fa-angle-down"/></a>
-                  </Accordion.Toggle>
-                </div>
-              </Card.Header>
-              <Accordion.Collapse eventKey={indexEvent}>
-                      <JTable
-                        body ={()=>this.renderProposals(evento)}
-                        headers={()=>(<tr >
-                                       <th align= "left" scope="col">Nombre de la propuesta</th>
-                                       <th scope="col">N° Fases Comp. </th>
-                                       <th scope="col">Estado</th>
-                                       <th scope="col">Fecha límite</th>
-                                       <th align="right" scope="col">Detalle</th>
-                                       </tr>)}
-                      />
-              </Accordion.Collapse>
-              </Card>
-          </div>
 
-               <div class="card z-depth-0 bordered">
-                  
-                  <div class="card-header" id={"heading-"+String(idAccordion)+ "-2"} key={idEvento}>
-                     <h5 class="mb-0">
-                        <button 
-                           class="btn btn-link" 
-                           type="button" 
-                           onClick = {this.handleClickMore}
-                           data-toggle="collapse" 
-                           data-target={"#collapse"+String(idAccordion)+"2"}
-                           aria-expanded="true" 
-                           aria-controls={"collapse"+String(idAccordion)+"2"}>
-                           {nombEvento} - Fase: {faseActual}/{totFases}
-                        </button>
-                     </h5>
-                  </div>
-                  
-                  <div id={"collapse"+String(idAccordion)+"2"} class="collapse" aria-labelledby={"heading-"+String(idAccordion)+ "-2"}
-                     data-parent="#accordionExample275">
-                     <div class="card-body">                
-                        <JTable
-                        
-                           body ={()=>this.renderProposals(evento)}
-                           headers={()=>(<tr >
-                                          <th align= "left" scope="col">Nombre de la propuesta</th>
-                                          <th scope="col">N° Fases Comp. </th>
-                                          <th scope="col">Estado</th>
-                                          <th scope="col">Fecha límite</th>
-                                          <th align="right" scope="col">Detalle</th>
-                                          </tr>)}
-                           
-                        />
-                     </div>
-                  </div>
-               </div></div>
+            <Card>
+            <Card.Header className="col-md-12">
+              <div className="custom-control custom-checkbox  col-md-1">
+                  <input type="checkbox" className="custom-control-input" id={idIndex} />
+                  <label class="custom-control-label" for={idIndex}/>
+              </div>
+              
+              <div className="col-md-6">
+                <a  data-title="Edit" 
+                    data-toggle="modal" 
+                    data-target="#modalDetalleProp" 
+                    onClick={e => {this.showModalDetalle();}} 
+                    style={{color:"#337ab7", cursor:'pointer'}}>
+                {nombEvento} - Fase Actual: {faseActual}/{totFases}
+                </a>
+              </div>
+              
+              <div className="col-md-2">
+                {<p>Activo</p>}
+              </div>
+              
+              <div className="col-md-1">
+                <a  data-title="Edit" data-toggle="modal" data-target="#modalObs" onClick={e => {this.showModalDetalle();}}>
+                  <JActionButton button_class ="fa fa-file" onClick={()=>{return;}}/>
+                </a>
+              </div>
+
+              <div className="col-md-1" style={{float:'right', width:'50px'}}>
+                <Accordion.Toggle as={Button} variant="link" eventKey={indexEvent}>
+                  <a><i class="fa fa-angle-down"/></a>
+                </Accordion.Toggle>
+              </div>
+              
+            </Card.Header> 
+
+
+            <Accordion.Collapse eventKey={indexEvent}>
+                                  <JTable
+                                    
+                                    body ={()=>this.renderProposals(evento)}
+                                    headers={()=>(<tr >
+                                                  <th align= "left" scope="col">Nombre de la propuesta</th>
+                                                  <th scope="col">N° Fases Comp. </th>
+                                                  <th scope="col">Estado</th>
+                                                  <th scope="col">Fecha límite</th>
+                                                  <th align="right" scope="col">Detalle</th>
+                                                  </tr>)}
+                                    
+                                />
+            </Accordion.Collapse>
+            </Card>
+          
+
+
+
             )
          })
 
@@ -207,181 +172,3 @@ class Proposer_ActiveEventsTable  extends Component {
 }
 
 export default Proposer_ActiveEventsTable 
-
-/*
-[
-   {
-     "idEvento": 1,
-     "nombEvento": "Evento de la vaca 2",
-     "faseActual": 2,
-     "totFases": 2,
-     "Propuestas": [
-       {
-         "idPropuesta": 36,
-         "nombPropuesta": "eVENTO DE PRUEBA",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 37,
-         "nombPropuesta": "eVENTO DE PRUEBA",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 38,
-         "nombPropuesta": "eVENTO DE PRUEBA",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 39,
-         "nombPropuesta": "eVENTO DE PRUEBA",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 40,
-         "nombPropuesta": "eVENTO DE PRUEBA",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 41,
-         "nombPropuesta": "Evento de JIN SAYAJIN",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 42,
-         "nombPropuesta": "Evento de JIN SAYAJIN",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       }
-     ]
-   },
-   {
-     "idEvento": 253,
-     "nombEvento": "Evento de prueba",
-     "faseActual": 2,
-     "totFases": 3,
-     "Propuestas": [
-       {
-         "idPropuesta": 44,
-         "nombPropuesta": "tyvbunj",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 45,
-         "nombPropuesta": "SSJ2",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 46,
-         "nombPropuesta": "awer",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 47,
-         "nombPropuesta": "WEF",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 48,
-         "nombPropuesta": "AEFR",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 49,
-         "nombPropuesta": "WCE",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 50,
-         "nombPropuesta": "WCE",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 51,
-         "nombPropuesta": "WCE",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 52,
-         "nombPropuesta": "WCE",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 53,
-         "nombPropuesta": "WCE",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 54,
-         "nombPropuesta": "WCE",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 55,
-         "nombPropuesta": "WCE",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 56,
-         "nombPropuesta": "WCE",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 57,
-         "nombPropuesta": "WCE",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 58,
-         "nombPropuesta": "",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 59,
-         "nombPropuesta": "avw",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 60,
-         "nombPropuesta": "AEv",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 61,
-         "nombPropuesta": "advf",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       },
-       {
-         "idPropuesta": 62,
-         "nombPropuesta": "como transformarse enSSJ",
-         "estado": "SUBIDO",
-         "fechaLim": ""
-       }
-     ]
-   }
- ]
- 
- */

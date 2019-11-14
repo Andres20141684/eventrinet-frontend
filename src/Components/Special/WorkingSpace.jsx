@@ -19,7 +19,7 @@ class WorkingSpace extends Component{
         lastChildComponent:null,
         /* fin -> aun no conectado pero ya casi*/
         nextChildComponent: null,
-        nextChildComponentProps:{ idUser:0}
+        nextChildComponentProps:{ idUser:0,Usuario:null}
     }
     this.getDataUser=this.getDataUser.bind(this);
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
@@ -34,6 +34,7 @@ class WorkingSpace extends Component{
       this.setState(
         {nextChildComponentProps: _nextChildComponentProps}
       );
+      this.state.nextChildComponentProps.Usuario = this.props.Usuario;
   }
     setfutureProps(){
         /**los props del sgt componente ADIOS PAGINAS XD */
@@ -66,7 +67,7 @@ class WorkingSpace extends Component{
         if(!(alternativeProps === null)){
 
           this.state.nextChildComponentProps=JSON.parse(alternativeProps);
-          this.state.nextChildComponentProps.idUser= this.props.idUser;
+          this.state.nextChildComponentProps.idUser= this.props.Usuario.idUser;
           sessionStorage.setItem("currentProps",null);
         }
         sessionStorage.setItem("currentPage",null);
@@ -74,28 +75,22 @@ class WorkingSpace extends Component{
       }else{
         console.log("page to redirect ","NULLLLLL");
       }
-      
+      this.state.nextChildComponentProps.Usuario= this.props.Usuario;
       
       console.log("WSWillMount");
       console.log("WSWillMount -> props: ",this.state.nextChildComponentProps);
       console.log("WSWillMount -> comp : ",this.state.nextChildComponent);
     }
     componentDidMount(){
-        /*console.log("WSDidMount")
-        let  page = sessionStorage.getItem("currentPage");
-        console.log("page to redirect ",page);
-        if (page == "InscriptionEvent"){
-            this.handleNextChildComponentChange(InscriptionEvent);
-        }
-        if (page == "SendProposal"){
-          dc
-          this.handleNextChildComponentChangeProps(this.state.nextChildComponentProps);
-          this.handleNextChildComponentChange(SendProposal);
-        }*/
+        
+
     }
 
     shouldComponentUpdate(nextProps,nextState){
         if(this.state.nextChildComponent  !== nextState.nextChildComponent){
+          console.log("hubo redireccion a",nextState.nextChildComponent);
+          this.state.nextChildComponentProps.Usuario= this.props.Usuario;
+          console.log("seteo Usuario",this.state.nextChildComponentProps.Usuario);
             return true;
         }
         return false;
@@ -110,9 +105,9 @@ class WorkingSpace extends Component{
         <div>
     <div className="App">
       <this.state.bannTop 
+      nextChildComponentProps={this.state.nextChildComponentProps}
         onNextChildComponentChange={this.handleNextChildComponentChange}
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
-        
       /> 
       <div>
       <this.state.nextChildComponent  

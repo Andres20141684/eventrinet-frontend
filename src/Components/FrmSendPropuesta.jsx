@@ -44,6 +44,10 @@ class FrmSendPropuesta extends React.Component {
         step1:StepOneSendPropuesta,
         step2:StepTwoSendPropuesta,
         Propuesta: null,
+        /****USER */
+        telefonoAuthor:"",
+        gradoInstruccion:"",
+        
         /* step 1 */
         authorName: "*",
         authorLastname: "",
@@ -60,7 +64,8 @@ class FrmSendPropuesta extends React.Component {
         data:null,// /api/camposPEnun/listarCamposPEnunXFase
         fase : 1,
 
-        CamposPers: []
+        CamposPers: [],
+        respuestasPers:[]
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -82,12 +87,48 @@ class FrmSendPropuesta extends React.Component {
     handleClickCrearActualizar = () => { 
       this.handleNextChildComponentChange("");
     }
-
+    
     componentWillMount(){
         console.log("FrmSendPropuesta:",this.props);
         let retrievedObject = sessionStorage.getItem('dataUser');
         let retrievedJson = JSON.parse(retrievedObject);  
         this.setState({myId: retrievedJson.infoUsuario.idUsuario});
+
+
+        Networking.NetworkMutation_JAchievingData(
+          {
+            methodPath: 'eventos/formularioActualEnviarPropuesta',
+            JsonToBack:{
+                idEvento: this.props.nextChildComponentProps.evento.idEvento
+            },
+          }
+        ).then((value) => {
+          console.log(value);
+          if(value == null || value.succeed==false){
+            console.error('FALLO FATAL');
+            /************** si fallo mensaje de error************ */
+            //this.setState({modal:-1});
+          }else {
+             console.log('si hay algo:');
+            //this.handleNextChildComponentChange(PropoMyProposals);
+            this.setState({CamposPers:value.CamposPerson});
+            this.state.CamposPers.forEach(CPer => {
+              var _index=0;
+              this.state.respuestasPers.push(
+                { idCampoPers     : CPer.idCamposPEnun,
+                  enunciado       : CPer.enunciado,
+                  respuesta       : "",
+                  index: _index+1
+                }
+                
+                );
+            });
+            console.log('si hay algo:', this.state.respuestasPers);
+            
+          }
+       });
+       this.setState({modal:0});
+
 
     }
 
@@ -130,7 +171,7 @@ class FrmSendPropuesta extends React.Component {
       document.getElementById("button_next").style.display = "block";
       document.getElementById("button_finish").style.display = "none";
     };
-
+/** envio de los datos */
     handleFinish = () =>{
       //console.log("getttttte",document.getElementById("myModal"));
       
@@ -151,10 +192,7 @@ class FrmSendPropuesta extends React.Component {
                           + "&" +this.state.email
                           + "&" +this.state.academicLevel,
               categorias: this.state.categorias,
-              RptaCamposPers: [
-                {idCampopersonalizado:1, respuesta:"Kameeeeeee Hameeeeee" },
-                {idCampopersonalizado:2, respuesta:"HAAAAAAAAAAAAAAAAA!!!" }
-              ],
+              RptaCamposPers: this.state.respuestasPers,
               
           },
         }
@@ -182,7 +220,7 @@ class FrmSendPropuesta extends React.Component {
         case 1: this.props.onNextChildComponentChange(PropoMyProposals); 
       }
     }
-    
+    /** hadle generico */
     handleValue(value){ 
       console.log("Handle_input",value.to,value.value);
       /* dropbox select */
@@ -206,7 +244,20 @@ class FrmSendPropuesta extends React.Component {
         
         return;
       }
-      /** input */
+      if(value.to =='campoPEnun'){
+
+        console.log("campoPEnun a tratar:",value);
+        
+          console.log("agregando:",value.value.value);
+          this.state.respuestasPers[parseInt(value.value.index)].respuesta
+           =value.value.value;
+
+          
+        console.log("resulta:",this.state.respuestasPers);
+        
+        return;
+      }
+      /** input con label apropiado*/
       this.state[value.to] = value.value;
       console.log("resulta:",this.state[value.to]);
     }
@@ -217,6 +268,7 @@ class FrmSendPropuesta extends React.Component {
         
         case 0:
           return <this.state.step1 
+                  Usuario={this.props.nextChildComponentProps.Usuario}
                   multiHandle={this.handleValue}
                   authorName={this.state.authorName}
                   authorLastname={this.state.authorLastname}
@@ -226,11 +278,13 @@ class FrmSendPropuesta extends React.Component {
                 />;
         case 1:        
           return <this.state.step2
+                  Usuario={this.props.nextChildComponentProps.Usuario}
                   multiHandle={this.handleValue} 
                   Categorias={this.props.nextChildComponentProps.Categorias}
                   titulo={this.state.titulo}
                   resumen={this.state.resumen}
                   selectedCategorias= {this.state.categorias}
+                  CamposPers={this.state.respuestasPers}
                 />;
         default:
           return 'Uknown stepIndex';
@@ -294,7 +348,7 @@ class FrmSendPropuesta extends React.Component {
         case 0:
           return(
             <div>
-              nullll
+              
             </div>
           );
         case 1:
@@ -308,7 +362,7 @@ class FrmSendPropuesta extends React.Component {
                 data-dismiss="modal"
                 onClick={()=>this.handle_redirect(i)}
                 >
-                Mis Propuestas
+                Hecho
             </button>
           </div>
           );
@@ -317,8 +371,8 @@ class FrmSendPropuesta extends React.Component {
     renderModal(i){
       return (
         <JModal
-          class ="modal fade"
-          id= "myModal"
+              class ="modal fade"
+              id= "myModal"
               head={this.makeHeadModal(i)}
               body={this.makeModalLoad(i)}
               footer={this.makefooterModal(i)}
@@ -330,23 +384,27 @@ class FrmSendPropuesta extends React.Component {
         console.log("rendering frmSendPropuesta");
         return (
            <div  style={styles.frmCreateEvent}>
-             <h1>Registro de propuesta para el _Evento_</h1>
+            <h1>Evento: {this.props.nextChildComponentProps.evento.nombre}</h1>
+            <h1>Lugar: {this.props.nextChildComponentProps.evento.lugar} - {this.props.nextChildComponentProps.evento.fechaIni}</h1>
+            <br/>
+            <h2>Registro de propuestas:</h2>
                 <div style={{alignItems: "center"}}
                       class=" mx-auto" style={{width:"700px"}}
                 >
                 <Stepper 
-                    activeStep={this.state.currentstep} alternativeLabel>
-                    {this.state.steps.map(label => (
-                        <Step key={label}>
-                          <StepLabel 
-            classes={{
-              iconContainer:classes.iconContainer,
-            alternativeLabel: classes.alternativeLabel}}>
-              {label}</StepLabel>
-          
-                        </Step>
-                  ))}
+                        activeStep={this.state.currentstep} alternativeLabel>
+                        {this.state.steps.map(label => (
+                                                        <Step key={label}>
+                                                          <StepLabel 
+                                                            classes={{
+                                                            iconContainer:classes.iconContainer,
+                                                            alternativeLabel: classes.alternativeLabel}}>
+                                                            {label}
+                                                          </StepLabel>
+                                                        </Step>
+                        ))}
                 </Stepper>
+
                     {this.renderStep(this.state.currentstep)}
                     <div>
                       <button  
@@ -384,19 +442,12 @@ class FrmSendPropuesta extends React.Component {
                 </div>
                 
                 <JModal
-                  class ="modal fade"
-                  id= "myModal"
-                  
-                      head={this.makeHeadModal(this.state.modal)}
-                      body={this.makeModalLoad(this.state.modal)}
-                      footer={this.makefooterModal(this.state.modal)}
-                    
+                    class ="modal fade"
+                    id= "myModal"
+                    head={this.makeHeadModal(this.state.modal)}
+                    body={this.makeModalLoad(this.state.modal)}
+                    footer={this.makefooterModal(this.state.modal)}
                   />
-
-
-                      
-
-
 
            </div>
         )

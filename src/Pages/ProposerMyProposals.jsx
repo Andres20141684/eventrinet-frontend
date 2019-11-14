@@ -101,8 +101,9 @@ class PropoMyProposals extends Component{
             }else {
             console.log('si hay algo:');
             console.log("ProposerPanel: ", value);
+            var data = value.Eventos;
             this.setState({
-                datos_tabla1: value.Eventos
+                datos_tabla1: data
              });
             }
         });
