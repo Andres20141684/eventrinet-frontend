@@ -16,12 +16,14 @@ class ListadoPropPorEvento extends Component {
   constructor(props){
     super(props);
     this.state = {
+      seleccion : [],
         idUser_recived: 0,
        datos_tabla: {
           Propuestas:[
                          ]          
        },
        //almacena los ids Propuesta 
+       datajs : {},
        PreferenciasXPropuestas : [999],
        rememberMe: false,
        idEvento: 0,
@@ -55,13 +57,13 @@ class ListadoPropPorEvento extends Component {
   console.log("cosas IMPORTANTES:",this.props);
   console.log('&&this.props.idEvento: ',this.props.idEvento);  
 //listar simple de todas las propuestas del evento
-  Networking.listar_propuestasPorEvento(this.props.idEvento,this.props.idEvaluador).then((value) => {
+  Networking.listar_propuestasPorEvento(this.props.idEvento).then((value) => {
     console.log("____",value);
     console.log("antes? :",OPTIONS);
     OPTIONS = value.Propuestas.map( (e) =>e.idPropuesta);
     console.log("dsps? :",OPTIONS);
     // < LINEAS SUPER IMPORTANTES
-    jason = OPTIONS.reduce( (jason, value, key) => { jason[value] = 0; return jason; }, {});
+    jason = OPTIONS.reduce( (jason, value, key) => { jason[value] = -1; return jason; }, {});
     console.log("nuevo options",jason);
     this.setState({radioButtons:jason});
     //LINEAS SUPER IMPORTANTES />
@@ -78,24 +80,32 @@ class ListadoPropPorEvento extends Component {
     
   });
   //listar preferencias para un evaluador con las elecciones editadas
-  Networking.ListarPrefXProp(this.props.idEvento, retrievedJson.infoUsuario.idUsuario).then((value) => {
-    console.log("INazuma eleven <3",thisvalue.PreferenciasXPropuestas.length ==0);
-    if(value.PreferenciasXCategoria.length == 0){
+  //Networking.ListarPrefXProp(this.props.idEvento, retrievedJson.infoUsuario.idUsuario).then((value) => {
+  Networking.ListarPrefXProp(1, 4).then((value) => {
+    console.log("<<<<<<<<<<<3",value);
+    if(value.PreferenciasXPropuestas.length == 0){
       console.log('No tenía preferencias');
       //CODIGO
       //o nel :V
     }
     else {
       console.log('Tenia preferencias... ahora debo pintarlas en front');
-      this.state.PreferenciasXCategoria = value.PreferenciasXCategoria;
-      console.log("obviamente no lo va a actualizr :V ",this.state.PreferenciasXCategoria , value.PreferenciasXCategoria);
+      
+      for(var i=0;i<value.PreferenciasXPropuestas.length;i++){
+        value.PreferenciasXPropuestas[i].seleccion=[]
+        
+      }
+      this.setState({PreferenciasXPropuestas:value.PreferenciasXPropuestas})
+      this.setState({datajs:value})
+      console.log("datajs",this.state.datajs)
+      console.log("obviamente no lo va a actualizr :V ",this.state.PreferenciasXPropuestas , value.PreferenciasXPropuestas);
       console.log("state.radioButtons",this.state.radioButtons);
       //testo!!
       //this.state.checkboxes[1] = true;
       console.log("state.radioButtons antes",this.state.radioButtons);
-      for (var i=0; i<this.state.PreferenciasXCategoria.length; i++ ) {
+      for (var i=0; i<this.state.PreferenciasXPropuestas.length; i++ ) {
         //console.log("for i in ",this.state.PreferenciasXCategoria[i]);
-        let keys = this.state.PreferenciasXCategoria[i];
+        let keys = this.state.PreferenciasXPropuestas[i];
         this.state.radioButtons[keys] = true;
     }
     console.log("state.radioButtons dsps",this.state.radioButtons);
@@ -144,15 +154,10 @@ class ListadoPropPorEvento extends Component {
   handleRadioButtonChange = changeEvent => {
     const { name } = changeEvent.target;
 
-    this.setState(prevState => ({
-      radioButtons: {
-        ...prevState.radioButtons,
-        [name]: !prevState.radioButtons[name]
-      }
-    }));
+    this.setState({
+        
+    });
   };
-
-
 
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
@@ -196,30 +201,30 @@ class ListadoPropPorEvento extends Component {
     //console.log("option del createCheckBox", option),
     <RadioButton
       //label={option}
-      isSelected={this.state.radioButtons[option]}
-      onRadioButtonChange={this.handleRadioButtonChange}
-      key={option}
+      //isSelected={this.state.radioButtons[option]}
+      //onRadioButtonChange={this.handleRadioButtonChange}
+      //key={option}
+      seleccion = {this.state.seleccion}
     />
   );
 
-  createRadioButtons = () => OPTIONS.map(this.createRadioButton);
+  //createRadioButtons = () => OPTIONS.map(this.createRadioButton);
   
 
   tableData() {
-    return this.state.datos_tabla.Propuestas.map((element) => { 
-    //return OPTIONS.map((element) => { 
-     const {idPropuesta,nombre,nombrePropuesta} = element
+    //return this.state.datos_tabla.Propuestas.map((element) => { 
+    return this.state.PreferenciasXPropuestas.map((element,index) => { 
+     const {idPropuesta,nombre,nombreAutor} = element
      return (
       <tr >
-        {//<td>{index+1}</td>
-        }
-        <td >{element.nombre}</td>
-        <td >{element.nombrePropuesta}</td>
+        <td>{nombre}</td>
+        <td>{nombreAutor}</td>
         <td >{
-          //this.createCheckbox(idCategoria)
-          //this.createRadioButton(idPropuesta)
+          <RadioButton
+            seleccion = {element.seleccion}
+            index={index}
+          />
         }     </td>
-        {console.log("--------------Elemento",element)}        
       </tr>
       )
     })
@@ -249,10 +254,9 @@ class ListadoPropPorEvento extends Component {
                 <table class="table  table-hover">
                   <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                     <tr >
-                    <th width="5%" align="left" scope="col">N°</th>
-                        <th align= "left" scope="col">Lista de Propuestas</th>
-                        <th width="5%" align="right" scope="col"></th>
-                        
+                        <th width="40%" align= "left" scope="col">Lista de Propuestas</th>
+                        <th width="35%" align= "left" scope="col">Autores</th>
+                        <th width="25%" align="right" scope="col"></th>
                     </tr>
                   </thead>
                 <tbody>{this.tableData()}</tbody>

@@ -1,6 +1,6 @@
 import {AsyncStorage} from 'react';
-//const restURL = 'http://52.201.202.133:5000/api/';
-const restURL = 'http://localhost:5000/api/';
+const restURL = 'http://52.201.202.133:5000/api/';
+//const restURL = 'http://localhost:5000/api/';
 
 export async function getMyId(){
     let retrievedObject = sessionStorage.getItem('dataUser');
@@ -578,6 +578,7 @@ export async function registrar_PrefXCat(idEvento, idUsuario, idCategoria) {
         console.error('CATCH ALCANZADO :(');
     }
 }*/
+
 export async function ListarPrefXCateg(idEvento, idUsuario) {
     
     try {
@@ -597,7 +598,7 @@ export async function ListarPrefXCateg(idEvento, idUsuario) {
         });
         let responseJson = await response.json();
         console.log(responseJson);
-        return responseJson;  
+        return responseJson;
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -622,11 +623,11 @@ export async function registrar_PrefXCat(data){
         return error
     }
 }
-//falta
-export async function listar_propuestasPorEvento(_idEvento,_idEvaluador) {
+
+export async function listar_propuestasPorEvento(_idEvento) {
     
     try {
-        console.log('RECIBI UN param: ' + _idEvento+" "+_idEvaluador);
+        console.log('RECIBI UN param: ' + _idEvento);
         let response = await fetch(restURL 
             + 'propuesta/listarPropuestasXEvento', {
             method: 'POST',
@@ -636,8 +637,7 @@ export async function listar_propuestasPorEvento(_idEvento,_idEvaluador) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                idEvento: _idEvento,
-                idEvaluador : _idEvaluador
+                idEvento: _idEvento
             }),
         });
         let responseJson = await response.json();
@@ -652,7 +652,7 @@ export async function listar_propuestasPorEvento(_idEvento,_idEvaluador) {
 export async function ListarPrefXProp(idEvento, idUsuario) {
     
     try {
-        console.log('RECIBI UN param: ' + idEvento);
+        console.log('RECIBI UN param: ' + idEvento+" "+idUsuario);
         let response = await fetch(restURL 
             + 'propuestas_categoria/listarPropuestasConCategorias', {
             method: 'POST',
@@ -663,7 +663,7 @@ export async function ListarPrefXProp(idEvento, idUsuario) {
             },
             body: JSON.stringify({
                 idEvento: idEvento,
-                idEvaluador : idUsuario
+                idUsuario : idUsuario
             }),
         });
         let responseJson = await response.json();
