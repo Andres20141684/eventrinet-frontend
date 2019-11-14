@@ -101,6 +101,7 @@ class WorkingSpace extends Component{
     }
   
     render() {
+      this.state.nextChildComponentProps.idUser=this.props.idUser;
       return (
         <div>
     <div className="App">
