@@ -112,17 +112,17 @@ class FrmSendPropuesta extends React.Component {
              console.log('si hay algo:');
             //this.handleNextChildComponentChange(PropoMyProposals);
             this.setState({CamposPers:value.CamposPerson});
-            this.state.CamposPers.forEach(CPer => {
-              var _index=0;
+            for(var _index=0; _index < this.state.CamposPers.length;_index++){
               this.state.respuestasPers.push(
-                { idCampoPers     : CPer.idCamposPEnun,
-                  enunciado       : CPer.enunciado,
+                { idCampoPers     : this.state.CamposPers[_index].idCamposPEnun,
+                  enunciado       : this.state.CamposPers[_index].enunciado,
                   respuesta       : "",
-                  index: _index+1
+                  index: _index
                 }
                 
                 );
-            });
+            }
+            
             console.log('si hay algo:', this.state.respuestasPers);
             
           }
@@ -156,7 +156,8 @@ class FrmSendPropuesta extends React.Component {
            console.log('si hay algo:');
           //this.handleNextChildComponentChange(PropoMyProposals);
           value.CamposPerson.forEach(element => {
-            this.state.CamposPerson.push({idCampo:element.idCamposPEnun,enunciado:element.enunciado});
+            this.state.CamposPerson.push(
+              {idCampo:element.idCamposPEnun,enunciado:element.enunciado});
           });
           
 
