@@ -60,7 +60,7 @@ class FrmSendPropuesta extends React.Component {
         data:null,// /api/camposPEnun/listarCamposPEnunXFase
         fase : 1,
 
-        CamposPers: []
+        CamposPerson: [{idCamposPEnun:0, enunciado:"",descripcion:"",}]
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -95,6 +95,36 @@ class FrmSendPropuesta extends React.Component {
         /**desabilitar y desaparecer el finish */
       //document.getElementById("button_finish").disabled = true;
       document.getElementById("button_finish").style.display = "none";
+
+      Networking.NetworkMutation_JAchievingData(
+        {
+          methodPath: 'eventos/formularioActualEnviarPropuesta',
+          JsonToBack:{
+              idEvento: this.props.nextChildComponentProps.evento.idEvento
+              
+              
+          },
+        }
+      ).then((value) => {
+        console.log('CAMPS',value.CamposPerson);
+        if(value == null || value.succeed==false){
+          console.error('FALLO FATAL');
+          /************** si fallo mensaje de error************ */
+          this.setState({modal:-1});
+        }else {
+           console.log('si hay algo:');
+          //this.handleNextChildComponentChange(PropoMyProposals);
+          value.CamposPerson.forEach(element => {
+            this.state.CamposPerson.push({idCampo:element.idCamposPEnun,enunciado:element.enunciado});
+          });
+          
+
+
+        }
+     });
+      
+
+
    }
    
    shouldComponentUpdate(nextProps, nextState){
@@ -206,6 +236,7 @@ class FrmSendPropuesta extends React.Component {
         
         return;
       }
+      if(value.to=='CP'){}
       /** input */
       this.state[value.to] = value.value;
       console.log("resulta:",this.state[value.to]);
@@ -226,6 +257,7 @@ class FrmSendPropuesta extends React.Component {
                 />;
         case 1:        
           return <this.state.step2
+                  CamposPerson={this.state.CamposPerson}
                   multiHandle={this.handleValue} 
                   Categorias={this.props.nextChildComponentProps.Categorias}
                   titulo={this.state.titulo}
@@ -326,7 +358,7 @@ class FrmSendPropuesta extends React.Component {
       );
     }
     render() {
-      
+
         console.log("rendering frmSendPropuesta");
         return (
            <div  style={styles.frmCreateEvent}>

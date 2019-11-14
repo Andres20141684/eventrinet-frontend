@@ -176,6 +176,8 @@ class StepTwoSendPropuesta extends React.Component {
           arrayOfInputData={inputArchivo}
           cardHeadingText = "Sube tu archivo :) "
         />
+
+        
     
       </div>
     )
