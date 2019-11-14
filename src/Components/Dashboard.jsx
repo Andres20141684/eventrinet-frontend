@@ -56,7 +56,9 @@ class Dashboard extends Component{
     
     this.handleNextChildComponentChange(EventDetail);
   }
-
+  componentWillMount(){
+    console.log("DashboradConvocarotias props:", this.props);
+  }
  
  /** */
  shouldComponentUpdate(nextProps, nextState){
@@ -74,7 +76,7 @@ class Dashboard extends Component{
         
         <Portafolio 
             setEventos={this.state.datos_tabla} title="Eventos en convocatoria"
-            nextChildComponentProps={this.state.nextChildComponentProps}
+            nextChildComponentProps={this.props.nextChildComponentProps}
             onNextChildComponentChange={this.handleNextChildComponentChange}
             onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
         ></Portafolio>

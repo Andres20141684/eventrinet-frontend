@@ -166,12 +166,13 @@ class BannerTop extends Component{
   handleClicEvents = () => {
     console.log('redireccionando a ... Announcements evento');
     
-    this.handleNextChildComponentChangeProps({mode:1});
+    this.handleNextChildComponentChangeProps({mode:1,Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(Dashboard);
   }
   handleClickAnnoucements = () => {
     console.log('redireccionando a ... Announcements evento');
-    this.handleNextChildComponentChangeProps({mode:2});
+    this.handleNextChildComponentChangeProps({mode:2,Usuario:this.props.nextChildComponentProps.Usuario});
+    
     this.handleNextChildComponentChange(Dashboard);
   }
   handleClickInicio= () => {
@@ -258,6 +259,9 @@ class BannerTop extends Component{
     }catch(err){
       console.log(err)
     }    
+  }
+  componentWillMount(){
+    console.log("BannerTop willMount ->", this.props);
   }
   render(){
     

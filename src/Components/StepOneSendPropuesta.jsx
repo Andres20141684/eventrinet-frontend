@@ -34,8 +34,11 @@ DateFormat(date,json,tag){
 }
 
 defaultMutableHandle(e){
-    this.props.multiHandle({to:e.target.name,value:e.target.value});
+    this.props.multiHandle(
+      {to:e.target.name,
+        value:e.target.value});
 }
+
 renderacademicLevel(){
   const academicLevels = 
   ['Primaria','Secundaria','Profesional','Post-grado','Otros...']
@@ -44,30 +47,40 @@ renderacademicLevel(){
   })
 }
   render () {
+    const Usuario_nombre=this.props.Usuario.nombre;
+    const Usuario_apePaterno=this.props.Usuario.apePaterno;
+    const Usuario_gradoInstruccion=this.props.Usuario.gradoInstruccion?null:"Profesional";
+    const Usuario_correo=this.props.Usuario.correo;
     
-    const inputGenerales =[
+    const inputAutor =[
       {
         label:"Nombres",
         category:'textArea',
         name:'authorName',
-        placeholder:'Nombre', 
+        readonly:true,
+        value:this.props.Usuario.nombre, 
         id:"id_name",           
-        onChange:this.defaultMutableHandle,
       },
       {
         label:"Apellidos",
         category:'textArea',
         name:'authorLastname',
-        placeholder:'Apellidos', 
-        id:"id_ap",           
-        onChange:this.defaultMutableHandle,
-      }
-    ]
-    const inputContacto =[
+        id:"id_ap",    
+        readonly:true,
+        value:this.props.Usuario.apePaterno,
+      },
+      {
+        label:"Nivel de estudios",
+        category:'textArea',
+        name:"academicLevel",
+        id:"id_selectStudyLevel",
+        readonly:true,
+        value:Usuario_gradoInstruccion ,
+      },
       {
         label:"Telefono principal",
         category:'textArea',
-        name:'telefono',
+        name:'telefonoAuthor',
         placeholder:'Telefono', 
         id:"id_telf",           
         onChange:this.defaultMutableHandle,
@@ -76,8 +89,37 @@ renderacademicLevel(){
         label:"Correo electronico",
         category:'textArea',
         name:'email',
+        id:"id_email",
+        readonly:true,
+        value:this.props.Usuario.correo,
+      }
+    ]
+    const inputGenerales =[
+      {
+        label:"Nombres",
+        category:'textArea',
+        name:'authorName',
+        placeholder:'Nombre', 
+        id:"id_name",  
+        readonly:false,           
+        onChange:this.defaultMutableHandle,
+      },
+      {
+        label:"Apellidos",
+        category:'textArea',
+        name:'authorLastname',
+        placeholder:'Apellidos', 
+        id:"id_ap",  
+        readonly:false,           
+        onChange:this.defaultMutableHandle,
+      },
+      {
+        label:"Correo electronico",
+        category:'textArea',
+        name:'email',
         placeholder:'Email' ,
-        id:"id_email",             
+        id:"id_email", 
+        readonly:false,               
         onChange:this.defaultMutableHandle,
       },
       {
@@ -89,22 +131,22 @@ renderacademicLevel(){
         options:this.renderacademicLevel()
       }
     ]
+    
 
 
     return (
       <div>
           <h1>Ingresa los datos del Autor y Co-autores</h1>
             
-              
+              <JCardForm
+                arrayOfInputData={inputAutor}
+                cardHeadingText = "Datos Generales del Autor"
+              />
               <JCardForm
                 arrayOfInputData={inputGenerales}
-                cardHeadingText = "Datos Generales de los Autores"
-                value = {this.props.authorName}
+                cardHeadingText = "Datos Generales de otro Autor: (puede dejarlo en blanco)"
               />
-              <JCardForm
-                arrayOfInputData={inputContacto}
-                cardHeadingText = "Datos de Contacto"
-              />
+              
 
 
       </div>
