@@ -23,7 +23,7 @@ class StepTwoSendPropuesta extends React.Component {
       this.defaultMutableHandle=this.defaultMutableHandle.bind(this);
       
 
-      
+      this.defaultMutableHandlePerso=this.defaultMutableHandlePerso.bind(this);
       this.handleOnLoad=this.handleOnLoad.bind(this);
       this.renderBody=this.renderBody.bind(this);
       this.renderHeaders=this.renderHeaders.bind(this);
@@ -62,9 +62,11 @@ class StepTwoSendPropuesta extends React.Component {
   }
   
   defaultMutableHandle(e){
-    this.props.multiHandle({to:e.target.name,value:e.target.value});
+    this.props.multiHandle(
+      {to:e.target.name,
+        value:e.target.value});
   }
-  defaultMutableHandle(e){
+  defaultMutableHandlePerso(e){
     let pre_value ={
       value:e.target.value,
       index:e.target.id
@@ -133,7 +135,7 @@ class StepTwoSendPropuesta extends React.Component {
           placeholder:'...', 
           id: element.index,  
           readonly:false,           
-          onChange:this.defaultMutableHandle,           
+          onChange:this.defaultMutableHandlePerso,           
         }
 
       );
