@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component }  from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -33,7 +33,7 @@ const classes =makeStyles(theme => ({
 }));
 
 
-class FrmSendPropuesta extends React.Component {
+class FrmSendPropuesta extends Component {
     constructor(){
       super();
       this.state={
@@ -156,7 +156,7 @@ class FrmSendPropuesta extends React.Component {
            console.log('si hay algo:');
           //this.handleNextChildComponentChange(PropoMyProposals);
           value.CamposPerson.forEach(element => {
-            this.state.CamposPerson.push(
+            this.state.CamposPers.push(
               {idCampo:element.idCamposPEnun,enunciado:element.enunciado});
           });
           
