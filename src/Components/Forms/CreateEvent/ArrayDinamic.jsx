@@ -76,10 +76,10 @@ class ArrayDinamics extends Component{
                   ))}
                   <Row>
                       <Col>
-                      <input class="btn btn-primary"type="button" style={{paddingLeft:'40px',paddingRight:'40px'}} value="+" onClick={() => this.addClick()} /> 
+                      {this.state.array.length===1?null:<input  style={{float:'left',paddingLeft:'40px',paddingRight:'40px'}}className="btn btn-secondary" type="button" value="-" onClick={() => this.removeClick()} />} 
                       </Col>
                       <Col>
-                      {this.state.array.length===1?null:<input  style={{float:'right',paddingLeft:'40px',paddingRight:'40px'}}class="btn btn-primary"type="button" value="-" onClick={() => this.removeClick()} />} 
+                      <input class="btn btn-primary"type="button" style={{float:'right',paddingLeft:'40px',paddingRight:'40px'}} value="+" onClick={() => this.addClick()} /> 
                       </Col>
                   </Row>
                   

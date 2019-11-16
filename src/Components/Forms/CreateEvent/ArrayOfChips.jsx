@@ -57,7 +57,7 @@ export default function ArrayOfChips(props) {
     }
     if(f===0) { // notice that there is a parenthesis after `id`.
         chipData.push(aux)
-        //props.handleadd(chipData,props.tag)
+        props.handleadd(chipData,props.tag)
         cancelCourse()
     }
   }

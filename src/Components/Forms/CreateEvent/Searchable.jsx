@@ -11,10 +11,10 @@ export default class Searchable extends Component {
         this.state = {
             clearable:false,
             selectValues: [],
-            labelField: "nombre", // el que se muestra en el select
+            labelField: "show", // el que se muestra en el select
             valueField: "idUsuario", // 
             dropdownHeight: "100px",
-            searchBy:'nombre', //busca por esa propiedad
+            searchBy:'show', //busca por esa propiedad
             usuarios:[],
             filterList:[],
         }
@@ -68,7 +68,7 @@ export default class Searchable extends Component {
               <div class="form-group col-md" style={{paddingLeft:'0px'}}>
               <div>
                 <Row>
-                <form onSubmit={e => { e.preventDefault(); }} style={{width:'100%',paddingLeft:'0px'}} >
+                <form onSubmit={e => { e.preventDefault(); }} style={{width:'200%',paddingLeft:'0px'}} >
                     <div class="input-group mb">
                         <Col xs={12} md={8} style={{padding:'0px'}}>
                             <Select 
@@ -100,19 +100,6 @@ export default class Searchable extends Component {
                         </div>
                         </Col>
                     </div> 
-                        
-                        <div style={{paddingTop:'15px',paddingLeft:'15px'}}>
-                        <label>
-                            Busqueda por:
-                        </label>
-                        <select
-                            defaultValue={this.state.searchBy}
-                            onChange={event => this.setState({ searchBy: event.target.value ,labelField:event.target.value})}
-                        > 
-                            <option value={'nombre'}>Nombre</option>
-                            <option value={'correo'}>Correo</option>
-                        </select>
-                        </div>
                     </form>
                     {this.state.usuarios.map((data, index) => {
                     return (

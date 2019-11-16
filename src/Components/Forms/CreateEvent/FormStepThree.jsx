@@ -64,6 +64,9 @@ class FormStepThree extends Component{
                       name="date_in"
                       placeholder="date_in"
                       selected={this.props.value.faseIni}
+                      minDate={this.props.fechaAnt===null?new Date():this.props.fechaAnt}
+                      maxDate={this.props.value.faseFin!==''?this.props.value.faseFin:null}
+                      disabled={this.props.index!==0?this.props.fechaAnt===null?true:false:false}
                       //minDate={this.props.index===0?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate() + 1)}
                       //maxDate={this.props.tamActual-1===this.props.index?null:this.props.fechaPost}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseIni","fechaFaseIni")}
@@ -78,6 +81,7 @@ class FormStepThree extends Component{
                       placeholder="date_in"
                       selected={this.props.value.faseFin}
                       minDate={this.props.value.faseIni}
+                      disabled={this.props.value.faseIni===''?true:false}
                       //maxDate={this.props.fechaMax}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseFin","fechaFaseFin")}
                     />
@@ -85,9 +89,9 @@ class FormStepThree extends Component{
               </Row>
                 <Row>                
                 <div class="form-group col-md">
-                    <div class="form-group col" style={{paddingLeft:'0px'}}>
-                        <label>Requiere adjuntar archivo (.pdf)</label>
-                        <Form.Check
+                    <div class="form-group col-md" style={{paddingLeft:'0px'}}>
+                        <label>Requiere adjuntar archivo (.pdf)  &nbsp;&nbsp;</label>
+                        <input
                             type="checkBox" 
                             name="formHorizontalRadios_1"
                             id="formHorizontalRadios1"
@@ -122,8 +126,8 @@ class FormStepThree extends Component{
                                 {this.props.value.reqEval===true?
                                     <div>
                                         <Row>
-                                        <div class="form-group col-md-5">
-                                            <label >Fecha Evaluacion Inicial:</label>
+                                        <div class="form-group col-md-7">
+                                            <label >Fecha Evaluacion Inicial de Evaluador:</label>
                                             <DatePicker
                                             type="date"
                                             id="input-date"
@@ -138,8 +142,25 @@ class FormStepThree extends Component{
                                         </div>
                                         </Row>
                                         <Row>
+                                        <div class="form-group col-md-7">
+                                            <label >Fecha Evaluacion Inicial de Presidente:</label>
+                                            <DatePicker
+                                            type="date"
+                                            id="input-date"
+                                            name="date_in"
+                                            placeholder="date_in"
+                                            selected={this.props.value.faseEvalPresiIni}
+                                            disabled={this.props.value.faseEvalIni===''?true:false}
+                                            minDate={this.props.value.faseIni}
+                                            maxDate={this.props.value.faseFin}
+                                            //maxDate={this.props.fechaMax}
+                                            onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseEvalPresiIni","fechaEvalPresiIni")}
+                                            />
+                                        </div>
+                                        </Row>
+                                        <Row>
                                         <div class="form-group col-md">
-                                            <label >Numero de evaluadores: &nbsp;&nbsp;&nbsp;</label>
+                                            <label >Numero de evaluadores: (max {this.props.numEval})</label>
                                             <input 
                                             style={{display:'inline-block'}}
                                             type="number" 
