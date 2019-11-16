@@ -114,7 +114,7 @@ class FrmSendPropuesta extends React.Component {
             this.setState({CamposPers:value.CamposPerson});
             for(var _index=0; _index < this.state.CamposPers.length;_index++){
               this.state.respuestasPers.push(
-                { idCampoPers     : this.state.CamposPers[_index].idCamposPEnun,
+                { idCampopersonalizado     : this.state.CamposPers[_index].idCamposPEnun,
                   enunciado       : this.state.CamposPers[_index].enunciado,
                   respuesta       : "",
                   index: _index
@@ -222,7 +222,7 @@ class FrmSendPropuesta extends React.Component {
                           + "&" +this.state.telefono
                           + "&" +this.state.email
                           + "&" +this.state.academicLevel,
-              categorias: this.state.categorias,
+              Categorias: this.state.categorias,
               RptaCamposPers: this.state.respuestasPers,
               
           },
