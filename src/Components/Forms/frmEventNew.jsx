@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import frmCreateEvent from './frmCreateEvent'
-import { string } from 'prop-types';
+import { string, element } from 'prop-types';
 import '../../styles/style_sheets.css'
 import { thisExpression } from '@babel/types';
 import OrganActiveEvents from '../../Pages/OrganActiveEvents';
@@ -23,7 +23,7 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{idFase:0,faseIni:'',secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
+            fases:[{idFase:0,faseIni:'',faseFin:'',faseEvalIni:'',secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:'',
@@ -37,8 +37,10 @@ export default class EventNew extends Component{
             datajson:null,  
             form:frmCreateEvent,
             options:[],
-            data_recived: {}
-
+            data_recived: {},
+            form1Completo:false,
+            form2Completo:false,
+            form3Completo:false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleChange2=this.handleChange2.bind(this)
@@ -47,10 +49,14 @@ export default class EventNew extends Component{
         this.DateFormat=this.DateFormat.bind(this)
         this.handleCheckB=this.handleCheckB.bind(this)
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
+        this.validacion=this.validacion.bind(this)
       }
       componentWillMount(){
 
         Networking.listar_usuarios().then((response)=>{ //Listar todos los ususarios activos
+          response.correos.map((element,index)=>(
+            element.show=element.nombre+"\n\r"+element.correo
+          ))
           this.setState({options:response.correos})
           console.log(response);
         })
@@ -73,6 +79,24 @@ export default class EventNew extends Component{
         console.log('redireccionando a ... ORGAN ACCTIVE evento');
           this.props.onNextChildComponentChange(_nextChildComponent);  
       }
+
+      validacion(){
+        if(this.state.nombre!=='' && this.state.descripcion!=='' && this.state.lugar!==''
+        && this.state.fIni!=='' && this.state.fFin!=='' && this.state.categorias.length!==0){
+          this.setState({form1Completo:true})
+        }
+        else{
+          this.setState({form1Completo:false})
+        }
+        if(this.state.comiteOrganizacional.length!==0 && this.state.presidente.length!==0 && this.state.evaluadores.length!==0){
+          this.setState({form2Completo:true})
+        }
+        else{
+          this.setState({form2Completo:false})
+        }
+      }
+
+
       handleClick = () => {
         this.handleNextChildComponentChange(OrganActiveEvents);
       }
@@ -146,6 +170,7 @@ export default class EventNew extends Component{
         this.setState({
           [label]:value
         })
+        this.validacion()
         console.log(this.state[label])
       }
     
@@ -157,6 +182,7 @@ export default class EventNew extends Component{
         this.setState({
           [name]: value
         });  
+        this.validacion()
       }
 
       handleChangeRadio(event,str) {
@@ -229,6 +255,10 @@ export default class EventNew extends Component{
               rdCamR={this.state.rdCamR}
               fCRIni={this.state.fCRIni}
               fCRFin={this.state.fCRFin}
+
+              form1Completo={this.state.form1Completo}
+              form2Completo={this.state.form2Completo}
+              form3Completo={this.state.form3Completo}
 
               datajson={this.state.datajson}
               options={this.state.options}

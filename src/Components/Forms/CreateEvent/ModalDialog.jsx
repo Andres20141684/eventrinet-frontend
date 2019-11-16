@@ -90,7 +90,9 @@ class ModalDialog extends Component{
                 {this.state.succeed==='wait'?
                 <div>
                   <DialogContent component={'span'}>
-                    <Fade
+                    <div class='col-md-4'></div>
+                    <div class='col-md-4'>
+                      <Fade
                       in={this.state.succeed === 'wait'}
                       style={{
                         transitionDelay: this.state.succeed === 'wait' ? '800ms' : '0ms',
@@ -99,6 +101,8 @@ class ModalDialog extends Component{
                       >
                       <CircularProgress />
                       </Fade>
+                    </div>
+                    <div class='col-md-4'></div>
                       <DialogContentText>
                           <h2>Procesando...</h2>
                         </DialogContentText>
@@ -125,7 +129,7 @@ class ModalDialog extends Component{
                     </div>
                     }
                     <DialogActions>
-                      <button onClick={this.handleExit} color="primary" autoFocus>
+                      <button onClick={this.handleExit} color="primary"  className="btn btn-primary" autoFocus>
                         Aceptar
                       </button>
                     </DialogActions>
