@@ -1,6 +1,6 @@
 import {AsyncStorage} from 'react';
-const restURL = 'http://52.201.202.133:5000/api/';
-//const restURL = 'http://localhost:5000/api/';
+//const restURL = 'http://52.201.202.133:5000/api/';
+const restURL = 'http://localhost:5000/api/';
 
 export async function getMyId(){
     let retrievedObject = sessionStorage.getItem('dataUser');
@@ -188,6 +188,23 @@ export async function getPaper(numProp){
     try {
         let response = await fetch(restURL+'propuesta/devolver_paper/59' ,{
             method:'GET'
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        
+
+          return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
+export async function getPaper2(idPropuesta) {
+    
+    try {
+        let response = await fetch(restURL+'propuesta/devolver_paper/'+(idPropuesta.toString()) ,{
+            method:'GET',
         });
         let responseJson = response.json();
         console.log(responseJson);

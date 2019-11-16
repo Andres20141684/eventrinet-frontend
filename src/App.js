@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import logo from './lollipop.svg';
-import BannerTop from './Components/General/bannerTop';
 import BannerBottom_ from './Components/General/bannerBottom';
 import './App.css'; 
-import { thisExpression } from '@babel/types';
 import WorkingSpace from './Components/Special/WorkingSpace';
 import NewIni from "./../src/Components/General/NewIni";
 import EventDetail from './Components/EventDetail';
@@ -23,7 +20,8 @@ class App extends Component{
       initialComponent: NewIni,
       initialComponentProps:{},
       xd: null,
-      pathGottenbyDunkUser:""
+      pathGottenbyDunkUser:"",
+      Usuario:null,
     }
     this.getDataUser=this.getDataUser.bind(this);
     
@@ -34,8 +32,11 @@ class App extends Component{
     let retrievedJson = JSON.parse(retrievedObject);      
     console.log("retrievedJson",retrievedJson)
     try{
+      /** retirare estalinea despues ya que es redundante */
       this.state.initialComponentProps.idUser=retrievedJson.infoUsuario.idUsuario;
+      this.state.initialComponentProps.Usuario=retrievedJson.infoUsuario;
       this.setState({idUser:retrievedJson.infoUsuario.idUsuario });
+      this.setState({Usuario: retrievedJson.infoUsuario});
     }catch(e){
       console.error(e);
       console.error("no se encontro nada en el sessionStorage");
@@ -46,10 +47,12 @@ class App extends Component{
   }
 
   componentWillMount(){
-    console.log("AppWillMount", this.props);
+    console.log("App->WillMount", this.props);
     this.getDataUser();
   } 
-
+  componentDidMount(){
+    console.log("App->DidMount", this.state);
+  } 
   render() {
     
     return (
@@ -58,6 +61,7 @@ class App extends Component{
           <div>
             <this.state.workingSpace 
               idUser={this.state.idUser}
+              Usuario={this.state.Usuario}
               nextComponent={this.state.initialComponent}
               nextComponentProps = {this.state.initialComponentProps}
             />

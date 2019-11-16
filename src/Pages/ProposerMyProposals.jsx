@@ -44,8 +44,8 @@ class PropoMyProposals extends Component{
         this.state = {
             formActives: Proposer_ActiveEventsTable,
             formRecord: Proposer_HistoryEventsTable,
-            datos_tabla1:  null,
-            datos_tabla2: null,
+            datos_tabla1:  [],
+            datos_tabla2: [],
             msg: "Not Connected",
             idUser: -1
         }
@@ -65,6 +65,9 @@ class PropoMyProposals extends Component{
         if(nextState.idUser != this.state.idUser){
             return true;
         }
+        if(nextState.datos_tabla1 != this.state.datos_tabla1){
+            return true;
+        }
         return false;
     }
    componentWillMount(){
@@ -72,9 +75,7 @@ class PropoMyProposals extends Component{
     //this.setState({idUser: this.props.nextChildComponentProps.idUser});
    
     var activeEvents = //state is by default an object
-         [
-            
-        ];
+         [];
      
      var recordEvents = //state is by default an object
          [
@@ -82,9 +83,15 @@ class PropoMyProposals extends Component{
         ];
      
      this.setState({
+         idUser:this.props.nextChildComponentProps.idUser,
         datos_tabla1: activeEvents,
         datos_tabla2: recordEvents
      }); 
+   }
+   updateData(value){
+    this.setState({
+        datos_tabla1: value
+                 });
    }
    componentDidMount(){
         NetworkMutation_JAchievingData(
@@ -101,8 +108,9 @@ class PropoMyProposals extends Component{
             }else {
             console.log('si hay algo:');
             console.log("ProposerPanel: ", value);
+            var data = value.Eventos;
             this.setState({
-                datos_tabla1: value.Eventos
+                datos_tabla1: data
              });
             }
         });

@@ -59,7 +59,8 @@ class SendProposal extends Component{
         console.log('redireccionando a ... inscribirse evento');
         this.handleNextChildComponentChangeProps({
             evento: this.props.nextChildComponentProps.evento,
-            Categorias: this.state.Categorias
+            Categorias: this.state.Categorias,
+            Usuario:this.props.nextChildComponentProps.Usuario
         });
         this.handleNextChildComponentChange(FrmSendPropuesta);
     }catch(err){

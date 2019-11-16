@@ -19,15 +19,26 @@ class JCardForm extends Component {
                     <div class ="col-md-2">
                         <label >{inputData.label}</label>
                         </div>
-                        <div class ="col-md-10"><input 
-                        type="text" 
-                        class="form-control"
-                        name={inputData.name}
-                        id={inputData.id}
-                        placeholder={inputData.placeholder}              
-                        onChange={inputData.onChange}
-                        autoFocus
-                    /></div>
+                        <div class ="col-md-10">
+                        {inputData.readonly?
+                        <input 
+                            type="text" 
+                            class="form-control"
+                            name={inputData.name}
+                            id={inputData.id}
+                            autoFocus
+                            value={inputData.value}
+                        />:
+                        <input 
+                            type="text" 
+                            class="form-control"
+                            name={inputData.name}
+                            id={inputData.id}
+                            placeholder={inputData.placeholder}              
+                            onChange={inputData.onChange}
+                            autoFocus
+                        />}
+            </div>
                     </div>
                 </Row>
             );    
