@@ -913,3 +913,25 @@ export async function InsertarEvaluadorAPaper(data){
         return error
     }
 }
+export async function listarFasesXEvento(idEvento) {
+    try {
+        let response = await fetch(restURL 
+            + 'presidente/listarFasesXEvento', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: idEvento
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
