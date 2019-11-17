@@ -11,7 +11,7 @@ class EventDetail extends Component{
     this.state = {
         msg: "Not Connected" ,
         transport: "go to Fake Ini",
-        idUser_recived: 0,
+        Usuario: null,
         /*viene de los props */
         event:{
           nombre:"<Nombre de evento>",
@@ -52,10 +52,10 @@ class EventDetail extends Component{
   componentWillMount(){
       /** obtengo  el idUsuario */
       
-    let retrievedObject = sessionStorage.getItem('dataUser');
-    let retrievedJson = JSON.parse(retrievedObject);  
-    this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
-    console.log(retrievedJson);
+    this.setState({Usuario: this.props.nextChildComponent.Usuario});
+    
+    this.setState({Propuesta: this.props.nextChildComponent.Propuesta});
+    //console.log(retrievedJson);
 
 
  }
@@ -69,6 +69,7 @@ class EventDetail extends Component{
   render(){
     return (
       <section className="contenedor sobre-nosotros">
+
         <h2 className="titulo">Nuestro producto</h2>
         <div className="contenedor-sobre-nosotros">
             <img src="./img/ilustracion1.png" alt="" className="imagen-about-us"/>

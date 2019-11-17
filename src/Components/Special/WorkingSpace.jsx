@@ -13,6 +13,7 @@ class WorkingSpace extends Component{
     super(props);
     this.state = {
         idUser : -1,
+        Usuario: null,
         bannTop : BannerTop,
         /*new: base de navegacion inherente del working space*/
         historyNavegation: [],
@@ -44,6 +45,7 @@ class WorkingSpace extends Component{
     }
     componentWillMount(){
       window.scrollTo(0, 0);
+      this.setState({Usuario: this.props.Usuario});
       this.state.nextChildComponentProps = this.props.nextComponentProps;
       this.state.nextChildComponent= this.props.nextComponent;
       console.log("WSWillMount ***");
@@ -51,31 +53,34 @@ class WorkingSpace extends Component{
       console.log("WSWillMount -> comp : ",this.state.nextChildComponent);
       let page = sessionStorage.getItem("currentPage");
 
-      if(!(page === null)){
-        console.log("page to redirect ",page);
-        if (page == "InscriptionEvent"){
-          this.state.nextChildComponent=InscriptionEvent;
+      try{
+        if(!(page === null)){
+          console.log("page to redirect ",page);
+          if (page == "InscriptionEvent"){
+            this.state.nextChildComponent=InscriptionEvent;
+          }
+          if (page == "SendProposal"){
+            this.state.nextChildComponent=SendProposal;
+          }
+          let alternativeProps =  sessionStorage.getItem("currentProps");
+          //console.log("currentProps to redirect ",alternativeProps);
+          //console.log("currentProps to redirect ",JSON.parse(alternativeProps));
+          console.log("currentProps to redirect ", JSON.parse(alternativeProps));
+          //console.log("currentProps to redirect ",JSON.stringify(JSON.parse(alternativeProps)));
+          if(!(alternativeProps === null)){
+  
+            this.state.nextChildComponentProps=JSON.parse(alternativeProps);
+            this.state.nextChildComponentProps.idUser= this.props.Usuario.idUser;
+            sessionStorage.setItem("currentProps",null);
+          }
+          sessionStorage.setItem("currentPage",null);
+          /** esto es porque ya use los props y page que estaban en memoria */
+        }else{
+          console.log("page to redirect ","NULLLLLL");
         }
-        if (page == "SendProposal"){
-          this.state.nextChildComponent=SendProposal;
-        }
-        let alternativeProps =  sessionStorage.getItem("currentProps");
-        //console.log("currentProps to redirect ",alternativeProps);
-        //console.log("currentProps to redirect ",JSON.parse(alternativeProps));
-        console.log("currentProps to redirect ", JSON.parse(alternativeProps));
-        //console.log("currentProps to redirect ",JSON.stringify(JSON.parse(alternativeProps)));
-        if(!(alternativeProps === null)){
+      }catch(e){
 
-          this.state.nextChildComponentProps=JSON.parse(alternativeProps);
-          this.state.nextChildComponentProps.idUser= this.props.Usuario.idUser;
-          sessionStorage.setItem("currentProps",null);
-        }
-        sessionStorage.setItem("currentPage",null);
-        /** esto es porque ya use los props y page que estaban en memoria */
-      }else{
-        console.log("page to redirect ","NULLLLLL");
       }
-      this.state.nextChildComponentProps.Usuario= this.props.Usuario;
       
       console.log("WSWillMount");
       console.log("WSWillMount -> props: ",this.state.nextChildComponentProps);
@@ -88,8 +93,6 @@ class WorkingSpace extends Component{
 
     shouldComponentUpdate(nextProps,nextState){
         if(this.state.nextChildComponent  !== nextState.nextChildComponent){
-          console.log("hubo redireccion a",nextState.nextChildComponent);
-          this.state.nextChildComponentProps.Usuario= this.props.Usuario;
           console.log("seteo Usuario",this.state.nextChildComponentProps.Usuario);
             return true;
         }
@@ -101,7 +104,7 @@ class WorkingSpace extends Component{
     }
   
     render() {
-      this.state.nextChildComponentProps.idUser=this.props.idUser;
+      
       return (
         <div>
     <div className="App">
@@ -112,6 +115,7 @@ class WorkingSpace extends Component{
       /> 
       <div>
       <this.state.nextChildComponent  
+      
        nextChildComponentProps={this.state.nextChildComponentProps}
         onNextChildComponentChange={this.handleNextChildComponentChange}
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}

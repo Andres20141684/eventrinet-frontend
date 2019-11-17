@@ -92,7 +92,7 @@ class SendProposal extends Component{
     componentDidMount(){
         console.log("props heredados del Dashboard->Protafolio->imageport");
     
-        console.log('nextChildComponentProps',this.props.nextChildComponentProps);
+        console.log('Send Propuesta Props ->',this.props.nextChildComponentProps);
         this.setState({eventriEvent: this.props.nextChildComponentProps.evento});
         this.getCategoriasfromApi(); 
         

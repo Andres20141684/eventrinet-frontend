@@ -45,6 +45,7 @@ class StepTwoSendPropuesta extends React.Component {
   }
 
   componentWillMount(){
+    window.scrollTo(0, 0);
     console.log("<<<<<<<<<<<<<<<>>>>>>>>>>>   StepTwoSendProp props");
     console.log(this.props.CamposPers);
   }
@@ -170,18 +171,12 @@ class StepTwoSendPropuesta extends React.Component {
       }
     ]
     const inputArchivo=[
-      {
-        label:"Titulo",
-        category:'textArea',
-        name:'titulo',
-        placeholder:'Titulo', 
-        id:"id_Titulo",           
-        onChange:this.defaultMutableHandle,
-      },
+      
       {
         id:"drop_zone",
         category:'JUpload',
         onChange: this.handleOnLoad,
+        fileNedded:this.props.fileNedded
       }
 
     ]

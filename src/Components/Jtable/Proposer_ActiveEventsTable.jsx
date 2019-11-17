@@ -39,7 +39,8 @@ class Proposer_ActiveEventsTable  extends Component {
       
       
    }
-   handleEditButton(){
+   handleDetail(){
+    this.props.onNextChildComponentChangeProps(EventDetail);
       this.props.onNextChildComponentChange(EventDetail);
    }
    renderProposals(listProp) {
@@ -58,7 +59,7 @@ class Proposer_ActiveEventsTable  extends Component {
                <td> {fechaLim} </td>
                <td>
                   <JActionButton
-                  onClick = {()=>this.handleEditButton(
+                  onClick = {()=>this.handleDetail(
                                  
                               )}
                   button_class ="fa fa-plus-circle"
@@ -74,11 +75,11 @@ class Proposer_ActiveEventsTable  extends Component {
 
 
 
-   handleDetail =(idE,nom)=>{
+   handleDetail =(_idPropuesta)=>{
     
     this.handleNextChildComponentChangeProps({   
-      id_evento_nextProps: idE,
-      nomb_evento: nom
+      Usuario: this.props.Usuario,
+      idPropuesta: _idPropuesta
       
    });
     //this.handleNextChildComponentChange(NewEventPage);

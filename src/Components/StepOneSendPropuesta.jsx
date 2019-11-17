@@ -24,8 +24,9 @@ class StepOneSendPropuesta extends React.Component {
     }      
 
 componentWillMount(){
-    console.log("StepOneSendProp props ****");
-    console.log(this.props);
+  window.scrollTo(0, 0);
+  console.log("StepOneSendProp props ****");
+  console.log(this.props);
     
 }
 DateFormat(date,json,tag){
@@ -70,14 +71,6 @@ renderacademicLevel(){
         value:this.props.Usuario.apePaterno,
       },
       {
-        label:"Nivel de estudios",
-        category:'textArea',
-        name:"academicLevel",
-        id:"id_selectStudyLevel",
-        readonly:true,
-        value:Usuario_gradoInstruccion ,
-      },
-      {
         label:"Telefono principal",
         category:'textArea',
         name:'telefonoAuthor',
@@ -92,6 +85,15 @@ renderacademicLevel(){
         id:"id_email",
         readonly:true,
         value:this.props.Usuario.correo,
+      },
+      {
+        label:"Afiliacion",
+        category:'textArea',
+        name:"afilicacion",
+        id:"id_selectStudyLevel",
+        readonly:true,
+        placeholder:'Institucion a la cual esta afiliado', 
+        onChange:this.defaultMutableHandle,
       }
     ]
     const inputGenerales =[

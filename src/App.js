@@ -17,13 +17,14 @@ class App extends Component{
       bannBot : BannerBottom_,
       workingSpace : WorkingSpace,
       msg: "Not Connected" ,
-      initialComponent: NewIni,
+      initialComponent: SendProposal,
       initialComponentProps:{},
       xd: null,
       pathGottenbyDunkUser:"",
       Usuario:null,
     }
     this.getDataUser=this.getDataUser.bind(this);
+    this.componentWillTryRedirect=this.componentWillTryRedirect.bind(this);
     
   }
   getDataUser(){
@@ -45,13 +46,61 @@ class App extends Component{
 
     }
   }
+  /*
+      formato URL parametro para eventrinet.com
+                
+                https//:www.Eventrinet.com/?EventriEvents&idEvento=100
 
+   */
+  componentWillTryRedirect(busqueda){
+    if(busqueda==='') {return};
+    var split1 = busqueda.split('?');
+    if(split1.lenght==1) {return};
+    var split2 =split1[1].split('&');
+    if (split2[0]=='EventriEvents'){
+        var parameter = split2[1].split('=');
+        if(parameter[0]=='idEvento'){
+            var _idEvento= parseInt(parameter[1]);
+            /** aqui networking busca los detalles del evento  y redirijo*/
+            console.log("App-> idEvento=",_idEvento);
+            Networking.NetworkMutation_JAchievingData(
+              {
+                methodPath: 'eventos/mostrar_evento',
+                JsonToBack:{
+                    idEvento: _idEvento
+                },
+              }
+            ).then((value) => {
+              console.log(value);
+              if(value == null || value.succeed==false){
+                console.error('FALLO FATAL');
+                /************** si fallo mensaje de error************ */
+              }else {
+                 console.log('si hay algo:');
+                //this.handleNextChildComponentChange(PropoMyProposals);
+                // aligerando el javascript object
+                try{
+                  delete value.resultado;
+                  delete value.tieneCameraRdy;
+                  delete value.programaCompletado;
+                  delete value.numeroPropuestas;
+                  delete value.fases;}catch(e){console.log("Se removio lo que se pudo XD")}
+                console.log('Evento modo ligero',value);
+                this.state.initialComponentProps.evento=value;
+                this.state.initialComponent=SendProposal;
+                console.log('Dondoe toy',this.state.initialComponent);
+              }
+           });
+        }
+    }
+  }
   componentWillMount(){
-    console.log("App->WillMount", this.props);
+    console.log("App->WillMount");
     this.getDataUser();
-  } 
-  componentDidMount(){
-    console.log("App->DidMount", this.state);
+    //capturo lo que quiero del evento
+    //intento redireccion
+    
+    
   } 
   render() {
     

@@ -26,6 +26,7 @@ const classes =makeStyles(theme => ({
   },
   iconContainer: {
     transform: 'scale(2)',
+    fontSize: "5rem"
   },
   alternativeLabel:{
     fontSize:'21px'
@@ -47,7 +48,7 @@ class FrmSendPropuesta extends React.Component {
         /****USER */
         telefonoAuthor:"",
         gradoInstruccion:"",
-        
+        afilicacion:"",
         /* step 1 */
         authorName: "*",
         authorLastname: "",
@@ -59,11 +60,12 @@ class FrmSendPropuesta extends React.Component {
         resumen: "*****",
         categorias: [],
         archivo: null,
+        fileNeeded: false,
         /****************** */
         modal:0,
         data:null,// /api/camposPEnun/listarCamposPEnunXFase
         fase : 1,
-
+        Authors:[],
         CamposPers: [],
         respuestasPers:[]
       }
@@ -89,6 +91,7 @@ class FrmSendPropuesta extends React.Component {
     }
     
     componentWillMount(){
+      window.scrollTo(0, 0);
         console.log("FrmSendPropuesta:",this.props);
         let retrievedObject = sessionStorage.getItem('dataUser');
         let retrievedJson = JSON.parse(retrievedObject);  
@@ -111,6 +114,7 @@ class FrmSendPropuesta extends React.Component {
           }else {
              console.log('si hay algo:');
             //this.handleNextChildComponentChange(PropoMyProposals);
+            this.setState({fileNeeded:value.necesitaArchivo});
             this.setState({CamposPers:value.CamposPerson});
             for(var _index=0; _index < this.state.CamposPers.length;_index++){
               this.state.respuestasPers.push(
@@ -216,6 +220,8 @@ class FrmSendPropuesta extends React.Component {
               idUsuario: 13,
               anho: 2019,
               paper: this.state.archivo,
+              afilicacion: this.state.afilicacion,
+              resumen:this.state.resumen,
               nombre : this.state.titulo,
               coautores : this.state.authorName
                           + "&" +this.state.authorLastname
@@ -248,7 +254,15 @@ class FrmSendPropuesta extends React.Component {
       //document.getElementById("myModal").style.display = "none";
       console.log("redireccion del buton ok");
       switch (i) {
-        case 1: this.props.onNextChildComponentChange(PropoMyProposals); 
+
+        case 1: {
+          this.props.onNextChildComponentChangeProps(
+            {
+              Usuario:this.props.nextChildComponentProps.Usuario
+            }
+          );
+          this.props.onNextChildComponentChange(PropoMyProposals);
+        }; 
       }
     }
     /** hadle generico */
@@ -275,6 +289,7 @@ class FrmSendPropuesta extends React.Component {
         
         return;
       }
+      /* handle Campos Personalizados */
       if(value.to =='campoPEnun'){
 
         console.log("campoPEnun a tratar:",value);
@@ -288,7 +303,7 @@ class FrmSendPropuesta extends React.Component {
         
         return;
       }
-      /** input con label apropiado*/
+      /** input con label apropiado, handle standar de textbox*/
       this.state[value.to] = value.value;
       console.log("resulta:",this.state[value.to]);
     }
@@ -317,6 +332,7 @@ class FrmSendPropuesta extends React.Component {
                   resumen={this.state.resumen}
                   selectedCategorias= {this.state.categorias}
                   CamposPers={this.state.respuestasPers}
+                  fileNeeded={this.state.fileNeeded}
                 />;
         default:
           return 'Uknown stepIndex';
@@ -420,19 +436,19 @@ class FrmSendPropuesta extends React.Component {
             <h1>Lugar: {this.props.nextChildComponentProps.evento.lugar} - {this.props.nextChildComponentProps.evento.fechaIni}</h1>
             <br/>
             <h2>Registro de propuestas:</h2>
-                <div style={{alignItems: "center"}}
+                <div className={classes.root}
                       class=" mx-auto" style={{width:"700px"}}
                 >
                 <Stepper 
                         activeStep={this.state.currentstep} alternativeLabel>
                         {this.state.steps.map(label => (
-                                                        <Step key={label}>
-                                                          <StepLabel 
-                                                            classes={{
-                                                            iconContainer:classes.iconContainer,
-                                                            alternativeLabel: classes.alternativeLabel}}>
-                                                            {label}
-                                                          </StepLabel>
+        <Step key={label}>
+            <StepLabel 
+            classes={{
+              iconContainer:classes.iconContainer,
+            alternativeLabel: classes.alternativeLabel}}>
+              {label}
+              </StepLabel>
                                                         </Step>
                         ))}
                 </Stepper>
