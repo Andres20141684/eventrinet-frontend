@@ -121,7 +121,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
                   </button>}
               </div>
                 <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}
-                //disabled={activeStep===1?!props.form2Completo:!props.form1Completo}
+                disabled={activeStep===1?!props.form2Completo:!props.form1Completo}
                 >
                 Siguiente
                 </button>
