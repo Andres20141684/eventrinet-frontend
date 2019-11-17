@@ -106,12 +106,12 @@ class Portafolio extends Component{
   }
   multiHandleClickrenderImagePort(i){
     console.log("llegue soy :", );
-    this.handleNextChildComponentChangeProps({evento:i,categorias:[]});
+    this.handleNextChildComponentChangeProps({evento:i,categorias:[],Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(SendProposal);
 
   }
   componentWillMount(){
-    console.log("AppWillMount")
+    console.log("Protafolio Will mount")
     this.setState(
         {title: this.props.title}
     );

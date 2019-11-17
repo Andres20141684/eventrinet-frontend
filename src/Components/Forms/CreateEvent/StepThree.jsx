@@ -61,7 +61,7 @@ handleChangeFaseDate(value,i,str,str2){
 
 addClick() {
   this.setState(prevState => ({
-    values: [...prevState.values, {idFase:0,secuencia:this.state.values.length+1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false,necesitaArchivo:0,necesitaEvaluacion:0}]
+    values: [...prevState.values, {idFase:0,faseIni:'',faseFin:'',faseEvalIni:'',secuencia:this.state.values.length+1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false,necesitaArchivo:0,necesitaEvaluacion:0}]
   }));
 }
 
@@ -99,7 +99,7 @@ handleCheckboxChange = event =>{
               {index>0 && index===this.state.values.length-1?<input
                     type="button"
                     value="Eliminar fase"
-                    class="btn btn-primary"
+                    className="btn btn-secondary"
                     onClick={() => this.removeClick(index)}
                     style={{float:'right'}}
                 />:null}
@@ -119,7 +119,7 @@ handleCheckboxChange = event =>{
                     handleChange4={this.handleChange4}
                     handleChangeFaseDate={this.handleChangeFaseDate}
                     handleCheck={this.handleCheck}
-                    //fechaAnt={index===0?null:this.state.values[index-1].faseFin}
+                    fechaAnt={index===0?null:this.state.values[index-1].faseFin==''?null:this.state.values[index-1].faseFin}
                     /*fechaPost={this.state.values.length-1===index?null:this.state.values[index-1].faseFin}*//>
                 </div>
             </div> 
@@ -154,7 +154,7 @@ handleCheckboxChange = event =>{
                         name="date_in"
                         placeholder="date_in"
                         selected={this.props.fCRIni}
-                        minDate={new Date()}
+                        //minDate={this.state.values.length!==0?this.this.state.values[this.state.values.length-1].faseFin:new Date()}
                         //minDate={new Date(this.state.values[this.state.values.length-1].faseFin).setDate(this.state.values[this.state.values.length-1].faseFin.getDate() + 1)}
                         //maxDate={this.props.fechaIE}
                         maxDate={this.props.fCRFin!==''?this.props.fCRFin:this.props.fechaIE}

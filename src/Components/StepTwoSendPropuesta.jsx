@@ -23,7 +23,7 @@ class StepTwoSendPropuesta extends React.Component {
       this.defaultMutableHandle=this.defaultMutableHandle.bind(this);
       
 
-      
+      this.defaultMutableHandlePerso=this.defaultMutableHandlePerso.bind(this);
       this.handleOnLoad=this.handleOnLoad.bind(this);
       this.renderBody=this.renderBody.bind(this);
       this.renderHeaders=this.renderHeaders.bind(this);
@@ -45,15 +45,16 @@ class StepTwoSendPropuesta extends React.Component {
   }
 
   componentWillMount(){
-    console.log("StepTwoSendProp props");
-    console.log(this.props);
+    console.log("<<<<<<<<<<<<<<<>>>>>>>>>>>   StepTwoSendProp props");
+    console.log(this.props.CamposPers);
   }
-  componentWillMount(){
-  }
+  
   onSuccesLoad(archivo){
 
   }
   componentDidMount(){
+    console.log("<<<<<<<<<<<<<<<>>>>>>>>>>>   StepTwoSendProp props");
+    console.log(this.props.CamposPers);
   }
   DateFormat(date,json,tag){
     let aux=date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
@@ -61,7 +62,18 @@ class StepTwoSendPropuesta extends React.Component {
   }
   
   defaultMutableHandle(e){
-    this.props.multiHandle({to:e.target.name,value:e.target.value});
+    this.props.multiHandle(
+      {to:e.target.name,
+        value:e.target.value});
+  }
+  defaultMutableHandlePerso(e){
+    let pre_value ={
+      value:e.target.value,
+      index:e.target.id
+    }
+    this.props.multiHandle(
+      {to:e.target.name,
+        value:pre_value});
   }
   renderOptions(){
     return this.props.Categorias.map((element, index) => {
@@ -113,6 +125,21 @@ class StepTwoSendPropuesta extends React.Component {
       )});
   }
   render () {
+    const inputCamposPers =[];
+    this.props.CamposPers.forEach(element => {
+      inputCamposPers.push(
+        {
+          label:element.enunciado,
+          category:'textArea',
+          name:'campoPEnun',
+          placeholder:'...', 
+          id: element.index,  
+          readonly:false,           
+          onChange:this.defaultMutableHandlePerso,           
+        }
+
+      );
+    });
     const inputPaperDescripcion =[
       {
         label:"Titulo",
@@ -176,6 +203,10 @@ class StepTwoSendPropuesta extends React.Component {
           arrayOfInputData={inputArchivo}
           cardHeadingText = "Sube tu archivo :) "
         />
+        <JCardForm
+                arrayOfInputData={inputCamposPers}
+                cardHeadingText = "Informacion personalizada por fase"
+              />
     
       </div>
     )

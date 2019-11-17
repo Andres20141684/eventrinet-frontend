@@ -1,4 +1,4 @@
-#progress_bar {
+  #progress_bar {
     margin: 10px 0;
     padding: 3px;
     border: 1px solid #fff;
@@ -16,22 +16,20 @@
     background-color: #002D3D;
     height: auto;
     width: 0;
+    color: #fff;
   }
-
   .containerDZ {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #fff;
     font-size: 18px;
-
-}
-
-#drop_zone {
-    border: 2px dashed #bbb;
+  }
+  #drop_zone {
+    border: 2px dashed #fff;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
     padding: 25px;
     text-align: center;
     font: 20pt bold 'Vollkorn';
-    color: #bbb;
-}
+    color: #bbbbbb;
+  }
