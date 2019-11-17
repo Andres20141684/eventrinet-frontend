@@ -266,8 +266,9 @@ class BannerTop extends Component{
   render(){
     
     return (
-      <div id="bannerTop" style={styles.banner}><br/>              
-        <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
+      <div id="bannerTop" style={styles.banner}><br/> 
+      
+      <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
 
           <a onClick={this.handleClickInicio} style={{cursor: "pointer"}} target="_self" title="Volver al home">
@@ -283,7 +284,7 @@ class BannerTop extends Component{
                 )}    
             />
           <div className="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
-              
+          
               <div className="list-inline-item" align="right">
                 <a href="/signUp" id="linkSignUp" className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.SignUp}</a>
                 <a href="/login"  id="linkLogin" className="nav"  style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name}</a>
@@ -291,8 +292,8 @@ class BannerTop extends Component{
               </div>
 
 
-
-              <li className="nav-item dropdown" id="myavatar"   >
+              
+              <li className="nav-item dropdown" id="myavatar">
                 
                   <Link to="#" data-toggle="dropdown" className="nav-link dropdown-toggle user-action">
                     <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" className="avatar" alt="Avatar"/>
@@ -303,14 +304,15 @@ class BannerTop extends Component{
                       <li className="divider dropdown-divider"></li>
                       <li><Link to="/" className="dropdown-item"onClick={this.clickLogOut}><i className="material-icons" >&#xE8AC;</i> Cerrar sesion</Link></li>
                   </ul>
-              </li> 
-            </div>
+              </li>               
+          </div>
+          
           
         </div>
+        
         <div style={{paddingRight:20, paddingLeft:20}}><hr  className="line-top"/></div>
     
         <div>  
-        
         <nav className="navbar navbar-default navbar-expand-xl navbar" style={styles.navbar}>
           <button className="navbar-toggler scrollbar scrollbar-primary" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <i className="navbar-toggler-icon fa fa-bars" style={styles.fa} aria-hidden="true"></i>
