@@ -235,6 +235,7 @@ handleCheckboxChange = event =>{
                         minDate={new Date()}
                         maxDate={this.state.values[0].faseFin}
                         disabled={this.state.values[0].faseFin===''?true:false}
+                        readOnly={this.props.fechPref<new Date()?true:false}
                         onChange={(e)=> this.props.handleChange2(e,"fechPref")}
                       />
                   </div>

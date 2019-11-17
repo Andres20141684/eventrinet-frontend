@@ -28,7 +28,7 @@ export default class EventNew extends Component{
             rdCamR:false,
             fCRIni:'',
             fCRFin:'',
-            fechPref:new Date(),            
+            fechPref:'',            
             fechaMaxPref:'',
             numFases:0,
             preferencia:'',
@@ -67,7 +67,6 @@ export default class EventNew extends Component{
 
 
         this.state.data_recived=this.props.data_recived;
-        console.log('Te lo dije');
         console.log(this.state.data_recived);
         this.setState(
           {idUsuario: this.state.data_recived.idOrganizador_nextProps}
@@ -76,7 +75,6 @@ export default class EventNew extends Component{
       }
 
       handleNextChildComponentChange(_nextChildComponent){
-        console.log('redireccionando a ... ORGAN ACCTIVE evento');
           this.props.onNextChildComponentChange(_nextChildComponent);  
       }
 
@@ -100,13 +98,13 @@ export default class EventNew extends Component{
       handleClick = () => {
         this.handleNextChildComponentChange(OrganActiveEvents);
       }
+
       componentDidMount(){
         console.log(this.state.data_recived)
         var aux={}
         aux.idEvento=this.state.data_recived.id_evento_nextProps
         aux=JSON.stringify(aux)
         if(this.state.data_recived.id_evento_nextProps!==0){
-          console.log("<<<<<<<<<<<<<<<<<     JSONNNNNNN", aux);
           Networking.ShowEvent(aux).then(
             (response)=>{
               console.log(response);
@@ -142,7 +140,7 @@ export default class EventNew extends Component{
                   auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
                   auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
                   auxfases[i].faseEvalIni=new Date(response.fases[i].fechaEvalIni);
-				  auxfases[i].faseEvalPresiIni=new Date(response.fases[i].fechaEvalPresiIni);
+				          auxfases[i].faseEvalPresiIni=new Date(response.fases[i].fechaEvalPresiIni);
                   auxfases[i].reqArch=auxfases[i].necesitaArchivo===1?true:false;
                   auxfases[i].reqEval=auxfases[i].necesitaEvaluacion===1?true:false;
                   auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();
@@ -154,8 +152,6 @@ export default class EventNew extends Component{
                   fases:auxfases
                 })
               }
-              console.log(auxfases)
-
             })
             .catch( (err) =>{
               console.log("error en conexión");
@@ -172,7 +168,6 @@ export default class EventNew extends Component{
           [label]:value
         })
         this.validacion()
-        console.log(this.state[label])
       }
     
       handleChange(event) {
