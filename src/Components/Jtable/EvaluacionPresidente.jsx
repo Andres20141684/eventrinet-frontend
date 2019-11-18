@@ -33,6 +33,7 @@ class EvaluacionPresidente extends Component {
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+        this.handleReturn = this.handleReturn.bind(this);
     }
     handleNextChildComponentChange(_nextChildComponent){
       console.log('cambiando', _nextChildComponent);
@@ -103,6 +104,7 @@ class EvaluacionPresidente extends Component {
       console.log(this.state.tabIndex)
   }
   handleReturn(){
+    this.props.onNextChildComponentChange(PresiAsignarEvalEvents);
     //this.handleNextChildComponentChange(PresiAsignarEvalEvents);
   }
   /*tableData() {
