@@ -1,6 +1,5 @@
-const restURL = 'http://52.201.202.133:5000/api/';
- 
-//const restURL = 'http://localhost:5000/api/';
+//const restURL = 'http://52.201.202.133:5000/api/';
+const restURL = 'http://localhost:5000/api/';
 async function crear_cuenta(
     var_email,
 	var_last_name,

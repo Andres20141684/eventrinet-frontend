@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 //const stylesFile = require('../Styles/styles.js');
 //const styles = stylesFile.getStyle();
 import './../styles/dash_style.css';
+import { textAlign } from '@material-ui/system';
 /**
  * Necesito una lista de eventos, y na foto parq eru pueda
  */
@@ -9,8 +10,12 @@ class EventDetail extends Component{
   constructor(props){
     super(props);
     this.state = {
+      imagensrc: "http://awscommunitydaydublin.com/wp-content/uploads/2019/09/doom2-3.png",
+        
         msg: "Not Connected" ,
         transport: "go to Fake Ini",
+        idUser:0,
+        Propuestaprev:{},
         Usuario: null,
         /*viene de los props */
         event:{
@@ -50,11 +55,12 @@ class EventDetail extends Component{
     this.handleNextChildComponentChange(null);
   }
   componentWillMount(){
+    console.log("Event Detail props ->",this.props);
       /** obtengo  el idUsuario */
       
-    this.setState({Usuario: this.props.nextChildComponent.Usuario});
-    
-    this.setState({Propuesta: this.props.nextChildComponent.Propuesta});
+    this.setState({idUser: this.props.nextChildComponentProps.idUser});
+    this.setState({event: this.props.nextChildComponentProps.evento});
+    this.setState({Propuestaprev: this.props.nextChildComponentProps.Propuestaprev});
     //console.log(retrievedJson);
 
 
@@ -68,20 +74,29 @@ class EventDetail extends Component{
 
   render(){
     return (
-      <section className="contenedor sobre-nosotros">
-
-        <h2 className="titulo">Nuestro producto</h2>
+      <section className="contenedor sobre-nosotros">     
+        <h2 className="titulo">{this.state.event.nombre + " - " + this.state.event.fechaIni}</h2>
+        <h2 style ={{textAlign:"left"}} className="titulo">Detalle de propuesta:</h2>
         <div className="contenedor-sobre-nosotros">
-            <img src="./img/ilustracion1.png" alt="" className="imagen-about-us"/>
+            
             <div className="contenido-textos">
-                <h3><span>1</span>Las mejores organizaciones de eventos</h3>
+                <h3><span>Descripcion</span>Las mejores organizaciones de eventos</h3>
                 <p>Sé parte de la familia Eventrinet y empieza administrar tus eventos
                    académicos y profesionales, call for papers, y más.</p>
-                <h3><span>2</span>Las mejores acogidas</h3>
+                <h3><span>Estado</span>Las mejores acogidas</h3>
+                <p>Eventrinet es una plataforma de difución de eventos
+                   alrededor del mundo y nuestro servicio es utilizado
+                   por grandes compañias, universidades entre otros.</p>
+                   <h3><span>Fase Actual</span>Las mejores acogidas</h3>
+                <p>Eventrinet es una plataforma de difución de eventos
+                   alrededor del mundo y nuestro servicio es utilizado
+                   por grandes compañias, universidades entre otros.</p>
+                   <h3><span>Archivo</span>Las mejores acogidas</h3>
                 <p>Eventrinet es una plataforma de difución de eventos
                    alrededor del mundo y nuestro servicio es utilizado
                    por grandes compañias, universidades entre otros.</p>
             </div>
+            <img src={this.state.imagensrc} alt="" className="imagen-about-us"/>
         </div>
     </section>
     );

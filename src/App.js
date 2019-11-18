@@ -4,9 +4,10 @@ import './App.css';
 import WorkingSpace from './Components/Special/WorkingSpace';
 import NewIni from "./../src/Components/General/NewIni";
 import EventDetail from './Components/EventDetail';
-import SendProposal from './Components/SendProposal';
+
 import AsignEvalPropuesta from './Pages/Asign_Eval_Propuest';
 import Dashboard from './Components/Dashboard';
+import SendProposal from './Components/SendProposal';
 const Networking = require('./Network/Networking.js') ;
 
 
@@ -15,16 +16,22 @@ class App extends Component{
     super(props);
     this.state = {
       bannBot : BannerBottom_,
+      URLworkingSpace: SendProposal,
       workingSpace : WorkingSpace,
       msg: "Not Connected" ,
-      initialComponent: SendProposal,
+      initialComponent: NewIni,   
       initialComponentProps:{},
       xd: null,
       pathGottenbyDunkUser:"",
       Usuario:null,
+      searchEvent:0,
     }
     this.getDataUser=this.getDataUser.bind(this);
-    this.componentWillTryRedirect=this.componentWillTryRedirect.bind(this);
+    
+    
+
+
+
     
   }
   getDataUser(){
@@ -34,16 +41,12 @@ class App extends Component{
     console.log("retrievedJson",retrievedJson)
     try{
       /** retirare estalinea despues ya que es redundante */
-      this.state.initialComponentProps.idUser=retrievedJson.infoUsuario.idUsuario;
       this.state.initialComponentProps.Usuario=retrievedJson.infoUsuario;
       this.setState({idUser:retrievedJson.infoUsuario.idUsuario });
       this.setState({Usuario: retrievedJson.infoUsuario});
     }catch(e){
       console.error(e);
       console.error("no se encontro nada en el sessionStorage");
-      this.setState({idUser: 0 });
-      
-
     }
   }
   /*
@@ -52,54 +55,46 @@ class App extends Component{
                 https//:www.Eventrinet.com/?EventriEvents&idEvento=100
 
    */
-  componentWillTryRedirect(busqueda){
-    if(busqueda==='') {return};
-    var split1 = busqueda.split('?');
-    if(split1.lenght==1) {return};
-    var split2 =split1[1].split('&');
-    if (split2[0]=='EventriEvents'){
-        var parameter = split2[1].split('=');
-        if(parameter[0]=='idEvento'){
-            var _idEvento= parseInt(parameter[1]);
-            /** aqui networking busca los detalles del evento  y redirijo*/
-            console.log("App-> idEvento=",_idEvento);
-            Networking.NetworkMutation_JAchievingData(
-              {
-                methodPath: 'eventos/mostrar_evento',
-                JsonToBack:{
-                    idEvento: _idEvento
-                },
-              }
-            ).then((value) => {
-              console.log(value);
-              if(value == null || value.succeed==false){
-                console.error('FALLO FATAL');
-                /************** si fallo mensaje de error************ */
-              }else {
-                 console.log('si hay algo:');
-                //this.handleNextChildComponentChange(PropoMyProposals);
-                // aligerando el javascript object
-                try{
-                  delete value.resultado;
-                  delete value.tieneCameraRdy;
-                  delete value.programaCompletado;
-                  delete value.numeroPropuestas;
-                  delete value.fases;}catch(e){console.log("Se removio lo que se pudo XD")}
-                console.log('Evento modo ligero',value);
-                this.state.initialComponentProps.evento=value;
-                this.state.initialComponent=SendProposal;
-                console.log('Dondoe toy',this.state.initialComponent);
-              }
-           });
-        }
-    }
+  
+  shouldComponentUpdate(nextState,nextProps){
+    if(nextState.initialComponent != this.state.initialComponent){return true;}
+    return false;
+
   }
   componentWillMount(){
     console.log("App->WillMount");
     this.getDataUser();
     //capturo lo que quiero del evento
     //intento redireccion
+    console.log("App-> props:",this.props.location);
+    var busqueda = this.props.location.search;
+    console.log("App-> intento de busqueda en ",busqueda);
+        if(busqueda === undefined) {
+          console.log("busqueda indefinido");
+          return};
+        if(busqueda === null) {
+            console.log("busqueda NULL");
+            return};
+            try{
+              var split1 = busqueda.split('?');
+              console.log("App-> intento de busqueda.split('?')",split1);
+              if(split1.lenght==1) {return};
+              var split2 =split1[1].split('&');
+              console.log("App-> intento de split1[1].split('&')",split2);
+              if (split2[0]=='EventriEvents'){
+                  var parameter = split2[1].split('=');
+                  if(parameter[0]=='idEvento'){
+                      var _idEvento= parseInt(parameter[1]);
+                      /** aqui networking busca los detalles del evento  y redirijo*/
+                      console.log("App-> idEvento=",_idEvento);
+                      this.setState({searchEvent:_idEvento});
+                  }
+              }   
     
+            }catch(e){
+              console.log(e);
+              console.log("nO HABIA BUSQUEDA");
+            }
     
   } 
   render() {
@@ -108,10 +103,12 @@ class App extends Component{
       <div>
         <div className="App">
           <div>
+            {console.log("JUSTO ANTES DE IR AL WS ->",this.state)}
             <this.state.workingSpace 
-              idUser={this.state.idUser}
-              Usuario={this.state.Usuario}
-              nextComponent={this.state.initialComponent}
+              searchEvent={this.state.searchEvent}
+                idUser={this.state.idUser}
+                  Usuario={this.state.Usuario}
+                nextComponent={this.state.initialComponent}
               nextComponentProps = {this.state.initialComponentProps}
             />
           </div>

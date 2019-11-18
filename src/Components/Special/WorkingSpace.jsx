@@ -2,6 +2,7 @@ import React, {Component, useCallback} from 'react';
 import BannerTop from '../General/bannerTop';
 import InscriptionEvent from '../../Components/InscriptionEvent';
 import SendProposal from '../../Components/SendProposal'
+const Networking = require('./../../Network/Networking') ;
 
 
 /****************************************************************
@@ -22,6 +23,7 @@ class WorkingSpace extends Component{
         nextChildComponent: null,
         nextChildComponentProps:{ idUser:0,Usuario:null}
     }
+    this.componentWillTryRedirect=this.componentWillTryRedirect.bind(this);
     this.getDataUser=this.getDataUser.bind(this);
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -43,6 +45,49 @@ class WorkingSpace extends Component{
     getDataUser(){
       
     }
+    componentWillTryRedirect(busqueda){
+      console.log("WS-> intento de busqueda en ",busqueda);
+      if(busqueda === 0) {
+        console.log("busqueda indefinido");
+        return};
+      if(busqueda === 0) {
+          console.log("busqueda NULL");
+          return};
+      Networking.NetworkMutation_JAchievingData(
+        {
+          methodPath: 'eventos/mostrar_evento',
+          JsonToBack:{
+              idEvento: busqueda
+          },
+        }
+      ).then((value) => {
+        console.log(value);
+        if(value == null || value.succeed==false){
+          console.error('FALLO FATAL');
+          /************** si fallo mensaje de error************ */
+        }else {
+          console.log('si hay algo:');
+          //this.handleNextChildComponentChange(PropoMyProposals);
+          // aligerando el javascript object
+          try{
+            delete value.resultado;
+            delete value.tieneCameraRdy;
+            delete value.programaCompletado;
+            delete value.numeroPropuestas;
+            delete value.fases;
+          }catch(e){console.log("Se removio lo que se pudo XD")}
+          console.log('Evento modo ligero',value);
+          this.handleNextChildComponentChangeProps({evento:value});
+          this.handleNextChildComponentChange(SendProposal);
+          console.log('WS-> Dondoe toy',this.state);
+          
+          }
+        } 
+      );
+    }
+              
+      
+    
     componentWillMount(){
       window.scrollTo(0, 0);
       this.setState({Usuario: this.props.Usuario});
@@ -52,7 +97,7 @@ class WorkingSpace extends Component{
       console.log("WSWillMount -> props: ",this.state.nextChildComponentProps);
       console.log("WSWillMount -> comp : ",this.state.nextChildComponent);
       let page = sessionStorage.getItem("currentPage");
-
+      this.componentWillTryRedirect(this.props.searchEvent);
       try{
         if(!(page === null)){
           console.log("page to redirect ",page);
@@ -87,13 +132,18 @@ class WorkingSpace extends Component{
       console.log("WSWillMount -> comp : ",this.state.nextChildComponent);
     }
     componentDidMount(){
-        
+      this.state.nextChildComponentProps = this.props.nextComponentProps;
+      this.state.nextChildComponent= this.props.nextComponent;
 
     }
 
     shouldComponentUpdate(nextProps,nextState){
         if(this.state.nextChildComponent  !== nextState.nextChildComponent){
-          console.log("seteo Usuario",this.state.nextChildComponentProps.Usuario);
+          console.log("WS->Cambio state",nextState);
+            return true;
+        }
+        if(this.props.nextChildComponent  !== nextProps.nextChildComponent){
+          console.log("WS->cambio props",nextProps);
             return true;
         }
         return false;
@@ -106,23 +156,22 @@ class WorkingSpace extends Component{
     render() {
       
       return (
-        <div>
-    <div className="App">
-      <this.state.bannTop 
-      nextChildComponentProps={this.state.nextChildComponentProps}
+      <div>
+      <div className="App">
+      <this.state.bannTop
+        nextChildComponentProps={this.state.nextChildComponentProps}
         onNextChildComponentChange={this.handleNextChildComponentChange}
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
       /> 
       <div>
-      <this.state.nextChildComponent  
-      
-       nextChildComponentProps={this.state.nextChildComponentProps}
+      <this.state.nextChildComponent
+        nextChildComponentProps={this.state.nextChildComponentProps}
         onNextChildComponentChange={this.handleNextChildComponentChange}
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
         />
-    </div>
-    </div>
-    </div>
+      </div>
+      </div>
+      </div>
     );}
   }
   

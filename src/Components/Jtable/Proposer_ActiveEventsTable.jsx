@@ -17,14 +17,25 @@ class Proposer_ActiveEventsTable  extends Component {
       super(props) 
       
       this.state = {
-         idProposer: 0,
+        idUser: 0,
          datos_tabla1: []
 
       }
       
       console.log("Proposer_ActiveEventsTable",this.props);
-   }
-   
+      this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
+      this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+  
+  }
+  /* aqui debo manejar lo cambios de redireccion y de props de mis tablas XD */
+  handleNextChildComponentChange(_nextChildComponent){
+  console.log('cambiando', _nextChildComponent);
+      this.props.onNextChildComponentChange(_nextChildComponent);
+      
+  }
+  handleNextChildComponentChangeProps(_nextChildComponentProps){
+      this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+  }
 
    handleClick = () => {
       console.log('this is:', this);
@@ -34,25 +45,26 @@ class Proposer_ActiveEventsTable  extends Component {
 
    
    }
-   componentDidMount(){
+   componentWillMount(){
       /** existirá el servicio de obtener los eventos y adentro las categorias con mi Id */
-      
+      this.setState({idUser:this.props.idUser});
       
    }
-   handleDetail(){
-    this.props.onNextChildComponentChangeProps(EventDetail);
+   handleDetail(value){
+    this.props.onNextChildComponentChangeProps(value);
       this.props.onNextChildComponentChange(EventDetail);
    }
    renderProposals(listProp) {
-      console.log("llegue 1",listProp);
+      const evento = listProp;
+      try{delete evento.listProp}catch(e){}
       /* el Link se va al detalle de propuesta */
       return listProp.Propuestas.map((propuesta, index) => {
-         console.log("llegue 2");
+         
          const { idPropuesta,nombPropuesta,estado,fechaLim } = propuesta 
          return(
             
             <tr key = {idPropuesta}>
-               {console.log("llegue 1",propuesta.idPropuesta)}
+               
                <td> {index+1} &nbsp;&nbsp; {nombPropuesta} </td>
                <td> N-ésima </td>
                <td> {estado} </td>
@@ -60,6 +72,9 @@ class Proposer_ActiveEventsTable  extends Component {
                <td>
                   <JActionButton
                   onClick = {()=>this.handleDetail(
+                    {Propuestaprev:propuesta,
+                      evento:evento,
+                      idUser:this.state.idUser}
                                  
                               )}
                   button_class ="fa fa-plus-circle"
@@ -75,19 +90,11 @@ class Proposer_ActiveEventsTable  extends Component {
 
 
 
-   handleDetail =(_idPropuesta)=>{
-    
-    this.handleNextChildComponentChangeProps({   
-      Usuario: this.props.Usuario,
-      idPropuesta: _idPropuesta
-      
-   });
     //this.handleNextChildComponentChange(NewEventPage);
- }
+ 
    tableData() {
       return this.props.data.map((evento, index) => {
          const { idEvento,nombEvento,faseActual,totFases,listProp} = evento 
-         console.log("llegue 0",evento);
          var idAccordion = "accordion"+ index
          var idIndex = "customCheck"+ index
           var indexEvent =idEvento

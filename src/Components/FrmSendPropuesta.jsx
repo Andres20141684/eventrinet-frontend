@@ -48,7 +48,7 @@ class FrmSendPropuesta extends React.Component {
         /****USER */
         telefonoAuthor:"",
         gradoInstruccion:"",
-        afilicacion:"",
+        afilicacion:"_",
         /* step 1 */
         authorName: "*",
         authorLastname: "",
@@ -120,6 +120,7 @@ class FrmSendPropuesta extends React.Component {
               this.state.respuestasPers.push(
                 { idCampopersonalizado     : this.state.CamposPers[_index].idCamposPEnun,
                   enunciado       : this.state.CamposPers[_index].enunciado,
+                  descripcion : this.state.CamposPers[_index].descripcion,
                   respuesta       : "",
                   index: _index
                 }
@@ -177,6 +178,9 @@ class FrmSendPropuesta extends React.Component {
       if(this.state.currentstep != nextState.currentstep){
          return true;
       }
+      if(this.state.afilicacion != nextState.afilicacion){
+        return true;
+     }
       if(this.state.modal != nextState.modal){
         return true;
      }
@@ -321,6 +325,7 @@ class FrmSendPropuesta extends React.Component {
                   telefono={this.state.telefono}
                   email={this.state.email}
                   academicLevel={this.state.academicLevel}
+                  afilicacion={this.state.afilicacion}
                 />;
         case 1:        
           return <this.state.step2

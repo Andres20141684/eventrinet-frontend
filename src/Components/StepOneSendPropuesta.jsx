@@ -48,10 +48,6 @@ renderacademicLevel(){
   })
 }
   render () {
-    const Usuario_nombre=this.props.Usuario.nombre;
-    const Usuario_apePaterno=this.props.Usuario.apePaterno;
-    const Usuario_gradoInstruccion=this.props.Usuario.gradoInstruccion?null:"Profesional";
-    const Usuario_correo=this.props.Usuario.correo;
     
     const inputAutor =[
       {
@@ -91,9 +87,10 @@ renderacademicLevel(){
         category:'textArea',
         name:"afilicacion",
         id:"id_selectStudyLevel",
-        readonly:true,
+        readonly:false,
         placeholder:'Institucion a la cual esta afiliado', 
         onChange:this.defaultMutableHandle,
+        value:this.props.afiliacion
       }
     ]
     const inputGenerales =[
@@ -148,6 +145,7 @@ renderacademicLevel(){
                 arrayOfInputData={inputGenerales}
                 cardHeadingText = "Datos Generales de otro Autor: (puede dejarlo en blanco)"
               />
+              <button> + </button>
               
 
 

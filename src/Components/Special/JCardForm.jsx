@@ -37,6 +37,7 @@ class JCardForm extends Component {
                             id={inputData.id}
                             placeholder={inputData.placeholder}              
                             onChange={inputData.onChange}
+                            value={inputData.value}
                             autoFocus
                         />}
             </div>

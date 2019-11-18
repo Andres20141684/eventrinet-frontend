@@ -133,7 +133,7 @@ class StepTwoSendPropuesta extends React.Component {
           label:element.enunciado,
           category:'textArea',
           name:'campoPEnun',
-          placeholder:'...', 
+          placeholder:element.descripcion, 
           id: element.index,  
           readonly:false,           
           onChange:this.defaultMutableHandlePerso,           

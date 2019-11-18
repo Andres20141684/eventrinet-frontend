@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
-import { is } from '@babel/types';
+import { is, thisExpression } from '@babel/types';
 import ActionButton from './ActionButton';
 import NewEventPage from './../../Pages/NewEventPage'
 import JActionButton from '../Special/JActionButton';
+import NewIni from '../General/NewIni';
+import Dashboard from '../Dashboard';
+import JTableMaterial from '../Special/JTableMaterial';import MaterialTable from 'material-table';
 const Networking = require('./../../Network/Networking.js') ;
+
 
 
 class Organizador_ActiveEventsTable  extends Component {
@@ -24,7 +28,10 @@ class Organizador_ActiveEventsTable  extends Component {
             nomb_evento: "none"
             
          }
-         }
+         },
+         columns:[],
+         data:[],
+         dataReady:0
          
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
@@ -65,7 +72,13 @@ class Organizador_ActiveEventsTable  extends Component {
    }
    componentWillMount(){
       
+      this.renderHeaders();
       
+      
+
+      
+   }
+   componentDidMount(){
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);  
       this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
@@ -77,7 +90,7 @@ class Organizador_ActiveEventsTable  extends Component {
          //btnCrearEvent.display="block";
          console.log("Cambios realizados");
       }
-      
+
 
       Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
          console.log(value);
@@ -87,97 +100,110 @@ class Organizador_ActiveEventsTable  extends Component {
          }else {
             console.log('si hay algo:');
             this.setState({datos_tabla:value});
+            this.tableData();
+            this.setState({dataReady:1});
          }
          
       });
    }
-   shouldComponentUpdate(nextProps, nextState){
-      if(this.state.datos_tabla != nextState.datos_tabla){
-         return true;
-      }
-      return false;
-   }
-  
-  
-      handleClick2 = () => {
-         console.log('redireccionando a ... update evento');
-         sessionStorage.setItem('nextProp',
-              JSON.stringify(
-                             {   idOrganizador_nextProps: this.state.idUser_recived,
-                                id_evento_nextProps: 0,
-                                nomb_evento: "none"
-                                
-                             }
-                          ))
-         //window.location.replace("./");
-      }
-
- 
    
+
+      renderHeaders(){
+         let columns= [
+            { title: 'Nro', field: 'num' ,cellStyle:{ fontSize: 14 }},
+            { title: 'Lista de eventos', field: 'name',cellStyle:{ fontSize: 14 } },
+            { title: 'Estado actual', field: 'state',cellStyle:{ fontSize: 14 } },
+            { title: 'Fecha Inicio', field: 'fechaIni',cellStyle:{ fontSize: 14 } },
+            { title: 'Fecha Fin', field: 'fechaFin' ,cellStyle:{ fontSize: 14 }},
+            { title: 'Editar', field: 'edit' },
+            { title: 'Publicar evento', field: 'publish' },
+            { title: 'Cancelar evento', field: 'cancel' },
+          ];
+          this.setState({columns:columns});
+       }
+       handlePublishClick(idEvento){
+          alert("Publicando Evento con ID: =>" + idEvento);
+          this.handleNextChildComponentChange(Dashboard);
+       }
+       handleCancelClick(idEvento){
+         alert("Cancelando Evento con ID: =>" + idEvento);
+         this.handleNextChildComponentChange(Dashboard);
+      }
    tableData() {
       //this.setState.idUser_recived=this.props.idUser_recived;
-
-        return this.state.datos_tabla.Eventos.map((evento, index) => {
-         
+      let data=[];
+      this.state.datos_tabla.Eventos.forEach((evento , index )=> {
          const {idEvento, nombre,descripcion,fechaIni,
             fechaFin,lugar,precios,numFases,estado,
             preferencia,tieneCameraRdy,programaCompletado,
             fechaMaxPref,numeroPropuestas} = evento
-         return (
-         <tr >
-               <td >{index+1} &nbsp;&nbsp; {nombre}</td>
-               <td >{estado}</td>
-               <td >{fechaIni}</td>
-               <td >{fechaFin}</td>
-
-               <td>
-                  <JActionButton
+         data.push(
+            { 
+               num: index+1,
+               name: nombre, 
+               state: estado, 
+               fechaIni: fechaIni, 
+               fechaFin: fechaFin,
+               edit: (<JActionButton
                      onClick = {()=>this.handleEditButton(this.state.idUser_recived,
                                                                evento.idEvento,
                                                                evento.nombre)}
                      button_class ="fa fa-edit" 
-                  />
-               </td> 
-
-               <td>
-               <JActionButton
-                     onClick = {()=>this.handleRedirectClick(this.state.idUser_recived,
-                                                               evento.idEvento)}
+                     />)
+               , 
+               publish:
+               (<JActionButton
+                     onClick = {()=>this.handlePublishClick(evento.idEvento)}
                      button_class ="fa fa-play" 
-                  />
-               </td> 
-
-               <td>
-                  <JActionButton
-                     onClick = {()=>this.handleRedirectClick(this.state.idUser_recived,
-                                                               evento.idEvento)}
-                     button_class ="fa fa-times" 
-                  />
-               </td> 
-         </tr>
-         )
-      })
+                     />)
+               
+            ,
+               cancel: 
+               (<JActionButton
+                           onClick = {()=>this.handleCancelClick(idEvento)}
+                           button_class ="fa fa-times" 
+                        />)
+            }
+         );
+      });
+      this.setState({data:data});
     }
-  
-    renderHeaders(){
-       return(
-         <tr >
-            <th align= "left" scope="col">Lista de eventos</th>
-            <th scope="col">Estado actual</th>
-            <th scope="col">Fecha Inicio </th>
-            <th scope="col">Fecha Fin </th>
-            <th scope="col">Editar</th>
-            <th scope="col">Publicar evento</th>
-            <th scope="col">Cancelar</th>
-         </tr>
-       );
+    shouldComponentUpdate(nextProps, nextState){
+      if(this.state.dataReady != nextState.dataReady){
+         return true;
+      }
+      return false;
     }
+    makedata(dataRady){
+      switch (dataRady) {
+         case 0:
+             return [];
+         case 1: 
+             return this.state.data;
+         
+       } 
+    }
+    
      render() {
       
       
          return (
+            <div style={{"font-size": "15"}}>
+            <JTableMaterial
+               title="Eventos Activos:"
+               columns={this.state.columns}
+               data={this.makedata(this.state.dataReady)}
+               
+          /></div>
             
-           <div class="panel panel mypanel" >
+           
+        )
+     }
+}
+
+export default Organizador_ActiveEventsTable ;
+/*
+<div class="panel panel mypanel" >
               <div className="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                   <h3>Lista de Eventos activos</h3>
                   
@@ -196,8 +222,9 @@ class Organizador_ActiveEventsTable  extends Component {
               </table>
               </div>
            </div>
-        )
-     }
-}
 
-export default Organizador_ActiveEventsTable  //exporting a component make it reusable and this is the beauty of react
+
+
+
+
+ */

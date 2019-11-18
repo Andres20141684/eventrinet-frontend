@@ -147,20 +147,28 @@ class BannerTop extends Component{
   /** Manejadores de redireccion en modo de Mutacion */
   handleClicPostulanteEventos = () => {
     console.log('redireccionando a ... PropoMyProposals');
+    this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(PropoMyProposals);
   }
   handleClicOrganizadorEventos = () => {
     console.log('redireccionando a ... Announcements evento');
+    this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(OrganActiveEvents);
   }
   handleClicPresidenteEventos = () => {
     console.log('redireccionando a ... Announcements evento?')
+    
+    this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(PresiAsignarEvalEvents)
   }
   handleClicAdmin = () => {
+    
+    this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(AdminPageMainTable)
   }
   handleClicEvaluadorEventosListados = () => {
+    
+    this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(EvaluadorEventosListados)
   }
   handleClicEvents = () => {
