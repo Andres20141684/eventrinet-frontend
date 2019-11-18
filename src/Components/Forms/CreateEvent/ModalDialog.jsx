@@ -66,6 +66,7 @@ class ModalDialog extends Component{
         <div>
           <button style={{float:'right'}} class="mybutton" onClick={this.handleClickOpen}>Guardar</button>
           <Dialog
+            component={'span'}
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="responsive-dialog-title"
@@ -74,7 +75,7 @@ class ModalDialog extends Component{
             <div>
               {this.state.succeed===''? 
               <div>
-              <DialogContent>
+              <DialogContent component={'span'}>
                 <DialogContentText>
                   <h2>Está seguro de guardar?</h2>
                 </DialogContentText>
@@ -88,8 +89,10 @@ class ModalDialog extends Component{
               <div>
                 {this.state.succeed==='wait'?
                 <div>
-                  <DialogContent>
-                    <Fade
+                  <DialogContent component={'span'}>
+                    <div class='col-md-4'></div>
+                    <div class='col-md-4'>
+                      <Fade
                       in={this.state.succeed === 'wait'}
                       style={{
                         transitionDelay: this.state.succeed === 'wait' ? '800ms' : '0ms',
@@ -98,6 +101,8 @@ class ModalDialog extends Component{
                       >
                       <CircularProgress />
                       </Fade>
+                    </div>
+                    <div class='col-md-4'></div>
                       <DialogContentText>
                           <h2>Procesando...</h2>
                         </DialogContentText>
@@ -124,7 +129,7 @@ class ModalDialog extends Component{
                     </div>
                     }
                     <DialogActions>
-                      <button onClick={this.handleExit} color="primary" autoFocus>
+                      <button onClick={this.handleExit} color="primary"  className="btn btn-primary" autoFocus>
                         Aceptar
                       </button>
                     </DialogActions>

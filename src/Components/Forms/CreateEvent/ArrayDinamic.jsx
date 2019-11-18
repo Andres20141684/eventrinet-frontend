@@ -56,17 +56,17 @@ class ArrayDinamics extends Component{
                           <Row>
                           <div class="form-group col-md">
                                 <label for="title">{this.props.type} {index+1}</label>
-                                <input class="form-control" type="text" maxLength="200" onChange={(e)=>this.handleChange5(e,index,"enunciado")} value={this.state.array[index].enunciado}/>
+                                <input readOnly={this.props.value.faseFin<new Date()?true:false} class="form-control" type="text" maxLength="200" onChange={(e)=>this.handleChange5(e,index,"enunciado")} value={this.state.array[index].enunciado}/>
                           </div>
                             {this.props.type==='Criterio'?null:
                             <div  class="form-group col-md">
                                 <label for="title">Descripcion</label>                                
-                                <input class="form-control" type="text" maxLength="200"  onChange={(e)=>this.handleChange5(e,index,"descripcion")} value={this.state.array[index].descripcion}/>
+                                <input readOnly={this.props.value.faseFin<new Date()?true:false} class="form-control" type="text" maxLength="200"  onChange={(e)=>this.handleChange5(e,index,"descripcion")} value={this.state.array[index].descripcion}/>
                             </div>}
                             {this.props.type==='Criterio'?null:
                               <div class="form-group col-md-2" >
                             <label for="title">Obligatorio</label>
-                            <input  type="checkbox" onClick={(e)=>this.handleCheckBox(e,index,"obli","obligatorio")} checked={this.state.array[index].obli}>
+                            <input  disabled={this.props.value.faseFin<new Date()?true:false} type="checkbox" onClick={(e)=>this.handleCheckBox(e,index,"obli","obligatorio")} checked={this.state.array[index].obli}>
                             </input>
                             </div> 
                             }
@@ -76,10 +76,10 @@ class ArrayDinamics extends Component{
                   ))}
                   <Row>
                       <Col>
-                      <input class="btn btn-primary"type="button" style={{paddingLeft:'40px',paddingRight:'40px'}} value="+" onClick={() => this.addClick()} /> 
+                      {this.state.array.length===1?null:<input  disabled={this.props.value.faseFin<new Date()?true:false} style={{float:'left',paddingLeft:'40px',paddingRight:'40px'}}className="btn btn-secondary" type="button" value="-" onClick={() => this.removeClick()} />} 
                       </Col>
                       <Col>
-                      {this.state.array.length===1?null:<input  style={{float:'right',paddingLeft:'40px',paddingRight:'40px'}}class="btn btn-primary"type="button" value="-" onClick={() => this.removeClick()} />} 
+                      <input disabled={this.props.value.faseFin<new Date()?true:false} class="btn btn-primary"type="button" style={{float:'right',paddingLeft:'40px',paddingRight:'40px'}} value="+" onClick={() => this.addClick()} /> 
                       </Col>
                   </Row>
                   

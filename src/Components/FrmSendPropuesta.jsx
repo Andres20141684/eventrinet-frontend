@@ -161,7 +161,7 @@ class FrmSendPropuesta extends React.Component {
            console.log('si hay algo:');
           //this.handleNextChildComponentChange(PropoMyProposals);
           value.CamposPerson.forEach(element => {
-            this.state.CamposPerson.push(
+            this.state.CamposPers.push(
               {idCampo:element.idCamposPEnun,enunciado:element.enunciado});
           });
           
@@ -330,7 +330,7 @@ class FrmSendPropuesta extends React.Component {
         case 1:        
           return <this.state.step2
                   Usuario={this.props.nextChildComponentProps.Usuario}
-                  CamposPerson={this.state.CamposPerson}
+                  CamposPerson={this.state.CamposPers}
                   multiHandle={this.handleValue} 
                   Categorias={this.props.nextChildComponentProps.Categorias}
                   titulo={this.state.titulo}

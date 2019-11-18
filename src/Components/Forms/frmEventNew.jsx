@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import frmCreateEvent from './frmCreateEvent'
-import { string } from 'prop-types';
+import { string, element } from 'prop-types';
 import '../../styles/style_sheets.css'
 import { thisExpression } from '@babel/types';
 import OrganActiveEvents from '../../Pages/OrganActiveEvents';
@@ -23,12 +23,12 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{idFase:0,secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
+            fases:[{idFase:0,faseIni:'',faseFin:'',faseEvalIni:'',secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:'',
             fCRFin:'',
-            fechPref:new Date(),            
+            fechPref:'',            
             fechaMaxPref:'',
             numFases:0,
             preferencia:'',
@@ -37,8 +37,10 @@ export default class EventNew extends Component{
             datajson:null,  
             form:frmCreateEvent,
             options:[],
-            data_recived: {}
-
+            data_recived: {},
+            form1Completo:false,
+            form2Completo:false,
+            form3Completo:false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleChange2=this.handleChange2.bind(this)
@@ -47,10 +49,14 @@ export default class EventNew extends Component{
         this.DateFormat=this.DateFormat.bind(this)
         this.handleCheckB=this.handleCheckB.bind(this)
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
+        this.validacion=this.validacion.bind(this)
       }
       componentWillMount(){
 
         Networking.listar_usuarios().then((response)=>{ //Listar todos los ususarios activos
+          response.correos.map((element,index)=>(
+            element.show=element.nombre+"\n\r"+element.correo
+          ))
           this.setState({options:response.correos})
           console.log(response);
         })
@@ -61,7 +67,6 @@ export default class EventNew extends Component{
 
 
         this.state.data_recived=this.props.data_recived;
-        console.log('Te lo dije');
         console.log(this.state.data_recived);
         this.setState(
           {idUsuario: this.state.data_recived.idOrganizador_nextProps}
@@ -70,19 +75,36 @@ export default class EventNew extends Component{
       }
 
       handleNextChildComponentChange(_nextChildComponent){
-        console.log('redireccionando a ... ORGAN ACCTIVE evento');
           this.props.onNextChildComponentChange(_nextChildComponent);  
       }
+
+      validacion(){
+        if(this.state.nombre!=='' && this.state.descripcion!=='' && this.state.lugar!==''
+        && this.state.fIni!=='' && this.state.fFin!=='' && this.state.categorias.length!==0){
+          this.setState({form1Completo:true})
+        }
+        else{
+          this.setState({form1Completo:false})
+        }
+        if(this.state.comiteOrganizacional.length!==0 && this.state.presidente.length!==0 && this.state.evaluadores.length!==0){
+          this.setState({form2Completo:true})
+        }
+        else{
+          this.setState({form2Completo:false})
+        }
+      }
+
+
       handleClick = () => {
         this.handleNextChildComponentChange(OrganActiveEvents);
       }
+
       componentDidMount(){
         console.log(this.state.data_recived)
         var aux={}
         aux.idEvento=this.state.data_recived.id_evento_nextProps
         aux=JSON.stringify(aux)
         if(this.state.data_recived.id_evento_nextProps!==0){
-          console.log("<<<<<<<<<<<<<<<<<     JSONNNNNNN", aux);
           Networking.ShowEvent(aux).then(
             (response)=>{
               console.log(response);
@@ -117,7 +139,8 @@ export default class EventNew extends Component{
                   auxfases[i]=JSON.parse(JSON.stringify(response.fases[i]));
                   auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
                   auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
-                  auxfases[i].faseEvalIni=new Date(response.fases[i].fechaEvalIni)
+                  auxfases[i].faseEvalIni=new Date(response.fases[i].fechaEvalIni);
+				          auxfases[i].faseEvalPresiIni=new Date(response.fases[i].fechaEvalPresiIni);
                   auxfases[i].reqArch=auxfases[i].necesitaArchivo===1?true:false;
                   auxfases[i].reqEval=auxfases[i].necesitaEvaluacion===1?true:false;
                   auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();
@@ -129,8 +152,6 @@ export default class EventNew extends Component{
                   fases:auxfases
                 })
               }
-              console.log(auxfases)
-
             })
             .catch( (err) =>{
               console.log("error en conexión");
@@ -146,7 +167,7 @@ export default class EventNew extends Component{
         this.setState({
           [label]:value
         })
-        console.log(this.state[label])
+        this.validacion()
       }
     
       handleChange(event) {
@@ -157,6 +178,7 @@ export default class EventNew extends Component{
         this.setState({
           [name]: value
         });  
+        this.validacion()
       }
 
       handleChangeRadio(event,str) {
@@ -229,6 +251,10 @@ export default class EventNew extends Component{
               rdCamR={this.state.rdCamR}
               fCRIni={this.state.fCRIni}
               fCRFin={this.state.fCRFin}
+
+              form1Completo={this.state.form1Completo}
+              form2Completo={this.state.form2Completo}
+              form3Completo={this.state.form3Completo}
 
               datajson={this.state.datajson}
               options={this.state.options}
