@@ -37,7 +37,7 @@ class FormStepThree extends Component{
                 <Row >
                 <div class="form-group col-md">
                     <label >Actividad</label>
-                    <input type="text" class="form-control" name="actividad" id="actvidad" maxLength="200" placeholder="Actividad" onChange={(e) => this.props.onChange(e,this.props.index,"nombre")} value={this.props.value.nombre}autoFocus required />
+                    <input readOnly={this.props.value.faseFin<new Date()?true:false} type="text" class="form-control" name="actividad" id="actvidad" maxLength="200" placeholder="Actividad" onChange={(e) => this.props.onChange(e,this.props.index,"nombre")} value={this.props.value.nombre}autoFocus required />
                 </div>
                 </Row>
                 
@@ -51,7 +51,8 @@ class FormStepThree extends Component{
                         id="id_description_fase"
                         placeholder='Descripcion'                  
                         onChange={(e) => this.props.onChange(e,this.props.index,"descripcion")} value={this.props.value.descripcion}
-                        maxLength="200"         
+                        maxLength="200" 
+                        readOnly={this.props.value.faseFin<new Date()?true:false}        
                         />
                 </div>
                 </Row>
@@ -67,6 +68,7 @@ class FormStepThree extends Component{
                       minDate={this.props.fechaAnt===null?new Date():this.props.fechaAnt}
                       maxDate={this.props.value.faseFin!==''?this.props.value.faseFin:null}
                       disabled={this.props.index!==0?this.props.fechaAnt===null?true:false:false}
+                      readOnly={this.props.value.faseFin<new Date()?true:false}
                       //minDate={this.props.index===0?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate() + 1)}
                       //maxDate={this.props.tamActual-1===this.props.index?null:this.props.fechaPost}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseIni","fechaFaseIni")}
@@ -82,6 +84,7 @@ class FormStepThree extends Component{
                       selected={this.props.value.faseFin}
                       minDate={this.props.value.faseIni}
                       disabled={this.props.value.faseIni===''?true:false}
+                      readOnly={this.props.value.faseFin<new Date()?true:false}
                       //maxDate={this.props.fechaMax}
                       onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseFin","fechaFaseFin")}
                     />
@@ -92,6 +95,7 @@ class FormStepThree extends Component{
                     <div class="form-group col-md" style={{paddingLeft:'0px'}}>
                         <label>Requiere adjuntar archivo (.pdf)  &nbsp;&nbsp;</label>
                         <input
+                            disabled={this.props.value.faseFin<new Date()?true:false}
                             type="checkBox" 
                             name="formHorizontalRadios_1"
                             id="formHorizontalRadios1"
@@ -114,6 +118,7 @@ class FormStepThree extends Component{
                             <div class="form-group col-md">
                                 <label for="title">Requiere de Evaluacion: &nbsp;&nbsp;</label>
                                 <input
+                                    disabled={this.props.value.faseFin<new Date()?true:false}
                                     type="checkBox" 
                                     checked={this.props.value.reqEval}
                                     onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEval","necesitaEvaluacion")}
@@ -129,6 +134,7 @@ class FormStepThree extends Component{
                                         <div class="form-group col-md-7">
                                             <label >Fecha Evaluacion Inicial de Evaluador:</label>
                                             <DatePicker
+                                            readOnly={this.props.value.faseFin<new Date()?true:false}
                                             type="date"
                                             id="input-date"
                                             name="date_in"
@@ -145,6 +151,7 @@ class FormStepThree extends Component{
                                         <div class="form-group col-md-7">
                                             <label >Fecha Evaluacion Inicial de Presidente:</label>
                                             <DatePicker
+                                            readOnly={this.props.value.faseFin<new Date()?true:false}
                                             type="date"
                                             id="input-date"
                                             name="date_in"
@@ -162,6 +169,7 @@ class FormStepThree extends Component{
                                         <div class="form-group col-md">
                                             <label >Numero de evaluadores: (max {this.props.numEval})</label>
                                             <input 
+                                            readOnly={this.props.value.faseFin<new Date()?true:false}
                                             style={{display:'inline-block'}}
                                             type="number" 
                                             name='nombre'
