@@ -74,7 +74,7 @@ export default class Searchable extends Component {
                             <Select 
                                 class="form-control" 
                                 component={'span'} style={{fontSize:'18px'}} 
-                                placeholder="Elige Ususario" 
+                                placeholder="Elige Usuario" 
                                 options={this.state.filterList} 
                                 noDataLabel="Usuario no encontrado"
                                 onChange={values => this.setValues(values)}
