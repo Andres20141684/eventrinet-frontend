@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import ArrayOfChips from '../Forms/CreateEvent/ArrayOfChips';
 const Networking = require('../../Network/Networking') ;
  
-
+ 
 class ModalObsAdicional extends Component{
   formComentario(){
     //Debo conseguir todos los comentaros de los evaluadore
@@ -127,6 +127,8 @@ class ModalDetalleDeEvaluador extends Component{
   }
 }
 class ModalDetallePropuesta extends Component{
+
+
   render(){
     return(
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -141,19 +143,19 @@ class ModalDetallePropuesta extends Component{
             <div class="form-group row">
               <label for="staticName" class="col-sm-4 col-form-label">Titulo</label>
               <div class="col-sm-6">
-                  <input type="text" readonly class="form-control-plaintext" id="staticName" value={this.props.nombreEvento}/>
+                  <input type="text" readonly class="form-control-plaintext" id="staticName" value={this.props.propuestaActual.tituloPropuesta}/>
               </div>
             </div>
             <div class="form-group row">
               <label for="staticEmail" class="col-sm-4 col-form-label">Resumen</label>
               <div class="col-sm-6">
-                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.resumen}/>
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.propuestaActual.resumen}/>
               </div>
             </div>
             <div class="form-group row">
               <label for="staticEmail" class="col-sm-4 col-form-label">Autor</label>
               <div class="col-sm-6">
-                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.autor}/>
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.propuestaActual.autor}/>
               </div>
             </div>
           </div>
@@ -167,8 +169,7 @@ class ModalDetallePropuesta extends Component{
 class FormPropsxFasePresidente extends Component { 
     constructor(props) {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
-        this.state = {
-            idEvento:0,
+        this.state = {            
             tabla_propuestas: { //{nombre,idpropuesta,estado}
                 Propuestas:[
                   {nombre:"Paper Big Gata invade pueblo perruno Estadistico", idPropuesta: 121, estado:"Aceptado",
@@ -176,7 +177,7 @@ class FormPropsxFasePresidente extends Component {
                         {idEvaluador:20,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Alto"},
                         {idEvaluador:21,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Alto"},
                         {idEvaluador:22,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Alto"},
-                        {idEvaluador:23,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Alto"}
+                        {idEvaluador:23,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Bueno"}
                       ]
                   },
                   {nombre:"Paper Big Gata invade pueblo perruno Estadistico", idPropuesta: 121, estado:"Aceptado",
@@ -209,10 +210,9 @@ class FormPropsxFasePresidente extends Component {
                         {idEvaluador:33,evaluador:"Marimar Auuu",calificacion:"Alta",experticie:"Alto"}
                       ]
                   },
-                  
                 ]
             },
-            fase:0            
+            propuestaActual:{}     
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -226,23 +226,24 @@ class FormPropsxFasePresidente extends Component {
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
     
-     
-   handleClick = () => {
-    console.log('this is:', this);
-  }
+   
   componentWillMount(){
-    console.log("cambie de componet y el props pasado es:",this.props.nextChildComponentProps);    
-    this.setState(
-        {idEvento:this.props.idEvent,
-         fase:this.props.fase,
-         });
     
-    console.log("Seteado todos los valores del state",this.state);
+    //SERVICIO AL BACKKKKKKKKKKKKKKKKKKKKK!!!
+    //--------------------------------------
+    Networking.listarPropuestasxEvento(this.props.nextChildComponentProps.idFase).then(
+      (response) => {
+        console.log(response);                
+        if(response == null){
+          console.log('no hay algo aun');
+            
+        }else {
+          console.log('si hay algo:');
+          this.setState({tabla_propuestas:response});
+        } 
+      }
+    )
     
-    this.state.idEvento=this.props.idEvent;
-    this.state.fase=this.props.fase;
-
-    console.log("Seteado todos los valores del state pero a la mala xq no se pudo :v",this.state);
   }
   renderAccordionData(evaluadores){
     return evaluadores.map((element, index) => {
@@ -275,6 +276,32 @@ class FormPropsxFasePresidente extends Component {
 
   }
 
+  showModalDetallePropuesta = (idPropuesta) =>{
+    Networking.detallePropuesta(idPropuesta).then(
+      (response) => {
+        console.log(response);                
+        if(response == null){
+          console.log('no hay algo aun');
+            
+        }else {
+          console.log('si hay algo:');
+          this.setState(
+            {propuestaActual:{
+                idPropuesta: response.idPropuesta,
+                tituloPropuesta: response.tituloPropuesta,
+                autor: response.autor,
+                resumen:response.resumen,
+                }
+            }
+          );
+        } 
+      }
+    )
+
+
+    
+
+  }
   tableData() {
     //this.setState.idUser_recived=this.props.idUser_recived;
 
@@ -290,9 +317,9 @@ class FormPropsxFasePresidente extends Component {
                     <input type="checkbox" className="custom-control-input" id={idIndex} />
                     <label class="custom-control-label" for={idIndex}/>
                 </div>
-                
+                 
                 <div className="col-md-6">
-                  <a  data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={e => {this.showModalDetalle();}} style={{color:"#337ab7", cursor:'pointer'}}>
+                  <a  data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={e => {this.showModalDetallePropuesta(idPropuesta);}} style={{color:"#337ab7", cursor:'pointer'}}>
                   {nombre}
                   </a>
                 </div>
@@ -331,7 +358,7 @@ class FormPropsxFasePresidente extends Component {
                 </div>
               </Accordion.Collapse>
             </Card>
-          </div>
+          </div> 
        )
     })
   }
@@ -354,7 +381,9 @@ class FormPropsxFasePresidente extends Component {
               <ModalObsAdicional />
             </div>
             <div className="modal fade" id="modalDetalleProp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-              <ModalDetallePropuesta />
+              <ModalDetallePropuesta
+               idPropuesta={this.state.propuestaActual}
+              />
             </div>
           </div>
         )

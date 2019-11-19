@@ -42,7 +42,7 @@ class EvaluadorEvaluarPropuestas extends Component{
       handleNextChildComponentChange(_nextChildComponent){
         console.log('cambiando', _nextChildComponent);
           this.props.onNextChildComponentChange(_nextChildComponent);
-          
+           
       }
       handleNextChildComponentChangeProps(_nextChildComponentProps){
           this.props.onNextChildComponentChangeProps(_nextChildComponentProps);

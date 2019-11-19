@@ -5,6 +5,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FormGroup } from '@material-ui/core';
 import '../../styles/style_sheets.css'; 
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 const Networking = require('../../Network/Networking') ;
 
@@ -104,18 +108,37 @@ class FormularioPermiso extends Component {
 
 class ModalPermisos extends Component {    
     render(){           
-        console.log("Datos pasados")
-        console.log(this.props.idUsuarioSelected);
-        console.log(this.props.nameUserSelected);
-        console.log(this.props.emailUserSelected);
-        console.log("flag permiso",this.props.flagPermiso);
-        console.log("dateFinSelected",this.props.dateFinSelected)
-        console.log("dateIniSelected",this.props.dateIniSelected)
-        
+        //console.log("Datos pasados")
+        //console.log(this.props.idUsuarioSelected);
+        //console.log(this.props.nameUserSelected);
+        //console.log(this.props.emailUserSelected);
+        //console.log("flag permiso",this.props.flagPermiso);
+        //console.log("dateFinSelected",this.props.dateFinSelected)
+        //console.log("dateIniSelected",this.props.dateIniSelected)
+        console.log('this.props',this.props)
         return(
             
             <div>
-                    <div class="modal-dialog modal-dialog-centered" role="document">
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className={this.props.classNameModal}
+                    open={this.props.open}
+                    onClose={this.props.onClose}
+                    closeAfterTransition
+                    BackdropComponent={this.props.BackdropComponent}
+                    BackdropProps={{
+                    timeout: 500,
+                    }}
+                >
+                <Fade in={this.props.open}>
+                <div className={this.props.classNamePaper}>
+                    <h2 id="transition-modal-title">Transition modal</h2>
+                    <p id="transition-modal-description">react-transition-group animates me.</p>
+                </div>
+                </Fade>
+            </Modal>
+                    <div class="modal-dialog modal-dialog-centered" role="document">{/*
                         <div class="modal-content" style={{paddingBottom:"0px",paddingRight:"5px",paddingTop:"0px"}}>
                         <div class="modal-header" style={{paddingBottom:"5px"}}>
                             <h3 style={{marginTop:"0px", marginBottom:"0px"}}>Agregar permiso para crear eventos</h3>
@@ -124,7 +147,7 @@ class ModalPermisos extends Component {
                             </button>
                         </div>
                         <FormularioPermiso {...this.props}/> 
-                        </div>
+                    </div>*/}
                     </div>
             </div>
         )

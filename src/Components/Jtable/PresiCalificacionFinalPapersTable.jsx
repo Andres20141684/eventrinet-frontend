@@ -76,11 +76,6 @@ class PresiCalificacionFinalPapersTable  extends Component {
                 <td align="center">{secuencia}/{fasesTotales}</td>
                <td align="center">{fechaLimite}</td>
                <td align="center">
-                  <ActionButton id_evento={idEvento} clickeable ={false} button_class ="fa fa-minus-circle" />
-                  -
-                  <ActionButton id_evento={idEvento} clickeable ={false} button_class ="fa fa-minus-circle" />
-               </td> 
-               <td align="center">
                   <div>{/*<ActionButton id_evento={idEvento} clickeable ={true} redirect={EvaluacionPresidente} button_class ="fa fa-plus" />*/}</div>                
                   <button onClick={e => {this.handleClickEvaularPaper(e,idEvento,nombre,fasesTotales,secuencia,fechaLimite)}} style={{background:"none", border:"none"}}><a><i className ="fa fa-plus" /></a></button>
                </td> 
@@ -93,8 +88,7 @@ class PresiCalificacionFinalPapersTable  extends Component {
          <tr>
              <th width="40%">Lista de eventos</th>
              <th>Fase actual / Fases totales </th>
-             <th>Fecha límite</th>
-             <th>Cal. Eval. -> Cal. Presi</th>
+             <th>Fecha límite</th>             
              <th>Aprobar Propuestas</th>
          </tr>
 
