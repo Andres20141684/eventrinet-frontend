@@ -24,8 +24,9 @@ class StepOneSendPropuesta extends React.Component {
     }      
 
 componentWillMount(){
-    console.log("StepOneSendProp props ****");
-    console.log(this.props);
+  window.scrollTo(0, 0);
+  console.log("StepOneSendProp props ****");
+  console.log(this.props);
     
 }
 DateFormat(date,json,tag){
@@ -47,10 +48,6 @@ renderacademicLevel(){
   })
 }
   render () {
-    const Usuario_nombre=this.props.Usuario.nombre;
-    const Usuario_apePaterno=this.props.Usuario.apePaterno;
-    const Usuario_gradoInstruccion=this.props.Usuario.gradoInstruccion?null:"Profesional";
-    const Usuario_correo=this.props.Usuario.correo;
     
     const inputAutor =[
       {
@@ -70,14 +67,6 @@ renderacademicLevel(){
         value:this.props.Usuario.apePaterno,
       },
       {
-        label:"Nivel de estudios",
-        category:'textArea',
-        name:"academicLevel",
-        id:"id_selectStudyLevel",
-        readonly:true,
-        value:Usuario_gradoInstruccion ,
-      },
-      {
         label:"Telefono principal",
         category:'textArea',
         name:'telefonoAuthor',
@@ -92,6 +81,16 @@ renderacademicLevel(){
         id:"id_email",
         readonly:true,
         value:this.props.Usuario.correo,
+      },
+      {
+        label:"Afiliacion",
+        category:'textArea',
+        name:"afilicacion",
+        id:"id_selectStudyLevel",
+        readonly:false,
+        placeholder:'Institucion a la cual esta afiliado', 
+        onChange:this.defaultMutableHandle,
+        value:this.props.afiliacion
       }
     ]
     const inputGenerales =[
@@ -123,12 +122,11 @@ renderacademicLevel(){
         onChange:this.defaultMutableHandle,
       },
       {
-        label:"Nivel de estudios",
-        category:'comboBox',
+        label:"Afiliacion",
+        category:'textArea',
         name:"academicLevel",
-        id:"id_selectStudyLevel",
+        id:"id_Afiliacion",
         onChange:this.defaultMutableHandle,
-        options:this.renderacademicLevel()
       }
     ]
     
@@ -146,6 +144,7 @@ renderacademicLevel(){
                 arrayOfInputData={inputGenerales}
                 cardHeadingText = "Datos Generales de otro Autor: (puede dejarlo en blanco)"
               />
+              <button> + </button>
               
 
 

@@ -47,12 +47,14 @@ class PropoMyProposals extends Component{
             datos_tabla1:  [],
             datos_tabla2: [],
             msg: "Not Connected",
-            idUser: -1
+            idUser: -1,
+            Usuario:null
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
     
     }
+    /* aqui debo manejar lo cambios de redireccion y de props de mis tablas XD */
     handleNextChildComponentChange(_nextChildComponent){
     console.log('cambiando', _nextChildComponent);
         this.props.onNextChildComponentChange(_nextChildComponent);
@@ -83,7 +85,7 @@ class PropoMyProposals extends Component{
         ];
      
      this.setState({
-         idUser:this.props.nextChildComponentProps.idUser,
+        Usuario:this.props.nextChildComponentProps.Usuario,
         datos_tabla1: activeEvents,
         datos_tabla2: recordEvents
      }); 
@@ -98,7 +100,7 @@ class PropoMyProposals extends Component{
             {
             methodPath: 'postulante/listarEventosActivosConPropuestas',
             JsonToBack:{
-                idUsuario: this.props.nextChildComponentProps.idUser
+                idUsuario: this.props.nextChildComponentProps.Usuario.idUsuario
             },
             }
         ).then((value) => {
@@ -133,18 +135,19 @@ class PropoMyProposals extends Component{
                                 
                                 <br/>
                                 <this.state.formActives 
-                                    idUser={this.state.idUser}
-                                    data={this.state.datos_tabla1} 
-                                    onNextChildComponentChange={this.props.onNextChildComponentChange} 
-                                    onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                                    idUser={this.props.nextChildComponentProps.Usuario.idUser}
+                                    data={this.state.datos_tabla1}  
+                                    onNextChildComponentChange={this.handleNextChildComponentChange} 
+                                    onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
                                 /> 
                             </TabPanel>
                             <TabPanel> 
                                 
                                 < this.state.formRecord 
+                                    idUser={this.props.nextChildComponentProps.Usuario.idUser}
                                     data={this.state.datos_tabla2} 
-                                    onNextChildComponentChange={this.props.onNextChildComponentChange} 
-                                    onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                                    onNextChildComponentChange={this.handleNextChildComponentChange} 
+                                    onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
                                 />
                             </TabPanel>
                         </Tabs>

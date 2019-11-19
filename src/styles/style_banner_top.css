@@ -131,6 +131,15 @@ body{
     align-items: center;
 }
 }
+.navbar-nav {
+    margin: 7.5px 0px;
+}
+@media (min-width: 768px){
+.navbar-right {
+    float: right!important;
+    margin-right: 0px!important;
+}
+}
 
 .my-custom-scrollbar {
     position: relative;

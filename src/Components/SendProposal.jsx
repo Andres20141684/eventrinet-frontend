@@ -50,12 +50,13 @@ class SendProposal extends Component{
                 Categorias:this.state.Categorias
             }));	//parche temporal
             this.handleNextChildComponentChangeProps({
-                evento:this.state.eventriEvent,categorias:this.state.categorias
+                evento:this.state.eventriEvent,categorias:this.state.categorias,
+                Usuario: this.props.nextChildComponentProps.Usuario
             });	    
             window.location.replace("./login");
-            return
+            return;
         }
-        //I'm logged
+        //if I'm logged then
         console.log('redireccionando a ... inscribirse evento');
         this.handleNextChildComponentChangeProps({
             evento: this.props.nextChildComponentProps.evento,
@@ -92,7 +93,7 @@ class SendProposal extends Component{
     componentDidMount(){
         console.log("props heredados del Dashboard->Protafolio->imageport");
     
-        console.log('nextChildComponentProps',this.props.nextChildComponentProps);
+        console.log('Send Propuesta Props ->',this.props.nextChildComponentProps);
         this.setState({eventriEvent: this.props.nextChildComponentProps.evento});
         this.getCategoriasfromApi(); 
         
@@ -204,7 +205,16 @@ class SendProposal extends Component{
             
         </div>
     </div>
+
+           
+
+
     </div>
+
+
+
+
+
         );
     }
 }

@@ -45,9 +45,7 @@ class EvaluacionPresidente extends Component {
     }
     
      
-   handleClick = () => {
-    console.log('this is:', this);
-  }
+
   componentWillMount(){
     console.log("cambie de componet y el props pasado es:",this.props.nextChildComponentProps);
     let yyIni=this.props.nextChildComponentProps.fechaLimite.substr(0,4);
@@ -99,10 +97,7 @@ class EvaluacionPresidente extends Component {
         
       });
   }
-  setTabIndex(index){
-      this.setState({tabIndex:index});
-      console.log(this.state.tabIndex)
-  }
+  
   handleReturn(){
     this.props.onNextChildComponentChange(PresiAsignarEvalEvents);
     //this.handleNextChildComponentChange(PresiAsignarEvalEvents);
@@ -124,70 +119,42 @@ class EvaluacionPresidente extends Component {
             <div className="Main-tittle">
                 <div style={{marginLeft:15}}>                
                 <h1><br/>{this.state.header}</h1>
-
                 </div>
-                <div style={{marginLeft:40,marginTop:25}} ><h4>Fases de evaluación</h4></div>
+                 <div style={{marginLeft:40,marginTop:25}} ><h4>Fase Actual: {this.props.nextChildComponentProps.secuencia}</h4></div>
             </div>
 
             <div class="container" >
                 <div class ="panel-body">
-                    <Tabs defaultIndex={0} onSelect={index => this.setTabIndex(index) }>
+                    <FormPropsxFasePresidente
+                        nextChildComponentProps={this.props.onNextChildComponentChange} 
+                        NextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                    /> 
 
-                            <TabList>
-                                <Tab>Fase 1</Tab>
-                                <Tab>Fase 2</Tab>
-                                <Tab>Fase 3</Tab>                                
-                            </TabList>
-                            <TabPanel>                            
-                                <FormPropsxFasePresidente
-                                  fase={this.state.tabIndex}
-                                  idEvento= {this.state.idEvento}
-                                  nextChildComponentProps={this.props.onNextChildComponentChange} 
-                                  NextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                                  />                                
-                            </TabPanel>
-                            <TabPanel> 
-                                <FormPropsxFasePresidente
-                                    fase={this.state.tabIndex}
-                                    idEvento= {this.state.idEvento}
-                                    NextChildComponentChange={this.props.onNextChildComponentChange} 
-                                    NextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                                    />
-                            </TabPanel>
-                            <TabPanel> 
-                                <FormPropsxFasePresidente
-                                    fase={this.state.tabIndex}
-                                    idEvento= {this.state.idEvento}
-                                    NextChildComponentChange={this.props.onNextChildComponentChange} 
-                                    NextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                                    />
-                            </TabPanel>
-                        </Tabs>
-                        <div>
-                        <button  
-                            style={{float:'left'}}
-                            class="mybutton"
-                            onClick={this.handleReturn}
-                            >
-                                Regresar
-                        </button>
-                        <div style={{display: 'flex', justifyContent: 'center',width:'96px'}}>
-                        <button  
-                            class="mybutton"
-                            //onClick={props.handleCancel}
-                            >
-                                Rechazar
-                        </button>
-                        </div>
+                    <div style={{paddingTop:'20px'}}>
+                    <button  
+                        style={{float:'left'}}
+                        class="mybutton"
+                        onClick={this.handleReturn}
+                        >
+                            Regresar
+                    </button>
+                    <div style={{display: 'flex', justifyContent: 'center',width:'96px'}}>
+                    <button  
+                        class="mybutton"
+                        //onClick={props.handleCancel}
+                        >
+                            Rechazar
+                    </button>
+                    </div>
 
-                        <button  
-                            style={{float:'right'}}
-                            class="mybutton"
-                            //onClick={props.handleCancel}
-                            >
-                                Aprobar
-                        </button>                            
-                        </div>
+                    <button  
+                        style={{float:'right'}}
+                        class="mybutton"
+                        //onClick={props.handleCancel}
+                        >
+                            Aprobar
+                    </button>                            
+                    </div>
                     </div>
                 </div>
                 <br/><br/>

@@ -91,13 +91,15 @@ class SingUp extends Component{
             console.log("Data del usuario",response);
             if (response.succeed){
               console.log("estamos accediendoo bbecita prrr");
-              console.log(response);
-
-              this.setState({redirect:true});
+              console.log(response);               
             }else{
               console.log("YIYI no se pudo crear cuenta");              
             }
             alert(response.message)
+            sessionStorage.setItem('dataUser', JSON.stringify(response));            
+
+            sessionStorage.setItem('tipoLogin',"usuario");
+            this.setState({redirect:true});
           }
       )
     }
@@ -183,7 +185,7 @@ class SingUp extends Component{
                   <div  effect="fadeInUp">                                    
                       <a>
                       <div className="g-signin2" align="center" data-onsuccess="onSignUp" data-width="180px"data-height="53px" style={{color:'blue'}}>
-                        <span class="buttonText">Googlsse</span>
+                        <span class="buttonText">Google</span>
                       </div>
                       </a>
                   </div>

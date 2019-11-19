@@ -241,10 +241,8 @@ class ListadoPropPorEvento extends Component {
             >
 
             <div className="form-group mt-2">
-            <button type="submit" className="btn btn-primary" style={{float:'right'}} >
+            <button type="submit" className="btn btn-primary" style={{float:'right', marginBottom:'15px'}} >
                   Guardar
-
-                  
                 </button>
               </div>
               

@@ -48,18 +48,36 @@ function setRoles(listRoles){
   let itemMisProp = document.getElementById("itemMisProp")
   let itemMisInscrip = document.getElementById("itemMisInscrip")
   let itemAdmin = document.getElementById("itemAdmin")
+  let flagNIUNPERMISO = 0
 
   itemOrga.style.display = "none"
   itemEval.style.display = "none"
   itemPresi.style.display = "none"
   itemMisProp.style.display = "none"
   itemMisInscrip.style.display = "none"
-  itemAdmin.style.display = "none"
-  itemOpciones.style.display = "block"
+  itemAdmin.style.display = "none"  
 
-  if (!(listRoles[1]["Organizador"]==0)){
+  if ((listRoles[0]["Administrador"]==0) && 
+    (listRoles[1]["Organizador"]==0) && 
+    (listRoles[2]["Presidente del Comité Académico"]==0) && 
+    (listRoles[3]["Evaluador"]==0) &&
+    (listRoles[4]["Postulante"]==0) && 
+    (listRoles[5]["Participante"]==0) &&
+    (listRoles[6]["Miembro del Comité Organizacional"]==0)
+  ){
+    itemOpciones.style.display = "none"
+    console.log ("No tengo permisos ")
+    return
+  }
+
+  itemOpciones.style.display = "block"
+  if (!(listRoles[1]["Administrador"]==0)){    
+    itemAdmin.style.display = "block"
+    console.log("admi",listRoles[0]["Administrador"])
+  }
+  if (!(listRoles[1]["Organizador"]==0)){    
     itemOrga.style.display = "block"
-    console.log("orga",listRoles[0]["Organizador"])
+    console.log("orga",listRoles[1]["Organizador"])
   }
   if (!(listRoles[2]["Presidente del Comité Académico"]==0)){
     itemPresi.style.display = "block"
@@ -80,16 +98,6 @@ function setRoles(listRoles){
   if (!(listRoles[0]["Administrador"]==0)){
     itemAdmin.style.display = "block"
     console.log("admin",listRoles[5]["Administrador"])
-  }
-  if (
-        (listRoles[1]["Organizador"]==0) && 
-        (listRoles[2]["Presidente del Comité Académico"]==0) && 
-        (listRoles[3]["Evaluador"]==0) &&
-        (listRoles[4]["Postulante"]==0) && 
-        (listRoles[5]["Participante"]==0) &&
-        (listRoles[6]["Administrador"]==0) 
-    ){
-    itemOpciones.style.display = "none"
   }
 
 }
@@ -147,20 +155,28 @@ class BannerTop extends Component{
   /** Manejadores de redireccion en modo de Mutacion */
   handleClicPostulanteEventos = () => {
     console.log('redireccionando a ... PropoMyProposals');
+    this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(PropoMyProposals);
   }
   handleClicOrganizadorEventos = () => {
     console.log('redireccionando a ... Announcements evento');
+    this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(OrganActiveEvents);
   }
   handleClicPresidenteEventos = () => {
     console.log('redireccionando a ... Announcements evento?')
+    
+    this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(PresiAsignarEvalEvents)
   }
   handleClicAdmin = () => {
+    
+    this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(AdminPageMainTable)
   }
   handleClicEvaluadorEventosListados = () => {
+    
+    this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario});
     this.handleNextChildComponentChange(EvaluadorEventosListados)
   }
   handleClicEvents = () => {
@@ -183,7 +199,7 @@ class BannerTop extends Component{
   componentDidMount(){
     try{ //Verify if I'm logged
       let retrievedObject = sessionStorage.getItem('dataUser');
-      let retrievedJson = JSON.parse(retrievedObject);      
+      let retrievedJson = JSON.parse(retrievedObject);       
       console.log("retrievedJson",retrievedJson)
 
       let linkLogin = document.getElementById("linkLogin")
@@ -195,27 +211,28 @@ class BannerTop extends Component{
         let retrievedJson = JSON.parse(retrievedObject);      
         console.log("retrievedJson",retrievedJson)
         if (retrievedJson == null){
-        initialState()
-        console.log("No estoy logeado!")
-        return
+          initialState()
+          console.log("No estoy logeado!")
+          return
         }else{
           // I'm logged
-          logInState()
-          setRoles(retrievedJson.permisos)
+          logInState()          
           console.log("json:",retrievedJson)
           console.log("nombreree:",retrievedJson.infoUsuario.nombre)
           this.setState({fullName: retrievedJson.infoUsuario.nombre + " "+ retrievedJson.infoUsuario.apePaterno + " "+ retrievedJson.infoUsuario.apeMaterno});
           console.log("fullname: ",this.state.fullName)
+          setRoles(retrievedJson.permisos)
         }
       }
       
       // I'm logged
-      logInState()
-      setRoles(retrievedJson.permisos)
+      console.log("ESTO LOGEADOO",retrievedJson)
+      logInState()  
       console.log("json:",retrievedJson)
       console.log("nombreree:",retrievedJson.infoUsuario.nombre)
       this.setState({fullName: retrievedJson.infoUsuario.nombre + " "+ retrievedJson.infoUsuario.apePaterno + " "+ retrievedJson.infoUsuario.apeMaterno});
       console.log("fullname: ",this.state.fullName)
+      setRoles(retrievedJson.permisos)
 
     }catch(err){
       console.log(err)
@@ -266,8 +283,9 @@ class BannerTop extends Component{
   render(){
     
     return (
-      <div id="bannerTop" style={styles.banner}><br/>              
-        <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
+      <div id="bannerTop" style={styles.banner}><br/> 
+      
+      <div className="list-inline-item d-flex flex-column flex-md-row align-items-center ">
           <div className="list-inline-item my-0 mr-md-auto font-weight-normal">
 
           <a onClick={this.handleClickInicio} style={{cursor: "pointer"}} target="_self" title="Volver al home">
@@ -283,7 +301,7 @@ class BannerTop extends Component{
                 )}    
             />
           <div className="nav navbar-nav navbar-right ml-auto" style={{alignItems:"center",paddingRight:20}}>
-              
+          
               <div className="list-inline-item" align="right">
                 <a href="/signUp" id="linkSignUp" className="nav"  style={{color:"#6CDCD6",paddingRight:20}} >{this.state.SignUp}</a>
                 <a href="/login"  id="linkLogin" className="nav"  style={{color:"#6CDCD6",paddingRight:20}}>{this.state.name}</a>
@@ -291,10 +309,10 @@ class BannerTop extends Component{
               </div>
 
 
-
-              <li className="nav-item dropdown" id="myavatar"   >
+              
+              <li className="nav-item dropdown" id="myavatar">
                 
-                  <Link to="#" data-toggle="dropdown" className="nav-link dropdown-toggle user-action">
+                  <Link to="#" data-toggle="dropdown" className="nav-link dropdown-toggle user-action" style={{float:'left'}}>
                     <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" className="avatar" alt="Avatar"/>
                   </Link>
                   <ul className="dropdown-menu dropdown-menu-right">
@@ -303,14 +321,15 @@ class BannerTop extends Component{
                       <li className="divider dropdown-divider"></li>
                       <li><Link to="/" className="dropdown-item"onClick={this.clickLogOut}><i className="material-icons" >&#xE8AC;</i> Cerrar sesion</Link></li>
                   </ul>
-              </li> 
-            </div>
+              </li>               
+          </div>
+          
           
         </div>
+        
         <div style={{paddingRight:20, paddingLeft:20}}><hr  className="line-top"/></div>
     
         <div>  
-        
         <nav className="navbar navbar-default navbar-expand-xl navbar" style={styles.navbar}>
           <button className="navbar-toggler scrollbar scrollbar-primary" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <i className="navbar-toggler-icon fa fa-bars" style={styles.fa} aria-hidden="true"></i>

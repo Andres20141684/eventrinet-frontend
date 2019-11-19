@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 //import NewEventPage from './Pages/NewEventPage';
-//import AnnouncementPage from './Pages/AnnouncementPage';
+import AnnouncementPage from './Pages/AnnouncementPage';
 /**************************************/
 //import OrganActiveEvents from './Pages/OrganActiveEvents';
 //import PresiCalificacionFinalPapers from './Pages/PresiCalificacionFinalPapers';
@@ -22,6 +22,7 @@ import SignUp from './Pages/SignUp';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 //import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
+import Dashboard from './Components/Dashboard';
 //REVISAR NOMENCATLURA DE ROUTES
 
 

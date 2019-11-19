@@ -1,5 +1,7 @@
 import {AsyncStorage} from 'react';
-//const restURL = 'http://52.201.202.133:5000/api/';
+import { async } from 'q';
+//const restURL = 'http://25.70.128.233:5000/api/';
+
 const restURL = 'http://localhost:5000/api/';
 
 export async function getMyId(){
@@ -98,6 +100,64 @@ export async function validar_sesion(var_user,var_password) {
         console.log('Saving!!');
         console.log(responseJson);  
         console.log(response);
+        console.log('Saving!!');
+  
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+  }
+
+  export async function detallePropuesta(var_idPropuesta) {
+    console.log('Llenando tabla de de idPropuesta...');
+    try {        
+        let response = await fetch(restURL  
+            + 'listar_detallePropuesta', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                    idPropuesta: var_idPropuesta
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);        
+        console.log('Saving!!');
+  
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+  }
+
+  export async function listarPropuestasxEvento(var_idFase) {
+    console.log('Llenando tabla de propuestas x evento en fase activa...');
+    try {        
+        let response = await fetch(restURL  
+            + 'listar_propuesta_fase', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                    idFase: var_idFase
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);        
         console.log('Saving!!');
   
         return responseJson;  
@@ -933,5 +993,19 @@ export async function listarFasesXEvento(idEvento) {
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
+
+export async function AlgoritmoAsignacion(data){
+    try {
+        let response= await fetch(restURL+'propuesta/algoritmo',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
+        return error
     }
 }

@@ -47,8 +47,7 @@ class  Login extends Component{
             console.log("estamos accediendoo");
             console.log(connectedUser);
 
-            sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));
-            console.log("No recordar cuenta");
+            sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));            
 
             sessionStorage.setItem('tipoLogin',"usuario")
             this.setState({redirect:true});

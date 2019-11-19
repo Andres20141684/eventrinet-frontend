@@ -25,19 +25,7 @@ class Dashboard extends Component{
     }
     /**aqui falta la condicional cuando es convocarotira o es evento publicados para asistentes */
     //por defecto es convocatoria por mientras
-    Networking.getEventosConvocatoria().then((value) => {
-      console.log("lista de envetow convoctarioas",value);
-      if(value == null){
-         console.log('no hay convocatorias!');
-         
-      }else {
-         console.log('si hay convocatorias:');
-         this.setState({datos_tabla:value});
-         this.setState({flag:true})
-         console.log("asdassadasad",this.state.flag)
-         console.log(this.state.datos_tabla);
-      }
-    });
+    
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
 
@@ -58,6 +46,19 @@ class Dashboard extends Component{
   }
   componentWillMount(){
     console.log("DashboradConvocarotias props:", this.props);
+    Networking.getEventosConvocatoria().then((value) => {
+      console.log("lista de envetow convoctarioas",value);
+      if(value == null){
+         console.log('no hay convocatorias!');
+         
+      }else {
+         console.log('si hay convocatorias:');
+         this.setState({datos_tabla:value});
+         this.setState({flag:true})
+         console.log("asdassadasad",this.state.flag)
+         console.log(this.state.datos_tabla);
+      }
+    });
   }
  
  /** */

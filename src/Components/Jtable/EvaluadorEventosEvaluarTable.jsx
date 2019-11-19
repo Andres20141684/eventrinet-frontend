@@ -23,7 +23,7 @@ class EvaluadorEventosPrefTable  extends Component {
                            ]
          },
          idFase : 0,
-         nomb_fase : ""
+         nomb_fase : "No hay ni un nombre asignado aesta fase :v (este es el default)"
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -134,7 +134,7 @@ class EvaluadorEventosPrefTable  extends Component {
     }
   
   
-     render() {
+     render() { 
          return (
             
            <div class="panel panel mypanel" >
