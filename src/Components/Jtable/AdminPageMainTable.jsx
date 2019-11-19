@@ -1,12 +1,31 @@
-import React, { Component } from 'react'
-//import '../../styles/styles'
-import "react-datepicker/dist/react-datepicker.css";
-//import '../../styles/style_sheets.css'; 
-import ModalPermisos from './ModalPermisos';
-
+import React, { Component }  from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row';
+import DatePicker from "react-datepicker"; 
+import { FormGroup } from '@material-ui/core';
 const Networking = require('../../Network/Networking') ;
 
-class AdminPageMainTable extends Component {
+
+const useStyles = makeStyles(theme => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
+
+class AdminPageMainTable extends React.Component {
     constructor(props) {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = {
@@ -80,10 +99,6 @@ class AdminPageMainTable extends Component {
         
     }
 
-    handleClick = () => {
-        console.log('this is:', this);
-    }
-
      myCallback = () => {
     //[...we will use the dataFromChild here...]
         Networking.listarUsuarios()
@@ -96,7 +111,7 @@ class AdminPageMainTable extends Component {
             console.log(value);
             this.setState({datos_tabla:value});
             }   
-            alert("Tabla actualizada");
+            alert("Permiso de usuario ",this.state.nameUserSelected," actualizado");
         });
 
     }
@@ -122,13 +137,23 @@ class AdminPageMainTable extends Component {
                     <td>{correo}</td>
                     <td>-</td>                 
                     <td>-</td>
-                    <td><p data-placement="top" data-toggle="tooltip" title="Editar permisos" >
-                        <button class="btn btn-primary btn-xs"
-                                data-title="Edit" data-toggle="modal" data-target="#modalPerm" 
-                                onClick={e => {
-                                    this.showModal(e,idUsuario,nomComp,correo,fechaIniPermiso,fechaFinPermiso,tienePermiso);
-                               }}
-                                 ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                    <td>
+                        <div data-placement="top" data-toggle="tooltip" title="Editar permisos" 
+                        onClick={e => {this.showModal(e,idUsuario,nomComp,correo,fechaIniPermiso,fechaFinPermiso,tienePermiso);
+                        }}>
+                        <TransitionsModal 
+                            idUsuarioSelected={this.state.idUsuarioSelected}
+                        nameUserSelected={this.state.nameUserSelected}
+                        emailUserSelected={this.state.emailUserSelected}
+                        refreshData={this.state.refreshData}
+                        dateFinSelected={this.state.dateFinSelected}
+                        dateIniSelected={this.state.dateIniSelected}
+                        flagPermiso={this.state.flagPermiso}
+                        myCallback={this.myCallback}
+                        handleChangeDate = {this.handleChangeDate}
+                            handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
+                        </div>
+                    </td>
                     <td><p data-placement="top" data-toggle="tooltip" title="Eliminar usuario"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td> 
                 </tr>
             )            
@@ -140,37 +165,12 @@ class AdminPageMainTable extends Component {
                 <td>{correo}</td>                
                 <td>{fechaIniPermiso}</td>                
                 <td>{fechaFinPermiso}</td>
-                <td><p data-placement="top" data-toggle="tooltip" title="Editar permisos" >
-                    <button class="btn btn-primary btn-xs"
-                            data-title="Edit" data-toggle="modal" data-target="#modalPerm" 
-                            onClick={e => {
-                                this.showModal(e,idUsuario,nomComp,correo,fechaIniPermiso,fechaFinPermiso,tienePermiso);
-                           }}
-                             ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                <td><p data-placement="top" data-toggle="tooltip" title="Eliminar usuario"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td> 
-            </tr>
-        )
-        })
-    }
-    renderTableHeader() {
-      return (
-         <tr>
-             <th width="40%">Nombre completo</th>
-             <th width="25%">Correo</th>        
-             <th width="11%">Vigencia Inicio</th>
-             <th width="11%">Vigencia Fin</th>
-             <th width="7%">Editar</th>
-             <th width="7%">Eliminar</th>
-         </tr>
-
-     )
-     }
-       
-     render() {        
-        return (
-        <div>
-            <div class="modal fade" id="modalPerm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <ModalPermisos 
+                <td>
+                    <div data-placement="top" data-toggle="tooltip" title="Editar permisos" 
+                    onClick={e => {
+                        this.showModal(e,idUsuario,nomComp,correo,fechaIniPermiso,fechaFinPermiso,tienePermiso);
+                   }}>
+                    <TransitionsModal 
                         idUsuarioSelected={this.state.idUsuarioSelected}
                         nameUserSelected={this.state.nameUserSelected}
                         emailUserSelected={this.state.emailUserSelected}
@@ -180,9 +180,29 @@ class AdminPageMainTable extends Component {
                         flagPermiso={this.state.flagPermiso}
                         myCallback={this.myCallback}
                         handleChangeDate = {this.handleChangeDate}
-                        handleClickUpdatePermisos = {this.handleClickUpdatePermisos}
-                    />
-            </div>
+                        handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
+                    </div>
+                </td>                
+            </tr>
+        )
+        })
+    }
+    renderTableHeader() {
+      return (
+         <tr>
+             <th width="40%">Nombre completo</th>
+             <th width="32%">Correo</th>        
+             <th width="11%">Vigencia Inicio</th>
+             <th width="11%">Vigencia Fin</th>
+             <th width="7%">Editar</th>             
+         </tr>
+
+     )
+     }
+
+    render() {        
+        return (
+        <div>
             <div style={{marginLeft:15}}>
                 <h1><br/>Otorgar permiso de crear evento</h1>
             </div>
@@ -195,14 +215,17 @@ class AdminPageMainTable extends Component {
                 </div>
                 <br/>
                 <input class="form-control" id="myInput" type="text" placeholder="Buscar.."/>
-                <br/>
+                <br/>                
                 <div  class="table-responsive">
-                    <table class="table  table-hover table-list-search" >
+                <table class="table  table-hover table-list-search" >
                     <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
-                    {this.renderTableHeader()}
+                        {this.renderTableHeader()}
                     </thead>
-                        <tbody>{this.renderTableData()}</tbody>
-                    </table>
+                    <tbody>
+                        {this.renderTableData()}
+                    </tbody>
+                </table>
+                
                 </div>
             </div>
             </div>
@@ -212,5 +235,117 @@ class AdminPageMainTable extends Component {
      }
 }
 
-export default AdminPageMainTable//exporting a component make it reusable and this is the beauty of react
 
+function TransitionsModal(props) {
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+  
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };    
+    const handleClickUpdatePermisos = () => {
+        setOpen(false);
+        
+        let dataIni= DateFormat(props.dateIniSelected);
+        let dataFin= DateFormat(props.dateFinSelected);
+        console.log(" Datos a actualizar ",props.idUsuarioSelected," ",dataIni, " ",dataFin);
+        
+        Networking.crear_organizador(props.emailUserSelected, dataIni, dataFin).then(
+            (response) => {
+                if (response.succeed){                
+                    console.log("Se agrego permiso",response);
+                }else{
+                    console.log("No se dio permiso");
+                    console.log(response.message);                
+                }
+                props.myCallback();
+            }
+        )
+    }
+    const DateFormat = (date) => {
+        return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
+    }
+    return (        
+      <div>        
+        <button class="btn btn-primary btn-xs" data-title="Edit" onClick={handleOpen}>
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+          nameUserSelected= {props.nameUserSelected}
+        >
+          <Fade in={open} style={{width:'40%'}}>
+              <div className={classes.paper}>
+                  <h3 id="transition-modal-title" >Agregar permiso para crear eventos</h3>
+                  <div id="transition-modal-description">
+                    <div className="modal-body" style={{paddingBottom:'0px'}}>
+                        <div class="form-group row">
+                            <label for="staticName" class="col-sm-4 col-form-label">Nombre completo</label>
+                            <div class="col-sm-6">
+                            <input type="text" readOnly class="form-control-plaintext" id="staticName" value={props.nameUserSelected ? props.nameUserSelected :'nada'}/>
+                            </div>
+                        </div>
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Correo electronico</label>
+                        <div class="col-sm-6">
+                          <input type="text" readOnly class="form-control-plaintext" id="staticEmail"value={props.emailUserSelected ? props.emailUserSelected :'nada'}/>
+                        </div>
+                    </div>
+                    <FormGroup style={{border:"none"}}>                
+                    <Row>            
+                        <div class="form-group  date" style={{paddingLeft:"0px"}}>
+                          <label style={{paddingLeft:"15px"}}>Fecha Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                          <DatePicker                        
+                              type="date"
+                              id="input-date"
+                              name="date_in"
+                              minDate= {new Date()}                            
+                              placeholder="date_in"
+                              selected={props.dateIniSelected ? props.dateIniSelected : ''}
+                              onChange={(e)=> props.handleChangeDate(e,"dateIniSelected")}
+                              //onKeyDown={this.onKeyDownDate}
+                              className="form-control"
+                          />
+                        </div>
+                    
+                        <div class="form-group date" style={{paddingLeft:"0px"}}>
+                            <label style={{paddingLeft:"15px"}}>Fecha Fin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <DatePicker
+                            type="date"
+                            id="input-date"
+                            name="date_in"
+                            minDate= {new Date()}
+                            placeholder="date_in"
+                            selected={props.dateFinSelected ? props.dateFinSelected: ''}
+                            onChange={(e)=> props.handleChangeDate(e,"dateFinSelected")}
+                            className="form-control"
+                            />
+                        </div>
+                  </Row>
+                    </FormGroup>
+                  </div>
+                  </div>
+                  <div className="modal-footer" style={{paddingRight:"0px", paddingBottom:'0px'}}>
+                    <Button type="button" onClick={()=>handleClickUpdatePermisos()} class="btn btn-primary" >Agregar</Button>
+                  </div>
+              </div>  
+          </Fade>
+        </Modal>
+        </div>  
+    );
+  }
+
+export default AdminPageMainTable

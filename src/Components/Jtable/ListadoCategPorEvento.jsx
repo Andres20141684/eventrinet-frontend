@@ -246,14 +246,10 @@ class ListadoCategPorEvento extends Component {
                   onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
             >
 
-            <div className="form-group mt-2">
-            <button type="submit" className="btn btn-primary" style={{float:'right'}} >
+            <div className="form-group mt-2" >
+                <button type="submit" className="btn btn-primary" style={{float:'right', marginBottom:'15px'}} >
                   Guardar
-
-                  
-                </button>
-              </div>
-              
+                </button>              
                 <button
                   type="button"
                   className="btn btn-outline-primary mr-2"  style={{float:'right'}}
@@ -268,7 +264,7 @@ class ListadoCategPorEvento extends Component {
                 >
                   Desmarcar todos
                 </button>
-                
+            </div> 
 
             <div  class="table-responsive">
                 <table class="table  table-hover">
