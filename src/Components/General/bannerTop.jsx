@@ -48,16 +48,30 @@ function setRoles(listRoles){
   let itemMisProp = document.getElementById("itemMisProp")
   let itemMisInscrip = document.getElementById("itemMisInscrip")
   let itemAdmin = document.getElementById("itemAdmin")
+  let flagNIUNPERMISO = 0
 
   itemOrga.style.display = "none"
   itemEval.style.display = "none"
   itemPresi.style.display = "none"
   itemMisProp.style.display = "none"
   itemMisInscrip.style.display = "none"
-  itemAdmin.style.display = "none"
-  itemOpciones.style.display = "block"
+  itemAdmin.style.display = "none"  
 
-  if (!(listRoles[1]["Organizador"]==0)){
+  if (
+    (listRoles[1]["Organizador"]==0) && 
+    (listRoles[2]["Presidente del Comité Académico"]==0) && 
+    (listRoles[3]["Evaluador"]==0) &&
+    (listRoles[4]["Postulante"]==0) && 
+    (listRoles[5]["Participante"]==0) &&
+    (listRoles[6]["Miembro del Comité Organizacional"]==0)
+  ){
+    itemOpciones.style.display = "none"
+    console.log ("No tengo permisos ")
+    return
+  }
+
+  itemOpciones.style.display = "block"
+  if (!(listRoles[1]["Organizador"]==0)){    
     itemOrga.style.display = "block"
     console.log("orga",listRoles[0]["Organizador"])
   }
@@ -80,16 +94,6 @@ function setRoles(listRoles){
   if (!(listRoles[0]["Administrador"]==0)){
     itemAdmin.style.display = "block"
     console.log("admin",listRoles[5]["Administrador"])
-  }
-  if (
-        (listRoles[1]["Organizador"]==0) && 
-        (listRoles[2]["Presidente del Comité Académico"]==0) && 
-        (listRoles[3]["Evaluador"]==0) &&
-        (listRoles[4]["Postulante"]==0) && 
-        (listRoles[5]["Participante"]==0) &&
-        (listRoles[6]["Administrador"]==0) 
-    ){
-    itemOpciones.style.display = "none"
   }
 
 }
@@ -191,7 +195,7 @@ class BannerTop extends Component{
   componentDidMount(){
     try{ //Verify if I'm logged
       let retrievedObject = sessionStorage.getItem('dataUser');
-      let retrievedJson = JSON.parse(retrievedObject);      
+      let retrievedJson = JSON.parse(retrievedObject);       
       console.log("retrievedJson",retrievedJson)
 
       let linkLogin = document.getElementById("linkLogin")
@@ -203,27 +207,28 @@ class BannerTop extends Component{
         let retrievedJson = JSON.parse(retrievedObject);      
         console.log("retrievedJson",retrievedJson)
         if (retrievedJson == null){
-        initialState()
-        console.log("No estoy logeado!")
-        return
+          initialState()
+          console.log("No estoy logeado!")
+          return
         }else{
           // I'm logged
-          logInState()
-          setRoles(retrievedJson.permisos)
+          logInState()          
           console.log("json:",retrievedJson)
           console.log("nombreree:",retrievedJson.infoUsuario.nombre)
           this.setState({fullName: retrievedJson.infoUsuario.nombre + " "+ retrievedJson.infoUsuario.apePaterno + " "+ retrievedJson.infoUsuario.apeMaterno});
           console.log("fullname: ",this.state.fullName)
+          setRoles(retrievedJson.permisos)
         }
       }
       
       // I'm logged
-      logInState()
-      setRoles(retrievedJson.permisos)
+      console.log("ESTO LOGEADOO",retrievedJson)
+      logInState()  
       console.log("json:",retrievedJson)
       console.log("nombreree:",retrievedJson.infoUsuario.nombre)
       this.setState({fullName: retrievedJson.infoUsuario.nombre + " "+ retrievedJson.infoUsuario.apePaterno + " "+ retrievedJson.infoUsuario.apeMaterno});
       console.log("fullname: ",this.state.fullName)
+      setRoles(retrievedJson.permisos)
 
     }catch(err){
       console.log(err)
@@ -303,7 +308,7 @@ class BannerTop extends Component{
               
               <li className="nav-item dropdown" id="myavatar">
                 
-                  <Link to="#" data-toggle="dropdown" className="nav-link dropdown-toggle user-action">
+                  <Link to="#" data-toggle="dropdown" className="nav-link dropdown-toggle user-action" style={{float:'left'}}>
                     <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" className="avatar" alt="Avatar"/>
                   </Link>
                   <ul className="dropdown-menu dropdown-menu-right">

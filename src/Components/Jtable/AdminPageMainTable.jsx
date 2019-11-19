@@ -111,7 +111,7 @@ class AdminPageMainTable extends React.Component {
             console.log(value);
             this.setState({datos_tabla:value});
             }   
-            alert("Tabla actualizada");
+            alert("Permiso de usuario ",this.state.nameUserSelected," actualizado");
         });
 
     }
@@ -182,8 +182,7 @@ class AdminPageMainTable extends React.Component {
                         handleChangeDate = {this.handleChangeDate}
                         handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
                     </div>
-                </td>
-                <td><p data-placement="top" data-toggle="tooltip" title="Eliminar usuario"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td> 
+                </td>                
             </tr>
         )
         })
@@ -192,11 +191,10 @@ class AdminPageMainTable extends React.Component {
       return (
          <tr>
              <th width="40%">Nombre completo</th>
-             <th width="25%">Correo</th>        
+             <th width="32%">Correo</th>        
              <th width="11%">Vigencia Inicio</th>
              <th width="11%">Vigencia Fin</th>
-             <th width="7%">Editar</th>
-             <th width="7%">Eliminar</th>
+             <th width="7%">Editar</th>             
          </tr>
 
      )
