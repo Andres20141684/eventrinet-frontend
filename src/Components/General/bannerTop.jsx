@@ -57,7 +57,7 @@ function setRoles(listRoles){
   itemMisInscrip.style.display = "none"
   itemAdmin.style.display = "none"  
 
-  if (
+  if ((listRoles[0]["Administrador"]==0) && 
     (listRoles[1]["Organizador"]==0) && 
     (listRoles[2]["Presidente del Comité Académico"]==0) && 
     (listRoles[3]["Evaluador"]==0) &&
@@ -71,9 +71,13 @@ function setRoles(listRoles){
   }
 
   itemOpciones.style.display = "block"
+  if (!(listRoles[1]["Administrador"]==0)){    
+    itemAdmin.style.display = "block"
+    console.log("admi",listRoles[0]["Administrador"])
+  }
   if (!(listRoles[1]["Organizador"]==0)){    
     itemOrga.style.display = "block"
-    console.log("orga",listRoles[0]["Organizador"])
+    console.log("orga",listRoles[1]["Organizador"])
   }
   if (!(listRoles[2]["Presidente del Comité Académico"]==0)){
     itemPresi.style.display = "block"
