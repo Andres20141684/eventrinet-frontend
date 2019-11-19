@@ -189,6 +189,9 @@ class Organizador_ActiveEventsTable  extends Component {
       
          return (
             <div style={{"font-size": "15"}}>
+               <a  class="pull-right" onClick={()=>this.handleClickCrearActualizar( 
+                           this.state.idUser_recived, 0,  'ARMANDO SE LA COMEEEE')} 
+                  value="Nuevo" style={{marginRight:30,marginBottom:20, color:"white"}}>Nuevo</a>
             <JTableMaterial
                title="Eventos Activos:"
                columns={this.state.columns}

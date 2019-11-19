@@ -1,4 +1,5 @@
 import {AsyncStorage} from 'react';
+import { async } from 'q';
 //const restURL = 'http://25.70.128.233:5000/api/';
 
 const restURL = 'http://localhost:5000/api/';
@@ -969,6 +970,22 @@ export async function InsertarEvaluadorAPaper(data){
         return responseJson;
     } catch (error) {
         console.log(error)
+        return error
+    }
+}
+
+export async function AlgoritmoAsignacion(data){
+    try {
+        let response= await fetch(restURL+'propuesta/algoritmo',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
         return error
     }
 }

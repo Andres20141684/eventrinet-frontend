@@ -50,7 +50,8 @@ class AsignEvalPropuesta  extends Component {
        this.handleClose=this.handleClose.bind(this);
        this.setValues=this.setValues.bind(this);
        this.filtradoOpciones=this.filtradoOpciones.bind(this);
-       this.handleClickRetroceder=this.handleClickRetroceder.bind(this)
+       this.handleClickRetroceder=this.handleClickRetroceder.bind(this);
+       this.handleAplicarAlgortimo=this.handleAplicarAlgortimo.bind(this)
    
      }
 
@@ -181,6 +182,21 @@ class AsignEvalPropuesta  extends Component {
       console.log(aux)
    }
  
+   handleAplicarAlgortimo(){
+      var listaAux=[];
+       var object={};
+
+      Networking.AlgoritmoAsignacion(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
+         console.log(value)
+         value.Propuestas.map((element,index)=>{
+            object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores}
+            listaAux.push(object);
+            console.log(object);
+            console.log(listaAux);
+         })
+         this.setState({datos_tabla:listaAux});   
+      })
+   }
   
     
     tableData() {
@@ -284,6 +300,11 @@ class AsignEvalPropuesta  extends Component {
                      <h3>{this.state.nombre}</h3>
                      {/*<a  class="pull-right" onClick={this.handleClickCrearActualizar} 
                      value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>*/}
+                  </div>
+                  <div class='col-md-12'>
+                  <div class='col-md-4'><label>Asignacion Automatica:</label></div>
+                  <div class='col-md-8'><button class="mybutton" onClick={this.handleAplicarAlgortimo} style={{float:'left'}}>Aplicar</button>
+                  </div>
                   </div>
                   <div  class="table-responsive">
                   <table class="table  table-hover">
