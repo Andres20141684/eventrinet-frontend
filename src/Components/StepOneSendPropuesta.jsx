@@ -122,12 +122,11 @@ renderacademicLevel(){
         onChange:this.defaultMutableHandle,
       },
       {
-        label:"Nivel de estudios",
-        category:'comboBox',
+        label:"Afiliacion",
+        category:'textArea',
         name:"academicLevel",
-        id:"id_selectStudyLevel",
+        id:"id_Afiliacion",
         onChange:this.defaultMutableHandle,
-        options:this.renderacademicLevel()
       }
     ]
     

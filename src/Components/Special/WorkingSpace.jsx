@@ -91,15 +91,17 @@ class WorkingSpace extends Component{
     componentWillMount(){
       window.scrollTo(0, 0);
       this.setState({Usuario: this.props.Usuario});
+      //var Usuario_var = this.state.Usuario;
       this.state.nextChildComponentProps = this.props.nextComponentProps;
       this.state.nextChildComponent= this.props.nextComponent;
+
       console.log("WSWillMount ***");
       console.log("WSWillMount -> props: ",this.state.nextChildComponentProps);
       console.log("WSWillMount -> comp : ",this.state.nextChildComponent);
       let page = sessionStorage.getItem("currentPage");
       this.componentWillTryRedirect(this.props.searchEvent);
       try{
-        if(!(page === null)){
+        if(page){
           console.log("page to redirect ",page);
           if (page == "InscriptionEvent"){
             this.state.nextChildComponent=InscriptionEvent;
@@ -112,19 +114,22 @@ class WorkingSpace extends Component{
           //console.log("currentProps to redirect ",JSON.parse(alternativeProps));
           console.log("currentProps to redirect ", JSON.parse(alternativeProps));
           //console.log("currentProps to redirect ",JSON.stringify(JSON.parse(alternativeProps)));
-          if(!(alternativeProps === null)){
-  
+          if(alternativeProps){
+            console.log("adding currentProps to redirect ");
             this.state.nextChildComponentProps=JSON.parse(alternativeProps);
-            this.state.nextChildComponentProps.idUser= this.props.Usuario.idUser;
-            sessionStorage.setItem("currentProps",null);
+            sessionStorage.setItem("currentProps",{});
+          }else{
+            console.log("adding currentProps to redirect were null ");
+            this.setState({User:this.props});
+            
           }
-          sessionStorage.setItem("currentPage",null);
           /** esto es porque ya use los props y page que estaban en memoria */
         }else{
           console.log("page to redirect ","NULLLLLL");
         }
+        this.state.nextChildComponentProps.Usuario=this.props.Usuario;
       }catch(e){
-
+        console.error("WSWillMount error:",e);
       }
       
       console.log("WSWillMount");

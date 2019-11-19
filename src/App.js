@@ -28,11 +28,6 @@ class App extends Component{
     }
     this.getDataUser=this.getDataUser.bind(this);
     
-    
-
-
-
-    
   }
   getDataUser(){
     console.log("App will get DataUser: ***");
@@ -45,7 +40,6 @@ class App extends Component{
       this.setState({idUser:retrievedJson.infoUsuario.idUsuario });
       this.setState({Usuario: retrievedJson.infoUsuario});
     }catch(e){
-      console.error(e);
       console.error("no se encontro nada en el sessionStorage");
     }
   }
@@ -54,8 +48,7 @@ class App extends Component{
                 
                 https//:www.Eventrinet.com/?EventriEvents&idEvento=100
 
-   */
-  
+  */
   shouldComponentUpdate(nextState,nextProps){
     if(nextState.initialComponent != this.state.initialComponent){return true;}
     return false;
@@ -63,38 +56,48 @@ class App extends Component{
   }
   componentWillMount(){
     console.log("App->WillMount");
-    this.getDataUser();
+    
     //capturo lo que quiero del evento
     //intento redireccion
     console.log("App-> props:",this.props.location);
     var busqueda = this.props.location.search;
     console.log("App-> intento de busqueda en ",busqueda);
-        if(busqueda === undefined) {
-          console.log("busqueda indefinido");
-          return};
-        if(busqueda === null) {
-            console.log("busqueda NULL");
-            return};
-            try{
-              var split1 = busqueda.split('?');
-              console.log("App-> intento de busqueda.split('?')",split1);
-              if(split1.lenght==1) {return};
-              var split2 =split1[1].split('&');
-              console.log("App-> intento de split1[1].split('&')",split2);
-              if (split2[0]=='EventriEvents'){
-                  var parameter = split2[1].split('=');
-                  if(parameter[0]=='idEvento'){
-                      var _idEvento= parseInt(parameter[1]);
-                      /** aqui networking busca los detalles del evento  y redirijo*/
-                      console.log("App-> idEvento=",_idEvento);
-                      this.setState({searchEvent:_idEvento});
-                  }
-              }   
     
-            }catch(e){
-              console.log(e);
-              console.log("nO HABIA BUSQUEDA");
-            }
+    if(busqueda.lenght===0) { console.log("busqueda cero"); return};
+
+    if(busqueda === undefined) { console.log("busqueda indefinido"); return};
+    
+    if(busqueda === null) { console.log("busqueda NULL"); return};
+    
+    try{
+      var split1 = busqueda.split('?');
+      console.log("App-> intento de busqueda.split('?')",split1);
+      if(split1.lenght==1) {return};
+      var split2 =split1[1].split('&');
+      console.log("App-> intento de split1[1].split('&')",split2);
+      if (split2[0]=='EventriEvents'){
+          var parameter = split2[1].split('=');
+          if(parameter[0]=='idEvento'){
+              var _idEvento= parseInt(parameter[1]);
+              /** aqui networking busca los detalles del evento  y redirijo*/
+              console.log("App-> idEvento=",_idEvento);
+              this.setState({searchEvent:_idEvento});
+          }
+      }
+      if(split2[0]=='EventriProposals'){
+        var parameter = split2[1].split('=');
+        if(parameter[0]=='idEvento'){
+            var _idEvento= parseInt(parameter[1]);
+            /** aqui networking busca los detalles del evento  y redirijo*/
+            console.log("App-> idEvento=",_idEvento);
+            this.setState({searchEvent:_idEvento});
+        }
+    }   
+
+    }catch(e){
+      console.log("NO HABIA BUSQUEDA");
+    }
+    this.getDataUser();
     
   } 
   render() {
