@@ -33,6 +33,7 @@ class EvaluadorEvaluarPropuesta extends Component{
             },
             idPropuesta : 0,
             nomb_propuesta : "",
+            desc_propuesta:"",
 
             calificacionFinal : 0,
             nivelExperticia : 0,
@@ -247,11 +248,11 @@ class EvaluadorEvaluarPropuesta extends Component{
             <input type="radio" //name="radio2" 
                                    value={1}
                                    checked={this.state.calificacionFinal == 1} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Muy malo</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Fuertemente rechazado</td>
             <td><input type="radio" //name="radio2" 
                                    value={2}
                                    checked={this.state.calificacionFinal ==2} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Malo</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Rechazado</td>
             <td><input type="radio" //name="radio2" 
                                    value={3}
                                    checked={this.state.calificacionFinal == 3} 
@@ -259,11 +260,11 @@ class EvaluadorEvaluarPropuesta extends Component{
             <td><input type="radio" //name="radio2" 
                                    value={4}
                                    checked={this.state.calificacionFinal == 4} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Bueno</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Aprobado</td>
             <td><input type="radio" //name="radio2" 
                                    value={5}
                                    checked={this.state.calificacionFinal == 5} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Muy bueno</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Altamente aprobado</td>
                                    </tr></tbody></table>
         </div>          
 

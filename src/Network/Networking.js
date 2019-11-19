@@ -993,6 +993,8 @@ export async function listarFasesXEvento(idEvento) {
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
+    }
+}
 
 export async function AlgoritmoAsignacion(data){
     try {
