@@ -154,7 +154,8 @@ handleCheckboxChange = event =>{
                         name="date_in"
                         placeholder="date_in"
                         selected={this.props.fCRIni}
-                        //minDate={this.state.values.length!==0?this.this.state.values[this.state.values.length-1].faseFin:new Date()}
+                        minDate={this.state.values.length===0?new Date():this.state.values[this.state.values.length-1].faseFin}
+                        disabled={this.state.values[this.state.values.length-1].faseFin===''?true:false}
                         //minDate={new Date(this.state.values[this.state.values.length-1].faseFin).setDate(this.state.values[this.state.values.length-1].faseFin.getDate() + 1)}
                         //maxDate={this.props.fechaIE}
                         maxDate={this.props.fCRFin!==''?this.props.fCRFin:this.props.fechaIE}
