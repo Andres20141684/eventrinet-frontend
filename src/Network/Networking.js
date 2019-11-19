@@ -1,5 +1,6 @@
 import {AsyncStorage} from 'react';
-//const restURL = 'http://52.201.202.133:5000/api/'; 
+//const restURL = 'http://25.70.128.233:5000/api/';
+
 const restURL = 'http://localhost:5000/api/';
 
 export async function getMyId(){
