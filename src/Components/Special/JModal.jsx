@@ -20,7 +20,7 @@ class JModal extends Component {
                             </div>
                             <div className='modal-body'>{this.props.body}</div>
                             <div className='modal-footer'>{this.props.footer}</div> 
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>

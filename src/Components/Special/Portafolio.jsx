@@ -115,7 +115,7 @@ class Portafolio extends Component{
     this.setState(
         {title: this.props.title}
     );
-    
+    console.log("Protafolio props->",this.props)
   }
 
   handleClick = () => {
@@ -124,43 +124,24 @@ class Portafolio extends Component{
 
   handleOnclickEvent = () => {
     console.log('redireccionando a ... Inscripcion evento');
-    /*Networking.popuateEventConvocatoria(this.props.setEvent[0]).then((value) => {
-      console.log("lista de envetow convoctarioas",value);
-      if(value == null){
-         console.log('no hay convocatorias!');
-         
-      }else {
-         console.log('si hay convocatorias:');
-         this.setState({datos_tabla:value});
-         console.log(this.state.datos_tabla);
-      }
-    });
-    /*
-    this.handleNextChildComponentChangeProps({
-
-    });*/
+    
     console.log("evento convoc 1",this.props.setEventos)
-    //console.log("evento convoc 1",this.props.setEventos.Eventos[0])
-    //this.handleNextChildComponentChangeProps(this.props.setEventos.Eventos[0])
     this.handleNextChildComponentChange(SendProposal);
   }
   
   render() {
-        
-  return (
-    <div>
+    return (
+      <div>
         <section class="portafolio">
-            <div className="contenedor" style={{maxWidth: "1200px"}}>
-                <h2 class="titulo">{this.state.title}</h2>
-                <div class="galeria-port">
-                    {this.renderImagePortTotal()}
-                </div>
-            </div>
-        </section>
-        
-    </div>
-
-  );}
+              <div className="contenedor" style={{maxWidth: "1200px"}}>
+                  <h2 class="titulo">{this.state.title}</h2>
+                  <div class="galeria-port">
+                      {this.renderImagePortTotal()}
+                  </div>
+              </div>
+          </section>
+      </div>
+    );}
   }
 
 export default Portafolio;

@@ -71,14 +71,17 @@ export default function HorizontalLabelPositionBelowStepper(props) {
   };
 
   return (
-    <div className={classes.root} style={styles.frmCreateEvent}>
+    <div className={classes.root} 
+    style={styles.frmCreateEvent}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map(label => (
           <Step key={label}>
             <StepLabel 
             classes={{
               iconContainer:classes.iconContainer,
-            alternativeLabel: classes.alternativeLabel}}>{label}</StepLabel>
+            alternativeLabel: classes.alternativeLabel}}>
+              {label}
+              </StepLabel>
           </Step>
         ))}
       </Stepper>

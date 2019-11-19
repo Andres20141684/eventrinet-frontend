@@ -39,10 +39,12 @@ class ProposerDetailProposal extends Component{
         //Networking.populateDataOrgTab1(8).then((value) => {
               //this.setState({datos_tabla: value});   
         //});
-        console.log("Holiboni"+this.props);
+        console.log("ProposerDetailProposal->"+this.props);
      }
     
-   
+     componentWillMount(){
+
+     }
     render(){
         return(
             <div style={{justifyContent: "center", alignItems: "center"}}>

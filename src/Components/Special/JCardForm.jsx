@@ -10,6 +10,7 @@ class JCardForm extends Component {
     render(){
         console.log("renderin ****",this.props);
         const _inputs= [];
+        
         this.props.arrayOfInputData.forEach(inputData => {
             {console.log("inputData",inputData)}
         if (inputData.category === 'textArea') {
@@ -36,6 +37,7 @@ class JCardForm extends Component {
                             id={inputData.id}
                             placeholder={inputData.placeholder}              
                             onChange={inputData.onChange}
+                            value={inputData.value}
                             autoFocus
                         />}
             </div>
@@ -92,7 +94,11 @@ class JCardForm extends Component {
             ); 
         }
         if(inputData.category === 'JUpload'){
-            {console.log("agregue una JUpload")}
+            {console.log("agregare una JUpload")}
+            if(!(inputData.fileNedded)){
+                console.log("No file required:");
+                return;
+            }
             _inputs.push(
             <Row>
               <div class="form-group col-md-12">
@@ -110,7 +116,7 @@ class JCardForm extends Component {
         }
         
         });
-        
+        if(_inputs.length>0){
         return(
             <div class="panel-group mx-auto" style={{width: "600px"}}>
                 <div  class="panel panel-default">
@@ -127,7 +133,9 @@ class JCardForm extends Component {
                 </div>
             </div>
         );
-
+        }else{
+            return(null);
+        }
 
     }
 }
