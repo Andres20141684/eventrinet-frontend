@@ -76,10 +76,10 @@ class ArrayDinamics extends Component{
                   ))}
                   <Row>
                       <Col>
-                      {this.state.array.length===1?null:<input  disabled={this.props.value.faseFin<new Date()?true:false} style={{float:'left',paddingLeft:'40px',paddingRight:'40px'}}className="btn btn-secondary" type="button" value="-" onClick={() => this.removeClick()} />} 
+                      {this.state.array.length===1?null:<input  disabled={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false} style={{float:'left',paddingLeft:'40px',paddingRight:'40px'}}className="btn btn-secondary" type="button" value="-" onClick={() => this.removeClick()} />} 
                       </Col>
                       <Col>
-                      <input disabled={this.props.value.faseFin<new Date()?true:false} class="btn btn-primary"type="button" style={{float:'right',paddingLeft:'40px',paddingRight:'40px'}} value="+" onClick={() => this.addClick()} /> 
+                      <input disabled={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false} class="btn btn-primary"type="button" style={{float:'right',paddingLeft:'40px',paddingRight:'40px'}} value="+" onClick={() => this.addClick()} /> 
                       </Col>
                   </Row>
                   

@@ -64,7 +64,7 @@ class AdminPageMainTable extends React.Component {
             refreshData:false
         });
 
-        if (flagPermiso == 1){
+        if (flagPermiso === 1){
             let yyIni=var_fechaIni.substr(0,4); let yyFin=var_fechaFin.substr(0,4);
             let mmIni=var_fechaIni.substr(5,2); let mmFin=var_fechaFin.substr(5,2);
             let ddIni=var_fechaIni.substr(8,2); let ddFin=var_fechaFin.substr(8,2);
@@ -75,10 +75,10 @@ class AdminPageMainTable extends React.Component {
             })
         }
         else{
-            this.setState({
+            /*this.setState({
                 dateIniSelected:new Date(),
                 dateFinSelected: new Date()
-            })
+            })*/
         }
         console.log("this.state.ABUELO !",this.state)        
     }
@@ -245,10 +245,13 @@ function TransitionsModal(props) {
     };
   
     const handleClose = () => {
-      setOpen(false);
+        setOpen(false);
+        var e=new Date()
+        props.handleChangeDate(e,"dateIniSelected")
+        props.handleChangeDate(e,"dateFinSelected")
+      
     };    
     const handleClickUpdatePermisos = () => {
-        setOpen(false);
         
         let dataIni= DateFormat(props.dateIniSelected);
         let dataFin= DateFormat(props.dateFinSelected);
@@ -263,6 +266,7 @@ function TransitionsModal(props) {
                     console.log(response.message);                
                 }
                 props.myCallback();
+                handleClose()
             }
         )
     }
@@ -314,7 +318,7 @@ function TransitionsModal(props) {
                               name="date_in"
                               minDate= {new Date()}                            
                               placeholder="date_in"
-                              selected={props.dateIniSelected ? props.dateIniSelected : ''}
+                              selected={props.dateIniSelected }
                               onChange={(e)=> props.handleChangeDate(e,"dateIniSelected")}
                               //onKeyDown={this.onKeyDownDate}
                               className="form-control"
@@ -329,7 +333,7 @@ function TransitionsModal(props) {
                             name="date_in"
                             minDate= {new Date()}
                             placeholder="date_in"
-                            selected={props.dateFinSelected ? props.dateFinSelected: ''}
+                            selected={props.dateFinSelected }
                             onChange={(e)=> props.handleChangeDate(e,"dateFinSelected")}
                             className="form-control"
                             />
