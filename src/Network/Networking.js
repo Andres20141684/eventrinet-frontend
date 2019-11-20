@@ -1109,3 +1109,26 @@ export async function rechazarPropuestaXFase(data){
         return error
     }
 }
+export async function observaciones_propuestas(idPropuesta, idFase) {
+    try {
+        let response = await fetch(restURL 
+            + 'presidente/observaciones_propuestas', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idPropuesta: idPropuesta,
+                idFase: idFase
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}

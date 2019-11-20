@@ -14,27 +14,31 @@ var OPTIONS = [];
 var jason = {};
 
 class ModalObsAdicional extends Component {
-  formComentario() {
-    //Debo conseguir todos los comentaros de los evaluadore
-    let evaluadores = [];
+  formComentario(comentariosActual) {
 
-    return evaluadores.map((element, index) => {
+    var comentarios = [
+      { evaluador: 'Michael Jackson', comentario: "Este chico es un travesin" },
+      { evaluador: 'Juana Arco', comentario: "Ni tu perro comeria tu tesis" },
+    ];
+    return comentarios.map((element, index) => {
       const { evaluador, comentario } = element
       var indexEvent = index
       return (
         <div class="form-group row">
           <label for="staticEmail" class="col-sm-4 col-form-label">{evaluador}</label>
           <div class="col-sm-6">
-            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={comentario} />
+            <textarea readOnly className="form-control" id="staticEmail" rows="3" value={comentario}></textarea>
           </div>
         </div>
       )
     })
-  }
-  handleClickUpdateComentarios = () => {
+
+
+
 
   }
   render() {
+    console.log("ayyy lmao : ", this.props)
     return (
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style={{ paddingBottom: "0px", paddingRight: "5px", paddingTop: "0px" }}>
@@ -44,11 +48,18 @@ class ModalObsAdicional extends Component {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          {this.formComentario()}
+          {this.formComentario(this.props.comentariosActual)}
+
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-4 col-form-label">Observaciones Finales</label>
+            <div class="col-sm-6">
+              <textarea onChange={(e) => this.props.handleSaveComentario(e)} className="form-control" id="staticEmail" rows="3" ></textarea>
+            </div>
+          </div>
 
           <div className="modal-footer" style={{ paddingRight: "0px" }}>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" onClick={(e) => this.handleClickUpdateComentarios()} class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            <button type="button" onClick={(e) => this.props.handleClickUpdateComentarios()} class="btn btn-primary" data-dismiss="modal">Aceptar</button>
           </div>
         </div>
       </div>
@@ -217,6 +228,9 @@ class FormPropsxFasePresidente extends Component {
                   },
                 */]
       },
+      comentariosActual: []
+        
+      ,
       propuestaActual: {},
       checkboxes: OPTIONS.reduce(
         (options, option) => (
@@ -226,7 +240,8 @@ class FormPropsxFasePresidente extends Component {
           }
         ),
         {}
-      )
+      ),
+      presiComentario: '',
     }
     this.handleNextChildComponentChange = this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps = this.handleNextChildComponentChangeProps.bind(this);
@@ -272,7 +287,7 @@ class FormPropsxFasePresidente extends Component {
     )
 
   }
-  renderAccordionData(evaluadores) {
+  renderAccordionData(evaluadores, idPropuesta) {
     return evaluadores.map((element, index) => {
       const { evaluador, calificacion, experticie, idEvaluador } = element
       var indexEvent = index
@@ -289,7 +304,7 @@ class FormPropsxFasePresidente extends Component {
               </a>
             </td>
             <td>
-              <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleDeEv" onClick={e => { this.showModalDetalle(); }}>
+              <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleDeEv" onClick={e => this.showModalDetalleEvaluador(idEvaluador, idPropuesta)} title="Ver detalle de la evaluación">
                 <ActionButton id_evento={this.state.idEvento} button_class="fa fa-plus" redirect_to="/" />
               </a>
             </td>
@@ -299,9 +314,37 @@ class FormPropsxFasePresidente extends Component {
     })
   }
 
-  showModalDetalle = () => {
+  showModalDetalleEvaluador = (idEvaluador, idPropuesta) => {
+
 
   }
+
+  showModalDetalleObservaciones = (idPropuesta, idFase) => {
+    //SERVICIO PARA LISTAR LAS OBSERVACIONES DE LA PROPUESTA SELECCIONADA
+    Networking.observaciones_propuestas(idPropuesta, idFase).then(
+      (response) => {
+        console.log(response);
+        if (response == null) {
+          console.log('no hay algo aun');
+
+        } else {
+          console.log('si hay alg0: ', response);
+          this.setState(
+            {
+              comentariosActual: 
+                //idPropuesta: idPropuesta,
+                //idEvaluador: '',
+                /*comentarios:[*/response.comentarios //<----------------------------FALTAAAAAAAA<-------
+                /*{evaluador:'Luis Fonsi', comentario: 'VOy a jalar '},
+                {evaluador:'Juana de Arco', comentario: 'Piensa en tu vijeita y vota ese paper'}
+              ],*/
+              
+            });
+          console.log("ACTUAL COMM: ", this.state.comentariosActual)
+        }
+      });
+  }
+
 
   showModalDetallePropuesta = (idPropuesta) => {
     Networking.detalle_propuesta(idPropuesta).then(
@@ -324,8 +367,9 @@ class FormPropsxFasePresidente extends Component {
           );
         }
       }
-    )
-  }
+    );
+  };
+
   handleCheckboxChange = changeEvent => {
     const { name } = changeEvent.target;
 
@@ -346,10 +390,12 @@ class FormPropsxFasePresidente extends Component {
       key={option}
     />
   );
+
   handleReturn() {
     this.props.onNextChildComponentChange(PresiAsignarEvalEvents);
     //this.handleNextChildComponentChange(PresiAsignarEvalEvents);
   }
+
   handleAprobar() {
     let data = {};
     Object.keys(this.state.checkboxes)
@@ -378,7 +424,15 @@ class FormPropsxFasePresidente extends Component {
     alert("¡Se han guardado los cambios!")
     //this.handleReturn();
   }
+  handleSaveComentario = (evt) => {
+    this.setState({ presiComentario: evt.target.value });
 
+
+  }
+  handleClickUpdateComentarios = () => {
+    //Servicio para guardar el comentario del presii
+
+  }
   handleRechazar() {
     let data = {};
     Object.keys(this.state.checkboxes)
@@ -429,7 +483,7 @@ class FormPropsxFasePresidente extends Component {
               </div>
 
               <div className="col-md-6">
-                <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={e => { this.showModalDetallePropuesta(idPropuesta); }} style={{ color: "#337ab7", cursor: 'pointer' }}>
+                <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={e => { this.showModalDetallePropuesta(idPropuesta); }} style={{ color: "#337ab7", cursor: 'pointer' }} title="Detalle de la propuesta">
                   {nombre}
                 </a>
               </div>
@@ -439,7 +493,7 @@ class FormPropsxFasePresidente extends Component {
               </div>
 
               <div className="col-md-1">
-                <a data-title="Edit" data-toggle="modal" data-target="#modalObs" onClick={e => { this.showModalDetalle(); }}>
+                <a data-title="Edit" data-toggle="modal" data-target="#modalObs" onClick={e => { this.showModalDetalleObservaciones(idPropuesta, this.props.idFase); }} title="Observaciones para el postulante">
                   <ActionButton id_evento={this.state.idEvento} button_class="fa fa-file" redirect_to="/" />
                 </a>
               </div>
@@ -463,7 +517,7 @@ class FormPropsxFasePresidente extends Component {
                       <th >Ver más</th>
                     </tr>
                   </thead>
-                  {this.renderAccordionData(evaluadores)}
+                  {this.renderAccordionData(evaluadores, idPropuesta)}
                 </table>
               </div>
             </Accordion.Collapse>
@@ -481,14 +535,20 @@ class FormPropsxFasePresidente extends Component {
           {this.tableData()}
         </Accordion>
 
+
         <div className="modal fade" id="modalDetalleDeEv" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <ModalDetalleDeEvaluador />
+          <ModalDetalleDeEvaluador
+            idEvaluador={this.state.idEvaluador} />
         </div>
         <div className="modal fade" id="modalReasigEval" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <ModalReasignarEvaluador />
         </div>
         <div className="modal fade" id="modalObs" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <ModalObsAdicional />
+          <ModalObsAdicional
+            comentariosActual={this.state.comentariosActual}
+            handleClickUpdateComentarios={this.handleClickUpdateComentarios}
+            handleSaveComentario={this.handleSaveComentario}
+          />
         </div>
         <div className="modal fade" id="modalDetalleProp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <ModalDetallePropuesta
