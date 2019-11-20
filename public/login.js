@@ -69,6 +69,21 @@ async function onSignUp(googleUser){
 					}else{
 					  console.log("YIYI no se pudo crear cuenta");              
 					  alert(response.message)
+
+					  //CERRAR SESION DEL USUARIO GMAIL
+					  try{
+						const auth2 = window.gapi.auth2.getAuthInstance()
+						console.log("auth2 ", auth2)
+						if (auth2 != null) {
+						  auth2.signOut().then(
+							auth2.disconnect().then(this.props.onLogoutSuccess)
+						  )
+						}
+					  }catch(err){
+						console.log(err)
+					  }
+
+
 					  /*
 					  validar_sesion(profile.U3, profile.ofa, profile.wea).then(
 						(responsed) => {

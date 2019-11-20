@@ -95,10 +95,6 @@ function setRoles(listRoles){
     itemMisInscrip.style.display = "block"
     console.log("parti",listRoles[5]["Participante"])
   }
-  if (!(listRoles[0]["Administrador"]==0)){
-    itemAdmin.style.display = "block"
-    console.log("admin",listRoles[5]["Administrador"])
-  }
 
 }
 
