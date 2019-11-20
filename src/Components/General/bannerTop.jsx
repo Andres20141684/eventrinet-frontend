@@ -71,7 +71,7 @@ function setRoles(listRoles){
   }
 
   itemOpciones.style.display = "block"
-  if (!(listRoles[1]["Administrador"]==0)){    
+  if (!(listRoles[0]["Administrador"]==0)){    
     itemAdmin.style.display = "block"
     console.log("admi",listRoles[0]["Administrador"])
   }
