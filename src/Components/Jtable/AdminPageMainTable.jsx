@@ -206,10 +206,7 @@ class AdminPageMainTable extends React.Component {
                 <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                     <h3>Lista de usuarios</h3>
                     
-                </div>
-                <br/>
-                <input class="form-control" id="myInput" type="text" placeholder="Buscar.."/>
-                <br/>                
+                </div>                
                 <div  class="table-responsive">
                 <table class="table  table-hover table-list-search" >
                     <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
