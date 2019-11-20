@@ -91,15 +91,14 @@ class SingUp extends Component{
             console.log("Data del usuario",response);
             if (response.succeed){
               console.log("estamos accediendoo bbecita prrr");
-              console.log(response);               
+              console.log(response);
+              sessionStorage.setItem('dataUser', JSON.stringify(response));
+              sessionStorage.setItem('tipoLogin',"usuario");
+              this.setState({redirect:true});
             }else{
-              console.log("YIYI no se pudo crear cuenta");              
+              console.log("YIYI no se pudo crear cuenta");
+              alert(response.message)
             }
-            alert(response.message)
-            sessionStorage.setItem('dataUser', JSON.stringify(response));            
-
-            sessionStorage.setItem('tipoLogin',"usuario");
-            this.setState({redirect:true});
           }
       )
     }

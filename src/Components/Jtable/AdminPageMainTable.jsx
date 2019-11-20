@@ -99,7 +99,7 @@ class AdminPageMainTable extends React.Component {
         
     }
 
-     myCallback = () => {
+     myCallback = (message) => {
     //[...we will use the dataFromChild here...]
         Networking.listarUsuarios()
         .then((value) => {
@@ -111,7 +111,7 @@ class AdminPageMainTable extends React.Component {
             console.log(value);
             this.setState({datos_tabla:value});
             }   
-            alert("Permiso de usuario ",this.state.nameUserSelected," actualizado");
+            alert(message);
         });
 
     }
@@ -154,7 +154,6 @@ class AdminPageMainTable extends React.Component {
                             handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
                         </div>
                     </td>
-                    <td><p data-placement="top" data-toggle="tooltip" title="Eliminar usuario"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td> 
                 </tr>
             )            
          }
@@ -265,7 +264,7 @@ function TransitionsModal(props) {
                     console.log("No se dio permiso");
                     console.log(response.message);                
                 }
-                props.myCallback();
+                props.myCallback(response.message);
                 handleClose()
             }
         )
