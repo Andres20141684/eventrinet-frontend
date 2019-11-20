@@ -123,16 +123,49 @@ class ModalDetalleDeEvaluador extends Component {
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style={{ paddingBottom: "0px", paddingRight: "5px", paddingTop: "0px" }}>
           <div class="modal-header" style={{ paddingBottom: "5px" }}>
-            <h3 style={{ marginTop: "0px", marginBottom: "0px" }}>Detalle de la propuesta</h3>
+            
+            <div class="form-group">              
+                <div class="form-group col-md-6">
+                  <h3 style={{ marginTop: "0px", marginBottom: "0px" }}>Revisado por ------- </h3>
+                </div>
+                <div class="form-group col-md-6">
+                  <h5 style={{ marginTop: "0px", marginBottom: "0px" }}>Categoria: -------</h5>
+                </div>              
+            </div>
+            <div class="form-group">
+              <h4 style={{ marginLeft: "20px", marginBottom: "0px" }}>Fase </h4>
+              <h4 style={{ marginLeft: "20px", marginBottom: "0px" }}>Nombre de la propuesta </h4>
+            </div>    
+            
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
+          
           </div>
-          <div className="modal-body" style={{ paddingBottom: '0px' }}>
-            <div class="form-group row">
-              <label for="staticName" class="col-sm-4 col-form-label">Holi boni perry</label>
-            </div>
+          <div className="modal-body" style={{ paddingBottom: '0px' }}>          
+          <form>
 
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Calificación Final</label>
+                <input readOnly type="text" class="form-control" id="inputEmail4" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Nivel de experticie</label>
+                <input readOnly type="text" class="form-control" id="inputPassword4"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Observaciones para el participante</label>
+              <textarea readOnly class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Observaciones para el presidente</label>
+              <textarea readOnly class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            
+          </form>
+ 
           </div>
         </div>
       </div>
@@ -317,7 +350,7 @@ class FormPropsxFasePresidente extends Component {
 
   showModalDetalleObservaciones = (idPropuesta) => {
     //SERVICIO PARA LISTAR LAS OBSERVACIONES DE LA PROPUESTA SELECCIONADA
-    /*Networking.observaciones_propuestas(idPropuesta).then(
+    Networking.observaciones_propuestas(idPropuesta,this.props.idFase).then(
       (response) => {
         console.log(response);
         if (response == null) {
@@ -330,14 +363,15 @@ class FormPropsxFasePresidente extends Component {
               comentariosActual: {
                 idPropuesta: idPropuesta,
                 idEvaluador: '',
-                comentarios:[ //comentarios: response.comentarios <----------------------------FALTAAAAAAAA<-------
+                //comentarios: response.comentarios <----------------------------FALTAAAAAAAA<-------
+                comentarios:[ 
                   {evaluador:'Luis Fonsi', comentario: 'VOy a jalar '},
                   {evaluador:'Juana de Arco', comentario: 'Piensa en tu vijeita y vota ese paper'}
                 ],
               }
             });
           }
-        });*/
+        });
       }
 
 
@@ -421,11 +455,22 @@ class FormPropsxFasePresidente extends Component {
   }
   handleSaveComentario =(evt) =>{
     this.setState({presiComentario:evt.target.value});
-    
-
+    console.log('comentPresi', this.state.presiComentario)
   }
   handleClickUpdateComentarios=()=>{
     //Servicio para guardar el comentario del presii
+    //Falta el servicon en NETOWORKINGGGGGGGGGGGGGGGGGGG
+    
+    Networking.updateComentarios(this.props.idFase).then(
+      (response) => {
+        console.log(response);
+        if (response == null) {
+          console.log('no hay algo aun');
+
+        } else {
+          console.log('si hay alg0: ', response);
+          }
+        });
 
   }
   handleRechazar() {

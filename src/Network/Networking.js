@@ -242,6 +242,28 @@ export async function saludar(){
         return error
     }
 }
+
+
+export async function observaciones_propuestas(idProp,idFase){
+    try {
+        let response = await fetch(restURL+'presidente/observaciones_propuestas' ,{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: {
+                idProp:idProp,
+                idFase:idFase
+            }
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
         
 export async function getPaper(numProp){
     console.log('propuesta/devolver_paper/59',numProp);
