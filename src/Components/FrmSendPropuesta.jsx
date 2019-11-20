@@ -221,7 +221,7 @@ class FrmSendPropuesta extends React.Component {
           methodPath: 'propuesta/registrar_propuesta',
           JsonToBack:{
               idEvento: this.props.nextChildComponentProps.evento.idEvento,
-              idUsuario: this.state.myId,
+              idUsuario: this.props.nextChildComponentProps.Usuario.idUsuario,
               anho: 2019,
               paper: this.state.archivo,
               afilicacion: this.state.afilicacion,
