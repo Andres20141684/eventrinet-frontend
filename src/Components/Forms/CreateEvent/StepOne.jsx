@@ -47,6 +47,7 @@ export default class StepOne extends React.Component {
                     value={this.props.nombre}
                     maxLength="45"
                     autoFocus/>
+                {this.props.nombre===''?<span class="error">Campo Obligatorio</span>:<br></br>}
             </div>
             </Row>
             <Row>
@@ -63,6 +64,7 @@ export default class StepOne extends React.Component {
                     value={this.props.descripcion}       
                     maxLength="200"       
                     />
+                  {this.props.descripcion===''?<span class="error">Campo Obligatorio</span>:<br></br>}
             </div>
             </Row>
             <Row>
@@ -78,6 +80,7 @@ export default class StepOne extends React.Component {
                     value={this.props.lugar}
                     maxLength="150"
                     />
+                  {this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>}  
             </div>
             </Row>
             <label >Fechas de la Realizacion del evento:</label><br/>  
@@ -94,6 +97,7 @@ export default class StepOne extends React.Component {
                       name="date_in"
                       placeholder="date_in"
                     />
+                    {this.props.fechaIE===''?<span class="error">Campo Obligatorio</span>:<br></br>}  
                   </div>
                   <div class="form-group col-md-5">
                       <label >Fecha Fin </label>
@@ -108,6 +112,7 @@ export default class StepOne extends React.Component {
                           name="date_in"
                           placeholder="date_in"
                         />
+                        {this.props.fechaFE===''?<span class="error">Campo Obligatorio</span>:<br></br>}  
                   </div>
                   </Row>
             </div>
@@ -126,6 +131,7 @@ export default class StepOne extends React.Component {
               tag="categorias" 
               label="descripcion"/>
               </div>
+              {this.props.categorias.length===0?<span class="error">Campo Obligatorio</span>:<br></br>}  
             </div>
           </div>
           <br></br>

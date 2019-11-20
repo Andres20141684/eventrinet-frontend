@@ -9,7 +9,7 @@ import '../../../styles/style_sheets.css';
 
 export default function ArrayOfChips(props) {
   var chipData =[]; 
-  chipData= props.lista;
+  chipData= [...props.lista];
   //var auxLocal=props.aux
   var aux={[props.label]:props.aux}
   // This come from the select form onChange
