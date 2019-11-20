@@ -55,13 +55,15 @@ class PresiCalificacionFinalPapersTable  extends Component {
    handleClick = () => {
     console.log('this is:', this);
   }
-  handleClickEvaularPaper (evt,idEvento,nombre,fasesTotales,secuencia,fechaLimite){
+  handleClickEvaularPaper (evt,idEvento,nombre,fasesTotales,secuencia,fechaLimite,idFaseActual,nombreFase){
    this.handleNextChildComponentChangeProps(
       {idEvent:idEvento,
       nombreEvento:nombre,
       fasesTotales:fasesTotales,
       secuencia:secuencia,
-      fechaLimite:fechaLimite
+      fechaLimite:fechaLimite,
+      idFaseActual : idFaseActual,
+      nombreFase:nombreFase
    });
    console.log("idEvento",idEvento);
    this.handleNextChildComponentChange(EvaluacionPresidente);
@@ -69,7 +71,7 @@ class PresiCalificacionFinalPapersTable  extends Component {
   
    renderTableData() {
         return this.state.datos_tabla.Eventos.map((element, index) => {
-         const {idEvento, nombre,secuencia, fasesTotales,fechaLimite} = element
+         const {idEvento, nombre,secuencia, fasesTotales,fechaLimite,idFaseActual,nombreFase} = element
             return (
             <tr >
                 <td>{nombre}</td>
@@ -77,7 +79,7 @@ class PresiCalificacionFinalPapersTable  extends Component {
                <td align="center">{fechaLimite}</td>
                <td align="center">
                   <div>{/*<ActionButton id_evento={idEvento} clickeable ={true} redirect={EvaluacionPresidente} button_class ="fa fa-plus" />*/}</div>                
-                  <button onClick={e => {this.handleClickEvaularPaper(e,idEvento,nombre,fasesTotales,secuencia,fechaLimite)}} style={{background:"none", border:"none"}}><a><i className ="fa fa-plus" /></a></button>
+                  <button onClick={e => {this.handleClickEvaularPaper(e,idEvento,nombre,fasesTotales,secuencia,fechaLimite,idFaseActual, nombreFase)}} style={{background:"none", border:"none"}}><a><i className ="fa fa-plus" /></a></button>
                </td> 
             </tr>
         )

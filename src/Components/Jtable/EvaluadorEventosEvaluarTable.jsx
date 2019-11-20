@@ -27,6 +27,7 @@ class EvaluadorEventosPrefTable  extends Component {
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+      this.obtenerNombreFase=this.obtenerNombreFase.bind(this);
   
     }
     handleNextChildComponentChange(_nextChildComponent){
@@ -71,6 +72,21 @@ class EvaluadorEventosPrefTable  extends Component {
 
    evaluarEvaluador = () =>{
       this.props.onNextChildComponentChange(EvaluadorEvaluarPropuestas);
+   }
+
+   obtenerNombreFase(idEvento){
+      Networking.faseActual(idEvento).then((value) => {
+         console.log(value);
+     
+         if(value == null){
+             console.log('no hay algo aun');
+             
+         }else {
+            console.log("NOOOOOOOOOOOOOO: ",value.Fase.nombre);
+             return value.Fase.nombre;
+         }
+         });
+
    }
  
    
@@ -117,7 +133,7 @@ class EvaluadorEventosPrefTable  extends Component {
                   nomb_evento ={nombre} //nombre
                   idUser_recived={this.state.idUser_recived} 
                   ///*este es el prop del sig comp*/idFase = {this.state.idFase}//{id_fase} //los estoy mandando vacíos
-                  /*este se va a settear*/nomb_fase = {this.state.nomb_fase}//{nombre_fase}//AQUI SE SETTEAN LOS PROPS PARA EL SIG COMPONENTE
+                  /*este se va a settear*/nomb_fase = {this.state.nomb_fase} //"XDD"//{this.state.nomb_fase}//{nombre_fase}//AQUI SE SETTEAN LOS PROPS PARA EL SIG COMPONENTE
 
                   onNextChildComponentChange={this.evaluarEvaluador}
                   onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}

@@ -23,10 +23,17 @@ class EvaluacionPresidente extends Component {
             secuencia:0,
             fechaLimite: new Date(),
             header:'aasd',
-            tabIndex:0
+            tabIndex:0,
+            idFaseActual:0,
+            nombreFase:'',
+            datos_tabla2:{
+                Fases:[
+                ]
+            }
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
+        this.handleReturn = this.handleReturn.bind(this);
     }
     handleNextChildComponentChange(_nextChildComponent){
       console.log('cambiando', _nextChildComponent);
@@ -52,6 +59,8 @@ class EvaluacionPresidente extends Component {
             secuencia:this.props.nextChildComponentProps.secuencia,
             tabIndex:this.props.nextChildComponentProps.secuencia,
             fechaLimite:new Date(parseInt(yyIni),parseInt(mmIni),parseInt(ddIni)),
+            idFaseActual:this.props.nextChildComponentProps.idFaseActual,
+            nombreFase:this.props.nextChildComponentProps.nombreFase
          });
     
     console.log("Seteado todos los valores del state",this.state);
@@ -61,6 +70,8 @@ class EvaluacionPresidente extends Component {
     this.state.fasesTotales=this.props.nextChildComponentProps.fasesTotales
     this.state.secuencia=this.props.nextChildComponentProps.secuencia
     this.state.fechaLimite=new Date(parseInt(yyIni),parseInt(mmIni),parseInt(ddIni))
+    this.state.idFaseActual=this.props.nextChildComponentProps.idFaseActual
+    this.state.nombreFase=this.props.nextChildComponentProps.nombreFase
 
     console.log("Seteado todos los valores del state pero a la mala xq no se pudo :v",this.state);
 
@@ -70,11 +81,36 @@ class EvaluacionPresidente extends Component {
     let header=  this.state.nombreEvento + " - " +  this.state.fechaLimite.getUTCDate().toString(10) + " " +monthNames[this.state.fechaLimite.getUTCMonth()];
     this.setState({header:header});
     console.log(header)
+
+    /* YOPS jxjx */
+    console.log("EL ID EVENTO: ",this.props.nextChildComponentProps.idEvent);
+    Networking.listarFasesXEvento(this.props.nextChildComponentProps.idEvent).then((value) => {
+        console.log(value);
+        if(value == null){
+          console.log('no hay algo aun');
+          
+        }else {
+          console.log('si hay algo:');
+          this.setState({datos_tabla2:value});
+          console.log("Fases: ",this.state.datos_tabla2.Fases);
+        }
+        
+      });
   }
   
   handleReturn(){
+    this.props.onNextChildComponentChange(PresiAsignarEvalEvents);
     //this.handleNextChildComponentChange(PresiAsignarEvalEvents);
   }
+  /*tableData() {
+    //console.log("Render LISTADO: ",this.props);
+    return this.state.datos_tabla2.Fases.map((element, index) => { 
+     const {idFase,nombre} = element
+     return (
+     <Tab>{nombre}</Tab>
+      )
+    })
+   }*/
      render() {
          
         return (

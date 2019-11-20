@@ -130,6 +130,7 @@ class ModalDetallePropuesta extends Component{
 
 
   render(){
+    console.log("SEbas props: ",this.props);
     return(
       <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content" style={{paddingBottom:"0px",paddingRight:"5px",paddingTop:"0px"}}>
@@ -143,19 +144,19 @@ class ModalDetallePropuesta extends Component{
             <div class="form-group row">
               <label for="staticName" class="col-sm-4 col-form-label">Titulo</label>
               <div class="col-sm-6">
-                  <input type="text" readonly class="form-control-plaintext" id="staticName" value={this.props.propuestaActual.tituloPropuesta}/>
+                  <input type="text" readonly class="form-control-plaintext" id="staticName" /*value={this.props.propuestaActual.tituloPropuesta}*//>
               </div>
             </div>
             <div class="form-group row">
               <label for="staticEmail" class="col-sm-4 col-form-label">Resumen</label>
               <div class="col-sm-6">
-                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.propuestaActual.resumen}/>
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" /*value={this.props.propuestaActual.resumen}*//>
               </div>
             </div>
             <div class="form-group row">
               <label for="staticEmail" class="col-sm-4 col-form-label">Autor</label>
               <div class="col-sm-6">
-                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.propuestaActual.autor}/>
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" /*value={this.props.propuestaActual.autor}*//>
               </div>
             </div>
           </div>
