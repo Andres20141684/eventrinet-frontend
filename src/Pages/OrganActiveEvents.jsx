@@ -12,7 +12,7 @@ const Networking = require('../Network/Networking.js') ;
 function MainTittle(){
     return ( <div>
     <div style={{marginLeft:15}}>
-        <h1><br/>Organizador - Mis eventos</h1>
+        <h1><br/></h1>
     </div>
     <div style={{marginLeft:40,marginTop:25}} ><h4>Gestion de eventos activos e históricos</h4></div>
     </div>

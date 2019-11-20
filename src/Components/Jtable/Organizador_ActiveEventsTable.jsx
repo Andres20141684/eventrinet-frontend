@@ -14,7 +14,7 @@ const Networking = require('./../../Network/Networking.js') ;
 
 class Organizador_ActiveEventsTable  extends Component {
    constructor(props){
-      super(props);
+      super(props); 
       this.state = {
           msg: "Not Connected" ,
           transport: "go to Fake Ini",
@@ -189,9 +189,11 @@ class Organizador_ActiveEventsTable  extends Component {
       
          return (
             <div style={{"font-size": "15"}}>
+               <br/>
                <a  class="pull-right" onClick={()=>this.handleClickCrearActualizar( 
                            this.state.idUser_recived, 0,  'ARMANDO SE LA COMEEEE')} 
                   value="Nuevo" style={{marginRight:30,marginBottom:20, color:"white"}}>Nuevo</a>
+                  <br/><br/>
             <JTableMaterial
                title="Eventos Activos:"
                columns={this.state.columns}

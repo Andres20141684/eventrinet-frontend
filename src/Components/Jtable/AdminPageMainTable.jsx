@@ -55,13 +55,13 @@ class AdminPageMainTable extends React.Component {
     handleNextChildComponentChangeProps(_nextChildComponentProps){
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
-    showModal = (evt,var_id,var_nomb,var_correo,var_fechaIni,var_fechaFin,flagPermiso) => {
+    showModal = (var_id,var_nomb,var_correo,var_fechaIni,var_fechaFin,flagPermiso) => {
+        console.log(var_id,var_nomb,var_correo,var_fechaIni,var_fechaFin,flagPermiso)
         this.setState({
             nameUserSelected:var_nomb,
             emailUserSelected:var_correo,
             idUsuarioSelected:var_id,
-            flagPermiso:flagPermiso,
-            refreshData:false
+            flagPermiso:flagPermiso
         });
 
         if (flagPermiso === 1){
@@ -99,7 +99,7 @@ class AdminPageMainTable extends React.Component {
         
     }
 
-     myCallback = () => {
+     myCallback = (message) => {
     //[...we will use the dataFromChild here...]
         Networking.listarUsuarios()
         .then((value) => {
@@ -111,7 +111,7 @@ class AdminPageMainTable extends React.Component {
             console.log(value);
             this.setState({datos_tabla:value});
             }   
-            alert("Permiso de usuario ",this.state.nameUserSelected," actualizado");
+            alert(message);
         });
 
     }
@@ -138,23 +138,20 @@ class AdminPageMainTable extends React.Component {
                     <td>-</td>                 
                     <td>-</td>
                     <td>
-                        <div data-placement="top" data-toggle="tooltip" title="Editar permisos" 
-                        onClick={e => {this.showModal(e,idUsuario,nomComp,correo,fechaIniPermiso,fechaFinPermiso,tienePermiso);
-                        }}>
                         <TransitionsModal 
+                            element={element}
+                            showModal={this.showModal}
                             idUsuarioSelected={this.state.idUsuarioSelected}
-                        nameUserSelected={this.state.nameUserSelected}
-                        emailUserSelected={this.state.emailUserSelected}
-                        refreshData={this.state.refreshData}
-                        dateFinSelected={this.state.dateFinSelected}
-                        dateIniSelected={this.state.dateIniSelected}
-                        flagPermiso={this.state.flagPermiso}
-                        myCallback={this.myCallback}
-                        handleChangeDate = {this.handleChangeDate}
+                            nameUserSelected={this.state.nameUserSelected}
+                            emailUserSelected={this.state.emailUserSelected}
+                            refreshData={this.state.refreshData}
+                            dateFinSelected={this.state.dateFinSelected}
+                            dateIniSelected={this.state.dateIniSelected}
+                            flagPermiso={this.state.flagPermiso}
+                            myCallback={this.myCallback}
+                            handleChangeDate = {this.handleChangeDate}
                             handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
-                        </div>
                     </td>
-                    <td><p data-placement="top" data-toggle="tooltip" title="Eliminar usuario"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td> 
                 </tr>
             )            
          }
@@ -166,11 +163,9 @@ class AdminPageMainTable extends React.Component {
                 <td>{fechaIniPermiso}</td>                
                 <td>{fechaFinPermiso}</td>
                 <td>
-                    <div data-placement="top" data-toggle="tooltip" title="Editar permisos" 
-                    onClick={e => {
-                        this.showModal(e,idUsuario,nomComp,correo,fechaIniPermiso,fechaFinPermiso,tienePermiso);
-                   }}>
-                    <TransitionsModal 
+                    <TransitionsModal
+                        element={element}
+                        showModal={this.showModal}
                         idUsuarioSelected={this.state.idUsuarioSelected}
                         nameUserSelected={this.state.nameUserSelected}
                         emailUserSelected={this.state.emailUserSelected}
@@ -181,7 +176,6 @@ class AdminPageMainTable extends React.Component {
                         myCallback={this.myCallback}
                         handleChangeDate = {this.handleChangeDate}
                         handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
-                    </div>
                 </td>                
             </tr>
         )
@@ -212,10 +206,7 @@ class AdminPageMainTable extends React.Component {
                 <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
                     <h3>Lista de usuarios</h3>
                     
-                </div>
-                <br/>
-                <input class="form-control" id="myInput" type="text" placeholder="Buscar.."/>
-                <br/>                
+                </div>                
                 <div  class="table-responsive">
                 <table class="table  table-hover table-list-search" >
                     <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
@@ -241,7 +232,9 @@ function TransitionsModal(props) {
     const [open, setOpen] = React.useState(false);
   
     const handleOpen = () => {
-      setOpen(true);
+        console.log("my props",props)
+        props.showModal(props.element.idUsuario,props.element.nomComp,props.element.correo,props.element.fechaIniPermiso,props.element.fechaFinPermiso,props.element.tienePermiso);
+        setOpen(true);
     };
   
     const handleClose = () => {
@@ -265,7 +258,7 @@ function TransitionsModal(props) {
                     console.log("No se dio permiso");
                     console.log(response.message);                
                 }
-                props.myCallback();
+                props.myCallback(response.message);
                 handleClose()
             }
         )
@@ -316,7 +309,8 @@ function TransitionsModal(props) {
                               type="date"
                               id="input-date"
                               name="date_in"
-                              minDate= {new Date()}                            
+                              minDate= {new Date()} 
+                              maxDate ={props.dateFinSelected}                           
                               placeholder="date_in"
                               selected={props.dateIniSelected }
                               onChange={(e)=> props.handleChangeDate(e,"dateIniSelected")}

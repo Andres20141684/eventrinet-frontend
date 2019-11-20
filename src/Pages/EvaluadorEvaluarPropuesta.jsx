@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Row from 'react-bootstrap/Row';
 import '../styles/style_record.css'; 
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
@@ -33,6 +34,8 @@ class EvaluadorEvaluarPropuesta extends Component{
             },
             idPropuesta : 0,
             nomb_propuesta : "",
+            desc_propuesta:"",
+            categorias_propuesta:[],
 
             calificacionFinal : 0,
             nivelExperticia : 0,
@@ -127,6 +130,21 @@ class EvaluadorEvaluarPropuesta extends Component{
             arreglo_aux[i]=value.Criterios[i].calificacion;
         }
         this.setState({rptasCriterios:arreglo_aux});
+        }
+        
+      });
+
+      Networking.detalle_propuesta(this.props.nextChildComponentProps.idPropuesta).then((value) => {
+        console.log(value);
+    
+        if(value == null){
+          console.log('no hay algo aun');
+          
+        }else {
+          console.log('si hay algo: A ACTUALIZAR EL ESTADO');
+          this.state.categorias_propuesta = value.categorias;
+          this.state.desc_propuesta = value.resumen;
+          console.log("states de categorias y desc prop: ",this.state.categorias_propuesta, this.state.desc_propuesta);
         }
         
       });
@@ -247,11 +265,11 @@ class EvaluadorEvaluarPropuesta extends Component{
             <input type="radio" //name="radio2" 
                                    value={1}
                                    checked={this.state.calificacionFinal == 1} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Muy malo</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Fuertemente rechazado</td>
             <td><input type="radio" //name="radio2" 
                                    value={2}
                                    checked={this.state.calificacionFinal ==2} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Malo</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Rechazado</td>
             <td><input type="radio" //name="radio2" 
                                    value={3}
                                    checked={this.state.calificacionFinal == 3} 
@@ -259,11 +277,11 @@ class EvaluadorEvaluarPropuesta extends Component{
             <td><input type="radio" //name="radio2" 
                                    value={4}
                                    checked={this.state.calificacionFinal == 4} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Bueno</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Aprobado</td>
             <td><input type="radio" //name="radio2" 
                                    value={5}
                                    checked={this.state.calificacionFinal == 5} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Muy bueno</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Altamente aprobado</td>
                                    </tr></tbody></table>
         </div>          
 
@@ -294,7 +312,7 @@ class EvaluadorEvaluarPropuesta extends Component{
             <textarea 
                     rows='5'
                     type="text" 
-                    class="form-control"                   
+                    className="form-control"                   
                     value={this.state.obsPostulante}
                     onChange={event => this.handleChange(event, "obsPostulante")}    
                     maxLength="300"       
@@ -304,7 +322,7 @@ class EvaluadorEvaluarPropuesta extends Component{
             <textarea 
                     rows='5'
                     type="text" 
-                    class="form-control"                   
+                    className="form-control"
                     onChange={event => this.handleChange(event, "obsPresi")}
                     value={this.state.obsPresi}       
                     maxLength="300"       
@@ -318,7 +336,7 @@ class EvaluadorEvaluarPropuesta extends Component{
       return (
         <div>
         <h1 style={{fontSize:18}}>Este campo será llenado si la calificación no fue realizada por el mismo evaluador</h1> 
-        <input size="40" value={this.state.coevaluador} onChange={event => this.handleChange(event,"coevaluador")}/>
+        <input className="form-control"  value={this.state.coevaluador} onChange={event => this.handleChange(event,"coevaluador")}/>
         </div>         
    )
      }
@@ -326,12 +344,12 @@ class EvaluadorEvaluarPropuesta extends Component{
       return this.state.datos_tabla2.Respuestas.map((element, index) => {
         const {campoPerEnun, campoPerDesc, rpta} = element
            return (
-             <div>
-           <h1 style={{fontSize:18}}>{index+1}. {campoPerEnun}</h1>     
-           <h1 style={{fontSize:15}}>Respuesta: {rpta}</h1>    
-           <br/>
-           </div>    
-     
+            <Row >
+            <div class="form-group col-md">
+              <h1 style={{fontSize:18}}>{index+1}. {campoPerEnun}</h1>     
+              <h1 style={{fontSize:15}}>Respuesta: {rpta}</h1> 
+            </div>
+            </Row>
        )
        })
      }
@@ -383,75 +401,90 @@ class EvaluadorEvaluarPropuesta extends Component{
    
     render(){
         return(
-          <div> 
+    <div> 
     <div style={{marginLeft:15}}>
         <h1 style={{fontSize:35}}><br/>{this.state.nombre_evento}</h1>
-        <h3><button class="btn" style={{float:'right'}} onClick={this.handleClickB} ><i class="fa fa-download"></i> Descargar propuesta</button><a id='JinSSJ' onClick={this.handleClick}
-                  className="specialButton" href={this.state.link_propuestabase64} download="file.pdf" > Paper SSJ</a></h3>
+        <h3 style={{paddingLeft:35}}>{this.state.nomb_fase}</h3> 
+        <div style={{paddingLeft:60}}>{this.state.categorias_propuesta.map(function(d, idx){
+            return (<li key={idx}>{d}</li>)
+          })}
+        </div>        
     </div>
-        <div style={{marginLeft:40,marginTop:25}} ><h3>{this.state.nomb_fase}</h3></div>
-        <div style={{marginLeft:40,marginTop:25}} ><h2>{this.state.nomb_propuesta}</h2></div>
-            
-            <div class="container" >
-                <div class ="panel-body">
-<div>
-        <div class="panel-group">
-          <div class="panel panel-default">
-            <div class="panel-heading"><h1>Campos Personalizados</h1></div>
-            <div class="panel-body">
-              {this.ListarCamposP()}
-      
-          </div>
+    <div style={{marginLeft:40,marginTop:25}} ><h1 style={{fontSize:15}}>{this.state.desc_propuesta}</h1></div>
 
-          <div class="panel panel-default">
-            <div class="panel-heading"><h1>Criterios</h1></div>
-            <div class="panel-body">
+<div>{/*
+    <div style={{marginLeft:40,marginTop:25}} ><h3>{this.state.nomb_fase}</h3></div>
+    <div style={{marginLeft:40,marginTop:25}} ><h2>{this.state.nomb_propuesta}</h2></div>
+    <div style={{marginLeft:40,marginTop:25}}> <h1 style={{fontSize:15}}>
+          {this.state.categorias_propuesta.map(function(d, idx){
+            return (<li key={idx}>{d}</li>)
+          })}
+          </h1>
+        </div>*/}
+    </div>    
+     
+    <div className='container col-md-16' style={{borderRadius:'4px',color:'#6CDCD6', alignItems:'center' ,background:'#002D3D',margin:'auto', maxWidth:'750px', minWidth:'330px', paddingRight:'2%',  paddingLeft:'2%',}}>        
+        <br/>
+        <div className="col-md-12" style={{fontSize:15}}>{this.state.nomb_propuesta}</div>
+        <div className="col-md-4" style={{color:'#6CDCD6',float:'right'}}>
+            <button class="btn" style={{color:'white',float:'right'}} onClick={this.handleClickB} >                
+                <a id='JinSSJ' onClick={this.handleClick} style={{width:'80px'}}
+                      className="specialButton" href={this.state.link_propuestabase64} title="Descargar propuesta" download="file.pdf" >
+                  <i class="fa fa-download" style={{color:'#6CDCD6'}}></i>
+                </a>
+            </button>    
+        </div>
+        <br/>
+    </div>
+    <br/>    
+    <div class="container" >
+      <div class="panel-group" style={styles.panel}>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h1>Campos Personalizados</h1></div>
+          <div class="panel-body">
+            {this.ListarCamposP()}     
+          </div>
+        </div>
+          <br/>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h1>Criterios</h1></div>
+          <div class="panel-body">
             {this.ListarCriterios()}
-
-            </div>
           </div>
-
-          <div class="panel panel-default">
-            <div class="panel-heading"><h1>Calificación</h1></div>
-            <div class="panel-body">
-            {this.ListarCalificacion()}
-
-            </div>
+        </div>
+        <br/>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h1>Calificación</h1></div>
+          <div class="panel-body">
+          {this.ListarCalificacion()}
           </div>
-          <div class="panel panel-default">
-            <div class="panel-heading"><h1>Observaciones</h1></div>
-            <div class="panel-body">
+        </div>
+        <br/>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h1>Observaciones</h1></div>
+          <div class="panel-body">
             {this.ListarObservaciones()}
-  
-            </div>
           </div>
-          <div class="panel panel-default">
-            <div class="panel-heading"><h1>Coevaluador</h1></div>
-            <div class="panel-body">
+        </div>
+        <br/>
+        <div class="panel panel-default">
+          <div class="panel-heading"><h1>Coevaluador</h1></div>
+          <div class="panel-body">
             {this.Coevaluador()}
-
-            </div>
           </div>
-
-
-        </div>      
+        </div>
+        <br/>
       </div>
-	  </div>
-                        <div>
-
+      <div>
         <h3>
-        <button class="mybutton" onClick={this.evaluadorEvaluarPropuestas} style={{float:'left'}}>Atras</button>
-        <button class="mybutton" onClick={this.guardarCambios} style={{float:'right'}}>Guardar</button>
-    
+          <button class="mybutton" onClick={this.evaluadorEvaluarPropuestas} style={{float:'left'}}>Atras</button>
+          <button class="mybutton" onClick={this.guardarCambios} style={{float:'right'}}>Guardar</button>
         </h3>
-    </div>
-                    </div>
-                </div>
-               
-                
-                </div>
+        <br/><br/>
+      </div>
             
-                
+    </div>
+    </div>
             
         );
     }
@@ -460,3 +493,15 @@ class EvaluadorEvaluarPropuesta extends Component{
 
 export default EvaluadorEvaluarPropuesta;
 
+var styles = {
+  rotulos:{
+    paddingRight: 80,
+  },
+  panel:{
+    margin:'auto',
+    maxWidth:'750px',
+    minWidth:'330px',
+    paddingRight:'2%',
+    paddingLeft:'2%',
+  }
+}

@@ -64,10 +64,27 @@ async function onSignUp(googleUser){
 					  	console.log("usuario registrado")
 						sessionStorage.setItem('tipoSingUp','_');
 						sessionStorage.setItem('tipoLogin',"gmail")
+						sessionStorage.setItem('dataUser', JSON.stringify(response));
 						window.location.replace("./");						
 					}else{
 					  console.log("YIYI no se pudo crear cuenta");              
-					  alert("El correo ya esta asociado a un usuario existente")					  
+					  alert(response.message)
+
+					  //CERRAR SESION DEL USUARIO GMAIL
+					  try{
+						const auth2 = window.gapi.auth2.getAuthInstance()
+						console.log("auth2 ", auth2)
+						if (auth2 != null) {
+						  auth2.signOut().then(
+							auth2.disconnect().then(this.props.onLogoutSuccess)
+						  )
+						}
+					  }catch(err){
+						console.log(err)
+					  }
+
+
+					  /*
 					  validar_sesion(profile.U3, profile.ofa, profile.wea).then(
 						(responsed) => {
 							console.log(responsed);
@@ -81,15 +98,8 @@ async function onSignUp(googleUser){
 							}
 							sessionStorage.setItem('tipoLogin',"gmail")
 							window.location.replace("./");
-					  });
-					  
-					  
+					  });*/
 					}
-
-					validar_sesion
-					response.succeed= true;
-					sessionStorage.setItem('dataUser', 
-					JSON.stringify(response));
 				}
 			)
 			return;

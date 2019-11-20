@@ -4,6 +4,7 @@ import BannerLogin from '../Components/General/bannerLogin';
 import BannerBottom from '../Components/General/bannerBottom'
 import '../styles/style_signUp.css'; 
 import {Redirect}  from "react-router-dom";
+import GoogleLogout from 'react-google-login';
 
 const Networking = require('../Network/Networking');
 /*
@@ -91,15 +92,14 @@ class SingUp extends Component{
             console.log("Data del usuario",response);
             if (response.succeed){
               console.log("estamos accediendoo bbecita prrr");
-              console.log(response);               
+              console.log(response);
+              sessionStorage.setItem('dataUser', JSON.stringify(response));
+              sessionStorage.setItem('tipoLogin',"usuario");
+              this.setState({redirect:true});
             }else{
-              console.log("YIYI no se pudo crear cuenta");              
+              console.log("YIYI no se pudo crear cuenta");
+              alert(response.message)
             }
-            alert(response.message)
-            sessionStorage.setItem('dataUser', JSON.stringify(response));            
-
-            sessionStorage.setItem('tipoLogin',"usuario");
-            this.setState({redirect:true});
           }
       )
     }
@@ -135,6 +135,14 @@ class SingUp extends Component{
       
       return(
         <div>{this.renderRedirect()} 
+        <GoogleLogout
+                render={renderProps => (
+                  <a
+                    className="logout-button"
+                    onClick={renderProps.onClick}
+                  />                  
+                )}    
+            />
           <div class="component-header"  width="300"  style={{paddingLeft:20}}>
             <a class="component-logo customizable chart" href='/' title="Volver a pagina principal">
                 <img class="component-logo" src="logo.png"  width="240"/> 

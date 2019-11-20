@@ -973,6 +973,28 @@ export async function InsertarEvaluadorAPaper(data){
         return error
     }
 }
+export async function listarFasesXEvento(idEvento) {
+    try {
+        let response = await fetch(restURL 
+            + 'presidente/listarFasesXEvento', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idEvento: idEvento
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
 
 export async function AlgoritmoAsignacion(data){
     try {
@@ -986,6 +1008,104 @@ export async function AlgoritmoAsignacion(data){
         console.log(responseJson);
         return responseJson;
     } catch (error) {
+        return error
+    }
+}
+export async function detalle_propuesta(idPropuesta) {
+    try {
+        let response = await fetch(restURL 
+            + 'propuesta/mostrar_detalle', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idPropuesta: idPropuesta
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function presidenteListarPropuestasXFase(idFase) {
+    try {
+        let response = await fetch(restURL 
+            + 'presidente/listarPropuestasXFase', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idFase: idFase
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function listarEvaluacionDeEvaluadores(idPropuesta) {
+    try {
+        let response = await fetch(restURL 
+            + 'presidente/listarEvaluacionDeEvaluadores', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idPropuesta: idPropuesta
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+export async function aprobarPropuestaXFase(data){
+    try {
+        let response= await fetch(restURL+'presidente/aprobarPropuestaXFase',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+export async function rechazarPropuestaXFase(data){
+    try {
+        let response= await fetch(restURL+'presidente/rechazarPropuestaXFase',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
+        console.log(error)
         return error
     }
 }
