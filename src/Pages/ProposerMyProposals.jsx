@@ -119,6 +119,7 @@ class PropoMyProposals extends Component{
          
    }
     render(){
+        console.log("PropOSER mY prOPOSALS.jsx props: ",this.props)
         
         return(
             <div> 
