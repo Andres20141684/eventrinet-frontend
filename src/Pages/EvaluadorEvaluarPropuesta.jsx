@@ -33,6 +33,8 @@ class EvaluadorEvaluarPropuesta extends Component{
             },
             idPropuesta : 0,
             nomb_propuesta : "",
+            desc_propuesta:"",
+            categorias_propuesta:[],
 
             calificacionFinal : 0,
             nivelExperticia : 0,
@@ -127,6 +129,21 @@ class EvaluadorEvaluarPropuesta extends Component{
             arreglo_aux[i]=value.Criterios[i].calificacion;
         }
         this.setState({rptasCriterios:arreglo_aux});
+        }
+        
+      });
+
+      Networking.detalle_propuesta(this.props.nextChildComponentProps.idPropuesta).then((value) => {
+        console.log(value);
+    
+        if(value == null){
+          console.log('no hay algo aun');
+          
+        }else {
+          console.log('si hay algo: A ACTUALIZAR EL ESTADO');
+          this.state.categorias_propuesta = value.categorias;
+          this.state.desc_propuesta = value.resumen;
+          console.log("states de categorias y desc prop: ",this.state.categorias_propuesta, this.state.desc_propuesta);
         }
         
       });
@@ -247,11 +264,11 @@ class EvaluadorEvaluarPropuesta extends Component{
             <input type="radio" //name="radio2" 
                                    value={1}
                                    checked={this.state.calificacionFinal == 1} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Muy malo</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Fuertemente rechazado</td>
             <td><input type="radio" //name="radio2" 
                                    value={2}
                                    checked={this.state.calificacionFinal ==2} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Malo</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Rechazado</td>
             <td><input type="radio" //name="radio2" 
                                    value={3}
                                    checked={this.state.calificacionFinal == 3} 
@@ -259,11 +276,11 @@ class EvaluadorEvaluarPropuesta extends Component{
             <td><input type="radio" //name="radio2" 
                                    value={4}
                                    checked={this.state.calificacionFinal == 4} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Bueno</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Aprobado</td>
             <td><input type="radio" //name="radio2" 
                                    value={5}
                                    checked={this.state.calificacionFinal == 5} 
-                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Muy bueno</td>
+                                   onChange={event => this.onRadioChange(event, "calificacionFinal")} />Altamente aprobado</td>
                                    </tr></tbody></table>
         </div>          
 
@@ -386,11 +403,19 @@ class EvaluadorEvaluarPropuesta extends Component{
           <div> 
     <div style={{marginLeft:15}}>
         <h1 style={{fontSize:35}}><br/>{this.state.nombre_evento}</h1>
-        <h3><button class="btn" style={{float:'right'}} onClick={this.handleClickB} ><i class="fa fa-download"></i> Descargar propuesta</button><a id='JinSSJ' onClick={this.handleClick}
-                  className="specialButton" href={this.state.link_propuestabase64} download="file.pdf" > Paper SSJ</a></h3>
+        <h3 style={{marginRight:30,marginTop:25}}><button class="btn" style={{float:'right'}} onClick={this.handleClickB} ><i class="fa fa-download"></i> Descargar propuesta</button><a id='JinSSJ' onClick={this.handleClick}
+                  className="specialButton" href={this.state.link_propuestabase64} download="file.pdf" ></a></h3>
     </div>
         <div style={{marginLeft:40,marginTop:25}} ><h3>{this.state.nomb_fase}</h3></div>
         <div style={{marginLeft:40,marginTop:25}} ><h2>{this.state.nomb_propuesta}</h2></div>
+        <div style={{marginLeft:40,marginTop:25}}> <h1 style={{fontSize:15}}>
+          {this.state.categorias_propuesta.map(function(d, idx){
+            return (<li key={idx}>{d}</li>)
+          })}
+          </h1>
+        </div>
+        <div style={{marginLeft:40,marginTop:25}} ><h1 style={{fontSize:15}}>{this.state.desc_propuesta}</h1></div>
+
             
             <div class="container" >
                 <div class ="panel-body">
