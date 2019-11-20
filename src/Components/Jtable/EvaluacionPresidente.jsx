@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../../styles/styles'
 import "react-datepicker/dist/react-datepicker.css";
-import '../../styles/style_sheets.css';
+import '../../styles/style_sheets.css'; 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'

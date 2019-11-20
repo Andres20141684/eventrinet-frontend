@@ -5,7 +5,7 @@ import { is } from '@babel/types';
 import ActionButton from './ActionButton';
 import EvaluacionPresidente from  './EvaluacionPresidente';
 const Networking = require('./../../Network/Networking.js') ;
-
+ 
 
 class PresiCalificacionFinalPapersTable  extends Component {
    constructor(props) {

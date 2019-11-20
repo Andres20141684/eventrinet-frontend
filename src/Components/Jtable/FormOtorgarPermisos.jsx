@@ -81,7 +81,7 @@ class FormularioPermiso extends Component {
                         />
                   </div>
                   
-                  <div class="form-group col-md-3 date" style={{paddingLeft:"0px"}}>
+                   <div class="form-group col-md-3 date" style={{paddingLeft:"0px"}}>
                       <label style={{paddingLeft:"15px"}}>Fecha Fin &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</label>
                       <DatePicker
                         minDate= {new Date()}
