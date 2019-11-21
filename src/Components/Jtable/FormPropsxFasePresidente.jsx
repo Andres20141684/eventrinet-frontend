@@ -39,6 +39,10 @@ class ModalObsAdicional extends Component {
   }
   render() {
     console.log("ayyy lmao : ", this.props)
+
+
+
+
     return (
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style={{ paddingBottom: "0px", paddingRight: "5px", paddingTop: "0px" }}>
