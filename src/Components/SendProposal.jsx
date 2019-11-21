@@ -70,12 +70,12 @@ class SendProposal extends Component{
     return
     }
     getCategoriasfromApi(){
+        try{
         Networking.NetworkMutation_JAchievingData(
         {
             methodPath: 'categorias/listarCategoriasXEvento',
             JsonToBack:{
-                idEvento: 
-                this.props.nextChildComponentProps.evento.idEvento
+                idEvento: this.props.nextChildComponentProps.evento.idEvento
             }
         }
         ).then((value) =>  {
@@ -88,13 +88,13 @@ class SendProposal extends Component{
             //this.renderCategories();
         }
         
-    });
+    });}catch(e){console.error("SendProposalError:", e)};
     }
     componentDidMount(){
         console.log("props heredados del Dashboard->Protafolio->imageport");
     
         console.log('Send Propuesta Props ->',this.props.nextChildComponentProps);
-        this.setState({eventriEvent: this.props.nextChildComponentProps.evento});
+        this.setState({eventriEvent: this.props.nextChildComponentProps.evento || {}});
         this.getCategoriasfromApi(); 
         
         

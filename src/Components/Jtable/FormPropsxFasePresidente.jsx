@@ -14,29 +14,31 @@ var OPTIONS = [];
 var jason = {};
 
 class ModalObsAdicional extends Component {
-  formComentario(comentariosActual) {    
-    
-    let comentario = [
-        {evaluador:'Michael Jackson',comentario:"Este chico es un travesin"},
-        {evaluador:'Juana Arco',comentario:"Ni tu perro comeria tu tesis"},
+  formComentario(comentariosActual) {
+
+    var comentarios = [
+      { evaluador: 'Michael Jackson', comentario: "Este chico es un travesin" },
+      { evaluador: 'Juana Arco', comentario: "Ni tu perro comeria tu tesis" },
     ];
-
-    
-
-    return comentario.map((element, index) => {
+    return comentarios.map((element, index) => {
       const { evaluador, comentario } = element
       var indexEvent = index
       return (
         <div class="form-group row">
           <label for="staticEmail" class="col-sm-4 col-form-label">{evaluador}</label>
           <div class="col-sm-6">
-            <textarea readOnly className="form-control" id="staticEmail" rows="3" value={comentario}></textarea>            
+            <textarea readOnly className="form-control" id="staticEmail" rows="3" value={comentario}></textarea>
           </div>
         </div>
       )
     })
+
+
+
+
   }
   render() {
+    console.log("ayyy lmao : ", this.props)
     return (
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content" style={{ paddingBottom: "0px", paddingRight: "5px", paddingTop: "0px" }}>
@@ -47,11 +49,11 @@ class ModalObsAdicional extends Component {
             </button>
           </div>
           {this.formComentario(this.props.comentariosActual)}
-          
+
           <div class="form-group row">
             <label for="staticEmail" class="col-sm-4 col-form-label">Observaciones Finales</label>
             <div class="col-sm-6">
-            <textarea onChange= {(e) => this.props.handleSaveComentario(e)} className="form-control" id="staticEmail" rows="3" ></textarea>
+              <textarea onChange={(e) => this.props.handleSaveComentario(e)} className="form-control" id="staticEmail" rows="3" ></textarea>
             </div>
           </div>
 
@@ -226,7 +228,9 @@ class FormPropsxFasePresidente extends Component {
                   },
                 */]
       },
-      comentariosActual:{},
+      comentariosActual: []
+        
+      ,
       propuestaActual: {},
       checkboxes: OPTIONS.reduce(
         (options, option) => (
@@ -234,10 +238,10 @@ class FormPropsxFasePresidente extends Component {
             ...options,
             [option]: false
           }
-        ), 
-        {}       
+        ),
+        {}
       ),
-      presiComentario:'',
+      presiComentario: '',
     }
     this.handleNextChildComponentChange = this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps = this.handleNextChildComponentChangeProps.bind(this);
@@ -292,7 +296,7 @@ class FormPropsxFasePresidente extends Component {
           <tr>
             <td>{evaluador} </td>
             <td>{calificacion}</td>
-            <td>{experticie}</td> 
+            <td>{experticie}</td>
             <td>
 
               <a data-title="Edit" data-toggle="modal" data-target="#modalReasigEval" onClick={e => { this.showModalDetalle(); }}>
@@ -300,7 +304,7 @@ class FormPropsxFasePresidente extends Component {
               </a>
             </td>
             <td>
-              <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleDeEv" onClick={e =>  this.showModalDetalleEvaluador(idEvaluador,idPropuesta)} title="Ver detalle de la evaluación">
+              <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleDeEv" onClick={e => this.showModalDetalleEvaluador(idEvaluador, idPropuesta)} title="Ver detalle de la evaluación">
                 <ActionButton id_evento={this.state.idEvento} button_class="fa fa-plus" redirect_to="/" />
               </a>
             </td>
@@ -310,14 +314,14 @@ class FormPropsxFasePresidente extends Component {
     })
   }
 
-  showModalDetalleEvaluador = (idEvaluador,idPropuesta) => {
+  showModalDetalleEvaluador = (idEvaluador, idPropuesta) => {
 
 
   }
 
-  showModalDetalleObservaciones = (idPropuesta) => {
+  showModalDetalleObservaciones = (idPropuesta, idFase) => {
     //SERVICIO PARA LISTAR LAS OBSERVACIONES DE LA PROPUESTA SELECCIONADA
-    /*Networking.observaciones_propuestas(idPropuesta).then(
+    Networking.observaciones_propuestas(idPropuesta, idFase).then(
       (response) => {
         console.log(response);
         if (response == null) {
@@ -327,18 +331,19 @@ class FormPropsxFasePresidente extends Component {
           console.log('si hay alg0: ', response);
           this.setState(
             {
-              comentariosActual: {
-                idPropuesta: idPropuesta,
-                idEvaluador: '',
-                comentarios:[ //comentarios: response.comentarios <----------------------------FALTAAAAAAAA<-------
-                  {evaluador:'Luis Fonsi', comentario: 'VOy a jalar '},
-                  {evaluador:'Juana de Arco', comentario: 'Piensa en tu vijeita y vota ese paper'}
-                ],
-              }
+              comentariosActual: 
+                //idPropuesta: idPropuesta,
+                //idEvaluador: '',
+                /*comentarios:[*/response.comentarios //<----------------------------FALTAAAAAAAA<-------
+                /*{evaluador:'Luis Fonsi', comentario: 'VOy a jalar '},
+                {evaluador:'Juana de Arco', comentario: 'Piensa en tu vijeita y vota ese paper'}
+              ],*/
+              
             });
-          }
-        });*/
-      }
+          console.log("ACTUAL COMM: ", this.state.comentariosActual)
+        }
+      });
+  }
 
 
   showModalDetallePropuesta = (idPropuesta) => {
@@ -385,7 +390,7 @@ class FormPropsxFasePresidente extends Component {
       key={option}
     />
   );
-  
+
   handleReturn() {
     this.props.onNextChildComponentChange(PresiAsignarEvalEvents);
     //this.handleNextChildComponentChange(PresiAsignarEvalEvents);
@@ -419,12 +424,12 @@ class FormPropsxFasePresidente extends Component {
     alert("¡Se han guardado los cambios!")
     //this.handleReturn();
   }
-  handleSaveComentario =(evt) =>{
-    this.setState({presiComentario:evt.target.value});
-    
+  handleSaveComentario = (evt) => {
+    this.setState({ presiComentario: evt.target.value });
+
 
   }
-  handleClickUpdateComentarios=()=>{
+  handleClickUpdateComentarios = () => {
     //Servicio para guardar el comentario del presii
 
   }
@@ -460,7 +465,7 @@ class FormPropsxFasePresidente extends Component {
 
   tableData() {
     //this.setState.idUser_recived=this.props.idUser_recived;
-    //console.log("SEbas props: ", this.props);
+    console.log("SEbas props: ", this.props);
 
     return this.state.tabla_propuestas.Propuestas.map((element, index) => {
       const { idPropuesta, nombre, estado, evaluadores } = element
@@ -478,7 +483,7 @@ class FormPropsxFasePresidente extends Component {
               </div>
 
               <div className="col-md-6">
-                <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={e => { this.showModalDetallePropuesta(idPropuesta ); }} style={{ color: "#337ab7", cursor: 'pointer' }} title="Detalle de la propuesta">
+                <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={e => { this.showModalDetallePropuesta(idPropuesta); }} style={{ color: "#337ab7", cursor: 'pointer' }} title="Detalle de la propuesta">
                   {nombre}
                 </a>
               </div>
@@ -488,7 +493,7 @@ class FormPropsxFasePresidente extends Component {
               </div>
 
               <div className="col-md-1">
-                <a data-title="Edit" data-toggle="modal" data-target="#modalObs" onClick={e => { this.showModalDetalleObservaciones(idPropuesta); }} title="Observaciones para el postulante">
+                <a data-title="Edit" data-toggle="modal" data-target="#modalObs" onClick={e => { this.showModalDetalleObservaciones(idPropuesta, this.props.idFase); }} title="Observaciones para el postulante">
                   <ActionButton id_evento={this.state.idEvento} button_class="fa fa-file" redirect_to="/" />
                 </a>
               </div>
@@ -512,7 +517,7 @@ class FormPropsxFasePresidente extends Component {
                       <th >Ver más</th>
                     </tr>
                   </thead>
-                  {this.renderAccordionData(evaluadores,idPropuesta)}
+                  {this.renderAccordionData(evaluadores, idPropuesta)}
                 </table>
               </div>
             </Accordion.Collapse>
@@ -529,20 +534,20 @@ class FormPropsxFasePresidente extends Component {
         <Accordion defaultActiveKey="0" className="table-responsive">
           {this.tableData()}
         </Accordion>
- 
+
 
         <div className="modal fade" id="modalDetalleDeEv" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <ModalDetalleDeEvaluador 
-          idEvaluador={this.state.idEvaluador}/>
+          <ModalDetalleDeEvaluador
+            idEvaluador={this.state.idEvaluador} />
         </div>
         <div className="modal fade" id="modalReasigEval" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <ModalReasignarEvaluador />
         </div>
         <div className="modal fade" id="modalObs" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <ModalObsAdicional
-          comentariosActual={this.state.comentariosActual}
-          handleClickUpdateComentarios ={this.handleClickUpdateComentarios}
-          handleSaveComentario = {this.handleSaveComentario}
+            comentariosActual={this.state.comentariosActual}
+            handleClickUpdateComentarios={this.handleClickUpdateComentarios}
+            handleSaveComentario={this.handleSaveComentario}
           />
         </div>
         <div className="modal fade" id="modalDetalleProp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
