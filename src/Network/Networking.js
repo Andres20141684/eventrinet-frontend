@@ -1,7 +1,7 @@
 import {AsyncStorage} from 'react';
 import { async } from 'q';
-const restURL = 'http://52.70.128.233:5000/api/';
 
+const restURL = 'http://52.70.128.233:5000/api/';
 //const restURL = 'http://localhost:5000/api/';
 
 export async function getMyId(){
@@ -167,6 +167,39 @@ export async function validar_sesion(var_user,var_password) {
         return
     }
   }
+
+  export async function updateComentarios(idFase,presiComentario,idPropuesta){
+    console.log('Dando permisos de organizador...');
+    try {        
+        let response = await fetch(restURL 
+            + 'presidente/guardarObs', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idPropuesta: idPropuesta,
+                idFase: idFase,
+                obsFinal: presiComentario
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);        
+        console.log('Saving!!');
+  
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+  }
+
+
 
   export async function crear_organizador(var_email, var_date_ini, var_date_fin) {
     console.log('Dando permisos de organizador...');
@@ -905,6 +938,32 @@ export async function mostrarCalificacionXPropuesta(idUsuario, idFase, idPropues
         console.error('CATCH ALCANZADO :(');
     }
 }
+
+export async function mostrarCalificacionXPropuestaApresi(idUsuario, idFase, idPropuesta) {
+    try {
+        let response = await fetch(restURL 
+            + 'evaluador/mostrarCalificacionXPropuestaApresi', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario : idUsuario,
+                idFase : idFase,
+                idPropuesta: idPropuesta
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+
 
 export async function listar_usuarios(){
     try{

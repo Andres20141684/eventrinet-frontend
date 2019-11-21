@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import { makeStyles } from '@material-ui/core/styles';
 import '../../styles/style_sheets.css';
 import ActionButton from './ActionButton';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -12,64 +15,112 @@ import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
 const Networking = require('../../Network/Networking');
 var OPTIONS = [];
 var jason = {};
+ 
 
-class ModalObsAdicional extends Component {
-  formComentario(comentariosActual) {
-
-    var comentarios = [
-      { evaluador: 'Michael Jackson', comentario: "Este chico es un travesin" },
-      { evaluador: 'Juana Arco', comentario: "Ni tu perro comeria tu tesis" },
-    ];
-    return comentarios.map((element, index) => {
-      const { evaluador, comentario } = element
-      var indexEvent = index
-      return (
-        <div class="form-group row">
-          <label for="staticEmail" class="col-sm-4 col-form-label">{evaluador}</label>
-          <div class="col-sm-6">
-            <textarea readOnly className="form-control" id="staticEmail" rows="3" value={comentario}></textarea>
-          </div>
-        </div>
-      )
-    })
-
+const useStyles = makeStyles(theme => ({
+  modal: { 
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    //padding: theme.spacing(2, 4, 3),
+    paddingBottom:'10px',
+    paddingLeft:'30px',
+    paddingRight:'30px',
+    paddingTop:'10px'
+  },
+}));
 
 
-
-  }
-  render() {
-    console.log("ayyy lmao : ", this.props)
-
-
-
-
+function formComentario (comentariosActual){  
+  console.log("my props observaciones para el postulante modal",comentariosActual)
+  return comentariosActual.map((element, index) => {
+    const { evaluadorNombre, comentarioEvaluador } = element
+    //const { comentario, evaluador } = element
+    var indexEvent = index
     return (
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style={{ paddingBottom: "0px", paddingRight: "5px", paddingTop: "0px" }}>
-          <div class="modal-header" style={{ paddingBottom: "5px" }}>
-            <h3 style={{ marginTop: "0px", marginBottom: "0px" }}>Observaciones  para el postulante</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          {this.formComentario(this.props.comentariosActual)}
-
-          <div class="form-group row">
-            <label for="staticEmail" class="col-sm-4 col-form-label">Observaciones Finales</label>
-            <div class="col-sm-6">
-              <textarea onChange={(e) => this.props.handleSaveComentario(e)} className="form-control" id="staticEmail" rows="3" ></textarea>
-            </div>
-          </div>
-
-          <div className="modal-footer" style={{ paddingRight: "0px" }}>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" onClick={(e) => this.props.handleClickUpdateComentarios()} class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-          </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-4 col-form-label">{evaluadorNombre}</label>
+        <div class="col-sm-6">
+          <textarea readOnly className="form-control" id="staticEmail" rows="3" value={comentarioEvaluador}></textarea>
         </div>
       </div>
     )
-  }
+  });
+
 }
+function ModalObsAdicional(props){
+  const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+  
+    const handleOpen = () => {        
+        props.showModalDetalleObservaciones(props.idPropuesta, props.idFase);
+        setOpen(true);
+    };
+  
+    const handleClose = () => {
+        setOpen(false);
+    };
+    
+    const handleCloseSaveandoComentario = () => {
+      props.handleClickUpdateComentarios(props.idPropuesta);
+      setOpen(false);
+    };
+
+    return (        
+      <div>        
+          <a data-title="Edit"  title="Observaciones para el postulante" onClick={handleOpen}>
+            <ActionButton id_evento={props.idEvento} button_class="fa fa-file" redirect_to="/" />
+          </a>      
+        
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+          nameUserSelected= {props.nameUserSelected}
+        >
+          <Fade in={open} style={{width:'40%'}}>
+              <div className={classes.paper}>
+                  <h3 id="transition-modal-title" >Observaciones para el postulante</h3>
+                  <div id="transition-modal-description">
+                    <div className="modal-body" style={{paddingBottom:'0px'}}>
+                    {formComentario(props.comentariosActual)}
+                    <div class="form-group row">
+                      <label for="staticEmail" class="col-sm-4 col-form-label">Observaciones Finales</label>
+                      
+                      <div class="col-sm-6">
+                        <textarea onChange={(e) => props.handleSaveComentario(e)} 
+                                  className="form-control" id="staticEmail" rows="3" 
+                                  value={props.presiComentario}
+                                  //ng-readonly={this.props.presiComentario != '' ? this.props.presiComentario : ''}
+                        ></textarea>
+                      </div>
+
+                    </div>
+                   </div>
+                  </div>
+                  <div className="modal-footer" style={{paddingRight:"0px", paddingBottom:'0px'}}>
+                    <Button type="button" class="btn btn-secondary" onClick={() => handleClose() }>Cancelar</Button>
+                    <Button type="button" onClick={(e) =>handleCloseSaveandoComentario ()} class="btn btn-primary" data-dismiss="modal">Guardar</Button>
+                  </div>
+              </div>  
+          </Fade>
+        </Modal>
+        </div>  
+    );
+}
+
 
 class ModalReasignarEvaluador extends Component {
   constructor() {
@@ -123,67 +174,186 @@ class ModalReasignarEvaluador extends Component {
   }
 }
 
-class ModalDetalleDeEvaluador extends Component {
-  render() {
-    return (
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style={{ paddingBottom: "0px", paddingRight: "5px", paddingTop: "0px" }}>
-          <div class="modal-header" style={{ paddingBottom: "5px" }}>
-            <h3 style={{ marginTop: "0px", marginBottom: "0px" }}>Detalle de la propuesta</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body" style={{ paddingBottom: '0px' }}>
-            <div class="form-group row">
-              <label for="staticName" class="col-sm-4 col-form-label">Holi boni perry</label>
-            </div>
 
-          </div>
-        </div>
-      </div>
-    )
-  }
+function renderTableHeaderDetalleEval(){
+  return (
+    <tr style={{fontSize:'12px'}}>
+        <th width="70%">Criterios de evaluación</th>
+        <th width="30%">Calificación</th>
+    </tr>)
 }
-class ModalDetallePropuesta extends Component {
-
-
-  render() {
-    console.log("EL MODAL JAJA: ", this.props);
-    return (
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style={{ paddingBottom: "0px", paddingRight: "5px", paddingTop: "0px" }}>
-          <div class="modal-header" style={{ paddingBottom: "5px" }}>
-            <h3 style={{ marginTop: "0px", marginBottom: "0px" }}>Detalle de la propuesta</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body" style={{ paddingBottom: '0px' }}>
-            <div class="form-group row">
-              <label for="staticName" class="col-sm-4 col-form-label">Titulo</label>
-              <div class="col-sm-6">
-                <input type="text" readonly class="form-control-plaintext" id="staticName" value={this.props.estados.propuestaActual.tituloPropuesta} />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="staticEmail" class="col-sm-4 col-form-label">Resumen</label>
-              <div class="col-sm-6">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.estados.propuestaActual.resumen} />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="staticEmail" class="col-sm-4 col-form-label">Autor</label>
-              <div class="col-sm-6">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={this.props.estados.propuestaActual.autor} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
+function renderTableDataDetalleEval(Criterios){       
+  return Criterios.map((element, index) => {
+    const {criterio, calificacion} = element
+       return (
+       <tr style={{fontSize:'11px'}}>
+           <td>{criterio}</td>
+           <td>{calificacion}</td>
+       </tr>
+   )
+   })
 }
+function ModalDetalleDeEvaluador(props) {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+      props.showModalDetalleEvaluador(props.idEvaluador, props.idPropuesta, props.evaluador);
+      console.log("my props",props);
+      setOpen(true);
+  };
+
+  const handleClose = () => {
+      setOpen(false);
+  }; 
+
+  return (
+    <div>   
+      <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleDeEv" onClick={handleOpen} title="Ver detalle de la evaluación">
+        <ActionButton id_evento={2/*props.idEvento*/} button_class="fa fa-plus" redirect_to="/" />
+      </a>
+
+        <Modal
+        style={{paddingTop:'10px',paddingBottom:'10px'}}
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+          nameUserSelected= {props.nameUserSelected}
+        >
+          <Fade in={open} >
+              <div className={classes.paper}>                  
+                  <div id="transition-modal-description">
+                  <div class="form-row">
+                      <input  style={{fontSize:'20px'}}readonly class="form-control-plaintext" value={'Revisado por '+ props.detalleCalificacionEvaluadorActual.evaluador}/>                    
+                  </div>
+                  <div class="form-row">
+                      {/*<div class="form-group col-md-6">
+                      <input  readonly class="form-control-plaintext" value={'Fase'+ props.idFase}/>
+                      </div>
+                      <div class="form-group col-md-6">*/}
+                        <input  readonly class="form-control-plaintext" value={'Propuesta:'+ props.propuestas.tituloPropuesta}/>
+                      {/*</div>*/}
+                  </div>
+
+                    <div className="modal-body" style={{paddingBottom:'0px'}}>
+                    <form>
+                      <div  class="table-responsive">
+                        <table class="table  table-hover" >
+                        <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
+                          {renderTableHeaderDetalleEval()}
+                        </thead>
+                            <tbody>{renderTableDataDetalleEval(props.detalleCalificacionEvaluadorActual.Criterios)}</tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Calificación Final</label>
+                        <input readOnly type="text" class="form-control" id="inputEmail4"  value={props.detalleCalificacionEvaluadorActual.calificacion}/>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputPassword4">Nivel de experticie</label>
+                        <input readOnly type="text" class="form-control" id="inputPassword4"  value={props.detalleCalificacionEvaluadorActual.experticia}/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1">Observaciones para el participante</label>
+                      <textarea readOnly class="form-control" id="exampleFormControlTextarea1" rows="3" value={props.detalleCalificacionEvaluadorActual.obsPart}></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1">Observaciones para el presidente</label>
+                      <textarea readOnly class="form-control" id="exampleFormControlTextarea1" rows="3" value={props.detalleCalificacionEvaluadorActual.obsPresi}></textarea>
+                    </div>
+                    
+                  </form>
+        
+
+                    </div>  
+                  </div>
+                  <div className="modal-footer" style={{paddingTop:"5px", paddingBottom:'0px'}}>
+                    <Button type="button" class="btn btn-secondary" onClick={() => handleClose() }>Cerrar</Button>                    
+                  </div>
+              </div>  
+          </Fade>
+        </Modal>
+    </div> 
+
+    )
+}
+
+function ModalDetallePropuesta (props) {
+  const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+  
+    const handleOpen = () => {
+        console.log("my props",props)
+        props.showModalDetallePropuesta(props.idPropuesta)
+        setOpen(true);
+    };
+  
+    const handleClose = () => {
+        setOpen(false);
+    };    
+
+    return (        
+      <div> 
+        <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={handleOpen} style={{ color: "#337ab7", cursor: 'pointer' }} title="Detalle de la propuesta">
+            {props.nombre}
+        </a>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+          nameUserSelected= {props.nameUserSelected}
+        >
+          <Fade in={open} style={{width:'40%'}}>
+              <div className={classes.paper}>
+                  <h3 id="transition-modal-title" >Detalle de la propuesta</h3>
+                  <div id="transition-modal-description">
+                    <div className="modal-body" style={{paddingBottom:'0px'}}>
+                      <div class="form-group row">
+                        <label for="staticName" class="col-sm-4 col-form-label">Titulo</label>
+                        <div class="col-sm-6">
+                          <textarea type="text" readOnly className="form-control" id="staticName" value={props.estados.propuestaActual.tituloPropuesta} />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Resumen</label>
+                        <div class="col-sm-6">
+                        <textarea readOnly className="form-control" type="text"  id="staticEmail" value={props.estados.propuestaActual.resumen} />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">Autor</label>
+                        <div class="col-sm-6">
+                          <textarea readOnly className="form-control"  type="text" id="staticEmail" value={props.estados.propuestaActual.autor} />
+                        </div>
+                      </div> 
+                  </div>
+                  </div>
+                  <div className="modal-footer" style={{paddingRight:"0px", paddingBottom:'0px'}}>
+                    <Button type="button" onClick={()=>handleClose()} className="btn btn-secondary">Cerrar</Button>
+                  </div>
+              </div>  
+        </Fade>
+        </Modal>
+        </div>  
+    );
+  }
 
 
 class FormPropsxFasePresidente extends Component {
@@ -191,50 +361,18 @@ class FormPropsxFasePresidente extends Component {
     super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
       tabla_propuestas: { //{nombre,idpropuesta,estado}
-        Propuestas: [/*
-                  {nombre:"Paper Big Gata invade pueblo perruno Estadistico", idPropuesta: 121, estado:"Aceptado",
-                      evaluadores:[
-                        {idEvaluador:20,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Alto"},
-                        {idEvaluador:21,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Alto"},
-                        {idEvaluador:22,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Alto"},
-                        {idEvaluador:23,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Bueno"}
-                      ]
-                  },
-                  {nombre:"Paper Big Gata invade pueblo perruno Estadistico", idPropuesta: 121, estado:"Aceptado",
-                      evaluadores:[
-                        {idEvaluador:1,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Alto"},
-                        {idEvaluador:2,evaluador:"Lis Sanchez",calificacion:"Baja",experticie:"Alto"},
-                        {idEvaluador:3,evaluador:"Julian Perez",calificacion:"Buena",experticie:"Alto"}
-                      ]
-                  },
-                  {nombre:"Paper Big Gata invade pueblo perruno Estadistico", idPropuesta: 121, estado:"Aceptado",
-                      evaluadores:[
-                        {idEvaluador:4, evaluador:"Santi Moreno", calificacion:"Buena", experticie:"Alto"},
-                        {idEvaluador:5, evaluador:"Marino Sanchez", calificacion:"Buena", experticie:"Regular"},
-                        {idEvaluador:6, evaluador:"Marcelo Ruiz", calificacion:"Buena", experticie:"Alto"},
-                        {idEvaluador:7, evaluador:"Sebastian Sanchez", calificacion:"Buena", experticie:"Regular"}
-                      ]
-                  },
-                  {nombre:"MArimar Au costeñita soy invade pueblo", idPropuesta: 122, estado:"Aceptado",
-                      evaluadores:[
-                        {idEvaluador:8, evaluador:"Misael Sanchez",calificacion:"Buena",experticie:"Alto"},
-                        {idEvaluador:9, evaluador:"Cristina Rene",calificacion:"Lacraza",experticie:"Alto"},
-                        {idEvaluador:10, evaluador:"Nancy Felipe",calificacion:"Media",experticie:"Alto"},
-                        {idEvaluador:11, evaluador:"Sebastian Sanchez",calificacion:"Caca",experticie:"Bajo"}
-                      ]
-                  },
-                  {nombre:"Del pato al pozo y del pozo al pato", idPropuesta: 123, estado:"Aceptado",
-                      evaluadores:[
-                        {idEvaluador:31,evaluador:"Sebastian Sanchez",calificacion:"Buena",experticie:"Alto"},
-                        {idEvaluador:32,evaluador:"Karla Marin",calificacion:"Buena",experticie:"Alto"},
-                        {idEvaluador:33,evaluador:"Marimar Auuu",calificacion:"Alta",experticie:"Alto"}
-                      ]
-                  },
-                */]
+        Propuestas: []
       },
-      comentariosActual: []
-        
-      ,
+      comentariosActual: [],
+      detalleCalificacionEvaluadorActual:{
+        calificacion:'',
+        experticia:'',
+        obsPart:'',
+        obsPresi:'',
+        evalExt:'',
+        Criterios:[],
+        evaluador:''
+      },
       propuestaActual: {},
       checkboxes: OPTIONS.reduce(
         (options, option) => (
@@ -245,7 +383,7 @@ class FormPropsxFasePresidente extends Component {
         ),
         {}
       ),
-      presiComentario: '',
+      presiComentario: " ",
     }
     this.handleNextChildComponentChange = this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps = this.handleNextChildComponentChangeProps.bind(this);
@@ -302,15 +440,20 @@ class FormPropsxFasePresidente extends Component {
             <td>{calificacion}</td>
             <td>{experticie}</td>
             <td>
-
               <a data-title="Edit" data-toggle="modal" data-target="#modalReasigEval" onClick={e => { this.showModalDetalle(); }}>
                 <ActionButton id_evento={this.state.idEvento} button_class="fa fa-arrow-right" redirect_to="/" />
               </a>
             </td>
             <td>
-              <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleDeEv" onClick={e => this.showModalDetalleEvaluador(idEvaluador, idPropuesta)} title="Ver detalle de la evaluación">
-                <ActionButton id_evento={this.state.idEvento} button_class="fa fa-plus" redirect_to="/" />
-              </a>
+              <ModalDetalleDeEvaluador
+                idEvaluador={idEvaluador}
+                idPropuesta={idPropuesta}
+                evaluador={evaluador}
+                idFase={this.props.idFase}
+                detalleCalificacionEvaluadorActual={this.state.detalleCalificacionEvaluadorActual}
+                propuestas ={this.state.propuestaActual}
+                showModalDetalleEvaluador={this.showModalDetalleEvaluador}
+              />
             </td>
           </tr>
         </tbody>
@@ -318,14 +461,40 @@ class FormPropsxFasePresidente extends Component {
     })
   }
 
-  showModalDetalleEvaluador = (idEvaluador, idPropuesta) => {
-
+  showModalDetalleEvaluador = (idEvaluador, idPropuesta,evaluador) => {
+    console.log('props',this.props);
+    
+    Networking.mostrarCalificacionXPropuestaApresi(idEvaluador,this.props.idFase,idPropuesta).then(
+      (response) => {
+        console.log(response);
+        if (response == null) {
+          console.log('no hay algo aun');
+        }
+        if (response.succeed){
+          console.log('si hay algo: ', response);
+          this.setState({
+            detalleCalificacionEvaluadorActual:{
+              calificacion:response.calificacion,
+              experticia:response.experticia,
+              obsPart:response.obsPart,
+              obsPresi:response.obsPresi,
+              evalExt:response.evalExt,
+              Criterios:response.Criterios,
+              evaluador:evaluador,
+            }
+          })
+        }else {
+          console.log('Hay errores', response);
+          }
+          this.showModalDetallePropuesta(idPropuesta);
+        });
 
   }
 
   showModalDetalleObservaciones = (idPropuesta, idFase) => {
     //SERVICIO PARA LISTAR LAS OBSERVACIONES DE LA PROPUESTA SELECCIONADA
-    Networking.observaciones_propuestas(idPropuesta, idFase).then(
+
+    Networking.observaciones_propuestas(idPropuesta,this.props.idFase).then(
       (response) => {
         console.log(response);
         if (response == null) {
@@ -341,7 +510,8 @@ class FormPropsxFasePresidente extends Component {
                 /*comentarios:[*/response.comentarios //<----------------------------FALTAAAAAAAA<-------
                 /*{evaluador:'Luis Fonsi', comentario: 'VOy a jalar '},
                 {evaluador:'Juana de Arco', comentario: 'Piensa en tu vijeita y vota ese paper'}
-              ],*/
+              ],*/,
+              presiComentario:response.obsPresidente,
               
             });
           console.log("ACTUAL COMM: ", this.state.comentariosActual)
@@ -350,7 +520,9 @@ class FormPropsxFasePresidente extends Component {
   }
 
 
+
   showModalDetallePropuesta = (idPropuesta) => {
+    console.log("showModalDetallePropuesta:  mando idpropuesta",idPropuesta)
     Networking.detalle_propuesta(idPropuesta).then(
       (response) => {
         console.log(response);
@@ -428,13 +600,28 @@ class FormPropsxFasePresidente extends Component {
     alert("¡Se han guardado los cambios!")
     //this.handleReturn();
   }
-  handleSaveComentario = (evt) => {
+
+	handleSaveComentario = (evt) => {
     this.setState({ presiComentario: evt.target.value });
-
-
+    console.log('comentPresi', this.state.presiComentario)
+    this.state.presiComentario = evt.target.value;
+    console.log('comentPresix2', this.state.presiComentario)
   }
-  handleClickUpdateComentarios = () => {
+  handleClickUpdateComentarios = (idPropuesta) => {
     //Servicio para guardar el comentario del presii
+    //Falta el servicon en NETOWORKINGGGGGGGGGGGGGGGGGGG    
+
+    console.log('guardando comentario del presi',this.props.idFase,' ',this.state.presiComentario,' ',idPropuesta)    
+    Networking.updateComentarios(this.props.idFase,this.state.presiComentario,idPropuesta).then(
+      (response) => {
+        console.log(response);
+        if (response == null) {
+          console.log('no hay algo aun');
+
+        } else {
+          console.log('si hay alg0: ', response);
+          }
+        });
 
   }
   handleRechazar() {
@@ -487,9 +674,13 @@ class FormPropsxFasePresidente extends Component {
               </div>
 
               <div className="col-md-6">
-                <a data-title="Edit" data-toggle="modal" data-target="#modalDetalleProp" onClick={e => { this.showModalDetallePropuesta(idPropuesta); }} style={{ color: "#337ab7", cursor: 'pointer' }} title="Detalle de la propuesta">
-                  {nombre}
-                </a>
+                
+                <ModalDetallePropuesta
+                  idPropuesta={idPropuesta}
+                  estados={this.state}
+                  showModalDetallePropuesta = {this.showModalDetallePropuesta}
+                  nombre={nombre}
+                />
               </div>
 
               <div className="col-md-2">
@@ -497,9 +688,16 @@ class FormPropsxFasePresidente extends Component {
               </div>
 
               <div className="col-md-1">
-                <a data-title="Edit" data-toggle="modal" data-target="#modalObs" onClick={e => { this.showModalDetalleObservaciones(idPropuesta, this.props.idFase); }} title="Observaciones para el postulante">
-                  <ActionButton id_evento={this.state.idEvento} button_class="fa fa-file" redirect_to="/" />
-                </a>
+                <ModalObsAdicional
+                  idPropuesta= {idPropuesta}
+                  idFase={this.props.idFase}
+                  comentariosActual={this.state.comentariosActual}
+                  handleClickUpdateComentarios={this.handleClickUpdateComentarios}
+                  handleSaveComentario={this.handleSaveComentario}
+                  showModalDetalleObservaciones = {this.showModalDetalleObservaciones}
+                  presiComentario={this.state.presiComentario}
+                />
+                
               </div>
               <div className="col-md-1" style={{ float: 'right', width: '50px' }}>
                 <Accordion.Toggle as={Button} variant="link" eventKey={indexEvent}>
@@ -539,27 +737,10 @@ class FormPropsxFasePresidente extends Component {
           {this.tableData()}
         </Accordion>
 
-
-        <div className="modal fade" id="modalDetalleDeEv" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <ModalDetalleDeEvaluador
-            idEvaluador={this.state.idEvaluador} />
-        </div>
         <div className="modal fade" id="modalReasigEval" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <ModalReasignarEvaluador />
         </div>
-        <div className="modal fade" id="modalObs" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <ModalObsAdicional
-            comentariosActual={this.state.comentariosActual}
-            handleClickUpdateComentarios={this.handleClickUpdateComentarios}
-            handleSaveComentario={this.handleSaveComentario}
-          />
-        </div>
-        <div className="modal fade" id="modalDetalleProp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <ModalDetallePropuesta
-            idPropuesta={this.state.propuestaActual}
-            estados={this.state}
-          />
-        </div>
+                
         <div><button
           style={{ float: 'right' }}
           class="mybutton"
