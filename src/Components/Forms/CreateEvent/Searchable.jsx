@@ -21,6 +21,7 @@ export default class Searchable extends Component {
         this.setValues=this.setValues.bind(this);
         this.handleSelect=this.handleSelect.bind(this);
         this.handleDelete=this.handleDelete.bind(this);
+        this.handleChange=this.handleChange.bind(this)
     }
 
     componentWillMount(){
@@ -61,6 +62,12 @@ export default class Searchable extends Component {
         this.setState({filterList:aux})
 
      }
+
+     handleChange(value){
+         if(value.length<=50){
+            this.setValues(value)
+         }
+     }
     
     render() {
         return (
@@ -73,11 +80,11 @@ export default class Searchable extends Component {
                         <Col xs={12} md={8} style={{padding:'0px'}}>
                             <Select 
                                 class="form-control" 
-                                component={'span'} style={{fontSize:'18px'}} 
+                                component={'span'} style={{fontSize:'18px', margin: " 1px" }} 
                                 placeholder="Elige Usuario" 
                                 options={this.state.filterList} 
                                 noDataLabel="Usuario no encontrado"
-                                onChange={values => this.setValues(values)}
+                                onChange={this.handleChange}
                                 dropdownHeight={this.state.dropdownHeight}
                                 labelField={this.state.labelField}
                                 valueField={this.state.valueField}
@@ -85,6 +92,7 @@ export default class Searchable extends Component {
                                 disabled={this.props.tag!=='presidente'?false:this.props.lista.length===0?false:true}
                                 searchBy={this.state.searchBy}
                                 clearable={this.state.clearable}
+                                maxlength='100'
                             />
                         </Col>
                         <Col xs={6} md={3} style={{float:'left',padding:'0px'}}>
