@@ -21,7 +21,7 @@ class FormStepThree extends Component{
         }else{
             this.props.onChange({target:{value:''}},this.props.index,"numEvaluadores")
         }
-    }
+    } 
     render(){
         return(
             <div clas="panel-group" style={styles.panel}>

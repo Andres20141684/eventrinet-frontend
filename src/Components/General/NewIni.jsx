@@ -70,7 +70,7 @@ class NewIni extends Component{
   constructor(props){
     super(props);
     this.state = {
-        msg: "Not Connected" ,
+        //msg: "Not Connected" ,
         link_propuestabase64: '#',
         lastLink:"_",
         attempt:0
@@ -94,12 +94,12 @@ class NewIni extends Component{
     Networking.saludar().then(
       (response)=>{
         
-        this.setState({msg:response.message});
+        //this.setState({msg:response.message});
         console.log({msg:response.message});
       })
       .catch( (err) =>{
         console.log("error en conexión");
-        this.setState({msg:"Intento de conexión fallido"});
+        //this.setState({msg:"Intento de conexión fallido"});
         console.log(err);
       })
     
