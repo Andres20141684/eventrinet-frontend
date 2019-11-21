@@ -11,7 +11,7 @@ const Networking = require('../../Network/Networking') ;
 
 
 const useStyles = makeStyles(theme => ({
-  modal: {
+  modal: { 
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
