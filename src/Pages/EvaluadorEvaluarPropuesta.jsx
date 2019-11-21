@@ -427,12 +427,12 @@ class EvaluadorEvaluarPropuesta extends Component{
         <br/>
         <div className="col-md-12" style={{fontSize:15}}>{this.state.nomb_propuesta}</div>
         <div className="col-md-4" style={{color:'#6CDCD6',float:'right'}}>
-            <button class="btn" style={{color:'white',float:'right'}} onClick={this.handleClickB} >                
-                <a id='JinSSJ' onClick={this.handleClick} style={{width:'80px'}}
-                      className="specialButton" href={this.state.link_propuestabase64} title="Descargar propuesta" download="file.pdf" >
+            <button class="btn" style={{color:'white',float:'right'}} onClick={this.handleClickB}> </button>                 
+                <a id='JinSSJ' onClick={this.handleClick} style={{width:'80px',marginTop:10,marginBottom:10}}
+                      className="specialButton" href={this.state.link_propuestabase64} title="Descargar propuesta" download="Propuesta.pdf" >
                   <i class="fa fa-download" style={{color:'#6CDCD6'}}></i>
                 </a>
-            </button>    
+               
         </div>
         <br/>
     </div>
