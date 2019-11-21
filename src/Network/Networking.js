@@ -169,6 +169,39 @@ export async function validar_sesion(var_user,var_password) {
     }
   }
 
+  export async function updateComentarios(idFase,presiComentario,idPropuesta){
+    console.log('Dando permisos de organizador...');
+    try {        
+        let response = await fetch(restURL 
+            + 'presidente/guardarObs', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idPropuesta: idPropuesta,
+                idFase: idFase,
+                obsFinal: presiComentario
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        let responseJson = await response.json();
+        console.log('Saving!!');
+        console.log(responseJson);        
+        console.log('Saving!!');
+  
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+  }
+
+
+
   export async function crear_organizador(var_email, var_date_ini, var_date_fin) {
     console.log('Dando permisos de organizador...');
     try {        
@@ -233,28 +266,6 @@ export async function saludar(){
     try {
         let response = await fetch(restURL+'hola' ,{
             method:'GET'
-        });
-        let responseJson = response.json();
-        console.log(responseJson);
-        return responseJson;
-
-    } catch (error){
-        console.log(error);
-        return error
-    }
-}
-
-
-export async function observaciones_propuestas(idProp,idFase){
-    try {
-        let response = await fetch(restURL+'presidente/observaciones_propuestas' ,{
-            method:'POST',
-            mode:'cors',
-            headers: {Accept:"application/json","Content-Type":"application/json"},
-            body: {
-                idProp:idProp,
-                idFase:idFase
-            }
         });
         let responseJson = response.json();
         console.log(responseJson);
@@ -929,6 +940,32 @@ export async function mostrarCalificacionXPropuesta(idUsuario, idFase, idPropues
     }
 }
 
+export async function mostrarCalificacionXPropuestaApresi(idUsuario, idFase, idPropuesta) {
+    try {
+        let response = await fetch(restURL 
+            + 'evaluador/mostrarCalificacionXPropuestaApresi', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idUsuario : idUsuario,
+                idFase : idFase,
+                idPropuesta: idPropuesta
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+
+
 export async function listar_usuarios(){
     try{
         let response = await fetch(restURL+'usuario/listar_correos' ,{
@@ -1130,5 +1167,28 @@ export async function rechazarPropuestaXFase(data){
     } catch (error) {
         console.log(error)
         return error
+    }
+}
+export async function observaciones_propuestas(idPropuesta, idFase) {
+    try {
+        let response = await fetch(restURL 
+            + 'presidente/observaciones_propuestas', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idPropuesta: idPropuesta,
+                idFase: idFase
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
     }
 }
