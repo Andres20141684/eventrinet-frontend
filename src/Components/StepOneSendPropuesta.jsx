@@ -144,7 +144,7 @@ renderacademicLevel(){
                 arrayOfInputData={inputGenerales}
                 cardHeadingText = "Datos Generales de otro Autor: (puede dejarlo en blanco)"
               />
-              <button> + </button>
+              
               
 
 
