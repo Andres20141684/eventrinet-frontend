@@ -9,7 +9,7 @@ import '../../../styles/style_sheets.css';
 
 export default function ArrayOfChips(props) {
   var chipData =[]; 
-  chipData= props.lista;
+  chipData= [...props.lista];
   //var auxLocal=props.aux
   var aux={[props.label]:props.aux}
   // This come from the select form onChange
@@ -101,7 +101,8 @@ export default function ArrayOfChips(props) {
             onKeyDown={handleKeyDown}
             style={{width:"85%"}}
             //style={{width: 360/*,position:"relative"*/}}
-            disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}/>
+            disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}
+            maxLength="50"/>
         <div class="input-group-append">
           <button 
             class="btn btn-secondary add"

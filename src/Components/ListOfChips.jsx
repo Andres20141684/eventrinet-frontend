@@ -28,11 +28,11 @@ export default function ChipsLista(props) {
   };
 
   return (
-    <Paper className={classes.root}>
+    <div className={classes.root}>
       {chipData.map(data => {
         return (
           <Chip
-            style={{fontSize:'20px'}}
+            style={{fontSize:'12px'}}
             key={data.idUsuario}
             label={data.nombre}
             onDelete={handleDelete(data)}
@@ -40,6 +40,6 @@ export default function ChipsLista(props) {
           />
         );
       })}
-    </Paper>
+    </div>
   );
 }
