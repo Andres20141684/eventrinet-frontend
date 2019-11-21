@@ -78,6 +78,7 @@ class NewIni extends Component{
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
 
+    
   }
   handleNextChildComponentChange(_nextChildComponent){
     console.log('cambiando', _nextChildComponent);
