@@ -582,7 +582,7 @@ class FormPropsxFasePresidente extends Component {
           idFase: parseInt(this.props.idFase),
           idPropuesta: parseInt(checkbox),
           obsFinal: "",//PARA CAMBIAR
-          fuePersonalizado: 1,//PARA CAMBIAR
+          fuePersonalizado: 0,//PARA CAMBIAR
           msjPersonalizado: "¡Gracias por su interés, pasó a la siguiente fase!"//PARA CAMBIAR
         });
         Networking.aprobarPropuestaXFase(data).then((value) => {
