@@ -35,6 +35,7 @@ class SendProposal extends Component{
     }
     
     handleClicInscripcionEvento = () => {
+
     try{ //Verify if I'm logged
         let retrievedObject = sessionStorage.getItem('dataUser');
         let retrievedJson = JSON.parse(retrievedObject);
@@ -114,15 +115,51 @@ class SendProposal extends Component{
     render(){
 
         return(
-            <div>
+            
+
+
+
+<div>
+<div id="video-area" data-stellar-background-ratio="0.5">    
+      <div id="block" data-vide-bg="video/video"></div>
+      
+      <div class="overlay overlay-2"></div>      
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col-md-10">
+            <div class="contents text-center">
+
+            <h1 class="wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="0.3s">
+                            { this.state.eventriEvent.nombre}  
+                            </h1>
+                            <h1 class="wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="0.3s">
+                            <i style={{color:"white"}} class="fa fa-map-marker" aria-hidden="true"></i>
+                            {"Lugar : "+ this.state.eventriEvent.lugar}
+                            
+                            
+                            </h1> 
+                            <h1 class="wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="0.3s">
+                                 <i style={{color:"white"}}class="fa fa-calendar" aria-hidden="true"></i>
+                                 {this.state.eventriEvent.fechaIni} 
+                            </h1>
+
+              <button style={{color:"#002D3D"}}onClick={this.handleClicInscripcionEvento} class="specialButton" data-wow-duration="1000ms" data-wow-delay="400ms">
+                  <i class="fa fa-upload" aria-hidden="true">
+                      </i> Enviar propuesta</button>
+            </div>
+          </div>
+        </div> 
+      </div>      
+    </div>
+
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="row" id="gradient">
 
                 <div class="col-md-4" style={{paddingBottom:"20px"}}>
                     <img src="img/img3.jpg" class="img-responsive" alt=""/>
-                    <h1 style={{fontSize:"25px"},{color:"black"}}>Evento:</h1>
-                    <h1 style={{fontSize:"20px"}}> {this.state.eventriEvent.nombre}</h1>
+                    <h1 style={{fontSize:"25px"},{color:"black"}}>Evento: { " " +this.state.eventriEvent.nombre}</h1>
                 </div>
                 <div class="col-md-8" id="overview">
                     <div class="row">
@@ -132,7 +169,7 @@ class SendProposal extends Component{
                         </div>
 
                         <div class="col-xs-4 col-md-4" id="hits">
-                            <p style={{color:"black"}}>Categorias</p>
+                            <p style={{color:"white"}}>Categorias</p>
                             
                             <ul class="pb-product-details-ul" id="eventCategories" >
                             {this.renderCategories()}</ul>
@@ -206,11 +243,7 @@ class SendProposal extends Component{
         </div>
     </div>
 
-           
-
-
-    </div>
-
+       </div>    
 
 
 

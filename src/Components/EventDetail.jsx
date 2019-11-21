@@ -92,6 +92,22 @@ class EventDetail extends Component{
 
 
  }
+ handleClickB = () => {
+  console.log("a-->", document.getElementById('JinSSJ'));
+  
+  getPaper(this.state.Propuestaprev.idPropuesta).then(
+    (response)=>{
+      this.state.attempt=this.state.attempt+1;
+      console.log(">>>>>>>>>>>>>>>>>> Se descargo again ,", this.state.attempt);
+      this.setState({link_propuestabase64:response.Propuesta});
+      //window.download(response.Propuesta, 'Save');
+      document.getElementById('JinSSJ').click();
+      
+    })
+    .catch( (err) =>{
+      console.log("error en conexión Propuesta");
+    })
+}
  componentDidMount(){
     NetworkMutation_JAchievingData(
       {
@@ -176,6 +192,17 @@ class EventDetail extends Component{
             
             </div>
         </div>
+        <button  
+                            id="button_finish"
+                            style={{float:'center'}} 
+                            class="mybutton" 
+                            color="primary" 
+                            onClick={this.handleClickB}
+                            >
+                      Descargar Paper
+                      </button>
+                  <a id='JinSSJ' onClick={this.handleClick}
+                  href={this.state.link_propuestabase64} download="file.pdf" ></a>
         
     </section><br/></>
     );
