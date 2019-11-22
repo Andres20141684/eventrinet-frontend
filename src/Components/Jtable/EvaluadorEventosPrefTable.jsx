@@ -87,7 +87,8 @@ class EvaluadorEventosPrefTable  extends Component {
             {
                idUser_:idUser,
                nomb_evento: nombre,
-               idEvento:id
+               idEvento:id,
+               Usuario:this.props.nextChildComponentProps.Usuario
             }
             );
          if(preferencia == 'CATEGORIA'){
