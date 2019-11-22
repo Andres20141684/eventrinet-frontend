@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
-import { is } from '@babel/types';
-import ActionButton from './ActionButton';
+import JTableMaterial from '../Special/JTableMaterial';
 import EvaluacionPresidente from  './EvaluacionPresidente';
 const Networking = require('./../../Network/Networking.js') ;
  
@@ -14,9 +13,12 @@ class PresiCalificacionFinalPapersTable  extends Component {
       this.state = {
          idUser_recived:0,
          datos_tabla: {
-                     Eventos:[ 
-                     ]
-         }
+            Eventos:[ 
+            ]
+         },
+         columns:[],
+         data:[],
+         dataReady:0
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -32,6 +34,11 @@ class PresiCalificacionFinalPapersTable  extends Component {
       console.log("Parametros pasados ",_nextChildComponentProps);  
       this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     }
+    componentWillMount(){
+      
+      this.renderHeaders();
+      
+   }
    componentDidMount(){
       
       let retrievedObject = sessionStorage.getItem('dataUser');
@@ -48,6 +55,8 @@ class PresiCalificacionFinalPapersTable  extends Component {
          }else {
             console.log('si hay algo:');
             this.setState({datos_tabla:value});
+            this.renderTableData();
+            this.setState({dataReady:1});
          }   
             
       });
@@ -68,53 +77,58 @@ class PresiCalificacionFinalPapersTable  extends Component {
    console.log("idEvento",idEvento);
    this.handleNextChildComponentChange(EvaluacionPresidente);
   }
-  
+  makedata(dataRady){
+   switch (dataRady) {
+      case 0:
+          return [];
+      case 1: 
+          return this.state.data;
+    } 
+ }
+ shouldComponentUpdate(nextProps, nextState){
+   if(this.state.dataReady != nextState.dataReady){
+      return true;
+   }
+   return false;
+ }
    renderTableData() {
-        return this.state.datos_tabla.Eventos.map((element, index) => {
+      let data = [];
+      this.state.datos_tabla.Eventos.map((element, index) => {
          const {idEvento, nombre,secuencia, fasesTotales,fechaLimite,idFaseActual,nombreFase} = element
-            return (
-            <tr >
-                <td>{nombre}</td>
-                <td align="center">{secuencia}/{fasesTotales}</td>
-               <td align="center">{fechaLimite}</td>
-               <td align="center">
-                  <div>{/*<ActionButton id_evento={idEvento} clickeable ={true} redirect={EvaluacionPresidente} button_class ="fa fa-plus" />*/}</div>                
-                  <button onClick={e => {this.handleClickEvaularPaper(e,idEvento,nombre,fasesTotales,secuencia,fechaLimite,idFaseActual, nombreFase)}} style={{background:"none", border:"none"}}><a><i className ="fa fa-plus" /></a></button>
-               </td> 
-            </tr>
+            data.push(
+               {
+                  num: index +1,
+                  name:nombre,
+                  statusFase:secuencia+"/"+fasesTotales,
+                  dateLimit:fechaLimite,
+                  approve:
+                  (<button onClick={e => {this.handleClickEvaularPaper(e,idEvento,nombre,fasesTotales,secuencia,fechaLimite,idFaseActual, nombreFase)}} style={{background:"none", border:"none"}}><a><i className ="fa fa-plus" /></a></button>),
+               }                
         )
         })
+        this.setState({data:data});
     }
-    renderTableHeader() {
-      return (
-         <tr>
-             <th width="40%">Lista de eventos</th>
-             <th>Fase actual / Fases totales </th>
-             <th>Fecha límite</th>             
-             <th>Aprobar Propuestas</th>
-         </tr>
-
-     )
+    renderHeaders(){
+      let columns= [
+         { title: 'Nro', field: 'num' ,cellStyle:{ fontSize: 14 }},
+         { title: 'Lista de eventos', field: 'name' ,cellStyle:{ width:'35%',fontSize: 14 }},
+         { title: 'Fase actual / Fases totales', field: 'statusFase' },
+         { title: 'Fecha límite', field: 'dateLimit' },
+         { title: 'Aprobar Propuestas', field: 'approve' },
+       ];
+       this.setState({columns:columns});
      }
   
      render() {
-        //this.state = this.props.data
         return (
-         <div class="panel panel mypanel" >
-         <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-             <h3>Lista de eventos en evaluación</h3>
-          </div>
-         <div  class="table-responsive">
-             <table class="table  table-hover" >
-             <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
-               {this.renderTableHeader()}
-             </thead>
-                <tbody>{this.renderTableData()}</tbody>
-             </table>
+         <div>
+             <JTableMaterial
+               title="Lista de eventos en evaluación:"
+               columns={this.state.columns}
+               data={this.makedata(this.state.dataReady)}
+               ready={this.state.dataReady}
+               />
          </div>
-      </div>
-
-          
         )
      }
 }

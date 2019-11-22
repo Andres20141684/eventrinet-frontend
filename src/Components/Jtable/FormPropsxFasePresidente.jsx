@@ -254,11 +254,11 @@ function ModalDetalleDeEvaluador(props) {
                     </div>
 
                     <div class="form-row">
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-7">
                         <label for="inputEmail4">Calificación Final</label>
                         <input readOnly type="text" class="form-control" id="inputEmail4"  value={props.detalleCalificacionEvaluadorActual.calificacion}/>
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-5">
                         <label for="inputPassword4">Nivel de experticie</label>
                         <input readOnly type="text" class="form-control" id="inputPassword4"  value={props.detalleCalificacionEvaluadorActual.experticia}/>
                       </div>

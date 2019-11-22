@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
-import { is } from '@babel/types';
-import ActionButton from './ActionButton';
+import JTableMaterial from '../Special/JTableMaterial';
 import JActionButton from '../Special/JActionButton';
 import AsignEvalPropuesta from '../../Pages/Asign_Eval_Propuest';
 import NewEventPage from '../../Pages/NewEventPage';
-//import NewEventPage from './../../Pages/NewEventPage' //aca debería estar el modificar fases, pero ni en back hay :'v
 const Networking = require('./../../Network/Networking.js') ;
 
 
@@ -18,9 +16,12 @@ class PresiEventos_asignarEvaTable  extends Component {
           transport: "go to Fake Ini",
           idUser_recived: 0,
          datos_tabla: {
-                  Eventos:[
-                           ]
-         }
+            Eventos:[
+                     ]
+         },
+         columns:[],
+         data:[],
+         dataReady:0
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -64,7 +65,10 @@ class PresiEventos_asignarEvaTable  extends Component {
    }
    componentWillMount(){
       
-      
+      this.renderHeaders();
+   }
+
+   componentDidMount(){
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);  
       this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
@@ -79,87 +83,92 @@ class PresiEventos_asignarEvaTable  extends Component {
          }else {
             console.log('si hay algo:');
             this.setState({datos_tabla:value});
+            this.tableData();
+            this.setState({dataReady:1});
+            
          }
-         
       });
    }
    shouldComponentUpdate(nextProps, nextState){
-      if(this.state.datos_tabla != nextState.datos_tabla){
+      if(this.state.dataReady != nextState.dataReady){
          return true;
       }
       return false;
    }
   
   
-      handleClick2 = () => {
-         console.log('redireccionando a ... update evento');
-         sessionStorage.setItem('nextProp',
-              JSON.stringify(
-                             {   idOrganizador_nextProps: this.state.idUser_recived,
-                                id_evento_nextProps: 0,
-                                nomb_evento: "none"
-                                
-                             } 
-                          ))
-         //window.location.replace("./");
-      }
-
- 
-   
-   tableData() {
-      //this.setState.idUser_recived=this.props.idUser_recived;
-
-        return this.state.datos_tabla.Eventos.map((element, index) => {
-         
+   handleClick2 = () => {
+      console.log('redireccionando a ... update evento');
+      sessionStorage.setItem('nextProp',
+            JSON.stringify(
+                           {   idOrganizador_nextProps: this.state.idUser_recived,
+                              id_evento_nextProps: 0,
+                              nomb_evento: "none"
+                              
+                           } 
+                        ))      
+   }
+   tableData() {      
+      let data = [];
+      this.state.datos_tabla.Eventos.map((element, index) => {       
          const {idEvento,propAsignadas,propTotal,nombre,
             inicioEvaluacion} = element
-         return (
-         <tr >
-               <td >{nombre}</td>
-               <td align="center">{propAsignadas}/{propTotal}</td>
-               <td>{inicioEvaluacion}</td>
-               
-               <td align="center">
-                  <JActionButton 
+         data.push(
+            {
+               num: index,
+               name: nombre,
+               statusAsign:propAsignadas+"/"+propTotal,
+               evalIn:inicioEvaluacion,
+               asignEval: (<JActionButton 
                    button_class ="fa fa-plus" 
                      idEvento={idEvento} 
                      onClick={()=>this.handleClickAddEval(element.idEvento)}/>
-               </td> 
-               <td align="center">
-               <JActionButton
-                     onClick = {()=>this.handleEditButton(this.state.idUser_recived,
-                        element.idEvento,
-                        element.nombre)}
-                     button_class ="fa fa-edit" 
-                  />
-               </td> 
-         </tr>
+               ),
+               edit:(<JActionButton
+                  onClick = {()=>this.handleEditButton(this.state.idUser_recived,
+                     element.idEvento,
+                     element.nombre)}
+                  button_class ="fa fa-edit" 
+               />
+               )
+            }
          )
-      })
+      });
+      this.setState({data:data});
+    }
+    makedata(dataRady){
+      switch (dataRady) {
+         case 0:
+             return [];
+         case 1:
+            console.log("dataa",this.state.data)
+             return this.state.data;
+       } 
     }
   
+    renderHeaders(){
+      let columns= [
+         { title: 'Nro', field: 'num' ,cellStyle:{ fontSize: 14 }},
+         { title: 'Lista de eventos', field: 'name',cellStyle:{ width:'36%',fontSize: 14 } },
+         { title: 'Propuestas asignadas / Total', field: 'statusAsign' ,cellStyle:{ width:'22%',fontSize: 14 }},
+         { title: 'Inicio evaluación', field: 'evalIn' ,cellStyle:{width:'20  %'}},
+         { title: 'Asignar evaluadores', field: 'asignEval',cellStyle:{width:'4%'} },
+         { title: 'Editar fases', field: 'edit' ,cellStyle:{width:'4%'}},
+       ];
+      this.setState({columns:columns});
+    }
   
      render() {
+        console.log("renderizando ",this.state.dataReady)
          return (
-            
-           <div class="panel panel mypanel" >
-              <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                  <h3>Lista de eventos a asignar evaluador</h3>
-               </div> 
-              <div  class="table-responsive">
-              <table class="table  table-hover">
-               <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
-                  <tr >
-                     <th align= "left" scope="col">Lista de eventos</th>
-                     <th scope="col">Propuestas asignadas / Total</th>
-                     <th scope="col">Inicio evaluación</th>
-                     <th scope="col">Asignar evaluadores</th>
-                     <th scope="col">Editar fases</th>
-                  </tr>
-               </thead>
-              <tbody>{this.tableData()}</tbody>
-              </table>
-              </div>
+           <div>              
+              <br/><br/>
+              <JTableMaterial
+               title="Lista de eventos a asignar evaluador:"
+               columns={this.state.columns}
+               data={this.makedata(this.state.dataReady)}
+               ready={this.state.dataReady}
+               />
            </div>
         )
      }
