@@ -72,7 +72,8 @@ class PresiCalificacionFinalPapersTable  extends Component {
       secuencia:secuencia,
       fechaLimite:fechaLimite,
       idFaseActual : idFaseActual,
-      nombreFase:nombreFase
+      nombreFase:nombreFase,
+      Usuario:this.props.nextChildComponentProps.Usuario
    });
    console.log("idEvento",idEvento);
    this.handleNextChildComponentChange(EvaluacionPresidente);
