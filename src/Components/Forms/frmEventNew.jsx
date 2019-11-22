@@ -266,6 +266,8 @@ export default class EventNew extends Component{
               handlePrint={this.handlePrint}
               onNextChildComponentChange={this.handleNextChildComponentChange}
               handleCancel={this.handleClick}
+
+              rol={this.props.data_recived.rol}
               />
           </div>
           

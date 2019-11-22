@@ -84,6 +84,7 @@ export default function ArrayOfChips(props) {
       handleSelect()
     }
   }
+
   return (
     <div>
       <Row> 
@@ -101,7 +102,7 @@ export default function ArrayOfChips(props) {
             onKeyDown={handleKeyDown}
             style={{width:"85%"}}
             //style={{width: 360/*,position:"relative"*/}}
-            disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}
+            readOnly={props.rol===1}
             maxLength="50"/>
         <div class="input-group-append">
           <button 
@@ -109,7 +110,7 @@ export default function ArrayOfChips(props) {
             variant="primary" 
             type='email' 
             onClick={handleSelect}
-            disabled={props.tag!=='presidente'?false:props.lista.length===0?false:true}
+            disabled={props.rol===1}
             style={{backgroundColor:"002D3D", color:'white', borderTopRightRadius:'4px', borderBottomRightRadius:'4px'}}>Agregar</button>
         </div>
       </div>
@@ -123,6 +124,7 @@ export default function ArrayOfChips(props) {
                   key={index}
                   label={data[props.label]}
                   onDelete={handleDelete(data)}
+                  disabled ={props.rol===1}
                 />
               );
             })}
