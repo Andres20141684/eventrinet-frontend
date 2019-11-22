@@ -12,6 +12,7 @@ import StepThree from './CreateEvent/StepThree'
 import ModalDialog from './CreateEvent/ModalDialog'
 import '../../styles/style_sheets.css'; 
 import { fontSize } from '@material-ui/system';
+import { isValidES3Identifier } from '@babel/types';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -60,6 +61,15 @@ export default function HorizontalLabelPositionBelowStepper(props) {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
     
   };
+
+  const isValid=(activeStep)=>{
+    switch (activeStep) {
+      case 0:
+        return !props.form1Completo;
+      case 1:
+        return !props.form2Completo;
+    }
+  }
 
   const handleBack = () => {
     window.scrollTo(0, 0);
@@ -123,7 +133,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
                     Regresar
                   </button>}
               </div>
-                <button  style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
+                <button /*disabled={isValid(activeStep)}*/ style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
                 Siguiente
                 </button>
               

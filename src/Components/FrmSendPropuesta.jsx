@@ -10,6 +10,7 @@ import SendProposal from './SendProposal';
 import JModal from './Special/JModal';
 import Jloading from './Special/Jloading';
 import PropoMyProposals from '../Pages/ProposerMyProposals';
+import Dashboard from './Dashboard';
 const Networking = require('./../../src/Network/Networking') ;
 
 const classes =makeStyles(theme => ({
@@ -201,7 +202,8 @@ class FrmSendPropuesta extends React.Component {
   
     handleBack = () => {
       if(this.state==0){
-        this.handleNextChildComponentChange(SendProposal);
+        this.onNextChildComponentChangeProps({User: this.props.nextChildComponentProps.Usuario});
+        this.handleNextChildComponentChange(Dashboard);
         console.log("No redirije la wea");
         return;
       }

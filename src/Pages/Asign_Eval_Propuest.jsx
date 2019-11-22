@@ -9,6 +9,8 @@ import {DialogContent, DialogContentText, DialogActions } from '@material-ui/cor
 import Select from "react-dropdown-select";
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PresiAsignarEvalEvents from './PresiAsignarEvalEvents';
+import Fade from '@material-ui/core/Fade';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Networking = require('../Network/Networking.js') ;
 
@@ -30,7 +32,7 @@ class AsignEvalPropuesta  extends Component {
        this.state = {
            idEvento:1,
            optiones:[],
-           open:false,
+           open:true,
            clearable:true,
            selectValues: [],
            labelField: "nombre",
@@ -41,6 +43,7 @@ class AsignEvalPropuesta  extends Component {
            msg: "Not Connected" ,
            transport: "go to Fake Ini",
            idUser_recived: 0,
+           loading:true,
           datos_tabla: [ ]
        }
        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
@@ -91,11 +94,13 @@ class AsignEvalPropuesta  extends Component {
      }
 
      handleClickGuardar = () => {
+        this.setState({loading:true,open:true})
         var aux={idEvento:this.state.idEvento}
         aux.Propuestas=[...this.state.datos_tabla]
         console.log(JSON.stringify(aux))
       Networking.InsertarEvaluadorAPaper(JSON.stringify(aux)).then((value)=>{
          console.log(value)
+         this.setState({loading:false,open:false})
          this.handleNextChildComponentChange(PresiAsignarEvalEvents);
       })
     }
@@ -109,6 +114,7 @@ class AsignEvalPropuesta  extends Component {
        Networking.EvaluadorxEvento(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
          console.log(value);
          this.setState({options:value.correos});
+         this.setState({loading:false,open:false})
       })
 
       Networking.PropuestaxEvento(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
@@ -122,27 +128,6 @@ class AsignEvalPropuesta  extends Component {
          this.setState({datos_tabla:listaAux});   
          console.log(this.state.datos_tabla); 
       });   
-
-      
-      
-       /*
-       let retrievedObject = sessionStorage.getItem('dataUser');
-       let retrievedJson = JSON.parse(retrievedObject);  
-       this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
-       console.log(retrievedJson);
- 
- 
-       Networking.populateDataOrgTab1(retrievedJson.infoUsuario.idUsuario).then((value) => {
-          console.log(value);
-          if(value == null){
-             console.log('no hay algo aun');
-             
-          }else {
-             console.log('si hay algo:');
-             this.setState({datos_tabla:value});
-          }
-          
-       });*/
     }
 
     shouldComponentUpdate(nextProps, nextState){
@@ -220,8 +205,6 @@ class AsignEvalPropuesta  extends Component {
                    }
                 </td>
                 <td component={'span'}>
-                 
-                 
                    <button style={{float:'right'}} 
                    class="btn_plus fa fa-plus" onClick={()=>this.handleClickOpen(index)} disabled={element.evaluadores.length<4?false:true}></button>
                      <Dialog component={'span'}
@@ -231,7 +214,30 @@ class AsignEvalPropuesta  extends Component {
                         disableBackdropClick={false}
                      >
                       <div>
-                         <DialogTitle class="modal-header" style={{paddingBottom:"5px"}}>Seleccione un Evaluador</DialogTitle>
+                         {this.state.loading===true?
+                         <div>
+                           <DialogContent component={'span'}>
+                           <div class='col-md-4'></div>
+                           <div class='col-md-4'>
+                              <Fade
+                              in='true'
+                              style={{
+                                 transitionDelay: '800ms',
+                              }}
+                              unmountOnExit
+                              >
+                              <CircularProgress />
+                              </Fade>
+                           </div>
+                           <div class='col-md-4'></div>
+                              <DialogContentText>
+                                 <h2>Procesando...</h2>
+                                 </DialogContentText>
+                           </DialogContent>
+
+                        </div>:
+                        <div>
+                           <DialogTitle class="modal-header" style={{paddingBottom:"5px"}}>Seleccione un Evaluador</DialogTitle>
                            <DialogContent component={'span'} style={{height:'150px',width:'350px'}}>
                               <div class='col-md-8'>
                                  <DialogContentText component={'span'}>
@@ -272,7 +278,9 @@ class AsignEvalPropuesta  extends Component {
                               <button style={{float:'right'}} className="mybutton"  variant="contained" color="primary"  onClick={()=>this.handleSave(this.state.currentIndex)} color="primary" autoFocus>
                                  Aceptar
                               </button>
-                           </DialogActions>  
+                           </DialogActions>
+                        </div>
+                           }
                       </div>
                    </Dialog>
                                                  
@@ -304,6 +312,7 @@ class AsignEvalPropuesta  extends Component {
                   <div class='col-md-12'>
                   <div class='col-md-4'><label>Asignacion Automatica:</label></div>
                   <div class='col-md-8'><button class="mybutton" onClick={this.handleAplicarAlgortimo} style={{float:'left'}}>Aplicar</button>
+                  <br/>
                   </div>
                   </div>
                   <div  class="table-responsive">
@@ -315,7 +324,7 @@ class AsignEvalPropuesta  extends Component {
                         <th width="10" scope='col'>Añadir</th>
                      </tr>
                   </thead>
-                  <tbody>{this.tableData()}</tbody>
+                  <tbody style={{fontSize:'16px'}}>{this.tableData()}</tbody>
                   </table>
                   </div>
                   <div>
