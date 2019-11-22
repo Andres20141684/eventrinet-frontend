@@ -202,9 +202,12 @@ class EvaluadorEvaluarPropuesta extends Component{
       console.log('redireccionando a ... FakeNewIni evento');
     }
     handleClickB = () => {
+      var idprop = 59;
       console.log("a-->", document.getElementById('JinSSJ'));
-      
-      Networking.getPaper2(/*this.state.idPropuesta*/59).then(
+      if (this.state.idPropuesta){
+        idprop = this.state.idPropuesta
+      }
+      Networking.getPaper2(idprop).then(
         (response)=>{
           //this.state.attempt=this.state.attempt+1;
           //console.log(">>>>>>>>>>>>>>>>>> Se descargo again ,", this.state.attempt);
@@ -400,6 +403,7 @@ class EvaluadorEvaluarPropuesta extends Component{
    }
    
     render(){
+      console.log("KKAS", this.state);
         return(
     <div> 
     <div style={{marginLeft:15}}>
@@ -408,7 +412,7 @@ class EvaluadorEvaluarPropuesta extends Component{
         <div style={{paddingLeft:60}}>{this.state.categorias_propuesta.map(function(d, idx){
             return (<li key={idx}>{d}</li>)
           })}
-        </div>        
+        </div>
     </div>
     <div style={{marginLeft:40,marginTop:25}} ><h1 style={{fontSize:15}}>{this.state.desc_propuesta}</h1></div>
 

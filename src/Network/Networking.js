@@ -1192,3 +1192,25 @@ export async function observaciones_propuestas(idPropuesta, idFase) {
         console.error('CATCH ALCANZADO :(');
     }
 }
+export async function mostrarTodasObs(idFase) {
+    try {
+        let response = await fetch(restURL 
+            + 'presidente/mostrarTodasObs', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idFase: idFase
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
