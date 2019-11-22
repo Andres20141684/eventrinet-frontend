@@ -89,7 +89,7 @@ export default class Searchable extends Component {
                                 labelField={this.state.labelField}
                                 valueField={this.state.valueField}
                                 values={[...this.state.selectValues]}
-                                disabled={this.props.tag!=='presidente'?false:this.props.lista.length===0?false:true}
+                                disabled={this.props.rol===1?true:this.props.tag!=='presidente'?false:this.props.lista.length===0?false:true}
                                 searchBy={this.state.searchBy}
                                 clearable={this.state.clearable}
                                 maxlength='100'
@@ -102,7 +102,7 @@ export default class Searchable extends Component {
                             variant="primary" 
                             type='email' 
                             onClick={this.handleSelect}
-                            disabled={this.props.tag!=='presidente'?false:this.props.lista.length===0?false:true}
+                            disabled={this.props.rol===1?true:this.props.tag!=='presidente'?false:this.props.lista.length===0?false:true}
                             style={{backgroundColor:"002D3D", borderTopLeftRadius:'0px', borderBottomLeftRadius:'0px' ,borderTopRightRadius:'4px', borderBottomRightRadius:'4px',height:'36px'}}
                         >Agregar</button>
                         </div>
@@ -116,6 +116,7 @@ export default class Searchable extends Component {
                         key={index}
                         label={data.correo}
                         onDelete={()=>this.handleDelete(data)}
+                        disabled={this.props.rol===1}
                         />
                     );
                     })}

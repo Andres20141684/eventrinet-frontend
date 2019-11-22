@@ -33,6 +33,7 @@ class StepTwo extends Component{
                 <div class="panel-body">
                     <div class="form-group col">
                     <Searchable 
+                    rol={this.props.rol}
                     auxLabel='auxComiteO'
                     aux={this.state.auxComiteO} 
                     handlechange={this.handleAuxChange} 
@@ -53,6 +54,7 @@ class StepTwo extends Component{
                             <label> Presidente</label>
                             <div style={{marginLeft: 13}}>
                             <Searchable 
+                            rol={this.props.rol}
                             auxLabel='auxPresi'
                             aux={this.state.auxPresi} 
                             handlechange={this.handleAuxChange} 
@@ -77,6 +79,7 @@ class StepTwo extends Component{
                                 name="formHorizontalRadios_1"
                                 id="rdCategry"
                                 onClick={(e)=>this.props.handleChangeRadio(e,"rdPropuest")}
+                                disabled={this.props.rol===1}
                             />
                             <Form.Check
                                 type="radio" inline
@@ -85,6 +88,7 @@ class StepTwo extends Component{
                                 name="formHorizontalRadios_1"
                                 id="rdPropuest"
                                 onClick={(e)=>this.props.handleChangeRadio(e,"rdCategry")}
+                                disabled={this.props.rol===1}
                             />
                         </div>
                     </div>
@@ -96,6 +100,7 @@ class StepTwo extends Component{
                             <label> Evaluadores</label>
                             <div style={{marginLeft: 13}}>
                             <Searchable 
+                            rol={this.props.rol}
                             auxLabel='auxComiteA'
                             aux={this.state.auxComiteA} 
                             handlechange={this.handleAuxChange} 

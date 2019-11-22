@@ -46,6 +46,7 @@ export default class StepOne extends React.Component {
                     onChange={this.props.handleChange}
                     value={this.props.nombre}
                     maxLength="45"
+                    readOnly={this.props.rol===1}
                     autoFocus/>
                 {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/}  
             </div>
@@ -62,7 +63,8 @@ export default class StepOne extends React.Component {
                     placeholder='Descripcion'                  
                     onChange={this.props.handleChange}
                     value={this.props.descripcion}       
-                    maxLength="200"       
+                    maxLength="200"
+                    readOnly={this.props.rol===1}       
                     />
                   {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/}  
             </div>
@@ -79,6 +81,7 @@ export default class StepOne extends React.Component {
                     onChange={this.props.handleChange}
                     value={this.props.lugar}
                     maxLength="150"
+                    readOnly={this.props.rol===1}
                     />
                   {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/}  
             </div>
@@ -96,6 +99,7 @@ export default class StepOne extends React.Component {
                       id="input-date"
                       name="date_in"
                       placeholder="date_in"
+                      readOnly={this.props.rol===1}
                     />
                     {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/}  
                   </div>
@@ -111,6 +115,7 @@ export default class StepOne extends React.Component {
                           id="input-date"
                           name="date_in"
                           placeholder="date_in"
+                          readOnly={this.props.rol===1}
                         />
                        {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/} 
                   </div>
@@ -129,7 +134,8 @@ export default class StepOne extends React.Component {
               lista={this.props.categorias} 
               handleadd={this.props.handleChange2} 
               tag="categorias" 
-              label="descripcion"/>
+              label="descripcion"
+              rol={this.props.rol}/>
               </div>
               {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/}  
             </div>

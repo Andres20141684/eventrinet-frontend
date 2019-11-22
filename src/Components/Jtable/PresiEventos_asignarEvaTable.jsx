@@ -57,7 +57,8 @@ class PresiEventos_asignarEvaTable  extends Component {
       let dataFlow = {   
          idOrganizador_nextProps: idO,
          id_evento_nextProps: idE,
-         nomb_evento: nom
+         nomb_evento: nom,
+         rol:1 //Siginifca que es presidente
          
       }
       this.handleNextChildComponentChangeProps(dataFlow);
