@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row';
 import DatePicker from "react-datepicker"; 
 import { FormGroup } from '@material-ui/core';
+import JTableMaterial from '../Special/JTableMaterial';
 const Networking = require('../../Network/Networking') ;
 
 
@@ -41,7 +42,10 @@ class AdminPageMainTable extends React.Component {
             dateIniSelected:'',
             dateFinSelected:'',
             flagPermiso:false,
-            refreshData:false
+            columns:[],
+            data:[],
+            dataReady:0
+            
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -54,7 +58,7 @@ class AdminPageMainTable extends React.Component {
     }
     handleNextChildComponentChangeProps(_nextChildComponentProps){
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
-    }
+    } 
     showModal = (var_id,var_nomb,var_correo,var_fechaIni,var_fechaFin,flagPermiso) => {
         console.log(var_id,var_nomb,var_correo,var_fechaIni,var_fechaFin,flagPermiso)
         this.setState({
@@ -83,22 +87,40 @@ class AdminPageMainTable extends React.Component {
         console.log("this.state.ABUELO !",this.state)        
     }
       
-    componentDidMount(){      
+    componentDidMount(){  
         Networking.listarUsuarios()
         .then((value) => {
             console.log("lista organ",value);
             if(value == null){
-            console.log('no hay algo aun');
+                console.log('no hay algo aun');
             }else {
-            console.log('si hay algo:');
-            console.log(value);
-            this.setState({datos_tabla:value});
+                console.log('si hay algo:');
+                console.log(value);
+                this.setState({datos_tabla:value});
+                this.tableData();
+                this.setState({dataReady:1});
             }   
             
         });
         
     }
-
+    shouldComponentUpdate(nextProps, nextState){
+        if(this.state.dataReady != nextState.dataReady){
+           return true;
+        }
+        return false;
+    }
+    componentWillMount(){
+        this.renderHeaders();
+    }
+    makedata(dataRady){
+        switch (dataRady) {
+            case 0:
+               return [];
+            case 1: 
+                return this.state.data;
+        } 
+    }
      myCallback = (message) => {
     //[...we will use the dataFromChild here...]
         Networking.listarUsuarios()
@@ -127,71 +149,66 @@ class AdminPageMainTable extends React.Component {
         return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
     }
     
-    renderTableData() {
-        return this.state.datos_tabla.Organizadores.map((element, index) => {
-         const {correo,fechaFinPermiso,fechaIniPermiso, tienePermiso,idUsuario, nomComp} = element;
-         if (tienePermiso == 0){ //No tiene permiso
-            return (
-                <tr >
-                    <td>{nomComp}</td>
-                    <td>{correo}</td>
-                    <td>-</td>                 
-                    <td>-</td>
-                    <td>
-                        <TransitionsModal 
-                            element={element}
-                            showModal={this.showModal}
-                            idUsuarioSelected={this.state.idUsuarioSelected}
-                            nameUserSelected={this.state.nameUserSelected}
-                            emailUserSelected={this.state.emailUserSelected}
-                            refreshData={this.state.refreshData}
-                            dateFinSelected={this.state.dateFinSelected}
-                            dateIniSelected={this.state.dateIniSelected}
-                            flagPermiso={this.state.flagPermiso}
-                            myCallback={this.myCallback}
-                            handleChangeDate = {this.handleChangeDate}
-                            handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
-                    </td>
-                </tr>
-            )            
-         }
-
-            return (
-            <tr >
-                <td>{nomComp}</td>
-                <td>{correo}</td>                
-                <td>{fechaIniPermiso}</td>                
-                <td>{fechaFinPermiso}</td>
-                <td>
-                    <TransitionsModal
+    tableData() {
+        let data =  [];
+        this.state.datos_tabla.Organizadores.map((element, index) => {
+            const {correo,fechaFinPermiso,fechaIniPermiso, tienePermiso,idUsuario, nomComp} = element;
+            if (tienePermiso == 0){
+                data.push({
+                    num: index+1,
+                    name: nomComp, 
+                    correo: correo,
+                    fechaIni: '-',
+                    fechaFin: '-',
+                    edit: (<TransitionsModal 
                         element={element}
                         showModal={this.showModal}
                         idUsuarioSelected={this.state.idUsuarioSelected}
                         nameUserSelected={this.state.nameUserSelected}
-                        emailUserSelected={this.state.emailUserSelected}
-                        refreshData={this.state.refreshData}
+                        emailUserSelected={this.state.emailUserSelected}                            
                         dateFinSelected={this.state.dateFinSelected}
                         dateIniSelected={this.state.dateIniSelected}
                         flagPermiso={this.state.flagPermiso}
                         myCallback={this.myCallback}
                         handleChangeDate = {this.handleChangeDate}
                         handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
-                </td>                
-            </tr>
-        )
+                    ),
+                })
+            }else{
+                data.push({
+                    num: index+1,
+                    name: nomComp, 
+                    correo: correo,
+                    fechaIni: fechaIniPermiso,
+                    fechaFin: fechaFinPermiso,
+                    edit: (<TransitionsModal 
+                        element={element}
+                        showModal={this.showModal}
+                        idUsuarioSelected={this.state.idUsuarioSelected}
+                        nameUserSelected={this.state.nameUserSelected}
+                        emailUserSelected={this.state.emailUserSelected}                            
+                        dateFinSelected={this.state.dateFinSelected}
+                        dateIniSelected={this.state.dateIniSelected}
+                        flagPermiso={this.state.flagPermiso}
+                        myCallback={this.myCallback}
+                        handleChangeDate = {this.handleChangeDate}
+                        handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
+                    ),
+                })
+            }
         })
+        this.setState({data:data});
     }
-    renderTableHeader() {
-      return (
-         <tr>
-             <th width="40%">Nombre completo</th>
-             <th width="32%">Correo</th>        
-             <th width="11%">Vigencia Inicio</th>
-             <th width="11%">Vigencia Fin</th>
-             <th width="7%">Editar</th>             
-         </tr>
-
-     )
+    renderHeaders() {
+        let columns= [
+            { title: 'Nro', field: 'num' ,cellStyle:{ fontSize: 14 }},
+            { title: 'Nombre completo', field: 'name',cellStyle:{ width:'30%',fontSize: 14 } },
+            { title: 'Correo', field: 'correo',cellStyle:{ width:'15%',fontSize: 14 } },
+            { title: 'Vigencia Inicio', field: 'fechaIni',cellStyle:{width:'12%', fontSize: 14 } },
+            { title: 'Vigencia Fin', field: 'fechaFin' ,cellStyle:{ width:'12%',fontSize: 14 }},
+            { title: 'Editar', field: 'edit' ,cellStyle:{width:'4%'}},
+          ];
+          this.setState({columns:columns});
      }
 
     render() {        
@@ -199,29 +216,21 @@ class AdminPageMainTable extends React.Component {
         <div>
             <div style={{marginLeft:15}}>
                 <h1><br/>Otorgar permiso de crear evento</h1>
+                <br/>
             </div>
 
             <div className="container">
-            <div class="panel panel mypanel ">
-                <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                    <h3>Lista de usuarios</h3>
-                    
-                </div>                
-                <div  class="table-responsive">
-                <table class="table  table-hover table-list-search" >
-                    <thead  style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
-                        {this.renderTableHeader()}
-                    </thead>
-                    <tbody>
-                        {this.renderTableData()}
-                    </tbody>
-                </table>
-                
+                <div class="panel panel mypanel ">
+                    <JTableMaterial
+                    title="Lista de usuarios:"
+                    columns={this.state.columns}
+                    data={this.makedata(this.state.dataReady)}
+                    ready={this.state.dataReady}  
+                    />
                 </div>
             </div>
-            </div>
             <br/>
-    </div>
+        </div>
         )
      }
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
-import { is, thisExpression } from '@babel/types';
 import ActionButton from './ActionButton';
 import NewEventPage from './../../Pages/NewEventPage'
 import JActionButton from '../Special/JActionButton';
@@ -16,7 +15,6 @@ class Organizador_ActiveEventsTable  extends Component {
    constructor(props){
       super(props); 
       this.state = {
-          msg: "Not Connected" ,
           transport: "go to Fake Ini",
           idUser_recived: 0,
          datos_tabla: {
@@ -64,8 +62,8 @@ class Organizador_ActiveEventsTable  extends Component {
       let dataFlow = {   
          idOrganizador_nextProps: idO,
          id_evento_nextProps: idE,
-         nomb_evento: nom,
-         rol:0  //Identifica que es un organizador
+         nomb_evento: nom
+         
       }
       this.handleNextChildComponentChangeProps(dataFlow);
       this.handleNextChildComponentChange(NewEventPage);
@@ -176,14 +174,11 @@ class Organizador_ActiveEventsTable  extends Component {
          case 0:
              return [];
          case 1: 
-            let dat=[]
              return this.state.data;
        } 
     }
     
      render() {
-       
-      
          return (
             <div style={{"font-size": "15"}}>
                <br/>
