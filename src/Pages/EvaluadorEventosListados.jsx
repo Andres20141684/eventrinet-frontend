@@ -61,13 +61,15 @@ class EvaluadorEventosListados extends Component{
                                 
                                 <br/>
                                 <this.state.formActives  
+                                nextChildComponentProps={this.props.nextChildComponentProps}
                                 onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                 onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                                 />
                             </TabPanel>
                             <TabPanel> 
                                 
-                                < this.state.formRecord  
+                                < this.state.formRecord 
+                                nextChildComponentProps={this.props.nextChildComponentProps} 
                                 onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                 onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                                 />

@@ -39,8 +39,8 @@ class PresiEventos_asignarEvaTable  extends Component {
       this.handleNextChildComponentChangeProps({  
          idOrganizador_nextProps: this.state.idUser_recived,
          id_evento_nextProps: 0, //para q se actualice el evento no?
-         nomb_evento: "none"
-         
+         nomb_evento: "none",
+         Usuario:this.props.nextChildComponentProps.Usuario
       });
       
       //this.handleNextChildComponentChange(NewEventPage);
@@ -49,6 +49,7 @@ class PresiEventos_asignarEvaTable  extends Component {
       console.log("retrievedJson");
       this.handleNextChildComponentChangeProps({   
          idEvento: idE,
+         Usuario:this.props.nextChildComponentProps.Usuario
       });
       console.log("redireccion para AsignEvalPropuesta");
       this.handleNextChildComponentChange(AsignEvalPropuesta);
@@ -58,8 +59,8 @@ class PresiEventos_asignarEvaTable  extends Component {
          idOrganizador_nextProps: idO,
          id_evento_nextProps: idE,
          nomb_evento: nom,
-         rol:1 //Siginifca que es presidente
-         
+         rol:1, //Siginifca que es presidente
+         Usuario:this.props.nextChildComponentProps.Usuario
       }
       this.handleNextChildComponentChangeProps(dataFlow);
       this.handleNextChildComponentChange(NewEventPage);
@@ -104,7 +105,8 @@ class PresiEventos_asignarEvaTable  extends Component {
             JSON.stringify(
                            {   idOrganizador_nextProps: this.state.idUser_recived,
                               id_evento_nextProps: 0,
-                              nomb_evento: "none"
+                              nomb_evento: "none",
+                              Usuario:this.props.nextChildComponentProps.Usuario
                               
                            } 
                         ))      
