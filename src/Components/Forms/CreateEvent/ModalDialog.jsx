@@ -7,6 +7,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import OrganActiveEvents from '../../../Pages/OrganActiveEvents.jsx';
+import PresiAsignarEvalEvents from '../../../Pages/PresiAsignarEvalEvents.jsx';
+
 const Networking = require('../../../Network/Networking.js') ;
 
 class ModalDialog extends Component{
@@ -59,7 +61,13 @@ class ModalDialog extends Component{
     }
 
     handleExit(){
-      this.handleNextChildComponentChange(OrganActiveEvents);
+      if(this.props.rol===0){ //Si es organizador
+        this.handleNextChildComponentChange(OrganActiveEvents);
+      }
+      else if (this.props.rol === 1){ //Si es presidente
+        this.handleNextChildComponentChange(PresiAsignarEvalEvents);
+      }
+      
     }
     render(){
       return (

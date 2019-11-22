@@ -38,8 +38,8 @@ class AdminPageMainTable extends React.Component {
             nameUserSelected:'',
             emailUserSelected:'',
             idUsuarioSelected:0,
-            dateIniSelected:new Date(),
-            dateFinSelected:new Date(),
+            dateIniSelected:'',
+            dateFinSelected:'',
             flagPermiso:false,
             refreshData:false
         }
@@ -239,7 +239,7 @@ function TransitionsModal(props) {
   
     const handleClose = () => {
         setOpen(false);
-        var e=new Date()
+        var e=''
         props.handleChangeDate(e,"dateIniSelected")
         props.handleChangeDate(e,"dateFinSelected")
       
@@ -310,7 +310,7 @@ function TransitionsModal(props) {
                               id="input-date"
                               name="date_in"
                               minDate= {new Date()} 
-                              maxDate ={props.dateFinSelected}                           
+                              maxDate ={props.dateFinSelected!==''?props.dateFinSelected:null }                           
                               placeholder="date_in"
                               selected={props.dateIniSelected }
                               onChange={(e)=> props.handleChangeDate(e,"dateIniSelected")}
@@ -325,7 +325,8 @@ function TransitionsModal(props) {
                             type="date"
                             id="input-date"
                             name="date_in"
-                            minDate= {new Date()}
+                            disabled={props.dateIniSelected===''?true:false}
+                            minDate= {props.dateIniSelected}
                             placeholder="date_in"
                             selected={props.dateFinSelected }
                             onChange={(e)=> props.handleChangeDate(e,"dateFinSelected")}
