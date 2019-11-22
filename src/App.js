@@ -46,7 +46,7 @@ class App extends Component{
   /*
       formato URL parametro para eventrinet.com
                 
-                https//:www.Eventrinet.com/?EventriEvents&idEvento=100
+                https//:www.Eventrinet.com/?EventriEvents&idEvento=253
 
   */
   shouldComponentUpdate(nextState,nextProps){
