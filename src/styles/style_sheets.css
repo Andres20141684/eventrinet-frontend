@@ -1,3 +1,7 @@
+.MuiTableCell-root{
+    font-size: 14px !important;
+}
+
 .mybutton{
     border-radius: 6px;
     border: none;

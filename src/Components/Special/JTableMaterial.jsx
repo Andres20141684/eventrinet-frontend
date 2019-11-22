@@ -44,7 +44,19 @@ class JTableMaterial  extends Component {
           console.log(pagination);
       }
       render(){
+        let message;
+        message='Aun no se cargaron los datos...';
+        //console.log("data",this.props.data)
+        //console.log(this.props.ready)
         
+        if (this.props.ready){
+          console.log("ya estoy ready para mostrar la data")
+          if (this.props.data.length === 0){
+            message='No hay datos en esta tabla';
+          }
+        }
+        console.log("message",message)
+ 
         return (
           <MaterialTable
             title={this.props.title}
@@ -52,7 +64,7 @@ class JTableMaterial  extends Component {
             data={this.props.data}
             localization={{
                 body: {
-                  emptyDataSourceMessage: 'Aun no se cargaron los datos...'
+                  emptyDataSourceMessage: message
                 },
                 toolbar: {
                   searchTooltip: 'Buscar',

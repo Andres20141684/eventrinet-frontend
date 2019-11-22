@@ -5,8 +5,7 @@ import { is } from '@babel/types';
 import ActionButton from './ActionButton';
 import ElegirPrefCategorias from './../../Pages/ElegirPrefCategorias.jsx';
 import ElegirPrefPropuestas from './../../Pages/ElegirPrefPropuestas.jsx';
-import { stringify } from 'querystring';
-//import NewEventPage from './../../Pages/NewEventPage' //aca debería estar el modificar fases, pero ni en back hay :'v
+import JTableMaterial from '../Special/JTableMaterial';
 const Networking = require('./../../Network/Networking.js') ;
 
 
@@ -14,13 +13,15 @@ class EvaluadorEventosPrefTable  extends Component {
    constructor(props){
       super(props);
       this.state = {
-          msg: "Not Connected" ,
           transport: "go to Fake Ini",
           idUser_recived : 0,
          datos_tabla: {
             Eventos_Evaluador:[
                            ]
-         }
+         },
+         columns:[],
+         data:[],
+         dataReady:0
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -38,12 +39,13 @@ class EvaluadorEventosPrefTable  extends Component {
    
    
    componentWillMount(){
-      
-      
+      this.renderHeaders();
+   }
+
+   componentDidMount(){
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);  
-      this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;
-      //console.log("kks todos",this.state.idUser_recived0);
+      this.state.idUser_recived= retrievedJson.infoUsuario.idUsuario;      
       console.log(retrievedJson);
 
 
@@ -56,27 +58,27 @@ class EvaluadorEventosPrefTable  extends Component {
             console.log('si hay algo:');
             this.setState({datos_tabla:value});
             this.setState({idUser_recived : retrievedJson.infoUsuario.idUsuario});
-            console.log("XD ID USER : ", this.state.idUser_recived);
+            this.tableData();
+            this.setState({dataReady:1});
+            
          }
          
       });
    }
-   /*shouldComponentUpdate(nextProps, nextState){
-      if(this.state.datos_tabla != nextState.datos_tabla){
-         console.log("update component",this.state.idUser_recived);
+   shouldComponentUpdate(nextProps, nextState){
+      if(this.state.dataReady != nextState.dataReady){         
          return true;
       }
       return false;
    }
-
-      elegirPrefCat = () =>{
-         this.props.onNextChildComponentChange(ElegirPrefCategorias);
-      }
-
-      elegirPrefProp = () =>{
-         this.props.onNextChildComponentChange(ElegirPrefPropuestas);
-      }
-      */
+   makedata(dataRady){
+      switch (dataRady) {
+         case 0:
+             return [];
+         case 1: 
+             return this.state.data;
+       } 
+    }
       handleSelectPreference(preferencia,nombre,id){
          console.log(preferencia)
          let retrievedObject = sessionStorage.getItem('dataUser');
@@ -105,18 +107,16 @@ class EvaluadorEventosPrefTable  extends Component {
       }
    
    tableData() {
-      //this.setState.idUser_recived=this.props.idUser_recived;
-        return this.state.datos_tabla.Eventos_Evaluador.map((element) => {
-         
+      let data = []
+      this.state.datos_tabla.Eventos_Evaluador.map((element,index) => {   
          const {fechaMaxPref,idEvento,nombre,preferencia} = element
-         return (
-         <tr >
-               <td >{nombre}</td>
-               <td >{fechaMaxPref}</td>
-               <td>{preferencia}</td>
-               
-               <td align="center">
-                  <ActionButton 
+         data.push(
+            {
+               num: index+1,
+               name: nombre, 
+               fechaMax: fechaMaxPref, 
+               tipoPref: preferencia, 
+               addPref: (<ActionButton 
                   button_class ="fa fa-plus"
                   id_evento={idEvento} 
                   nomb_evento ={nombre} 
@@ -131,34 +131,33 @@ class EvaluadorEventosPrefTable  extends Component {
                      )}
                   onNextChildComponentChangeProps=
                   {this.props.onNextChildComponentChangeProps}
-                  />
-               </td> 
-         </tr>
+                  />)
+            }
          )
-      })
+      });
+      this.setState({data:data});
    }
-  
+   renderHeaders(){
+      let columns= [
+         { title: 'Nro', field: 'num' ,cellStyle:{ fontSize: 14 }},
+         { title: 'Lista de eventos', field: 'name',cellStyle:{ width:'52%',fontSize: 14 } },
+         { title: 'Fecha máxima', field: 'fechaMax',cellStyle:{ width:'15%',fontSize: 14 } },
+         { title: 'Tipo de preferencia', field: 'tipoPref',cellStyle:{width:'22%', fontSize: 14 } },
+         { title: 'Agregar preferencias', field: 'addPref' ,cellStyle:{ width:'12%',fontSize: 14 }}
+       ];
+       this.setState({columns:columns});
+    }
   
      render() {
          return (
             
-           <div class="panel panel mypanel" >
-              <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                  <h3>Lista de eventos a elegir preferencias</h3>
-               </div>
-              <div  class="table-responsive">
-              <table class="table  table-hover">
-               <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
-                  <tr >
-                     <th align= "left" scope="col">Lista de eventos</th>
-                     <th scope="col">Fecha máxima</th>
-                     <th scope="col">Tipo de preferencia</th>
-                     <th scope="col" align="right" >Agregar preferencias</th>
-                  </tr>
-               </thead>
-              <tbody>{this.tableData()}</tbody>
-              </table>
-              </div>
+           <div>
+               <JTableMaterial
+               title="Lista de eventos a elegir preferencias:"
+               columns={this.state.columns}
+               data={this.makedata(this.state.dataReady)}
+               ready={this.state.dataReady}
+          />
            </div>
         )
      }
