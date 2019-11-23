@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
-import { is, thisExpression } from '@babel/types';
 import ActionButton from './ActionButton';
 import NewEventPage from './../../Pages/NewEventPage'
 import JActionButton from '../Special/JActionButton';
@@ -16,7 +15,6 @@ class Organizador_ActiveEventsTable  extends Component {
    constructor(props){
       super(props); 
       this.state = {
-          msg: "Not Connected" ,
           transport: "go to Fake Ini",
           idUser_recived: 0,
          datos_tabla: {
@@ -51,8 +49,8 @@ class Organizador_ActiveEventsTable  extends Component {
       let dataFlow = {   
          idOrganizador_nextProps: idO,
          id_evento_nextProps: idE,
-         nomb_evento: nom
-         
+         nomb_evento: nom,
+         Usuario:this.props.nextChildComponentProps.Usuario
       }
       console.log('Enviando a Armando se la come',dataFlow);
       this.handleNextChildComponentChangeProps(dataFlow);
@@ -64,8 +62,9 @@ class Organizador_ActiveEventsTable  extends Component {
       let dataFlow = {   
          idOrganizador_nextProps: idO,
          id_evento_nextProps: idE,
-         nomb_evento: nom
-         
+         nomb_evento: nom,
+         rol:0,  //Identifica que es un organizador
+         Usuario:this.props.nextChildComponentProps.Usuario
       }
       this.handleNextChildComponentChangeProps(dataFlow);
       this.handleNextChildComponentChange(NewEventPage);
@@ -73,9 +72,6 @@ class Organizador_ActiveEventsTable  extends Component {
    componentWillMount(){
       
       this.renderHeaders();
-      
-      
-
       
    }
    componentDidMount(){
@@ -111,13 +107,13 @@ class Organizador_ActiveEventsTable  extends Component {
       renderHeaders(){
          let columns= [
             { title: 'Nro', field: 'num' ,cellStyle:{ fontSize: 14 }},
-            { title: 'Lista de eventos', field: 'name',cellStyle:{ fontSize: 14 } },
-            { title: 'Estado actual', field: 'state',cellStyle:{ fontSize: 14 } },
-            { title: 'Fecha Inicio', field: 'fechaIni',cellStyle:{ fontSize: 14 } },
-            { title: 'Fecha Fin', field: 'fechaFin' ,cellStyle:{ fontSize: 14 }},
-            { title: 'Editar', field: 'edit' },
-            { title: 'Publicar evento', field: 'publish' },
-            { title: 'Cancelar evento', field: 'cancel' },
+            { title: 'Lista de eventos', field: 'name',cellStyle:{ width:'30%',fontSize: 14 } },
+            { title: 'Estado actual', field: 'state',cellStyle:{ width:'15%',fontSize: 14 } },
+            { title: 'Fecha Inicio', field: 'fechaIni',cellStyle:{width:'12%', fontSize: 14 } },
+            { title: 'Fecha Fin', field: 'fechaFin' ,cellStyle:{ width:'12%',fontSize: 14 }},
+            { title: 'Editar', field: 'edit' ,cellStyle:{width:'4%'}},
+            { title: 'Publicar evento', field: 'publish',cellStyle:{width:'4%'} },
+            { title: 'Cancelar evento', field: 'cancel' ,cellStyle:{width:'4%'}},
           ];
           this.setState({columns:columns});
        }
@@ -201,24 +197,22 @@ class Organizador_ActiveEventsTable  extends Component {
              return [];
          case 1: 
              return this.state.data;
-         
        } 
     }
     
      render() {
-      
-      
          return (
             <div style={{"font-size": "15"}}>
                <br/>
                <a  class="pull-right" onClick={()=>this.handleClickCrearActualizar( 
                            this.state.idUser_recived, 0,  'ARMANDO SE LA COMEEEE')} 
-                  value="Nuevo" style={{marginRight:30,marginBottom:20, color:"white"}}>Nuevo</a>
+                  value="Nuevo" style={{marginRight:30,marginBottom:20,paddingLeft:25,paddingRight:25,paddingTop:5,paddingBottom:5, color:"white"}}>Nuevo</a>
                   <br/><br/>
             <JTableMaterial
                title="Eventos Activos:"
                columns={this.state.columns}
                data={this.makedata(this.state.dataReady)}
+               ready={this.state.dataReady}
                
           /></div>
             
@@ -228,29 +222,3 @@ class Organizador_ActiveEventsTable  extends Component {
 }
 
 export default Organizador_ActiveEventsTable ;
-/*
-<div class="panel panel mypanel" >
-              <div className="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                  <h3>Lista de Eventos activos</h3>
-                  
-                  <a  class="pull-right" onClick={()=>this.handleClickCrearActualizar( 
-                           this.state.idUser_recived, 0,  'ARMANDO SE LA COMEEEE')} 
-                  value="Nuevo" style={{marginRight:30,marginBottom:20, color:"white"}}>Nuevo</a>
-
-
-               </div>
-              <div  class="table-responsive">
-              <table class="table  table-hover">
-               <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
-               {this.renderHeaders()}
-               </thead>
-              <tbody>{this.tableData()}</tbody>
-              </table>
-              </div>
-           </div>
-
-
-
-
-
- */

@@ -9,7 +9,7 @@ import '../styles/style_record.css';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
-
+ 
 
 const Networking = require('../Network/Networking.js') ;
 

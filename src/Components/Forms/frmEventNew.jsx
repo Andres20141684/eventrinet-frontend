@@ -49,6 +49,7 @@ export default class EventNew extends Component{
         this.DateFormat=this.DateFormat.bind(this)
         this.handleCheckB=this.handleCheckB.bind(this)
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
+        this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
         this.validacion=this.validacion.bind(this)
       }
       componentWillMount(){
@@ -73,6 +74,10 @@ export default class EventNew extends Component{
         );
         
       }
+
+      handleNextChildComponentChangeProps(_nextChildComponentProps){
+        this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
+    }
 
       handleNextChildComponentChange(_nextChildComponent){
           this.props.onNextChildComponentChange(_nextChildComponent);  
@@ -265,7 +270,10 @@ export default class EventNew extends Component{
               handleChange={this.handleChange} 
               handlePrint={this.handlePrint}
               onNextChildComponentChange={this.handleNextChildComponentChange}
+              onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
               handleCancel={this.handleClick}
+
+              rol={this.props.data_recived.rol}
               />
           </div>
           

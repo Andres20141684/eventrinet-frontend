@@ -61,7 +61,8 @@ class OrganActiveEvents extends Component{
                             <TabPanel>
                                 
                                 <br/>
-                                <this.state.formActives  
+                                <this.state.formActives 
+                                nextChildComponentProps={this.props.nextChildComponentProps}
                                 onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                 onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                                 />
@@ -69,6 +70,7 @@ class OrganActiveEvents extends Component{
                             <TabPanel> 
                                 
                                 < this.state.formRecord  
+                                nextChildComponentProps={this.props.nextChildComponentProps}
                                 onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                 onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                                 />

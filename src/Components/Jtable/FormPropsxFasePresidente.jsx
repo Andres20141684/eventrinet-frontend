@@ -15,6 +15,7 @@ import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
 const Networking = require('../../Network/Networking');
 var OPTIONS = [];
 var jason = {};
+var obss = {};
  
 
 const useStyles = makeStyles(theme => ({
@@ -254,11 +255,11 @@ function ModalDetalleDeEvaluador(props) {
                     </div>
 
                     <div class="form-row">
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-7">
                         <label for="inputEmail4">Calificación Final</label>
                         <input readOnly type="text" class="form-control" id="inputEmail4"  value={props.detalleCalificacionEvaluadorActual.calificacion}/>
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-5">
                         <label for="inputPassword4">Nivel de experticie</label>
                         <input readOnly type="text" class="form-control" id="inputPassword4"  value={props.detalleCalificacionEvaluadorActual.experticia}/>
                       </div>
@@ -406,6 +407,18 @@ class FormPropsxFasePresidente extends Component {
   }*/
   componentWillMount() {
     console.log("props___ : ", this.props);
+    Networking.mostrarTodasObs(this.props.idFase).then(
+      (response) => {
+        console.log(response);
+        if (response == null) {
+          console.log('no hay algo aun');
+
+        } else {
+          console.log('si hay alg0: ', response);
+          obss = response
+        }
+      }
+    );
 
     //SERVICIO AL BACKKKKKKKKKKKKKKKKKKKKK!!!
     //--------------------------------------
@@ -577,12 +590,12 @@ class FormPropsxFasePresidente extends Component {
     Object.keys(this.state.checkboxes)
       .filter(checkbox => this.state.checkboxes[checkbox])
       .forEach(checkbox => {
-        //console.log("Se va a insertar: ", this.props.idFase, checkbox);
+        //console.log("Se va a insertar: ", this.props.idFase, checkbox, obss[checkbox]);
         data = JSON.stringify({
           idFase: parseInt(this.props.idFase),
           idPropuesta: parseInt(checkbox),
-          obsFinal: "",//PARA CAMBIAR
-          fuePersonalizado: 1,//PARA CAMBIAR
+          obsFinal: obss[checkbox],
+          fuePersonalizado: 0,//PARA CAMBIAR
           msjPersonalizado: "¡Gracias por su interés, pasó a la siguiente fase!"//PARA CAMBIAR
         });
         Networking.aprobarPropuestaXFase(data).then((value) => {
@@ -622,6 +635,7 @@ class FormPropsxFasePresidente extends Component {
           console.log('si hay alg0: ', response);
           }
         });
+    obss[idPropuesta] = this.state.presiComentario
 
   }
   handleRechazar() {
