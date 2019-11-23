@@ -105,18 +105,30 @@ class WorkingSpace extends Component{
           console.log("page to redirect ",page);
           if (page == "InscriptionEvent"){
             this.state.nextChildComponent=InscriptionEvent;
+            sessionStorage.setItem("currentPage",null);
           }
           if (page == "SendProposal"){
             this.state.nextChildComponent=SendProposal;
+            sessionStorage.setItem("currentPage",null);
+            
           }
           let alternativeProps =  sessionStorage.getItem("currentProps");
+          console.log("WS->*** alternativeProps",alternativeProps );
           //console.log("currentProps to redirect ",alternativeProps);
           //console.log("currentProps to redirect ",JSON.parse(alternativeProps));
           console.log("currentProps to redirect ", JSON.parse(alternativeProps));
           //console.log("currentProps to redirect ",JSON.stringify(JSON.parse(alternativeProps)));
           if(alternativeProps){
             console.log("adding currentProps to redirect ");
-            this.state.nextChildComponentProps=JSON.parse(alternativeProps);
+            try{this.state.nextChildComponentProps=JSON.stringify(alternativeProps);}
+            catch(e){
+              console.log("Nose pudo con stringfy");
+            }
+            try{this.state.nextChildComponentProps=JSON.parse(alternativeProps);}
+            catch(e){
+              console.log("Nose pudo con Json.parse");
+            }
+            
             sessionStorage.setItem("currentProps",{});
           }else{
             console.log("adding currentProps to redirect were null ");

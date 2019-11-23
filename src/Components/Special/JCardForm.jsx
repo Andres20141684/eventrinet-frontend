@@ -96,6 +96,7 @@ class JCardForm extends Component {
         if(inputData.category === 'JUpload'){
             {console.log("agregare una JUpload")}
             if(!(inputData.fileNedded)){
+                console.log("fileNedded",inputData.fileNedded);
                 console.log("No file required:");
                 return;
             }

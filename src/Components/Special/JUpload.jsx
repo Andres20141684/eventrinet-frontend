@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 
-import '../../styles/styles_dropzone.css';
+import '../../styles/styles_dropzone.css'; 
 
 class JUpload  extends Component {
    constructor(props){
