@@ -9,7 +9,9 @@ class JUpload  extends Component {
       super(props);
       this.state = {
         progress:null,
-        reader:null
+        reader:null,
+        maxTamanio:10,
+        formato:"pdf",
       }
       this.handleOnLoad=this.handleOnLoad.bind(this);
       this.abortRead=this.abortRead.bind(this);
@@ -41,7 +43,7 @@ class JUpload  extends Component {
         }
     }
     }
-      errorHandler(evt) {
+    errorHandler(evt) {
       switch(evt.target.error.code) {
         case evt.target.error.NOT_FOUND_ERR:
           alert('File Not Found!');
@@ -54,7 +56,7 @@ class JUpload  extends Component {
         default:
           alert('An error occurred reading this file.');
       };
-      }
+    }
       
       
       handleFileSelect(evt) {
@@ -69,8 +71,17 @@ class JUpload  extends Component {
     
         var output = [];
         for (var i = 0, f; f = files[i]; i++) {
-          output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                      f.size, ' bytes ','</li>');
+          if(f.type==this.state.formato){
+          }else{
+            alert("Pendejo, solo se admite extencion " + this.state.formato);
+            return;
+          }
+          if(f.size>this.state.maxTamanio){
+          }else{
+            alert("Pendejo, solo se admite tamaño menor a " + this.state.tamanio);
+            return;
+          }
+          output.push('<li><strong>', escape(f.name), '</strong> </li>');
                       //f.lastModifiedDate.toLocaleDateString(), '</li>'); no se porque xux a no puedo leer ese atributo
         }
         document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
@@ -110,15 +121,22 @@ class JUpload  extends Component {
       
    }
    componentWillMount(){
+    console.log("JUpload.props->", this.props);
+    // todo pensado en MB
+    this.setState({maxTamanio:this.props.maxTamanio});
+    if(this.props.formato=="pdf"){
+      this.setState({formato:"application/pdf"});
+    }
+    if(this.props.formato=="jpg" || this.props.formato=="jpeg"){
+      this.setState({formato:"image/jpeg"});
+    }
+    if(this.props.formato=="png"){
+      this.setState({formato:"image/png"});
+    }
+
    }
    shouldComponentUpdate(nextProps, nextState){
-      if(this.state.datos_tabla != nextState.datos_tabla){
-         return true;
-      }
-      if(this.props.datos_tabla != nextProps.datos_tabla){
-        return true;
-     }
-      return false;
+      
    }
    
   
@@ -126,15 +144,16 @@ class JUpload  extends Component {
          return (
             <div class="panel panel-default" >
             <div className="containerDZ">
-              <div id="drop_zone">Arrastra tus archivos aqui :)</div>
+              <div id="drop_zone">
+                Arrastra tus archivos aqui :)
+              </div>
+              <div id="progress_bar"><div class="percent">0%</div></div>
                 <button type="button" class="btn btn-success" 
-                        style={{width:"126px"}} 
+                        style={{width:"126px"},{backgroundColor:"#3B83BD"}} 
                         onclick="abortRead();">
                           Cancelar subida
                 </button>
-              <div id="progress_bar"><div class="percent">0%</div></div>
             </div>
-            
             <output id="list"></output>
           </div>
         )

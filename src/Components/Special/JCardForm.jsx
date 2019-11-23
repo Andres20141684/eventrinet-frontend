@@ -110,6 +110,8 @@ class JCardForm extends Component {
               <JUpload
                     id={inputData.id}
                     onSuccesLoad={inputData.onChange}
+                    formato={inputData.formato}
+                    maxTamanio={inputData.maxTamanio}
                 />
                 </div></div>
               </Row>

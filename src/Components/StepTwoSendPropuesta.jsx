@@ -176,7 +176,9 @@ class StepTwoSendPropuesta extends React.Component {
         id:"drop_zone",
         category:'JUpload',
         onChange: this.handleOnLoad,
-        fileNedded:this.props.fileNeeded
+        fileNedded:this.props.fileNeeded,
+        formato:"pdf",
+        maxTamanio:10
       }
 
     ]
@@ -196,7 +198,7 @@ class StepTwoSendPropuesta extends React.Component {
 
         <JCardForm
           arrayOfInputData={inputArchivo}
-          cardHeadingText = "Sube tu archivo :) "
+          cardHeadingText = "Sube tu archivo : "
         />
         <JCardForm
                 arrayOfInputData={inputCamposPers}
