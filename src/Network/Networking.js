@@ -1,9 +1,9 @@
 import {AsyncStorage} from 'react';
 import { async } from 'q';
 
-const restURL = 'http://52.70.128.233:5000/api/';
+//const restURL = 'http://52.70.128.233:5000/api/';
 
-//const restURL = 'http://localhost:5000/api/';
+const restURL = 'http://localhost:5000/api/';
 
 export async function getMyId(){
     let retrievedObject = sessionStorage.getItem('dataUser');
@@ -1016,7 +1016,22 @@ export async function EvaluadorxEvento(idEvento){
 }
 
 
-
+export async function registrar_preferencias_propuesta(data){
+    try {
+        let response= await fetch(restURL+'evaluador/registrar_preferencias_propuesta',{
+            method:'POST',
+            mode:'cors',
+            headers: {Accept:"application/json","Content-Type":"application/json"},
+            body: data
+        })
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
 export async function InsertarEvaluadorAPaper(data){
     try {
         let response= await fetch(restURL+'propuesta/asignarEvaluadoresXFaseActual',{
