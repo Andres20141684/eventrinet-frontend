@@ -4,7 +4,6 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import './../styles/style_gig_tittle.css'
-
 import EvaluadorEventosPrefTable from '../Components/Jtable/EvaluadorEventosPrefTable';
 import EvaluadorEventosEvaluarTable from '../Components/Jtable/EvaluadorEventosEvaluarTable';
 const Networking = require('../Network/Networking.js') ;
@@ -13,7 +12,7 @@ function MainTittle(){
     return ( <div>
     <div style={{marginLeft:15}}>
         <h1><br/>Evaluador - Eventos</h1>
-    </div>
+    </div> 
     <div style={{marginLeft:40,marginTop:25}} ><h4>Gestion de eventos a elegir preferencias y a evaluar</h4></div>
     </div>
     )
@@ -62,13 +61,15 @@ class EvaluadorEventosListados extends Component{
                                 
                                 <br/>
                                 <this.state.formActives  
+                                nextChildComponentProps={this.props.nextChildComponentProps}
                                 onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                 onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                                 />
                             </TabPanel>
                             <TabPanel> 
                                 
-                                < this.state.formRecord  
+                                < this.state.formRecord 
+                                nextChildComponentProps={this.props.nextChildComponentProps} 
                                 onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                 onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                                 />

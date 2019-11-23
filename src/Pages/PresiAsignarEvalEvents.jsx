@@ -62,6 +62,7 @@ class PresiAsignarEvalEvents extends Component{
                                 
                                 <br/>
                                 <this.state.formActives  
+                                nextChildComponentProps={this.props.nextChildComponentProps}
                                 onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                 onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                                 />
@@ -69,6 +70,7 @@ class PresiAsignarEvalEvents extends Component{
                             <TabPanel> 
                                 
                                 < this.state.formRecord  
+                                nextChildComponentProps={this.props.nextChildComponentProps}
                                 onNextChildComponentChange={this.props.onNextChildComponentChange} 
                                 onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                                 />
