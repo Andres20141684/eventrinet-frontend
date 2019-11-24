@@ -131,6 +131,7 @@ class EvaluadorEvaluarPropuestas extends Component{
                                     nombre_evento = {this.props.nextChildComponentProps.nomb_evento}//estos se pasan del comp anterior
                                     idFase = {this.props.nextChildComponentProps.idFase}
                                     nomb_fase = {this.props.nextChildComponentProps.nomb_fase}//A CAMBIAR POR EL NOMBRE DE LA FASE/ID ni pta idea... VA ARRIBA BTW!!
+                                    Usuario={this.props.nextChildComponentProps.Usuario}
                                 />
                             </TabPanel>
                             

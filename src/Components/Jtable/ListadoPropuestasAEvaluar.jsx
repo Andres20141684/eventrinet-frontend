@@ -116,6 +116,7 @@ class ListadoPropuestasAEvaluar extends Component {
                   nomb_fase = {this.props.props_antiguos.nextChildComponentProps.nomb_fase}
                   idPropuesta = {idPropuesta}
                   nomb_propuesta = {nombre} 
+                  Usuario={this.props.Usuario}
 
                   onNextChildComponentChange={this.evaluarEvaluador}
                   onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
