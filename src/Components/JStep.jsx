@@ -12,13 +12,11 @@ import JTable from './Jtable/JTable';
 import JCardForm from './Special/JCardForm';
 import JUpload from './Special/JUpload';
 
-class StepTwoSendPropuesta extends React.Component {
+class JStep extends React.Component {
     constructor(props){
       super(props);
       this.state={
-        categorias: [],
-        progress:null,
-        reader:null
+        arrayOfInputData:[],
       }
       this.defaultMutableHandle=this.defaultMutableHandle.bind(this);
       
@@ -47,7 +45,7 @@ class StepTwoSendPropuesta extends React.Component {
   componentWillMount(){
     window.scrollTo(0, 0);
     console.log("<<<<<<<<<<<<<<<>>>>>>>>>>>   StepTwoSendProp props");
-    console.log(this.props);
+    console.log(this.props.CamposPers);
   }
   
   onSuccesLoad(archivo){
@@ -176,14 +174,12 @@ class StepTwoSendPropuesta extends React.Component {
         id:"drop_zone",
         category:'JUpload',
         onChange: this.handleOnLoad,
-        fileNedded:this.props.fileNeeded,
-        formato:"pdf",
-        maxTamanio:10
+        fileNedded:this.props.fileNedded
       }
 
     ]
     return (
-      <div id={this.props.id}>
+      <div>
         <h1>Ingresa los detalles de la propuesta y sube un archivo</h1>
 
         <JCardForm
@@ -198,7 +194,7 @@ class StepTwoSendPropuesta extends React.Component {
 
         <JCardForm
           arrayOfInputData={inputArchivo}
-          cardHeadingText = "Sube tu archivo : "
+          cardHeadingText = "Sube tu archivo :) "
         />
         <JCardForm
                 arrayOfInputData={inputCamposPers}
@@ -209,7 +205,7 @@ class StepTwoSendPropuesta extends React.Component {
     )
   }
 }
-export default StepTwoSendPropuesta;
+export default JStep;
 var styles = {
   rotulos:{
     paddingRight: 80,

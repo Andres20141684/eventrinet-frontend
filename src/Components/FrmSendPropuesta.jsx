@@ -99,7 +99,7 @@ class FrmSendPropuesta extends React.Component {
         this.setState({myId: retrievedJson.infoUsuario.idUsuario});
 
 
-        Networking.NetworkMutation_JAchievingData(
+        Networking.NetworkMutation_JAchievingData( 
           {
             methodPath: 'eventos/formularioActualEnviarPropuesta',
             JsonToBack:{
@@ -116,6 +116,7 @@ class FrmSendPropuesta extends React.Component {
              console.log('si hay algo:');
             //this.handleNextChildComponentChange(PropoMyProposals);
             this.setState({fileNeeded:value.necesitaArchivo});
+            console.log('si hay algo:');
             this.setState({CamposPers:value.CamposPerson});
             for(var _index=0; _index < this.state.CamposPers.length;_index++){
               this.state.respuestasPers.push(

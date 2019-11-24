@@ -121,9 +121,30 @@ class Organizador_ActiveEventsTable  extends Component {
           alert("Publicando Evento con ID: =>" + idEvento);
           this.handleNextChildComponentChange(Dashboard);
        }
-       handleCancelClick(idEvento){
-         alert("Cancelando Evento con ID: =>" + idEvento);
-         this.handleNextChildComponentChange(Dashboard);
+       handleCancelClick(_idEvento_){
+         alert("Cancelando Evento con ID: =>" + _idEvento_);
+         
+
+         Networking.NetworkMutation_JAchievingData( 
+            {
+              methodPath: '/api/eventos/cancelar_evento',
+              JsonToBack:{
+                  idEvento: _idEvento_
+              },
+            }
+          ).then((value) => {
+            console.log(value);
+            if(value == null || value.succeed==false){
+              console.error('FALLO FATAL');
+              /************** si fallo mensaje de error************ */
+              //this.setState({modal:-1});
+            }else {
+               console.log('si hay algo:');
+               this.handleNextChildComponentChange(Dashboard);
+              
+            }
+         });
+         
       }
    tableData() {
       //this.setState.idUser_recived=this.props.idUser_recived;

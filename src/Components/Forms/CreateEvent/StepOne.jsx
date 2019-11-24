@@ -8,15 +8,18 @@ import '../../../styles/style_sheets.css'
 import DatePicker from "react-datepicker"; 
 import "react-datepicker/dist/react-datepicker.css";
 import '../../../styles/style_sheets.css';
+import JUpload from '../../Special/JUpload';
 
 
 export default class StepOne extends React.Component {
   constructor(){
     super();
     this.state={
-      auxCat:''
+      auxCat:'',
+      imagen:'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg',
     }
     this.handleAuxChange=this.handleAuxChange.bind(this)
+    this.handleOnLoad=this.handleOnLoad.bind(this);
   }
 
   handleAuxChange(e,str){
@@ -25,7 +28,17 @@ export default class StepOne extends React.Component {
     })
     console.log(this.state)
   }
-  
+  /** handle del subeArchivos XD */
+  /*** pinshi Armando ...Glenn me dijo que te deje el para subir imagen en este step 
+ *    tu ya ves lo que haces con el handleonload, aqui considera que ya esta el archivo listo para irse a la base de datos
+ * porciaca lo guardo en el sateXD
+*/
+  handleOnLoad(result){
+    this.setState(
+      {imagen:result
+    });
+    console.log("Imagen->",result);
+  }
 
   render () {
     return (
@@ -141,6 +154,30 @@ export default class StepOne extends React.Component {
             </div>
           </div>
           <br></br>
+          <div class="panel panel-default">
+            <div class="panel-heading"><h1>Imagen</h1></div>
+          <Row>
+          <div class="panel-body">
+                <label>Agrega la imagen del Evento:</label>
+                <div class="row">
+                  <div class="col-sm-8">
+                    <JUpload
+                      id="drop_zone"
+                      onSuccesLoad={this.handleOnLoad}
+                      formato="jpg"
+                      maxTamanio={10}
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="imagen-port" 
+                     style={{width: "94%"}}>
+                      <img src={this.state.imagen} alt="event"/>
+                    </div>
+                  </div>
+                
+                </div> 
+          </div>
+          </Row></div>
         </div>      
       </div>
     )
