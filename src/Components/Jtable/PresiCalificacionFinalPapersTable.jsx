@@ -4,7 +4,7 @@ import '../../styles/style_sheets.css'
 import JTableMaterial from '../Special/JTableMaterial';
 import EvaluacionPresidente from  './EvaluacionPresidente';
 const Networking = require('./../../Network/Networking.js') ;
- 
+  
 
 class PresiCalificacionFinalPapersTable  extends Component {
    constructor(props) {
@@ -40,6 +40,7 @@ class PresiCalificacionFinalPapersTable  extends Component {
       
    }
    componentDidMount(){
+      console.log("props____ revisionfinal",this.props)
       
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);  

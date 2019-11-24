@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    //border: '2px solid #000',
+    borderRadius:'3px',
     boxShadow: theme.shadows[5],
     //padding: theme.spacing(2, 4, 3),
     paddingBottom:'10px',
@@ -104,7 +105,6 @@ function ModalObsAdicional(props){
                         <textarea onChange={(e) => props.handleSaveComentario(e)} 
                                   className="form-control" id="staticEmail" rows="3" 
                                   value={props.presiComentario}
-                                  //ng-readonly={this.props.presiComentario != '' ? this.props.presiComentario : ''}
                         ></textarea>
                       </div>
 
@@ -386,27 +386,18 @@ class FormPropsxFasePresidente extends Component {
       ),
       presiComentario: " ",
     }
-    this.handleNextChildComponentChange = this.handleNextChildComponentChange.bind(this);
-    this.handleNextChildComponentChangeProps = this.handleNextChildComponentChangeProps.bind(this);
     this.handleAprobar = this.handleAprobar.bind(this);
     this.handleRechazar = this.handleRechazar.bind(this);
     this.handleReturn = this.handleReturn.bind(this);
   }
-  handleNextChildComponentChange(_nextChildComponent) {
-    console.log('cambiando', _nextChildComponent);
-    this.props.onNextChildComponentChange(_nextChildComponent);
-
-  }
-  handleNextChildComponentChangeProps(_nextChildComponentProps) {
-    this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
-  }
+  
 
   /*shouldComponentUpdate(nextProps,nextState){
     return true;
-  
+    
   }*/
   componentWillMount() {
-    console.log("props___ : ", this.props);
+    console.log("props___ : ", this.props);    
     Networking.mostrarTodasObs(this.props.idFase).then(
       (response) => {
         console.log(response);
