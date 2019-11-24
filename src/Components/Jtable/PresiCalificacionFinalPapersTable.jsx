@@ -55,6 +55,8 @@ class PresiCalificacionFinalPapersTable  extends Component {
             
          }else {
             console.log('si hay algo:');
+            console.log("CAMBIAAA EL SERVICIO PLEASEEEEEEE....")
+            console.log("debes ademas devolver lista de fases y lista de idFases")
             this.setState({datos_tabla:value});
             this.renderTableData();
             this.setState({dataReady:1});
@@ -95,6 +97,7 @@ class PresiCalificacionFinalPapersTable  extends Component {
  }
    renderTableData() {
       let data = [];
+
       this.state.datos_tabla.Eventos.map((element, index) => {
          const {idEvento, nombre,secuencia, fasesTotales,fechaLimite,idFaseActual,nombreFase} = element
             data.push(

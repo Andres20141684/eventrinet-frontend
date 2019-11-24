@@ -398,6 +398,7 @@ class FormPropsxFasePresidente extends Component {
   }*/
   componentWillMount() {
     console.log("props___ : ", this.props);    
+    //ACA NO DEBO PASAR LA FASE Y EL EVENTO
     Networking.mostrarTodasObs(this.props.idFase).then(
       (response) => {
         console.log(response);

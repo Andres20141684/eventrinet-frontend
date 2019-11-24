@@ -54,7 +54,7 @@ function getStepContent(props,fase) {
               faseEscogida ={fase}
               fechaLimite = {props.fechaLimite}
               //idFase = {props.idFase[fase]}
-              idFase = {1}
+              idFase = {2}
               nombreFase = {'Fase num2 Hardcodeada'}
               //nombreFase = {props.nombreFase[fase]}
             />
