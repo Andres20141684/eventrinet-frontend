@@ -135,9 +135,6 @@ class JUpload  extends Component {
     }
 
    }
-   shouldComponentUpdate(nextProps, nextState){
-      
-   }
    
   
      render() {

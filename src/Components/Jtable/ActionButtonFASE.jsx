@@ -54,7 +54,8 @@ class ActionButtonFASE  extends Component {
                            idFase :this.state.idFase,
                            nomb_fase: this.state.nomb_fase,
                            idPropuesta : this.state.idPropuesta,
-                           nomb_propuesta : this.state.nomb_propuesta
+                           nomb_propuesta : this.state.nomb_propuesta,
+                           Usuario:this.props.Usuario
                            
                         }
                      ))
@@ -67,8 +68,8 @@ class ActionButtonFASE  extends Component {
             idFase : this.state.idFase,
             nomb_fase : this.state.nomb_fase,
             idPropuesta : this.state.idPropuesta,
-            nomb_propuesta : this.state.nomb_propuesta
-            
+            nomb_propuesta : this.state.nomb_propuesta,
+            Usuario:this.props.Usuario
          }
          );
          this.handleNextChildComponentChange();

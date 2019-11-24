@@ -16,10 +16,8 @@ export default class StepOne extends React.Component {
     super();
     this.state={
       auxCat:'',
-      imagen:'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg',
     }
     this.handleAuxChange=this.handleAuxChange.bind(this)
-    this.handleOnLoad=this.handleOnLoad.bind(this);
   }
 
   handleAuxChange(e,str){
@@ -33,12 +31,7 @@ export default class StepOne extends React.Component {
  *    tu ya ves lo que haces con el handleonload, aqui considera que ya esta el archivo listo para irse a la base de datos
  * porciaca lo guardo en el sateXD
 */
-  handleOnLoad(result){
-    this.setState(
-      {imagen:result
-    });
-    console.log("Imagen->",result);
-  }
+  
 
   render () {
     return (
@@ -163,7 +156,7 @@ export default class StepOne extends React.Component {
                   <div class="col-sm-8">
                     <JUpload
                       id="drop_zone"
-                      onSuccesLoad={this.handleOnLoad}
+                      onSuccesLoad={this.props.handleOnLoad}
                       formato="jpg"
                       maxTamanio={10}
                     />
@@ -171,7 +164,7 @@ export default class StepOne extends React.Component {
                   <div class="col-sm-4">
                     <div class="imagen-port" 
                      style={{width: "94%"}}>
-                      <img src={this.state.imagen} alt="event"/>
+                      <img src={this.props.imagen} alt="event"/>
                     </div>
                   </div>
                 
