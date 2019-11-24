@@ -1,4 +1,4 @@
-//const restURL = 'http://25.70.128.233:5000/api/';
+//const restURL = 'http://52.70.128.233:5000/api/';
 const restURL = 'http://localhost:5000/api/';
 async function crear_cuenta(
     var_email,
@@ -71,6 +71,7 @@ async function onSignUp(googleUser){
 					  alert(response.message)
 
 					  //CERRAR SESION DEL USUARIO GMAIL
+
 					  try{
 						const auth2 = window.gapi.auth2.getAuthInstance()
 						console.log("auth2 ", auth2)
@@ -141,7 +142,13 @@ async function validar_sesion(var_email,var_given_name,var_family_name) {
 			sessionStorage.setItem('tipoLogin',"gmail")
 
 			console.log("El correo esta registrado en Eventrinet!")
+			var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+
 			window.location.replace("./");
+			
 		}else{
 			console.log("El correo no esta registrado en Eventrinet!")
 		}
