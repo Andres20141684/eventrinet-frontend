@@ -2,6 +2,7 @@ import React, {Component, useCallback} from 'react';
 import BannerTop from '../General/bannerTop';
 import InscriptionEvent from '../../Components/InscriptionEvent';
 import SendProposal from '../../Components/SendProposal'
+import JMap from './JMap';
 const Networking = require('./../../Network/Networking') ;
 
 
@@ -174,12 +175,14 @@ class WorkingSpace extends Component{
       
       return (
       <div>
+      
       <div className="App">
       <this.state.bannTop
         nextChildComponentProps={this.state.nextChildComponentProps}
         onNextChildComponentChange={this.handleNextChildComponentChange}
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
       /> 
+      <JMap/>
       <div>
       <this.state.nextChildComponent
         nextChildComponentProps={this.state.nextChildComponentProps}

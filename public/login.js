@@ -1,5 +1,5 @@
-//const restURL = 'http://52.70.128.233:5000/api/';
-const restURL = 'http://localhost:5000/api/';
+const restURL = 'http://52.70.128.233:5000/api/';
+//const restURL = 'http://localhost:5000/api/';
 async function crear_cuenta(
     var_email,
 	var_last_name,
@@ -107,12 +107,9 @@ async function onSignUp(googleUser){
 		}
 }
 
-async function validar_sesion(var_email,var_given_name,var_family_name) {
-    
+async function validar_sesion(var_email,var_given_name,var_family_name) {}
     try {
-        
-        let response = await fetch(restURL 
-            + 'validar_session', {
+        let response = await fetch(restURL + 'validar_session', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -135,7 +132,6 @@ async function validar_sesion(var_email,var_given_name,var_family_name) {
 		console.log('Saving!!');
 		
 		if (responseJson.succeed){
-			
 			let connectedUser = responseJson;
 			console.log("Data del usuario",connectedUser);
 			sessionStorage.setItem('dataUser', JSON.stringify(connectedUser))
@@ -143,9 +139,9 @@ async function validar_sesion(var_email,var_given_name,var_family_name) {
 
 			console.log("El correo esta registrado en Eventrinet!")
 			var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
+			auth2.signOut().then(function () {
+			console.log('User signed out.');
+			});
 
 			window.location.replace("./");
 			
@@ -307,3 +303,14 @@ function toJSON(p) {
 	}
 }
 
+function initMap() {
+    // The location of Uluru
+    console.log("JINSSJ2-> initializing MAP");
+    var EEGGCC = {lat: -12.070318, lng: -77.07793};
+    console.log("JINSSJ2-> initializing MAP: var uluru = {lat: -25.344, lng: 131.036};");
+    // The map, centered at Uluru
+    var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 21, center: EEGGCC});
+    // The marker, positioned at Uluru
+    var marker = new google.maps.Marker({position: EEGGCC, map: map});
+  }

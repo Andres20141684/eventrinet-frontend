@@ -62,7 +62,9 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    
+    <link href="assets/css/theme.css" rel="stylesheet">
+    <link href="assets/css/theme-purple-1.css" rel="stylesheet" id="theme-config-link">
+    <link href="assets/css/custom.css" rel="stylesheet">
     <title>Eventrinet</title>
   </head>
   <body>
@@ -71,25 +73,7 @@
 
     
     <div id="root"> </div> 
-    <!---
-      MAPS GOOGLE
-    -->
-    <div id="map"></div>
-    <script>
-        // Initialize and add the map
-        function initMap() {
-          // The location of Uluru
-          var uluru = {lat: -25.344, lng: 131.036};
-          // The map, centered at Uluru
-          var map = new google.maps.Map(
-              document.getElementById('map'), {zoom: 4, center: uluru});
-          // The marker, positioned at Uluru
-          var marker = new google.maps.Marker({position: uluru, map: map});
-        }
-    </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=30333260201&callback=initMap">
-    </script>
+    
       
 
 
@@ -100,7 +84,9 @@
       LOGIN GOOGLE
     -->
 	<script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
-	
+	<meta name="google-signin-client_id" content="30333260201-l8im150ksghc8bujnlnhtp3s0t6h4vf3.apps.googleusercontent.com">
+	<script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFewU956fhTh3NC9lS0JKs8-TKxTCVvQ0&libraries=places"></script>
 
 	<!-- 
 	-->
@@ -111,6 +97,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src= "./login.js"></script>
+  <script src= "./JMap.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFewU956fhTh3NC9lS0JKs8-TKxTCVvQ0&callback=initMap"> </script>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -125,11 +114,11 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 
-  <!--
-    Prueba de google si fuera en na sola pagina el pinche docker XD
-  -->
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+   
+    
 
+
+  
 
   </body>
 </html>
