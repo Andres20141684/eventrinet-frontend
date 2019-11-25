@@ -23,7 +23,7 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{idFase:0,faseIni:'',faseFin:'',faseEvalIni:'',secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0}],
+            fases:[{idFase:0,faseIni:'',faseFin:'',faseEvalIni:'',secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0,reqEnt:false,necesitaEntregable:0}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:'',
@@ -33,6 +33,7 @@ export default class EventNew extends Component{
             numFases:0,
             preferencia:'',
             precios:0,
+            imagen: 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg',
             numeroPropuestas:0,
             datajson:null,  
             form:frmCreateEvent,
@@ -51,6 +52,7 @@ export default class EventNew extends Component{
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
         this.validacion=this.validacion.bind(this)
+        this.handleOnLoad=this.handleOnLoad.bind(this)
       }
       componentWillMount(){
 
@@ -130,6 +132,9 @@ export default class EventNew extends Component{
                 rdCamR:response.tieneCameraRdy===1?true:false,
                 fechPref:new Date(response.fechaMaxPref),            
               })
+              if(response.imagen!==null){
+                this.setState({imagen:response.imagen})
+              }
               if(response.fases.length!==0 && response.tieneCameraRdy===1){
                 const aux=response.fases.pop();
                 this.setState({
@@ -148,6 +153,7 @@ export default class EventNew extends Component{
 				          auxfases[i].faseEvalPresiIni=new Date(response.fases[i].fechaEvalPresiIni);
                   auxfases[i].reqArch=auxfases[i].necesitaArchivo===1?true:false;
                   auxfases[i].reqEval=auxfases[i].necesitaEvaluacion===1?true:false;
+                  auxfases[i].reqEnt=auxfases[i].necesitaEntregable===1?true:false;
                   auxfases[i].numEvaluadores=response.fases[i].numEvaluadores.toString();
                   for(var j=0;j<response.fases[i].camposPerson.length;j++){
                     auxfases[i].camposPerson[j].obli=auxfases[i].camposPerson[j].obligatorio===1?true:false;
@@ -168,6 +174,13 @@ export default class EventNew extends Component{
         this.setState({[str]:!this.state[str]})
       }
       
+      handleOnLoad(result){
+        this.setState(
+          {imagen:result
+        });
+        console.log("Imagen->",result);
+      }
+
       handleChange2(value,label){
         this.setState({
           [label]:value
@@ -237,6 +250,7 @@ export default class EventNew extends Component{
               nombre={this.state.nombre} 
               descripcion={this.state.descripcion}
               lugar={this.state.lugar}
+              imagen={this.state.imagen}
                 
               rdCategry={this.state.rdCategry}
               rdPropuest={this.state.rdPropuest}
@@ -272,6 +286,7 @@ export default class EventNew extends Component{
               onNextChildComponentChange={this.handleNextChildComponentChange}
               onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
               handleCancel={this.handleClick}
+              handleOnLoad={this.handleOnLoad}
 
               rol={this.props.data_recived.rol}
               />
