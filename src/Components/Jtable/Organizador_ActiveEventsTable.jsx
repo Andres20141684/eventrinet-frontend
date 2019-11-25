@@ -50,6 +50,7 @@ class Organizador_ActiveEventsTable  extends Component {
          idOrganizador_nextProps: idO,
          id_evento_nextProps: idE,
          nomb_evento: nom,
+         rol:0,
          Usuario:this.props.nextChildComponentProps.Usuario
       }
       console.log('Enviando a Armando se la come',dataFlow);
