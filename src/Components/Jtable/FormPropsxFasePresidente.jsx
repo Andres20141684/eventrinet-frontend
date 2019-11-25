@@ -752,16 +752,12 @@ class FormPropsxFasePresidente extends Component {
   }
 
   render() {
-
     return (
       <div style={{marginLeft:'10%',marginRight:'10%'}}>
+        <h3 style={{paddingLeft:'20px'}}>Descripción: {this.props._props.myProps.fases[this.props._props.activeStep].descripcion}</h3>
         <Accordion defaultActiveKey="0" className="table-responsive" style={{fontSize:'13px'}}>
           {this.tableData()}
         </Accordion>
-
-        <div className="modal fade" id="modalReasigEval" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <ModalReasignarEvaluador />
-        </div>
                 
         <div><button
           style={{ float: 'right' }}
