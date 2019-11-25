@@ -9,7 +9,7 @@ import FormPropsxFasePresidente from './FormPropsxFasePresidente'
 import FasesForm from './FasesForm'
 import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
 const Networking = require('../../Network/Networking');
-
+ 
 class EvaluacionPresidente extends Component {
     constructor(props) {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
@@ -129,20 +129,9 @@ class EvaluacionPresidente extends Component {
                 <FasesForm
                     idEvento = {this.props.nextChildComponentProps.idEvent}
                     nombreEvento = {this.props.nextChildComponentProps.nombreEvento}
-                    //fasesTotales = {this.props.nextChildComponentProps.fasesTotales}
-                    //secuencia = {this.props.nextChildComponentProps.secuencia}
-                    //fechaLimite = {this.props.nextChildComponentProps.fechaLimite}
-                    //idFase = {this.props.nextChildComponentProps.idFase}
-                    fases = {this.state.fases}
-                    header = {this.state.header}
+                    fases = {this.state.fases}                    
                     handleReturn = {this.handleReturn}
-                />
-                        {/*<FormPropsxFasePresidente
-                            //nextChildComponentProps={this.props.onNextChildComponentChange}
-                            //NextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                            idFase={this.state.idFaseActual}
-                         />*/}
-                        
+                />      
             </div>
         )
     }
