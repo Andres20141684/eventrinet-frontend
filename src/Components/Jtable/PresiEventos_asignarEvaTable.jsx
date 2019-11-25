@@ -182,8 +182,7 @@ class PresiEventos_asignarEvaTable  extends Component {
      render() {
         console.log("renderizando ",this.state.dataReady)
          return (
-           <div>              
-              <br/><br/>
+           <div>
               <JTableMaterial
                title="Lista de eventos a asignar evaluador:"
                columns={this.state.columns}
