@@ -110,11 +110,15 @@ class PresiEventos_asignarEvaTable  extends Component {
                            } 
                         ))      
    }
+   handleClick = () =>{
+      console.log("NO PUEDES ASIGNAR EVALUADORES")
+   }
    tableData() {      
       let data = [];
       this.state.datos_tabla.Eventos.map((element, index) => {       
          const {idEvento,propAsignadas,propTotal,nombre, faseAct, fasesTot, flagAsignar,
             inicioEvaluacion} = element
+         console.log("FLAG ASIGNARR",flagAsignar)
          data.push(
             {
                num: index,
@@ -122,11 +126,23 @@ class PresiEventos_asignarEvaTable  extends Component {
                statusAsign:propAsignadas+"/"+propTotal,
                stateFase: faseAct+"/"+ fasesTot,
                evalIn:inicioEvaluacion,
-               asignEval: (<JActionButton 
-                  style={{cursor: flagAsignar===1?'pointer':'not-allowed'}}
+               asignEval: (
+               flagAsignar ===1?
+               (<JActionButton
                   button_class ="fa fa-plus" 
                   idEvento={idEvento} 
-                  onClick={flagAsignar === 1 ? ()=>this.handleClickAddEval(element.idEvento): null}/>
+                  onClick={()=>this.handleClickAddEval(element.idEvento)}/>
+               ):
+               (<button 
+                     style={{cursor:'not-allowed'}}
+                     class='btn_plus'
+                     onClick={this.handleClick}
+                     title="No puedes asignar evaluadores" >
+                     <a> 
+                        <i class='fa fa-plus' />
+                     </a>
+               </button>               
+                )
                ),
                edit:(<JActionButton
                   onClick = {()=>this.handleEditButton(this.state.idUser_recived,

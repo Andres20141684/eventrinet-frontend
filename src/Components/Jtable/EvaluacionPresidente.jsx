@@ -8,6 +8,7 @@ import 'react-table/react-table.css'
 import FormPropsxFasePresidente from './FormPropsxFasePresidente'
 import FasesForm from './FasesForm'
 import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
+import PresiEventos_asignarEvaTable from './PresiEventos_asignarEvaTable';
 const Networking = require('../../Network/Networking');
  
 class EvaluacionPresidente extends Component {
@@ -126,12 +127,25 @@ class EvaluacionPresidente extends Component {
                         <h1><br />{this.props.nextChildComponentProps.nombreEvento}</h1>
                     </div>
                 </div>
-                <FasesForm
-                    idEvento = {this.props.nextChildComponentProps.idEvent}
-                    nombreEvento = {this.props.nextChildComponentProps.nombreEvento}
-                    fases = {this.state.fases}                    
-                    handleReturn = {this.handleReturn}
-                />      
+                <div className='container'>
+                <div className='panel-body'>
+                    <FasesForm
+                        idEvento = {this.props.nextChildComponentProps.idEvent}
+                        nombreEvento = {this.props.nextChildComponentProps.nombreEvento}
+                        fases = {this.state.fases}                    
+                        handleReturn = {this.handleReturn}
+                    />
+                    <button
+                        style={{ float: 'left' }}
+                        class="mybutton"
+                        onClick={this.handleReturn}
+                    >
+                        Regresar
+                    </button>
+                </div>
+                </div>
+                <br/><br/>
+                                            
             </div>
         )
     }
