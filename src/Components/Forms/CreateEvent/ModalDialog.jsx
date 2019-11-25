@@ -84,11 +84,11 @@ class ModalDialog extends Component{
               {this.state.succeed===''? 
               <div>
               <DialogContent component={'span'}>
-                <DialogContentText>
+                <DialogContentText component={'span'}>
                   <h2>Está seguro de guardar?</h2>
                 </DialogContentText>
               </DialogContent>
-              <DialogActions>
+              <DialogActions component={'span'}>
                 <button type="button"  onClick={this.handleClose}  className="btn btn-secondary">Cerrar</button>
                 <button type="button" onClick={this.handleSave} className="btn btn-primary"  autoFocus>Aceptar</button>
               </DialogActions>
@@ -107,11 +107,11 @@ class ModalDialog extends Component{
                       }}
                       unmountOnExit
                       >
-                      <CircularProgress />
+                      <CircularProgress component={'span'}/>
                       </Fade>
                     </div>
                     <div class='col-md-4'></div>
-                      <DialogContentText>
+                      <DialogContentText component={'span'}>
                           <h2>Procesando...</h2>
                         </DialogContentText>
                   </DialogContent>
@@ -121,22 +121,22 @@ class ModalDialog extends Component{
                 <div>
                   {this.state.succeed===true?
                     <div>
-                      <DialogContent>
-                        <DialogContentText>
+                      <DialogContent component={'span'}>
+                        <DialogContentText component={'span'}>
                           <h2>La transacción fue exitosa</h2>
                         </DialogContentText>
                       </DialogContent>
                     </div>
                     :
                     <div>
-                      <DialogContent>
-                        <DialogContentText>
+                      <DialogContent component={'span'}>
+                        <DialogContentText component={'span'}>
                           <h2>La transacción falló</h2>
                         </DialogContentText>
                       </DialogContent>
                     </div>
                     }
-                    <DialogActions>
+                    <DialogActions component={'span'}>
                       <button onClick={this.handleExit} color="primary"  className="btn btn-primary" autoFocus>
                         Aceptar
                       </button>
