@@ -94,7 +94,7 @@ class FormStepThree extends Component{
                 <Row>                
                 <div class="form-group col-md">
                     <div class="form-group col-md" style={{paddingLeft:'0px'}}>
-                        <label>Requiere adjuntar archivo (.pdf)  &nbsp;&nbsp;</label>
+                        <label>Requiere adjuntar Paper (.pdf)  &nbsp;&nbsp;</label>
                         <input
                             disabled={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false}
                             type="checkBox" 
@@ -102,6 +102,17 @@ class FormStepThree extends Component{
                             id="formHorizontalRadios1"
                             checked={this.props.value.reqArch}
                             onClick={(e) => this.props.handleCheck(e,this.props.index,"reqArch","necesitaArchivo")}
+                        />
+                    </div>
+                    <div class="form-group col-md" style={{paddingLeft:'0px'}}>
+                        <label>Requiere adjuntar entregable adicional(.pdf)  &nbsp;&nbsp;</label>
+                        <input
+                            disabled={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false}
+                            type="checkBox" 
+                            name="formHorizontalRadios_1"
+                            id="formHorizontalRadios1"
+                            checked={this.props.value.reqEnt}
+                            onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEnt","necesitaEntregable")}
                         />
                     </div>
                 </div>
