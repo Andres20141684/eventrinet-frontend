@@ -116,6 +116,9 @@
 
 
 
+.MuiStepLabel-label {
+    font-size: 15px !important;
+}
 
 .pull-right{
     margin-top: -20px;
