@@ -7,6 +7,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FormPropsxFasePresidente from './FormPropsxFasePresidente';
 import '../../styles/style_sheets.css'
+
+const Networking = require('../../Network/Networking');
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -26,53 +29,66 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps(fases) {
-  let fases_ = ['FASE HARCODEADA 1', 'FASE HARDCODEADA 2'];
-  return fases_;
+  let nombres_fases = [];
+  fases.map((element, index) => {
+    const {nombre} = element
+      nombres_fases.push(nombre);
+  })
+  console.log("nombres_fases",nombres_fases);
+  return nombres_fases;
 }
 
-function getStepContent(props,fase) {
-  console.log("Llamando al componenten de observaciones observaciones")
-  console.log("____________",props,fase)
+function renderForm(flag, fase, responseObservaciones,responsePropuestas,props){
+  console.log("Props para el ofrmpornsfasepresirente")
+  console.log(fase)
+  console.log(responseObservaciones)
+  console.log(responsePropuestas)
 
-  //LOS DATOS A ENVIAR ESTARAN HARDCODEADOS PORQUE EL BACK DEBE RETORNARME LA LISTA
-  // DE FASES PARA ESE EVENTO Y LOS  IDFASESSSS
-  return (
-    <div>
-      <div className="Main-tittle">
-          <div style={{ marginLeft: 15 }}>
-              <h1><br />{props.header}</h1>
-          </div>
-          <div style={{ marginLeft: 40, marginTop: 25 }} ><h4>Fase Actual: {'fase num2 Hardcodeada'}</h4></div>
-      </div>
-      <div class="container" style={{fontSize:'14px'}}>
-        <div class="panel-body">
-          <FormPropsxFasePresidente
-              idEvento = {props.idEvento}
-              nombreEvento = {props.nombreEvento}
-              fasesTotales = {props.fasesTotales}
-              secuencia = {props.secuencia}
-              faseEscogida ={fase}
-              fechaLimite = {props.fechaLimite}
-              //idFase = {props.idFase[fase]}
-              idFase = {2}
-              nombreFase = {'Fase num2 Hardcodeada'}
-              //nombreFase = {props.nombreFase[fase]}
-            />
-            <div style={{ paddingTop: '20px' }}>
-              <button
-                  style={{ float: 'left' }}
-                  class="mybutton"
-                  onClick={props.handleReturn}
-              >
-                Regresar
-              </button>                                          
-          </div>          
+    return (
+      <div style={{marginLeft:'2%',marginRight:'2%'}} >
+        <div className="Main-tittle">
+            <div style={{ marginLeft: 40, marginTop: 25 }} >
+              <h4>Descripcion: {fase.descripcion}</h4>
+            </div>
         </div>
-        <br /><br />
-      </div>
-    </div>      
-  )
-} 
+        <div class="container" style={{fontSize:'14px'}}>
+          <div class="panel-body">
+            
+            <FormPropsxFasePresidente
+              fase = {fase}
+              obss = {responseObservaciones}
+              propuestas = {responsePropuestas}
+
+            />
+              <div style={{ paddingTop: '20px' }}>
+                <button
+                    style={{ float: 'left' }}
+                    class="mybutton"
+                    onClick={props.handleReturn}
+                >
+                  Regresar
+                </button>                                          
+            </div>          
+          </div>
+          <br /><br />
+        </div>
+      </div>      
+    )
+  
+}
+function getStepContent(props,activeStep) {
+  //console.log("Llamando al componenten de observaciones observaciones")  
+  
+  let propsPasados = {
+    myProps : props,
+    activeStep : activeStep,
+  }
+  console.log("______HOLA QUEUIERO______",props,activeStep)  
+  console.log("HOLA QUIERO",propsPasados)
+
+  return <FormPropsxFasePresidente key = {"step-"+ activeStep}  _props = {propsPasados}/>;
+
+}
 
 export default function HorizontalNonLinearStepper(props) {
   const classes = useStyles();
@@ -127,7 +143,7 @@ export default function HorizontalNonLinearStepper(props) {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(props,activeStep)}</Typography>
+            <Typography className={classes.instructions}>{getStepContent(props, activeStep)}</Typography>
             <div>
             </div>
           </div>

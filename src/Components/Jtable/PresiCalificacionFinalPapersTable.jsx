@@ -68,10 +68,11 @@ class PresiCalificacionFinalPapersTable  extends Component {
     console.log('this is:', this);
   }
   handleClickEvaularPaper (evt,idEvento,nombre,fasesTotales,secuencia,fechaLimite,idFaseActual,nombreFase){
+     
    this.handleNextChildComponentChangeProps(
       {idEvent:idEvento,
       nombreEvento:nombre,
-      fasesTotales:fasesTotales,
+      fasesTotales:fasesTotales, 
       secuencia:secuencia,
       fechaLimite:fechaLimite,
       idFaseActual : idFaseActual,
