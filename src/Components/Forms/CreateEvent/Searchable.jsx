@@ -43,6 +43,7 @@ export default class Searchable extends Component {
             var user=[...this.state.usuarios];
             user.push(this.state.selectValues[0]);
             this.setState({usuarios:user,selectValues:[],clearable:false});
+            this.props.handleadd(1,'EsVacio'+this.props.tag)
             this.props.handleadd(user,this.props.tag);
         }
     }
@@ -50,6 +51,9 @@ export default class Searchable extends Component {
         var chipData=[...this.state.usuarios]
         chipData=chipData.filter(chip => chip.idUsuario !== data.idUsuario)
         this.setState({usuarios:chipData})
+        if (chipData.length===0){
+            this.props.handleadd(0,'EsVacio'+this.props.tag)
+        }
         this.props.handleadd(chipData,this.props.tag);
     }
     filtradoOpciones(){
@@ -109,6 +113,7 @@ export default class Searchable extends Component {
                         </Col>
                     </div> 
                     </form>
+                    <br/>
                     {this.state.usuarios.map((data, index) => {
                     return (
                         <Chip

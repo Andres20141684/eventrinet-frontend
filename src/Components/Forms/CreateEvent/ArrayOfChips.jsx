@@ -26,18 +26,10 @@ export default function ArrayOfChips(props) {
          }else{
           console.log(aux)
           addElement()
-          /*
-          chipData.push(aux)
-          props.handleadd(chipData,props.tag)
-          cancelCourse()*/
          }
       }else{
         console.log(aux)
         addElement()
-        /*
-        chipData.push(aux)
-        props.handleadd(chipData,props.tag)
-        cancelCourse()*/
       }
         
     }
@@ -55,8 +47,11 @@ export default function ArrayOfChips(props) {
         break;
       }
     }
-    if(f===0) { // notice that there is a parenthesis after `id`.
+    if(f===0) {
         chipData.push(aux)
+        if(chipData.length>0){
+          props.handleadd(1,'CategoriasNulo')
+        }
         props.handleadd(chipData,props.tag)
         cancelCourse()
     }
@@ -65,6 +60,9 @@ export default function ArrayOfChips(props) {
   const handleDelete = chipToDelete => () => {
     chipData=chipData.filter(chipData=>chipData[props.label]!==chipToDelete[props.label]);
     //setChipData(chips => chips.filter(chips => chips.key !== chipToDelete.key));
+    if(chipData.length===0){
+      props.handleadd(0,'CategoriasNulo')
+    }
     props.handleadd(chipData,props.tag)
   };
 
