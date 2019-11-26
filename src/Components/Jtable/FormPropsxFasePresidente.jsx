@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    //border: '2px solid #000',
+    borderRadius:'2px',
     boxShadow: theme.shadows[5],
     //padding: theme.spacing(2, 4, 3),
     paddingBottom:'10px',
@@ -38,10 +39,8 @@ const useStyles = makeStyles(theme => ({
 
 
 function formComentario (comentariosActual){  
-  console.log("my props observaciones para el postulante modal",comentariosActual)
   return comentariosActual.map((element, index) => {
-    const { evaluadorNombre, comentarioEvaluador } = element
-    //const { comentario, evaluador } = element
+    const { evaluadorNombre, comentarioEvaluador } = element    
     var indexEvent = index
     return (
       <div class="form-group row">
@@ -354,13 +353,131 @@ function ModalDetallePropuesta (props) {
         </Modal>
         </div>  
     );
+}
+
+function showMessage (comentariosActual,presiComentario){
+  let msg = "";
+  comentariosActual.map((comentarioEvaluador,evaluadorNombre) =>
+  msg = msg + comentarioEvaluador + ": " + evaluadorNombre + "\n"
+  );
+  msg = msg + "Comentario del presidente: " + presiComentario +"\n"
+
+  return msg ;
+}
+
+let opcionEscogida =1;
+function handleCheckedMsjCuerpo (props,opcSelected){
+  props.changeSelectedTipo(opcSelected)  
+  opcionEscogida = opcSelected
+  let textAreaMsjCuerpoPred=document.getElementById('textAreaMsjCuerpoPred');
+  let textAreaMsjCuerpoPers=document.getElementById('textAreaMsjCuerpoPers');
+      
+  if (opcSelected === 2){
+    console.log("mensaje 2");
+    textAreaMsjCuerpoPred.style.display = "none";
+    textAreaMsjCuerpoPers.style.display = "block";
   }
+  else {
+    console.log("mensaje 1")
+    textAreaMsjCuerpoPred.style.display = "block";
+    textAreaMsjCuerpoPers.style.display = "none";    
+  }  
+  console.log(textAreaMsjCuerpoPred)
+  console.log(textAreaMsjCuerpoPers)
+}
+function ModalEnviarCorreo (props) {  
+  const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+      
+    const handleOpen = () => {
+      props.showObservacionesCorreo(props.idPropuesta,props.idFase);
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+        setOpen(false);
+    };
+    
+    const handleCloseSaveandoCorreo = () => {
+      //Guardar correo
+      props.handleSaveCuerpoCorreo(props.idPropuesta);
+      setOpen(false);
+    };
+
+    return (
+      
+      <div>        
+          <a  title="Enviar correo" onClick={handleOpen}>
+            <ActionButton id_evento={props.idEvento} button_class="fa fa-envelope" redirect_to="/" />
+          </a>      
+        
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+          nameUserSelected= {props.nameUserSelected}
+        >
+          <Fade in={open} style={{width:'40%'}}>
+              <div className={classes.paper}>
+                  <h3 id="transition-modal-title" >Formato de correo</h3>
+                  <div id="transition-modal-description">                      
+                      <div className="modal-body" style={{paddingBottom:'0px'}}>
+                      <div style={{padingLeft:'10%', paddingRight:'15%'}} className="form">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPredeterminado" value="option1" checked={props.eleccionTipoCorreo[0]} onClick ={(e)=>handleCheckedMsjCuerpo(props,0)}/>
+                          <label class="form-check-label" for="inlineRadio1">Predeterminado</label>
+                        </div>
+                        <div class="form-check form-check-inline" style={{float:'right'}}>
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPersonalizado" value="option2"  checked= {props.eleccionTipoCorreo[1]}onClick ={(e)=>handleCheckedMsjCuerpo(props,1)}/>
+                          <label class="form-check-label" for="inlineRadio2">Personalizado</label>
+                        </div>
+                      </div>
+                      <div class="form-group" >                        
+                        <div>
+                          <textarea class="form-control" id="textAreaMsjCuerpoPred" rows="3" //onChange={/*(e) => props.onChangeMsjCuerpo(e)*/}
+                            value ={props.mensajePredeterminado}/>
+                          <textarea class="form-control" id="textAreaMsjCuerpoPers" style={{display:'none'}} rows="3" onChange={(e) => props.onChangeMsjCuerpo(e)} 
+                            value ={props.mensajePersonalizado}/>
+
+                          <div class="form-group"style={{borderColor:'red'}}>
+                            Observaciones hechas por parte del Comité Académico
+                            <input class="form-control-plaintext" id="exampleFormControlTextarea1" rows="3"  style={{height:'40px'}}                            
+                              value={showMessage(props.comentariosActual,props.presiComentario)}
+                            />
+                            <text style={{float:'right'}}>{'Atte. Comité Académico'}</text>
+                            <br/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>                    
+                  </div>
+                  <div className="modal-footer" style={{ paddingBottom:'0px'}}>
+                      <Button type="button" class="btn btn-secondary" onClick={() => handleClose() }>Cancelar</Button>
+                      <Button type="button" onClick={(e) =>handleCloseSaveandoCorreo ()} class="btn btn-primary" data-dismiss="modal">Guardar correo</Button>
+                  </div>
+              </div>  
+          </Fade>
+        </Modal>
+        </div>  
+    );
+}
 
 
 class FormPropsxFasePresidente extends Component {
   constructor(props) {
     super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
+      cuerpoCorreo:'',
+      mensajePredeterminado:'',
+      mensajePersonalizado:'',
+      eleccionTipoCorreo:[true,false],
       idFase:-1,
       tabla_propuestas: { //{nombre,idpropuesta,estado}
         Propuestas: []
@@ -415,21 +532,20 @@ class FormPropsxFasePresidente extends Component {
     }
 
     console.log("idFase"+this.props._props.activeStep,this.state.idFase)
-    Networking.mostrarTodasObs(this.state.idFase).then(
+    Networking.mostrarTodasObsPresidente(this.state.idFase).then(
       (response) => {
         console.log(response);
         if (response == null) {
-          console.log('no hay algo aun');
+          console.log('no hay algo aun, mostrarTodasObsPresidente');
 
         } else {
-          console.log('si hay alg0: ', response);
+          console.log('si hay algo: mostrarTodasObsPresidente', response);
           obss = response
         }
       }
     );
 
     //SERVICIO AL BACKKKKKKKKKKKKKKKKKKKKK!!!
-    //--------------------------------------
     Networking.presidenteListarPropuestasXFase(this.state.idFase).then(
       (response) => {
         console.log(response);
@@ -473,7 +589,7 @@ class FormPropsxFasePresidente extends Component {
                 idFase={this.state.idFase}
                 detalleCalificacionEvaluadorActual={this.state.detalleCalificacionEvaluadorActual}
                 propuestas ={this.state.propuestaActual}
-                showModalDetalleEvaluador={this.showModalDetalleEvaluador}
+                showModalDetalleEvaluador={this.showModalDetalleEvaluador}                
               />
             </td>
           </tr>
@@ -522,22 +638,38 @@ class FormPropsxFasePresidente extends Component {
           console.log('no hay algo aun');
 
         } else {
-          console.log('si hay alg0: ', response);
+          console.log('si hay algo Comentarios: ', response);
           this.setState(
             {
-              comentariosActual: 
-                //idPropuesta: idPropuesta,
-                //idEvaluador: '',
-                /*comentarios:[*/response.comentarios //<----------------------------FALTAAAAAAAA<-------
-                /*{evaluador:'Luis Fonsi', comentario: 'VOy a jalar '},
-                {evaluador:'Juana de Arco', comentario: 'Piensa en tu vijeita y vota ese paper'}
-              ],*/,
+              comentariosActual: response.comentarios,
               presiComentario:response.obsPresidente,
               
             });
-          console.log("ACTUAL COMM: ", this.state.comentariosActual)
         }
       });
+      Networking.MostrarCorreoPorDefecto(idPropuesta,idFase).then(
+        (response) =>{
+          console.log(response);
+          if (response ==  null){
+            console.log("No hay mensaje predeterminad")
+          }
+          else{
+            console.log("Si hay mensaje predeterminado")
+            this.setState({
+              //mensajePredeterminado:response
+              mensajePredeterminado : response.mensajePredeterminado,
+              eleccionTipoCorreo : response.tipoEleccion
+            })
+            if (this.state.mensajePredeterminado !=response ){
+              //this.state.mensajePredeterminado=response
+              //NECESITOOOOOOOOOOOOO
+              this.state.mensajePredeterminado=response.mensajePredeterminado
+              this.state.eleccionTipoCorreo= response.tipoEleccion
+            }
+            console.log("mensaje predeterminado -->",this.state.mensajePredeterminado,"<--")
+          }
+        }
+      )
   }
 
 
@@ -598,7 +730,6 @@ class FormPropsxFasePresidente extends Component {
     Object.keys(this.state.checkboxes)
       .filter(checkbox => this.state.checkboxes[checkbox])
       .forEach(checkbox => {
-        //console.log("Se va a insertar: ", this.props.idFase, checkbox, obss[checkbox]);
         data = JSON.stringify({
           idFase: parseInt(this.state.idFase),
           idPropuesta: parseInt(checkbox),
@@ -629,21 +760,10 @@ class FormPropsxFasePresidente extends Component {
     console.log('comentPresix2', this.state.presiComentario)
   }
   handleClickUpdateComentarios = (idPropuesta) => {
-    //Servicio para guardar el comentario del presii
-    //Falta el servicon en NETOWORKINGGGGGGGGGGGGGGGGGGG    
-
+    //Servicio para guardar el comentario del presi
     console.log('guardando comentario del presi',this.state.idFase,' ',this.state.presiComentario,' ',idPropuesta)    
-    Networking.updateComentarios(this.state.idFase,this.state.presiComentario,idPropuesta).then(
-      (response) => {
-        console.log(response);
-        if (response == null) {
-          console.log('no hay algo aun');
-
-        } else {
-          console.log('si hay alg0: ', response);
-          }
-        });
-    obss[idPropuesta] = this.state.presiComentario
+    Networking.updateComentarioPresidente(this.state.idFase,this.state.presiComentario,idPropuesta).then(
+    obss[idPropuesta] = this.state.presiComentario);
 
   }
   handleRechazar() {
@@ -669,13 +789,52 @@ class FormPropsxFasePresidente extends Component {
           }
 
         });
-      });
-    //console.log("LO Q MANDO A BACK ES: ", data);
+      });    
 
     alert("¡Se han guardado los cambios!")
-    //this.handleReturn();
+  }
+  
+  showObservacionesCorreo = (idPropuesta,idFase) => {
+    this.showModalDetalleObservaciones(idPropuesta,idFase);
   }
 
+  onChangeMsjCuerpo  = (evt) => {
+    console.log("evt cambiado",evt.target.value)
+    if (this.state.tipoEleccion[1] ){
+      this.setState({ mensajePersonalizado: evt.target.value });
+    }
+  }
+
+  handleSaveCuerpoCorreo = (idPropuesta) => {
+    //DSSsfdfdsfdasadfhsdfhjdasf
+    console.log("Enviar correo")
+    let mensajeAEnviar="";
+    if (this.state.tipoEleccion[0])
+      mensajeAEnviar = this.state.mensajePredeterminado;  
+    else mensajeAEnviar = this.state.mensajePersonalizado;
+
+    Networking.guardarCuerpoCorreo(mensajeAEnviar, this.state.idFase,idPropuesta).then((value) => {
+      console.log(value);
+      if (value == null) {
+        console.log('devolvio null pero no se q devuelve el back :V');
+
+      } else {
+        console.log('Se inserto o actualizó el cuerpo de msj :V');
+      }
+    });
+  }
+ 
+  changeSelectedTipo =(tipo) => {
+    if (tipo == 0){
+      this.setState({eleccionTipoCorreo:[true,false]})
+      if (this.state.eleccionTipoCorreo[0] != true) this.state.eleccionTipoCorreo =[true,false];
+    }else{
+      this.setState({eleccionTipoCorreo:[false,true]})
+      if (this.state.eleccionTipoCorreo[1] != true) this.state.eleccionTipoCorreo =[false,true];
+    }
+    
+
+  }
   tableData() {
     //this.setState.idUser_recived=this.props.idUser_recived;
     console.log("SEbas props: ", this.props);
@@ -692,18 +851,16 @@ class FormPropsxFasePresidente extends Component {
                 {
                   this.createCheckbox(idPropuesta)
                 }
-
               </div>
 
               <div className="col-md-6">
-                
                 <ModalDetallePropuesta
                   idPropuesta={idPropuesta}
                   estados={this.state}
                   showModalDetallePropuesta = {this.showModalDetallePropuesta}
                   nombre={nombre}
                 />
-              </div>
+              </div>              
 
               <div className="col-md-2">
                 {estado}
@@ -717,15 +874,34 @@ class FormPropsxFasePresidente extends Component {
                   handleClickUpdateComentarios={this.handleClickUpdateComentarios}
                   handleSaveComentario={this.handleSaveComentario}
                   showModalDetalleObservaciones = {this.showModalDetalleObservaciones}
-                  presiComentario={this.state.presiComentario}
-                />
-                
+                  presiComentario={this.state.presiComentario}                  
+                />  
               </div>
+
+              <div className="col-md-1">
+                <ModalEnviarCorreo
+                idPropuesta={idPropuesta}
+                idFase = {this.state.idFase}      
+                handleSaveCuerpoCorreo = {this.handleSaveCuerpoCorreo}
+                onChangeMsjCuerpo = {this.onChangeMsjCuerpo}
+                showObservacionesCorreo = {this.showObservacionesCorreo}  
+                comentariosActual = {this.state.comentariosActual}
+                presiComentario = {this.state.presiComentario}
+                mensajePredeterminado = {this.state.mensajePredeterminado}                
+                mensajePersonalizado ={this.state.mensajePersonalizado}                
+                eleccionTipoCorreo ={this.state.eleccionTipoCorreo}
+                changeSelectedTipo = {this.changeSelectedTipo}
+                />
+              </div>
+                
+              
               <div className="col-md-1" style={{ float: 'right', width: '50px' }}>
                 <Accordion.Toggle as={Button} variant="link" eventKey={indexEvent}>
                   <a><i class="fa fa-angle-down" /></a>
                 </Accordion.Toggle>
               </div>
+
+                
 
             </Card.Header>
 
@@ -752,16 +928,13 @@ class FormPropsxFasePresidente extends Component {
   }
 
   render() {
-
     return (
       <div style={{marginLeft:'10%',marginRight:'10%'}}>
-        <Accordion defaultActiveKey="0" className="table-responsive" style={{fontSize:'13px'}}>
-          {this.tableData()}
-        </Accordion>
-
-        <div className="modal fade" id="modalReasigEval" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <ModalReasignarEvaluador />
-        </div>
+        <h3 style={{paddingLeft:'20px'}}>Descripción: {this.props._props.myProps.fases[this.props._props.activeStep].descripcion}</h3>        
+          <Accordion defaultActiveKey="0" className="table-responsive" style={{fontSize:'13px'}}>
+            {this.tableData()}
+          </Accordion>
+        
                 
         <div><button
           style={{ float: 'right' }}
