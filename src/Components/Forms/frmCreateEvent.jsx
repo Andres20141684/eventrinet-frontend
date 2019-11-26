@@ -133,7 +133,7 @@ export default function HorizontalLabelPositionBelowStepper(props) {
                     Regresar
                   </button>}
               </div>
-                <button /*disabled={isValid(activeStep)}*/ style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
+                <button disabled={isValid(activeStep)} style={{float:'right'}} class="mybutton"  variant="contained" color="primary" onClick={handleNext}>
                 Siguiente
                 </button>
               

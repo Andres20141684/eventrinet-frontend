@@ -39,6 +39,7 @@ export default class EventNew extends Component{
             form:frmCreateEvent,
             options:[],
             data_recived: {},
+            CategoriasNulo:0,
             form1Completo:false,
             form2Completo:false,
             form3Completo:false
@@ -87,7 +88,7 @@ export default class EventNew extends Component{
 
       validacion(){
         if(this.state.nombre!=='' && this.state.descripcion!=='' && this.state.lugar!==''
-        && this.state.fIni!=='' && this.state.fFin!=='' && this.state.categorias.length!==0){
+        && this.state.fIni!=='' && this.state.fFin!=='' && this.state.CategoriasNulo==1){
           this.setState({form1Completo:true})
         }
         else{
@@ -101,10 +102,17 @@ export default class EventNew extends Component{
         }
       }
 
+      componentDidUpdate(prevProps, prevState){
+        if(prevState.CategoriasNulo!==this.state.CategoriasNulo){
+          this.validacion()
+        }
+      }
 
       handleClick = () => {
         this.handleNextChildComponentChange(OrganActiveEvents);
       }
+
+
 
       componentDidMount(){
         console.log(this.state.data_recived)

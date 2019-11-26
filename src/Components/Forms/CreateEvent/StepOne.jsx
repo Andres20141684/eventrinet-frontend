@@ -49,7 +49,7 @@ export default class StepOne extends React.Component {
                     maxLength="45"
                     readOnly={this.props.rol===1}
                     autoFocus/>
-                {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/}  
+                {this.props.nombre===''?<span class="error">Campo Obligatorio</span>:<br></br>}  
             </div>
             </Row>
             <Row>
@@ -67,7 +67,7 @@ export default class StepOne extends React.Component {
                     maxLength="200"
                     readOnly={this.props.rol===1}       
                     />
-                  {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/}  
+                  {this.props.descripcion===''?<span class="error">Campo Obligatorio</span>:<br></br>}  
             </div>
             </Row>
             <Row>
@@ -84,7 +84,7 @@ export default class StepOne extends React.Component {
                     maxLength="150"
                     readOnly={this.props.rol===1}
                     />
-                  {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/}  
+                  {this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>}  
             </div>
             </Row>
             <label >Fechas de la Realizacion del evento:</label><br/>  
@@ -101,8 +101,7 @@ export default class StepOne extends React.Component {
                       name="date_in"
                       placeholder="date_in"
                       readOnly={this.props.rol===1}
-                    />
-                    {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/}  
+                    />                
                   </div>
                   <div class="form-group col-md-5">
                       <label >Fecha Fin </label>
@@ -117,10 +116,10 @@ export default class StepOne extends React.Component {
                           name="date_in"
                           placeholder="date_in"
                           readOnly={this.props.rol===1}
-                        />
-                       {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/} 
+                        />                       
                   </div>
                   </Row>
+                  {this.props.fechaIE==='' && this.props.fechaFE===''?<span class="error">Campo Obligatorio</span>:<br></br>}
             </div>
           </div>
           <br></br>
@@ -138,7 +137,7 @@ export default class StepOne extends React.Component {
               label="descripcion"
               rol={this.props.rol}/>
               </div>
-              {/*this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>*/}  
+              {this.props.categorias.length===0?<span class="error">Campo Obligatorio</span>:<br></br>}  
             </div>
           </div>
           <br></br>
