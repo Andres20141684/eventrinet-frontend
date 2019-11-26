@@ -43,6 +43,7 @@ class StepTwo extends Component{
                     label="correo"
                     options={this.props.options}/> 
                     </div>
+                    {this.props.comite1.length===0?<span class="error" style={{float:'right'}}>*Minimo un usuario obligatorio</span>:<br></br>} 
                 </div>
                 </div>           
                 <br></br>                   
@@ -64,6 +65,7 @@ class StepTwo extends Component{
                             label="correo"
                             options={this.props.options}/>                          
                             </div>
+                            {this.props.presidente.length===0?<span class="error" style={{float:'right'}}>*Minimo un usuario obligatorio</span>:<br></br>} 
                         </div>
                     </Row> 
                     
@@ -110,6 +112,7 @@ class StepTwo extends Component{
                             label="correo"
                             options={this.props.options}/>                         
                             </div>
+                            {this.props.evaluadores.length===0?<span class="error" style={{float:'right'}}>*Minimo un usuario obligatorio</span>:<br></br>} 
                         </div>
                     </Row> 
                 </div>

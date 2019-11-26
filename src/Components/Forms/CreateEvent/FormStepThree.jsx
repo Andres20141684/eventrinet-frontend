@@ -39,6 +39,7 @@ class FormStepThree extends Component{
                     <label >Actividad</label>
                     <input readOnly={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false} 
                     type="text" class="form-control" name="actividad" id="actvidad" maxLength="200" placeholder="Actividad" onChange={(e) => this.props.onChange(e,this.props.index,"nombre")} value={this.props.value.nombre}autoFocus required />
+                    {this.props.value.nombre===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}  
                 </div>
                 </Row>
                 
@@ -55,6 +56,7 @@ class FormStepThree extends Component{
                         maxLength="200" 
                         readOnly={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false}        
                         />
+                    {this.props.value.descripcion===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>} 
                 </div>
                 </Row>
                 <Row>            
@@ -91,6 +93,7 @@ class FormStepThree extends Component{
                     />
                 </div>
               </Row>
+              {this.props.value.faseFin===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>} 
                 <Row>                
                 <div class="form-group col-md">
                     <div class="form-group col-md" style={{paddingLeft:'0px'}}>
@@ -115,6 +118,7 @@ class FormStepThree extends Component{
                             onClick={(e) => this.props.handleCheck(e,this.props.index,"reqEnt","necesitaEntregable")}
                         />
                     </div>
+                    <span class='error'>*En caso se requiera de este segundo archivo se debera especifar en la descripcion su contenido </span>
                 </div>
                 </Row>
                 </div>

@@ -72,7 +72,7 @@ class ModalDialog extends Component{
     render(){
       return (
         <div>
-          <button style={{float:'right'}} class="mybutton" onClick={this.handleClickOpen}>Guardar</button>
+          <button disabled={!this.props.form3Completo} style={{float:'right'}} class="mybutton" onClick={this.handleClickOpen}>Guardar</button>
           <Dialog
             open={this.state.open}
             onClose={this.handleClose}
