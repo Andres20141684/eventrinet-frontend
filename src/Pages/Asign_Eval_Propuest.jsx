@@ -195,7 +195,8 @@ class AsignEvalPropuesta  extends Component {
           return (
           <tr >
                 <td >{nombre}</td>
-                <td>
+                <td >
+                   <div style={{float:'left'}}>
                    {element.evaluadores.length==0?null:
                       <ChipsLista
                       index={index}
@@ -203,9 +204,10 @@ class AsignEvalPropuesta  extends Component {
                       handleChangeArray={this.handleDeleteArray}
                       ></ChipsLista>
                    }
+                   </div>
                 </td>
                 <td component={'span'}>
-                   <button style={{float:'right'}} 
+                   <button style={{float:'left'}} 
                    class="btn_plus fa fa-plus" onClick={()=>this.handleClickOpen(index)} disabled={element.evaluadores.length<4?false:true}></button>
                      <Dialog component={'span'}
                         open={this.state.open===true?true:false}
@@ -311,7 +313,7 @@ class AsignEvalPropuesta  extends Component {
                   </div>
                   <div class='col-md-12'>
                   <div class='col-md-4'><label>Asignacion Automatica:</label></div>
-                  <div class='col-md-8'><button class="mybutton" onClick={this.handleAplicarAlgortimo} style={{float:'left'}}>Aplicar</button>
+                  <div class='col-md-8'><button class="mybutton" onClick={this.handleAplicarAlgortimo} style={{float:'left',marginBottom:'15px'}}>Aplicar</button>
                   <br/>
                   </div>
                   </div>
@@ -319,19 +321,19 @@ class AsignEvalPropuesta  extends Component {
                   <table class="table  table-hover">
                   <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                      <tr >
-                        <th width="30%" align= "left" scope="col">Papers</th>
-                        <th width="60%" scope="col">Evaluadores</th>
-                        <th width="10" scope='col'>Añadir</th>
+                        <th width="37%" align= "left" scope="col">Papers</th>
+                        <th width="57%" scope="col">Evaluadores</th>
+                        <th width="6%" scope='col'>Añadir</th>
                      </tr>
                   </thead>
                   <tbody style={{fontSize:'16px'}}>{this.tableData()}</tbody>
                   </table>
                   </div>
                   <div>
-                  <button class="mybutton" onClick={this.handleClickRetroceder} style={{float:'left'}}>Atras</button>
+                  <button class="mybutton" onClick={this.handleClickRetroceder} style={{marginTop:15,float:'left'}}>Atras</button>
                   </div>
                   <div>
-                  <button class="mybutton" onClick={this.handleClickGuardar} style={{float:'right'}}>Guardar</button>
+                  <button class="mybutton" onClick={this.handleClickGuardar} style={{float:'right',marginTop:15}}>Guardar</button>
                   </div>
                </div>
                 </div>

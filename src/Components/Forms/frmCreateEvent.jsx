@@ -39,7 +39,7 @@ function getSteps() {
 //handleChange={props.handleChange} nombre={props.nombre} apellido={props.apellido}
 function getStepContent(stepIndex,props) {
   switch (stepIndex) {
-    case 0:
+    case 0: 
       return <StepOne {...props}/>;
     case 1:
       return <StepTwo {...props}/>;
