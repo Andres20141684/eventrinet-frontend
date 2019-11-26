@@ -72,9 +72,8 @@ class ModalDialog extends Component{
     render(){
       return (
         <div>
-          <button style={{float:'right'}} class="mybutton" onClick={this.handleClickOpen}>Guardar</button>
+          <button disabled={!this.props.form3Completo} style={{float:'right'}} class="mybutton" onClick={this.handleClickOpen}>Guardar</button>
           <Dialog
-            component={'span'}
             open={this.state.open}
             onClose={this.handleClose}
             aria-labelledby="responsive-dialog-title"
@@ -83,12 +82,12 @@ class ModalDialog extends Component{
             <div>
               {this.state.succeed===''? 
               <div>
-              <DialogContent component={'span'}>
-                <DialogContentText component={'span'}>
+              <DialogContent>
+                <DialogContentText >
                   <h2>Está seguro de guardar?</h2>
                 </DialogContentText>
               </DialogContent>
-              <DialogActions component={'span'}>
+              <DialogActions >
                 <button type="button"  onClick={this.handleClose}  className="btn btn-secondary">Cerrar</button>
                 <button type="button" onClick={this.handleSave} className="btn btn-primary"  autoFocus>Aceptar</button>
               </DialogActions>
@@ -97,7 +96,10 @@ class ModalDialog extends Component{
               <div>
                 {this.state.succeed==='wait'?
                 <div>
-                  <DialogContent component={'span'}>
+                  <DialogContent >
+                    <DialogContentText>
+                          <h2>Procesando...</h2>
+                        </DialogContentText>
                     <div class='col-md-4'></div>
                     <div class='col-md-4'>
                       <Fade
@@ -107,13 +109,10 @@ class ModalDialog extends Component{
                       }}
                       unmountOnExit
                       >
-                      <CircularProgress component={'span'}/>
+                      <CircularProgress/>
                       </Fade>
                     </div>
-                    <div class='col-md-4'></div>
-                      <DialogContentText component={'span'}>
-                          <h2>Procesando...</h2>
-                        </DialogContentText>
+                    <div class='col-md-4'></div>  
                   </DialogContent>
 
                 </div>

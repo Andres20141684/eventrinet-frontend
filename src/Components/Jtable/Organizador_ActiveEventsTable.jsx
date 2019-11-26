@@ -155,12 +155,12 @@ class Organizador_ActiveEventsTable  extends Component {
          const {idEvento, nombre,descripcion,fechaIni,
             fechaFin,lugar,precios,faseActual,numFases,estado,
             preferencia,tieneCameraRdy,programaCompletado,
-            fechaMaxPref,numeroPropuestas} = evento
+            fechaMaxPref,numeroPropuestas,ultimaFaseActual} = evento
          data.push(
             { 
                num: index+1,
                name: nombre, 
-               fase: "" + ("0"||faseActual) + "/" + numFases,
+               fase: ultimaFaseActual!=0?"" + (ultimaFaseActual) + "/" + numFases:"-",
                state: estado, 
                fechaIni: fechaIni, 
                fechaFin: fechaFin,

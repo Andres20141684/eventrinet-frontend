@@ -24,6 +24,7 @@ class ListadoPropPorEvento extends Component {
         Propuestas: [
         ]
       },
+      idEvento: 0,
       //almacena los ids Propuesta 
       datajs: {},
       PreferenciasXPropuestas: [999],
@@ -59,26 +60,29 @@ class ListadoPropPorEvento extends Component {
     let retrievedObject = sessionStorage.getItem('dataUser');
     let retrievedJson = JSON.parse(retrievedObject);
     this.state.idUser_recived = retrievedJson.infoUsuario.idUsuario;
+    this.state.idEvento = this.props.idEvento;
     console.log(retrievedJson);
     console.log("cosas IMPORTANTES:", this.props);
     console.log('&&this.props.idEvento: ', this.props.idEvento);
     //listar simple de todas las propuestas del evento
-    Networking.listar_propuestasPorEvento(/*this.props.idEvento*/1).then((value) => {
-      this.setState({ datos_tabla: value });
-      console.log("lAS PROPuestAS: ", value);
-      console.log("lAS PROPuestAS2: ", this.state.datos_tabla);
-      //this.state.datos_tabla.Propuestas = value.Propuestas
-      numPropuestas = this.state.datos_tabla.Propuestas.length;
-      for (let i = 0; i < numPropuestas; i++) {
-        this.state.rptaPref[i] = 0;
-        arreglo_aux[i] = -1;
+    Networking.listar_propuestasPorEvento(this.props.idEvento).then((value) => {
+      if (value != null) {
+        this.setState({ datos_tabla: value });
+        //this.state.datos_tabla.Propuestas = value.Propuestas
+        numPropuestas = this.state.datos_tabla.Propuestas.length;
+        for (let i = 0; i < numPropuestas; i++) {
+          this.state.rptaPref[i] = 0;
+          arreglo_aux[i] = -1;
+        }
+        this.setState({ rptaPref: arreglo_aux });
+
       }
-      this.setState({ rptaPref: arreglo_aux });
 
     });
     //listar preferencias para un evaluador con las elecciones editadas
-    //Networking.ListarPrefXProp(this.props.idEvento, retrievedJson.infoUsuario.idUsuario).then((value) => {
-    Networking.ListarPrefXProp(1, 4).then((value) => {
+    console.log("soba ni iru kitto", this.props.idEvento, retrievedJson.infoUsuario.idUsuario);
+    Networking.ListarPrefXProp(this.props.idEvento, retrievedJson.infoUsuario.idUsuario).then((value) => {
+      //Networking.ListarPrefXProp(1, 4).then((value) => {
       console.log("<<<<<<<<<<<3 VALUE: ", value);
       console.log("<<<<<<<<<<<3 state: ", this.state.PreferenciasXPropuestas);
       if (value.PreferenciasXPropuestas.length == 0) {
@@ -103,15 +107,15 @@ class ListadoPropPorEvento extends Component {
   }
   componentDidMount() {
     console.log("DID MOUNT");
-    console.log("jxjx", this.state.datos_tabla);
-    console.log(this.state.radioButtons);
+    //console.log("jxjx", this.state.datos_tabla);
+    //console.log(this.state.radioButtons);
 
     this.setState({
       //nombre_evento : this.props.nextChildComponentProps.nomb_evento,
       idEvento: this.props.idEvento,
       //idEvaluador : this.props.nextChildComponentProps.idOrganizador_nextProps,
     });
-    console.log("<<<<<<<<<ID evento", this.state.idEvento);
+    //console.log("<<<<<<<<<ID evento", this.state.idEvento);
 
   }
 
@@ -187,11 +191,14 @@ class ListadoPropPorEvento extends Component {
     //console.log("LAS RESPueSTAS DE CRIT", this.state.rptasCriterios);
     console.log("the reason why", this.state.rptaPref);
 
+    console.log("idEvaluador: ", this.state.idUser_recived);
+    console.log("idEvento: ", this.state.idEvento);
+
     this.state.datos_tabla.Propuestas.map((element, index) => {
       const { idPropuesta, enunciado, idFase } = element;
       e = JSON.stringify({
-        idEvento: 1,
-        idEvaluador: 4,
+        idEvento: this.state.idEvento,
+        idEvaluador: this.state.idUser_recived,
         preferencia: parseInt(this.state.rptaPref[index]),
         idPropuesta: idPropuesta
       });
@@ -210,23 +217,6 @@ class ListadoPropPorEvento extends Component {
       }
 
     });
-    //console.log("criterios : ",crits);
-
-
-    /*data = JSON.stringify({
-     idUsuario: this.state.idEvaluador,
-     idFase: this.state.idFase,
-     idPropuesta : this.state.idPropuesta,
-     calificacion : parseInt(this.state.calificacionFinal),
-     experticia : parseInt(this.state.nivelExperticia),
-     obsPart : this.state.obsPostulante,
-     obsPresi : this.state.obsPresi,
-     evalExt : this.state.coevaluador,
-     Criterios : propus
-   });*/
-    //data = JSON.stringify(e);
-    //console.log("LO QUE VOY A MANDAR PARA GUARDAR...: ",data);
-
 
     alert("¡Se han guardado los cambios!");
 
