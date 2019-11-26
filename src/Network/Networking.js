@@ -1275,3 +1275,5 @@ export async function mostrarTodasObsPresidente(idFase) {
         console.error('CATCH ALCANZADO :(');
     }
 }
+
+export {restURL}
