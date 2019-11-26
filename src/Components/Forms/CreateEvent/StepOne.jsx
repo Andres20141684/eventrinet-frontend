@@ -26,12 +26,7 @@ export default class StepOne extends React.Component {
     })
     console.log(this.state)
   }
-  /** handle del subeArchivos XD */
-  /*** pinshi Armando ...Glenn me dijo que te deje el para subir imagen en este step 
- *    tu ya ves lo que haces con el handleonload, aqui considera que ya esta el archivo listo para irse a la base de datos
- * porciaca lo guardo en el sateXD
-*/
-  
+ 
 
   render () {
     return (
