@@ -47,7 +47,6 @@ class  Login extends Component{
 
             sessionStorage.setItem('tipoLogin',"usuario")
             this.setState({redirect:true, msgError:""});
-            document.getElementById('alertError').style.display ="none";
           }else{
             console.log("No se logueo correctamente");
             console.log("Contraseña y/o usuario incorrecto!");            
@@ -55,7 +54,13 @@ class  Login extends Component{
                     isLoading:false,
                     buttonLoadingText:"Iniciar sesión",
                     msgError:connectedUser.message});
-            document.getElementById('alertError').style.display ="block";
+                    try{
+                      document.getElementById('alertError').style.display ="block";
+                    }
+                    catch(err){
+                      console.log(err)
+                    }
+                    
           }
         }
       )
