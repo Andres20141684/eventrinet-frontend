@@ -23,7 +23,7 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{idFase:0,faseIni:'',faseFin:'',faseEvalIni:'',secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0,reqEnt:false,necesitaEntregable:0}],
+            fases:[{idFase:0,nombre:'',descripcion:'',faseIni:'',faseFin:'',faseEvalIni:'',secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0,reqEnt:false,necesitaEntregable:0}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:'',
@@ -40,6 +40,10 @@ export default class EventNew extends Component{
             options:[],
             data_recived: {},
             CategoriasNulo:0,
+            EsVaciocomiteOrganizacional:0,
+            EsVaciopresidente:0,
+            EsVacioevaluadores:0,
+            ChangeFases:0,
             form1Completo:false,
             form2Completo:false,
             form3Completo:false
@@ -94,16 +98,37 @@ export default class EventNew extends Component{
         else{
           this.setState({form1Completo:false})
         }
-        if(this.state.comiteOrganizacional.length!==0 && this.state.presidente.length!==0 && this.state.evaluadores.length!==0){
+        if(this.state.EsVaciocomiteOrganizacional==1 && this.state.EsVacioevaluadores==1 && this.state.EsVacioevaluadores==1){
           this.setState({form2Completo:true})
         }
         else{
           this.setState({form2Completo:false})
         }
+        var index=this.state.fases.length
+        index=index-1
+        if(this.state.fases[index].nombre!=='' && this.state.fases[index].descripcion!=='' 
+        && this.state.fases[index].faseIni!=='' && this.state.fases[index].faseFin!==''){
+          this.setState({form3Completo:true})
+        }
+        else{
+          this.setState({form3Completo:false})
+        }
       }
 
       componentDidUpdate(prevProps, prevState){
         if(prevState.CategoriasNulo!==this.state.CategoriasNulo){
+          this.validacion()
+        }
+        if(prevState.EsVaciocomiteOrganizacional!==this.state.EsVaciocomiteOrganizacional){
+          this.validacion()
+        }
+        if(prevState.EsVaciopresidente!==this.state.EsVaciopresidente){
+          this.validacion()
+        }
+        if(prevState.EsVacioevaluadores!==this.state.EsVacioevaluadores){
+          this.validacion()
+        }
+        if(prevState.ChangeFases!==this.state.ChangeFases){
           this.validacion()
         }
       }
@@ -171,6 +196,7 @@ export default class EventNew extends Component{
                   fases:auxfases
                 })
               }
+              this.setState({form1Completo:true,form2Completo:true,form3Completo:true})
             })
             .catch( (err) =>{
               console.log("error en conexión");
