@@ -1,56 +1,9 @@
-
 import React, { Component } from 'react';
-import BannerLogin from '../Components/General/bannerLogin';
-import BannerBottom from '../Components/General/bannerBottom'
 import '../styles/style_signUp.css'; 
 import {Redirect}  from "react-router-dom";
 import GoogleLogout from 'react-google-login';
 
 const Networking = require('../Network/Networking');
-/*
-function validarPassword(pass){
-   let  re;
-    if(pass.value != "") {
-    if(pass.value.length < 6) {
-      alert("Error: Password must contain at least six characters!");
-      pass.focus();
-      return false;
-    }
-
-    var user = document.getElementById("your-user");    
-    if(pass.value == user.value) {
-      alert("Error: Password must be different from Username!");
-      pass.focus();
-      return false;
-    }
-    re = /[0-9]/;
-    if(!re.test(pass.value)) {
-      alert("Error: password must contain at least one number (0-9)!");
-      pass.focus();
-      return false;
-    }
-    re = /[a-z]/;
-    if(!re.test(pass.value)) {
-      alert("Error: password must contain at least one lowercase letter (a-z)!");
-      pass.focus();
-      return false;
-    }
-    re = /[A-Z]/;
-    if(!re.test(pass.value)) {
-      alert("Error: password must contain at least one uppercase letter (A-Z)!");
-      pass.focus();
-      return false;
-    }
-  } else {
-    alert("Error: Please check that you've entered and confirmed your password!");
-    pass.focus();
-    return false;
-  }
-
-  alert("You entered a valid password: " + pass.value);
-  return true;
-} 
-*/
 class SingUp extends Component{
   constructor(props){
     super(props);
@@ -60,6 +13,7 @@ class SingUp extends Component{
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
   }
+  
 
   handleNextChildComponentChange(_nextChildComponent){
     console.log('cambiando', _nextChildComponent);
@@ -166,7 +120,7 @@ class SingUp extends Component{
 
                 <div class="form-row">
                   <label for="your-user">Usuario</label>
-                  <input type="text" name="your-user" id="your-user" class="input-text" placeholder="Usuario" maxLength="11" required onChange={this.onChangeUser}  pattern=".{6,}"  />
+                  <input type="text" name="your-user" id="your-user" class="input-text" placeholder="Usuario" maxLength="20" required onChange={this.onChangeUser}  pattern=".{6,}" />
                   <i class="fa fa-user"></i>
                 </div>
                 <div class="form-row">

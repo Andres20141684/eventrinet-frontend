@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import BannerLogin from '../Components/General/bannerLogin';
 import {Link}  from "react-router-dom";
 import '../styles/style_signUp.css';
 import {Redirect}  from "react-router-dom";
-import Col from 'react-bootstrap/Col';
 import ForgotPassword from './ForgotPassword';
 import ModalLoader from '../Components/General/ModalLoader';
 
@@ -18,7 +16,8 @@ class  Login extends Component{
       pass: "",
       redirect:false,
       isLoading:false,
-      buttonLoadingText:"Iniciar sesión"
+      buttonLoadingText:"Iniciar sesión",
+      msgError : ''
     }
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -40,23 +39,23 @@ class  Login extends Component{
 
       Networking.validar_sesion(this.state.user,this.state.pass).then(
         (response) => {
-          console.log(response);
+          console.log("estamos accediendo",response);
           let connectedUser = response;
           console.log("Data del usuario",connectedUser);
           if (connectedUser.succeed){
-            console.log("estamos accediendoo");
-            console.log(connectedUser);
-
             sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));            
 
             sessionStorage.setItem('tipoLogin',"usuario")
-            this.setState({redirect:true});
-            //alert("Contraseña y usuario correctos!");
+            this.setState({redirect:true, msgError:""});
+            document.getElementById('alertError').style.display ="none";          
           }else{
             console.log("No se logueo correctamente");
             console.log("Contraseña y/o usuario incorrecto!");            
-            this.setState({redirect:false,isLoading:false,buttonLoadingText:"Iniciar sesión"});
-            alert("Contraseña o usuario incorrectos!");
+            this.setState({redirect:false,
+                    isLoading:false,
+                    buttonLoadingText:"Iniciar sesión",
+                    msgError:connectedUser.message});
+            document.getElementById('alertError').style.display ="block";
           }
         }
       )
@@ -114,15 +113,16 @@ class  Login extends Component{
                 <input type="password" name="password" id="password" className="input-text"   maxLength="45" pattern=".{4,}" onChange={this.onChageInputPass} placeholder="Contraseña" required/>
                 <i className="fa fa-lock"></i>
               </div>
+              <div className="alert alert-danger" id="alertError" role="alert" style={{display:'none',padding:'8px',height:'auto',fontSize:'13px'}}>
+                  {this.state.msgError}
+              </div>
               <div className="form-row">
                 <input type="submit" name="Iniciar sesion"className="btn btn-primary btn-block" value={this.state.buttonLoadingText} disabled={this.state.isLoading} on/>
               </div>
             </form>
             <div className="row" style={{float:"right",paddingRight:"50px"}}>
               <a onClick={this.handleClickForgotPass} style={styles.link} onMouseOver ={styles.onHoverLink}>Has olvidado tu contraseña?</a>
-            </div>
-
-            <div id="errorMsg" className="alert alert-warning" role="alert" style={{marginBottom:0, marginTop:"20px", display:"none"}}></div>
+            </div>            
 
             <div className="col-xs-12">
               <div className="divider dividerSign">
