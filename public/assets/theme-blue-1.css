@@ -1,0 +1,31 @@
+.body-dark .container.gmap-background .on-gmap.color {
+    background-color: #0d1d31;
+}
+.container.gmap-background .on-gmap.color {
+    background-color: #563d7c;
+    color: #fefefe;
+}
+.container.gmap-background .on-gmap.color {
+    background-color: #dc143c;
+    color: #fefefe;
+}
+.container.gmap-background .on-gmap {
+    border-radius: 10px;
+    padding: 55px 25px 45px 25px;
+    line-height: 30px;
+}
+.container.gmap-background .on-gmap {
+    position: relative;
+    z-index: 1;
+    min-height: 200px;
+    width: 350px;
+}
+* {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

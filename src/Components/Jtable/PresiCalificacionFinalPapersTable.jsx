@@ -4,7 +4,7 @@ import '../../styles/style_sheets.css'
 import JTableMaterial from '../Special/JTableMaterial';
 import EvaluacionPresidente from  './EvaluacionPresidente';
 const Networking = require('./../../Network/Networking.js') ;
- 
+  
 
 class PresiCalificacionFinalPapersTable  extends Component {
    constructor(props) {
@@ -40,6 +40,7 @@ class PresiCalificacionFinalPapersTable  extends Component {
       
    }
    componentDidMount(){
+      console.log("props____ revisionfinal",this.props)
       
       let retrievedObject = sessionStorage.getItem('dataUser');
       let retrievedJson = JSON.parse(retrievedObject);  
@@ -54,6 +55,8 @@ class PresiCalificacionFinalPapersTable  extends Component {
             
          }else {
             console.log('si hay algo:');
+            console.log("CAMBIAAA EL SERVICIO PLEASEEEEEEE....")
+            console.log("debes ademas devolver lista de fases y lista de idFases")
             this.setState({datos_tabla:value});
             this.renderTableData();
             this.setState({dataReady:1});
@@ -65,10 +68,11 @@ class PresiCalificacionFinalPapersTable  extends Component {
     console.log('this is:', this);
   }
   handleClickEvaularPaper (evt,idEvento,nombre,fasesTotales,secuencia,fechaLimite,idFaseActual,nombreFase){
+     
    this.handleNextChildComponentChangeProps(
       {idEvent:idEvento,
       nombreEvento:nombre,
-      fasesTotales:fasesTotales,
+      fasesTotales:fasesTotales, 
       secuencia:secuencia,
       fechaLimite:fechaLimite,
       idFaseActual : idFaseActual,
@@ -94,6 +98,7 @@ class PresiCalificacionFinalPapersTable  extends Component {
  }
    renderTableData() {
       let data = [];
+
       this.state.datos_tabla.Eventos.map((element, index) => {
          const {idEvento, nombre,secuencia, fasesTotales,fechaLimite,idFaseActual,nombreFase} = element
             data.push(

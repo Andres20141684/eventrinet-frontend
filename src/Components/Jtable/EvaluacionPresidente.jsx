@@ -6,6 +6,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import FormPropsxFasePresidente from './FormPropsxFasePresidente'
+import FasesForm from './FasesForm'
 import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
 const Networking = require('../../Network/Networking');
 
@@ -13,7 +14,7 @@ class EvaluacionPresidente extends Component {
     constructor(props) {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = {
-            idEvento: 0,
+            idEvento: 0, 
             datos_tabla: {
                 Organizadores: [
                 ]
@@ -26,10 +27,7 @@ class EvaluacionPresidente extends Component {
             tabIndex: 0,
             idFaseActual: 0,
             nombreFase: '',
-            datos_tabla2: {
-                Fases: [
-                ]
-            }
+            fases: []
         }
         this.handleNextChildComponentChange = this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps = this.handleNextChildComponentChangeProps.bind(this);
@@ -47,7 +45,7 @@ class EvaluacionPresidente extends Component {
 
 
     componentWillMount() {
-        console.log("cambie de componet y el props pasado es:", this.props.nextChildComponentProps);
+        //console.log("cambie de componet y el props pasado es:", this.props.nextChildComponentProps);
         let yyIni = this.props.nextChildComponentProps.fechaLimite.substr(0, 4);
         let mmIni = this.props.nextChildComponentProps.fechaLimite.substr(8, 2);
         let ddIni = this.props.nextChildComponentProps.fechaLimite.substr(5, 2);
@@ -66,34 +64,39 @@ class EvaluacionPresidente extends Component {
 
         console.log("Seteado todos los valores del state", this.state);
 
-        this.state.idEvento = this.props.nextChildComponentProps.idEvent
-        this.state.nombreEvento = this.props.nextChildComponentProps.nombreEvento
-        this.state.fasesTotales = this.props.nextChildComponentProps.fasesTotales
-        this.state.secuencia = this.props.nextChildComponentProps.secuencia
-        this.state.fechaLimite = new Date(parseInt(yyIni), parseInt(mmIni), parseInt(ddIni))
-        this.state.idFaseActual = this.props.nextChildComponentProps.idFaseActual
-        this.state.nombreFase = this.props.nextChildComponentProps.nombreFase
+        if (this.state.idEvento !== this.props.nextChildComponentProps.idEvent)
+        {
+            this.state.idEvento = this.props.nextChildComponentProps.idEvent
+            this.state.nombreEvento = this.props.nextChildComponentProps.nombreEvento
+            this.state.fasesTotales = this.props.nextChildComponentProps.fasesTotales
+            this.state.secuencia = this.props.nextChildComponentProps.secuencia
+            this.state.fechaLimite = new Date(parseInt(yyIni), parseInt(mmIni), parseInt(ddIni))
+            this.state.idFaseActual = this.props.nextChildComponentProps.idFaseActual
+            this.state.nombreFase = this.props.nextChildComponentProps.nombreFase
 
-        console.log("Seteado todos los valores del state pero a la mala xq no se pudo :v", this.state);
+            console.log("Seteado todos los valores del state pero a la mala xq no se pudo :v", this.state);
+        }
+
+        
 
         const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
             "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
         ];
         let header = this.state.nombreEvento + " - " + this.state.fechaLimite.getUTCDate().toString(10) + " " + monthNames[this.state.fechaLimite.getUTCMonth()];
         this.setState({ header: header });
-        console.log(header)
+        //console.log(header)
 
         /* YOPS jxjx */
         console.log("EL ID EVENTO: ", this.props.nextChildComponentProps.idEvent);
         Networking.listarFasesXEvento(this.props.nextChildComponentProps.idEvent).then((value) => {
-            console.log(value);
+            console.log("lo que devuelve listarFasesXEvento",value);
             if (value == null) {
                 console.log('no hay algo aun');
 
             } else {
                 console.log('si hay algo:');
-                this.setState({ datos_tabla2: value });
-                console.log("Fases: ", this.state.datos_tabla2.Fases);
+                this.setState({ fases: value.Fases });
+                console.log("Fases: ", this.state.fases);
             }
 
         });
@@ -114,37 +117,32 @@ class EvaluacionPresidente extends Component {
      }*/
     render() {
         console.log("__props jsx : ", this.props);
+        console.log("STATE PARA FASESFORM",this.state)        
 
         return (
-            <div>
-
+            <div style={{marginTop:'20px',marginLeft:'40px',marginRight:'40px'}}>
                 <div className="Main-tittle">
-                    <div style={{ marginLeft: 15 }}>
-                        <h1><br />{this.state.header}</h1>
+                    <div style={{ marginLeft: 15, marginTop:15, marginBottom:15 }}>
+                        <h1><br />{this.props.nextChildComponentProps.nombreEvento}</h1>
                     </div>
-                    <div style={{ marginLeft: 40, marginTop: 25 }} ><h4>Fase Actual: {this.props.nextChildComponentProps.nombreFase}</h4></div>
                 </div>
-
-                <div class="container" >
-                    <div class="panel-body">
-                        <FormPropsxFasePresidente
-                            nextChildComponentProps={this.props.onNextChildComponentChange}
-                            NextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
+                <FasesForm
+                    idEvento = {this.props.nextChildComponentProps.idEvent}
+                    nombreEvento = {this.props.nextChildComponentProps.nombreEvento}
+                    //fasesTotales = {this.props.nextChildComponentProps.fasesTotales}
+                    //secuencia = {this.props.nextChildComponentProps.secuencia}
+                    //fechaLimite = {this.props.nextChildComponentProps.fechaLimite}
+                    //idFase = {this.props.nextChildComponentProps.idFase}
+                    fases = {this.state.fases}
+                    header = {this.state.header}
+                    handleReturn = {this.handleReturn}
+                />
+                        {/*<FormPropsxFasePresidente
+                            //nextChildComponentProps={this.props.onNextChildComponentChange}
+                            //NextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                             idFase={this.state.idFaseActual}
-                        />
-
-                        <div style={{ paddingTop: '20px' }}>
-                            <button
-                                style={{ float: 'left' }}
-                                class="mybutton"
-                                onClick={this.handleReturn}
-                            >
-                                Regresar
-                    </button>                                          
-                        </div>
-                    </div>
-                </div>
-                <br /><br />
+                         />*/}
+                        
             </div>
         )
     }

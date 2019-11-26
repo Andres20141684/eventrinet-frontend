@@ -109,6 +109,7 @@ class Organizador_ActiveEventsTable  extends Component {
          let columns= [
             { title: 'Nro', field: 'num' ,cellStyle:{ fontSize: 14 }},
             { title: 'Lista de eventos', field: 'name',cellStyle:{ width:'30%',fontSize: 14 } },
+            { title: 'Fase: Actual/Total', field: 'fase',cellStyle:{ width:'10%',fontSize: 14 } },
             { title: 'Estado actual', field: 'state',cellStyle:{ width:'15%',fontSize: 14 } },
             { title: 'Fecha Inicio', field: 'fechaIni',cellStyle:{width:'12%', fontSize: 14 } },
             { title: 'Fecha Fin', field: 'fechaFin' ,cellStyle:{ width:'12%',fontSize: 14 }},
@@ -152,17 +153,19 @@ class Organizador_ActiveEventsTable  extends Component {
       let data=[];
       this.state.datos_tabla.Eventos.forEach((evento , index )=> {
          const {idEvento, nombre,descripcion,fechaIni,
-            fechaFin,lugar,precios,numFases,estado,
+            fechaFin,lugar,precios,faseActual,numFases,estado,
             preferencia,tieneCameraRdy,programaCompletado,
             fechaMaxPref,numeroPropuestas} = evento
          data.push(
             { 
                num: index+1,
                name: nombre, 
+               fase: "" + ("0"||faseActual) + "/" + numFases,
                state: estado, 
                fechaIni: fechaIni, 
                fechaFin: fechaFin,
-               edit: (<JActionButton
+               edit: 
+               (<JActionButton
                      onClick = {()=>this.handleEditButton(this.state.idUser_recived,
                                                                evento.idEvento,
                                                                evento.nombre)}
@@ -175,10 +178,10 @@ class Organizador_ActiveEventsTable  extends Component {
                      button_class ="fa fa-play" 
                      />)
                
-            ,
+               ,
                cancel: 
                (<JActionButton
-                           onClick = {()=>this.handleCancelClick(idEvento)}
+                           onClick = {()=>this.handleCancelClick(evento.idEvento)}
                            button_class ="fa fa-times" 
                         />)
             }
