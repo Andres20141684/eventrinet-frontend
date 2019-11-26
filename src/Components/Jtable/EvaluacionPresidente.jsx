@@ -8,8 +8,9 @@ import 'react-table/react-table.css'
 import FormPropsxFasePresidente from './FormPropsxFasePresidente'
 import FasesForm from './FasesForm'
 import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
+import PresiEventos_asignarEvaTable from './PresiEventos_asignarEvaTable';
 const Networking = require('../../Network/Networking');
-
+ 
 class EvaluacionPresidente extends Component {
     constructor(props) {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
@@ -84,9 +85,7 @@ class EvaluacionPresidente extends Component {
         ];
         let header = this.state.nombreEvento + " - " + this.state.fechaLimite.getUTCDate().toString(10) + " " + monthNames[this.state.fechaLimite.getUTCMonth()];
         this.setState({ header: header });
-        //console.log(header)
-
-        /* YOPS jxjx */
+        
         console.log("EL ID EVENTO: ", this.props.nextChildComponentProps.idEvent);
         Networking.listarFasesXEvento(this.props.nextChildComponentProps.idEvent).then((value) => {
             console.log("lo que devuelve listarFasesXEvento",value);
@@ -126,23 +125,25 @@ class EvaluacionPresidente extends Component {
                         <h1><br />{this.props.nextChildComponentProps.nombreEvento}</h1>
                     </div>
                 </div>
-                <FasesForm
-                    idEvento = {this.props.nextChildComponentProps.idEvent}
-                    nombreEvento = {this.props.nextChildComponentProps.nombreEvento}
-                    //fasesTotales = {this.props.nextChildComponentProps.fasesTotales}
-                    //secuencia = {this.props.nextChildComponentProps.secuencia}
-                    //fechaLimite = {this.props.nextChildComponentProps.fechaLimite}
-                    //idFase = {this.props.nextChildComponentProps.idFase}
-                    fases = {this.state.fases}
-                    header = {this.state.header}
-                    handleReturn = {this.handleReturn}
-                />
-                        {/*<FormPropsxFasePresidente
-                            //nextChildComponentProps={this.props.onNextChildComponentChange}
-                            //NextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                            idFase={this.state.idFaseActual}
-                         />*/}
-                        
+                <div className='container'>
+                <div className='panel-body'>
+                    <FasesForm
+                        idEvento = {this.props.nextChildComponentProps.idEvent}
+                        nombreEvento = {this.props.nextChildComponentProps.nombreEvento}
+                        fases = {this.state.fases}                    
+                        handleReturn = {this.handleReturn}
+                    />
+                    <button
+                        style={{ float: 'left' }}
+                        class="mybutton"
+                        onClick={this.handleReturn}
+                    >
+                        Regresar
+                    </button>
+                </div>
+                </div>
+                <br/><br/>
+                                            
             </div>
         )
     }

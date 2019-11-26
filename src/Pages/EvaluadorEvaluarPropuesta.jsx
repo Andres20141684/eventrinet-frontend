@@ -236,7 +236,7 @@ class EvaluadorEvaluarPropuesta extends Component{
                                    checked={this.state.rptasCriterios[index] == 1} 
                                    onChange={event => this.onRadioChange2(event, index)} />Muy malo</td>
             <td><input type="radio" // name={"radio".concat((indiceRadioB+index).toString())}
-                                   value={2}
+                                   value={2} 
                                    checked={this.state.rptasCriterios[index] == 2} 
                                    onChange={event => this.onRadioChange2(event, index)} />Malo</td>
             <td><input type="radio"  //name={"radio".concat((indiceRadioB+index).toString())}

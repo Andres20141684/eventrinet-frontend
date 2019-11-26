@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BannerLogin from '../Components/General/bannerLogin';
 import '../styles/style_signUp.css'; 
 import {Redirect}  from "react-router-dom";
 
