@@ -361,6 +361,7 @@ class FormPropsxFasePresidente extends Component {
   constructor(props) {
     super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
+      idFase:-1,
       tabla_propuestas: { //{nombre,idpropuesta,estado}
         Propuestas: []
       },
@@ -405,9 +406,16 @@ class FormPropsxFasePresidente extends Component {
     return true;
   
   }*/
-  componentWillMount() {
+  componentDidMount() {
     console.log("props___ : ", this.props);
-    Networking.mostrarTodasObs(this.props.idFase).then(
+    this.setState({idFase:this.props._props.myProps.fases[this.props._props.activeStep].idFase})
+    
+    if (this.state.idFase !== this.props._props.myProps.fases[this.props._props.activeStep].idFase){
+      this.state.idFase = this.props._props.myProps.fases[this.props._props.activeStep].idFase
+    }
+
+    console.log("idFase"+this.props._props.activeStep,this.state.idFase)
+    Networking.mostrarTodasObs(this.state.idFase).then(
       (response) => {
         console.log(response);
         if (response == null) {
@@ -422,14 +430,14 @@ class FormPropsxFasePresidente extends Component {
 
     //SERVICIO AL BACKKKKKKKKKKKKKKKKKKKKK!!!
     //--------------------------------------
-    Networking.presidenteListarPropuestasXFase(this.props.idFase).then(
+    Networking.presidenteListarPropuestasXFase(this.state.idFase).then(
       (response) => {
         console.log(response);
         if (response == null) {
           console.log('no hay algo aun');
 
         } else {
-          console.log('si hay algo:');
+          console.log('si hay algo: LISTA PROPUESTAS');
           this.setState({ tabla_propuestas: response });
           OPTIONS = response.Propuestas.map((e) => e.idPropuesta);
           console.log("dsps? :", OPTIONS);
@@ -462,7 +470,7 @@ class FormPropsxFasePresidente extends Component {
                 idEvaluador={idEvaluador}
                 idPropuesta={idPropuesta}
                 evaluador={evaluador}
-                idFase={this.props.idFase}
+                idFase={this.state.idFase}
                 detalleCalificacionEvaluadorActual={this.state.detalleCalificacionEvaluadorActual}
                 propuestas ={this.state.propuestaActual}
                 showModalDetalleEvaluador={this.showModalDetalleEvaluador}
@@ -477,7 +485,7 @@ class FormPropsxFasePresidente extends Component {
   showModalDetalleEvaluador = (idEvaluador, idPropuesta,evaluador) => {
     console.log('props',this.props);
     
-    Networking.mostrarCalificacionXPropuestaApresi(idEvaluador,this.props.idFase,idPropuesta).then(
+    Networking.mostrarCalificacionXPropuestaApresi(idEvaluador,this.state.idFase,idPropuesta).then(
       (response) => {
         console.log(response);
         if (response == null) {
@@ -507,7 +515,7 @@ class FormPropsxFasePresidente extends Component {
   showModalDetalleObservaciones = (idPropuesta, idFase) => {
     //SERVICIO PARA LISTAR LAS OBSERVACIONES DE LA PROPUESTA SELECCIONADA
 
-    Networking.observaciones_propuestas(idPropuesta,this.props.idFase).then(
+    Networking.observaciones_propuestas(idPropuesta,this.state.idFase).then(
       (response) => {
         console.log(response);
         if (response == null) {
@@ -592,7 +600,7 @@ class FormPropsxFasePresidente extends Component {
       .forEach(checkbox => {
         //console.log("Se va a insertar: ", this.props.idFase, checkbox, obss[checkbox]);
         data = JSON.stringify({
-          idFase: parseInt(this.props.idFase),
+          idFase: parseInt(this.state.idFase),
           idPropuesta: parseInt(checkbox),
           obsFinal: obss[checkbox],
           fuePersonalizado: 0,//PARA CAMBIAR
@@ -624,8 +632,8 @@ class FormPropsxFasePresidente extends Component {
     //Servicio para guardar el comentario del presii
     //Falta el servicon en NETOWORKINGGGGGGGGGGGGGGGGGGG    
 
-    console.log('guardando comentario del presi',this.props.idFase,' ',this.state.presiComentario,' ',idPropuesta)    
-    Networking.updateComentarios(this.props.idFase,this.state.presiComentario,idPropuesta).then(
+    console.log('guardando comentario del presi',this.state.idFase,' ',this.state.presiComentario,' ',idPropuesta)    
+    Networking.updateComentarios(this.state.idFase,this.state.presiComentario,idPropuesta).then(
       (response) => {
         console.log(response);
         if (response == null) {
@@ -645,7 +653,7 @@ class FormPropsxFasePresidente extends Component {
       .forEach(checkbox => {
         //console.log("Se va a insertar: ", this.props.idFase, checkbox);
         data = JSON.stringify({
-          idFase: parseInt(this.props.idFase),
+          idFase: parseInt(this.state.idFase),
           idPropuesta: parseInt(checkbox),
           obsFinal: "",//PARA CAMBIAR
           fuePersonalizado: 1,//PARA CAMBIAR
@@ -704,7 +712,7 @@ class FormPropsxFasePresidente extends Component {
               <div className="col-md-1">
                 <ModalObsAdicional
                   idPropuesta= {idPropuesta}
-                  idFase={this.props.idFase}
+                  idFase={this.state.idFase}
                   comentariosActual={this.state.comentariosActual}
                   handleClickUpdateComentarios={this.handleClickUpdateComentarios}
                   handleSaveComentario={this.handleSaveComentario}
@@ -746,8 +754,8 @@ class FormPropsxFasePresidente extends Component {
   render() {
 
     return (
-      <div>
-        <Accordion defaultActiveKey="0" className="table-responsive">
+      <div style={{marginLeft:'10%',marginRight:'10%'}}>
+        <Accordion defaultActiveKey="0" className="table-responsive" style={{fontSize:'13px'}}>
           {this.tableData()}
         </Accordion>
 
@@ -776,4 +784,3 @@ class FormPropsxFasePresidente extends Component {
 }
 
 export default FormPropsxFasePresidente
-

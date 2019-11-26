@@ -124,6 +124,7 @@ class EvaluadorEventosPrefTable  extends Component {
                nomb_evento ={nombre} //nombre
                idUser_recived={this.state.idUser_recived}               
                /*este se va a settear*/nomb_fase = {this.state.nomb_fase} //"XDD"//{this.state.nomb_fase}//{nombre_fase}//AQUI SE SETTEAN LOS PROPS PARA EL SIG COMPONENTE
+               Usuario={this.props.nextChildComponentProps.Usuario}
 
                onNextChildComponentChange={this.evaluarEvaluador}
                onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}

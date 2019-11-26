@@ -116,6 +116,9 @@
 
 
 
+.MuiStepLabel-label {
+    font-size: 15px !important;
+}
 
 .pull-right{
     margin-top: -20px;
@@ -172,5 +175,9 @@
     left: 4px;
   }
 
+  .react-dropdown-select-input {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 
   
