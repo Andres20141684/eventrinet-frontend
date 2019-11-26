@@ -77,15 +77,11 @@ function renderForm(flag, fase, responseObservaciones,responsePropuestas,props){
   
 }
 function getStepContent(props,activeStep) {
-  //console.log("Llamando al componenten de observaciones observaciones")  
   
   let propsPasados = {
     myProps : props,
     activeStep : activeStep,
   }
-  console.log("______HOLA QUEUIERO______",props,activeStep)  
-  console.log("HOLA QUIERO",propsPasados)
-
   return <FormPropsxFasePresidente key = {"step-"+ activeStep}  _props = {propsPasados}/>;
 
 }
@@ -104,9 +100,6 @@ export default function HorizontalNonLinearStepper(props) {
     return Object.keys(completed).length;
   };
 
-  const isLastStep = () => {
-    return activeStep === totalSteps() - 1;
-  };
 
   const allStepsCompleted = () => {
     return completedSteps() === totalSteps();
@@ -135,11 +128,7 @@ export default function HorizontalNonLinearStepper(props) {
       </Stepper>
       <div>
         {allStepsCompleted() ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Button onClick={handleReset}>Reset</Button>
+          <div>            
           </div>
         ) : (
           <div>
