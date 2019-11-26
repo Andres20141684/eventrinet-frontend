@@ -161,12 +161,7 @@ export default class StepOne extends React.Component {
                       maxTamanio={10}
                     />
                   </div>
-                  <div class="col-sm-4">
-                    <div class="imagen-port" 
-                     style={{width: "94%"}}>
-                      <img src={this.props.imagen} alt="event"/>
-                    </div>
-                  </div>
+                  
                 
                 </div> 
           </div>

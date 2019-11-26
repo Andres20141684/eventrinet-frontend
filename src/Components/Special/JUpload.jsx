@@ -12,6 +12,9 @@ class JUpload  extends Component {
         reader:null,
         maxTamanio:10,
         formato:"pdf",
+        contenido: 0,
+        img_preview: "",
+        pdf_preview: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE6oK_1G3kzZWbAlYKtyv7Pu2DWMCqYyGkRG4fVsIzWOSJAEzi&s"
       }
       this.handleOnLoad=this.handleOnLoad.bind(this);
       this.abortRead=this.abortRead.bind(this);
@@ -27,9 +30,13 @@ class JUpload  extends Component {
         setTimeout("document.getElementById('progress_bar').className='';", 2000);
         this.props.onSuccesLoad(
         e.target.result);
+        this.setState({img_preview:e.target.result});
+        
+        this.setState({contenido:1});
       }
     abortRead() {
         this.state.reader.abort();
+        this.setState({contenido:0});
     }
     updateProgress(evt) {
     var progress = document.querySelector('.percent');
@@ -135,19 +142,36 @@ class JUpload  extends Component {
     }
 
    }
+   renderStatus(i){
+    switch(i){
+      case 0: return "Sube tus archivos aqui";
+      case 1: if(this.state.formato=="image/jpeg" || this.state.formato=="image/jpeg" )
+                  {return( <div class="imagen-port" 
+                            style={{height:"50%"}}>
+                            <img src={this.state.img_preview} alt="event"/>
+                          </div>)}
+              else if(this.state.formato=="application/pdf" ){
+                {return( <div class="imagen-port" 
+                            style={{height:"50%"}}>
+                            <img src={this.state.pdf_preview} alt="event"/>
+                          </div>)}
+              }
    
+    } 
+    
+     }
   
      render() {
          return (
             <div class="panel panel-default" >
             <div className="containerDZ">
               <div id="drop_zone">
-                Arrastra tus archivos aqui :)
+                {this.renderStatus(this.state.contenido)}
               </div>
               <div id="progress_bar"><div class="percent">0%</div></div>
                 <button type="button" class="btn btn-success" 
                         style={{width:"126px"},{backgroundColor:"#3B83BD"}} 
-                        onclick="abortRead();">
+                        onClick={()=>this.abortRead()}>
                           Cancelar subida
                 </button>
             </div>
