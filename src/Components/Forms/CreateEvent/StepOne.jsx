@@ -49,7 +49,7 @@ export default class StepOne extends React.Component {
                     maxLength="45"
                     readOnly={this.props.rol===1}
                     autoFocus/>
-                {this.props.nombre===''?<span class="error">Campo Obligatorio</span>:<br></br>}  
+                {this.props.nombre===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}  
             </div>
             </Row>
             <Row>
@@ -67,7 +67,7 @@ export default class StepOne extends React.Component {
                     maxLength="200"
                     readOnly={this.props.rol===1}       
                     />
-                  {this.props.descripcion===''?<span class="error">Campo Obligatorio</span>:<br></br>}  
+                  {this.props.descripcion===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}  
             </div>
             </Row>
             <Row>
@@ -84,7 +84,7 @@ export default class StepOne extends React.Component {
                     maxLength="150"
                     readOnly={this.props.rol===1}
                     />
-                  {this.props.lugar===''?<span class="error">Campo Obligatorio</span>:<br></br>}  
+                  {this.props.lugar===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}  
             </div>
             </Row>
             <label >Fechas de la Realizacion del evento:</label><br/>  
@@ -119,7 +119,7 @@ export default class StepOne extends React.Component {
                         />                       
                   </div>
                   </Row>
-                  {this.props.fechaIE==='' && this.props.fechaFE===''?<span class="error">Campo Obligatorio</span>:<br></br>}
+                  {this.props.fechaFE===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}
             </div>
           </div>
           <br></br>
@@ -137,7 +137,7 @@ export default class StepOne extends React.Component {
               label="descripcion"
               rol={this.props.rol}/>
               </div>
-              {this.props.categorias.length===0?<span class="error">Campo Obligatorio</span>:<br></br>}  
+              {this.props.categorias.length===0?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}  
             </div>
           </div>
           <br></br>
