@@ -60,6 +60,7 @@ class Organizador_HistoryventsTable extends Component {
             {
                num: index+1,
                name:nombre,
+               estado: estado,
                report: (<button className="btn_plus" 
                            style={{justifyContent:"center", alignItems:"center"}} 
                            onClick={this.handleClick} >
@@ -85,7 +86,8 @@ class Organizador_HistoryventsTable extends Component {
      renderHeaders(){
       let columns= [
          { title: 'Nro', field: 'num' ,cellStyle:{ fontSize: 14 }},
-         { title: 'Lista de eventos', field: 'name',cellStyle:{ width:'82%',fontSize: 14 } },         
+         { title: 'Lista de eventos', field: 'name',cellStyle:{ width:'82%',fontSize: 14 } },
+         { title: 'Estado', field: 'estado', cellStyle:{ fontSize : 14}},        
          { title: 'Reporte', field: 'report',cellStyle:{ width:'18%',fontSize: 14 } },
        ];
        this.setState({columns:columns});
