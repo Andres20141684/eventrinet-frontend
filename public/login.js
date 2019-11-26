@@ -107,7 +107,8 @@ async function onSignUp(googleUser){
 		}
 }
 
-async function validar_sesion(var_email,var_given_name,var_family_name) {}
+async function validar_sesion(var_email,var_given_name,var_family_name) {
+	console.error('Validar sesion',var_email,var_given_name,var_family_name);
     try {
         let response = await fetch(restURL + 'validar_session', {
             method: 'POST',

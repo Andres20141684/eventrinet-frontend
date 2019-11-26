@@ -16,7 +16,7 @@ class FormStepThree extends Component{
     handleValNum(e){
         console.log(parseInt(e.target.value))
         console.log(this.props.value.numEvaluadores)
-        if(parseInt(e.target.value)<=this.props.numEval){
+        if(parseInt(e.target.value)<=this.props.numEval && parseInt(e.target.value)>0){
             this.props.onChange(e,this.props.index,"numEvaluadores")
         }else{
             this.props.onChange({target:{value:''}},this.props.index,"numEvaluadores")
