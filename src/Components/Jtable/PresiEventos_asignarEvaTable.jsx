@@ -121,7 +121,7 @@ class PresiEventos_asignarEvaTable  extends Component {
          console.log("FLAG ASIGNARR",flagAsignar)
          data.push(
             {
-               num: index,
+               num: index+1,
                name: nombre,
                statusAsign:propAsignadas+"/"+propTotal,
                stateFase: faseAct+"/"+ fasesTot,
@@ -133,15 +133,7 @@ class PresiEventos_asignarEvaTable  extends Component {
                   idEvento={idEvento} 
                   onClick={()=>this.handleClickAddEval(element.idEvento)}/>
                ):
-               (<button 
-                     style={{cursor:'not-allowed'}}
-                     class='btn_plus'
-                     onClick={this.handleClick}
-                     title="No puedes asignar evaluadores" >
-                     <a> 
-                        <i class='fa fa-plus' />
-                     </a>
-               </button>               
+               (<div title="No puedes asignar evaluadores">-</div>
                 )
                ),
                edit:(<JActionButton
@@ -173,7 +165,7 @@ class PresiEventos_asignarEvaTable  extends Component {
          { title: 'Propuestas asignadas / Total', field: 'statusAsign' ,cellStyle:{ width:'14%',fontSize: 14 }},
          { title: 'Fase Actual / Total', field: 'stateFase' ,cellStyle:{ width:'14%',fontSize: 14 }},
          { title: 'Inicio evaluación', field: 'evalIn' ,cellStyle:{width:'14 %'}},
-         { title: 'Asignar evaluadores', field: 'asignEval',cellStyle:{width:'4%'} },
+         { title: 'Asignar evaluadores', field: 'asignEval',cellStyle:{width:'4%', textAlign:'center'} },
          { title: 'Editar fases', field: 'edit' ,cellStyle:{width:'4%'}},
        ];
       this.setState({columns:columns});

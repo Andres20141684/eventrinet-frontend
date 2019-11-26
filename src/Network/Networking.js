@@ -169,7 +169,7 @@ export async function validar_sesion(var_user,var_password) {
     }
   }
 
-  export async function updateComentarios(idFase,presiComentario,idPropuesta){
+  export async function updateComentarioPresidente(idFase,presiComentario,idPropuesta){
     console.log('Dando permisos de organizador...');
     try {        
         let response = await fetch(restURL 
@@ -187,12 +187,7 @@ export async function validar_sesion(var_user,var_password) {
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
-        let responseJson = await response.json();
-        console.log('Saving!!');
-        console.log(responseJson);        
-        console.log('Saving!!');
-  
-        return responseJson;  
+        return ;  
     } catch (error) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
@@ -1184,6 +1179,30 @@ export async function rechazarPropuestaXFase(data){
         return error
     }
 }
+
+export async function MostrarCorreoPorDefecto(idPropuesta, idFase) {
+    try {
+        let response = await fetch(restURL 
+            + 'presidente/mostrarCorreoPorDefecto', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idPropuesta: idPropuesta,
+                idFase: idFase
+            }),
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
 export async function observaciones_propuestas(idPropuesta, idFase) {
     try {
         let response = await fetch(restURL 
@@ -1207,7 +1226,7 @@ export async function observaciones_propuestas(idPropuesta, idFase) {
         console.error('CATCH ALCANZADO :(');
     }
 }
-export async function mostrarTodasObs(idFase) {
+export async function mostrarTodasObsPresidente(idFase) {
     try {
         let response = await fetch(restURL 
             + 'presidente/mostrarTodasObs', {

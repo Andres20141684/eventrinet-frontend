@@ -85,9 +85,7 @@ class EvaluacionPresidente extends Component {
         ];
         let header = this.state.nombreEvento + " - " + this.state.fechaLimite.getUTCDate().toString(10) + " " + monthNames[this.state.fechaLimite.getUTCMonth()];
         this.setState({ header: header });
-        //console.log(header)
-
-        /* YOPS jxjx */
+        
         console.log("EL ID EVENTO: ", this.props.nextChildComponentProps.idEvent);
         Networking.listarFasesXEvento(this.props.nextChildComponentProps.idEvent).then((value) => {
             console.log("lo que devuelve listarFasesXEvento",value);
