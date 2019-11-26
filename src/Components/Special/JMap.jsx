@@ -2,9 +2,34 @@ import React, { Component } from 'react';
 import './JMap.css'
 
 class JMap extends Component {
-    componentDidMount() {
-        
+    componentDidMount(){
+        var sydney = new window.google.maps.LatLng(-12.070318, -77.07793);
+        console.log("var sydney = new google.maps.LatLng(-33.867, 151.195);",sydney);
+        var infowindow = new window.google.maps.InfoWindow();
+        console.log("var infowindow = new window.google.maps.InfoWindow();",infowindow);
+        var map_var = document.getElementById('map');
+        console.log("var infowindow = new window.google.maps.InfoWindow();",map_var);
+        var MAP = new window.google.maps.Map(map_var,
+            {center: sydney, zoom: 18}
+            );
+        var request = {
+            query: 'Pontificia Universidad Catolica del Peru',
+            fields: ['name', 'geometry'],
+            };
+        var service = new window.google.maps.places.PlacesService(MAP);
+
+        service.findPlaceFromQuery(request, function(results, status) {
+            if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+              for (var i = 0; i < results.length; i++) {
+                window.createMarker(results[i]);
+              }
+      
+              MAP.setCenter(results[0].geometry.location);
+            }
+          });
+
     }
+    
     codeAddress(){
         console.log("JinSSJ2-> internal Code Address");
         var address = document.getElementById('address').value;
@@ -40,7 +65,9 @@ class JMap extends Component {
         <div className="col-9">
         <script src= "./JMap.js"></script>
         <div id="map"></div>
-                
+         <script async defer 
+         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFewU956fhTh3NC9lS0JKs8-TKxTCVvQ0&callback=componentWillMount"> </script>
+
         </div>
         </div>
         

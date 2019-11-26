@@ -182,7 +182,6 @@ class WorkingSpace extends Component{
         onNextChildComponentChange={this.handleNextChildComponentChange}
         onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
       /> 
-      <JMap/>
       <div>
       <this.state.nextChildComponent
         nextChildComponentProps={this.state.nextChildComponentProps}

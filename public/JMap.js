@@ -5,10 +5,9 @@ var service;
 var infowindow;
 
 function initMap() {
-    var sydney = new google.maps.LatLng(-33.867, 151.195);
-
+    var sydney = new google.maps.LatLng(-12.070318, -77.07793);
+    console.log("var sydney = new google.maps.LatLng(-33.867, 151.195);");
     infowindow = new google.maps.InfoWindow();
-
     map = new google.maps.Map(
         document.getElementById('map'), {center: sydney, zoom: 18});
 
