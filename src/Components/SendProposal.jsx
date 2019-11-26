@@ -5,6 +5,7 @@ import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import './../styles/InscriptionEvent.css'
 import FrmSendPropuesta from './FrmSendPropuesta';
+import JMap from './Special/JMap';
 
 const Networking = require('../Network/Networking.js') ;
 
@@ -188,7 +189,7 @@ class SendProposal extends Component{
                         onClick={this.handleClicInscripcionEvento}>Enviar Propuesta</button>
                     </div>    
                 </div>
-
+                <JMap/>
                 <div class="container">
                 <Tabs defaultIndex={0}>
                     <TabList>

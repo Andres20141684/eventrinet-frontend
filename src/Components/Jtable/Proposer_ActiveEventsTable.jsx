@@ -112,7 +112,7 @@ class Proposer_ActiveEventsTable  extends Component {
                     data-toggle="modal" 
                     data-target="#modalDetalleProp" 
                     onClick={e => {this.showModalDetalle();}} 
-                    style={{color:"#337ab7", cursor:'pointer'}}>
+                    style={{color:"#337ab7", cursor:'pointer',fontSize: '15px'}}>
                 {nombEvento} - Fase Actual: {faseActual}/{totFases}
                 </a>
               </div>

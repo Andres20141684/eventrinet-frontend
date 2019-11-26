@@ -204,7 +204,9 @@ class EventDetail extends Component{
                   <a id='JinSSJ' onClick={this.handleClick}
                   href={this.state.link_propuestabase64} download="file.pdf" ></a>
         
-    </section><br/></>
+    </section><br/>
+    
+    </>
     );
   }
 }
