@@ -390,15 +390,7 @@ function ModalEnviarCorreo (props) {
     const [open, setOpen] = React.useState(false);
       
     const handleOpen = () => {
-      let nameUser = document.getElementById("nameUser")
       props.showObservacionesCorreo(props.idPropuesta,props.idFase);
-      console.log("prdeterminado",props.mensajePredeterminado)
-      let textAreaMsjCuerpoPred = document.getElementById("textAreaMsjCuerpoPred")      
-      let textAreaMsjCuerpoPers = document.getElementById("textAreaMsjCuerpoPers")
-      //console.log(textAreaMsjCuerpoPred)
-      //console.log(textAreaMsjCuerpoPers)
-      //textAreaMsjCuerpoPred.style.display = 'block'
-      //textAreaMsjCuerpoPers.style.display = "none"
       setOpen(true);
     };
   
@@ -408,7 +400,7 @@ function ModalEnviarCorreo (props) {
     
     const handleCloseSaveandoCorreo = () => {
       //Guardar correo
-      props.handleSaveCuerpoCorreo();
+      props.handleSaveCuerpoCorreo(props.idPropuesta);
       setOpen(false);
     };
 
@@ -439,11 +431,11 @@ function ModalEnviarCorreo (props) {
                       <div className="modal-body" style={{paddingBottom:'0px'}}>
                       <div style={{padingLeft:'10%', paddingRight:'15%'}} className="form">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPredeterminado" value="option1" checked={props.eleccionTipoCorreo[0]} onClick ={(e)=>handleCheckedMsjCuerpo(props,1)}/>
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPredeterminado" value="option1" checked={props.eleccionTipoCorreo[0]} onClick ={(e)=>handleCheckedMsjCuerpo(props,0)}/>
                           <label class="form-check-label" for="inlineRadio1">Predeterminado</label>
                         </div>
                         <div class="form-check form-check-inline" style={{float:'right'}}>
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPersonalizado" value="option2"  checked= {props.eleccionTipoCorreo[1]}onClick ={(e)=>handleCheckedMsjCuerpo(props,2)}/>
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPersonalizado" value="option2"  checked= {props.eleccionTipoCorreo[1]}onClick ={(e)=>handleCheckedMsjCuerpo(props,1)}/>
                           <label class="form-check-label" for="inlineRadio2">Personalizado</label>
                         </div>
                       </div>
@@ -485,7 +477,6 @@ class FormPropsxFasePresidente extends Component {
       cuerpoCorreo:'',
       mensajePredeterminado:'',
       mensajePersonalizado:'',
-      mensajeAEnviar:'',
       eleccionTipoCorreo:[true,false],
       idFase:-1,
       tabla_propuestas: { //{nombre,idpropuesta,estado}
@@ -656,7 +647,7 @@ class FormPropsxFasePresidente extends Component {
             });
         }
       });
-      Networking.MostrarCorreoPorDefecto(idPropuesta,this.state.idFase).then(
+      Networking.MostrarCorreoPorDefecto(idPropuesta,idFase).then(
         (response) =>{
           console.log(response);
           if (response ==  null){
@@ -665,10 +656,12 @@ class FormPropsxFasePresidente extends Component {
           else{
             console.log("Si hay mensaje predeterminado")
             this.setState({
-              mensajePredeterminado:response
+              //mensajePredeterminado:response
+              mensajePredeterminado : response.mensajePredeterminado,
+              eleccionTipoCorreo : response.tipoEleccion
             })
             if (this.state.mensajePredeterminado !=response ){
-              this.state.mensajePredeterminado=response
+              //this.state.mensajePredeterminado=response
               //NECESITOOOOOOOOOOOOO
               this.state.mensajePredeterminado=response.mensajePredeterminado
               this.state.eleccionTipoCorreo= response.tipoEleccion
@@ -806,32 +799,33 @@ class FormPropsxFasePresidente extends Component {
   }
 
   onChangeMsjCuerpo  = (evt) => {
-    console.log("evt cabmadi",evt.target.value)
-    this.setState({ mensajePersonalizado: evt.target.value });
+    console.log("evt cambiado",evt.target.value)
+    if (this.state.tipoEleccion[1] ){
+      this.setState({ mensajePersonalizado: evt.target.value });
+    }
   }
 
-  handleSaveCuerpoCorreo = () => {
+  handleSaveCuerpoCorreo = (idPropuesta) => {
     //DSSsfdfdsfdasadfhsdfhjdasf
     console.log("Enviar correo")
-    Networking.guardarCuerpoCorreo(this.state.mensajeAEnviar).then((value) => {
+    let mensajeAEnviar="";
+    if (this.state.tipoEleccion[0])
+      mensajeAEnviar = this.state.mensajePredeterminado;  
+    else mensajeAEnviar = this.state.mensajePersonalizado;
+
+    Networking.guardarCuerpoCorreo(mensajeAEnviar, this.state.idFase,idPropuesta).then((value) => {
       console.log(value);
       if (value == null) {
         console.log('devolvio null pero no se q devuelve el back :V');
 
       } else {
-        console.log('Se inserto o actualizó pref :V');
+        console.log('Se inserto o actualizó el cuerpo de msj :V');
       }
     });
   }
-  handleMensajeAEnviar = (msj) => {
-    this.setState({mensajeAEnviar:msj})
-    if (this.state.mensajeAEnviar != msj){
-      this.state.mensajeAEnviar=msj
-    }
-    console.log("mensaje eleccion",this.state.mensajeAEnviar)
-  }
+ 
   changeSelectedTipo =(tipo) => {
-    if (tipo == 1){
+    if (tipo == 0){
       this.setState({eleccionTipoCorreo:[true,false]})
       if (this.state.eleccionTipoCorreo[0] != true) this.state.eleccionTipoCorreo =[true,false];
     }else{
@@ -857,7 +851,6 @@ class FormPropsxFasePresidente extends Component {
                 {
                   this.createCheckbox(idPropuesta)
                 }
-
               </div>
 
               <div className="col-md-6">
@@ -894,10 +887,8 @@ class FormPropsxFasePresidente extends Component {
                 showObservacionesCorreo = {this.showObservacionesCorreo}  
                 comentariosActual = {this.state.comentariosActual}
                 presiComentario = {this.state.presiComentario}
-                mensajePredeterminado = {this.state.mensajePredeterminado}
-                mensajeAEnviar ={this.state.mensajeAEnviar}
-                mensajePersonalizado ={this.state.mensajePersonalizado}
-                handleMensajeAEnviar= {this.handleMensajeAEnviar}
+                mensajePredeterminado = {this.state.mensajePredeterminado}                
+                mensajePersonalizado ={this.state.mensajePersonalizado}                
                 eleccionTipoCorreo ={this.state.eleccionTipoCorreo}
                 changeSelectedTipo = {this.changeSelectedTipo}
                 />

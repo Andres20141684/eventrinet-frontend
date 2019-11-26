@@ -169,6 +169,34 @@ export async function validar_sesion(var_user,var_password) {
     }
   }
 
+  
+  export async function guardarCuerpoCorreo(mensaje,idFase,idPropuesta){
+    console.log('Dando permisos de organizador...');
+    try {        
+        let response = await fetch(restURL 
+            + 'presidente/guardarCuerpo', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                mensaje: mensaje,
+                idFase: idFase,
+                idPropuesta: idPropuesta
+            }),
+        });
+        console.error('CATCH NO ALCANZADO, antes del await');
+        return ;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+        return
+    }
+  }
+
+
   export async function updateComentarioPresidente(idFase,presiComentario,idPropuesta){
     console.log('Dando permisos de organizador...');
     try {        

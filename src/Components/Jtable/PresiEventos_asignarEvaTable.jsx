@@ -110,7 +110,7 @@ class PresiEventos_asignarEvaTable  extends Component {
                            } 
                         ))      
    }
-   handleClick = () =>{
+   handleClick = () =>{ 
       console.log("NO PUEDES ASIGNAR EVALUADORES")
    }
    tableData() {      
@@ -126,7 +126,7 @@ class PresiEventos_asignarEvaTable  extends Component {
                statusAsign:propAsignadas+"/"+propTotal,
                stateFase: faseAct+"/"+ fasesTot,
                evalIn:inicioEvaluacion,
-               asignEval: (
+               asignEval: ( 
                flagAsignar ===1?
                (<JActionButton
                   button_class ="fa fa-plus" 
