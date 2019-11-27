@@ -169,11 +169,11 @@ export async function validar_sesion(var_user,var_password) {
   }
 
   
-  export async function guardarCuerpoCorreo(mensaje,idFase,idPropuesta){
-    console.log('Dando permisos de organizador...');
+  export async function guardarCuerpoCorreo(msjPersonalizado,idFase,idPropuesta,flag){
+    console.log('guardando cuerpo de correo...');
     try {        
         let response = await fetch(restURL 
-            + 'presidente/guardarCuerpo', {
+            + 'presidente/guardarMsjPers', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -181,9 +181,10 @@ export async function validar_sesion(var_user,var_password) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                mensaje: mensaje,
                 idFase: idFase,
-                idPropuesta: idPropuesta
+                idPropuesta: idPropuesta,
+                msjPersonalizado: msjPersonalizado,
+                flagPersonalizado: flag
             }),
         });
         console.error('CATCH NO ALCANZADO, antes del await');
@@ -300,9 +301,9 @@ export async function saludar(){
 }
         
 export async function getPaper(numProp){
-    console.log('propuesta/devolver_paper/59',numProp);
+    console.log('propuesta/devolver_paper/'+ numProp.toString());
     try {
-        let response = await fetch(restURL+'propuesta/devolver_paper/59' ,{
+        let response = await fetch(restURL+'propuesta/devolver_paper/' + (numProp.toString()) ,{
             method:'GET'
         });
         let responseJson = response.json();

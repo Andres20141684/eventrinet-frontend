@@ -303,14 +303,3 @@ function toJSON(p) {
 	}
 }
 
-function initMap() {
-    // The location of Uluru
-    console.log("JINSSJ2-> initializing MAP");
-    var EEGGCC = {lat: -12.070318, lng: -77.07793};
-    console.log("JINSSJ2-> initializing MAP: var uluru = {lat: -25.344, lng: 131.036};");
-    // The map, centered at Uluru
-    var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 21, center: EEGGCC});
-    // The marker, positioned at Uluru
-    var marker = new google.maps.Marker({position: EEGGCC, map: map});
-  }

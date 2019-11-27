@@ -173,6 +173,7 @@ class WorkingSpace extends Component{
   
     render() {
       
+     window.document.getElementById("JinSSJ_body").style.paddingRight = "0px";
       return (
       <div>
       

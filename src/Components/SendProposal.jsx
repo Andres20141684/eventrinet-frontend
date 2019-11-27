@@ -20,7 +20,8 @@ class SendProposal extends Component{
             Categorias:[
                 {descripcion:'Machine Learning'},
                 {descripcion:'Machine Learning nombre largote'}],
-            asd: "vjglhbjftbvroauyberwuarytwgtwg"
+            asd: "vjglhbjftbvroauyberwuarytwgtwg",
+            center: {},
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);

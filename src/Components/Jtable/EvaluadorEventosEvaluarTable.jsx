@@ -98,8 +98,8 @@ class EvaluadorEventosPrefTable  extends Component {
    tableData() {
       let data = [];
       this.state.datos_tabla.Eventos_Evaluador.map((element, index) => {
-         const {faseActual, fasesTotales, fechaLimite, idEvento,nombre} = element
-
+         const {faseActual, fasesTotales, fechaLimite, idEvento,nombre, flagEvaluar} = element
+         console.log("eventos evaluador",element)
          Networking.faseActual(idEvento).then((value) => {
             console.log(value);
         
@@ -113,12 +113,15 @@ class EvaluadorEventosPrefTable  extends Component {
                   console.log("else LE CAMBIE EL ID FASE?", this.state.idFase);
             }            
          });
-         data.push({
+         data.push(
+            {
             num:index+1,
             name:nombre,
             statusPhase:faseActual+'/'+fasesTotales,
             dateFin:fechaLimite,
-            evalPhase:(<ActionButtonFASE 
+            evalPhase:(
+               flagEvaluar===1?
+               (<ActionButtonFASE 
                button_class ="fa fa-plus" 
                id_evento={idEvento} 
                nomb_evento ={nombre} //nombre
@@ -129,9 +132,12 @@ class EvaluadorEventosPrefTable  extends Component {
                onNextChildComponentChange={this.evaluarEvaluador}
                onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
                button_class ="fa fa-plus"
-               />)
-         })
-      });
+               />): 
+               (
+                  <div title="No puedes asignar evaluadores">-</div>
+                ))
+            })
+      }); 
       this.setState({data:data});
    }
   
@@ -141,7 +147,7 @@ class EvaluadorEventosPrefTable  extends Component {
          { title: 'Lista de eventos', field: 'name',cellStyle:{ width:'52%',fontSize: 14 } },
          { title: 'Fase actual / Fases totales', field: 'statusPhase',cellStyle:{ width:'15%',fontSize: 14 } },
          { title: 'Fecha límite', field: 'dateFin',cellStyle:{width:'15%', fontSize: 14 } },
-         { title: 'Evaluar fase', field: 'evalPhase' ,cellStyle:{ width:'12%',fontSize: 14 }}
+         { title: 'Evaluar fase', field: 'evalPhase' ,cellStyle:{ width:'12%',fontSize: 14, textAlign:'center' }}
        ];   
 
        this.setState({columns:columns});

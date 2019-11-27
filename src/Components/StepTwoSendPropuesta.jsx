@@ -178,7 +178,7 @@ class StepTwoSendPropuesta extends React.Component {
         onChange: this.handleOnLoad,
         fileNedded:this.props.fileNeeded,
         formato:"pdf",
-        maxTamanio:10
+        maxTamanio:100
       }
 
     ]

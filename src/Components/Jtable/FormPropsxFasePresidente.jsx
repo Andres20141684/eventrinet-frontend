@@ -15,7 +15,7 @@ import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
 const Networking = require('../../Network/Networking');
 var OPTIONS = [];
 var jason = {};
-var obss = {};
+var obss = {}; 
  
 
 const useStyles = makeStyles(theme => ({
@@ -365,25 +365,22 @@ function showMessage (comentariosActual,presiComentario){
   return msg ;
 }
 
-let opcionEscogida =1;
 function handleCheckedMsjCuerpo (props,opcSelected){
   props.changeSelectedTipo(opcSelected)  
-  opcionEscogida = opcSelected
   let textAreaMsjCuerpoPred=document.getElementById('textAreaMsjCuerpoPred');
   let textAreaMsjCuerpoPers=document.getElementById('textAreaMsjCuerpoPers');
       
-  if (opcSelected === 2){
-    console.log("mensaje 2");
+  if (opcSelected === 1){
     textAreaMsjCuerpoPred.style.display = "none";
     textAreaMsjCuerpoPers.style.display = "block";
   }
   else {
-    console.log("mensaje 1")
     textAreaMsjCuerpoPred.style.display = "block";
     textAreaMsjCuerpoPers.style.display = "none";    
   }  
-  console.log(textAreaMsjCuerpoPred)
-  console.log(textAreaMsjCuerpoPers)
+  console.log('textAreaMsjCuerpoPred',textAreaMsjCuerpoPred)
+  console.log('textAreaMsjCuerpoPers',textAreaMsjCuerpoPers)
+  console.log('opcSelected',opcSelected)
 }
 function ModalEnviarCorreo (props) {  
   const classes = useStyles();
@@ -431,19 +428,19 @@ function ModalEnviarCorreo (props) {
                       <div className="modal-body" style={{paddingBottom:'0px'}}>
                       <div style={{padingLeft:'10%', paddingRight:'15%'}} className="form">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPredeterminado" value="option1" checked={props.eleccionTipoCorreo[0]} onClick ={(e)=>handleCheckedMsjCuerpo(props,0)}/>
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPredeterminado" value="option1" checked={props.eleccionTipoCorreo=== 0} onClick ={(e)=>handleCheckedMsjCuerpo(props,0)}/>
                           <label class="form-check-label" for="inlineRadio1">Predeterminado</label>
                         </div>
                         <div class="form-check form-check-inline" style={{float:'right'}}>
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPersonalizado" value="option2"  checked= {props.eleccionTipoCorreo[1]}onClick ={(e)=>handleCheckedMsjCuerpo(props,1)}/>
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPersonalizado" value="option2"  checked= {props.eleccionTipoCorreo === 1}onClick ={(e)=>handleCheckedMsjCuerpo(props,1)}/>
                           <label class="form-check-label" for="inlineRadio2">Personalizado</label>
                         </div>
                       </div>
                       <div class="form-group" >                        
                         <div>
-                          <textarea class="form-control" id="textAreaMsjCuerpoPred" rows="3" //onChange={/*(e) => props.onChangeMsjCuerpo(e)*/}
+                          <textarea class="form-control" id="textAreaMsjCuerpoPred" rows="3" style={{display:props.eleccionTipoCorreo === 0 ? 'block':'none'}}
                             value ={props.mensajePredeterminado}/>
-                          <textarea class="form-control" id="textAreaMsjCuerpoPers" style={{display:'none'}} rows="3" onChange={(e) => props.onChangeMsjCuerpo(e)} 
+                          <textarea class="form-control" id="textAreaMsjCuerpoPers" style={{display:props.eleccionTipoCorreo === 0 ? 'none':'block'}} rows="3" onChange={(e) => props.onChangeMsjCuerpo(e)} 
                             value ={props.mensajePersonalizado}/>
 
                           <div class="form-group"style={{borderColor:'red'}}>
@@ -477,7 +474,7 @@ class FormPropsxFasePresidente extends Component {
       cuerpoCorreo:'',
       mensajePredeterminado:'',
       mensajePersonalizado:'',
-      eleccionTipoCorreo:[true,false],
+      eleccionTipoCorreo:0,
       idFase:-1,
       tabla_propuestas: { //{nombre,idpropuesta,estado}
         Propuestas: []
@@ -649,22 +646,21 @@ class FormPropsxFasePresidente extends Component {
       });
       Networking.MostrarCorreoPorDefecto(idPropuesta,idFase).then(
         (response) =>{
-          console.log(response);
+          console.log('response',response);
           if (response ==  null){
             console.log("No hay mensaje predeterminad")
           }
           else{
             console.log("Si hay mensaje predeterminado")
-            this.setState({
-              //mensajePredeterminado:response
-              mensajePredeterminado : response.mensajePredeterminado,
-              eleccionTipoCorreo : response.tipoEleccion
+            this.setState({              
+              mensajePredeterminado : response.msjDefecto,
+              eleccionTipoCorreo : response.flagPersonalizado,
+              mensajePersonalizado : response.msjPersonalizado
             })
-            if (this.state.mensajePredeterminado !=response ){
-              //this.state.mensajePredeterminado=response
-              //NECESITOOOOOOOOOOOOO
-              this.state.mensajePredeterminado=response.mensajePredeterminado
-              this.state.eleccionTipoCorreo= response.tipoEleccion
+            if (this.state.mensajePredeterminado !=response.msjDefecto ){                            
+              this.state.mensajePredeterminado=response.msjDefecto
+              this.state.eleccionTipoCorreo= response.flagPersonalizado
+              this.state.mensajePersonalizado = response.msjPersonalizado
             }
             console.log("mensaje predeterminado -->",this.state.mensajePredeterminado,"<--")
           }
@@ -799,21 +795,14 @@ class FormPropsxFasePresidente extends Component {
   }
 
   onChangeMsjCuerpo  = (evt) => {
-    console.log("evt cambiado",evt.target.value)
-    if (this.state.tipoEleccion[1] ){
-      this.setState({ mensajePersonalizado: evt.target.value });
+    this.setState({ mensajePersonalizado: evt.target.value });
+    if (this.state.mensajePersonalizado != evt.target.value){
+      this.state.mensajePersonalizado = evt.target.value
     }
   }
 
-  handleSaveCuerpoCorreo = (idPropuesta) => {
-    //DSSsfdfdsfdasadfhsdfhjdasf
-    console.log("Enviar correo")
-    let mensajeAEnviar="";
-    if (this.state.tipoEleccion[0])
-      mensajeAEnviar = this.state.mensajePredeterminado;  
-    else mensajeAEnviar = this.state.mensajePersonalizado;
-
-    Networking.guardarCuerpoCorreo(mensajeAEnviar, this.state.idFase,idPropuesta).then((value) => {
+  handleSaveCuerpoCorreo = (idPropuesta) => {        
+    Networking.guardarCuerpoCorreo(this.state.mensajePersonalizado, this.state.idFase,idPropuesta,this.state.eleccionTipoCorreo).then((value) => {
       console.log(value);
       if (value == null) {
         console.log('devolvio null pero no se q devuelve el back :V');
@@ -824,19 +813,11 @@ class FormPropsxFasePresidente extends Component {
     });
   }
  
-  changeSelectedTipo =(tipo) => {
-    if (tipo == 0){
-      this.setState({eleccionTipoCorreo:[true,false]})
-      if (this.state.eleccionTipoCorreo[0] != true) this.state.eleccionTipoCorreo =[true,false];
-    }else{
-      this.setState({eleccionTipoCorreo:[false,true]})
-      if (this.state.eleccionTipoCorreo[1] != true) this.state.eleccionTipoCorreo =[false,true];
-    }
-    
-
+  changeSelectedTipo =(tipo) => {    
+      this.setState({eleccionTipoCorreo:tipo})
+      if (this.state.eleccionTipoCorreo!= tipo) this.state.eleccionTipoCorreo =tipo;
   }
-  tableData() {
-    //this.setState.idUser_recived=this.props.idUser_recived;
+  tableData() {    
     console.log("SEbas props: ", this.props);
 
     return this.state.tabla_propuestas.Propuestas.map((element, index) => {

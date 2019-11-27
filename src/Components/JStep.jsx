@@ -18,190 +18,31 @@ class JStep extends React.Component {
       this.state={
         arrayOfInputData:[],
       }
-      this.defaultMutableHandle=this.defaultMutableHandle.bind(this);
-      
-
-      this.defaultMutableHandlePerso=this.defaultMutableHandlePerso.bind(this);
-      this.handleOnLoad=this.handleOnLoad.bind(this);
-      this.renderBody=this.renderBody.bind(this);
-      this.renderHeaders=this.renderHeaders.bind(this);
-      this.handleChecked=this.handleChecked.bind(this);
+     
 }
 
-  handleOnLoad(result){
-    this.props.multiHandle(
-      {to:'archivo', 
-      value:result
-    });
-  }
-
-  shouldComponentUpdate(nextState,nextProps){
-    if(nextProps.categorias != this.props.Categorias){
-      return true;
-    }
-    return false;
-  }
-
-  componentWillMount(){
-    window.scrollTo(0, 0);
-    console.log("<<<<<<<<<<<<<<<>>>>>>>>>>>   StepTwoSendProp props");
-    console.log(this.props.CamposPers);
-  }
   
-  onSuccesLoad(archivo){
-
-  }
-  componentDidMount(){
-    console.log("<<<<<<<<<<<<<<<>>>>>>>>>>>   StepTwoSendProp props");
-    console.log(this.props.CamposPers);
-  }
-  DateFormat(date,json,tag){
-    let aux=date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
-    json[tag]=aux
-  }
-  
-  defaultMutableHandle(e){
-    this.props.multiHandle(
-      {to:e.target.name,
-        value:e.target.value});
-  }
-  defaultMutableHandlePerso(e){
-    let pre_value ={
-      value:e.target.value,
-      index:e.target.id
-    }
-    this.props.multiHandle(
-      {to:e.target.name,
-        value:pre_value});
-  }
-  renderOptions(){
-    return this.props.Categorias.map((element, index) => {
-      const {descripcion} = element
-      return (
-        <option>{descripcion} </option>
-      )
-   })
-
-  }
-  renderHeaders(){
-    return(
-      <tr>
-          <th align= "left" scope="col">Categoria</th>
-          <th scope="col">Agregar</th>
-      </tr>
-    )
-  }
-  handleChecked(e){
-      console.log("Selected categorie: ",e.target.id);
-      let mode_check = e.target.checked?'add':'rmv';
-      this.props.multiHandle(
-        {
-          to: e.target.name,
-          value: {
-                    mode:mode_check,
-                    value:e.target.id,
-                  }
-        }
-      );
-  }
-  renderBody(){
-    return this.props.Categorias.map((element, index) => { 
-      const {idCategoria, descripcion} = element
-      return (
-      <tr >
-            <td >{index+1} &nbsp;&nbsp; {descripcion}</td>
-            <td >
-              <form>
-                  <input
-                    type="checkbox"
-                    id={idCategoria}
-                    name='categorias'
-                    onChange={this.handleChecked}
-                  />
-              </form>
-            </td>
-      </tr>
-      )});
-  }
   render () {
-    const inputCamposPers =[];
-    this.props.CamposPers.forEach(element => {
-      inputCamposPers.push(
-        {
-          label:element.enunciado,
-          category:'textArea',
-          name:'campoPEnun',
-          placeholder:element.descripcion, 
-          id: element.index,  
-          readonly:false,           
-          onChange:this.defaultMutableHandlePerso,           
-        }
-
-      );
-    });
-    const inputPaperDescripcion =[
-      {
-        label:"Titulo",
-        category:'textArea',
-        name:'titulo',
-        placeholder:'Titulo', 
-        id:"id_Titulo",           
-        onChange:this.defaultMutableHandle,
-      },
-      {
-        label:"Resumen",
-        category:'textBox',
-        name:'resumen',
-        placeholder:'Resumen' ,
-        id:"id_resumen",             
-        onChange:this.defaultMutableHandle,
-      }
-      ,
-      
-    ]
-    const inputCategorias= [
-      {
-        label:"Escge las categorias a participar",
-        category:'Jtable',
-        id:"id_resumen",             
-        headers:this.renderHeaders,
-        body:this.renderBody
-      }
-    ]
-    const inputArchivo=[
-      
-      {
-        id:"drop_zone",
-        category:'JUpload',
-        onChange: this.handleOnLoad,
-        fileNedded:this.props.fileNedded
-      }
-
-    ]
-    return (
-      <div>
-        <h1>Ingresa los detalles de la propuesta y sube un archivo</h1>
-
-        <JCardForm
-          arrayOfInputData={inputPaperDescripcion}
-          cardHeadingText = "Escribe una breve reseña de tu propuesta"
-        />
-        
-        <JCardForm
-          arrayOfInputData={inputCategorias}
-          cardHeadingText = "Escoge tus Categorias"
-        />
-
-        <JCardForm
-          arrayOfInputData={inputArchivo}
-          cardHeadingText = "Sube tu archivo :) "
-        />
-        <JCardForm
-                arrayOfInputData={inputCamposPers}
-                cardHeadingText = "Informacion personalizada por fase"
-              />
     
-      </div>
+    return (<>
+<div class="row">
+  <div class="col-3">
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+    </div>
+  </div>
+  <div class="col-9">
+    <div class="tab-content" id="v-pills-tabContent">
+      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
+      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
+      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+    </div>
+  </div>
+</div></>
     )
   }
 }
