@@ -116,13 +116,15 @@ class SendProposal extends Component{
    
     render(){
 
+        console.log("solo hago copy &paste",this.state.eventriEvent);
+
         return(
             
 
 
 
 <div>
-<div id="video-area" data-stellar-background-ratio="0.5">    
+<div id="video-area" data-stellar-background-ratio="0.5" >    
       <div id="block" data-vide-bg="video/video"></div>
       
       <div class="overlay overlay-2"></div>      
@@ -160,7 +162,7 @@ class SendProposal extends Component{
             <div class="row" id="gradient">
 
                 <div class="col-md-4" style={{paddingBottom:"20px"}}>
-                    <img src="img/img3.jpg" class="img-responsive" alt=""/>
+                    <img src={this.state.eventriEvent.imagen || "img/img3.jpg"} class="img-responsive" alt=""/>
                     <h1 style={{fontSize:"25px"},{color:"black"}}>Evento: { " " +this.state.eventriEvent.nombre}</h1>
                 </div>
                 <div class="col-md-8" id="overview">
@@ -244,6 +246,27 @@ class SendProposal extends Component{
             
         </div>
     </div>
+
+
+    <section className="clientes contenedor">
+            <h2 className="titulo">Que dicen nuestros clientes</h2>
+            <div className="cards">
+                <div className="card">
+                    <img src="img/face1.jpg" alt=""/>
+                    <div className="contenido-texto-card">
+                        <h4>Name</h4>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, sapiente!</p>
+                    </div>
+                </div>
+                <div className="card">
+                    <img src="img/face2.jpg" alt=""/>
+                    <div className="contenido-texto-card">
+                        <h4>Name</h4>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, sapiente!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
        </div>    
 
