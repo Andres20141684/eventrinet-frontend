@@ -98,7 +98,7 @@ export default class EventNew extends Component{
         else{
           this.setState({form1Completo:false})
         }
-        if(this.state.EsVaciocomiteOrganizacional==1 && this.state.EsVacioevaluadores==1 && this.state.EsVacioevaluadores==1){
+        if(this.state.EsVaciocomiteOrganizacional==1 && this.state.EsVaciopresidente==1 && this.state.EsVacioevaluadores==1){
           this.setState({form2Completo:true})
         }
         else{
@@ -205,7 +205,7 @@ export default class EventNew extends Component{
                   fases:auxfases
                 })
               }
-              this.setState({form1Completo:true,form2Completo:true,form3Completo:true})
+              this.setState({form1Completo:true,form2Completo:true,form3Completo:true,EsVaciocomiteOrganizacional:1,EsVacioevaluadores:1,EsVaciopresidente:1,CategoriasNulo:1})
             })
             .catch( (err) =>{
               console.log("error en conexión");

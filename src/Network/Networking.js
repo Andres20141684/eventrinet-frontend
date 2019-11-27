@@ -1277,4 +1277,24 @@ export async function mostrarTodasObsPresidente(idFase) {
     }
 }
 
+export async function listarPreferenciasXPropuesta(idEvento) {
+    try {
+        let response = await fetch(restURL 
+            + 'preferencias/listarPreferenciasXPropuesta', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: idEvento
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
 export {restURL}
