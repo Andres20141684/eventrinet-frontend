@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    //border: '2px solid #000',
+    borderRadius:' 2px',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -50,6 +51,7 @@ class AdminPageMainTable extends React.Component {
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this)
+        this.myCallback = this.myCallback.bind(this)
     }
     handleNextChildComponentChange(_nextChildComponent){
       console.log('cambiando', _nextChildComponent);
@@ -59,34 +61,6 @@ class AdminPageMainTable extends React.Component {
     handleNextChildComponentChangeProps(_nextChildComponentProps){
         this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
     } 
-    showModal = (var_id,var_nomb,var_correo,var_fechaIni,var_fechaFin,flagPermiso) => {
-        console.log(var_id,var_nomb,var_correo,var_fechaIni,var_fechaFin,flagPermiso)
-        this.setState({
-            nameUserSelected:var_nomb,
-            emailUserSelected:var_correo,
-            idUsuarioSelected:var_id,
-            flagPermiso:flagPermiso
-        });
-
-        if (flagPermiso === 1){
-            let yyIni=var_fechaIni.substr(0,4); let yyFin=var_fechaFin.substr(0,4);
-            let mmIni=var_fechaIni.substr(5,2); let mmFin=var_fechaFin.substr(5,2);
-            let ddIni=var_fechaIni.substr(8,2); let ddFin=var_fechaFin.substr(8,2);
-
-            this.setState({
-                dateIniSelected:new Date(parseInt(yyIni),parseInt(mmIni)-1,parseInt(ddIni)),
-                dateFinSelected: new Date(parseInt(yyFin),parseInt(mmFin)-1,parseInt(ddFin))
-            })
-        }
-        else{
-            /*this.setState({
-                dateIniSelected:new Date(),
-                dateFinSelected: new Date()
-            })*/
-        }
-        console.log("this.state.ABUELO !",this.state)        
-    }
-      
     componentDidMount(){  
         Networking.listarUsuarios()
         .then((value) => {
@@ -121,17 +95,25 @@ class AdminPageMainTable extends React.Component {
                 return this.state.data;
         } 
     }
-     myCallback = (message) => {
+     myCallback (message) {
     //[...we will use the dataFromChild here...]
+        this.setState({dataReady:0});
         Networking.listarUsuarios()
         .then((value) => {
             console.log("lista usuarios",value);
             if(value == null){
-            console.log('no hay algo aun');
+                console.log('no hay algo aun');
             }else {
-            console.log('si hay algo:');
-            console.log(value);
-            this.setState({datos_tabla:value});
+                console.log('si hay algo:');
+                console.log(value);
+                console.log("data ante de setear",this.state.datos_tabla)
+                //this.setState({dataReady:0});
+                this.setState({datos_tabla:value});
+                if (this.state.datos_tabla !== value){
+                    this.state.datos_tabla = value;
+                }
+                this.tableData();
+                this.setState({dataReady:1});
             }   
             alert(message);
         });
@@ -161,17 +143,10 @@ class AdminPageMainTable extends React.Component {
                     fechaIni: '-',
                     fechaFin: '-',
                     edit: (<TransitionsModal 
-                        element={element}
-                        showModal={this.showModal}
-                        idUsuarioSelected={this.state.idUsuarioSelected}
-                        nameUserSelected={this.state.nameUserSelected}
-                        emailUserSelected={this.state.emailUserSelected}                            
-                        dateFinSelected={this.state.dateFinSelected}
-                        dateIniSelected={this.state.dateIniSelected}
-                        flagPermiso={this.state.flagPermiso}
+                        element={element}                        
                         myCallback={this.myCallback}
                         handleChangeDate = {this.handleChangeDate}
-                        handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
+                        />
                     ),
                 })
             }else{
@@ -183,16 +158,9 @@ class AdminPageMainTable extends React.Component {
                     fechaFin: fechaFinPermiso,
                     edit: (<TransitionsModal 
                         element={element}
-                        showModal={this.showModal}
-                        idUsuarioSelected={this.state.idUsuarioSelected}
-                        nameUserSelected={this.state.nameUserSelected}
-                        emailUserSelected={this.state.emailUserSelected}                            
-                        dateFinSelected={this.state.dateFinSelected}
-                        dateIniSelected={this.state.dateIniSelected}
-                        flagPermiso={this.state.flagPermiso}
                         myCallback={this.myCallback}
                         handleChangeDate = {this.handleChangeDate}
-                        handleClickUpdatePermisos = {this.handleClickUpdatePermisos}/>
+                        />
                     ),
                 })
             }
@@ -239,27 +207,39 @@ class AdminPageMainTable extends React.Component {
 function TransitionsModal(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [dateIniSelected, setdateIniSelected] = React.useState('');
+    const [dateFinSelected, setdateFinSelected] = React.useState('');
   
-    const handleOpen = () => {
+    const handleOpen = () => {         
+        if (props.element.tienePermiso === 1){
+            let yyIni=props.element.fechaIniPermiso.substr(0,4); let yyFin=props.element.fechaFinPermiso.substr(0,4);
+            let mmIni=props.element.fechaIniPermiso.substr(5,2); let mmFin=props.element.fechaFinPermiso.substr(5,2);
+            let ddIni=props.element.fechaIniPermiso.substr(8,2); let ddFin=props.element.fechaFinPermiso.substr(8,2);
+                            
+            setdateIniSelected (new Date(parseInt(yyIni),parseInt(mmIni)-1,parseInt(ddIni)))
+            setdateFinSelected (new Date(parseInt(yyFin),parseInt(mmFin)-1,parseInt(ddFin)))
+            
+        }
+        else {
+            setdateIniSelected ("")
+            setdateFinSelected ("")            
+        }
         console.log("my props",props)
-        props.showModal(props.element.idUsuario,props.element.nomComp,props.element.correo,props.element.fechaIniPermiso,props.element.fechaFinPermiso,props.element.tienePermiso);
+        console.log("my dates",dateIniSelected,dateFinSelected)
         setOpen(true);
     };
   
     const handleClose = () => {
-        setOpen(false);
-        var e=''
-        props.handleChangeDate(e,"dateIniSelected")
-        props.handleChangeDate(e,"dateFinSelected")
+        setOpen(false);        
       
     };    
     const handleClickUpdatePermisos = () => {
         
-        let dataIni= DateFormat(props.dateIniSelected);
-        let dataFin= DateFormat(props.dateFinSelected);
-        console.log(" Datos a actualizar ",props.idUsuarioSelected," ",dataIni, " ",dataFin);
+        let dataIni= DateFormat(dateIniSelected);
+        let dataFin= DateFormat(dateFinSelected);
+        console.log(" Datos a actualizar ",props.element.correo," ",dataIni, " ",dataFin);
         
-        Networking.crear_organizador(props.emailUserSelected, dataIni, dataFin).then(
+        Networking.crear_organizador(props.element.correo, dataIni, dataFin).then(
             (response) => {
                 if (response.succeed){                
                     console.log("Se agrego permiso",response);
@@ -301,13 +281,13 @@ function TransitionsModal(props) {
                         <div class="form-group row">
                             <label for="staticName" class="col-sm-4 col-form-label">Nombre completo</label>
                             <div class="col-sm-6">
-                            <input type="text" readOnly class="form-control-plaintext" id="staticName" value={props.nameUserSelected ? props.nameUserSelected :'nada'}/>
+                            <input type="text" readOnly class="form-control-plaintext" id="staticName" value={props.element.nomComp}/>
                             </div>
                         </div>
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-4 col-form-label">Correo electronico</label>
                         <div class="col-sm-6">
-                          <input type="text" readOnly class="form-control-plaintext" id="staticEmail"value={props.emailUserSelected ? props.emailUserSelected :'nada'}/>
+                          <input type="text" readOnly class="form-control-plaintext" id="staticEmail"value={props.element.correo}/>
                         </div>
                     </div>
                     <FormGroup style={{border:"none"}}>                
@@ -319,11 +299,10 @@ function TransitionsModal(props) {
                               id="input-date"
                               name="date_in"
                               minDate= {new Date()} 
-                              maxDate ={props.dateFinSelected!==''?props.dateFinSelected:null }                           
+                              maxDate ={dateFinSelected!==''?dateFinSelected:null }                           
                               placeholder="date_in"
-                              selected={props.dateIniSelected }
-                              onChange={(e)=> props.handleChangeDate(e,"dateIniSelected")}
-                              //onKeyDown={this.onKeyDownDate}
+                              selected={dateIniSelected}
+                              onChange={(e)=> setdateIniSelected(e)}
                               className="form-control"
                           />
                         </div>
@@ -334,11 +313,11 @@ function TransitionsModal(props) {
                             type="date"
                             id="input-date"
                             name="date_in"
-                            disabled={props.dateIniSelected===''?true:false}
-                            minDate= {props.dateIniSelected}
+                            disabled={dateIniSelected===''?true:false}
+                            minDate= {dateIniSelected}
                             placeholder="date_in"
-                            selected={props.dateFinSelected }
-                            onChange={(e)=> props.handleChangeDate(e,"dateFinSelected")}
+                            selected={dateFinSelected }
+                            onChange={(e)=> setdateFinSelected(e)}
                             className="form-control"
                             />
                         </div>
@@ -347,9 +326,10 @@ function TransitionsModal(props) {
                   </div>
                   </div>
                   <div className="modal-footer" style={{paddingRight:"0px", paddingBottom:'0px'}}>
+                    <Button type="button" class="btn btn-secondary" onClick={() => handleClose() }>Cancelar</Button>
                     <Button type="button" onClick={()=>handleClickUpdatePermisos()} class="btn btn-primary" >Agregar</Button>
                   </div>
-              </div>  
+              </div>   
           </Fade>
         </Modal>
         </div>  

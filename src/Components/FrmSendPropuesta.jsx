@@ -562,5 +562,4 @@ var styles = {
       $("#myModal3").modal({backdrop: "static"});
     });
   });
-
-  */
+  */ 

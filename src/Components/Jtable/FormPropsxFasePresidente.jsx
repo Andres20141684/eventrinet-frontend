@@ -15,7 +15,7 @@ import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
 const Networking = require('../../Network/Networking');
 var OPTIONS = [];
 var jason = {};
-var obss = {};
+var obss = {}; 
  
 
 const useStyles = makeStyles(theme => ({
@@ -259,7 +259,7 @@ function ModalDetalleDeEvaluador(props) {
                         <input readOnly type="text" class="form-control" id="inputEmail4"  value={props.detalleCalificacionEvaluadorActual.calificacion}/>
                       </div>
                       <div class="form-group col-md-5">
-                        <label for="inputPassword4">Nivel de experticie</label>
+                        <label for="inputPassword4">Nivel de experticia</label>
                         <input readOnly type="text" class="form-control" id="inputPassword4"  value={props.detalleCalificacionEvaluadorActual.experticia}/>
                       </div>
                     </div>
@@ -352,45 +352,35 @@ function ModalDetallePropuesta (props) {
         </Fade>
         </Modal>
         </div>  
-    );
+    ); 
 }
 
-function showMessage (comentariosActual,presiComentario){
-  let msg = "";
-  comentariosActual.map((comentarioEvaluador,evaluadorNombre) =>
-  msg = msg + comentarioEvaluador + ": " + evaluadorNombre + "\n"
-  );
-  msg = msg + "Comentario del presidente: " + presiComentario +"\n"
 
-  return msg ;
-}
 
-let opcionEscogida =1;
 function handleCheckedMsjCuerpo (props,opcSelected){
   props.changeSelectedTipo(opcSelected)  
-  opcionEscogida = opcSelected
   let textAreaMsjCuerpoPred=document.getElementById('textAreaMsjCuerpoPred');
   let textAreaMsjCuerpoPers=document.getElementById('textAreaMsjCuerpoPers');
       
-  if (opcSelected === 2){
-    console.log("mensaje 2");
+  if (opcSelected === 1){
     textAreaMsjCuerpoPred.style.display = "none";
     textAreaMsjCuerpoPers.style.display = "block";
   }
   else {
-    console.log("mensaje 1")
     textAreaMsjCuerpoPred.style.display = "block";
     textAreaMsjCuerpoPers.style.display = "none";    
   }  
-  console.log(textAreaMsjCuerpoPred)
-  console.log(textAreaMsjCuerpoPers)
+  //console.log('textAreaMsjCuerpoPred',textAreaMsjCuerpoPred)
+  //console.log('textAreaMsjCuerpoPers',textAreaMsjCuerpoPers)
+  //console.log('opcSelected',opcSelected)
 }
 function ModalEnviarCorreo (props) {  
   const classes = useStyles();
     const [open, setOpen] = React.useState(false);
       
-    const handleOpen = () => {
+    const handleOpen = () => {      
       props.showObservacionesCorreo(props.idPropuesta,props.idFase);
+      console.log("mis props",props)
       setOpen(true);
     };
   
@@ -431,27 +421,30 @@ function ModalEnviarCorreo (props) {
                       <div className="modal-body" style={{paddingBottom:'0px'}}>
                       <div style={{padingLeft:'10%', paddingRight:'15%'}} className="form">
                         <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPredeterminado" value="option1" checked={props.eleccionTipoCorreo[0]} onClick ={(e)=>handleCheckedMsjCuerpo(props,0)}/>
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPredeterminado" value="option1" checked={props.eleccionTipoCorreo=== 0} onClick ={(e)=>handleCheckedMsjCuerpo(props,0)}/>
                           <label class="form-check-label" for="inlineRadio1">Predeterminado</label>
                         </div>
                         <div class="form-check form-check-inline" style={{float:'right'}}>
-                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPersonalizado" value="option2"  checked= {props.eleccionTipoCorreo[1]}onClick ={(e)=>handleCheckedMsjCuerpo(props,1)}/>
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rdPersonalizado" value="option2"  checked= {props.eleccionTipoCorreo === 1}onClick ={(e)=>handleCheckedMsjCuerpo(props,1)}/>
                           <label class="form-check-label" for="inlineRadio2">Personalizado</label>
                         </div>
                       </div>
                       <div class="form-group" >                        
                         <div>
-                          <textarea class="form-control" id="textAreaMsjCuerpoPred" rows="3" //onChange={/*(e) => props.onChangeMsjCuerpo(e)*/}
+                          <textarea class="form-control" id="textAreaMsjCuerpoPred" rows="3" style={{display:props.eleccionTipoCorreo === 0 ? 'block':'none'}}
                             value ={props.mensajePredeterminado}/>
-                          <textarea class="form-control" id="textAreaMsjCuerpoPers" style={{display:'none'}} rows="3" onChange={(e) => props.onChangeMsjCuerpo(e)} 
+                          <textarea class="form-control" id="textAreaMsjCuerpoPers" style={{display:props.eleccionTipoCorreo === 0 ? 'none':'block'}} rows="3" onChange={(e) => props.onChangeMsjCuerpo(e)} 
                             value ={props.mensajePersonalizado}/>
 
                           <div class="form-group"style={{borderColor:'red'}}>
-                            Observaciones hechas por parte del Comité Académico
-                            <input class="form-control-plaintext" id="exampleFormControlTextarea1" rows="3"  style={{height:'40px'}}                            
-                              value={showMessage(props.comentariosActual,props.presiComentario)}
-                            />
-                            <text style={{float:'right'}}>{'Atte. Comité Académico'}</text>
+                            <p style={{marginBottom:'7px'}}>Observaciones hechas por parte del Comité Académico</p>
+                            {props.comentariosActual.map((value,index) =>{                                
+                                return (
+                                  <p style={{marginLeft:'5px',marginBottom:'4px'}}>{"Evaluador(a) " + value.evaluadorNombre + ": " + value.comentarioEvaluador }</p>
+                                );
+                              })}
+                            <p style={{marginLeft:'5px',marginBottom:'4px'}}>{"Presidente: " + props.presiComentario}</p>
+                            <p style={{float:'right'}}>{'Atte. Comité Académico'}</p>
                             <br/>
                           </div>
                         </div>
@@ -477,7 +470,7 @@ class FormPropsxFasePresidente extends Component {
       cuerpoCorreo:'',
       mensajePredeterminado:'',
       mensajePersonalizado:'',
-      eleccionTipoCorreo:[true,false],
+      eleccionTipoCorreo:0,
       idFase:-1,
       tabla_propuestas: { //{nombre,idpropuesta,estado}
         Propuestas: []
@@ -649,24 +642,24 @@ class FormPropsxFasePresidente extends Component {
       });
       Networking.MostrarCorreoPorDefecto(idPropuesta,idFase).then(
         (response) =>{
-          console.log(response);
+          console.log('response',response);
           if (response ==  null){
             console.log("No hay mensaje predeterminad")
           }
           else{
             console.log("Si hay mensaje predeterminado")
-            this.setState({
-              //mensajePredeterminado:response
-              mensajePredeterminado : response.mensajePredeterminado,
-              eleccionTipoCorreo : response.tipoEleccion
+            this.setState({              
+              mensajePredeterminado : response.msjDefecto,
+              eleccionTipoCorreo : response.flagPersonalizado,
+              mensajePersonalizado : response.msjPersonalizado
             })
-            if (this.state.mensajePredeterminado !=response ){
-              //this.state.mensajePredeterminado=response
-              //NECESITOOOOOOOOOOOOO
-              this.state.mensajePredeterminado=response.mensajePredeterminado
-              this.state.eleccionTipoCorreo= response.tipoEleccion
+            if (this.state.mensajePredeterminado !=response.msjDefecto ){                            
+              this.state.mensajePredeterminado=response.msjDefecto
+              this.state.eleccionTipoCorreo= response.flagPersonalizado
+              this.state.mensajePersonalizado = response.msjPersonalizado
             }
             console.log("mensaje predeterminado -->",this.state.mensajePredeterminado,"<--")
+            console.log("this.state.antes del modal", this.state)
           }
         }
       )
@@ -799,21 +792,14 @@ class FormPropsxFasePresidente extends Component {
   }
 
   onChangeMsjCuerpo  = (evt) => {
-    console.log("evt cambiado",evt.target.value)
-    if (this.state.tipoEleccion[1] ){
-      this.setState({ mensajePersonalizado: evt.target.value });
+    this.setState({ mensajePersonalizado: evt.target.value });
+    if (this.state.mensajePersonalizado != evt.target.value){
+      this.state.mensajePersonalizado = evt.target.value
     }
   }
 
-  handleSaveCuerpoCorreo = (idPropuesta) => {
-    //DSSsfdfdsfdasadfhsdfhjdasf
-    console.log("Enviar correo")
-    let mensajeAEnviar="";
-    if (this.state.tipoEleccion[0])
-      mensajeAEnviar = this.state.mensajePredeterminado;  
-    else mensajeAEnviar = this.state.mensajePersonalizado;
-
-    Networking.guardarCuerpoCorreo(mensajeAEnviar, this.state.idFase,idPropuesta).then((value) => {
+  handleSaveCuerpoCorreo = (idPropuesta) => {        
+    Networking.guardarCuerpoCorreo(this.state.mensajePersonalizado, this.state.idFase,idPropuesta,this.state.eleccionTipoCorreo).then((value) => {
       console.log(value);
       if (value == null) {
         console.log('devolvio null pero no se q devuelve el back :V');
@@ -822,22 +808,16 @@ class FormPropsxFasePresidente extends Component {
         console.log('Se inserto o actualizó el cuerpo de msj :V');
       }
     });
+    console.log("this.state",this.state)
   }
  
-  changeSelectedTipo =(tipo) => {
-    if (tipo == 0){
-      this.setState({eleccionTipoCorreo:[true,false]})
-      if (this.state.eleccionTipoCorreo[0] != true) this.state.eleccionTipoCorreo =[true,false];
-    }else{
-      this.setState({eleccionTipoCorreo:[false,true]})
-      if (this.state.eleccionTipoCorreo[1] != true) this.state.eleccionTipoCorreo =[false,true];
-    }
-    
-
+  changeSelectedTipo =(tipo) => {    
+      this.setState({eleccionTipoCorreo:tipo})
+      if (this.state.eleccionTipoCorreo!= tipo) this.state.eleccionTipoCorreo =tipo;
+      console.log("sd",this.state.eleccionTipoCorreo)
   }
-  tableData() {
-    //this.setState.idUser_recived=this.props.idUser_recived;
-    console.log("SEbas props: ", this.props);
+
+  tableData() {        
 
     return this.state.tabla_propuestas.Propuestas.map((element, index) => {
       const { idPropuesta, nombre, estado, evaluadores } = element
@@ -930,11 +910,26 @@ class FormPropsxFasePresidente extends Component {
   render() {
     return (
       <div style={{marginLeft:'10%',marginRight:'10%'}}>
-        <h3 style={{paddingLeft:'20px'}}>Descripción: {this.props._props.myProps.fases[this.props._props.activeStep].descripcion}</h3>        
-          <Accordion defaultActiveKey="0" className="table-responsive" style={{fontSize:'13px'}}>
+        <div class="alert alert-primary" role="alert" style={{fontSize:'14px'}}>
+          {'Descripción de la fase: ' + this.props._props.myProps.fases[this.props._props.activeStep].descripcion}
+        </div>
+        {/*<h3 style={{paddingLeft:'20px'}}>Descripción: {this.props._props.myProps.fases[this.props._props.activeStep].descripcion}</h3>*/}
+        <div style={{/*overflowX: 'scroll'*/}}>
+          <div style={{fontSize:'14px'/* backgroundColor: "#002D3D", color: "#6CDCD6" */}}>
+              <tr>
+                <th width="9%" ></th>
+                <th width="50%" >Propuesta</th>
+                <th width="13%" >Estado</th>
+                <th width="10%" style={{paddingRight:'4px'}} >Observaciones</th>
+                <th width="12%" >Formato correo</th>
+                <th width="6%" ></th>
+              </tr>
+            </div>
+          <Accordion defaultActiveKey="0" className="table-responsive" style={{fontSize:'13px', height: '500px', overflowY: 'scroll'}}>
             {this.tableData()}
           </Accordion>
-        
+        </div>
+          <br/>
                 
         <div><button
           style={{ float: 'right' }}

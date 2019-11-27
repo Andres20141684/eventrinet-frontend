@@ -54,7 +54,13 @@ class  Login extends Component{
                     isLoading:false,
                     buttonLoadingText:"Iniciar sesión",
                     msgError:connectedUser.message});
-            document.getElementById('alertError').style.display ="block";
+                    try{
+                      document.getElementById('alertError').style.display ="block";
+                    }
+                    catch(err){
+                      console.log(err)
+                    }
+                    
           }
         }
       )

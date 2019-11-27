@@ -38,44 +38,6 @@ function getSteps(fases) {
   return nombres_fases;
 }
 
-function renderForm(flag, fase, responseObservaciones,responsePropuestas,props){
-  console.log("Props para el ofrmpornsfasepresirente")
-  console.log(fase)
-  console.log(responseObservaciones)
-  console.log(responsePropuestas)
-
-    return (
-      <div style={{marginLeft:'2%',marginRight:'2%'}} >
-        <div className="Main-tittle">
-            <div style={{ marginLeft: 40, marginTop: 25 }} >
-              <h4>Descripcion: {fase.descripcion}</h4>
-            </div>
-        </div>
-        <div class="container" style={{fontSize:'14px'}}>
-          <div class="panel-body">
-            
-            <FormPropsxFasePresidente
-              fase = {fase}
-              obss = {responseObservaciones}
-              propuestas = {responsePropuestas}
-
-            />
-              <div style={{ paddingTop: '20px' }}>
-                <button
-                    style={{ float: 'left' }}
-                    class="mybutton"
-                    onClick={props.handleReturn}
-                >
-                  Regresar
-                </button>                                          
-            </div>          
-          </div>
-          <br /><br />
-        </div>
-      </div>      
-    )
-  
-}
 function getStepContent(props,activeStep) {
   
   let propsPasados = {

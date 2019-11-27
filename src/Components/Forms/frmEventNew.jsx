@@ -116,6 +116,15 @@ export default class EventNew extends Component{
       }
 
       componentDidUpdate(prevProps, prevState){
+        if(prevState.nombre!==this.state.nombre){
+          this.validacion()
+        }
+        if(prevState.lugar!==this.state.lugar){
+          this.validacion()
+        }
+        if(prevState.descripcion!==this.state.descripcion){
+          this.validacion()
+        }
         if(prevState.CategoriasNulo!==this.state.CategoriasNulo){
           this.validacion()
         }
