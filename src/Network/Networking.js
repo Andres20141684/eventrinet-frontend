@@ -169,7 +169,7 @@ export async function validar_sesion(var_user,var_password) {
   }
 
   
-  export async function guardarCuerpoCorreo(mensaje,idFase,idPropuesta,flag){
+  export async function guardarCuerpoCorreo(msjPersonalizado,idFase,idPropuesta,flag){
     console.log('guardando cuerpo de correo...');
     try {        
         let response = await fetch(restURL 
@@ -183,7 +183,7 @@ export async function validar_sesion(var_user,var_password) {
             body: JSON.stringify({
                 idFase: idFase,
                 idPropuesta: idPropuesta,
-                mensaje: mensaje,
+                msjPersonalizado: msjPersonalizado,
                 flagPersonalizado: flag
             }),
         });

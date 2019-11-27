@@ -801,15 +801,8 @@ class FormPropsxFasePresidente extends Component {
     }
   }
 
-  handleSaveCuerpoCorreo = (idPropuesta) => {
-    //DSSsfdfdsfdasadfhsdfhjdasf
-    console.log("Enviar correo")
-    let mensajeAEnviar="";
-    if (this.state.tipoEleccion== 0)
-      mensajeAEnviar = this.state.mensajePredeterminado;  
-    else mensajeAEnviar = this.state.mensajePersonalizado;
-
-    Networking.guardarCuerpoCorreo(this.state.mensajePredeterminado,this.state.mensajePersonalizado, this.state.idFase,idPropuesta,this.state.eleccionTipoCorreo).then((value) => {
+  handleSaveCuerpoCorreo = (idPropuesta) => {        
+    Networking.guardarCuerpoCorreo(this.state.mensajePersonalizado, this.state.idFase,idPropuesta,this.state.eleccionTipoCorreo).then((value) => {
       console.log(value);
       if (value == null) {
         console.log('devolvio null pero no se q devuelve el back :V');
