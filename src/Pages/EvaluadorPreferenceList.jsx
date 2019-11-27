@@ -9,9 +9,9 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import './../styles/style_gig_tittle.css'
-
-import {NetworkMutation_JAchievingData} from '../Network/Networking.js';
 import PaperPreferenceTable from '../Components/Jtable/PaperPreferenceTable';
+const Networking = require('../Network/Networking') ;
+
 
 function Botones(){
     return ( 
@@ -93,25 +93,10 @@ class EvaluadorPreferenceList extends Component{
                  });
    }
    componentDidMount(){
-        NetworkMutation_JAchievingData(
-            {
-            methodPath: 'postulante/listarEventosActivosConPropuestas',
-            JsonToBack:{
-                idUsuario: this.props.nextChildComponentProps.Usuario.idUsuario
-            },
-            }
-        ).then((value) => {
+    Networking.listarPreferenciasXPropuesta(JSON.stringify({idEvento:1}))
+        .then((value) => {
             console.log(value);
-            if(value === null || value.succeed===false){
-            console.error('FALLO FATAL, modo hardcode activado');
-            }else {
-            console.log('si hay algo:');
-            console.log("ProposerPanel: ", value);
-            var data = value.Eventos;
-            this.setState({
-                datos_tabla1: data
-             });
-            }
+            
         });
          
    }
@@ -130,10 +115,10 @@ class EvaluadorPreferenceList extends Component{
                             <TabPanel> 
                                 <br/>
                                 <this.state.formActives 
-                                    idUser={this.props.nextChildComponentProps.Usuario.idUser}
+                                    //idUser={this.props.nextChildComponentProps.Usuario.idUser}
                                     data={this.state.datos_tabla1}  
-                                    onNextChildComponentChange={this.handleNextChildComponentChange} 
-                                    onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
+                                    //onNextChildComponentChange={this.handleNextChildComponentChange} 
+                                    //onNextChildComponentChangeProps={this.handleNextChildComponentChangeProps}
                                 /> 
                             </TabPanel>
                         </Tabs>

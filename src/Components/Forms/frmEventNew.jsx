@@ -98,7 +98,7 @@ export default class EventNew extends Component{
         else{
           this.setState({form1Completo:false})
         }
-        if(this.state.EsVaciocomiteOrganizacional==1 && this.state.EsVacioevaluadores==1 && this.state.EsVacioevaluadores==1){
+        if(this.state.EsVaciocomiteOrganizacional==1 && this.state.EsVaciopresidente==1 && this.state.EsVacioevaluadores==1){
           this.setState({form2Completo:true})
         }
         else{
@@ -161,8 +161,8 @@ export default class EventNew extends Component{
                 idEvento:this.state.data_recived.id_evento_nextProps,
                 nombre:response.nombre,
                 descripcion:response.descripcion,
-                fIni: new Date(response.fechaIni),
-                fFin: new Date(response.fechaFin),
+                fIni: new Date(response.fechaIni.split("-")),
+                fFin: new Date(response.fechaFin.split("-")),
                 lugar:response.lugar,
                 rdCategry:response.preferencia==='CATEGORIA'?true:false,
                 rdPropuest:response.preferencia==='PROPUESTA'?true:false,
@@ -172,7 +172,7 @@ export default class EventNew extends Component{
                 categorias:response.categorias,
                 tieneCameraRdy:response.tieneCameraRdy,
                 rdCamR:response.tieneCameraRdy===1?true:false,
-                fechPref:new Date(response.fechaMaxPref),            
+                fechPref:new Date(response.fechaMaxPref.split("-")),            
               })
               if(response.imagen!==null){
                 this.setState({imagen:response.imagen})
@@ -180,8 +180,8 @@ export default class EventNew extends Component{
               if(response.fases.length!==0 && response.tieneCameraRdy===1){
                 const aux=response.fases.pop();
                 this.setState({
-                  fCRIni:new Date(aux.fechaFaseIni),
-                  fCRFin:new Date(aux.fechaFaseFin),
+                  fCRIni:new Date(aux.fechaFaseIni.split("-")),
+                  fCRFin:new Date(aux.fechaFaseFin.split("-")),
                 })
               }
               if(response.fases.length!==0){
@@ -189,10 +189,10 @@ export default class EventNew extends Component{
                 var auxfases=[]
                 for(var i=0;i<response.fases.length;i++){
                   auxfases[i]=JSON.parse(JSON.stringify(response.fases[i]));
-                  auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni);
-                  auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin);
-                  auxfases[i].faseEvalIni=new Date(response.fases[i].fechaEvalIni);
-				          auxfases[i].faseEvalPresiIni=new Date(response.fases[i].fechaEvalPresiIni);
+                  auxfases[i].faseIni=new Date(response.fases[i].fechaFaseIni.split("-"));
+                  auxfases[i].faseFin=new Date(response.fases[i].fechaFaseFin.split("-"));
+                  auxfases[i].faseEvalIni=new Date(response.fases[i].fechaEvalIni.split("-"));
+				          auxfases[i].faseEvalPresiIni=new Date(response.fases[i].fechaEvalPresiIni.split("-"));
                   auxfases[i].reqArch=auxfases[i].necesitaArchivo===1?true:false;
                   auxfases[i].reqEval=auxfases[i].necesitaEvaluacion===1?true:false;
                   auxfases[i].reqEnt=auxfases[i].necesitaEntregable===1?true:false;
@@ -205,7 +205,7 @@ export default class EventNew extends Component{
                   fases:auxfases
                 })
               }
-              this.setState({form1Completo:true,form2Completo:true,form3Completo:true})
+              this.setState({form1Completo:true,form2Completo:true,form3Completo:true,EsVaciocomiteOrganizacional:1,EsVacioevaluadores:1,EsVaciopresidente:1,CategoriasNulo:1})
             })
             .catch( (err) =>{
               console.log("error en conexión");
