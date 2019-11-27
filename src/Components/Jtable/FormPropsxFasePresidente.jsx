@@ -259,7 +259,7 @@ function ModalDetalleDeEvaluador(props) {
                         <input readOnly type="text" class="form-control" id="inputEmail4"  value={props.detalleCalificacionEvaluadorActual.calificacion}/>
                       </div>
                       <div class="form-group col-md-5">
-                        <label for="inputPassword4">Nivel de experticie</label>
+                        <label for="inputPassword4">Nivel de experticia</label>
                         <input readOnly type="text" class="form-control" id="inputPassword4"  value={props.detalleCalificacionEvaluadorActual.experticia}/>
                       </div>
                     </div>
@@ -352,18 +352,10 @@ function ModalDetallePropuesta (props) {
         </Fade>
         </Modal>
         </div>  
-    );
+    ); 
 }
 
-function showMessage (comentariosActual,presiComentario){
-  let msg = "";
-  comentariosActual.map((comentarioEvaluador,evaluadorNombre) =>
-  msg = msg + comentarioEvaluador + ": " + evaluadorNombre + "\n"
-  );
-  msg = msg + "Comentario del presidente: " + presiComentario +"\n"
 
-  return msg ;
-}
 
 function handleCheckedMsjCuerpo (props,opcSelected){
   props.changeSelectedTipo(opcSelected)  
@@ -378,16 +370,17 @@ function handleCheckedMsjCuerpo (props,opcSelected){
     textAreaMsjCuerpoPred.style.display = "block";
     textAreaMsjCuerpoPers.style.display = "none";    
   }  
-  console.log('textAreaMsjCuerpoPred',textAreaMsjCuerpoPred)
-  console.log('textAreaMsjCuerpoPers',textAreaMsjCuerpoPers)
-  console.log('opcSelected',opcSelected)
+  //console.log('textAreaMsjCuerpoPred',textAreaMsjCuerpoPred)
+  //console.log('textAreaMsjCuerpoPers',textAreaMsjCuerpoPers)
+  //console.log('opcSelected',opcSelected)
 }
 function ModalEnviarCorreo (props) {  
   const classes = useStyles();
     const [open, setOpen] = React.useState(false);
       
-    const handleOpen = () => {
+    const handleOpen = () => {      
       props.showObservacionesCorreo(props.idPropuesta,props.idFase);
+      console.log("mis props",props)
       setOpen(true);
     };
   
@@ -444,11 +437,14 @@ function ModalEnviarCorreo (props) {
                             value ={props.mensajePersonalizado}/>
 
                           <div class="form-group"style={{borderColor:'red'}}>
-                            Observaciones hechas por parte del Comité Académico
-                            <input class="form-control-plaintext" id="exampleFormControlTextarea1" rows="3"  style={{height:'40px'}}                            
-                              value={showMessage(props.comentariosActual,props.presiComentario)}
-                            />
-                            <text style={{float:'right'}}>{'Atte. Comité Académico'}</text>
+                            <p style={{marginBottom:'7px'}}>Observaciones hechas por parte del Comité Académico</p>
+                            {props.comentariosActual.map((value,index) =>{                                
+                                return (
+                                  <p style={{marginLeft:'5px',marginBottom:'4px'}}>{"Evaluador(a) " + value.evaluadorNombre + ": " + value.comentarioEvaluador }</p>
+                                );
+                              })}
+                            <p style={{marginLeft:'5px',marginBottom:'4px'}}>{"Presidente: " + props.presiComentario}</p>
+                            <p style={{float:'right'}}>{'Atte. Comité Académico'}</p>
                             <br/>
                           </div>
                         </div>
@@ -663,6 +659,7 @@ class FormPropsxFasePresidente extends Component {
               this.state.mensajePersonalizado = response.msjPersonalizado
             }
             console.log("mensaje predeterminado -->",this.state.mensajePredeterminado,"<--")
+            console.log("this.state.antes del modal", this.state)
           }
         }
       )
@@ -811,14 +808,16 @@ class FormPropsxFasePresidente extends Component {
         console.log('Se inserto o actualizó el cuerpo de msj :V');
       }
     });
+    console.log("this.state",this.state)
   }
  
   changeSelectedTipo =(tipo) => {    
       this.setState({eleccionTipoCorreo:tipo})
       if (this.state.eleccionTipoCorreo!= tipo) this.state.eleccionTipoCorreo =tipo;
+      console.log("sd",this.state.eleccionTipoCorreo)
   }
-  tableData() {    
-    console.log("SEbas props: ", this.props);
+
+  tableData() {        
 
     return this.state.tabla_propuestas.Propuestas.map((element, index) => {
       const { idPropuesta, nombre, estado, evaluadores } = element
