@@ -55,18 +55,19 @@ class Proposer_ActiveEventsTable  extends Component {
       this.props.onNextChildComponentChange(EventDetail);
    }
    renderProposals(listProp) {
+     console.log("twice! : ",this.state, this.props );
       const evento = listProp;
       try{delete evento.listProp}catch(e){}
       /* el Link se va al detalle de propuesta */
       return listProp.Propuestas.map((propuesta, index) => {
          
-         const { idPropuesta,nombPropuesta,estado,fechaLim } = propuesta 
+         const { idPropuesta,nombPropuesta,estado,fechaLim, nroFasesComp } = propuesta 
          return(
             
             <tr key = {idPropuesta}>
                
                <td> {index+1} &nbsp;&nbsp; {nombPropuesta} </td>
-               <td> N-ésima </td>
+               <td> {nroFasesComp} </td>
                <td> {estado} </td>
                <td> {fechaLim} </td>
                <td>

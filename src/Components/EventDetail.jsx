@@ -206,15 +206,6 @@ class EventDetail extends Component{
                             >
                       Descargar Paper
                       </button>
-                      <button  
-                            id="button_finish"
-                            style={{float:'center'}} 
-                            class="mybutton" 
-                            color="primary" 
-                            onClick={this.handleDonwload}
-                            >
-                      Descargar Paper
-                      </button>
                   <a id='JinSSJ'
                   href={this.state.link_propuestabase64} download="file.pdf" ></a>
         
