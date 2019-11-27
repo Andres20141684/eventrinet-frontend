@@ -259,7 +259,7 @@ function ModalDetalleDeEvaluador(props) {
                         <input readOnly type="text" class="form-control" id="inputEmail4"  value={props.detalleCalificacionEvaluadorActual.calificacion}/>
                       </div>
                       <div class="form-group col-md-5">
-                        <label for="inputPassword4">Nivel de experticie</label>
+                        <label for="inputPassword4">Nivel de experticia</label>
                         <input readOnly type="text" class="form-control" id="inputPassword4"  value={props.detalleCalificacionEvaluadorActual.experticia}/>
                       </div>
                     </div>
@@ -352,18 +352,10 @@ function ModalDetallePropuesta (props) {
         </Fade>
         </Modal>
         </div>  
-    );
+    ); 
 }
 
-function showMessage (comentariosActual,presiComentario){
-  let msg = "";
-  comentariosActual.map((comentarioEvaluador,evaluadorNombre) =>
-  msg = msg + comentarioEvaluador + ": " + evaluadorNombre + "\n"
-  );
-  msg = msg + "Comentario del presidente: " + presiComentario +"\n"
 
-  return msg ;
-}
 
 function handleCheckedMsjCuerpo (props,opcSelected){
   props.changeSelectedTipo(opcSelected)  
@@ -386,8 +378,9 @@ function ModalEnviarCorreo (props) {
   const classes = useStyles();
     const [open, setOpen] = React.useState(false);
       
-    const handleOpen = () => {
+    const handleOpen = () => {      
       props.showObservacionesCorreo(props.idPropuesta,props.idFase);
+      console.log("mis props",props)
       setOpen(true);
     };
   
@@ -444,10 +437,13 @@ function ModalEnviarCorreo (props) {
                             value ={props.mensajePersonalizado}/>
 
                           <div class="form-group"style={{borderColor:'red'}}>
-                            Observaciones hechas por parte del Comité Académico
-                            <input class="form-control-plaintext" id="exampleFormControlTextarea1" rows="3"  style={{height:'40px'}}                            
-                              value={showMessage(props.comentariosActual,props.presiComentario)}
-                            />
+                            <p>Observaciones hechas por parte del Comité Académico</p>
+                            {props.comentariosActual.map((value,index) =>{                                
+                                return (
+                                  <p style={{marginBottom:'4px'}}>{value.evaluadorNombre + ": " + value.comentarioEvaluador }</p>
+                                );
+                              })}
+                            <p>{"Comentarios del presidente: " + props.presiComentario}</p>
                             <text style={{float:'right'}}>{'Atte. Comité Académico'}</text>
                             <br/>
                           </div>
