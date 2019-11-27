@@ -3,11 +3,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/style_sheets.css'
 
 import '../../styles/styles_dropzone.css'; 
+import JModal from './JModal';
 
 class JUpload  extends Component {
    constructor(props){
       super(props);
       this.state = {
+        modal:0,
         progress:null,
         reader:null,
         maxTamanio:10,
@@ -37,6 +39,7 @@ class JUpload  extends Component {
     abortRead() {
         this.state.reader.abort();
         this.setState({contenido:0});
+        document.getElementById('list').innerHTML = '<div>'+'</div>';
     }
     updateProgress(evt) {
     var progress = document.querySelector('.percent');
@@ -71,7 +74,7 @@ class JUpload  extends Component {
         evt.preventDefault();
         var files = evt.dataTransfer.files; // aqui un objeto FileList .
         if(files.length >1){
-          alert("Solo un archivo PDF o te hackeo :)");
+          //alert("Solo un archivo PDF o te hackeo :)");
           return;
         }
           // files is a FileList of File objects. List some properties.
@@ -80,12 +83,16 @@ class JUpload  extends Component {
         for (var i = 0, f; f = files[i]; i++) {
           if(f.type==this.state.formato){
           }else{
-            alert("Pendejo, solo se admite extencion " + this.state.formato);
+            this.setState({modal:1});
+            document.getElementById("btnToggle").click();
+            //alert("Pendejo, solo se admite extencion " + this.state.formato);
             return;
           }
-          if(f.size>this.state.maxTamanio){
+          if(f.size>this.props.maxTamanio){
           }else{
-            alert("Pendejo, solo se admite tamaño menor a " + this.state.tamanio);
+            this.setState({modal:0});
+            document.getElementById("btnToggle").click();
+            //alert("Pendejo, solo se admite tamaño menor a " + this.state.tamanio);
             return;
           }
           output.push('<li><strong>', escape(f.name), '</strong> </li>');
@@ -160,7 +167,21 @@ class JUpload  extends Component {
     } 
     
      }
-  
+     makeModalBody(i){
+        switch(i){
+          
+        case 0: 
+            return(
+              <div><h1>Solo se admite tamaño menor a: {" " + this.state.tamanio + "MB"}</h1></div>
+            );
+        case 1:
+            return (
+
+              <div><h1>Solo se admite extencion {" " + this.props.formato}</h1></div>
+            );
+        }
+     }
+     
      render() {
          return (
             <div class="panel panel-default" >
@@ -172,11 +193,20 @@ class JUpload  extends Component {
                 <button type="button" class="btn btn-success" 
                         style={{width:"126px"},{backgroundColor:"#3B83BD"}} 
                         onClick={()=>this.abortRead()}>
-                          Cancelar subida
+                          Cancelar
                 </button>
             </div>
             <output id="list"></output>
+            <JModal
+              class ="modal"
+              id= "JModalUpload"
+              head={"Hunbo un error:"}
+              body={this.makeModalBody(this.state.modal)}
+              footer= {<><button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button> </>}
+          />
+          <button id="btnToggle" type="button" data-toggle="modal" data-target="#JModalUpload"> </button>
           </div>
+          
         )
      }
 }
