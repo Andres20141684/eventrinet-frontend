@@ -910,11 +910,26 @@ class FormPropsxFasePresidente extends Component {
   render() {
     return (
       <div style={{marginLeft:'10%',marginRight:'10%'}}>
-        <h3 style={{paddingLeft:'20px'}}>Descripción: {this.props._props.myProps.fases[this.props._props.activeStep].descripcion}</h3>        
-          <Accordion defaultActiveKey="0" className="table-responsive" style={{fontSize:'13px'}}>
+        <div class="alert alert-primary" role="alert" style={{fontSize:'14px'}}>
+          {'Descripción de la fase: ' + this.props._props.myProps.fases[this.props._props.activeStep].descripcion}
+        </div>
+        {/*<h3 style={{paddingLeft:'20px'}}>Descripción: {this.props._props.myProps.fases[this.props._props.activeStep].descripcion}</h3>*/}
+        <div style={{/*overflowX: 'scroll'*/}}>
+          <div style={{fontSize:'14px'/* backgroundColor: "#002D3D", color: "#6CDCD6" */}}>
+              <tr>
+                <th width="9%" ></th>
+                <th width="50%" >Propuesta</th>
+                <th width="13%" >Estado</th>
+                <th width="10%" style={{paddingRight:'4px'}} >Observaciones</th>
+                <th width="12%" >Formato correo</th>
+                <th width="6%" ></th>
+              </tr>
+            </div>
+          <Accordion defaultActiveKey="0" className="table-responsive" style={{fontSize:'13px', height: '500px', overflowY: 'scroll'}}>
             {this.tableData()}
           </Accordion>
-        
+        </div>
+          <br/>
                 
         <div><button
           style={{ float: 'right' }}
