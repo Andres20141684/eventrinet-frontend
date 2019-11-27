@@ -438,9 +438,9 @@ function ModalEnviarCorreo (props) {
                       </div>
                       <div class="form-group" >                        
                         <div>
-                          <textarea class="form-control" id="textAreaMsjCuerpoPred" rows="3" //onChange={/*(e) => props.onChangeMsjCuerpo(e)*/}
+                          <textarea class="form-control" id="textAreaMsjCuerpoPred" rows="3" style={{display:props.eleccionTipoCorreo === 0 ? 'block':'none'}}
                             value ={props.mensajePredeterminado}/>
-                          <textarea class="form-control" id="textAreaMsjCuerpoPers" style={{display:'none'}} rows="3" onChange={(e) => props.onChangeMsjCuerpo(e)} 
+                          <textarea class="form-control" id="textAreaMsjCuerpoPers" style={{display:props.eleccionTipoCorreo === 0 ? 'none':'block'}} rows="3" onChange={(e) => props.onChangeMsjCuerpo(e)} 
                             value ={props.mensajePersonalizado}/>
 
                           <div class="form-group"style={{borderColor:'red'}}>
@@ -652,18 +652,15 @@ class FormPropsxFasePresidente extends Component {
           }
           else{
             console.log("Si hay mensaje predeterminado")
-            this.setState({
-              //mensajePredeterminado:response
-              //mensajePredeterminado : response.mensajePredeterminado,
-              //eleccionTipoCorreo : response.tipoEleccion,
-              //mensajePersonalizado : response.mensajePersonalizado
+            this.setState({              
+              mensajePredeterminado : response.msjDefecto,
+              eleccionTipoCorreo : response.flagPersonalizado,
+              mensajePersonalizado : response.msjPersonalizado
             })
-            if (this.state.mensajePredeterminado !=response ){
-              //this.state.mensajePredeterminado=response
-              //NECESITOOOOOOOOOOOOO-----------------------------<<<<<<<<<<<-------<<<<<<<<<<<<<<------------<<<<<<<<<<
-              //this.state.mensajePredeterminado=response.mensajePredeterminado
-              //this.state.eleccionTipoCorreo= response.tipoEleccion
-              //this.state.mensajePersonalizado = response.mensajePersonalizado
+            if (this.state.mensajePredeterminado !=response.msjDefecto ){                            
+              this.state.mensajePredeterminado=response.msjDefecto
+              this.state.eleccionTipoCorreo= response.flagPersonalizado
+              this.state.mensajePersonalizado = response.msjPersonalizado
             }
             console.log("mensaje predeterminado -->",this.state.mensajePredeterminado,"<--")
           }
@@ -798,9 +795,9 @@ class FormPropsxFasePresidente extends Component {
   }
 
   onChangeMsjCuerpo  = (evt) => {
-    console.log("evt cambiado",evt.target.value)
-    if (this.state.tipoEleccion[1] ){
-      this.setState({ mensajePersonalizado: evt.target.value });
+    this.setState({ mensajePersonalizado: evt.target.value });
+    if (this.state.mensajePersonalizado != evt.target.value){
+      this.state.mensajePersonalizado = evt.target.value
     }
   }
 
@@ -808,11 +805,11 @@ class FormPropsxFasePresidente extends Component {
     //DSSsfdfdsfdasadfhsdfhjdasf
     console.log("Enviar correo")
     let mensajeAEnviar="";
-    if (this.state.tipoEleccion[0])
+    if (this.state.tipoEleccion== 0)
       mensajeAEnviar = this.state.mensajePredeterminado;  
     else mensajeAEnviar = this.state.mensajePersonalizado;
 
-    Networking.guardarCuerpoCorreo(mensajeAEnviar, this.state.idFase,idPropuesta).then((value) => {
+    Networking.guardarCuerpoCorreo(this.state.mensajePredeterminado,this.state.mensajePersonalizado, this.state.idFase,idPropuesta,this.state.eleccionTipoCorreo).then((value) => {
       console.log(value);
       if (value == null) {
         console.log('devolvio null pero no se q devuelve el back :V');
