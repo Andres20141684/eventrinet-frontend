@@ -71,7 +71,7 @@ class Proposer_ActiveEventsTable  extends Component {
                <td> {estado} </td>
                <td> {fechaLim} </td>
                <td>
-                  <JActionButton
+                  {propuesta.flagResubir===1}?(<JActionButton
                   onClick = {()=>this.handleDetail(
                     {Propuestaprev:propuesta,
                       evento:evento,
@@ -79,7 +79,7 @@ class Proposer_ActiveEventsTable  extends Component {
                                  
                               )}
                   button_class ="fa fa-plus-circle"
-                  />
+                  />):{"-"}
                   
                </td> 
             </tr>
@@ -104,8 +104,7 @@ class Proposer_ActiveEventsTable  extends Component {
             <Card>
             <Card.Header className="col-md-12">
               <div className="custom-control custom-checkbox  col-md-1">
-                  <input type="checkbox" className="custom-control-input" id={idIndex} />
-                  <label class="custom-control-label" for={idIndex}/>
+                  
               </div>
               
               <div className="col-md-6">
@@ -114,7 +113,7 @@ class Proposer_ActiveEventsTable  extends Component {
                     data-target="#modalDetalleProp" 
                     onClick={e => {this.showModalDetalle();}} 
                     style={{color:"#337ab7", cursor:'pointer',fontSize: '15px'}}>
-                {nombEvento} - Fase Actual: {faseActual}/{totFases}
+                <h1>{nombEvento} - Fase Actual: {faseActual}/{totFases}</h1>
                 </a>
               </div>
               

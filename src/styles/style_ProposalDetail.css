@@ -4,8 +4,9 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'open sans';
+body{
+    background: #eeeeee;
+    padding-right: 0 !important;
 }
 
 .contenedor_detail {

@@ -135,7 +135,7 @@ class Portafolio extends Component{
       <div>
         <section class="portafolio">
               <div className="contenedor" style={{maxWidth: "1200px"}}>
-                  <h2 class="titulo">{this.state.title}</h2>
+                  <h2 style={{fontSize: "75px"}} class="titulo">{this.state.title}</h2>
                   <div class="galeria-port">
                       {this.renderImagePortTotal()}
                   </div>
