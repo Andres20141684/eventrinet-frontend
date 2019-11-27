@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 //const styles = stylesFile.getStyle();
 import './../styles/style_ProposalDetail.css';
 import { textAlign } from '@material-ui/system';
-import { getPaper ,NetworkMutation_JAchievingData} from '../Network/Networking';
+import { getPaper2 ,NetworkMutation_JAchievingData} from '../Network/Networking';
 /**
  * Necesito una lista de eventos, y na foto parq eru pueda
  */
@@ -95,10 +95,11 @@ class EventDetail extends Component{
  handleClickB = () => {
   console.log("a-->", document.getElementById('JinSSJ'));
   
-  getPaper(this.state.Propuestaprev.idPropuesta).then(
+  getPaper2(this.state.Propuestaprev.idPropuesta).then(
     (response)=>{
-      this.state.attempt=this.state.attempt+1;
-      console.log(">>>>>>>>>>>>>>>>>> Se descargo again ,", this.state.attempt);
+      
+      //console.log(">>>>>>>>>>>>>>>>>> Se descargo again ,", this.state.attempt);
+      console.log("---->",response.Propuesta);
       this.setState({link_propuestabase64:response.Propuesta});
       //window.download(response.Propuesta, 'Save');
       document.getElementById('JinSSJ').click();
@@ -129,11 +130,14 @@ class EventDetail extends Component{
     if(this.state.propuesta != nextState.propuesta){
        return true;
     }
+    if(this.state.link_propuestabase64 != nextProps.link_propuestabase64){
+      return true;
+    }
     return false;
  }
  handleDonwload = () => {
 
-  getPaper(this.state.Propuesta.idPropuesta).then(
+  getPaper2(this.state.Propuesta.idPropuesta).then(
     (response)=>{
       this.setState({link_propuestabase64:response.Propuesta});
       document.getElementById('JinSSJ').click();
@@ -171,7 +175,7 @@ class EventDetail extends Component{
 
                 <h3><span><i style={{color: "#fff"}}class="fa fa-shield"></i></span>Archivo</h3>
                 <p>{(this.state.Propuesta.tienePaper>0)?
-                    "Descargar Propuesta: "(
+                    "Descargar Propuesta: " + (
                     <i class="fa fa-download"  
                         aria-hidden="true"
                          onClick={this.handleDonwload}>  
@@ -192,6 +196,7 @@ class EventDetail extends Component{
             
             </div>
         </div>
+        
         <button  
                             id="button_finish"
                             style={{float:'center'}} 
@@ -201,7 +206,16 @@ class EventDetail extends Component{
                             >
                       Descargar Paper
                       </button>
-                  <a id='JinSSJ' onClick={this.handleClick}
+                      <button  
+                            id="button_finish"
+                            style={{float:'center'}} 
+                            class="mybutton" 
+                            color="primary" 
+                            onClick={this.handleDonwload}
+                            >
+                      Descargar Paper
+                      </button>
+                  <a id='JinSSJ'
                   href={this.state.link_propuestabase64} download="file.pdf" ></a>
         
     </section><br/>
