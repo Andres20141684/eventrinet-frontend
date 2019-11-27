@@ -685,33 +685,7 @@ export async function listar_categoriasPorEvento(_idEvento) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
     }
-}/*
-export async function registrar_PrefXCat(idEvento, idUsuario, idCategoria) {
-    
-    try {
-        console.log('RECIBI UN param: ' + idEvento);
-        let response = await fetch(restURL 
-            + 'evaluador/registrar_preferencias_categoria', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                idEvento: idEvento,
-                idUsuario : idUsuario,
-                idCategoria : idCategoria
-            }),
-        });
-        let responseJson = await response.json();
-        console.log(responseJson);
-        return responseJson;  
-    } catch (error) {
-        console.error(error);
-        console.error('CATCH ALCANZADO :(');
-    }
-}*/
+}
 
 export async function ListarPrefXCateg(idEvento, idUsuario) {
     
