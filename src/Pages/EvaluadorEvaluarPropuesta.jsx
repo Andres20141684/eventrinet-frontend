@@ -193,24 +193,33 @@ class EvaluadorEvaluarPropuesta extends Component{
       if (this.state.rptasCriterios/*[0]*/ == nextState.rptasCriterios/*[0]*/){
         return true;
       }
+      if(this.state.propuesta != nextState.propuesta){
+        return true;
+      }
+      if(this.state.link_propuestabase64 != nextState.link_propuestabase64){
+        return true;
+      }
       if(arreglo_aux != []){
         return true;
       }
-      return true;  
+      return false;  
     }
     handleClick = () => {
       console.log('redireccionando a ... FakeNewIni evento');
     }
     handleClickB = () => {
-      var idprop = 59;
-      console.log("a-->", document.getElementById('JinSSJ'));
+      var elIDpropuesta = 120;
       if (this.state.idPropuesta){
-        idprop = this.state.idPropuesta
+        elIDpropuesta = this.state.idPropuesta
       }
-      Networking.getPaper2(idprop).then(
+      console.log("WAA XD: ", this.state.idPropuesta);
+      console.log("a-->", document.getElementById('JinSSJ'));
+      
+      Networking.getPaper2(elIDpropuesta).then(
         (response)=>{
-          //this.state.attempt=this.state.attempt+1;
+          
           //console.log(">>>>>>>>>>>>>>>>>> Se descargo again ,", this.state.attempt);
+          console.log("---->",response.Propuesta);
           this.setState({link_propuestabase64:response.Propuesta});
           //window.download(response.Propuesta, 'Save');
           document.getElementById('JinSSJ').click();
@@ -431,11 +440,20 @@ class EvaluadorEvaluarPropuesta extends Component{
         <br/>
         <div className="col-md-12" style={{fontSize:15}}>{this.state.nomb_propuesta}</div>
         <div className="col-md-4" style={{color:'#6CDCD6',float:'right'}}>
-            <button class="btn" style={{color:'white',float:'right'}} onClick={this.handleClickB}> </button>                 
-                <a id='JinSSJ' onClick={this.handleClick} style={{width:'80px',marginTop:10,marginBottom:10}}
-                      className="specialButton" href={this.state.link_propuestabase64} title="Descargar propuesta" download="Propuesta.pdf" >
-                  <i class="fa fa-download" style={{color:'#6CDCD6'}}></i>
-                </a>
+            
+        
+            
+            
+            
+        <button  
+                            id="button_finish"
+                            style={{width:'80px',marginTop:10,marginBottom:10}}
+                      className="specialButton"
+                            color="primary" 
+                            onClick={this.handleClickB}
+                            ><i class="fa fa-download" style={{color:'#6CDCD6'}}></i>
+                      </button>               
+                <a id='JinSSJ'  href={this.state.link_propuestabase64} title="Descargar propuesta" download="Propuesta.pdf" ></a>
                
         </div>
         <br/>
