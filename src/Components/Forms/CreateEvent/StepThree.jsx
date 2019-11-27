@@ -121,6 +121,7 @@ handleCheckboxChange = event =>{
                     handleChangeFaseDate={this.handleChangeFaseDate}
                     handleCheck={this.handleCheck}
                     fechaAnt={index===0?null:this.state.values[index-1].faseFin==''?null:this.state.values[index-1].faseFin}
+                    fechaMax={this.props.fechaIE}
                     /*fechaPost={this.state.values.length-1===index?null:this.state.values[index-1].faseFin}*//>
                 </div>
             </div> 

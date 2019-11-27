@@ -12,7 +12,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 
-class PaperPreferenceTable  extends Component {
+class PaperPreferenceTableCategory  extends Component {
    constructor(props) {
       super(props) 
       
@@ -130,5 +130,5 @@ class PaperPreferenceTable  extends Component {
      }
 }
 
-export default PaperPreferenceTable 
+export default PaperPreferenceTableCategory 
 
