@@ -11,6 +11,7 @@ import JModal from './Special/JModal';
 import Jloading from './Special/Jloading';
 import PropoMyProposals from '../Pages/ProposerMyProposals';
 import Dashboard from './Dashboard';
+import JStep from './JStep';
 const Networking = require('./../../src/Network/Networking') ;
 
 const classes =makeStyles(theme => ({
@@ -68,7 +69,8 @@ class FrmSendPropuesta extends React.Component {
         fase : 1,
         Authors:[],
         CamposPers: [],
-        respuestasPers:[]
+        respuestasPers:[],
+        entregable:null,
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -217,8 +219,9 @@ class FrmSendPropuesta extends React.Component {
     handleFinish = () =>{
       //console.log("getttttte",document.getElementById("myModal"));
       
-      console.log("final",this.state);
+      //console.log("final",this.state);
       /********aqui debo enviar******** */
+      
       Networking.NetworkMutation_JAchievingData(
         {
           methodPath: 'propuesta/registrar_propuesta',
@@ -237,6 +240,7 @@ class FrmSendPropuesta extends React.Component {
                           + "&" +this.state.academicLevel,
               Categorias: this.state.categorias,
               RptaCamposPers: this.state.respuestasPers,
+              entregable:this.state.entregable,
               
           },
         }
@@ -254,7 +258,7 @@ class FrmSendPropuesta extends React.Component {
      });
      this.setState({modal:0});
      window.scrollTo(0, 0);
-      
+     window.document.getElementById("JinSSJ_body").style.paddingRight = "0px";
     }
 /**************************************** */
     handle_redirect (i){
@@ -365,6 +369,7 @@ class FrmSendPropuesta extends React.Component {
       }
     } 
     makeModalLoad(i){
+      window.document.getElementById("JinSSJ_body").style.paddingRight = "0px";
       switch (i) {
         case -1:
             return (
@@ -374,7 +379,7 @@ class FrmSendPropuesta extends React.Component {
             );
         case 0: 
             return(
-              <div>
+              <div className="Row">
                 <Jloading />
               </div>
             );
@@ -447,6 +452,7 @@ class FrmSendPropuesta extends React.Component {
                 <div className={classes.root}
                       class=" mx-auto" style={{width:"700px"}}
                 >
+            
                 <Stepper 
                         activeStep={this.state.currentstep} alternativeLabel>
                         {this.state.steps.map(label => (
@@ -472,14 +478,12 @@ class FrmSendPropuesta extends React.Component {
                         Regresar
                       </button>
                       <button  
+                        type="button"  data-toggle="modal" data-target="#JModal"
                             id="button_finish"
                             style={{float:'right'}} 
                             class="mybutton" 
                             color="primary" 
                             onClick={this.handleFinish}
-                            data-toggle="modal" 
-                            data-target="#myModal"
-                            data-backdrop="static"
                             >
                         Finalizar
                       </button>
@@ -499,7 +503,7 @@ class FrmSendPropuesta extends React.Component {
                 
                 <JModal
                     class ="modal fade"
-                    id= "myModal"
+                    id= "JModal"
                     head={this.makeHeadModal(this.state.modal)}
                     body={this.makeModalLoad(this.state.modal)}
                     footer={this.makefooterModal(this.state.modal)}

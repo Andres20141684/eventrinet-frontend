@@ -9,8 +9,16 @@ export default class Jloading extends Component {
     render(){
         return(
             <div class="lds-roller">
-                <div>
-                    </div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <div>
+            </div><div></div><div>
+                    </div>
+                     <div>
+                    </div>
+                     <div>
+                    </div>
+         <div>      </div>
+         <div></div><div>
+            </div></div>
         );
     }
 }

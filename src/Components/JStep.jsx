@@ -18,190 +18,34 @@ class JStep extends React.Component {
       this.state={
         arrayOfInputData:[],
       }
-      this.defaultMutableHandle=this.defaultMutableHandle.bind(this);
-      
-
-      this.defaultMutableHandlePerso=this.defaultMutableHandlePerso.bind(this);
-      this.handleOnLoad=this.handleOnLoad.bind(this);
-      this.renderBody=this.renderBody.bind(this);
-      this.renderHeaders=this.renderHeaders.bind(this);
-      this.handleChecked=this.handleChecked.bind(this);
+     
 }
 
-  handleOnLoad(result){
-    this.props.multiHandle(
-      {to:'archivo', 
-      value:result
-    });
-  }
-
-  shouldComponentUpdate(nextState,nextProps){
-    if(nextProps.categorias != this.props.Categorias){
-      return true;
-    }
-    return false;
-  }
-
-  componentWillMount(){
-    window.scrollTo(0, 0);
-    console.log("<<<<<<<<<<<<<<<>>>>>>>>>>>   StepTwoSendProp props");
-    console.log(this.props.CamposPers);
-  }
   
-  onSuccesLoad(archivo){
-
-  }
-  componentDidMount(){
-    console.log("<<<<<<<<<<<<<<<>>>>>>>>>>>   StepTwoSendProp props");
-    console.log(this.props.CamposPers);
-  }
-  DateFormat(date,json,tag){
-    let aux=date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() 
-    json[tag]=aux
-  }
-  
-  defaultMutableHandle(e){
-    this.props.multiHandle(
-      {to:e.target.name,
-        value:e.target.value});
-  }
-  defaultMutableHandlePerso(e){
-    let pre_value ={
-      value:e.target.value,
-      index:e.target.id
-    }
-    this.props.multiHandle(
-      {to:e.target.name,
-        value:pre_value});
-  }
-  renderOptions(){
-    return this.props.Categorias.map((element, index) => {
-      const {descripcion} = element
-      return (
-        <option>{descripcion} </option>
-      )
-   })
-
-  }
-  renderHeaders(){
-    return(
-      <tr>
-          <th align= "left" scope="col">Categoria</th>
-          <th scope="col">Agregar</th>
-      </tr>
-    )
-  }
-  handleChecked(e){
-      console.log("Selected categorie: ",e.target.id);
-      let mode_check = e.target.checked?'add':'rmv';
-      this.props.multiHandle(
-        {
-          to: e.target.name,
-          value: {
-                    mode:mode_check,
-                    value:e.target.id,
-                  }
-        }
-      );
-  }
-  renderBody(){
-    return this.props.Categorias.map((element, index) => { 
-      const {idCategoria, descripcion} = element
-      return (
-      <tr >
-            <td >{index+1} &nbsp;&nbsp; {descripcion}</td>
-            <td >
-              <form>
-                  <input
-                    type="checkbox"
-                    id={idCategoria}
-                    name='categorias'
-                    onChange={this.handleChecked}
-                  />
-              </form>
-            </td>
-      </tr>
-      )});
-  }
   render () {
-    const inputCamposPers =[];
-    this.props.CamposPers.forEach(element => {
-      inputCamposPers.push(
-        {
-          label:element.enunciado,
-          category:'textArea',
-          name:'campoPEnun',
-          placeholder:element.descripcion, 
-          id: element.index,  
-          readonly:false,           
-          onChange:this.defaultMutableHandlePerso,           
-        }
-
-      );
-    });
-    const inputPaperDescripcion =[
-      {
-        label:"Titulo",
-        category:'textArea',
-        name:'titulo',
-        placeholder:'Titulo', 
-        id:"id_Titulo",           
-        onChange:this.defaultMutableHandle,
-      },
-      {
-        label:"Resumen",
-        category:'textBox',
-        name:'resumen',
-        placeholder:'Resumen' ,
-        id:"id_resumen",             
-        onChange:this.defaultMutableHandle,
-      }
-      ,
-      
-    ]
-    const inputCategorias= [
-      {
-        label:"Escge las categorias a participar",
-        category:'Jtable',
-        id:"id_resumen",             
-        headers:this.renderHeaders,
-        body:this.renderBody
-      }
-    ]
-    const inputArchivo=[
-      
-      {
-        id:"drop_zone",
-        category:'JUpload',
-        onChange: this.handleOnLoad,
-        fileNedded:this.props.fileNedded
-      }
-
-    ]
-    return (
-      <div>
-        <h1>Ingresa los detalles de la propuesta y sube un archivo</h1>
-
-        <JCardForm
-          arrayOfInputData={inputPaperDescripcion}
-          cardHeadingText = "Escribe una breve reseña de tu propuesta"
-        />
-        
-        <JCardForm
-          arrayOfInputData={inputCategorias}
-          cardHeadingText = "Escoge tus Categorias"
-        />
-
-        <JCardForm
-          arrayOfInputData={inputArchivo}
-          cardHeadingText = "Sube tu archivo :) "
-        />
-        <JCardForm
-                arrayOfInputData={inputCamposPers}
-                cardHeadingText = "Informacion personalizada por fase"
-              />
     
-      </div>
+    return (<>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Messages</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+  <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
+  <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
+</div></>
     )
   }
 }
