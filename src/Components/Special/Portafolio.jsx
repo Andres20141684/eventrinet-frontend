@@ -87,13 +87,14 @@ class Portafolio extends Component{
   }
   /*********************** SSJ */
   renderImagePortTotal(){
+    //console.log("ZERG: ", this.props);
     var i=2;
     return this.props.setEventos.Eventos.map((element) => {
-        const {idEvento} = element; i=i+1; return (
+        const {idEvento,imagen} = element; i=i+1; return (
             <ImagePort
                 onClick={() => this.multiHandleClickrenderImagePort(element)}
                 eventriEvent={element}
-                URL={this.state.URLimgs[i]}
+                URL={imagen || this.state.URLimgs[0]}
             />
         )
         

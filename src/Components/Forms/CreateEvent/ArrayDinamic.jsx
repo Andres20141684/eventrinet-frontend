@@ -64,8 +64,8 @@ class ArrayDinamics extends Component{
                                 <input readOnly={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false} class="form-control" type="text" maxLength="200"  onChange={(e)=>this.handleChange5(e,index,"descripcion")} value={this.state.array[index].descripcion}/>
                             </div>}
                             {this.props.type==='Criterio'?null:
-                              <div class="form-group col-md-2" >
-                            <label for="title">Obligatorio</label>
+                              <div class="form-group col-md-3" >
+                            <label for="title">Obligatorio </label>
                             <input  disabled={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false} type="checkbox" onClick={(e)=>this.handleCheckBox(e,index,"obli","obligatorio")} checked={this.state.array[index].obli}>
                             </input>
                             </div> 
