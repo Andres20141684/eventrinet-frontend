@@ -1,5 +1,6 @@
 body{
     background: #eeeeee;
+    padding-right: 0 !important;
 }
 .form-inline {
     display: inline-block;

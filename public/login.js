@@ -1,4 +1,5 @@
-import {restURL} from '../src/Network/Networking';
+const restURL = 'http://52.70.128.233:5000/api/';
+//const restURL = 'http://localhost:5000/api/';
 //const restURL = _restURL;
 async function crear_cuenta(
     var_email,

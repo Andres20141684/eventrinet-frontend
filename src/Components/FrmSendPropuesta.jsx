@@ -40,6 +40,7 @@ class FrmSendPropuesta extends React.Component {
     constructor(){
       super();
       this.state={
+        flagPrimeraFase:-1,
         myId:0,
         msgDialog: "",
         steps:['Autores', 'Información'],
@@ -56,13 +57,14 @@ class FrmSendPropuesta extends React.Component {
         authorLastname: "",
         telefono: "",
         email: "",
-        academicLevel: "Secundaria",
+        academicLevel: "",
         /* step 2 */
         titulo: "",
         resumen: "*****",
         categorias: [],
         archivo: null,
         fileNeeded: false,
+        entregableNeeded: false,
         /****************** */
         modal:0,
         data:null,// /api/camposPEnun/listarCamposPEnunXFase
@@ -95,12 +97,19 @@ class FrmSendPropuesta extends React.Component {
     
     componentWillMount(){
       window.scrollTo(0, 0);
-        console.log("FrmSendPropuesta:",this.props);
+        
+
+
+    }
+
+   componentDidMount(){
+     /********************************** */
+     console.log("FrmSendPropuesta:",this.props);
         let retrievedObject = sessionStorage.getItem('dataUser');
         let retrievedJson = JSON.parse(retrievedObject);  
         this.setState({myId: retrievedJson.infoUsuario.idUsuario});
 
-
+        
         Networking.NetworkMutation_JAchievingData( 
           {
             methodPath: 'eventos/formularioActualEnviarPropuesta',
@@ -118,6 +127,10 @@ class FrmSendPropuesta extends React.Component {
              console.log('si hay algo:');
             //this.handleNextChildComponentChange(PropoMyProposals);
             this.setState({fileNeeded:value.necesitaArchivo});
+            this.setState({flagPrimeraFase:value.flagPrimeraFase});
+            console.log('flagPrimeraFase:value.flagPrimeraFase',this.state.flagPrimeraFase);
+            this.setState({entregableNeeded:value.entregableNeeded});
+            
             console.log('si hay algo:');
             this.setState({CamposPers:value.CamposPerson});
             for(var _index=0; _index < this.state.CamposPers.length;_index++){
@@ -137,48 +150,20 @@ class FrmSendPropuesta extends React.Component {
           }
        });
        this.setState({modal:0});
-
-
-    }
-
-   componentDidMount(){
         /**desabilitar y desaparecer el finish */
       //document.getElementById("button_finish").disabled = true;
-      document.getElementById("button_finish").style.display = "none";
-
-      Networking.NetworkMutation_JAchievingData(
-        {
-          methodPath: 'eventos/formularioActualEnviarPropuesta',
-          JsonToBack:{
-              idEvento: this.props.nextChildComponentProps.evento.idEvento
-              
-              
-          },
-        }
-      ).then((value) => {
-        console.log('CAMPS',value.CamposPerson);
-        if(value == null || value.succeed==false){
-          console.error('FALLO FATAL');
-          /************** si fallo mensaje de error************ */
-          this.setState({modal:-1});
-        }else {
-           console.log('si hay algo:');
-          //this.handleNextChildComponentChange(PropoMyProposals);
-          value.CamposPerson.forEach(element => {
-            this.state.CamposPers.push(
-              {idCampo:element.idCamposPEnun,enunciado:element.enunciado});
-          });
-          
-
-
-        }
-     });
       
 
+      
+      
+     
 
    }
    
    shouldComponentUpdate(nextProps, nextState){
+     if(this.state.flagPrimeraFase != nextState.flagPrimeraFase){
+       return true;
+     }
       if(this.state.currentstep != nextState.currentstep){
          return true;
       }
@@ -204,6 +189,12 @@ class FrmSendPropuesta extends React.Component {
     };
   
     handleBack = () => {
+      if(this.state.flagPrimeraFase===0){
+        console.log("no es primera fase intento regresar");
+        this.onNextChildComponentChangeProps({User: this.props.nextChildComponentProps.Usuario});
+        this.handleNextChildComponentChange(Dashboard);
+        return;
+      }
       if(this.state==0){
         this.onNextChildComponentChangeProps({User: this.props.nextChildComponentProps.Usuario});
         this.handleNextChildComponentChange(Dashboard);
@@ -222,7 +213,8 @@ class FrmSendPropuesta extends React.Component {
       //console.log("final",this.state);
       /********aqui debo enviar******** */
       
-      Networking.NetworkMutation_JAchievingData(
+      if(this.state.flagPrimeraFase === 1){
+        Networking.NetworkMutation_JAchievingData(
         {
           methodPath: 'propuesta/registrar_propuesta',
           JsonToBack:{
@@ -256,6 +248,32 @@ class FrmSendPropuesta extends React.Component {
           this.setState({modal:1});
         }
      });
+    }else if (this.state.flagPrimeraFase === 0){
+      Networking.NetworkMutation_JAchievingData(
+        {
+          methodPath: 'propuesta/actualizar_propuesta',
+          JsonToBack:{
+              idEvento: this.props.nextChildComponentProps.evento.idEvento,
+              idPropuesta: this.props.nextChildComponentProps.idPropuesta,
+              RptaCamposPers: this.state.respuestasPers,
+              paper: this.state.archivo,
+              entregable:this.state.entregable,
+              
+          },
+        }
+      ).then((value) => {
+        console.log(value);
+        if(value == null || value.succeed==false){
+          console.error('FALLO FATAL');
+          /************** si fallo mensaje de error************ */
+          this.setState({modal:-1});
+        }else {
+           console.log('si hay algo:');
+          //this.handleNextChildComponentChange(PropoMyProposals);
+          this.setState({modal:1});
+        }
+     });
+    }
      this.setState({modal:0});
      window.scrollTo(0, 0);
      window.document.getElementById("JinSSJ_body").style.paddingRight = "0px";
@@ -319,10 +337,13 @@ class FrmSendPropuesta extends React.Component {
       console.log("resulta:",this.state[value.to]);
     }
 
-    
+    renderbody(fase1){
+      
+    }
     renderStep(i){
       switch (i) {
-        
+        case 2:
+          return <div className="container"><Jloading/></div>;
         case 0:
           return <this.state.step1 
                   Usuario={this.props.nextChildComponentProps.Usuario}
@@ -440,12 +461,15 @@ class FrmSendPropuesta extends React.Component {
           />
       );
     }
+   
     render() {
 
-        console.log("rendering frmSendPropuesta");
+        console.log("rendering frmSendPropuesta y la fase sera 1 ?",this.state.flagPrimeraFase);
+        
+        
+        
         return (
            <div  style={styles.frmCreateEvent}>
-             <JStep/>
             <h1>Evento: {this.props.nextChildComponentProps.evento.nombre}</h1>
             <h1>Lugar: {this.props.nextChildComponentProps.evento.lugar} - {this.props.nextChildComponentProps.evento.fechaIni}</h1>
             <br/>
@@ -467,7 +491,12 @@ class FrmSendPropuesta extends React.Component {
                                                         </Step>
                         ))}
                 </Stepper>
-
+                <JStep
+                  data={1}
+                  CamposPers={this.state.respuestasPers}
+                  fileNeeded={this.state.fileNeeded}
+                  entregableNeeded={this.state.entregableNeeded}
+                />
                     {this.renderStep(this.state.currentstep)}
                     <div>
                       <button  
@@ -500,6 +529,7 @@ class FrmSendPropuesta extends React.Component {
                       Siguiente
                       </button>
                     </div>
+                    
                 </div>
                 
                 <JModal
@@ -512,6 +542,7 @@ class FrmSendPropuesta extends React.Component {
 
            </div>
         )
+      
     }
 }
 

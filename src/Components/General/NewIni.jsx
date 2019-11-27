@@ -180,8 +180,9 @@ class NewIni extends Component{
 export default NewIni;
 var styles = {
   body:{
-    fontFamily: 'open sans'
-  },
+    fontFamily: 'open sans',
+    paddingRight: "0 !important" 
+   },
   headerStyle:{
     width: "100%",
     height: "400px",

@@ -1,5 +1,8 @@
 body {
 	margin:  0;
+		background: #eeeeee;
+		padding-right: 0 !important;
+	
 }
 .page-content {
 	width: 100%;
