@@ -6,6 +6,7 @@
 
 body {
     font-family: 'open sans';
+     padding-right: 0 !important ;
 }
 
 .contenedor {

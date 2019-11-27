@@ -11,44 +11,92 @@ import { assignmentExpression } from '@babel/types';
 import JTable from './Jtable/JTable';
 import JCardForm from './Special/JCardForm';
 import JUpload from './Special/JUpload';
+import './../styles/JStep.css';
 
 class JStep extends React.Component {
     constructor(props){
       super(props);
       this.state={
-        arrayOfInputData:[],
+        arrayOfFases:[],
+        numFases:4,
+        faseActual:2,
+        data:0,
       }
      
-}
-
+  }
+  componentWillMount(){
+    console.log("JStep props", this.props);
+  
+  }
+ componentDidMount(){
+   this.setState({data: this.props.data});
+ }
+  shouldComponentUpdate(nextState,nextProps){
+    if(nextProps.data != this.props.data){
+      return true;
+    }
+    return false;
+  }  
+  
   
   render () {
-    
-    return (<>
-<div class="row">
-  <div class="col-3">
-    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
-      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
-      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
-    </div>
-  </div>
-  <div class="col-9">
-    <div class="tab-content" id="v-pills-tabContent">
-      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
-    </div>
-  </div>
-</div></>
-    )
+    const inputCamposPers =[];
+    this.props.CamposPers.forEach(element => {
+      inputCamposPers.push(
+        {
+          label:element.enunciado,
+          category:'textArea',
+          name:'campoPEnun',
+          placeholder:element.descripcion, 
+          id: element.index,  
+          readonly:false,           
+          onChange:this.defaultMutableHandlePerso,           
+        }
+
+      );
+    });
+    const inputArchivo=[
+      
+      {
+        id:"drop_zone",
+        category:'JUpload',
+        onChange: this.handleOnLoad,
+        fileNedded:this.props.fileNeeded,
+        formato:"pdf",
+        maxTamanio:100
+      }
+
+    ]
+    const inputEntregable=[
+      
+      {
+        id:"drop_zone",
+        category:'JUpload',
+        onChange: this.handleOnLoad,
+        fileNedded:this.props.entregableNeeded,
+        formato:"pdf",
+        maxTamanio:100
+      }
+
+    ]
+    return (
+      <div id={this.props.id}>
+      <h1>Fase : 3</h1>
+      <JCardForm
+          arrayOfInputData={inputCamposPers}
+          cardHeadingText = "Informacion solicitada para la Fase:"
+      />
+      <JCardForm
+          arrayOfInputData={inputArchivo}
+          cardHeadingText = "Sube tu archivo : "
+      />
+      <JCardForm
+          arrayOfInputData={inputEntregable}
+          cardHeadingText = "Sube el entregabl de la fase : "
+      />
+        
+      </div>
+      )
   }
 }
 export default JStep;
-var styles = {
-  rotulos:{
-    paddingRight: 80,
-  }
-}
