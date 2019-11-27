@@ -370,9 +370,9 @@ function handleCheckedMsjCuerpo (props,opcSelected){
     textAreaMsjCuerpoPred.style.display = "block";
     textAreaMsjCuerpoPers.style.display = "none";    
   }  
-  console.log('textAreaMsjCuerpoPred',textAreaMsjCuerpoPred)
-  console.log('textAreaMsjCuerpoPers',textAreaMsjCuerpoPers)
-  console.log('opcSelected',opcSelected)
+  //console.log('textAreaMsjCuerpoPred',textAreaMsjCuerpoPred)
+  //console.log('textAreaMsjCuerpoPers',textAreaMsjCuerpoPers)
+  //console.log('opcSelected',opcSelected)
 }
 function ModalEnviarCorreo (props) {  
   const classes = useStyles();
@@ -437,14 +437,14 @@ function ModalEnviarCorreo (props) {
                             value ={props.mensajePersonalizado}/>
 
                           <div class="form-group"style={{borderColor:'red'}}>
-                            <p>Observaciones hechas por parte del Comité Académico</p>
+                            <p style={{marginBottom:'7px'}}>Observaciones hechas por parte del Comité Académico</p>
                             {props.comentariosActual.map((value,index) =>{                                
                                 return (
-                                  <p style={{marginBottom:'4px'}}>{value.evaluadorNombre + ": " + value.comentarioEvaluador }</p>
+                                  <p style={{marginLeft:'5px',marginBottom:'4px'}}>{"Evaluador(a) " + value.evaluadorNombre + ": " + value.comentarioEvaluador }</p>
                                 );
                               })}
-                            <p>{"Comentarios del presidente: " + props.presiComentario}</p>
-                            <text style={{float:'right'}}>{'Atte. Comité Académico'}</text>
+                            <p style={{marginLeft:'5px',marginBottom:'4px'}}>{"Presidente: " + props.presiComentario}</p>
+                            <p style={{float:'right'}}>{'Atte. Comité Académico'}</p>
                             <br/>
                           </div>
                         </div>
@@ -659,6 +659,7 @@ class FormPropsxFasePresidente extends Component {
               this.state.mensajePersonalizado = response.msjPersonalizado
             }
             console.log("mensaje predeterminado -->",this.state.mensajePredeterminado,"<--")
+            console.log("this.state.antes del modal", this.state)
           }
         }
       )
@@ -807,14 +808,16 @@ class FormPropsxFasePresidente extends Component {
         console.log('Se inserto o actualizó el cuerpo de msj :V');
       }
     });
+    console.log("this.state",this.state)
   }
  
   changeSelectedTipo =(tipo) => {    
       this.setState({eleccionTipoCorreo:tipo})
       if (this.state.eleccionTipoCorreo!= tipo) this.state.eleccionTipoCorreo =tipo;
+      console.log("sd",this.state.eleccionTipoCorreo)
   }
-  tableData() {    
-    console.log("SEbas props: ", this.props);
+
+  tableData() {        
 
     return this.state.tabla_propuestas.Propuestas.map((element, index) => {
       const { idPropuesta, nombre, estado, evaluadores } = element
