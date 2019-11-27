@@ -123,6 +123,7 @@ class EvaluacionPresidente extends Component {
                 <div className="Main-tittle">
                     <div style={{ marginLeft: 15, marginTop:15, marginBottom:15 }}>
                         <h1><br />{this.props.nextChildComponentProps.nombreEvento}</h1>
+                        <h3 style={{marginLeft:'10px'}}>{"Fase actual: " + this.props.nextChildComponentProps.nombreFase}</h3>
                     </div>
                 </div>
                 <div className='container'>
