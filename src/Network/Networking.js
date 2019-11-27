@@ -300,9 +300,9 @@ export async function saludar(){
 }
         
 export async function getPaper(numProp){
-    console.log('propuesta/devolver_paper/59',numProp);
+    console.log('propuesta/devolver_paper/'+ numProp.toString());
     try {
-        let response = await fetch(restURL+'propuesta/devolver_paper/59' ,{
+        let response = await fetch(restURL+'propuesta/devolver_paper/' + (numProp.toString()) ,{
             method:'GET'
         });
         let responseJson = response.json();

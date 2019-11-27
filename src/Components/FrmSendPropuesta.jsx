@@ -445,6 +445,7 @@ class FrmSendPropuesta extends React.Component {
         console.log("rendering frmSendPropuesta");
         return (
            <div  style={styles.frmCreateEvent}>
+             <JStep/>
             <h1>Evento: {this.props.nextChildComponentProps.evento.nombre}</h1>
             <h1>Lugar: {this.props.nextChildComponentProps.evento.lugar} - {this.props.nextChildComponentProps.evento.fechaIni}</h1>
             <br/>

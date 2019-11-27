@@ -22,7 +22,7 @@ class JModal extends Component {
     render(){
         console.log("renderin ****",this.props);
         return(
-            <div className="modal fade" id="JModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div className="modal fade" id={this.props.id} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div className="vertical-alignment-helper">
                     <div className="modal-dialog vertical-align-center">
                         <div className="modal-content">
