@@ -15,7 +15,7 @@ import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
 const Networking = require('../../Network/Networking');
 var OPTIONS = [];
 var jason = {};
-var obss = {};
+var obss = {}; 
  
 
 const useStyles = makeStyles(theme => ({
