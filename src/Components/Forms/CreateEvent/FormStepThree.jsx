@@ -68,7 +68,7 @@ class FormStepThree extends Component{
                       name="date_in"
                       placeholder="date_in"
                       selected={this.props.value.faseIni}
-                      minDate={this.props.fechaAnt===null?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate()+1)}
+                      minDate={this.props.fechaAnt===null?new Date():new Date(this.props.fechaAnt).setDate(this.props.fechaAnt.getDate()+2)}
                       maxDate={this.props.value.faseFin!==''?this.props.value.faseFin:this.props.fechaMax}
                       disabled={this.props.index!==0?this.props.fechaAnt===null?true:false:false}
                       readOnly={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false}
@@ -85,7 +85,7 @@ class FormStepThree extends Component{
                       name="date_in"
                       placeholder="date_in"
                       selected={this.props.value.faseFin}
-                      minDate={this.props.value.faseIni===''?new Date():new Date(this.props.value.faseIni).setDate(this.props.value.faseIni.getDate()+1)}
+                      minDate={this.props.value.faseIni===''?new Date():new Date(this.props.value.faseIni).setDate(this.props.value.faseIni.getDate()+2)}
                       disabled={this.props.value.faseIni===''?true:false}
                       readOnly={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false}
                       maxDate={this.props.fechaMax}
