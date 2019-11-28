@@ -1,8 +1,8 @@
 import {AsyncStorage} from 'react';
 import { async } from 'q';
 
-//const restURL = 'http://52.70.128.233:5000/api/';
-const restURL = 'http://localhost:5000/api/';
+const restURL = 'http://52.70.128.233:5000/api/';
+//const restURL = 'http://localhost:5000/api/';
 
 export async function getMyId(){
     let retrievedObject = sessionStorage.getItem('dataUser');
