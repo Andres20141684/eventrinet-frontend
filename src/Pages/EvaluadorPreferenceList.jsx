@@ -10,20 +10,10 @@ import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import './../styles/style_gig_tittle.css'
 import PaperPreferenceTable from '../Components/Jtable/PaperPreferenceTable';
+import AsignEvalPropuesta from './Asign_Eval_Propuest';
 const Networking = require('../Network/Networking') ;
 
 
-function Botones(){
-    return ( 
-    <div>
-        <h2><br/></h2>
-        <h3>
-        <button class="mybutton" style={{float:'left'}}>Atras</button>
-        <br/><br/>
-        </h3>
-    </div>
-    )
-}
 function MainTittle(){
     return ( <div>
     <div style={{marginLeft:15}}>
@@ -81,6 +71,9 @@ class EvaluadorPreferenceList extends Component{
         });
          
    }
+   retroceder(){
+    this.handleNextChildComponentChange(AsignEvalPropuesta);
+   }
     render(){
         console.log("PropOSER mY prOPOSALS.jsx props: ",this.props)
         
@@ -103,7 +96,13 @@ class EvaluadorPreferenceList extends Component{
                                 /> 
                             </TabPanel>
                         </Tabs>
-                        <Botones/>
+                        <div>
+                            <h2><br/></h2>
+                            <h3>
+                            <button class="mybutton" style={{float:'left'}}>Atras</button>
+                            <br/><br/>
+                            </h3>
+                        </div>
                     </div>
                 </div>
                 <br/><br/>

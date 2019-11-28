@@ -11,6 +11,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import PresiAsignarEvalEvents from './PresiAsignarEvalEvents';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import EvaluadorPreferenceList from './EvaluadorPreferenceList';
+import EvaluadorPreferenceCategoria from './EvaluadorPreferenceCategoria';
 
 const Networking = require('../Network/Networking.js') ;
 
@@ -167,6 +169,21 @@ class AsignEvalPropuesta  extends Component {
       console.log(aux)
    }
  
+   mostrarPref(){
+      var tipoPref=1
+      let dataFlow={
+         id_evento_nextProps: 344,
+         Usuario:this.props.nextChildComponentProps.Usuario
+      }
+      if(tipoPref==1){
+         this.handleNextChildComponentChangeProps(dataFlow);
+         this.handleNextChildComponentChange(EvaluadorPreferenceList);
+      }
+      else if(tipoPref==0){
+         this.handleNextChildComponentChangeProps(dataFlow);
+         this.handleNextChildComponentChange(EvaluadorPreferenceCategoria);
+      }
+   }
    handleAplicarAlgortimo(){
       var listaAux=[];
        var object={};
@@ -310,6 +327,12 @@ class AsignEvalPropuesta  extends Component {
                      <h3>{this.state.nombre}</h3>
                      {/*<a  class="pull-right" onClick={this.handleClickCrearActualizar} 
                      value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>*/}
+                  </div>
+                  <div class='col-md-12'>
+                     <div class='col-md-4'><label>Mostrar Preferencias:</label></div>
+                     <div class='col-md-8'><button class="mybutton" onClick={this.mostrarPref} style={{float:'left',marginBottom:'15px'}}>Mostrar</button>
+                     <br/>
+                  </div>
                   </div>
                   <div class='col-md-12'>
                   <div class='col-md-4'><label>Asignacion Automatica:</label></div>
