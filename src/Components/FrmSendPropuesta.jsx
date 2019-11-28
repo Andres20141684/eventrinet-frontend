@@ -44,7 +44,7 @@ class FrmSendPropuesta extends React.Component {
         myId:0,
         msgDialog: "",
         steps:['Autores', 'Información'],
-        currentstep:0,
+        currentstep:-1,
         step1:StepOneSendPropuesta,
         step2:StepTwoSendPropuesta,
         Propuesta: null,
@@ -109,7 +109,7 @@ class FrmSendPropuesta extends React.Component {
         let retrievedJson = JSON.parse(retrievedObject);  
         this.setState({myId: retrievedJson.infoUsuario.idUsuario});
 
-        
+        document.getElementById("button_finish").style.display="none";
         Networking.NetworkMutation_JAchievingData( 
           {
             methodPath: 'eventos/formularioActualEnviarPropuesta',
@@ -146,13 +146,15 @@ class FrmSendPropuesta extends React.Component {
             }
             
             console.log('si hay algo:', this.state.respuestasPers);
-            
+            if(value.flagPrimeraFase==1){
+              this.setState({currentstep:0});
+              }
           }
        });
-       this.setState({modal:0});
+       
         /**desabilitar y desaparecer el finish */
       //document.getElementById("button_finish").disabled = true;
-      
+      this.setState({modal:0});
 
       
       
@@ -342,20 +344,26 @@ class FrmSendPropuesta extends React.Component {
     }
     renderStep(i){
       switch (i) {
-        case 2:
+        case -1:
           return <div className="container"><Jloading/></div>;
-        case 0:
+        case 1:
+          return <JStep
+                    CamposPerson={this.state.CamposPers}
+                    fileNeeded={this.state.fileNeeded}
+                    fileNeeded={this.state.fileNeeded}
+                  />; 
+        case 2:        
           return <this.state.step1 
-                  Usuario={this.props.nextChildComponentProps.Usuario}
-                  multiHandle={this.handleValue}
-                  authorName={this.state.authorName}
-                  authorLastname={this.state.authorLastname}
-                  telefono={this.state.telefono}
-                  email={this.state.email}
-                  academicLevel={this.state.academicLevel}
-                  afilicacion={this.state.afilicacion}
-                />;
-        case 1:        
+                    Usuario={this.props.nextChildComponentProps.Usuario}
+                    multiHandle={this.handleValue}
+                    authorName={this.state.authorName}
+                    authorLastname={this.state.authorLastname}
+                    telefono={this.state.telefono}
+                    email={this.state.email}
+                    academicLevel={this.state.academicLevel}
+                    afilicacion={this.state.afilicacion}
+                  />;
+        case 0:        
           return <this.state.step2
                   Usuario={this.props.nextChildComponentProps.Usuario}
                   CamposPerson={this.state.CamposPers}
@@ -491,12 +499,7 @@ class FrmSendPropuesta extends React.Component {
                                                         </Step>
                         ))}
                 </Stepper>
-                <JStep
-                  data={1}
-                  CamposPers={this.state.respuestasPers}
-                  fileNeeded={this.state.fileNeeded}
-                  entregableNeeded={this.state.entregableNeeded}
-                />
+                
                     {this.renderStep(this.state.currentstep)}
                     <div>
                       <button  

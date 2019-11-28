@@ -45,6 +45,13 @@ class JCardForm extends Component {
                 </Row>
             );    
         } 
+        if(inputData.category === 'other'){
+            _inputs.push(
+            <Row>
+              <inputData.other/>
+              </Row>
+              ); 
+        }
         if(inputData.category === 'comboBox'){
             _inputs.push(
             <Row>

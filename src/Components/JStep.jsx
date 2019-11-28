@@ -41,7 +41,7 @@ class JStep extends React.Component {
   
   render () {
     const inputCamposPers =[];
-    this.props.CamposPers.forEach(element => {
+    this.props.CamposPerson.forEach(element => {
       inputCamposPers.push(
         {
           label:element.enunciado,
