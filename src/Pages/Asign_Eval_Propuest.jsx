@@ -46,6 +46,7 @@ class AsignEvalPropuesta  extends Component {
            transport: "go to Fake Ini",
            idUser_recived: 0,
            loading:true,
+           tipoPref:1,
           datos_tabla: [ ]
        }
        this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
@@ -56,7 +57,8 @@ class AsignEvalPropuesta  extends Component {
        this.setValues=this.setValues.bind(this);
        this.filtradoOpciones=this.filtradoOpciones.bind(this);
        this.handleClickRetroceder=this.handleClickRetroceder.bind(this);
-       this.handleAplicarAlgortimo=this.handleAplicarAlgortimo.bind(this)
+       this.handleAplicarAlgortimo=this.handleAplicarAlgortimo.bind(this);
+       this.mostrarPref=this.mostrarPref.bind(this)
    
      }
 
@@ -102,7 +104,7 @@ class AsignEvalPropuesta  extends Component {
         console.log(JSON.stringify(aux))
       Networking.InsertarEvaluadorAPaper(JSON.stringify(aux)).then((value)=>{
          console.log(value)
-         this.setState({loading:false,open:false})
+         this.setState({open:false,loading:false})
          this.handleNextChildComponentChange(PresiAsignarEvalEvents);
       })
     }
@@ -115,8 +117,8 @@ class AsignEvalPropuesta  extends Component {
        this.setState({idEvento:this.props.nextChildComponentProps.idEvento})
        Networking.EvaluadorxEvento(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
          console.log(value);
-         this.setState({options:value.correos});
-         this.setState({loading:false,open:false})
+         this.setState({options:value.correos,open:false});
+         this.setState({loading:false})
       })
 
       Networking.PropuestaxEvento(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
@@ -127,7 +129,7 @@ class AsignEvalPropuesta  extends Component {
             console.log(object);
             console.log(listaAux);
          })
-         this.setState({datos_tabla:listaAux});   
+         this.setState({datos_tabla:listaAux,tipoPref:value.tipoPref});   
          console.log(this.state.datos_tabla); 
       });   
     }
@@ -172,14 +174,14 @@ class AsignEvalPropuesta  extends Component {
    mostrarPref(){
       var tipoPref=1
       let dataFlow={
-         id_evento_nextProps: 344,
+         idEvento:this.props.nextChildComponentProps.idEvento,
          Usuario:this.props.nextChildComponentProps.Usuario
       }
-      if(tipoPref==1){
+      if(this.state.tipoPref==2){ //Tipo por propuesta
          this.handleNextChildComponentChangeProps(dataFlow);
          this.handleNextChildComponentChange(EvaluadorPreferenceList);
       }
-      else if(tipoPref==0){
+      else if(this.state.tipoPref==1){//tipo por categoria
          this.handleNextChildComponentChangeProps(dataFlow);
          this.handleNextChildComponentChange(EvaluadorPreferenceCategoria);
       }

@@ -64,10 +64,10 @@ class EvaluadorPreferenceCategoria extends Component{
                  });
    }
    componentDidMount(){
-    Networking.listarPreferenciasXPropuesta(JSON.stringify({idEvento:344}))
+    Networking.listarPreferenciasXCategorias(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento}))
         .then((value) => {
             console.log(value);
-            this.setState({datos_tabla1:value.PreferenciasXPropuesta})
+            this.setState({datos_tabla1:value.Preferencias})
         });
          
    }
@@ -99,7 +99,7 @@ class EvaluadorPreferenceCategoria extends Component{
                         <div>
                             <h2><br/></h2>
                             <h3>
-                            <button class="mybutton" onClick={()=>this.retroceder} style={{float:'left'}}>Atras</button>
+                            <button class="mybutton" onClick={()=>{this.handleNextChildComponentChange(AsignEvalPropuesta)}} style={{float:'left'}}>Atras</button>
                             <br/><br/>
                             </h3>
                         </div>

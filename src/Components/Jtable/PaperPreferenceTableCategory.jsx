@@ -51,22 +51,21 @@ class PaperPreferenceTableCategory  extends Component {
       console.log("lISTA DE EVALUADORES",listEvaluador)
       return listEvaluador.map((evaluador, index) => {
          
-         const { nombreCompleto,eleccion } = evaluador 
+         const { nombreCompleto } = evaluador 
          return(
             
             <tr key = {nombreCompleto}>
                <td> {index+1} &nbsp;&nbsp; {nombreCompleto} </td>
-               <td> {eleccion}</td>
             </tr>
          )})
    }
  
    tableData() {
       return this.props.data.map((evento, index) => {
-         const { DatosPropuesta,Prefencias} = evento 
+         const { Categoria,Evaluadores} = evento 
          var idAccordion = "accordion"+ index
          var idIndex = "customCheck"+ index
-          var indexEvent =DatosPropuesta
+          var indexEvent =Categoria
          return( 
 
             <Card>
@@ -77,7 +76,7 @@ class PaperPreferenceTableCategory  extends Component {
                     data-target="#modalDetalleProp" 
                     onClick={e => {this.showModalDetalle();}} 
                     style={{color:"#337ab7", cursor:'pointer',fontSize: '15px'}}>
-                {DatosPropuesta} 
+                {Categoria} 
                 </a>
               </div>
 
@@ -93,10 +92,9 @@ class PaperPreferenceTableCategory  extends Component {
             <Accordion.Collapse eventKey={indexEvent}>
                                   <JTable
                                     
-                                    body ={()=>this.renderProposals(Prefencias)}
+                                    body ={()=>this.renderProposals(Evaluadores)}
                                     headers={()=>(<tr >
                                                   <th align= "left" scope="col">Nombre del evaluador</th>
-                                                  <th scope="col">Eleccion </th>
                                                   </tr>)}
                                     
                                 />
