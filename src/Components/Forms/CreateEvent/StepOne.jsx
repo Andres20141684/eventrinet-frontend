@@ -64,7 +64,7 @@ export default class StepOne extends React.Component {
                     placeholder='Descripcion'                  
                     onChange={this.props.handleChange}
                     value={this.props.descripcion}       
-                    maxLength="200"
+                    maxLength="750"
                     readOnly={this.props.rol===1}       
                     />
                   {this.props.descripcion===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}  
