@@ -1,4 +1,4 @@
-  #progress_bar {
+  #progress_bar_archivo {
     margin: 10px 0;
     padding: 3px;
     border: 1px solid #fff;
@@ -9,10 +9,10 @@
     -o-transition: opacity 1s linear;
     -webkit-transition: opacity 1s linear;
   }
-  #progress_bar.loading {
+  #progress_bar_archivo.loading {
     opacity: 1.0;
   }
-  #progress_bar .percent {
+  #progress_bar_archivo .percent {
     background-color: #002D3D;
     height: auto;
     width: 0;
@@ -23,7 +23,39 @@
     border: 1px solid #fff;
     font-size: 18px;
   }
-  #drop_zone {
+  #drop_zone_archivo {
+    border: 2px dashed #002D3D;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    font: 20pt bold 'Vollkorn';
+    color: #bbbbbb;
+  }
+
+  #progress_bar_entregable {
+    margin: 10px 0;
+    padding: 3px;
+    border: 1px solid #fff;
+    font-size: 14px;
+    clear: both;
+    opacity: 0;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+  }
+  #progress_bar_entregable.loading {
+    opacity: 1.0;
+  }
+  #progress_bar_entregable .percent {
+    background-color: #002D3D;
+    height: auto;
+    width: 0;
+    color: #fff;
+  }
+  
+  #drop_zone_entregable {
     border: 2px dashed #002D3D;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;

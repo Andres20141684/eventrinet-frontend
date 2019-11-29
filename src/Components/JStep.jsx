@@ -22,7 +22,9 @@ class JStep extends React.Component {
         faseActual:2,
         data:0,
       }
-     
+      this.handleOnLoadE=this.handleOnLoadE.bind(this);
+   
+     this.handleOnLoadA=this.handleOnLoadA.bind(this);
   }
   componentWillMount(){
     console.log("JStep props", this.props);
@@ -38,10 +40,21 @@ class JStep extends React.Component {
     return false;
   }  
   
-  
+  handleOnLoadA(result){
+    this.props.multiHandle(
+      {to:'archivo', 
+      value:result
+    });
+  }
+  handleOnLoadE(result){
+    this.props.multiHandle(
+      {to:'entregable', 
+      value:result
+    });
+  }
   render () {
     const inputCamposPers =[];
-    this.props.CamposPers.forEach(element => {
+    this.props.CamposPerson.forEach(element => {
       inputCamposPers.push(
         {
           label:element.enunciado,
@@ -58,21 +71,25 @@ class JStep extends React.Component {
     const inputArchivo=[
       
       {
-        id:"drop_zone",
+        label: "Subir propuesta corregida. (Si son varios, comprimelos en un solo archivo de extencion .zip)",
+        id:"drop_zone_archivo",
+        idprogressbar:"progress_bar_archivo",
         category:'JUpload',
-        onChange: this.handleOnLoad,
+        onChange: this.handleOnLoadA,
         fileNedded:this.props.fileNeeded,
         formato:"pdf",
-        maxTamanio:100
+        maxTamanio:100,
       }
 
     ]
     const inputEntregable=[
       
       {
-        id:"drop_zone",
+        label: "Subir el entregable descrito en la descripcion de la fase. (Si son varios, comprimelos en un solo archivo de extencion .zip)",
+        id:"drop_zone_entregable",
+        idprogressbar:"progress_bar_entregable",
         category:'JUpload',
-        onChange: this.handleOnLoad,
+        onChange: this.handleOnLoadE,
         fileNedded:this.props.entregableNeeded,
         formato:"pdf",
         maxTamanio:100
@@ -81,22 +98,27 @@ class JStep extends React.Component {
     ]
     return (
       <div id={this.props.id}>
-      <h1>Fase : 3</h1>
+      <JCardForm
+          arrayOfInputData={inputArchivo}
+          cardHeadingText = "Sube el archivo de tu Propuesta corregida: "
+      />
+      
       <JCardForm
           arrayOfInputData={inputCamposPers}
           cardHeadingText = "Informacion solicitada para la Fase:"
       />
-      <JCardForm
-          arrayOfInputData={inputArchivo}
-          cardHeadingText = "Sube tu archivo : "
-      />
+      
+
       <JCardForm
           arrayOfInputData={inputEntregable}
-          cardHeadingText = "Sube el entregabl de la fase : "
+          cardHeadingText = "Sube el entregable de la fase : "
       />
-        
+
+
+
       </div>
       )
   }
 }
 export default JStep;
+// HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa
