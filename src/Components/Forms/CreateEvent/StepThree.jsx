@@ -58,6 +58,12 @@ handleChangeFaseDate(value,i,str,str2){
   this.DateFormat(value,val[i],str2)
   this.setState({ values:val });
   this.props.handleChange2(this.state.values,"fases")
+  if(str=="faseFin"){
+    this.props.handleChange2("","fechPref")
+    this.props.handleChange2("","fCRFin")
+    this.props.handleChange2("","fCRIni")
+  }
+  
 }
 
 addClick() {
@@ -89,7 +95,7 @@ handleCheckboxChange = event =>{
 
 evitarMasFases(){
   if(new Date(this.props.fechaIE).setDate(this.props.fechaIE.getDate()-4)>this.state.values[this.state.values.length-1].faseFin){
-    return !this.props.form3Completo
+    return !this.props.formFaseCompleto
   }
   else{return true}
 }
@@ -182,9 +188,9 @@ evitarMasFases(){
                         placeholder="date_in"
                         selected={this.props.fCRFin}
                         disabled={this.props.fCRIni===''?true:false}
-                        minDate={this.props.fCRIni}
+                        minDate={this.props.fCRIni===''?new Date():this.props.fCRIni}
                         //minDate={this.props.fCRIni}
-                        //maxDate={this.props.fechaIE}
+                        maxDate={this.props.fechaIE}
                         onChange={(e)=> this.props.handleChange2(e,"fCRFin")}
                         
                       />
