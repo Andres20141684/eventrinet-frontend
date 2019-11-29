@@ -48,7 +48,7 @@ class JCardForm extends Component {
         if(inputData.category === 'other'){
             _inputs.push(
             <Row>
-              <inputData.other/>
+              {inputData.other}
               </Row>
               ); 
         }
@@ -110,12 +110,11 @@ class JCardForm extends Component {
             _inputs.push(
             <Row>
               <div class="form-group col-md-12">
-              <div class ="col-md-4"><label>Subir propuesta. El archivo debe 
-                  estar en formato PDF (extension PDF)</label></div>
+              <div class ="col-md-4"><label>{inputData.label}</label></div>
                   <div class ="col-md-8">
               
               <JUpload
-                    id={inputData.id}
+                    id_drop_zone={inputData.id}
                     onSuccesLoad={inputData.onChange}
                     formato={inputData.formato}
                     maxTamanio={inputData.maxTamanio}

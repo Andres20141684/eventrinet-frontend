@@ -136,6 +136,7 @@ class PropoMyProposals extends Component{
                                 
                                 <br/>
                                 <this.state.formActives 
+                                    Usuario={this.props.nextChildComponentProps.Usuario}
                                     idUser={this.props.nextChildComponentProps.Usuario.idUser}
                                     data={this.state.datos_tabla1}  
                                     onNextChildComponentChange={this.handleNextChildComponentChange} 
@@ -145,6 +146,7 @@ class PropoMyProposals extends Component{
                             <TabPanel> 
                                 
                                 < this.state.formRecord 
+                                    UUsuarioser={this.props.nextChildComponentProps.Usuario}
                                     idUser={this.props.nextChildComponentProps.Usuario.idUser}
                                     data={this.state.datos_tabla2} 
                                     onNextChildComponentChange={this.handleNextChildComponentChange} 
