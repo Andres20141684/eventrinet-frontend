@@ -9,7 +9,7 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import './../styles/style_gig_tittle.css'
-import PaperPreferenceTable from '../Components/Jtable/PaperPreferenceTable';
+import PaperPreferenceTableCategory from '../Components/Jtable/PaperPreferenceTableCategory';
 import AsignEvalPropuesta from './Asign_Eval_Propuest';
 const Networking = require('../Network/Networking') ;
 
@@ -17,19 +17,19 @@ const Networking = require('../Network/Networking') ;
 function MainTittle(){
     return ( <div>
     <div style={{marginLeft:15}}>
-        <h1><br/>Preferencia de Papers de Evaluadores </h1>
+        <h1><br/>Preferencia de Categorias de Evaluadores </h1>
     </div>
-    <div style={{marginLeft:40,marginTop:25}} ><h4>Preferencia Evaluadores:</h4></div>
+    <div style={{marginLeft:40,marginTop:25}} ><h4>Preferencia de Evaluadores:</h4></div>
     </div>
     )
 }
 
 /* es llamado por bannerTop y boton finalizar de envio de propuesta */
-class EvaluadorPreferenceList extends Component{
+class EvaluadorPreferenceCategoria extends Component{
     constructor(props){
         super(props);
         this.state = {
-            formActives: PaperPreferenceTable,
+            formActives: PaperPreferenceTableCategory,
             datos_tabla1:  [],
             datos_tabla2: [],
             msg: "Not Connected",
@@ -64,10 +64,10 @@ class EvaluadorPreferenceList extends Component{
                  });
    }
    componentDidMount(){
-    Networking.listarPreferenciasXPropuesta(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento}))
+    Networking.listarPreferenciasXCategorias(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento}))
         .then((value) => {
             console.log(value);
-            this.setState({datos_tabla1:value.PreferenciasXPropuesta})
+            this.setState({datos_tabla1:value.Preferencias})
         });
          
    }
@@ -84,7 +84,7 @@ class EvaluadorPreferenceList extends Component{
                 <div class ="panel-body">
                     <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
                             <TabList>
-                                <Tab>Propuestas</Tab>
+                                <Tab>Evaluadores</Tab>
                             </TabList>
                             <TabPanel> 
                                 <br/>
@@ -111,4 +111,4 @@ class EvaluadorPreferenceList extends Component{
         );
     }
 }
-export default EvaluadorPreferenceList;
+export default EvaluadorPreferenceCategoria;
