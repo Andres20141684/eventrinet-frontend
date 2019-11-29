@@ -15,9 +15,14 @@ class JUpload  extends Component {
         maxTamanio:10,
         formato:"pdf",
         contenido: 0,
+        zip_preview:"https://cdn4.iconfinder.com/data/icons/imod/512/Compressing/zip.png",
+        word_preview:"https://lh3.googleusercontent.com/tgaUz8i64rmo6OUaU-n5JBq1E32q4CYWDZXd0TIGHboBx2MEHpfi1Wj6TGHI3y0OdBmG",
+        ppt_preview:"https://i.pinimg.com/originals/70/fd/57/70fd5727716e925efcdeddc8fcba5bd6.png",
+        exel_preview:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2lGc1b5Q-1rsM_gCufBNo2PcL0Piqs-Cv_wanw43urKGVGHKY&s",
         img_preview: "",
         pdf_preview: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE6oK_1G3kzZWbAlYKtyv7Pu2DWMCqYyGkRG4fVsIzWOSJAEzi&s"
       }
+      //this.state.reader.onloadstart=this.state.reader.onloadstart.bind(this);
       this.handleOnLoad=this.handleOnLoad.bind(this);
       this.abortRead=this.abortRead.bind(this);
       this.updateProgress=this.updateProgress.bind(this);
@@ -29,9 +34,9 @@ class JUpload  extends Component {
         var progress = document.querySelector('.percent');
         progress.style.width = '100%';
         progress.textContent = '100%';
-        setTimeout("document.getElementById('progress_bar').className='';", 2000);
-        this.props.onSuccesLoad(
-        e.target.result);
+        var barra = document.getElementById("progress_bar").className='';
+        setTimeout(barra, 2000);
+        this.props.onSuccesLoad( e.target.result );
         this.setState({img_preview:e.target.result});
         
         this.setState({contenido:1});
@@ -78,16 +83,17 @@ class JUpload  extends Component {
           return;
         }
           // files is a FileList of File objects. List some properties.
-    
+        
         var output = [];
         for (var i = 0, f; f = files[i]; i++) {
-          if(f.type==this.state.formato){
+          /*if(f.type==this.state.formato){
           }else{
             this.setState({modal:1});
             document.getElementById("btnToggle").click();
             //alert("Pendejo, solo se admite extencion " + this.state.formato);
             return;
-          }
+          }*/
+          this.setState({formato:f.type});
           if(f.size>this.props.maxTamanio){
           }else{
             this.setState({modal:0});
@@ -112,11 +118,10 @@ class JUpload  extends Component {
           alert('File read cancelled');
         };
         this.state.reader.onloadstart = function(e) {
-          document.getElementById('progress_bar').className = 'loading';
+          document.getElementById("progress_bar").className = 'loading';
         };
         
         this.state.reader.onload = this.handleOnLoad;
-    
         this.state.reader.readAsDataURL(files[0]);
         /********* PRUEBA DE ENVIO DE ARCHIVO ******* */
       } 
@@ -127,7 +132,7 @@ class JUpload  extends Component {
       evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
       }
    componentDidMount(){
-    var dropZone = document.getElementById('drop_zone');
+    var dropZone = document.getElementById(this.props.id_drop_zone);
     dropZone.addEventListener('dragover', this.handleDragOver, false);
     dropZone.addEventListener('drop', this.handleFileSelect, false);
     
@@ -149,11 +154,19 @@ class JUpload  extends Component {
     }
 
    }
+   shouldComponentUpdate(nextState,nextProps){
+    if(nextState.formato != this.state.formato){return true;}
+    return false;
+
+  }
    renderStatus(i){
+    console.log("AMIGUEEE EL FORMATO ES: ",this.state.formato);
     switch(i){
+      
       case 0: return "Sube tus archivos aqui";
-      case 1: if(this.state.formato=="image/jpeg" || this.state.formato=="image/jpeg" )
-                  {return( <div class="imagen-port" 
+      case 1: if(this.state.formato=="image/jpeg" || this.state.formato=="image/jpeg" || this.state.formato== "image/png")
+                  {
+                    return( <div class="imagen-port" 
                             style={{height:"50%"}}>
                             <img src={this.state.img_preview} alt="event"/>
                           </div>)}
@@ -162,6 +175,26 @@ class JUpload  extends Component {
                             style={{height:"50%"}}>
                             <img src={this.state.pdf_preview} alt="event"/>
                           </div>)}
+              }else if(this.state.formato == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+                return( <div class="imagen-port" 
+                style={{height:"50%"}}>
+                <img src={this.state.exel_preview} alt="event"/>
+              </div>)
+              }else if(this.state.formato == "application/x-zip-compressed"){
+                return( <div class="imagen-port" 
+                style={{height:"50%"}}>
+                <img src={this.state.zip_preview} alt="event"/>
+              </div>)
+              }else if(this.state.formato == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+                return( <div class="imagen-port" 
+                style={{height:"50%"}}>
+                <img src={this.state.word_preview} alt="event"/>
+              </div>)
+              }else if(this.state.formato == "application/vnd.openxmlformats-officedocument.presentationml.presentation"){
+                return( <div class="imagen-port" 
+                style={{height:"50%"}}>
+                <img src={this.state.ppt_preview} alt="event"/>
+              </div>)
               }
    
     } 
@@ -186,7 +219,7 @@ class JUpload  extends Component {
          return (
             <div class="panel panel-default" >
             <div className="containerDZ">
-              <div id="drop_zone">
+              <div id={this.props.id_drop_zone}>
                 {this.renderStatus(this.state.contenido)}
               </div>
               <div id="progress_bar"><div class="percent">0%</div></div>
