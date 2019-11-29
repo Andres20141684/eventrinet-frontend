@@ -20,6 +20,7 @@ class StepThree extends Component{
     this.handleChangeFaseDate=this.handleChangeFaseDate.bind(this)
     this.DateFormat=this.DateFormat.bind(this)
     this.handleCheck=this.handleCheck.bind(this)
+    this.evitarMasFases=this.evitarMasFases.bind(this)
   }
 
 componentWillMount(){
@@ -85,7 +86,13 @@ handleCheckboxChange = event =>{
     console.log("bloquea");
   }
 }
-  
+
+evitarMasFases(){
+  if(new Date(this.props.fechaIE).setDate(this.props.fechaIE.getDate()-4)>this.state.values[this.state.values.length-1].faseFin){
+    return !this.props.form3Completo
+  }
+  else{return true}
+}
     
 
   render() {
@@ -128,7 +135,7 @@ handleCheckboxChange = event =>{
           </div>
         ))}        
                          
-          <input type="button" style={{marginTop:'20px'}} class="btn btn-primary" value="Agregar fase" onClick={() => this.addClick()} />           
+          <input disabled={this.evitarMasFases()} type="button" style={{marginTop:'20px'}} class="btn btn-primary" value="Agregar fase" onClick={() => this.addClick()} />           
         </div>
             
             <br/>
