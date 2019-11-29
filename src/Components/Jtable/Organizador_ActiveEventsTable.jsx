@@ -7,6 +7,7 @@ import JActionButton from '../Special/JActionButton';
 import NewIni from '../General/NewIni';
 import Dashboard from '../Dashboard';
 import JTableMaterial from '../Special/JTableMaterial';import MaterialTable from 'material-table';
+import OrganFinalPropuest from '../../Pages/OrganFinalPropuest';
 const Networking = require('./../../Network/Networking.js') ;
 
 
@@ -119,9 +120,13 @@ class Organizador_ActiveEventsTable  extends Component {
           ];
           this.setState({columns:columns});
        }
-       handlePublishClick(idEvento){
-          alert("Publicando Evento con ID: =>" + idEvento);
-          this.handleNextChildComponentChange(Dashboard);
+       handlePublishClick=(idE)=>{
+         let dataFlow = {   
+            idEvento: idE,
+            Usuario:this.props.nextChildComponentProps.Usuario
+         }
+         this.handleNextChildComponentChangeProps(dataFlow);
+         this.handleNextChildComponentChange(OrganFinalPropuest);
        }
        handleCancelClick(_idEvento_){
          alert("Cancelando Evento con ID: =>" + _idEvento_);
@@ -173,10 +178,13 @@ class Organizador_ActiveEventsTable  extends Component {
                      />)
                , 
                publish:
-               (<JActionButton
+               (estado==='LISTO PARA PUBLICAR'?
+                     <JActionButton
                      onClick = {()=>this.handlePublishClick(evento.idEvento)}
                      button_class ="fa fa-play" 
-                     />)
+                     />:
+                     null
+               )
                
                ,
                cancel: 
