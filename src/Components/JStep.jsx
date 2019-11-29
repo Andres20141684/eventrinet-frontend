@@ -72,7 +72,7 @@ class JStep extends React.Component {
       
       {
         label: "Subir propuesta corregida. (Si son varios, comprimelos en un solo archivo de extencion .zip)",
-        id:"drop_zone_archivo",
+        id_drop_zone:"drop_zone_archivo",
         idprogressbar:"progress_bar_archivo",
         category:'JUpload',
         onChange: this.handleOnLoadA,
@@ -86,7 +86,7 @@ class JStep extends React.Component {
       
       {
         label: "Subir el entregable descrito en la descripcion de la fase. (Si son varios, comprimelos en un solo archivo de extencion .zip)",
-        id:"drop_zone_entregable",
+        id_drop_zone:"drop_zone_entregable",
         idprogressbar:"progress_bar_entregable",
         category:'JUpload',
         onChange: this.handleOnLoadE,

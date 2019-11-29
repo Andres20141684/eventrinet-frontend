@@ -174,7 +174,7 @@ class StepTwoSendPropuesta extends React.Component {
       
       {
         label: "Subir propuesta corregida. (Si son varios, comprimelos en un solo archivo de extencion .zip)",
-        id:"drop_zone",
+        id_drop_zone:"drop_zone_archivo",
         category:'JUpload',
         onChange: this.handleOnLoad,
         fileNedded:this.props.fileNeeded,
