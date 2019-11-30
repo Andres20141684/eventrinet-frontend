@@ -56,13 +56,15 @@ handleChangeFaseDate(value,i,str,str2){
   let val = this.state.values;
   val[i][str] = value;
   this.DateFormat(value,val[i],str2)
-  this.setState({ values:val });
-  this.props.handleChange2(this.state.values,"fases")
   if(str=="faseFin"){
+    val[i].faseEvalIni = '';
+    val[i].faseEvalPresiIni = '';
     this.props.handleChange2("","fechPref")
     this.props.handleChange2("","fCRFin")
     this.props.handleChange2("","fCRIni")
   }
+  this.setState({ values:val });
+  this.props.handleChange2(this.state.values,"fases")
   
 }
 
