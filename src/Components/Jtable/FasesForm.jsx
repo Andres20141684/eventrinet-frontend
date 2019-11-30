@@ -76,7 +76,9 @@ export default function HorizontalNonLinearStepper(props) {
     setCompleted({});
   };
 
-  //console.log("this.rpos.FASEFORM_______",props)
+  //setActiveStep(props.faseActualSecuencia -1);
+
+  console.log("this.rpos.FASEFORM_______",props)
   return (
     <div className={classes.root} >
       <Stepper nonLinear activeStep={activeStep}>

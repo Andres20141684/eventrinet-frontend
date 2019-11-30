@@ -155,11 +155,19 @@ class EvaluadorEvaluarPropuesta extends Component {
 
       } else {
         console.log('COAUTORES : ',value.coautores);
-        this.state.nomb_propuesta = value.titulo;
+        this.setState({
+          nomb_propuesta: value.titulo,
+          categorias_propuesta: value.categorias,
+          desc_propuesta: value.resumen,
+          coautores: value.coautores,
+          nomb_autor: value.nombreAutor,
+          //idFase : this.props.idFase
+        });
+        /*this.state.nomb_propuesta = value.titulo;
         this.state.categorias_propuesta = value.categorias;
         this.state.desc_propuesta = value.resumen;
         this.state.coautores = value.coautores;
-        this.state.nomb_autor = value.nombreAutor;
+        this.state.nomb_autor = value.nombreAutor;*/
         console.log('COAUTORES2 : ',this.state.coautores);
       
         console.log("states de categorias y desc prop: ", this.state.categorias_propuesta, this.state.desc_propuesta);
@@ -211,6 +219,9 @@ class EvaluadorEvaluarPropuesta extends Component {
     if (this.state.rptasCriterios/*[0]*/ == nextState.rptasCriterios/*[0]*/) {
       return true;
     }
+    if (this.state.nomb_propuesta != nextState.nomb_propuesta){
+      return true;
+    }
     if (this.state.idEvento != nextProps.idEvento){
       return true;
     }
@@ -247,7 +258,8 @@ class EvaluadorEvaluarPropuesta extends Component {
 
         //console.log(">>>>>>>>>>>>>>>>>> Se descargo again ,", this.state.attempt);
         console.log("---->", response.Propuesta);
-        this.setState({ link_propuestabase64: response.Propuesta });
+        this.setState({ link_propuestabase64: response.Propuesta,
+        });
         //window.download(response.Propuesta, 'Save');
         document.getElementById('JinSSJ').click();
 
@@ -513,7 +525,7 @@ class EvaluadorEvaluarPropuesta extends Component {
               onClick={this.handleClickB}
             ><i class="fa fa-download" style={{ color: '#6CDCD6' }}></i>
             </button>
-            <a id='JinSSJ' href={this.state.link_propuestabase64} title="Descargar propuesta" download="Propuesta.pdf" ></a>
+            <a id='JinSSJ' href={this.state.link_propuestabase64} title="Descargar propuesta" download={"Propuesta"} ></a>
 
           </div>
           <br />
