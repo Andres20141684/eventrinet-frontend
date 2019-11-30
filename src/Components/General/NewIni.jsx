@@ -4,6 +4,7 @@ import "./estilos.css";
 
 import {Link}  from "react-router-dom";
 import Portafolio from '../Special/Portafolio';
+import JDownload from '../Special/JDownload';
 
 const Networking = require('./../../Network/Networking.js') ;
 function nav(props){
@@ -131,6 +132,11 @@ class NewIni extends Component{
                   
                   <h1 style={styles.textos_header_h1}>Sistema de gestión de eventos académicos</h1>
                   <h1>{this.state.msg}</h1>
+                  <JDownload
+                      idDescarga={157}
+                      extencion={".xlsx"}
+                      nombre = {"Archivo"}
+                  />
               </div>
               <div className="wave" style={styles.waveStyle}
               //style={{height: "150px"},{overflow: "hidden"}}
