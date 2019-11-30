@@ -1,6 +1,5 @@
 import {AsyncStorage} from 'react';
 import { async } from 'q';
-
 const restURL = 'http://52.70.128.233:5000/api/';
 //const restURL = 'http://localhost:5000/api/';
 
@@ -1292,4 +1291,26 @@ export async function listarPreferenciasXCategorias(idEvento) {
         console.error('CATCH ALCANZADO :(');
     }
 }
+
+export async function listarPropuestasAceptadas(idEvento) {
+    try {
+        let response = await fetch(restURL 
+            + 'propuesta/listarPropuestasAceptadas', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: idEvento
+        });
+        let responseJson = await response.json();
+        console.log(responseJson);
+        return responseJson;  
+    } catch (error) {
+        console.error(error);
+        console.error('CATCH ALCANZADO :(');
+    }
+}
+
 export {restURL}

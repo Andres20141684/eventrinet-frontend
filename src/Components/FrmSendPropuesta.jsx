@@ -40,11 +40,14 @@ class FrmSendPropuesta extends React.Component {
     constructor(){
       super();
       this.state={
+        idFase:0,
+        descripcionFase:"",
+        nombreFase: "",
         flagPrimeraFase:-1,
         myId:0,
         msgDialog: "",
         steps:['Autores', 'Información'],
-        currentstep:0,
+        currentstep:-1,
         step1:StepOneSendPropuesta,
         step2:StepTwoSendPropuesta,
         Propuesta: null,
@@ -109,7 +112,7 @@ class FrmSendPropuesta extends React.Component {
         let retrievedJson = JSON.parse(retrievedObject);  
         this.setState({myId: retrievedJson.infoUsuario.idUsuario});
 
-        
+        //document.getElementById("button_finish").style.display="none";
         Networking.NetworkMutation_JAchievingData( 
           {
             methodPath: 'eventos/formularioActualEnviarPropuesta',
@@ -126,10 +129,15 @@ class FrmSendPropuesta extends React.Component {
           }else {
              console.log('si hay algo:');
             //this.handleNextChildComponentChange(PropoMyProposals);
+            
+            this.setState({idFase:value.idFase});
             this.setState({fileNeeded:value.necesitaArchivo});
+            this.setState({nombreFase:value.nombre});
+            this.setState({descripcionFase:value.descripcion});
             this.setState({flagPrimeraFase:value.flagPrimeraFase});
+            
             console.log('flagPrimeraFase:value.flagPrimeraFase',this.state.flagPrimeraFase);
-            this.setState({entregableNeeded:value.entregableNeeded});
+            this.setState({entregableNeeded:value.necesitaEntregable});
             
             console.log('si hay algo:');
             this.setState({CamposPers:value.CamposPerson});
@@ -146,13 +154,18 @@ class FrmSendPropuesta extends React.Component {
             }
             
             console.log('si hay algo:', this.state.respuestasPers);
-            
+            if(value.flagPrimeraFase==1){
+              this.setState({currentstep:0});
+              }
+              if(value.flagPrimeraFase == 0){
+                this.setState({currentstep:2});
+              }
           }
        });
-       this.setState({modal:0});
+       
         /**desabilitar y desaparecer el finish */
       //document.getElementById("button_finish").disabled = true;
-      
+      this.setState({modal:0});
 
       
       
@@ -184,27 +197,12 @@ class FrmSendPropuesta extends React.Component {
     handleNext = () => {
       this.setState({currentstep:1});
       /** desaparezco el button sig y reaparece finish */
-      document.getElementById("button_next").style.display = "none";
-      document.getElementById("button_finish").style.display = "block";
+      //document.getElementById("button_next").style.display = "none";
+      //document.getElementById("button_finish").style.display = "block";
     };
   
     handleBack = () => {
-      if(this.state.flagPrimeraFase===0){
-        console.log("no es primera fase intento regresar");
-        this.onNextChildComponentChangeProps({User: this.props.nextChildComponentProps.Usuario});
-        this.handleNextChildComponentChange(Dashboard);
-        return;
-      }
-      if(this.state==0){
-        this.onNextChildComponentChangeProps({User: this.props.nextChildComponentProps.Usuario});
-        this.handleNextChildComponentChange(Dashboard);
-        console.log("No redirije la wea");
-        return;
-      }
-      this.setState({currentstep:0});
-      /** desaparezco el button finish y reaparece next */
-      document.getElementById("button_next").style.display = "block";
-      document.getElementById("button_finish").style.display = "none";
+      window.location.replace("./?EventriEvents&idEvento="+this.props.nextChildComponentProps.evento.idEvento);
     };
 /** envio de los datos */
     handleFinish = () =>{
@@ -253,8 +251,9 @@ class FrmSendPropuesta extends React.Component {
         {
           methodPath: 'propuesta/actualizar_propuesta',
           JsonToBack:{
+            idFaseActual:this.state.idFase,
               idEvento: this.props.nextChildComponentProps.evento.idEvento,
-              idPropuesta: this.props.nextChildComponentProps.idPropuesta,
+              idPropuesta: this.props.nextChildComponentProps.Propuestaprev.idPropuesta,
               RptaCamposPers: this.state.respuestasPers,
               paper: this.state.archivo,
               entregable:this.state.entregable,
@@ -342,31 +341,144 @@ class FrmSendPropuesta extends React.Component {
     }
     renderStep(i){
       switch (i) {
-        case 2:
+        case -1:
           return <div className="container"><Jloading/></div>;
-        case 0:
-          return <this.state.step1 
-                  Usuario={this.props.nextChildComponentProps.Usuario}
-                  multiHandle={this.handleValue}
-                  authorName={this.state.authorName}
-                  authorLastname={this.state.authorLastname}
-                  telefono={this.state.telefono}
-                  email={this.state.email}
-                  academicLevel={this.state.academicLevel}
-                  afilicacion={this.state.afilicacion}
-                />;
+        case 2:
+          return (<div>
+                    
+                    <JStep
+                    multiHandle={this.handleValue} 
+                    nombreFase = {this.state.nombreFase}
+                    descripcionFase =  
+                     {this.state.descripcionFase}
+                    CamposPerson={this.state.CamposPers}
+                    fileNeeded={this.state.fileNeeded}
+                    entregableNeeded={this.state.entregableNeeded}
+                  />
+
+                  <div>
+                      <button  
+                          id="button_back"
+                          style={{float:'left'}}
+                          class="mybutton"
+                          onClick={this.handleBack}
+                      >
+                        Regresar
+                      </button>
+                      <button  
+                        type="button"  data-toggle="modal" data-target="#JModal"
+                            id="button_finish"
+                            style={{float:'right',display:"block"}} 
+                            class="mybutton" 
+                            color="primary" 
+                            onClick={this.handleFinish}
+                            >
+                        Finalizar
+                      </button>
+                      </div>
+                        
+
+                  </div>); 
+        case 0:        
+          return (
+            <div>
+              <Stepper 
+                        activeStep={this.state.currentstep} alternativeLabel>
+                        {this.state.steps.map(label => (
+        <Step key={label}>
+            <StepLabel 
+            classes={{
+              iconContainer:classes.iconContainer,
+            alternativeLabel: classes.alternativeLabel}}>
+              {label}
+              </StepLabel>
+                                                        </Step>
+                        ))}
+                </Stepper>
+              
+          <this.state.step1 
+                    Usuario={this.props.nextChildComponentProps.Usuario}
+                    multiHandle={this.handleValue}
+                    authorName={this.state.authorName}
+                    authorLastname={this.state.authorLastname}
+                    telefono={this.state.telefono}
+                    email={this.state.email}
+                    academicLevel={this.state.academicLevel}
+                    afilicacion={this.state.afilicacion}
+                  />
+                   <div>
+                      <button  
+                          id="button_back"
+                          style={{float:'left'}}
+                          class="mybutton"
+                          onClick={this.handleBack}
+                      >
+                        Regresar
+                      </button>
+                      
+                      </div>
+                        <div>
+                      <button  
+                            id="button_next"
+                            style={{float:'right'}} 
+                            class="mybutton"  
+                            variant="contained" 
+                            color="primary" 
+                            onClick={this.handleNext}>
+                      Siguiente
+                      </button>
+                    </div>
+                  </div>
+              );
+          
         case 1:        
-          return <this.state.step2
-                  Usuario={this.props.nextChildComponentProps.Usuario}
-                  CamposPerson={this.state.CamposPers}
-                  multiHandle={this.handleValue} 
-                  Categorias={this.props.nextChildComponentProps.Categorias}
-                  titulo={this.state.titulo}
-                  resumen={this.state.resumen}
-                  selectedCategorias= {this.state.categorias}
-                  CamposPers={this.state.respuestasPers}
-                  fileNeeded={this.state.fileNeeded}
-                />;
+          return (<div>
+            <Stepper 
+                        activeStep={this.state.currentstep} alternativeLabel>
+                        {this.state.steps.map(label => (
+        <Step key={label}>
+            <StepLabel 
+            classes={{
+              iconContainer:classes.iconContainer,
+            alternativeLabel: classes.alternativeLabel}}>
+              {label}
+              </StepLabel>
+                                                        </Step>
+                        ))}
+                </Stepper>
+                <this.state.step2
+          Usuario={this.props.nextChildComponentProps.Usuario}
+          CamposPerson={this.state.CamposPers}
+          multiHandle={this.handleValue} 
+          Categorias={this.props.nextChildComponentProps.Categorias}
+          titulo={this.state.titulo}
+          resumen={this.state.resumen}
+          selectedCategorias= {this.state.categorias}
+          CamposPers={this.state.respuestasPers}
+          fileNeeded={this.state.fileNeeded}
+        />
+         <div>
+                      <button  
+                          id="button_back"
+                          style={{float:'left'}}
+                          class="mybutton"
+                          onClick={this.handleBack}
+                      >
+                        Regresar
+                      </button>
+                      <button  
+                        type="button"  data-toggle="modal" data-target="#JModal"
+                            id="button_finish"
+                            style={{float:'right'}} 
+                            class="mybutton" 
+                            color="primary" 
+                            onClick={this.handleFinish}
+                            >
+                        Finalizar
+                      </button>
+                      </div>
+                        
+        </div>);
         default:
           return 'Uknown stepIndex';
       }
@@ -469,66 +581,24 @@ class FrmSendPropuesta extends React.Component {
         
         
         return (
-           <div  style={styles.frmCreateEvent}>
-            <h1>Evento: {this.props.nextChildComponentProps.evento.nombre}</h1>
-            <h1>Lugar: {this.props.nextChildComponentProps.evento.lugar} - {this.props.nextChildComponentProps.evento.fechaIni}</h1>
-            <br/>
-            <h2>Registro de propuestas:</h2>
-                <div className={classes.root}
-                      class=" mx-auto" style={{width:"700px"}}
-                >
+           
+           <div   style={styles.frmCreateEvent}>
+              
+                <h1>Evento: {this.props.nextChildComponentProps.evento.nombEvento}</h1>
+                <h1>Lugar: {this.props.nextChildComponentProps.evento.lugar} - {this.props.nextChildComponentProps.evento.fechaIni}</h1>
             
-                <Stepper 
-                        activeStep={this.state.currentstep} alternativeLabel>
-                        {this.state.steps.map(label => (
-        <Step key={label}>
-            <StepLabel 
-            classes={{
-              iconContainer:classes.iconContainer,
-            alternativeLabel: classes.alternativeLabel}}>
-              {label}
-              </StepLabel>
-                                                        </Step>
-                        ))}
-                </Stepper>
-                <JStep
-                  data={1}
-                  CamposPers={this.state.respuestasPers}
-                  fileNeeded={this.state.fileNeeded}
-                  entregableNeeded={this.state.entregableNeeded}
-                />
+                <div style={{textAlign:"center"}}>
+                      <h1>{this.state.nombreFase}</h1>
+                      <h2>{this.state.descripcionFase}</h2>
+                </div>
+              
+            
+            
+            <div>
+                
                     {this.renderStep(this.state.currentstep)}
-                    <div>
-                      <button  
-                          id="button_back"
-                          style={{float:'left'}}
-                          class="mybutton"
-                          onClick={this.handleBack}
-                      >
-                        Regresar
-                      </button>
-                      <button  
-                        type="button"  data-toggle="modal" data-target="#JModal"
-                            id="button_finish"
-                            style={{float:'right'}} 
-                            class="mybutton" 
-                            color="primary" 
-                            onClick={this.handleFinish}
-                            >
-                        Finalizar
-                      </button>
-                      </div>
-                        <div>
-                      <button  
-                            id="button_next"
-                            style={{float:'right'}} 
-                            class="mybutton"  
-                            variant="contained" 
-                            color="primary" 
-                            onClick={this.handleNext}>
-                      Siguiente
-                      </button>
-                    </div>
+
+                   
                     
                 </div>
                 
@@ -556,6 +626,13 @@ var styles = {
       width: '90%',
     }
   }
+ /*
+  $(document).ready(function(){
+    $("#button_finish").click(function(){
+      $("#myModal3").modal({backdrop: "static"});
+    });
+  });
+  */ 
  /*
   $(document).ready(function(){
     $("#button_finish").click(function(){

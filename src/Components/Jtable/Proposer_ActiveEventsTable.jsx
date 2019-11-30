@@ -10,6 +10,7 @@ import EventDetail from '../EventDetail';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import FrmSendPropuesta from '../FrmSendPropuesta';
 
 
 class Proposer_ActiveEventsTable  extends Component {
@@ -52,7 +53,7 @@ class Proposer_ActiveEventsTable  extends Component {
    }
    handleDetail(value){
     this.props.onNextChildComponentChangeProps(value);
-      this.props.onNextChildComponentChange(EventDetail);
+      this.props.onNextChildComponentChange(FrmSendPropuesta);
    }
    renderProposals(listProp) {
      console.log("twice! : ",this.state, this.props );
@@ -61,7 +62,8 @@ class Proposer_ActiveEventsTable  extends Component {
       /* el Link se va al detalle de propuesta */
       return listProp.Propuestas.map((propuesta, index) => {
          
-         const { idPropuesta,nombPropuesta,estado,fechaLim, nroFasesComp } = propuesta 
+         const { idPropuesta,nombPropuesta,estado,fechaLim,nroFasesComp } = propuesta ;
+         
          return(
             
             <tr key = {idPropuesta}>
@@ -70,18 +72,18 @@ class Proposer_ActiveEventsTable  extends Component {
                <td> {nroFasesComp} </td>
                <td> {estado} </td>
                <td> {fechaLim} </td>
-               <td>
-                  {propuesta.flagResubir===1}?(<JActionButton
+               {(propuesta.flagResubir===1)?
+               <td><JActionButton
                   onClick = {()=>this.handleDetail(
                     {Propuestaprev:propuesta,
                       evento:evento,
-                      idUser:this.state.idUser}
+                      Usuario:this.props.Usuario}
                                  
                               )}
                   button_class ="fa fa-plus-circle"
-                  />):{"-"}
-                  
-               </td> 
+                  /></td>:
+                  <td>-</td>}
+               
             </tr>
          )})
    }
@@ -113,7 +115,7 @@ class Proposer_ActiveEventsTable  extends Component {
                     data-target="#modalDetalleProp" 
                     onClick={e => {this.showModalDetalle();}} 
                     style={{color:"#337ab7", cursor:'pointer',fontSize: '15px'}}>
-                <h1>{nombEvento} - Fase Actual: {faseActual}/{totFases}</h1>
+                <p>{nombEvento} - Fase Actual: {faseActual}/{totFases}</p>
                 </a>
               </div>
               

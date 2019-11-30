@@ -173,7 +173,8 @@ class StepTwoSendPropuesta extends React.Component {
     const inputArchivo=[
       
       {
-        id:"drop_zone",
+        label: "Subir propuesta corregida. (Si son varios, comprimelos en un solo archivo de extencion .zip)",
+        id_drop_zone:"drop_zone_archivo",
         category:'JUpload',
         onChange: this.handleOnLoad,
         fileNedded:this.props.fileNeeded,
@@ -198,11 +199,11 @@ class StepTwoSendPropuesta extends React.Component {
 
         <JCardForm
           arrayOfInputData={inputArchivo}
-          cardHeadingText = "Sube tu archivo : "
+          cardHeadingText = "Sube el archivo de tu Propuesta: "
         />
         <JCardForm
                 arrayOfInputData={inputCamposPers}
-                cardHeadingText = "Informacion personalizada por fase"
+                cardHeadingText = "Informacion personalizada por fase:"
               />
     
       </div>
