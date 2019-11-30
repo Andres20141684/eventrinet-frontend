@@ -1095,7 +1095,7 @@ export async function listarFasesXEvento(idEvento) {
 
 export async function AlgoritmoAsignacion(data){
     try {
-        let response= await fetch(restURL+'propuesta/algoritmo',{
+        let response= await fetch(restURL+'algoritmo',{
             method:'POST',
             mode:'cors',
             headers: {Accept:"application/json","Content-Type":"application/json"},
