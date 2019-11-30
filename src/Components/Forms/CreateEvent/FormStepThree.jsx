@@ -156,8 +156,10 @@ class FormStepThree extends Component{
                                             name="date_in"
                                             placeholder="date_in"
                                             selected={this.props.value.faseEvalIni}
-                                            minDate={this.props.value.faseIni}
+                                            minDate={this.props.value.faseIni===''?new Date():new Date(this.props.value.faseIni).setDate(this.props.value.faseIni.getDate()+1)}
                                             maxDate={this.props.value.faseFin}
+                                            disabled={this.props.value.faseIni===''?true:false}
+                                            readOnly={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false}
                                             //maxDate={this.props.fechaMax}
                                             onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseEvalIni","fechaEvalIni")}
                                             />
@@ -174,8 +176,9 @@ class FormStepThree extends Component{
                                             placeholder="date_in"
                                             selected={this.props.value.faseEvalPresiIni}
                                             disabled={this.props.value.faseEvalIni===''?true:false}
-                                            minDate={this.props.value.faseIni}
+                                            minDate={this.props.value.faseEvalIni===''?new Date():new Date(this.props.value.faseEvalIni).setDate(this.props.value.faseEvalIni.getDate()+1)}
                                             maxDate={this.props.value.faseFin}
+                                            readOnly={this.props.value.faseFin===''?false:this.props.value.faseFin<new Date()?true:false}
                                             //maxDate={this.props.fechaMax}
                                             onChange={(e)=> this.props.handleChangeFaseDate(e,this.props.index,"faseEvalPresiIni","fechaEvalPresiIni")}
                                             />
