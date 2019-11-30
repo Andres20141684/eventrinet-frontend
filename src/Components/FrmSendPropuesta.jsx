@@ -202,22 +202,7 @@ class FrmSendPropuesta extends React.Component {
     };
   
     handleBack = () => {
-      if(this.state.flagPrimeraFase===0){
-        console.log("no es primera fase intento regresar");
-        this.handleNextChildComponentChangeProps({Usuario: this.props.nextChildComponentProps.Usuario});
-        this.handleNextChildComponentChange(PropoMyProposals);
-        return;
-      }
-      if(this.state==0){
-        this.handleNextChildComponentChangeProps({Usuario: this.props.nextChildComponentProps.Usuario});
-        this.handleNextChildComponentChange(Dashboard);
-        console.log("No redirije la wea");
-        return;
-      }
-      this.setState({currentstep:0});
-      /** desaparezco el button finish y reaparece next */
-      //document.getElementById("button_next").style.display = "block";
-      //document.getElementById("button_finish").style.display = "none";
+      window.location.replace("./?EventriEvents&idEvento="+this.props.nextChildComponentProps.evento.idEvento);
     };
 /** envio de los datos */
     handleFinish = () =>{

@@ -149,7 +149,7 @@ export default class StepOne extends React.Component {
                 <div class="row">
                   <div class="col-sm-8">
                     <JUpload
-                      id="drop_zone"
+                      id_drop_zone="drop_zone_archivo"
                       onSuccesLoad={this.props.handleOnLoad}
                       formato="jpg"
                       maxTamanio={10}

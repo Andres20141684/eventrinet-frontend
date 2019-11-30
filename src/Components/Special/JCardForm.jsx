@@ -114,7 +114,7 @@ class JCardForm extends Component {
                   <div class ="col-md-8">
               
               <JUpload
-                    id_drop_zone={inputData.id}
+                    id_drop_zone={inputData.id_drop_zone}
                     onSuccesLoad={inputData.onChange}
                     formato={inputData.formato}
                     maxTamanio={inputData.maxTamanio}
