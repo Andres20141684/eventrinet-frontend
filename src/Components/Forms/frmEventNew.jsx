@@ -105,47 +105,46 @@ export default class EventNew extends Component{
         else{
           this.setState({form2Completo:false})
         }
-        var index=this.state.fases.length
-        index=index-1
-        if(this.state.fases[index].reqEval===false){
-          if(this.state.fases[index].nombre!=='' && this.state.fases[index].descripcion!=='' 
-          && this.state.fases[index].faseIni!=='' && this.state.fases[index].faseFin!==''){
-            this.setState({formFaseCompleto:true})
-          }
-          else{
-            this.setState({formFaseCompleto:false})
-          }
+
+
+        for (var index = 0; index <this.state.fases.length; index++) {
+            if(this.state.fases[index].reqEval===false){
+              if(this.state.fases[index].nombre!=='' && this.state.fases[index].descripcion!=='' 
+              && this.state.fases[index].faseIni!=='' && this.state.fases[index].faseFin!==''){
+                this.setState({formFaseCompleto:true})
+              }
+              else{
+                this.setState({formFaseCompleto:false})
+                break
+              }
+            }
+            else{
+              if(this.state.fases[index].nombre!=='' && this.state.fases[index].descripcion!=='' 
+              && this.state.fases[index].faseIni!=='' && this.state.fases[index].faseFin!=='' && this.state.fases[index].faseEvalPresiIni!=='' && this.state.fases[index].faseEvalIni!==''){
+                this.setState({formFaseCompleto:true})
+              }
+              else{
+                this.setState({formFaseCompleto:false})
+                break
+              }
+            }
         }
-        else{
-          if(this.state.fases[index].nombre!=='' && this.state.fases[index].descripcion!=='' 
-          && this.state.fases[index].faseIni!=='' && this.state.fases[index].faseFin!=='' && this.state.fases[index].faseEvalPresiIni!=='' && this.state.fases[index].faseEvalIni!==''){
-            this.setState({formFaseCompleto:true})
-          }
-          else{
-            this.setState({formFaseCompleto:false})
-          }
-        }
+        
         if(this.state.rdCamR===false){
-          console.log('No tengo CamReady')
           if(this.state.formFaseCompleto===true && this.state.fechPref!==''){
             this.setState({form3Completo:true})
-            console.log("form completo")
           }
           else{
             this.setState({form3Completo:false})
-            console.log("form incompleto")
           }
         }
         else{
-          console.log('tengo CamReady')
           if(this.state.formFaseCompleto===true && this.state.fechPref!==''
           && this.state.fCRIni!=='' && this.state.fCRFin!==''){
             this.setState({form3Completo:true})
-            console.log("form completo")
           }
           else{
             this.setState({form3Completo:false})
-            console.log("form incompleto")  
           }
         }
       }
@@ -176,6 +175,9 @@ export default class EventNew extends Component{
           this.validacion()
         }
         if(prevState.fechPref!=this.state.fechPref){
+          this.validacion()
+        }
+        if(prevState.fases!==this.state.fases){
           this.validacion()
         }
         if(prevState.rdCamR!=this.state.rdCamR){
