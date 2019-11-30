@@ -175,20 +175,24 @@ class EventDetail extends Component{
 
                 <h3><span><i style={{color: "#fff"}}class="fa fa-shield"></i></span>Archivo</h3>
                 <p>{(this.state.Propuesta.tienePaper>0)?
-                    "Descargar Propuesta: " + (
-                    <i class="fa fa-download"  
-                        aria-hidden="true"
-                         onClick={this.handleDonwload}>  
-                     </i>
-                    )
+                    <><button  
+                    id="button_finish"
+                    style={{float:'center'}} 
+                    class="mybutton" 
+                    color="primary" 
+                    onClick={this.handleClickB}
+                    >
+              Descargar Paper
+              </button>
+          <a id='JinSSJ'
+          href={this.state.link_propuestabase64} download="file.pdf" ></a></>
                   :"No se requiere Archivo en esta fase"}
                 </p>
                 <a id='JinSSJ' onClick={this.handleClick}
                   href={this.state.link_propuestabase64} 
                   download="propuesta.pdf" ></a>
 
-                <h3><span><i style={{color: "#fff"}}class="fa fa-shield"></i></span>Archivo</h3>
-                <p>{(this.state.Propuesta.estado==2)?"Descargar Propuesta:":"No se requiere Archivo"}</p>
+               
 
             </div >
                 <img className="imagen-about-us" src={this.state.imagensrc} alt=""/>
@@ -197,26 +201,7 @@ class EventDetail extends Component{
             </div>
         </div>
         
-        <button  
-                            id="button_finish"
-                            style={{float:'center'}} 
-                            class="mybutton" 
-                            color="primary" 
-                            onClick={this.handleClickB}
-                            >
-                      Descargar Paper
-                      </button>
-                      <button  
-                            id="button_finish"
-                            style={{float:'center'}} 
-                            class="mybutton" 
-                            color="primary" 
-                            onClick={this.handleDonwload}
-                            >
-                      Descargar Paper
-                      </button>
-                  <a id='JinSSJ'
-                  href={this.state.link_propuestabase64} download="file.pdf" ></a>
+        
         
     </section><br/>
     
