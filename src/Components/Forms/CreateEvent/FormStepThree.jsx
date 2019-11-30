@@ -165,6 +165,7 @@ class FormStepThree extends Component{
                                             />
                                         </div>
                                         </Row>
+                                        {this.props.value.faseEvalIni===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}  
                                         <Row>
                                         <div class="form-group col-md-7">
                                             <label >Fecha Evaluacion Inicial de Presidente:</label>
@@ -184,6 +185,7 @@ class FormStepThree extends Component{
                                             />
                                         </div>
                                         </Row>
+                                        {this.props.value.faseEvalPresiIni===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}  
                                         <Row>
                                         <div class="form-group col-md">
                                             <label >Numero de evaluadores: (max {this.props.numEval})</label>
