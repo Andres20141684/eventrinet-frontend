@@ -56,6 +56,7 @@ class Proposer_ActiveEventsTable  extends Component {
       this.props.onNextChildComponentChange(FrmSendPropuesta);
    }
    renderProposals(listProp) {
+     console.log("twice! : ",this.state, this.props );
       const evento = listProp;
       try{delete evento.listProp}catch(e){}
       /* el Link se va al detalle de propuesta */

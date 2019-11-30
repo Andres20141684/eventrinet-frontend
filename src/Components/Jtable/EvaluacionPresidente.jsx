@@ -28,7 +28,8 @@ class EvaluacionPresidente extends Component {
             tabIndex: 0,
             idFaseActual: 0,
             nombreFase: '',
-            fases: []
+            fases: [],
+            faseActualSecuencia : 0
         }
         this.handleNextChildComponentChange = this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps = this.handleNextChildComponentChangeProps.bind(this);
@@ -96,6 +97,14 @@ class EvaluacionPresidente extends Component {
                 console.log('si hay algo:');
                 this.setState({ fases: value.Fases });
                 console.log("Fases: ", this.state.fases);
+
+                for (let i=0; i<value.Fases.length; i++){
+                    if (value.Fases[i].esFaseActual == 1) {
+                        this.setState({ faseActualSecuencia : value.Fases[i].secuencia })
+                    }
+                }
+
+                console.log("FASE ACTUAL SECUENCIA: ", this.state.faseActualSecuencia);
             }
 
         });
@@ -133,6 +142,7 @@ class EvaluacionPresidente extends Component {
                         nombreEvento = {this.props.nextChildComponentProps.nombreEvento}
                         fases = {this.state.fases}                    
                         handleReturn = {this.handleReturn}
+                        faseActualSecuencia = { this.state.faseActualSecuencia}
                     />
                     <button
                         style={{ float: 'left' }}

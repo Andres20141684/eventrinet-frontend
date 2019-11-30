@@ -334,7 +334,7 @@ function ModalDetallePropuesta (props) {
                       <div class="form-group row">
                         <label for="staticEmail" class="col-sm-4 col-form-label">Resumen</label>
                         <div class="col-sm-6">
-                        <textarea readOnly className="form-control" type="text"  id="staticEmail" value={props.estados.propuestaActual.resumen} />
+                        <textarea readOnly className="form-control" type="text"  id="staticEmail" rows={15} value={props.estados.propuestaActual.resumen} />
                         </div>
                       </div>
                       <div class="form-group row">
