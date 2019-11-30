@@ -68,10 +68,10 @@ handleChangeFaseDate(value,i,str,str2){
 
 addClick() {
   this.setState(prevState => ({
-    values: [...prevState.values, {idFase:0,nombre:'',descripcion:'',faseIni:'',faseFin:'',faseEvalIni:'',secuencia:this.state.values.length+1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false,reqEnt:false,necesitaArchivo:0,necesitaEvaluacion:0,necesitaEntregable:0}]
+    values: [...prevState.values, {idFase:0,nombre:'',descripcion:'',faseIni:'',faseFin:'',faseEvalIni:'',faseEvalPresiIni:'',secuencia:this.state.values.length+1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false,reqEnt:false,necesitaArchivo:0,necesitaEvaluacion:0,necesitaEntregable:0}]
   }));
   let val=[...this.state.values]
-  val.push( {idFase:0,nombre:'',descripcion:'',faseIni:'',faseFin:'',faseEvalIni:'',secuencia:this.state.values.length+1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false,reqEnt:false,necesitaArchivo:0,necesitaEvaluacion:0,necesitaEntregable:0})
+  val.push( {idFase:0,nombre:'',descripcion:'',faseIni:'',faseFin:'',faseEvalIni:'',faseEvalPresiIni:'',secuencia:this.state.values.length+1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,reqEval:false,reqEnt:false,necesitaArchivo:0,necesitaEvaluacion:0,necesitaEntregable:0})
   this.props.handleChange2(val,"fases")
   this.props.handleChange2(val.length,"ChangeFases")
 }

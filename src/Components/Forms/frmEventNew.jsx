@@ -23,7 +23,7 @@ export default class EventNew extends Component{
             presidente:[],
             evaluadores:[],
             categorias:[],
-            fases:[{idFase:0,nombre:'',descripcion:'',faseIni:'',faseFin:'',faseEvalIni:'',secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0,reqEnt:false,necesitaEntregable:0}],
+            fases:[{idFase:0,nombre:'',descripcion:'',faseIni:'',faseFin:'',faseEvalIni:'',faseEvalPresiIni:'',secuencia:1,camposPerson:[{idCamposPEnun:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],criterios:[{idCriterio:0,descripcion:'',enunciado:'',obli: false, obligatorio:0}],reqArch:false,necesitaArchivo:0,reqEval:false,necesitaEvaluacion:0,reqEnt:false,necesitaEntregable:0}],
             tieneCameraRdy:0,
             rdCamR:false,
             fCRIni:'',
@@ -107,10 +107,27 @@ export default class EventNew extends Component{
         }
         var index=this.state.fases.length
         index=index-1
+        if(this.state.fases[index].reqEval===false){
+          if(this.state.fases[index].nombre!=='' && this.state.fases[index].descripcion!=='' 
+          && this.state.fases[index].faseIni!=='' && this.state.fases[index].faseFin!==''){
+            this.setState({formFaseCompleto:true})
+          }
+          else{
+            this.setState({formFaseCompleto:false})
+          }
+        }
+        else{
+          if(this.state.fases[index].nombre!=='' && this.state.fases[index].descripcion!=='' 
+          && this.state.fases[index].faseIni!=='' && this.state.fases[index].faseFin!=='' && this.state.fases[index].faseEvalPresiIni!=='' && this.state.fases[index].faseEvalIni!==''){
+            this.setState({formFaseCompleto:true})
+          }
+          else{
+            this.setState({formFaseCompleto:false})
+          }
+        }
         if(this.state.rdCamR===false){
           console.log('No tengo CamReady')
-          if(this.state.fases[index].nombre!=='' && this.state.fases[index].descripcion!=='' 
-          && this.state.fases[index].faseIni!=='' && this.state.fases[index].faseFin!=='' && this.state.fechPref!==''){
+          if(this.state.formFaseCompleto===true && this.state.fechPref!==''){
             this.setState({form3Completo:true})
             console.log("form completo")
           }
@@ -121,8 +138,7 @@ export default class EventNew extends Component{
         }
         else{
           console.log('tengo CamReady')
-          if(this.state.fases[index].nombre!=='' && this.state.fases[index].descripcion!=='' 
-          && this.state.fases[index].faseIni!=='' && this.state.fases[index].faseFin!=='' && this.state.fechPref!==''
+          if(this.state.formFaseCompleto===true && this.state.fechPref!==''
           && this.state.fCRIni!=='' && this.state.fCRFin!==''){
             this.setState({form3Completo:true})
             console.log("form completo")
@@ -131,13 +147,6 @@ export default class EventNew extends Component{
             this.setState({form3Completo:false})
             console.log("form incompleto")  
           }
-        }
-        if(this.state.fases[index].nombre!=='' && this.state.fases[index].descripcion!=='' 
-        && this.state.fases[index].faseIni!=='' && this.state.fases[index].faseFin!==''){
-          this.setState({formFaseCompleto:true})
-        }
-        else{
-          this.setState({formFaseCompleto:false})
         }
       }
 
@@ -176,6 +185,9 @@ export default class EventNew extends Component{
           this.validacion()
         }
         if(prevState.fCRFin!=this.state.fCRFin){
+          this.validacion()
+        }
+        if(prevState.formFaseCompleto!=this.state.formFaseCompleto){
           this.validacion()
         }
       }
