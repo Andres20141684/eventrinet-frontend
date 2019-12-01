@@ -60,7 +60,6 @@ class  Login extends Component{
                     catch(err){
                       console.log(err)
                     }
-                    
           }
         }
       )
@@ -110,7 +109,7 @@ class  Login extends Component{
 
               <div className="form-row">
                 <label for="your-user">Usuario</label>
-                <input type="text" name="your-user" id="your-user" className="input-text"  maxLength="11" onChange={this.onChageInputName} onKeyDown={this.onKeyDownName} placeholder="Ingresar usuario" />
+                <input type="text" name="your-user" id="your-user" className="input-text"  maxLength="30" onChange={this.onChageInputName} placeholder="Ingresar usuario" />
                 <i className="fa fa-envelope"></i>
               </div>
               <div className="form-row">

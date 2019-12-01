@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import '../styles/style_signUp.css'; 
 import {Redirect}  from "react-router-dom";
 import GoogleLogout from 'react-google-login';
+import { createCipher } from 'crypto';
 
 const Networking = require('../Network/Networking');
 class SingUp extends Component{
   constructor(props){
     super(props);
     this.state = {      
-      usuario : null
+      usuario : null,
+      msgError: '',
     } 
     this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -26,33 +28,32 @@ class SingUp extends Component{
   }
   
   componentWillMount(){
-    console.log("------------saving state----------");
     sessionStorage.setItem('tipoSingUp',"gmail");
   }
   
-  onSubmitForm = (evt) => {      
-      
-      var pass = document.getElementById("alertPass");
-      /*if (validarPassword(pass)== false){
-        return
-      }*/
-
+  onSubmitForm = (evt) => {
       evt.preventDefault()
-      console.log("name "+this.state.name + " last name: " + this.state.last_name + " username: " +this.state.username + " pass: " + this.state.password + " email: "+ this.state.email )
+      //console.log("name "+this.state.name + " last name: " + this.state.last_name + " username: " +this.state.username + " pass: " + this.state.password + " email: "+ this.state.email )
             
       Networking.crear_cuenta(this.state.email,this.state.last_name,this.state.name, this.state.username, this.state.password).then(
           (response) => {
             console.log(response);            
             console.log("Data del usuario",response);
             if (response.succeed){
-              console.log("estamos accediendoo bbecita prrr");
-              console.log(response);
               sessionStorage.setItem('dataUser', JSON.stringify(response));
               sessionStorage.setItem('tipoLogin',"usuario");
               this.setState({redirect:true});
             }else{
-              console.log("YIYI no se pudo crear cuenta");
-              alert(response.message)
+              this.setState({redirect:false,
+                isLoading:false,
+                buttonLoadingText:"Iniciar sesión",
+                msgError:response.message});
+              try{
+                  document.getElementById('alertErrorSignUP').style.display ="block";
+              }
+              catch(err){
+                  console.log(err)
+              }
             }
           }
       )
@@ -109,7 +110,7 @@ class SingUp extends Component{
 
                 <div class="form-row">
                   <label for="your-name">Nombres</label>
-                  <input type="text" name="your-name" id="your-name" class="input-text" placeholder="Nombres" maxLength="45" required onChange={this.onChangeName} pattern=".[a-zA-Z\s]{2,50}"/>
+                  <input type="text" name="your-name" id="your-name" class="input-text" placeholder="Nombres" maxLength="45" required onChange={this.onChangeName} pattern=".[a-záéíóúzA-Z\s]{2,50}"/>
                   <i class="fa fa-user"></i>
                 </div>
                 <div class="form-row">
@@ -136,17 +137,24 @@ class SingUp extends Component{
                 <div class="alert alert-primary" id="alertPass"role="alert" style={{display:'none'}}>
                     La contraseña debe contener una letra mayúscula, un numero y tener una longitud mínima de 10 caracteres
                 </div>
+                <div className="alert alert-danger" id="alertErrorSignUP" role="alert" style={{display:'none',padding:'8px',height:'auto',fontSize:'13px'}}>
+                  {this.state.msgError}
+                </div>
                 <div class="form-row-last">
                   <input type="submit" name="Registrarse" class="register" value="Registrarse"/>
-                </div>                                
+                </div>
                 <div >
+                  <div className="col-xs-12">
+                    <div className="divider dividerSign">
+                      <strong className="divider-title ng-binding">o</strong>
+                    </div>
+                  </div>
                   <section className="loginButton">
-                    <div>Registrarse con Gmail</div>
                   <script src= "./login.js">
                   </script> 
                   <div  effect="fadeInUp">                                    
                       <a>
-                      <div className="g-signin2" align="center" data-onsuccess="onSignUp" data-width="180px"data-height="53px" style={{color:'blue'}}>
+                      <div className="g-signin2" align="center" data-onsuccess="onSignUp" data-width="150px"data-height="36px" style={{color:'blue'}}>
                         <span class="buttonText">Google</span>
                       </div>
                       </a>

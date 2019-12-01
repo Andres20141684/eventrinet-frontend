@@ -195,7 +195,7 @@ class JMap extends Component {
 
        <div class="pac-card" id="pac-card_vista">
       <div style={{paddingBottom: "5px"}}>
-        <div id="search_title">
+        <div id="search_title" style={{textAlign:'left'}}>
           Escribe la dirección:
         </div>
       </div>
@@ -207,7 +207,7 @@ class JMap extends Component {
     </div> 
     <div class="pac-card" id="pac-card_seach">
       <div style={{paddingBottom: "5px"}}>
-        <div id="search_title">
+        <div id="search_title" style={{textAlign:'left'}}>
           Escribe la dirección:
         </div>
       </div>
