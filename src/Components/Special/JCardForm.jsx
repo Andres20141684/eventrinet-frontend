@@ -74,10 +74,13 @@ class JCardForm extends Component {
             _inputs.push(
             <Row>
               <div class="form-group col-md-12">
+              <div class ="col-md-4"><label >{inputData.label}</label></div> 
+              <div class ="col-md-8">
               <JTable
                     headers={inputData.headers}
                     body={inputData.body}
                 />
+                </div>
                 </div>
               </Row>
               ); 
@@ -127,7 +130,7 @@ class JCardForm extends Component {
         });
         if(_inputs.length>0){
         return(
-            <div class="panel-group mx-auto" style={{width: "600px"}}>
+            <div class="panel-group mx-auto" style={{width: "700px"}}>
                 <div  class="panel panel-default">
                     <div class="panel-heading">
                         <h1>

@@ -36,6 +36,7 @@ class JMap extends Component {
     componentDidMount(){
 
       if(this.props.mode === "event_creation"){
+        document.getElementById("pac-card_vista").style.display="none";
           //muestro todo hasta el auocompleter
           var map = new window.google.maps.Map(document.getElementById('map'), {
             center: {lat: -33.8688, lng: 151.2195},
@@ -121,7 +122,7 @@ class JMap extends Component {
       /******************************************* */
 
       if(this.props.mode === "event_visualization"){
-        document.getElementById("pac-card").style.display="none";
+        document.getElementById("pac-card_seach").style.display="none";
         //solo muestro el marker en la posicion XDXD
         var sydney = new window.google.maps.LatLng(-33.867, 151.195);
         console.log("window.google.maps.LatLng: ",sydney);
@@ -192,7 +193,19 @@ class JMap extends Component {
        <>
        
 
-       <div class="pac-card" id="pac-card">
+       <div class="pac-card" id="pac-card_vista">
+      <div style={{paddingBottom: "5px"}}>
+        <div id="search_title">
+          Escribe la dirección:
+        </div>
+      </div>
+      <div id="pac-container">
+        <input id="pac-input" type="text" className="form-control" 
+            placeholder="Escribe una dirección"
+            readOnly={true} value={this.props.lugar}/>
+      </div>
+    </div> 
+    <div class="pac-card" id="pac-card_seach">
       <div style={{paddingBottom: "5px"}}>
         <div id="search_title">
           Escribe la dirección:

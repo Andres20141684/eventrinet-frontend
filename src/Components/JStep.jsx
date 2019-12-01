@@ -96,6 +96,9 @@ class JStep extends React.Component {
       }
 
     ]
+    const other=[
+     { other : (<label >En esta fase no se requieren datos ni archivos adicionales, esta es una fase no evaluable</label>)}
+    ]
     return (
       <div id={this.props.id}>
       <JCardForm
@@ -112,8 +115,13 @@ class JStep extends React.Component {
       <JCardForm
           arrayOfInputData={inputEntregable}
           cardHeadingText = "Sube el entregable de la fase : "
-      />
+      /> 
 
+      {(inputCamposPers.length===0 &&this.props.entregableNeeded===0 &&
+        this.props.fileNedded===0)?<JCardForm
+        arrayOfInputData={other}
+        cardHeadingText = "No hay nada que subir en esta fase "
+                />:null}
 
 
       </div>

@@ -133,8 +133,9 @@ renderacademicLevel(){
 
 
     return (
-      <div id={this.props.id}>
-          <h1>Ingresa los datos del Autor y Co-autores</h1>
+      <div id={this.props.id} style={{color:"#002D3D"}}>
+      
+          <h1 style={{textAlign:"center"}}>Ingresa los datos del Autor y Co-autores</h1>
             
               <JCardForm
                 arrayOfInputData={inputAutor}

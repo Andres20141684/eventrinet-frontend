@@ -13,9 +13,7 @@ import PropoMyProposals from '../Pages/ProposerMyProposals';
 import Dashboard from './Dashboard';
 import JStep from './JStep';
 const Networking = require('./../../src/Network/Networking') ;
-
-const classes =makeStyles(theme => ({
-
+const useStyles = makeStyles(theme => ({
   root: {
     width: '90%',
   },
@@ -28,12 +26,12 @@ const classes =makeStyles(theme => ({
   },
   iconContainer: {
     transform: 'scale(2)',
-    fontSize: "5rem"
   },
   alternativeLabel:{
     fontSize:'21px'
   }
 }));
+
 
 
 class FrmSendPropuesta extends React.Component {
@@ -79,7 +77,7 @@ class FrmSendPropuesta extends React.Component {
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
-    
+      this.renderStepper=this.renderStepper.bind(this);
       this.handleValue=this.handleValue.bind(this);
       this.makeModalLoad=this.makeModalLoad.bind(this);
       this.makefooterModal=this.makefooterModal.bind(this);
@@ -159,10 +157,11 @@ class FrmSendPropuesta extends React.Component {
               }
               if(value.flagPrimeraFase == 0){
                 this.setState({currentstep:2});
+
               }
+
           }
        });
-       
         /**desabilitar y desaparecer el finish */
       //document.getElementById("button_finish").disabled = true;
       this.setState({modal:0});
@@ -339,7 +338,19 @@ class FrmSendPropuesta extends React.Component {
     renderbody(fase1){
       
     }
+    renderStepper(i){
+        this.state.steps.forEach((element,index) => {
+          return(
+          <li class={(i==index)?"completed":"active"}>
+          <span class="circle">{index+1}</span>
+            <span class="label">{element}</span>
+        </li>
+        )
+          ;
+        });
+    }
     renderStep(i){
+      
       switch (i) {
         case -1:
           return <div className="container"><Jloading/></div>;
@@ -365,7 +376,11 @@ class FrmSendPropuesta extends React.Component {
                       >
                         Regresar
                       </button>
-                      <button  
+                      {
+                        ((this.state.CamposPers.length===0)
+                          (this.state.fileNeeded===0 )&&
+                          (this.state.entregableNeeded===0)
+                          )?<></>:<button  
                         type="button"  data-toggle="modal" data-target="#JModal"
                             id="button_finish"
                             style={{float:'right',display:"block"}} 
@@ -375,27 +390,36 @@ class FrmSendPropuesta extends React.Component {
                             >
                         Finalizar
                       </button>
+                      }
+                      
                       </div>
                         
 
                   </div>); 
         case 0:        
           return (
-            <div>
+            <div className={useStyles.root}>
+              <div class="row">
+                <div class="col-md-12">
+                  <ul class="stepper stepper-horizontal">
+                  {this.renderStepper(this.state.currentstep)}
+                  </ul>
+                </div>
+              </div>
               <Stepper 
                         activeStep={this.state.currentstep} alternativeLabel>
                         {this.state.steps.map(label => (
         <Step key={label}>
             <StepLabel 
             classes={{
-              iconContainer:classes.iconContainer,
-            alternativeLabel: classes.alternativeLabel}}>
+              iconContainer:useStyles.iconContainer,
+            alternativeLabel: useStyles.alternativeLabel}}>
               {label}
               </StepLabel>
                                                         </Step>
                         ))}
                 </Stepper>
-              
+                
           <this.state.step1 
                     Usuario={this.props.nextChildComponentProps.Usuario}
                     multiHandle={this.handleValue}
@@ -439,8 +463,8 @@ class FrmSendPropuesta extends React.Component {
         <Step key={label}>
             <StepLabel 
             classes={{
-              iconContainer:classes.iconContainer,
-            alternativeLabel: classes.alternativeLabel}}>
+              iconContainer:useStyles.iconContainer,
+            alternativeLabel: useStyles.alternativeLabel}}>
               {label}
               </StepLabel>
                                                         </Step>
@@ -456,6 +480,7 @@ class FrmSendPropuesta extends React.Component {
           selectedCategorias= {this.state.categorias}
           CamposPers={this.state.respuestasPers}
           fileNeeded={this.state.fileNeeded}
+          entregableNeeded={this.state.entregableNeeded}
         />
          <div>
                       <button  
@@ -584,11 +609,11 @@ class FrmSendPropuesta extends React.Component {
            
            <div   style={styles.frmCreateEvent}>
               
-                <h1>Evento: {this.props.nextChildComponentProps.evento.nombEvento}</h1>
+                <h1>Evento: {this.props.nextChildComponentProps.evento.nombre}</h1>
                 <h1>Lugar: {this.props.nextChildComponentProps.evento.lugar} - {this.props.nextChildComponentProps.evento.fechaIni}</h1>
             
-                <div style={{textAlign:"center"}}>
-                      <h1>{this.state.nombreFase}</h1>
+                <div style={{textAlign:"center",backgroundColor:"#002D3D",color:"#6CDCD6"}}>
+                      <h1>Fase : {this.state.nombreFase}</h1>
                       <h2>{this.state.descripcionFase}</h2>
                 </div>
               
@@ -626,6 +651,8 @@ var styles = {
       width: '90%',
     }
   }
+  
+
  /*
   $(document).ready(function(){
     $("#button_finish").click(function(){
