@@ -45,10 +45,11 @@ class PresiEventos_asignarEvaTable  extends Component {
       
       //this.handleNextChildComponentChange(NewEventPage);
     }
-    handleClickAddEval =(idE)=>{
+    handleClickAddEval =(idE,nom)=>{
       console.log("retrievedJson");
       this.handleNextChildComponentChangeProps({   
          idEvento: idE,
+         nomb_evento:nom,
          Usuario:this.props.nextChildComponentProps.Usuario
       });
       console.log("redireccion para AsignEvalPropuesta");
@@ -131,7 +132,7 @@ class PresiEventos_asignarEvaTable  extends Component {
                (<JActionButton
                   button_class ="fa fa-plus" 
                   idEvento={idEvento} 
-                  onClick={()=>this.handleClickAddEval(element.idEvento)}/>
+                  onClick={()=>this.handleClickAddEval(element.idEvento,nombre)}/>
                ):
                (<div title="No puedes asignar evaluadores">-</div>
                 )

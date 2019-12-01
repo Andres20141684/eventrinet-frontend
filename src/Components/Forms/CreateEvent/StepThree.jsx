@@ -56,13 +56,15 @@ handleChangeFaseDate(value,i,str,str2){
   let val = this.state.values;
   val[i][str] = value;
   this.DateFormat(value,val[i],str2)
-  this.setState({ values:val });
-  this.props.handleChange2(this.state.values,"fases")
   if(str=="faseFin"){
+    val[i].faseEvalIni = '';
+    val[i].faseEvalPresiIni = '';
     this.props.handleChange2("","fechPref")
     this.props.handleChange2("","fCRFin")
     this.props.handleChange2("","fCRIni")
   }
+  this.setState({ values:val });
+  this.props.handleChange2(this.state.values,"fases")
   
 }
 
@@ -196,7 +198,7 @@ evitarMasFases(){
                       />
                   </div>
                 </Row>
-                                  
+                {this.props.fCRFin===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}                    
               </FormGroup>:null}
               
             </div>
@@ -218,7 +220,8 @@ evitarMasFases(){
                         onChange={(e)=> this.props.handleChange2(e,"fechPref")}
                       />
                   </div>
-                </Row>        
+                </Row>
+                {this.props.fechPref===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}          
               </FormGroup><br/>
       </div>
     );
