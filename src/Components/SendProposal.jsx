@@ -106,7 +106,10 @@ class SendProposal extends Component{
     shouldComponentUpdate(nextProps,nextState){
         if(nextState.eventriEvent != this.state.eventriEvent){
             return true;
-          }
+        }
+        if(nextState.Categorias != this.state.Categorias){
+            return true;
+        }
           return false;
     }
     renderCategories(){
