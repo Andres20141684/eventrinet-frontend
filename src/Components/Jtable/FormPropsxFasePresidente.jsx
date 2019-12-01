@@ -594,6 +594,7 @@ class FormPropsxFasePresidente extends Component {
   showModalDetalleEvaluador = (idEvaluador, idPropuesta,evaluador) => {
     console.log('props',this.props);
     
+    console.log("matame: ",idEvaluador,this.state.idFase,idPropuesta);
     Networking.mostrarCalificacionXPropuestaApresi(idEvaluador,this.state.idFase,idPropuesta).then(
       (response) => {
         console.log(response);
