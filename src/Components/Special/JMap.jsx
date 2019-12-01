@@ -202,7 +202,7 @@ class JMap extends Component {
       <div id="pac-container">
         <input id="pac-input" type="text" className="form-control" 
             placeholder="Escribe una dirección"
-            readOnly={true} value={this.props.lugar}/>
+            readOnly={true} value={this.props.lugar}/>  
       </div>
     </div> 
     <div class="pac-card" id="pac-card_seach">
