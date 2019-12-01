@@ -88,8 +88,7 @@ class StepTwoSendPropuesta extends React.Component {
   renderHeaders(){
     return(
       <tr>
-          <th align= "left" scope="col">Categoria</th>
-          <th scope="col">Agregar</th>
+          <th style={{textAlign: "center"}} scope="col">Categorias</th>
       </tr>
     )
   }
@@ -111,16 +110,25 @@ class StepTwoSendPropuesta extends React.Component {
       const {idCategoria, descripcion} = element
       return (
       <tr >
-            <td >{index+1} &nbsp;&nbsp; {descripcion}</td>
             <td >
-              <form>
+              <div class="col-md-12">
+                <div class="col-md-3">
+                {index+1}
                   <input
                     type="checkbox"
                     id={idCategoria}
                     name='categorias'
                     onChange={this.handleChecked}
                   />
-              </form>
+                  </div>
+                  <div class="col-md-9">
+                  {descripcion}
+                    </div>
+                    </div>
+
+
+            
+              
             </td>
       </tr>
       )});
@@ -165,7 +173,8 @@ class StepTwoSendPropuesta extends React.Component {
       {
         label:"Escge las categorias a participar",
         category:'Jtable',
-        id:"id_resumen",             
+        id:"id_resumen",    
+        label:"Marca las casillas de las categorias en las cuales deseas participar",         
         headers:this.renderHeaders,
         body:this.renderBody
       }
@@ -183,9 +192,23 @@ class StepTwoSendPropuesta extends React.Component {
       }
 
     ]
+    const inputEntregable=[
+      
+      {
+        label: "Subir el entregable descrito en la descripcion de la fase. (Si son varios, comprimelos en un solo archivo de extencion .zip)",
+        id_drop_zone:"drop_zone_entregable",
+        idprogressbar:"progress_bar_entregable",
+        category:'JUpload',
+        onChange: this.handleOnLoadE,
+        fileNedded:this.props.entregableNeeded,
+        formato:"pdf",
+        maxTamanio:100
+      }
+
+    ]
     return (
-      <div id={this.props.id}>
-        <h1>Ingresa los detalles de la propuesta y sube un archivo</h1>
+      <div id={this.props.id} style={{color:"#002D3D"}}>
+        <h1 style={{textAlign:"center"}}>Ingresa los detalles de la propuesta y sube un archivo</h1>
 
         <JCardForm
           arrayOfInputData={inputPaperDescripcion}
@@ -205,6 +228,10 @@ class StepTwoSendPropuesta extends React.Component {
                 arrayOfInputData={inputCamposPers}
                 cardHeadingText = "Informacion personalizada por fase:"
               />
+        <JCardForm
+          arrayOfInputData={inputEntregable}
+          cardHeadingText = "Sube el entregable de la fase : "
+      /> 
     
       </div>
     )
