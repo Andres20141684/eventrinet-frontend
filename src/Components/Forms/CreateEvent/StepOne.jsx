@@ -121,7 +121,7 @@ export default class StepOne extends React.Component {
                   
             </div>
             </Row>
-            <label >Fechas de la Realizacion del evento:</label><br/>  
+            <label >Fechas de la Realización del evento:</label><br/>  
             <Row>           
                   <div class="form-group col-md-6"> 
                   <label >Fecha Inicio</label>

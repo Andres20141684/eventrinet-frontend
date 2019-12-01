@@ -334,7 +334,7 @@ function ModalDetallePropuesta (props) {
                       <div class="form-group row">
                         <label for="staticEmail" class="col-sm-4 col-form-label">Resumen</label>
                         <div class="col-sm-6">
-                        <textarea readOnly className="form-control" type="text"  id="staticEmail" value={props.estados.propuestaActual.resumen} />
+                        <textarea readOnly className="form-control" type="text"  id="staticEmail" rows={15} value={props.estados.propuestaActual.resumen} />
                         </div>
                       </div>
                       <div class="form-group row">
@@ -594,6 +594,7 @@ class FormPropsxFasePresidente extends Component {
   showModalDetalleEvaluador = (idEvaluador, idPropuesta,evaluador) => {
     console.log('props',this.props);
     
+    console.log("matame: ",idEvaluador,this.state.idFase,idPropuesta);
     Networking.mostrarCalificacionXPropuestaApresi(idEvaluador,this.state.idFase,idPropuesta).then(
       (response) => {
         console.log(response);

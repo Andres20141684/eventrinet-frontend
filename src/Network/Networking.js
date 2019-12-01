@@ -333,6 +333,23 @@ export async function getPaper2(idPropuesta) {
         return error
     }
 }
+export async function getEntregable(idFase, idPropuesta) {
+    /*329_154 */
+    try {
+        let response = await fetch(restURL+'propuesta/devolver_entregable/'+(idFase.toString())+"_"+(idPropuesta.toString()) ,{
+            method:'GET',
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        
+
+          return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
 
 export async function insertNewEvent(data){
 
@@ -684,33 +701,7 @@ export async function listar_categoriasPorEvento(_idEvento) {
         console.error(error);
         console.error('CATCH ALCANZADO :(');
     }
-}/*
-export async function registrar_PrefXCat(idEvento, idUsuario, idCategoria) {
-    
-    try {
-        console.log('RECIBI UN param: ' + idEvento);
-        let response = await fetch(restURL 
-            + 'evaluador/registrar_preferencias_categoria', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                idEvento: idEvento,
-                idUsuario : idUsuario,
-                idCategoria : idCategoria
-            }),
-        });
-        let responseJson = await response.json();
-        console.log(responseJson);
-        return responseJson;  
-    } catch (error) {
-        console.error(error);
-        console.error('CATCH ALCANZADO :(');
-    }
-}*/
+}
 
 export async function ListarPrefXCateg(idEvento, idUsuario) {
     
@@ -1095,7 +1086,7 @@ export async function listarFasesXEvento(idEvento) {
 
 export async function AlgoritmoAsignacion(data){
     try {
-        let response= await fetch(restURL+'propuesta/algoritmo',{
+        let response= await fetch(restURL+'algoritmo',{
             method:'POST',
             mode:'cors',
             headers: {Accept:"application/json","Content-Type":"application/json"},

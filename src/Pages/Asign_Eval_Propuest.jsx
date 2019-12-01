@@ -5,7 +5,7 @@ import { is } from '@babel/types';
 import ActionButton from '../Components/Jtable/ActionButton';
 import ChipsLista from '../Components/ListOfChips';
 import Dialog from '@material-ui/core/Dialog';
-import {DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import {DialogContent, DialogContentText, DialogActions, Chip, makeStyles } from '@material-ui/core';
 import Select from "react-dropdown-select";
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PresiAsignarEvalEvents from './PresiAsignarEvalEvents';
@@ -16,18 +16,20 @@ import EvaluadorPreferenceCategoria from './EvaluadorPreferenceCategoria';
 
 const Networking = require('../Network/Networking.js') ;
 
-const options=[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:2,nombre:'Pepito',correo:'pepex@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]
 var aux=[]
-function MainTittle(props){
-    console.log(props)
-    return ( <div>
-    <div style={{marginLeft:15}}>
-        <h3><br/>{props.nomb_evento}</h3>
-    </div>    
-    </div>
-    )
-}
 
+const useStyles = makeStyles(theme => ({
+   root: {
+     display: 'flex',
+     justifyContent: 'center',
+     flexWrap: 'wrap',
+     padding: theme.spacing(0.5),
+   },
+   chip: {
+     margin: theme.spacing(0.5),
+   },
+ }));
+ 
 class AsignEvalPropuesta  extends Component {
     constructor(props){
        super(props);
@@ -124,7 +126,7 @@ class AsignEvalPropuesta  extends Component {
       Networking.PropuestaxEvento(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
          console.log(value)
          value.Propuestas.map((element,index)=>{
-            object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores}
+            object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores,categorias:element.Categorias}
             listaAux.push(object);
             console.log(object);
             console.log(listaAux);
@@ -132,6 +134,7 @@ class AsignEvalPropuesta  extends Component {
          this.setState({datos_tabla:listaAux,tipoPref:value.tipoPref});   
          console.log(this.state.datos_tabla); 
       });   
+      this.setState({nombre:this.props.nextChildComponentProps.nomb_evento})
     }
 
     shouldComponentUpdate(nextProps, nextState){
@@ -175,7 +178,8 @@ class AsignEvalPropuesta  extends Component {
       var tipoPref=1
       let dataFlow={
          idEvento:this.props.nextChildComponentProps.idEvento,
-         Usuario:this.props.nextChildComponentProps.Usuario
+         Usuario:this.props.nextChildComponentProps.Usuario,
+         nomb_evento:this.props.nextChildComponentProps.nomb_evento
       }
       if(this.state.tipoPref==2){ //Tipo por propuesta
          this.handleNextChildComponentChangeProps(dataFlow);
@@ -187,15 +191,15 @@ class AsignEvalPropuesta  extends Component {
       }
    }
    handleAplicarAlgortimo(){
-      var listaAux=[];
+      var listaAux=[...this.state.datos_tabla];
        var object={};
 
       Networking.AlgoritmoAsignacion(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
          console.log(value)
          value.Propuestas.map((element,index)=>{
-            object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores}
-            listaAux.push(object);
-            console.log(object);
+            //object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores}
+            listaAux[index].evaluadores=[...element.Evaluadores]
+            console.log(index);
             console.log(listaAux);
          })
          this.setState({datos_tabla:listaAux});   
@@ -214,6 +218,23 @@ class AsignEvalPropuesta  extends Component {
           return (
           <tr >
                 <td >{nombre}</td>
+                <td>
+                  <div style={{float:'left',display: 'flex',
+                              justifyContent: 'center',
+                              flexWrap: 'wrap',
+                              padding: '0.5px'}}>
+                   {
+                      element.categorias.map(data => {
+                        return (
+                        <Chip
+                           style={{fontSize:'12px'}}
+                           label={data.descripcion}
+                           className={useStyles.chip}
+                        />
+                        );})
+                   }
+                   </div>
+                </td>
                 <td >
                    <div style={{float:'left'}}>
                    {element.evaluadores.length==0?null:
@@ -238,6 +259,9 @@ class AsignEvalPropuesta  extends Component {
                          {this.state.loading===true?
                          <div>
                            <DialogContent component={'span'}>
+                           <DialogContentText>
+                           <h2>Procesando...</h2>
+                           </DialogContentText>
                            <div class='col-md-4'></div>
                            <div class='col-md-4'>
                               <Fade
@@ -251,15 +275,12 @@ class AsignEvalPropuesta  extends Component {
                               </Fade>
                            </div>
                            <div class='col-md-4'></div>
-                              <DialogContentText>
-                                 <h2>Procesando...</h2>
-                                 </DialogContentText>
                            </DialogContent>
 
                         </div>:
                         <div>
                            <DialogTitle class="modal-header" style={{paddingBottom:"5px"}}>Seleccione un Evaluador</DialogTitle>
-                           <DialogContent component={'span'} style={{height:'150px',width:'350px'}}>
+                           <DialogContent component={'span'} style={{height:'200px',width:'350px'}}>
                               <div class='col-md-8'>
                                  <DialogContentText component={'span'}>
                                     <div >
@@ -314,10 +335,6 @@ class AsignEvalPropuesta  extends Component {
    
    
       render() {
-       //console.log(this.state.datos_tabla.Eventos.length);
-       //superWait(this.state.datos_tabla.Eventos);
-         //this.state = this.props.data
-         //console.log('this.props.data:', this.props.data);
          console.log('RENDER DE MRD! se loqueo');
           return (
              <div>
@@ -326,9 +343,11 @@ class AsignEvalPropuesta  extends Component {
                 <div class='panel-body'>
                 <div class="panel" >
                   <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                     <h3>{this.state.nombre}</h3>
-                     {/*<a  class="pull-right" onClick={this.handleClickCrearActualizar} 
-                     value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>*/}
+                     <div>
+                     <div style={{marginLeft:15}}>
+                        <h3><br/>{this.state.nombre}</h3>
+                     </div>    
+                     </div>
                   </div>
                   <div class='col-md-12'>
                      <div class='col-md-4'><label>Mostrar Preferencias:</label></div>
@@ -346,9 +365,10 @@ class AsignEvalPropuesta  extends Component {
                   <table class="table  table-hover">
                   <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                      <tr >
-                        <th width="37%" align= "left" scope="col">Papers</th>
-                        <th width="57%" scope="col">Evaluadores</th>
-                        <th width="6%" scope='col'>Añadir</th>
+                        <th width="30%" align= "left" scope="col">Papers</th>
+                        <th width="15%" align= "left" scope="col">Categorias</th>
+                        <th width="50%" scope="col">Evaluadores</th>
+                        <th width="5%" scope='col'>Añadir</th>
                      </tr>
                   </thead>
                   <tbody style={{fontSize:'16px'}}>{this.tableData()}</tbody>
@@ -372,83 +392,3 @@ class AsignEvalPropuesta  extends Component {
 
 export default AsignEvalPropuesta;
 
-/*            <div> 
-    <div style={{marginLeft:15}}>
-        <h1 style={{fontSize:35}}><br/>{this.state.nombre_evento}</h1>
-    </div>
-    <div style={{marginLeft:40,marginTop:25}} ><h2>Preferencias por categorías</h2></div>
-            
-            <div class="container" >
-                <div class ="panel-body">
-                
-                    <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
-
-                            <TabList>
-                                <Tab>Lista de categorías por evento</Tab>
-                            </TabList>
-                            <TabPanel>
-                                <br/>
-                                <this.state.formActives  
-                                    onNextChildComponentChange={this.props.onNextChildComponentChange} 
-                                    onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                                    idEvento = {this.props.nextChildComponentProps.id_evento_nextProps}
-                                    idEvaluador = {this.props.nextChildComponentProps.idUser_recived}
-                                />
-                            </TabPanel>
-                            
-                        </Tabs>
-                        <div>
-        <h2><br/></h2>
-        <h3>
-        <button class="mybutton" onClick={this.elegirPrefCat} style={{float:'left'}}>Atras</button>
-        <br/><br/>
-        </h3>
-    </div>
-                    </div>
-                </div>
-                <br/><br/>
-                
-                </div>
-                
-
---------------------------------------------------------
-                <td >{estado}</td>
-                <td >{fechaIni}</td>
-                <td >{fechaFin}</td>
- 
-                <td>
-                   <ActionButton 
-                         id_evento={idEvento} 
-                         nomb_evento ={nombre} 
-                         idUser_recived={this.state.idUser_recived} 
-                         button_class ="fa fa-edit" 
-                         onNextChildComponentChange={this.props.onNextChildComponentChange}
-                         onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                         redirect_to="/"
-                   />
-                </td> 
- 
-                <td>
-                   <ActionButton 
-                      id_evento={idEvento} 
-                      nomb_evento ={nombre} 
-                      idUser_recived={this.state.idUser_recived} 
-                      button_class ="fa fa-play" 
-                      onNextChildComponentChange={this.props.onNextChildComponentChange}
-                      onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                      redirect_to="/"
-                   />
-                </td> 
- 
-                <td>
-                   <ActionButton
-                      id_evento={idEvento} 
-                      nomb_evento ={nombre} 
-                      idUser_recived={this.state.idUser_recived} 
-                      button_class ="fa fa-times" 
-                      onNextChildComponentChange={this.props.onNextChildComponentChange}
-                      onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                      redirect_to="/"
-                   />
-                </td> 
-             */

@@ -23,7 +23,7 @@ class ListadoPropuestasAEvaluar extends Component {
        rememberMe: false,
        idEvento: 0,
        nombre_evento : "Evento 1",
-       nomb_fase : "asd",
+       nomb_fase : "",
        props_antiguos : {}
        //idEvaluador : 0,
            
@@ -52,7 +52,8 @@ class ListadoPropuestasAEvaluar extends Component {
     idEvento : this.props.idEvento,
     idFase : this.props.props_antiguos.nextChildComponentProps.idFase,
     nomb_fase : this.props.props_antiguos.nextChildComponentProps.nomb_fase,
-    props_antiguos : this.props.props_antiguos
+    props_antiguos : this.props.props_antiguos,
+    idUser_recived : retrievedJson.infoUsuario.idUsuario,
   });
 
 
@@ -82,9 +83,9 @@ class ListadoPropuestasAEvaluar extends Component {
     //console.log("Props del listado ! :",this.props);
     
  }
- /*
- shouldComponentUpdate(nextProps,nextState){
-  if(nextState.nomb_fase == ""){ //aqui se actualizan los states ...
+ 
+ /*shouldComponentUpdate(nextProps,nextState){
+  /*if(nextState.nomb_fase != this.state.nomb_fase){ //aqui se actualizan los states ...
       console.log("<<cambio mi idEvento<<<",nextState.idEvento,"-",this.state.idEvento);
       console.log("<<idEvaluador<<",nextState.idEvaluador);
       console.log("<<Nombre del evento<<",nextState.nombre_evento);
@@ -92,7 +93,9 @@ class ListadoPropuestasAEvaluar extends Component {
       console.log("<<nomb_fase<<",nextState.nomb_fase);
       return true;
   }
-  return false;
+  if (this.state.datos_tabla != nextState.datos_tabla){
+    return true;
+  }
 
 }*/
 

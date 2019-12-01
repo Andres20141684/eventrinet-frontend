@@ -65,8 +65,12 @@ class EvaluadorEvaluarPropuestas extends Component{
                 console.log('si hay algo: A ACTUALIZAR EL ESTADO');
                 console.log("nombre_fase:############################ ",value.Fase.nombre);
                 console.log("WAAAAAAAAA else LE CAMBIE EL ID FASE?", this.state.idFase);
-                this.state.nomb_fase = value.Fase.nombre;
-                this.state.idFase = value.Fase.idFase;
+                this.setState({
+                    nomb_fase : value.Fase.nombre,
+                    idFase : value.Fase.idFase,
+                  });
+                /*this.state.nomb_fase = value.Fase.nombre;
+                this.state.idFase = value.Fase.idFase;*/
                 console.log("WAAAAAAAAA else LE CAMBIE EL ID FASE?", this.state.idFase);
                 
 
@@ -87,7 +91,7 @@ class EvaluadorEvaluarPropuestas extends Component{
         this.props.onNextChildComponentChange(EvaluadorEventosListados);
      }
 
-     /*shouldComponentUpdate(nextProps,nextState){
+     shouldComponentUpdate(nextProps,nextState){
         if (nextState.nomb_fase != this.state.nomb_fase){//no hace nada :V
             console.log("COMPONENT UPDATE: nomb fase: ", this.state.nomb_fase, nextState.nomb_fase)
             console.log("<<cambio mi idEvento<<<",nextState.idEvento,"-",this.state.idEvento);
@@ -98,7 +102,7 @@ class EvaluadorEvaluarPropuestas extends Component{
             return true;
         }
         return true;
-    }*/
+    }
    
     render(){
         //console.log("nombre de la fase: ",nombre_DE_fase);
@@ -118,7 +122,7 @@ class EvaluadorEvaluarPropuestas extends Component{
                     <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
 
                             <TabList>
-                                <Tab>{this.props.nextChildComponentProps.nomb_fase}</Tab>
+                                <Tab>{this.state.nomb_fase}</Tab>
                             </TabList>
                             <TabPanel>
                                 <br/>
