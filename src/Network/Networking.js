@@ -333,6 +333,23 @@ export async function getPaper2(idPropuesta) {
         return error
     }
 }
+export async function getEntregable(idFase, idPropuesta) {
+    /*329_154 */
+    try {
+        let response = await fetch(restURL+'propuesta/devolver_entregable/'+(idFase.toString())+"_"+(idPropuesta.toString()) ,{
+            method:'GET',
+        });
+        let responseJson = response.json();
+        console.log(responseJson);
+        
+
+          return responseJson;
+
+    } catch (error){
+        console.log(error);
+        return error
+    }
+}
 
 export async function insertNewEvent(data){
 
