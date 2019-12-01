@@ -196,7 +196,7 @@ class JMap extends Component {
        <div class="pac-card" id="pac-card_vista">
       <div style={{paddingBottom: "5px"}}>
         <div id="search_title">
-          Escribe la dirección:
+          Dirección del Evento:
         </div>
       </div>
       <div id="pac-container">

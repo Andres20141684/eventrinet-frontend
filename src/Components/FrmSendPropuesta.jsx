@@ -12,6 +12,8 @@ import Jloading from './Special/Jloading';
 import PropoMyProposals from '../Pages/ProposerMyProposals';
 import Dashboard from './Dashboard';
 import JStep from './JStep';
+import JStepper from './Special/JStepper';
+import './../styles/styles_SendPropuesta.css';
 const Networking = require('./../../src/Network/Networking') ;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -74,6 +76,7 @@ class FrmSendPropuesta extends React.Component {
         CamposPers: [],
         respuestasPers:[],
         entregable:null,
+        solicitaData:true,
       }
       this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
       this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
@@ -139,6 +142,11 @@ class FrmSendPropuesta extends React.Component {
             
             console.log('si hay algo:');
             this.setState({CamposPers:value.CamposPerson});
+            if(value.CamposPerson.length===0 &&
+                          value.necesitaArchivo===0 &&
+                          value.necesitaEntregable===0 && value.flagPrimeraFase===0){
+                            this.setState({solicitaData:false});
+                          }
             for(var _index=0; _index < this.state.CamposPers.length;_index++){
               this.state.respuestasPers.push(
                 { idCampopersonalizado     : this.state.CamposPers[_index].idCamposPEnun,
@@ -185,6 +193,9 @@ class FrmSendPropuesta extends React.Component {
       if(this.state.modal != nextState.modal){
         return true;
      }
+     if(this.state.solicitaData != nextState.solicitaData){
+      return true;
+   }
       return false;
    }
   
@@ -201,8 +212,24 @@ class FrmSendPropuesta extends React.Component {
     };
   
     handleBack = () => {
-      window.location.replace("./?EventriEvents&idEvento="+this.props.nextChildComponentProps.evento.idEvento);
-    };
+      if(this.state.flagPrimeraFase===0){
+        this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario,evento:this.props.nextChildComponentProps.evento});
+        this.handleNextChildComponentChange(PropoMyProposals);
+        //window.location.replace("./?EventriEvents&idEvento="+this.props.nextChildComponentProps.evento.idEvento);
+        return;
+      }
+      if(this.state.currentstep===0){
+        //rediirige
+        this.handleNextChildComponentChangeProps({Usuario:this.props.nextChildComponentProps.Usuario,evento:this.props.nextChildComponentProps.evento});
+        this.handleNextChildComponentChange(SendProposal);
+        //window.location.replace("./?EventriEvents&idEvento="+this.props.nextChildComponentProps.evento.idEvento);
+    
+      }else{
+        var _currentStep = this.state.currentstep;
+        _currentStep= _currentStep-1;
+        this.setState({currentstep:_currentStep});
+      }
+      };
 /** envio de los datos */
     handleFinish = () =>{
       //console.log("getttttte",document.getElementById("myModal"));
@@ -377,10 +404,8 @@ class FrmSendPropuesta extends React.Component {
                         Regresar
                       </button>
                       {
-                        ((this.state.CamposPers.length===0)
-                          (this.state.fileNeeded===0 )&&
-                          (this.state.entregableNeeded===0)
-                          )?<></>:<button  
+                        this.state.solicitaData===true
+                          ?<button  
                         type="button"  data-toggle="modal" data-target="#JModal"
                             id="button_finish"
                             style={{float:'right',display:"block"}} 
@@ -389,8 +414,8 @@ class FrmSendPropuesta extends React.Component {
                             onClick={this.handleFinish}
                             >
                         Finalizar
-                      </button>
-                      }
+                      </button>:<></>}
+                      
                       
                       </div>
                         
@@ -399,27 +424,6 @@ class FrmSendPropuesta extends React.Component {
         case 0:        
           return (
             <div className={useStyles.root}>
-              <div class="row">
-                <div class="col-md-12">
-                  <ul class="stepper stepper-horizontal">
-                  {this.renderStepper(this.state.currentstep)}
-                  </ul>
-                </div>
-              </div>
-              <Stepper 
-                        activeStep={this.state.currentstep} alternativeLabel>
-                        {this.state.steps.map(label => (
-        <Step key={label}>
-            <StepLabel 
-            classes={{
-              iconContainer:useStyles.iconContainer,
-            alternativeLabel: useStyles.alternativeLabel}}>
-              {label}
-              </StepLabel>
-                                                        </Step>
-                        ))}
-                </Stepper>
-                
           <this.state.step1 
                     Usuario={this.props.nextChildComponentProps.Usuario}
                     multiHandle={this.handleValue}
@@ -456,20 +460,10 @@ class FrmSendPropuesta extends React.Component {
               );
           
         case 1:        
-          return (<div>
-            <Stepper 
-                        activeStep={this.state.currentstep} alternativeLabel>
-                        {this.state.steps.map(label => (
-        <Step key={label}>
-            <StepLabel 
-            classes={{
-              iconContainer:useStyles.iconContainer,
-            alternativeLabel: useStyles.alternativeLabel}}>
-              {label}
-              </StepLabel>
-                                                        </Step>
-                        ))}
-                </Stepper>
+          return (
+          <div>
+            
+                
                 <this.state.step2
           Usuario={this.props.nextChildComponentProps.Usuario}
           CamposPerson={this.state.CamposPers}
@@ -606,20 +600,27 @@ class FrmSendPropuesta extends React.Component {
         
         
         return (
-           
-           <div   style={styles.frmCreateEvent}>
-              
-                <h1>Evento: {this.props.nextChildComponentProps.evento.nombre}</h1>
+          
+           <div className="wrapper_sendPropuesta">
+            
+           <div   style={styles.sendPropuesta}>
+               <div className="md-stepper-horizontal blue" style={styles.wrapperForm}>
+                <h1>Evento: {this.props.nextChildComponentProps.evento.nombre ||this.props.nextChildComponentProps.evento.nombEvento}</h1>
                 <h1>Lugar: {this.props.nextChildComponentProps.evento.lugar} - {this.props.nextChildComponentProps.evento.fechaIni}</h1>
             
                 <div style={{textAlign:"center",backgroundColor:"#002D3D",color:"#6CDCD6"}}>
                       <h1>Fase : {this.state.nombreFase}</h1>
                       <h2>{this.state.descripcionFase}</h2>
                 </div>
-              
             
+            <JStepper
+                content={this.state.solicitaData}
+                flagPrimeraFase={this.state.flagPrimeraFase}
+                currentStep={this.state.currentstep}
+               
+                labelfase={this.state.nombreFase}
+            />
             
-            <div>
                 
                     {this.renderStep(this.state.currentstep)}
 
@@ -635,7 +636,7 @@ class FrmSendPropuesta extends React.Component {
                     footer={this.makefooterModal(this.state.modal)}
                   />
 
-           </div>
+           </div></div>
         )
       
     }
@@ -649,6 +650,15 @@ var styles = {
       paddingBottom: 120,
       paddingLeft: 50,
       width: '90%',
+    },
+    sendPropuesta:{
+      alignSelf:"center",
+      padding: "2% 15% 2% 15%",
+      backgroundColor:"#f2f2f2",
+    },
+    wrapperForm:{
+      paddingTop: "2%",
+      paddingBottom: "2%",
     }
   }
   

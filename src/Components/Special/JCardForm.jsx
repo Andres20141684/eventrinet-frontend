@@ -16,11 +16,11 @@ class JCardForm extends Component {
         if (inputData.category === 'textArea') {
             _inputs.push(
                 <Row >
-                    <div class="form-group col-md-12">
-                    <div class ="col-md-2">
+                    <div class="form-group col-md">
+                    
                         <label >{inputData.label}</label>
-                        </div>
-                        <div class ="col-md-10">
+                        
+                        
                         {inputData.readonly?
                         <input 
                             type="text" 
@@ -40,55 +40,55 @@ class JCardForm extends Component {
                             value={inputData.value}
                             autoFocus
                         />}
-            </div>
-                    </div>
-                </Row>
+            </div></Row >
+                    
+                 
             );    
         } 
         if(inputData.category === 'other'){
             _inputs.push(
-            <Row>
+                <Row >
+                <div class="form-group col-md">
               {inputData.other}
-              </Row>
+              </div></Row >
+               
               ); 
         }
         if(inputData.category === 'comboBox'){
             _inputs.push(
-            <Row>
-              <div class="form-group col-md-12">
-              <div class ="col-md-2"><label >{inputData.label}</label></div> 
-              <div class ="col-md-10"><select 
+                <Row >
+                <div class="form-group col-md">
+              <label >{inputData.label}</label>
+              <select 
                         name={inputData.name}
                         class="form-control" 
                         id={inputData.id}
                         onChange={inputData.onChange}>
                   
                     {inputData.options}
-                </select>
-              </div></div>
-              </Row>
+                </select></div>
+                </Row >
               ); 
         }
         if(inputData.category === 'Jtable'){
             {console.log("agregue una tabla")}
             _inputs.push(
-            <Row>
-              <div class="form-group col-md-12">
-              <div class ="col-md-4"><label >{inputData.label}</label></div> 
-              <div class ="col-md-8">
+                <Row >
+                <div class="form-group col-md">
+              <label >{inputData.label}</label>
+              
               <JTable
                     headers={inputData.headers}
                     body={inputData.body}
                 />
-                </div>
-                </div>
-              </Row>
+                </div></Row >
+               
               ); 
         }
         if(inputData.category === 'textBox'){
             _inputs.push(
-            <Row>
-              <div class="form-group col-md-12">
+                <Row >
+                <div class="form-group col-md">
               <label >{inputData.label}</label> 
               <textarea 
                     type="text" 
@@ -98,9 +98,8 @@ class JCardForm extends Component {
                     placeholder={inputData.placeholder}              
                     onChange={inputData.onChange}
              
-                    />
-              </div>
-              </Row>
+                    /></div>
+               </Row>
             ); 
         }
         if(inputData.category === 'JUpload'){
@@ -111,26 +110,26 @@ class JCardForm extends Component {
                 return;
             }
             _inputs.push(
-            <Row>
-              <div class="form-group col-md-12">
-              <div class ="col-md-4"><label>{inputData.label}</label></div>
-                  <div class ="col-md-8">
-              
+             <Row >
+                <div class="form-group col-md">
+                    
+                    <label>{inputData.label}</label>
+                  
               <JUpload
                     id_drop_zone={inputData.id_drop_zone}
                     onSuccesLoad={inputData.onChange}
                     formato={inputData.formato}
                     maxTamanio={inputData.maxTamanio}
                 />
-                </div></div>
-              </Row>
+                </div></Row>
+               
               ); 
         }
         
         });
         if(_inputs.length>0){
         return(
-            <div class="panel-group mx-auto" style={{width: "700px"}}>
+            <div style={Styles.panel}>
                 <div  class="panel panel-default">
                     <div class="panel-heading">
                         <h1>
@@ -140,9 +139,11 @@ class JCardForm extends Component {
                     </div>
 
                     <div class="panel-body">
+                    <div class="form-group col-md">
                         {_inputs}
-                    </div>
+                    </div></div>
                 </div>
+                <br/>
             </div>
         );
         }else{
@@ -152,3 +153,17 @@ class JCardForm extends Component {
     }
 }
 export default JCardForm;
+
+var Styles = {
+    rotulos:{
+      paddingRight: 80,
+    },
+    panel:{
+      margin:'auto',
+      maxWidth:'700px',
+      minWidth:'330px',
+      paddingRight:'2%',
+      paddingLeft:'2%',
+    }
+  }
+  
