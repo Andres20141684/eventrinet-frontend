@@ -280,7 +280,7 @@ class AsignEvalPropuesta  extends Component {
                         </div>:
                         <div>
                            <DialogTitle class="modal-header" style={{paddingBottom:"5px"}}>Seleccione un Evaluador</DialogTitle>
-                           <DialogContent component={'span'} style={{height:'150px',width:'350px'}}>
+                           <DialogContent component={'span'} style={{height:'200px',width:'350px'}}>
                               <div class='col-md-8'>
                                  <DialogContentText component={'span'}>
                                     <div >
