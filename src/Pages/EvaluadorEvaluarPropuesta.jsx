@@ -15,6 +15,10 @@ const Networking = require('../Network/Networking.js');
 
 var numCriterios = 0;
 var arreglo_aux = [];
+
+var btnProp;
+var btnEnt;
+
 class EvaluadorEvaluarPropuesta extends Component {
   constructor(props) {
     super(props);
@@ -169,7 +173,17 @@ class EvaluadorEvaluarPropuesta extends Component {
         this.state.coautores = value.coautores;
         this.state.nomb_autor = value.nombreAutor;*/
         console.log('COAUTORES2 : ',this.state.coautores);
-      
+
+        btnProp = document.getElementById("button_propuesta");
+        btnEnt = document.getElementById("button_entregable");
+
+        if (value.tienePaper == 0 ){
+          btnProp.disabled = true;
+        }
+        if (value.tieneEntregable == 0){
+          btnEnt.disabled = true;
+        }
+
         console.log("states de categorias y desc prop: ", this.state.categorias_propuesta, this.state.desc_propuesta);
       }
 
@@ -261,13 +275,40 @@ class EvaluadorEvaluarPropuesta extends Component {
         this.setState({ link_propuestabase64: response.Propuesta,
         });
         //window.download(response.Propuesta, 'Save');
-        document.getElementById('JinSSJ').click();
+        if (btnProp.disabled === false ){
+          document.getElementById('JinSSJ').click();
+        }
 
       })
       .catch((err) => {
         console.log("error en conexión Propuesta");
       })
   }
+  handleClickBE = () => {
+    var elIDpropuesta = 120;
+    if (this.state.idPropuesta) {
+      elIDpropuesta = this.state.idPropuesta
+    }
+    console.log("WAA XD: ", this.state.idPropuesta);
+    console.log("a-->", document.getElementById('JinSSJ2'));
+
+    Networking.getEntregable(this.state.idFase, elIDpropuesta).then(
+      (response) => {
+
+        //console.log(">>>>>>>>>>>>>>>>>> Se descargo again ,", this.state.attempt);
+        console.log("---->", response.Entregable);
+        this.setState({ link_propuestabase64: response.Entregable,
+        });
+        //window.download(response.Propuesta, 'Save');
+        if (btnEnt.disabled === false) {
+          document.getElementById('JinSSJ2').click();
+        }
+      })
+      .catch((err) => {
+        console.log("error en conexión Propuesta");
+      })
+  }
+
 
 
   ListarCriterios() {
@@ -518,14 +559,24 @@ class EvaluadorEvaluarPropuesta extends Component {
           <div className="col-md-4" style={{ color: '#6CDCD6', float: 'right' }}>
 
             <button
-              id="button_finish"
-              style={{ width: '80px', marginTop: 10, marginBottom: 10 }}
+              id="button_propuesta"
+              style={{ width: '150px', marginTop: 10, marginBottom: 10 }}
               className="specialButton"
               color="primary"
               onClick={this.handleClickB}
-            ><i class="fa fa-download" style={{ color: '#6CDCD6' }}></i>
+            ><i class="fa fa-download" style={{ color: '#6CDCD6' }}>Propuesta</i>
             </button>
             <a id='JinSSJ' href={this.state.link_propuestabase64} title="Descargar propuesta" download={"Propuesta"} ></a>
+
+            <button
+              id="button_entregable"
+              style={{ width: '150px', marginTop: 10, marginBottom: 10 }}
+              className="specialButton"
+              color="primary"
+              onClick={this.handleClickBE}
+            ><i class="fa fa-download" style={{ color: '#6CDCD6' }}>Entregable</i>
+            </button>
+            <a id='JinSSJ2' href={this.state.link_propuestabase64} title="Descargar entregable" download={"Entregable"} ></a>
 
           </div>
           <br />
