@@ -12,7 +12,7 @@ class JStepper extends Component{
         }
     }
     componentWillMount(){
-
+//HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     }
     shouldComponentUpdate(nextState,nextProps){
         if(this.props.flagPrimeraFase != nextProps.flagPrimeraFase){
