@@ -9,15 +9,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../../../styles/style_sheets.css';
 import JUpload from '../../Special/JUpload';
+import JMap from '../../Special/JMap';
 
 
 export default class StepOne extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state={
       auxCat:'',
+      currentLugar:"PUCP",
     }
-    this.handleAuxChange=this.handleAuxChange.bind(this)
+    this.renderJMap=this.renderJMap.bind(this);
+    this.handleAuxChange=this.handleAuxChange.bind(this);
+    this.handleJchange_Hackeo=this.handleJchange_Hackeo.bind(this);
   }
 
   handleAuxChange(e,str){
@@ -26,7 +30,39 @@ export default class StepOne extends React.Component {
     })
     console.log(this.state)
   }
+  componentWillMount(){
+    this.setState({currentLugar:this.props.lugar});
+  }
  
+  handleJchange_Hackeo(e){
+    
+    var place = JSON.stringify(e.target.value);
+    console.log("---------------->" ,e.target.value);
+    //document.getElementById("id_name").value=e.target.value;
+    this.setState({currentLugar:place});
+    //var place2 = place.split("");
+    /************ JIN DE MRDA RECUERDA NO TOCAR LA WADA DE ARMANDO ********** */
+    this.props.handleChange({target:{value:place,name:"lugar"}});
+  }
+  renderInput(_value){
+    return(<><input 
+                    type="text" 
+                    name='lugar'
+                    class="form-control" 
+                    id="id_place"
+                    placeholder='Lugar del evento(igresala manualmente o con ayuda de googlemaps)'                
+                    onChange={this.props.onChange}
+                    value={_value}
+                    maxLength="150"
+                    readOnly={this.props.rol===1}
+                    /></>);
+  }
+  renderJMap(_lugar){
+    return(<JMap
+              lugar={_lugar}
+              mode={"event_creation"}
+            />);
+  }
 
   render () {
     return (
@@ -72,19 +108,17 @@ export default class StepOne extends React.Component {
             </Row>
             <Row>
             <div class="form-group col-md">
-                <label >Lugar</label>
-                <input 
-                    type="text" 
-                    name='lugar'
-                    class="form-control" 
-                    id="id_place"
-                    placeholder='Lugar'                
-                    onChange={this.props.handleChange}
-                    value={this.props.lugar}
-                    maxLength="150"
-                    readOnly={this.props.rol===1}
-                    />
-                  {this.props.lugar===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}  
+                <label >Lugar del evento</label>
+                {/*this.renderInput(this.state.currentLugar)*/}
+                    
+                  {this.props.lugar===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>} 
+                  <br/>
+                  <JMap
+                    lugar={this.props.lugar}
+                    mode={this.props.rol===1?"event_visualization":"event_creation"}
+                    onChange={this.handleJchange_Hackeo}
+                  />
+                  
             </div>
             </Row>
             <label >Fechas de la Realización del evento:</label><br/>  

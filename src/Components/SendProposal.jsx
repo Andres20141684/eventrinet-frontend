@@ -23,6 +23,7 @@ class SendProposal extends Component{
             asd: "vjglhbjftbvroauyberwuarytwgtwg",
             center: {},
         }
+        this.renderJMap=this.renderJMap.bind(this);
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
         this.handleNextChildComponentChangeProps=this.handleNextChildComponentChangeProps.bind(this);
     
@@ -102,6 +103,12 @@ class SendProposal extends Component{
         
         
     }
+    shouldComponentUpdate(nextProps,nextState){
+        if(nextState.eventriEvent != this.state.eventriEvent){
+            return true;
+          }
+          return false;
+    }
     renderCategories(){
         return this.state.Categorias.map(
             (element) => { const {descripcion}=element
@@ -113,7 +120,11 @@ class SendProposal extends Component{
         )
     }
      
-   
+    renderJMap(_lugar){
+        return(<JMap
+            lugar={_lugar}
+            mode ={"event_visualization"}/>);
+      }
     render(){
 
         console.log("solo hago copy &paste",this.state.eventriEvent);
@@ -192,7 +203,8 @@ class SendProposal extends Component{
                         onClick={this.handleClicInscripcionEvento}>Enviar Propuesta</button>
                     </div>    
                 </div>
-                <JMap/>
+                {this.renderJMap(this.props.nextChildComponentProps.evento.lugar)}
+                
                 <div class="container">
                 <Tabs defaultIndex={0}>
                     <TabList>

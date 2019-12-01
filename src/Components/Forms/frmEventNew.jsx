@@ -293,11 +293,10 @@ export default class EventNew extends Component{
         const target = event.target;
         const value = target.value;
         const name = target.name;
-
         this.setState({
-          [name]: value
+          [event.target.name]: event.target.value
         });  
-        this.validacion()
+       this.validacion()
       }
 
       handleChangeRadio(event,str) {
