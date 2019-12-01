@@ -285,10 +285,14 @@ export default class EventNew extends Component{
         const target = event.target;
         const value = target.value;
         const name = target.name;
-
+        console.log(event);
+        console.log(target);
+        console.log(value);
+        console.log(name);
         this.setState({
-          [name]: value
+          [event.target.name]: event.target.value
         });  
+        console.log("************",this.state.lugar);
         this.validacion()
       }
 
