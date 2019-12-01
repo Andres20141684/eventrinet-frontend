@@ -133,10 +133,10 @@ renderacademicLevel(){
 
 
     return (
-      <div id={this.props.id} style={{color:"#002D3D"}}>
+      <div id={this.props.id} class="panel-group" style={styles.panel,{color:"#002D3D"}}>
       
           <h1 style={{textAlign:"center"}}>Ingresa los datos del Autor y Co-autores</h1>
-            
+
               <JCardForm
                 arrayOfInputData={inputAutor}
                 cardHeadingText = "Datos Generales del Autor"
@@ -145,9 +145,6 @@ renderacademicLevel(){
                 arrayOfInputData={inputGenerales}
                 cardHeadingText = "Datos Generales de otro Autor: (puede dejarlo en blanco)"
               />
-              
-              
-
 
       </div>
       
@@ -158,5 +155,13 @@ export default StepOneSendPropuesta;
 var styles = {
   rotulos:{
     paddingRight: 80,
+  },
+  panel:{
+    margin:'auto',
+    maxWidth:'620px',
+    minWidth:'330px',
+    paddingRight:'2%',
+    paddingLeft:'2%',
   }
+
 }

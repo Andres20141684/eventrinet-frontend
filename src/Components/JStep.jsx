@@ -99,34 +99,51 @@ class JStep extends React.Component {
     const other=[
      { other : (<label >En esta fase no se requieren datos ni archivos adicionales, esta es una fase no evaluable</label>)}
     ]
-    return (
-      <div id={this.props.id}>
-      <JCardForm
-          arrayOfInputData={inputArchivo}
-          cardHeadingText = "Sube el archivo de tu Propuesta corregida: "
-      />
+    if(inputCamposPers.length===0 && this.props.entregableNeeded===0 &&
+      this.props.fileNeeded===0){
+        return(<><h1 style={{textAlign:"center"}}>En esta fase no se requieren datos ni archivos adicionales, es todo por ahora</h1></>);
+    }else{
+        return (
+              <div id={this.props.id} class="panel-group">
+                
+                <h1 style={{textAlign:"center"}}>Ingresa los datos solicitados de la fase actual</h1>
+
+              <JCardForm
+                  arrayOfInputData={inputArchivo}
+                  cardHeadingText = "Sube el archivo de tu Propuesta corregida: "
+              />
+              
+              <JCardForm
+                  arrayOfInputData={inputCamposPers}
+                  cardHeadingText = "Informacion solicitada para la Fase:"
+              />
+              
+
+              <JCardForm
+                  arrayOfInputData={inputEntregable}
+                  cardHeadingText = "Sube el entregable de la fase : "
+              /> 
+
+              
+
+
+              </div>)
+    }
+    
       
-      <JCardForm
-          arrayOfInputData={inputCamposPers}
-          cardHeadingText = "Informacion solicitada para la Fase:"
-      />
-      
-
-      <JCardForm
-          arrayOfInputData={inputEntregable}
-          cardHeadingText = "Sube el entregable de la fase : "
-      /> 
-
-      {(inputCamposPers.length===0 &&this.props.entregableNeeded===0 &&
-        this.props.fileNedded===0)?<JCardForm
-        arrayOfInputData={other}
-        cardHeadingText = "No hay nada que subir en esta fase "
-                />:null}
-
-
-      </div>
-      )
   }
 }
 export default JStep;
 // HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa
+var styles = {
+  rotulos:{
+    paddingRight: 80,
+  },
+  panel:{
+    margin:'auto',
+    maxWidth:'620px',
+    minWidth:'330px',
+    paddingRight:'2%',
+    paddingLeft:'2%',
+  }
+}

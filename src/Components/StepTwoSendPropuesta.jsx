@@ -88,7 +88,8 @@ class StepTwoSendPropuesta extends React.Component {
   renderHeaders(){
     return(
       <tr>
-          <th style={{textAlign: "center"}} scope="col">Categorias</th>
+          <th style={{textAlign: "left"}} scope="col">Nro</th>
+          <th style={{textAlign: "left"}} scope="col">Categorias</th>
       </tr>
     )
   }
@@ -110,25 +111,17 @@ class StepTwoSendPropuesta extends React.Component {
       const {idCategoria, descripcion} = element
       return (
       <tr >
-            <td >
-              <div class="col-md-12">
-                <div class="col-md-3">
-                {index+1}
+        <td >
                   <input
                     type="checkbox"
                     id={idCategoria}
                     name='categorias'
                     onChange={this.handleChecked}
-                  />
-                  </div>
-                  <div class="col-md-9">
+                  />{index+1}
+                  </td>
+            <td >
+                
                   {descripcion}
-                    </div>
-                    </div>
-
-
-            
-              
             </td>
       </tr>
       )});
@@ -207,7 +200,7 @@ class StepTwoSendPropuesta extends React.Component {
 
     ]
     return (
-      <div id={this.props.id} style={{color:"#002D3D"}}>
+      <div id={this.props.id} class="panel-group" style={{color:"#002D3D"}}>
         <h1 style={{textAlign:"center"}}>Ingresa los detalles de la propuesta y sube un archivo</h1>
 
         <JCardForm
@@ -241,5 +234,12 @@ export default StepTwoSendPropuesta;
 var styles = {
   rotulos:{
     paddingRight: 80,
+  },
+  panel:{
+    margin:'auto',
+    maxWidth:'620px',
+    minWidth:'330px',
+    paddingRight:'2%',
+    paddingLeft:'2%',
   }
 }

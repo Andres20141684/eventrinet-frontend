@@ -8,7 +8,12 @@ export default class Jloading extends Component {
     }
     render(){
         return(
-            <div class="lds-roller" style={{color: "#002D3D"}}>
+            <div class="container">
+                <div class="row">
+                <div class="col-sm">
+                    </div>
+                    <div class="col-sm">
+                    <div class="lds-roller" style={{color: "#002D3D"}}>
             <div>
             </div><div></div><div>
                     </div>
@@ -18,7 +23,17 @@ export default class Jloading extends Component {
                     </div>
          <div>      </div>
          <div></div><div>
-            </div>Cargando</div>
+            </div></div>
+                    </div>
+                    <div class="col-sm">
+                    Cargando...
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                    
+                </div>
+                </div>
+            
         );
     }
 }
