@@ -180,7 +180,7 @@ class JUpload  extends Component {
                 style={{height:"50%"}}>
                 <img src={this.state.exel_preview} alt="event"/>
               </div>)
-              }else if(this.state.formato == "application/x-zip-compressed"){
+              }else if(this.state.formato == "application/x-zip-compressed" || this.state.formato == "data:application/octet-stream"){
                 return( <div class="imagen-port" 
                 style={{height:"50%"}}>
                 <img src={this.state.zip_preview} alt="event"/>
