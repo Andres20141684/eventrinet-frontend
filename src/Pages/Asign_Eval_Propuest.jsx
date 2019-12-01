@@ -5,7 +5,7 @@ import { is } from '@babel/types';
 import ActionButton from '../Components/Jtable/ActionButton';
 import ChipsLista from '../Components/ListOfChips';
 import Dialog from '@material-ui/core/Dialog';
-import {DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import {DialogContent, DialogContentText, DialogActions, Chip, makeStyles } from '@material-ui/core';
 import Select from "react-dropdown-select";
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PresiAsignarEvalEvents from './PresiAsignarEvalEvents';
@@ -16,18 +16,20 @@ import EvaluadorPreferenceCategoria from './EvaluadorPreferenceCategoria';
 
 const Networking = require('../Network/Networking.js') ;
 
-const options=[{id:0,nombre:'Juan',correo:'ret@pucp.pe'},{id:2,nombre:'Pepito',correo:'pepex@pucp.pe'},{id:1,nombre:'Cesar',correo:'ffff@pucp.pe'}]
 var aux=[]
-function MainTittle(props){
-    console.log(props)
-    return ( <div>
-    <div style={{marginLeft:15}}>
-        <h3><br/>{props.nomb_evento}</h3>
-    </div>    
-    </div>
-    )
-}
 
+const useStyles = makeStyles(theme => ({
+   root: {
+     display: 'flex',
+     justifyContent: 'center',
+     flexWrap: 'wrap',
+     padding: theme.spacing(0.5),
+   },
+   chip: {
+     margin: theme.spacing(0.5),
+   },
+ }));
+ 
 class AsignEvalPropuesta  extends Component {
     constructor(props){
        super(props);
@@ -124,7 +126,7 @@ class AsignEvalPropuesta  extends Component {
       Networking.PropuestaxEvento(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
          console.log(value)
          value.Propuestas.map((element,index)=>{
-            object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores}
+            object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores,categorias:element.Categorias}
             listaAux.push(object);
             console.log(object);
             console.log(listaAux);
@@ -189,15 +191,15 @@ class AsignEvalPropuesta  extends Component {
       }
    }
    handleAplicarAlgortimo(){
-      var listaAux=[];
+      var listaAux=[...this.state.datos_tabla];
        var object={};
 
       Networking.AlgoritmoAsignacion(JSON.stringify({idEvento:this.props.nextChildComponentProps.idEvento})).then((value)=>{
          console.log(value)
          value.Propuestas.map((element,index)=>{
-            object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores}
-            listaAux.push(object);
-            console.log(object);
+            //object={nombre:element.nombre,idPropuesta:element.idPropuesta,evaluadores:element.Evaluadores}
+            listaAux[index].evaluadores=[...element.Evaluadores]
+            console.log(index);
             console.log(listaAux);
          })
          this.setState({datos_tabla:listaAux});   
@@ -216,6 +218,23 @@ class AsignEvalPropuesta  extends Component {
           return (
           <tr >
                 <td >{nombre}</td>
+                <td>
+                  <div style={{float:'left',display: 'flex',
+                              justifyContent: 'center',
+                              flexWrap: 'wrap',
+                              padding: '0.5px'}}>
+                   {
+                      element.categorias.map(data => {
+                        return (
+                        <Chip
+                           style={{fontSize:'12px'}}
+                           label={data.descripcion}
+                           className={useStyles.chip}
+                        />
+                        );})
+                   }
+                   </div>
+                </td>
                 <td >
                    <div style={{float:'left'}}>
                    {element.evaluadores.length==0?null:
@@ -261,7 +280,7 @@ class AsignEvalPropuesta  extends Component {
                         </div>:
                         <div>
                            <DialogTitle class="modal-header" style={{paddingBottom:"5px"}}>Seleccione un Evaluador</DialogTitle>
-                           <DialogContent component={'span'} style={{height:'150px',width:'350px'}}>
+                           <DialogContent component={'span'} style={{height:'200px',width:'350px'}}>
                               <div class='col-md-8'>
                                  <DialogContentText component={'span'}>
                                     <div >
@@ -346,9 +365,10 @@ class AsignEvalPropuesta  extends Component {
                   <table class="table  table-hover">
                   <thead style={{backgroundColor:"#002D3D", color:"#6CDCD6"}}>
                      <tr >
-                        <th width="37%" align= "left" scope="col">Papers</th>
-                        <th width="57%" scope="col">Evaluadores</th>
-                        <th width="6%" scope='col'>Añadir</th>
+                        <th width="30%" align= "left" scope="col">Papers</th>
+                        <th width="15%" align= "left" scope="col">Categorias</th>
+                        <th width="50%" scope="col">Evaluadores</th>
+                        <th width="5%" scope='col'>Añadir</th>
                      </tr>
                   </thead>
                   <tbody style={{fontSize:'16px'}}>{this.tableData()}</tbody>
