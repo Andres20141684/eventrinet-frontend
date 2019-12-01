@@ -132,6 +132,7 @@ class AsignEvalPropuesta  extends Component {
          this.setState({datos_tabla:listaAux,tipoPref:value.tipoPref});   
          console.log(this.state.datos_tabla); 
       });   
+      this.setState({nombre:this.props.nextChildComponentProps.nomb_evento})
     }
 
     shouldComponentUpdate(nextProps, nextState){
@@ -175,7 +176,8 @@ class AsignEvalPropuesta  extends Component {
       var tipoPref=1
       let dataFlow={
          idEvento:this.props.nextChildComponentProps.idEvento,
-         Usuario:this.props.nextChildComponentProps.Usuario
+         Usuario:this.props.nextChildComponentProps.Usuario,
+         nomb_evento:this.props.nextChildComponentProps.nomb_evento
       }
       if(this.state.tipoPref==2){ //Tipo por propuesta
          this.handleNextChildComponentChangeProps(dataFlow);
@@ -238,6 +240,9 @@ class AsignEvalPropuesta  extends Component {
                          {this.state.loading===true?
                          <div>
                            <DialogContent component={'span'}>
+                           <DialogContentText>
+                           <h2>Procesando...</h2>
+                           </DialogContentText>
                            <div class='col-md-4'></div>
                            <div class='col-md-4'>
                               <Fade
@@ -251,9 +256,6 @@ class AsignEvalPropuesta  extends Component {
                               </Fade>
                            </div>
                            <div class='col-md-4'></div>
-                              <DialogContentText>
-                                 <h2>Procesando...</h2>
-                                 </DialogContentText>
                            </DialogContent>
 
                         </div>:
@@ -314,10 +316,6 @@ class AsignEvalPropuesta  extends Component {
    
    
       render() {
-       //console.log(this.state.datos_tabla.Eventos.length);
-       //superWait(this.state.datos_tabla.Eventos);
-         //this.state = this.props.data
-         //console.log('this.props.data:', this.props.data);
          console.log('RENDER DE MRD! se loqueo');
           return (
              <div>
@@ -326,9 +324,11 @@ class AsignEvalPropuesta  extends Component {
                 <div class='panel-body'>
                 <div class="panel" >
                   <div class="panel-heading" style={{backgroundColor:"#ffff", color:"#333"}}>
-                     <h3>{this.state.nombre}</h3>
-                     {/*<a  class="pull-right" onClick={this.handleClickCrearActualizar} 
-                     value="Nuevo" style={{marginRight:30,marginBottom:20}}>Nuevo</a>*/}
+                     <div>
+                     <div style={{marginLeft:15}}>
+                        <h3><br/>{this.state.nombre}</h3>
+                     </div>    
+                     </div>
                   </div>
                   <div class='col-md-12'>
                      <div class='col-md-4'><label>Mostrar Preferencias:</label></div>
@@ -372,83 +372,3 @@ class AsignEvalPropuesta  extends Component {
 
 export default AsignEvalPropuesta;
 
-/*            <div> 
-    <div style={{marginLeft:15}}>
-        <h1 style={{fontSize:35}}><br/>{this.state.nombre_evento}</h1>
-    </div>
-    <div style={{marginLeft:40,marginTop:25}} ><h2>Preferencias por categorías</h2></div>
-            
-            <div class="container" >
-                <div class ="panel-body">
-                
-                    <Tabs defaultIndex={0} onSelect={index => console.log(index)}>
-
-                            <TabList>
-                                <Tab>Lista de categorías por evento</Tab>
-                            </TabList>
-                            <TabPanel>
-                                <br/>
-                                <this.state.formActives  
-                                    onNextChildComponentChange={this.props.onNextChildComponentChange} 
-                                    onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                                    idEvento = {this.props.nextChildComponentProps.id_evento_nextProps}
-                                    idEvaluador = {this.props.nextChildComponentProps.idUser_recived}
-                                />
-                            </TabPanel>
-                            
-                        </Tabs>
-                        <div>
-        <h2><br/></h2>
-        <h3>
-        <button class="mybutton" onClick={this.elegirPrefCat} style={{float:'left'}}>Atras</button>
-        <br/><br/>
-        </h3>
-    </div>
-                    </div>
-                </div>
-                <br/><br/>
-                
-                </div>
-                
-
---------------------------------------------------------
-                <td >{estado}</td>
-                <td >{fechaIni}</td>
-                <td >{fechaFin}</td>
- 
-                <td>
-                   <ActionButton 
-                         id_evento={idEvento} 
-                         nomb_evento ={nombre} 
-                         idUser_recived={this.state.idUser_recived} 
-                         button_class ="fa fa-edit" 
-                         onNextChildComponentChange={this.props.onNextChildComponentChange}
-                         onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                         redirect_to="/"
-                   />
-                </td> 
- 
-                <td>
-                   <ActionButton 
-                      id_evento={idEvento} 
-                      nomb_evento ={nombre} 
-                      idUser_recived={this.state.idUser_recived} 
-                      button_class ="fa fa-play" 
-                      onNextChildComponentChange={this.props.onNextChildComponentChange}
-                      onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                      redirect_to="/"
-                   />
-                </td> 
- 
-                <td>
-                   <ActionButton
-                      id_evento={idEvento} 
-                      nomb_evento ={nombre} 
-                      idUser_recived={this.state.idUser_recived} 
-                      button_class ="fa fa-times" 
-                      onNextChildComponentChange={this.props.onNextChildComponentChange}
-                      onNextChildComponentChangeProps={this.props.onNextChildComponentChangeProps}
-                      redirect_to="/"
-                   />
-                </td> 
-             */

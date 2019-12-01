@@ -198,7 +198,7 @@ evitarMasFases(){
                       />
                   </div>
                 </Row>
-                                  
+                {this.props.fCRFin===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}                    
               </FormGroup>:null}
               
             </div>
@@ -220,7 +220,8 @@ evitarMasFases(){
                         onChange={(e)=> this.props.handleChange2(e,"fechPref")}
                       />
                   </div>
-                </Row>        
+                </Row>
+                {this.props.fechPref===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>}          
               </FormGroup><br/>
       </div>
     );

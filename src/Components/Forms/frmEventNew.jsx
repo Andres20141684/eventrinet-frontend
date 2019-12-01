@@ -4,6 +4,7 @@ import { string, element } from 'prop-types';
 import '../../styles/style_sheets.css'
 import { thisExpression } from '@babel/types';
 import OrganActiveEvents from '../../Pages/OrganActiveEvents';
+import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents';
 
 const Networking = require('../../Network/Networking.js') ;
 export default class EventNew extends Component{
@@ -195,7 +196,12 @@ export default class EventNew extends Component{
       }
 
       handleClick = () => {
-        this.handleNextChildComponentChange(OrganActiveEvents);
+        if(this.props.data_recived.rol===0){
+          this.handleNextChildComponentChange(OrganActiveEvents);
+        }
+        else if(this.props.data_recived.rol===1){
+          this.handleNextChildComponentChange(PresiAsignarEvalEvents);
+        }
       }
 
 
