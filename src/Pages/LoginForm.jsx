@@ -44,7 +44,7 @@ class  Login extends Component{
           console.log("Data del usuario",connectedUser);
           if (connectedUser.succeed){
             sessionStorage.setItem('dataUser', JSON.stringify(connectedUser));            
-
+ 
             sessionStorage.setItem('tipoLogin',"usuario")
             this.setState({redirect:true, msgError:""});        
           }else{

@@ -742,8 +742,7 @@ class FormPropsxFasePresidente extends Component {
 
         });
       });
-    //console.log("LO Q MANDO A BACK ES: ", data);
-    alert("¡Se han guardado los cambios!")
+    alert("¡Se han guardado los cambios!") 
     //this.handleReturn();
   }
 
@@ -783,8 +782,7 @@ class FormPropsxFasePresidente extends Component {
           }
 
         });
-      });    
-
+      });        
     alert("¡Se han guardado los cambios!")
   }
   
@@ -904,13 +902,14 @@ class FormPropsxFasePresidente extends Component {
             </Accordion.Collapse>
           </Card>
         </div>
-      )
-    })
+      ) 
+    }) 
   }
 
   render() {
     return (
       <div style={{marginLeft:'10%',marginRight:'10%'}}>
+        
         <div class="alert alert-primary" role="alert" style={{fontSize:'14px'}}>
           {'Descripción de la fase: ' + this.props._props.myProps.fases[this.props._props.activeStep].descripcion}
         </div>
