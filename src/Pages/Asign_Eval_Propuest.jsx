@@ -220,7 +220,7 @@ class AsignEvalPropuesta  extends Component {
                 <td >{nombre}</td>
                 <td>
                   <div style={{float:'left',display: 'flex',
-                              justifyContent: 'center',
+                              justifyContent: 'left',
                               flexWrap: 'wrap',
                               padding: '0.5px'}}>
                    {

@@ -200,7 +200,7 @@ class JMap extends Component {
     {(this.props.mode==="event_creation")?
     <div class="pac-card" id="pac-card">
       <div style={{paddingBottom: "5px"}}>
-        <div id="search_title">
+        <div id="search_title" style={{textAlign:'left'}}>
           Escribe la dirección:
         </div>
       </div>

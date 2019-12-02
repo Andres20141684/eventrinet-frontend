@@ -1,6 +1,6 @@
 const restURL = 'http://52.70.128.233:5000/api/';
 //const restURL = 'http://localhost:5000/api/';
-//const restURL = _restURL;
+
 async function crear_cuenta(
     var_email,
 	var_last_name,
@@ -68,9 +68,8 @@ async function onSignUp(googleUser){
 						sessionStorage.setItem('dataUser', JSON.stringify(response));
 						window.location.replace("./");						
 					}else{
-					  console.log("YIYI no se pudo crear cuenta");              
-					  alert(response.message)
-
+					  	document.getElementById('alertErrorSignUP').style.display ="block";
+						document.getElementById('alertErrorSignUP').innerHTML = response.message
 					  //CERRAR SESION DEL USUARIO GMAIL
 
 					  try{
@@ -84,23 +83,6 @@ async function onSignUp(googleUser){
 					  }catch(err){
 						console.log(err)
 					  }
-
-
-					  /*
-					  validar_sesion(profile.U3, profile.ofa, profile.wea).then(
-						(responsed) => {
-							console.log(responsed);
-							let connectedUser = responsed;
-							console.log("Data del usuario",connectedUser);
-							if (connectedUser.succeed){
-								console.log("estamos creando bbecita prrr");
-								console.log(connectedUser);
-								sessionStorage.setItem('dataUser', 
-								JSON.stringify(connectedUser));
-							}
-							sessionStorage.setItem('tipoLogin',"gmail")
-							window.location.replace("./");
-					  });*/
 					}
 				}
 			)
@@ -201,44 +183,14 @@ function onSignIn(googleUser) {
 					sessionStorage.setItem('tipoSingUp','_');
 					window.location.replace("./");
 				}else{
-					console.log("YIYI no se pudo crear cuenta");
-					alert(connectedUser.message);
-					//window.location.replace("./");
+					signOut();
+					document.getElementById('alertError').style.display ="block";
+					document.getElementById('alertError').innerHTML = connectedUser.message
 				}	
 			}
 		)
-
-/*
-		let retrievedObject = sessionStorage.getItem('tipoSingUp');
-		//if(retrievedObject.tipo)
-		console.log("---------------------------------------");		
-		if(retrievedObject=='gmail'){
-			console.log("---------------------------------------");
-			validar_sesion(profile.U3, profile.ofa, profile.wea).then(
-				(response) => {
-					console.log(response);
-					let connectedUser = response;
-					console.log("Data del usuario",connectedUser);
-					if (connectedUser.succeed){
-						console.log("estamos creando bbecita prrr");
-						console.log(connectedUser);
-						sessionStorage.setItem('dataUser', 
-						JSON.stringify(connectedUser));
-						
-
-						console.log("usuario registrado")
-						sessionStorage.setItem('tipoSingUp','_');
-						window.location.replace("./");
-					}else{
-						console.log("YIYI no se pudo crear cuenta");
-						alert(connectedUser.message);
-						//window.location.replace("./");
-					}	
-				}
-			)
-			return;
-		}*/
 }
+
 var respuestaVal = null;
 var superprofile=null;
 function getJsonGoogleUser(){
