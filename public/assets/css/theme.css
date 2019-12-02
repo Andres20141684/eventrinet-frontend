@@ -109,7 +109,7 @@ body.boxed {
 * {
     -ms-word-wrap: break-word;
     word-wrap: break-word;
-    /* Prevent Long URL’s From Breaking Out of Container
+    /* Prevent Long URL’s From Breaking Out of container_im
     word-break: break-word;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
@@ -127,8 +127,8 @@ body.boxed {
 .footer .widget + .widget {
     margin-top: 50px;
 }
-.container {}
-.wide .container.full-width {
+.container_im {}
+.wide .container_im.full-width {
     width: 100%;
     max-width: 100%;
     padding-left: 0;
@@ -136,7 +136,7 @@ body.boxed {
     /*margin-top: -70px;*/
     /*margin-bottom: -70px;*/
 }
-.boxed .container.full-width {
+.boxed .container_im.full-width {
     padding-left: 0;
     padding-right: 0;
 }
@@ -145,34 +145,34 @@ body.boxed {
 /* ========================================================================== */
 
 .wide .page-section,
-.boxed .page-section > .container {
+.boxed .page-section > .container_im {
     padding-top: 70px;
     padding-bottom: 70px;
     position: relative;
     /*overflow: hidden; /* small devices */
     background-color: #fbfbfb;
 }
-.boxed .page-section > .container {
+.boxed .page-section > .container_im {
     padding-left: 30px;
     padding-right: 30px;
 }
 .wide .page-section.dark,
-.boxed .page-section.dark > .container {
+.boxed .page-section.dark > .container_im {
     background-color: #435469;
     color: #f5f5f5;
 }
 .wide .page-section.light,
-.boxed .page-section.light > .container {
+.boxed .page-section.light > .container_im {
     background-color: #f5f5f5;
     color: #435469;
 }
 .wide .page-section.color,
-.boxed .page-section.color > .container {
+.boxed .page-section.color > .container_im {
     background-color: #dc143c;
     color: #ffffff;
 }
 .wide .page-section.image,
-.boxed .page-section.image > .container {
+.boxed .page-section.image > .container_im {
     padding-top: 100px;
     padding-bottom: 100px;
     background-attachment: fixed;
@@ -181,12 +181,12 @@ body.boxed {
     background-position: 50% 0 !important;
     background-repeat: no-repeat;
 }
-.wide .page-section.image > .container,
+.wide .page-section.image > .container_im,
 .boxed .page-section.image {
     position: relative;
 }
 .wide .page-section.image:before,
-.boxed .page-section.image > .container:before {
+.boxed .page-section.image > .container_im:before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -195,17 +195,17 @@ body.boxed {
 }
 .page-section.background-img-slider {position: relative;}
 .wide .page-section.background-img-slider,
-.boxed .page-section.background-img-slider > .container {
+.boxed .page-section.background-img-slider > .container_im {
     background: transparent url("../img/preview/background-img-slider.jpg") 50% 0 repeat !important;
     background-position: 50% 0 !important;
     background-size: cover !important;
 }
-.wide .page-section.background-img-slider > .container {
+.wide .page-section.background-img-slider > .container_im {
     width: 100%;
     padding-left: 0;
     padding-right: 0;
 }
-.boxed .page-section.background-img-slider > .container {
+.boxed .page-section.background-img-slider > .container_im {
     padding: 0 !important;
 }
 .page-section.no-padding {padding: 0;}
@@ -216,13 +216,13 @@ body.boxed {
 .page-section.first-section {padding-top: 50px;}
 
 .wide .page-section.breadcrumbs,
-.boxed .page-section.breadcrumbs > .container {
+.boxed .page-section.breadcrumbs > .container_im {
     padding-top: 110px;
     padding-bottom: 15px;
 }
 
 .wide .page-section.overlay:before,
-.boxed .page-section.overlay > .container:before {
+.boxed .page-section.overlay > .container_im:before {
     content: '';
     display: block;
     position: absolute;
@@ -674,7 +674,7 @@ textarea {
  * -------------------------------------------------------------------------- */
 
 .wide .header,
-.boxed .header > .container {
+.boxed .header > .container_im {
     background-color: transparent;
     position: relative;
     padding-top: 40px;
@@ -700,7 +700,7 @@ textarea {
     background-color: rgba(129, 134, 140, .8);
 }
 .wide .header.shrink,
-.boxed .header.shrink > .container {
+.boxed .header.shrink > .container_im {
     padding-top: 2px;
     padding-bottom: 2px;
     background-color: rgba(129, 134, 140, .8);
@@ -711,7 +711,7 @@ textarea {
 .header,
 .header.fixed,
 .header.shrink,
-.header > .container {
+.header > .container_im {
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 }
@@ -1109,7 +1109,7 @@ textarea {
     top: 0; left: 0;
     width: 100%; height: 100%;
 }
-#main-slider .caption > .container {
+#main-slider .caption > .container_im {
     position: relative;
     min-height: 100%;
     height: 100%;
@@ -1449,7 +1449,7 @@ textarea {
     margin-top: 15px;
 }
 
-.boxed .event-description > .container {
+.boxed .event-description > .container_im {
     padding-left: 0;
     padding-right: 0;
 }
@@ -2337,7 +2337,7 @@ footer.post-meta .post-categories {display: block;}
 
 .footer-widgets {}
 .wide .footer-meta,
-.boxed .footer-meta > .container {
+.boxed .footer-meta > .container_im {
     padding: 40px 0 40px 0;
     background-color: #f5f5f5;
     color: #414650;
@@ -2726,40 +2726,40 @@ div.pp_overlay {
         max-height: 200px;
     }
 }
-.container.gmap-background {
+.container_im.gmap-background {
     margin-top: 0;
     margin-bottom: 0;
 }
-.container.gmap-background .on-gmap {
+.container_im.gmap-background .on-gmap {
     position: relative; z-index: 1;
     min-height: 200px;
     width: 350px;
 }
 @media (max-width: 767px) {
-    .container.gmap-background .on-gmap {
+    .container_im.gmap-background .on-gmap {
         width: 290px;
     }
 }
-.container.gmap-background .google-map,
-.container.gmap-background #map-canvas {
+.container_im.gmap-background .google-map,
+.container_im.gmap-background #map-canvas {
     max-height: 100%;
     min-height: 100%;
 }
-.container.gmap-background .google-map {
+.container_im.gmap-background .google-map {
     position: absolute;
     left: 0; top: 0; right: 0; bottom: 0;
     width: 100%; height: 100%;
 }
-.container.gmap-background #map-canvas {
+.container_im.gmap-background #map-canvas {
     width: 100%; height: 100%;
 }
 
-.container.gmap-background .on-gmap {
+.container_im.gmap-background .on-gmap {
     border-radius: 10px;
     padding: 55px 25px 45px 25px;
     line-height: 30px;
 }
-.container.gmap-background .on-gmap.color {
+.container_im.gmap-background .on-gmap.color {
     background-color: #002D3D;
     color: #fefefe;
 }
@@ -2878,7 +2878,7 @@ div.pp_overlay {
  * 5.9 - Coming soon / Error page
  * -------------------------------------------------------------------------- */
 
-.coming-soon .page-section > .container {
+.coming-soon .page-section > .container_im {
     width: 100%;
 }
 .coming-soon #main-slider {
@@ -2889,14 +2889,14 @@ div.pp_overlay {
     margin: 0 auto;
 }
 
-.error-page .page-section > .container {
+.error-page .page-section > .container_im {
     width: 100%;
 }
 
 .error-page .header {
     border-bottom: solid 1px #ffffff;
 }
-.error-page .header > .container {
+.error-page .header > .container_im {
     background-color: transparent !important;
 }
 .error-page .logo a,
@@ -2962,7 +2962,7 @@ div.pp_overlay {
 .quantity-group .form-control {background-color: transparent; border-color: transparent; text-align: center; display: inline-block; width: 30px; padding: 0;}
 
 .wide .page-section.single-event-hero,
-.boxed .page-section.single-event-hero > .container {
+.boxed .page-section.single-event-hero > .container_im {
     background-position: 50% 50% !important;
     min-height: 380px;
 }
@@ -3131,19 +3131,19 @@ body.body-dark {
 }
 
 .body-dark.wide .page-section,
-.body-dark.boxed .page-section > .container {
+.body-dark.boxed .page-section > .container_im {
     background: #0d1d31;
     color: #eff6ff;
 }
 
 .body-dark.wide .page-section.light,
-.body-dark.boxed .page-section.light > .container {
+.body-dark.boxed .page-section.light > .container_im {
     background-color: #122135;
     color: #eff6ff;
 }
 
 .body-dark.wide .page-section.color,
-.body-dark.boxed .page-section.color > .container {
+.body-dark.boxed .page-section.color > .container_im {
     background-color: #122135;
     color: #eff6ff;
 }
@@ -3316,12 +3316,12 @@ body.body-dark {
     color: #878c92;
 }
 
-.body-dark .container.gmap-background .on-gmap.color {
+.body-dark .container_im.gmap-background .on-gmap.color {
     background-color: #0d1d31;
 }
 
 .body-dark.wide .footer-meta,
-.body-dark.boxed .footer-meta > .container {
+.body-dark.boxed .footer-meta > .container_im {
     background-color: #0d1d31;
     color: #435469;
 }

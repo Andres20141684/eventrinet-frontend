@@ -138,11 +138,26 @@ class SendProposal extends Component{
 
 
 <div>
-<div id="video-area" data-stellar-background-ratio="0.5" >    
+
+            
+<div class="wrapper">
+
+    <div class="content-area">
+
+<div id="main">
+    
+
+    <section class="page-section no-padding background-img-slider">
+        <div class="container_im">
+
+<div id="video-area" data-stellar-background-ratio="0.5" 
+style={{"background-image": "linear-gradient(to right, rgba(0, 45, 61, 0.555), rgba(19, 136, 179, 0.678)),url(" + this.state.eventriEvent.imagen +")",
+background:"linear-gradient(to right, rgba(0, 45, 61, 0.555), rgba(19, 136, 179, 0.678)), url(" + this.state.eventriEvent.imagen +")"}
+}>    
       <div id="block" data-vide-bg="video/video"></div>
       
       <div class="overlay overlay-2"></div>      
-      <div class="container">
+      <div class="container_im">
         <div class="row justify-content-md-center">
           <div class="col-md-10">
             <div class="contents text-center">
@@ -169,6 +184,25 @@ class SendProposal extends Component{
         </div> 
       </div>      
     </div>
+            
+        </div>
+
+        
+
+    </section>
+    
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
 
 
     <div class="row">
@@ -208,6 +242,9 @@ class SendProposal extends Component{
                 </div>
                 {this.renderJMap(this.props.nextChildComponentProps.evento.lugar)}
                 
+
+
+
                 <div class="container">
                 <Tabs defaultIndex={0}>
                     <TabList>
@@ -285,7 +322,7 @@ class SendProposal extends Component{
 
        </div>    
 
-
+       </div>
 
 
         );
