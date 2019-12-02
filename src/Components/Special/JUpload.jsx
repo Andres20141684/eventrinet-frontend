@@ -42,9 +42,11 @@ class JUpload  extends Component {
         this.setState({contenido:1});
       }
     abortRead() {
-        this.state.reader.abort();
-        this.setState({contenido:0});
-        document.getElementById('list').innerHTML = '<div>'+'</div>';
+      if (this.state.reader !== null){
+          this.state.reader.abort();
+      }
+      this.setState({contenido:0});
+      document.getElementById('list').innerHTML = '<div>'+'</div>';
     }
     updateProgress(evt) {
     var progress = document.querySelector('.percent');
@@ -217,7 +219,7 @@ class JUpload  extends Component {
      
      render() {
          return (
-            <div class="panel panel-default" >
+            <div class="panel panel-default" style={{marginLeft:'15px'}}>
             <div className="containerDZ">
               <div id={this.props.id_drop_zone}>
                 {this.renderStatus(this.state.contenido)}

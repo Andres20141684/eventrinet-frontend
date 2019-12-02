@@ -195,19 +195,19 @@ class JMap extends Component {
 
        <div class="pac-card" id="pac-card_vista">
       <div style={{paddingBottom: "5px"}}>
-        <div id="search_title">
-          Dirección del Evento:
+        <div id="search_title" style={{textAlign:'left'}}>
+          Escribe la dirección:
         </div>
       </div>
       <div id="pac-container">
         <input id="pac-input" type="text" className="form-control" 
             placeholder="Escribe una dirección"
-            readOnly={true} value={this.props.lugar}/>
+            readOnly={true} value={this.props.lugar}/>  
       </div>
     </div> 
     <div class="pac-card" id="pac-card_seach">
       <div style={{paddingBottom: "5px"}}>
-        <div id="search_title">
+        <div id="search_title" style={{textAlign:'left'}}>
           Escribe la dirección:
         </div>
       </div>

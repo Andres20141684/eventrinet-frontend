@@ -179,7 +179,7 @@ export default class StepOne extends React.Component {
             <div class="panel-heading"><h1>Imagen</h1></div>
           <Row>
           <div class="panel-body">
-                <label>Agrega la imagen del Evento:</label>
+                <label style={{marginLeft:'15px'}}>Agrega la imagen del Evento:</label>
                 <div class="row">
                   <div class="col-sm-8">
                     <JUpload

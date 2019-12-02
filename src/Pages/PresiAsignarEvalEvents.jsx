@@ -4,9 +4,9 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import 'react-table/react-table.css'
 import './../styles/style_gig_tittle.css'
-
 import PresiEventos_asignarEvaTable from '../Components/Jtable/PresiEventos_asignarEvaTable';
 import PresiCalificacionFinalPapersTable from '../Components/Jtable/PresiCalificacionFinalPapersTable';
+
 const Networking = require('../Network/Networking.js') ;
 
 function MainTittle(){
@@ -14,7 +14,7 @@ function MainTittle(){
     <div style={{marginLeft:15}}>
         <h1><br/>Presidente - Mis eventos</h1>
     </div>
-    <div style={{marginLeft:40,marginTop:25}} ><h4>Gestión de eventos a asignar evaluadores y en fase de evaluación</h4></div>
+    <div style={{marginLeft:40,marginTop:25}} ><h4>Gestión de eventos a asignar evaluadores y en fase de evaluación</h4></div>    
     </div>
     )
 }
