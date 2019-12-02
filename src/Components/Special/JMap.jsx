@@ -36,7 +36,7 @@ class JMap extends Component {
     componentDidMount(){
 
       if(this.props.mode === "event_creation"){
-        document.getElementById("pac-card_vista").style.display="none";
+        //document.getElementById("pac-card_vista").style.display="none";
           //muestro todo hasta el auocompleter
           var map = new window.google.maps.Map(document.getElementById('map'), {
             center: {lat: -33.8688, lng: 151.2195},
@@ -122,7 +122,7 @@ class JMap extends Component {
       /******************************************* */
 
       if(this.props.mode === "event_visualization"){
-        document.getElementById("pac-card_seach").style.display="none";
+        //document.getElementById("pac-card").style.display="none";
         //solo muestro el marker en la posicion XDXD
         var sydney = new window.google.maps.LatLng(-33.867, 151.195);
         console.log("window.google.maps.LatLng: ",sydney);
@@ -136,7 +136,11 @@ class JMap extends Component {
         console.log("_map: ",_map);
 
         try{
+          var card = document.getElementById('pac-card');
+          //var input = document.getElementById('pac-input');
           
+    
+          _map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(card);
           
           var request = {
           query: this.state.lugar,
@@ -193,19 +197,8 @@ class JMap extends Component {
        <>
        
 
-       <div class="pac-card" id="pac-card_vista">
-      <div style={{paddingBottom: "5px"}}>
-        <div id="search_title">
-          Dirección del Evento:
-        </div>
-      </div>
-      <div id="pac-container">
-        <input id="pac-input" type="text" className="form-control" 
-            placeholder="Escribe una dirección"
-            readOnly={true} value={this.props.lugar}/>
-      </div>
-    </div> 
-    <div class="pac-card" id="pac-card_seach">
+    {(this.props.mode==="event_creation")?
+    <div class="pac-card" id="pac-card">
       <div style={{paddingBottom: "5px"}}>
         <div id="search_title">
           Escribe la dirección:
@@ -213,9 +206,23 @@ class JMap extends Component {
       </div>
       <div id="pac-container">
         <input id="pac-input" type="text" className="form-control" 
-            placeholder="Escribe una dirección"/>
+            placeholder="Escribe una dirección" />
+      </div>
+    </div>:
+    
+    <div class="pac-card" id="pac-card">
+    <div style={{paddingBottom: "5px"}}>
+      <div id="search_title">
+        Dirección del evento:
       </div>
     </div>
+    <div id="pac-container">
+    <textarea className="form-control"id="pac-input" type="text"name="textarea" value={this.state.lugar} readOnly={true}/>
+      
+    </div>
+  </div>}
+
+
     <div id="map"></div>
     <div id="infowindow-content">
       <img src="" width="16" height="16" id="place-icon"/>

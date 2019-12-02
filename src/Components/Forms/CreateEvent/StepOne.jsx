@@ -35,7 +35,7 @@ export default class StepOne extends React.Component {
   }
  
   handleJchange_Hackeo(e){
-    
+    console.log("*>*<*<*<*>*>*>**<*>*>*>*",e.target.value);
     var place = JSON.stringify(e.target.value);
     console.log("---------------->" ,e.target.value);
     //document.getElementById("id_name").value=e.target.value;

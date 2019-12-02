@@ -138,6 +138,17 @@ class SendProposal extends Component{
 
 
 <div>
+
+            
+<div class="wrapper">
+
+    <div class="content-area">
+
+<div id="main">
+    
+
+    <section class="page-section no-padding background-img-slider">
+        <div class="container">
 <div id="video-area" data-stellar-background-ratio="0.5" >    
       <div id="block" data-vide-bg="video/video"></div>
       
@@ -169,6 +180,81 @@ class SendProposal extends Component{
         </div> 
       </div>      
     </div>
+            
+        </div>
+
+        <div class="event-description">
+            <div class="container">
+                <div class="row">
+                    <div class="event-background">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-3">
+                                    <div class="media">
+                                        <span class="pull-left">
+                                            <i class="fa fa-calendar fa-2x"></i>
+                                        </span>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Date</h4>
+                                            <span>January 17- 19, 2014</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-4">
+                                    <div class="media">
+                                        <span class="pull-left">
+                                            <i class="fa fa-map-marker fa-2x"></i>
+                                        </span>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Location</h4>
+                                            <span>3200 Barbaros Bulvarı Besiktas/Istanbul, TR</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-2">
+                                    <div class="media">
+                                        <span class="pull-left">
+                                            <i class="fa fa-group fa-2x media-object"></i>
+                                        </span>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Remaining</h4>
+                                            <span>245 Tickets</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-3">
+                                    <div class="media">
+                                        <span class="pull-left">
+                                            <i class="fa fa-microphone fa-2x"></i>
+                                        </span>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Speakers</h4>
+                                            <span>24 Professional Speakers</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </section>
+    
+</div></div>
+
+
+
+
+
+
+
+
+
+
+
 
 
     <div class="row">
@@ -208,6 +294,9 @@ class SendProposal extends Component{
                 </div>
                 {this.renderJMap(this.props.nextChildComponentProps.evento.lugar)}
                 
+
+
+
                 <div class="container">
                 <Tabs defaultIndex={0}>
                     <TabList>
@@ -285,7 +374,7 @@ class SendProposal extends Component{
 
        </div>    
 
-
+       </div>
 
 
         );
