@@ -148,12 +148,16 @@ class SendProposal extends Component{
     
 
     <section class="page-section no-padding background-img-slider">
-        <div class="container">
-<div id="video-area" data-stellar-background-ratio="0.5" >    
+        <div class="container_im">
+
+<div id="video-area" data-stellar-background-ratio="0.5" 
+style={{"background-image": "url(" + this.state.eventriEvent.imagen +")",
+background:"-webkit-linear-gradient(to right, rgba(0, 45, 61, 0.555), rgba(19, 136, 179, 0.678)), url(" + this.state.eventriEvent.imagen +"); background-repeat: no-repeat;background-size: cover;background-position: center;"}
+}>    
       <div id="block" data-vide-bg="video/video"></div>
       
       <div class="overlay overlay-2"></div>      
-      <div class="container">
+      <div class="container_im">
         <div class="row justify-content-md-center">
           <div class="col-md-10">
             <div class="contents text-center">
@@ -183,66 +187,53 @@ class SendProposal extends Component{
             
         </div>
 
-        <div class="event-description">
-            <div class="container">
-                <div class="row">
-                    <div class="event-background">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6 col-md-3">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <i class="fa fa-calendar fa-2x"></i>
-                                        </span>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">Date</h4>
-                                            <span>January 17- 19, 2014</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-4">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <i class="fa fa-map-marker fa-2x"></i>
-                                        </span>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">Location</h4>
-                                            <span>3200 Barbaros Bulvarı Besiktas/Istanbul, TR</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-2">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <i class="fa fa-group fa-2x media-object"></i>
-                                        </span>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">Remaining</h4>
-                                            <span>245 Tickets</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-3">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <i class="fa fa-microphone fa-2x"></i>
-                                        </span>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">Speakers</h4>
-                                            <span>24 Professional Speakers</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         
 
     </section>
-    
+    <section class="page-section" id="about">
+                    <div class="container">
+                        <h1 class="section-title">
+                            <span data-animation="flipInY" data-animation-delay="300" class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-star fa-stack-1x"></i></span></span>
+                            <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner">Informacion sobre el evento: <small>/ Que es lo que vamos a presentar o aprender</small></span>
+                        </h1>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <p data-animation="fadeInUp" data-animation-delay="300">
+                                {this.state.eventriEvent.descripcion}</p>
+                                <p class="btn-row">
+                                    <a href="#content-area" data-toggle="modal" class="btn btn-theme btn-theme-xl" data-animation="flipInY" data-animation-delay="200">Enviar Propuesta <i class="fa fa-arrow-circle-right"></i></a>
+                                    
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 pull-left">
+
+                                
+                                <div class="row thumbnails">
+
+                                    <div class="col-sm-6 col-xs-6">
+                                        <div class="thumbnail no-border no-padding" data-animation="fadeInLeft" data-animation-delay="100">
+                                            <div class="media">
+                                                <img src={this.state.eventriEvent.imagen} alt="Imagen del evento"/>
+                                                <div class="caption hovered">
+                                                    <div class="caption-wrapper div-table">
+                                                        <div class="caption-inner div-cell">
+                                                            <p class="caption-buttons"><a href="assets/img/preview/about-lg-1.jpg" class="btn caption-zoom" data-gal="prettyPhoto"><i class="fa fa-search"></i></a></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    
+
+                                    
+
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
 </div></div>
 
 
