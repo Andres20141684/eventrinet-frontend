@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepButton from '@material-ui/core/StepButton';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FormPropsxFasePresidente from './FormPropsxFasePresidente';
 import '../../styles/style_sheets.css'
@@ -34,7 +33,6 @@ function getSteps(fases) {
     const {nombre} = element
       nombres_fases.push(nombre);
   })
-  console.log("nombres_fases",nombres_fases);
   return nombres_fases;
 }
 
@@ -44,15 +42,22 @@ function getStepContent(props,activeStep) {
     myProps : props,
     activeStep : activeStep,
   }
-  return <FormPropsxFasePresidente key = {"step-"+ activeStep}  _props = {propsPasados}/>;
+    
+  if (activeStep !== -1){        
+    return <FormPropsxFasePresidente key = {"step-"+ activeStep}  _props = {propsPasados}/>;
+  }
+  else{
+    return "Cargando datos"
+  }
 
 }
 
-export default function HorizontalNonLinearStepper(props) {
+export default function HorizontalNonLinearStepper(props) {  
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
   const steps = getSteps(props.fases);
+  const [flag, setFlag] = React.useState(true);
 
   const totalSteps = () => {
     return steps.length;
@@ -60,8 +65,19 @@ export default function HorizontalNonLinearStepper(props) {
 
   const completedSteps = () => {
     return Object.keys(completed).length;
-  };
-
+  };  
+    
+  React.useEffect(() => {
+    if (flag){
+      console.log("una sola vez",flag)
+      setActiveStep(props.faseActualSecuencia-1)
+      if (props.faseActualSecuencia-1 !== -1) {
+        setFlag(false)
+      }
+    }
+    
+  });  
+  
 
   const allStepsCompleted = () => {
     return completedSteps() === totalSteps();
@@ -69,15 +85,8 @@ export default function HorizontalNonLinearStepper(props) {
 
   const handleStep = step => () => {
     setActiveStep(step);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
-  };
-
-  //setActiveStep(props.faseActualSecuencia -1);
-
+  };  
+  
   console.log("this.rpos.FASEFORM_______",props)
   return (
     <div className={classes.root} >

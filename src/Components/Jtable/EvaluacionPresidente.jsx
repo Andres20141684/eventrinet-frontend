@@ -136,7 +136,7 @@ class EvaluacionPresidente extends Component {
                     </div>
                 </div>
                 <div className='container'>
-                <div className='panel-body'>
+                <div className='panel-body'> 
                     <FasesForm
                         idEvento = {this.props.nextChildComponentProps.idEvent}
                         nombreEvento = {this.props.nextChildComponentProps.nombreEvento}
