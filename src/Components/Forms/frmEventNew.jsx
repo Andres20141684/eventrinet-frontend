@@ -11,6 +11,7 @@ export default class EventNew extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            editar:false,
             idEvento:0,
             idUsuario:0,
             nombre:'',
@@ -62,7 +63,7 @@ export default class EventNew extends Component{
         this.handleOnLoad=this.handleOnLoad.bind(this)
       }
       componentWillMount(){
-
+        
         Networking.listar_usuarios().then((response)=>{ //Listar todos los ususarios activos
           response.correos.map((element,index)=>(
             element.show=element.nombre+"\n\r"+element.correo
@@ -81,7 +82,7 @@ export default class EventNew extends Component{
         this.setState(
           {idUsuario: this.state.data_recived.idOrganizador_nextProps}
         );
-        
+        this.setState({editar:this.state.data_recived.editar});
       }
 
       handleNextChildComponentChangeProps(_nextChildComponentProps){
@@ -351,7 +352,7 @@ export default class EventNew extends Component{
               descripcion={this.state.descripcion}
               lugar={this.state.lugar}
               imagen={this.state.imagen}
-                
+              editar={this.state.editar}
               rdCategry={this.state.rdCategry}
               rdPropuest={this.state.rdPropuest}
 

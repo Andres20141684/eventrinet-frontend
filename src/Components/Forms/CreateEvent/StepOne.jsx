@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import '../../../styles/style_sheets.css';
 import JUpload from '../../Special/JUpload';
 import JMap from '../../Special/JMap';
+import Jloading from '../../Special/Jloading';
 
 
 export default class StepOne extends React.Component {
@@ -58,13 +59,20 @@ export default class StepOne extends React.Component {
                     /></>);
   }
   renderJMap(_lugar){
+    if(_lugar.length<1 && this.props.editar===true){
+      return(<Jloading/>);
+    }else{
     return(<JMap
-              lugar={_lugar}
-              mode={"event_creation"}
+    
+      lugar={_lugar}
+      mode={this.props.rol===1?"event_visualization":"event_creation"}
+      onChange={this.handleJchange_Hackeo}
             />);
+    }
   }
 
   render () {
+    console.log("CREATE EVENT : PROPS",this.props);
     return (
       <div>
         <div class="panel-group" style={styles.panel}>
@@ -113,11 +121,8 @@ export default class StepOne extends React.Component {
                     
                   {this.props.lugar===''?<span class="error" style={{float:'right'}}>*Campo Obligatorio</span>:<br></br>} 
                   <br/>
-                  <JMap
-                    lugar={this.props.lugar}
-                    mode={this.props.rol===1?"event_visualization":"event_creation"}
-                    onChange={this.handleJchange_Hackeo}
-                  />
+                  {this.renderJMap(this.props.lugar)}
+                  
                   
             </div>
             </Row>

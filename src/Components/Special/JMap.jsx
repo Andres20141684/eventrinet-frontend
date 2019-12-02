@@ -34,7 +34,14 @@ class JMap extends Component {
         console.log("JMAP-> lugar stateProps", this.state.lugar);
       }
     componentDidMount(){
-
+      try{
+        if(this.props.lugar.length>0){
+          document.getElementById("pac-input").value=this.props.lugar;
+        }
+      }catch(e){
+        console.log("JMAP-> no habia lugar ");
+      }
+      
       if(this.props.mode === "event_creation"){
         //document.getElementById("pac-card_vista").style.display="none";
           //muestro todo hasta el auocompleter
@@ -139,7 +146,7 @@ class JMap extends Component {
           var card = document.getElementById('pac-card');
           //var input = document.getElementById('pac-input');
           
-    
+          document.getElementById("pac-input").value=this.state.lugar;
           _map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(card);
           
           var request = {

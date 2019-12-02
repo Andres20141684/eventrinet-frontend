@@ -11,7 +11,8 @@ class NewEventPage extends Component{
             formProceso: frmEventNew,
             data_recived: {
             idOrganizador: 0,
-            idEvento: 0
+            idEvento: 0,
+            editar:false,
         }
         }
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this)
