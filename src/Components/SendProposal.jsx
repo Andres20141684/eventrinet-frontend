@@ -22,6 +22,7 @@ class SendProposal extends Component{
                 {descripcion:'Machine Learning nombre largote'}],
             asd: "vjglhbjftbvroauyberwuarytwgtwg",
             center: {},
+            Usuarios:{}
         }
         this.renderJMap=this.renderJMap.bind(this);
         this.handleNextChildComponentChange=this.handleNextChildComponentChange.bind(this);
@@ -94,13 +95,93 @@ class SendProposal extends Component{
         
     });}catch(e){console.error("SendProposalError:", e)};
     }
+    renderPresidente(_Usuarios){
+        console.error("SendProposal   _Usuarios", _Usuarios)
+        console.error("SendProposal   _Usuarios.", _Usuarios.presidente)
+        try{
+           
+                return(
+                    <div className="card">
+                    <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" alt=""/>
+                    <div className="contenido-texto-card">
+                        
+                        <h4>Presidencia: {_Usuarios.presidente[0].nombre}</h4>
+                        <p>{_Usuarios.presidente[0].correo}</p>
+                    </div>
+                </div>
+                
+                );
+            
+        }catch(e){
+
+        }
+    }
+    renderEvaluadores(_Usuarios){
+        console.error("SendProposal   _Usuarios", _Usuarios)
+        console.error("SendProposal   _Usuarios.", _Usuarios.evaluadores)
+        try{
+            return(
+            _Usuarios.evaluadores.map(element => {
+                return(
+                    <div className="card">
+                    <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" alt=""/>
+                    <div className="contenido-texto-card">
+                        <h4>Evaluador: {element.nombre}</h4>
+                        <p>{element.correo}</p>
+                    </div>
+                </div>
+                );
+            })
+            );
+        }catch(e){
+
+        }
+    }
+    rendercomiteOrganizacional(_Usuarios){
+        console.error("SendProposal   _Usuarios", _Usuarios)
+        console.error("SendProposal   _Usuarios.", _Usuarios.comiteOrganizacional)
+        try{return(
+            _Usuarios.comiteOrganizacional.map(element => {
+                return(
+                    <div className="card">
+                        
+                    <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png" alt=""/>
+                    <div className="contenido-texto-card">
+                        <h4>{element.nombre}</h4>
+                        <p>{element.correo}</p>
+                    </div>
+                </div>
+                );
+            }));
+        }catch(e){
+
+        }
+    }
     componentDidMount(){
         console.log("props heredados del Dashboard->Protafolio->imageport");
     
         console.log('Send Propuesta Props ->',this.props.nextChildComponentProps);
         this.setState({eventriEvent: this.props.nextChildComponentProps.evento || {}});
         this.getCategoriasfromApi(); 
-        
+        try{
+        Networking.NetworkMutation_JAchievingData(
+            {
+                methodPath: 'evento/listar_usuarios',
+                JsonToBack:{
+                    idEvento: this.props.nextChildComponentProps.evento.idEvento
+                }
+            }
+            ).then((value) =>  {
+            console.log(value);
+            if(value == null){
+                console.log('no hay algo aun');
+            }else {
+                console.log('si hay algo:');
+                this.setState({Usuarios: value});
+                //this.renderCategories();
+            }
+            
+        });}catch(e){console.error("SendProposalError:", e)};
         
     }
     shouldComponentUpdate(nextProps,nextState){
@@ -108,6 +189,9 @@ class SendProposal extends Component{
             return true;
         }
         if(nextState.Categorias != this.state.Categorias){
+            return true;
+        }
+        if(nextState.Usuarios != this.state.Usuarios){
             return true;
         }
           return false;
@@ -246,51 +330,12 @@ background:"linear-gradient(to right, rgba(0, 45, 61, 0.555), rgba(19, 136, 179,
 
 
                 <div class="container">
-                <Tabs defaultIndex={0}>
-                    <TabList>
-                        <Tab>Descripción</Tab>
-                        <Tab>Lugar</Tab>
-                        <Tab>Comités</Tab>
-                        <Tab>Contacto</Tab>
-                        <Tab>Directrices para el envio</Tab>  
-                    </TabList>
-
-                    <TabPanel>
-                        <br/><br/>
-                        <h2>{this.state.eventriEvent.descripcion}</h2>
-                        <br/><br/>
-                    </TabPanel>
-                    
-                    <TabPanel>
-                    <br/><br/>
-                        <h2>{this.state.eventriEvent.lugar}</h2>
-                        <br/><br/>
-                    </TabPanel>
-                    
-                    <TabPanel>
-                        <h2> Comite Organizacional </h2>   
-                        <h4>Este man</h4>  
-                        <h4>Esta Woman</h4>  
-                        <h4>Este man</h4>  
-                        <h2> Comite Academico </h2>  
-                        <h4>Esta Woman</h4>  
-                        <h4>Este men</h4>  
-                        <h4>Este men</h4>  
-                        <h4>Esta Woman</h4>                
-                    </TabPanel>
-
-                    <TabPanel>
-                    <br/><br/>
-                        <h2>{this.state.asd}</h2>   
-                        <br/><br/>            
-                    </TabPanel>
-
-                    <TabPanel>
-                    <br/><br/>
-                        <h2>{this.state.eventriEvent.descripcion}</h2> 
-                        <br/><br/>              
-                    </TabPanel>
-                </Tabs>                      
+                <div class="contenedor-sobre-nosotros">
+                <div class="contenido-textos">
+                    <h3>Descripcion del Evento</h3>
+                    <p>{this.state.eventriEvent.descripcion}</p>
+                </div></div>
+                                 
             </div>
 
 
@@ -301,22 +346,16 @@ background:"linear-gradient(to right, rgba(0, 45, 61, 0.555), rgba(19, 136, 179,
 
 
     <section className="clientes contenedor">
-            <h2 className="titulo">Que dicen nuestros clientes</h2>
+            <h2 className="titulo">Comité Académico del Evento</h2>
             <div className="cards">
-                <div className="card">
-                    <img src="img/face1.jpg" alt=""/>
-                    <div className="contenido-texto-card">
-                        <h4>Name</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, sapiente!</p>
-                    </div>
-                </div>
-                <div className="card">
-                    <img src="img/face2.jpg" alt=""/>
-                    <div className="contenido-texto-card">
-                        <h4>Name</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, sapiente!</p>
-                    </div>
-                </div>
+            {this.renderPresidente(this.state.Usuarios)}
+            {this.renderEvaluadores(this.state.Usuarios)}
+            </div>
+        </section>
+        <section className="clientes contenedor">
+            <h2 className="titulo">Comité Organizacional del Evento</h2>
+            <div className="cards">
+            {this.rendercomiteOrganizacional(this.state.Usuarios)}
             </div>
         </section>
 

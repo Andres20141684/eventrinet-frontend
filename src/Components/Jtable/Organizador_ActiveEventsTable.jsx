@@ -52,7 +52,7 @@ class Organizador_ActiveEventsTable  extends Component {
          id_evento_nextProps: idE,
          nomb_evento: nom,
          rol:0,
-         Usuario:this.props.nextChildComponentProps.Usuario
+         Usuario:this.props.nextChildComponentProps.Usuario,editar:false
       }
       console.log('Enviando a Armando se la come',dataFlow);
       this.handleNextChildComponentChangeProps(dataFlow);
@@ -66,7 +66,8 @@ class Organizador_ActiveEventsTable  extends Component {
          id_evento_nextProps: idE,
          nomb_evento: nom,
          rol:0,  //Identifica que es un organizador
-         Usuario:this.props.nextChildComponentProps.Usuario
+         Usuario:this.props.nextChildComponentProps.Usuario,
+         editar:true
       }
       this.handleNextChildComponentChangeProps(dataFlow);
       this.handleNextChildComponentChange(NewEventPage);
