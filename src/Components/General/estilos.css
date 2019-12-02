@@ -30,10 +30,10 @@ body {
     overflow: hidden;
     position: relative;
     height: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background: -webkit-linear-gradient(to right, rgba(0, 45, 61, 0.555), rgba(19, 136, 179, 0.678)), url("./slide1.jpg");
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background: linear-gradient(to right, rgba(0, 45, 61, 0.555), rgba(19, 136, 179, 0.678)), url("./slide1.jpg");
     
   }
   #video-area .contents {
