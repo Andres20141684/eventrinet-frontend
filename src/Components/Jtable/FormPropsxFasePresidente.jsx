@@ -8,7 +8,6 @@ import ActionButton from './ActionButton';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import ArrayOfChips from '../Forms/CreateEvent/ArrayOfChips';
 import Checkbox from "./Checkbox";
 import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
 
@@ -59,6 +58,7 @@ function ModalObsAdicional(props){
   
     const handleOpen = () => {        
         props.showModalDetalleObservaciones(props.idPropuesta, props.idFase);
+        console.log("propsModalOBs", props)        
         setOpen(true);
     };
   
@@ -112,7 +112,7 @@ function ModalObsAdicional(props){
                   </div>
                   <div className="modal-footer" style={{paddingRight:"0px", paddingBottom:'0px'}}>
                     <Button type="button" class="btn btn-secondary" onClick={() => handleClose() }>Cancelar</Button>
-                    <Button type="button" onClick={(e) =>handleCloseSaveandoComentario ()} class="btn btn-primary" data-dismiss="modal">Guardar</Button>
+                    <Button type="button" id="btnSaveObs" onClick={(e) =>handleCloseSaveandoComentario ()} class="btn btn-primary" data-dismiss="modal">Guardar</Button>
                   </div>
               </div>  
           </Fade>
@@ -121,58 +121,6 @@ function ModalObsAdicional(props){
     );
 }
 
-
-class ModalReasignarEvaluador extends Component {
-  constructor() {
-    super();
-    this.state = {
-      evaluadorReemplazo: '',
-      listaEvalReemplazo: [],
-    }
-  }
-  handleClickUpdateEvaluador = () => {
-
-  }
-  render() {
-    return (
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style={{ paddingBottom: "0px", paddingRight: "5px", paddingTop: "0px" }}>
-          <div class="modal-header" style={{ paddingBottom: "5px" }}>
-            <h3 style={{ marginTop: "0px", marginBottom: "0px" }}>Reasignar Evaluador</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body" style={{ paddingBottom: '0px' }}>
-            <div class="form-group row">
-              <label for="staticName" class="col-sm-4 col-form-label">Evaluador actual</label>
-              <div class="col-sm-6">
-                <input type="text" readonly class="form-control-plaintext" id="staticName" value={"Sebastian"} />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="staticName" class="col-sm-4 col-form-label">Titulo</label>
-              <div class="col-sm-6">
-                <ArrayOfChips
-                  auxLabel='auxevaluadorReemplazo'
-                  aux={this.state.evaluadorReemplazo}
-                  //handlechange={this.handleAuxChange} 
-                  lista={this.state.listaEvalReemplazo}
-                  //handleadd={this.props.handleChange2} 
-                  tag="evaluadorReemplazo"
-                  label="correo" />
-              </div>
-            </div>
-          </div>
-          <div className="modal-footer" style={{ paddingRight: "0px" }}>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" onClick={(e) => this.handleClickUpdateEvaluador()} class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-}
 
 
 function renderTableHeaderDetalleEval(){
@@ -199,7 +147,7 @@ function ModalDetalleDeEvaluador(props) {
 
   const handleOpen = () => {
       props.showModalDetalleEvaluador(props.idEvaluador, props.idPropuesta, props.evaluador);
-      console.log("my props",props);
+      console.log("my props",props);      
       setOpen(true);
   };
 
@@ -370,9 +318,6 @@ function handleCheckedMsjCuerpo (props,opcSelected){
     textAreaMsjCuerpoPred.style.display = "block";
     textAreaMsjCuerpoPers.style.display = "none";    
   }  
-  //console.log('textAreaMsjCuerpoPred',textAreaMsjCuerpoPred)
-  //console.log('textAreaMsjCuerpoPers',textAreaMsjCuerpoPers)
-  //console.log('opcSelected',opcSelected)
 }
 function ModalEnviarCorreo (props) {  
   const classes = useStyles();
@@ -496,6 +441,7 @@ class FormPropsxFasePresidente extends Component {
         {}
       ),
       presiComentario: " ",
+      flagEditable:true
     }
     this.handleNextChildComponentChange = this.handleNextChildComponentChange.bind(this);
     this.handleNextChildComponentChangeProps = this.handleNextChildComponentChangeProps.bind(this);
@@ -527,10 +473,8 @@ class FormPropsxFasePresidente extends Component {
     console.log("idFase"+this.props._props.activeStep,this.state.idFase)
     Networking.mostrarTodasObsPresidente(this.state.idFase).then(
       (response) => {
-        console.log(response);
         if (response == null) {
           console.log('no hay algo aun, mostrarTodasObsPresidente');
-
         } else {
           console.log('si hay algo: mostrarTodasObsPresidente', response);
           obss = response
@@ -549,14 +493,28 @@ class FormPropsxFasePresidente extends Component {
           console.log('si hay algo: LISTA PROPUESTAS');
           this.setState({ tabla_propuestas: response });
           OPTIONS = response.Propuestas.map((e) => e.idPropuesta);
-          console.log("dsps? :", OPTIONS);
+          //console.log("dsps? :", OPTIONS);
           // < LINEAS SUPER IMPORTANTES
           jason = OPTIONS.reduce((jason, value, key) => { jason[value] = false; return jason; }, {});
-          console.log("nuevo options", jason);
+          //console.log("nuevo options", jason);
           this.setState({ checkboxes: jason });
         }
       }
     )
+
+    if (this.props._props.myProps.faseActualSecuencia -1 !== this.props._props.activeStep){
+      console.log("NO ESSSS")
+      document.getElementById('alertSecuencia').style.display="block"
+      this.setState({flagEditable: false})
+      if (!this.state.flagEditable){
+        this.state.flagEditable = false;
+      }      
+    }else{
+      this.setState({flagEditable: true})
+      if (!this.state.flagEditable){
+        this.state.flagEditable = true;
+      }
+    }
 
   }
   renderAccordionData(evaluadores, idPropuesta) {
@@ -569,11 +527,6 @@ class FormPropsxFasePresidente extends Component {
             <td>{evaluador} </td>
             <td>{calificacion}</td>
             <td>{experticie}</td>
-            <td>
-              <a data-title="Edit" data-toggle="modal" data-target="#modalReasigEval" onClick={e => { this.showModalDetalle(); }}>
-                <ActionButton id_evento={this.state.idEvento} button_class="fa fa-arrow-right" redirect_to="/" />
-              </a>
-            </td>
             <td>
               <ModalDetalleDeEvaluador
                 idEvaluador={idEvaluador}
@@ -720,7 +673,8 @@ class FormPropsxFasePresidente extends Component {
   }
 
   handleAprobar() {
-    let data = {};
+    if (this.state.flagEditable){
+    let data = {};    
     Object.keys(this.state.checkboxes)
       .filter(checkbox => this.state.checkboxes[checkbox])
       .forEach(checkbox => {
@@ -743,6 +697,10 @@ class FormPropsxFasePresidente extends Component {
         });
       });
     alert("¡Se han guardado los cambios!") 
+    }
+    else {
+      alert("¡Esta fase no es editable!") 
+    }
     //this.handleReturn();
   }
 
@@ -760,6 +718,7 @@ class FormPropsxFasePresidente extends Component {
 
   }
   handleRechazar() {
+    if (this.state.flagEditable){
     let data = {};
     Object.keys(this.state.checkboxes)
       .filter(checkbox => this.state.checkboxes[checkbox])
@@ -784,6 +743,9 @@ class FormPropsxFasePresidente extends Component {
         });
       });        
     alert("¡Se han guardado los cambios!")
+    }else{
+      alert("¡Esta fase no es editable!") 
+    }
   }
   
   showObservacionesCorreo = (idPropuesta,idFase) => {
@@ -838,6 +800,7 @@ class FormPropsxFasePresidente extends Component {
                   estados={this.state}
                   showModalDetallePropuesta = {this.showModalDetallePropuesta}
                   nombre={nombre}
+                  flagEditable = {this.state.flagEditable}
                 />
               </div>              
 
@@ -853,7 +816,8 @@ class FormPropsxFasePresidente extends Component {
                   handleClickUpdateComentarios={this.handleClickUpdateComentarios}
                   handleSaveComentario={this.handleSaveComentario}
                   showModalDetalleObservaciones = {this.showModalDetalleObservaciones}
-                  presiComentario={this.state.presiComentario}                  
+                  presiComentario={this.state.presiComentario}
+                  flagEditable = {this.state.flagEditable}
                 />  
               </div>
 
@@ -870,6 +834,7 @@ class FormPropsxFasePresidente extends Component {
                 mensajePersonalizado ={this.state.mensajePersonalizado}                
                 eleccionTipoCorreo ={this.state.eleccionTipoCorreo}
                 changeSelectedTipo = {this.changeSelectedTipo}
+                flagEditable = {this.state.flagEditable}
                 />
               </div>
                 
@@ -892,7 +857,6 @@ class FormPropsxFasePresidente extends Component {
                       <th >Evaluador</th>
                       <th >Calificación</th>
                       <th >Experticie</th>
-                      <th >Reasignar</th>
                       <th >Ver más</th>
                     </tr>
                   </thead>
@@ -910,6 +874,9 @@ class FormPropsxFasePresidente extends Component {
     return (
       <div style={{marginLeft:'10%',marginRight:'10%'}}>
         
+        <div class="alert alert-danger" role="alert" id="alertSecuencia"style={{fontSize:'14px', display:'none'}}>
+          La fase seleccionada ya no se encuentra en evaluación
+        </div>
         <div class="alert alert-primary" role="alert" style={{fontSize:'14px'}}>
           {'Descripción de la fase: ' + this.props._props.myProps.fases[this.props._props.activeStep].descripcion}
         </div>
@@ -934,6 +901,7 @@ class FormPropsxFasePresidente extends Component {
         <div><button
           style={{ float: 'right' }}
           class="mybutton"
+
           onClick={this.handleAprobar}
         >
           Aprobar
@@ -941,7 +909,7 @@ class FormPropsxFasePresidente extends Component {
         <div style={{ display: 'flex', justifyContent: 'center', width: '96px' }}>
           <button
             class="mybutton"
-            onClick={this.handleRechazar}
+            onClick={ this.handleRechazar}
           >
             Rechazar
                     </button>
