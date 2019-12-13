@@ -72,7 +72,8 @@ class Proposer_ActiveEventsTable  extends Component {
                <td> {nroFasesComp} </td>
                <td> {estado} </td>
                <td> {fechaLim} </td>
-               {(propuesta.flagResubir===1 || propuesta.estado!== "RECHAZADO")?
+               {((propuesta.flagResubir===1 && propuesta.estado !== "RECHAZADO")
+               )?
                <td><JActionButton
                   onClick = {()=>this.handleDetail(
                     {Propuestaprev:propuesta,

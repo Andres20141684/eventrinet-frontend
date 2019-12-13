@@ -56,7 +56,7 @@ class FrmSendPropuesta extends React.Component {
         gradoInstruccion:"",
         afilicacion:"_",
         /* step 1 */
-        authorName: "*",
+        authorName: "",
         authorLastname: "",
         telefono: "",
         email: "",

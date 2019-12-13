@@ -54,7 +54,10 @@ class App extends Component{
     return false;
 
   }
+  
   componentWillMount(){
+
+    
     console.log("App->WillMount");
     
     //capturo lo que quiero del evento
