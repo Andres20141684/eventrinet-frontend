@@ -192,7 +192,7 @@ class StepTwoSendPropuesta extends React.Component {
         id_drop_zone:"drop_zone_entregable",
         idprogressbar:"progress_bar_entregable",
         category:'JUpload',
-        onChange: this.handleOnLoadE,
+        onChange: this.handleOnLoad,
         fileNedded:this.props.entregableNeeded,
         formato:"pdf",
         maxTamanio:100

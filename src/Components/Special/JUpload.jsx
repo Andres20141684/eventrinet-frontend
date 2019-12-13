@@ -12,7 +12,7 @@ class JUpload  extends Component {
         modal:0,
         progress:null,
         reader:null,
-        maxTamanio:10,
+        maxTamanio:500,
         formato:"pdf",
         contenido: 0,
         zip_preview:"https://cdn4.iconfinder.com/data/icons/imod/512/Compressing/zip.png",
@@ -97,6 +97,7 @@ class JUpload  extends Component {
           }*/
           this.setState({formato:f.type});
           if(f.size>this.props.maxTamanio){
+            
           }else{
             this.setState({modal:0});
             document.getElementById("btnToggle").click();

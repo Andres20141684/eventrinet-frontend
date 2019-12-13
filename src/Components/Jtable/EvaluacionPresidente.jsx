@@ -138,6 +138,7 @@ class EvaluacionPresidente extends Component {
                 <div className='container'>
                 <div className='panel-body'> 
                     <FasesForm
+                    
                         idEvento = {this.props.nextChildComponentProps.idEvent}
                         nombreEvento = {this.props.nextChildComponentProps.nombreEvento}
                         fases = {this.state.fases}                    

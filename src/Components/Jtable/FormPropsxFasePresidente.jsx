@@ -10,6 +10,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Checkbox from "./Checkbox";
 import PresiAsignarEvalEvents from '../../Pages/PresiAsignarEvalEvents'
+import PresiCalificacionFinalPapers from '../../Pages/PresiCalificacionFinalPapers';
 
 const Networking = require('../../Network/Networking');
 var OPTIONS = [];
@@ -412,6 +413,7 @@ class FormPropsxFasePresidente extends Component {
   constructor(props) {
     super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = {
+      refresh: false,
       cuerpoCorreo:'',
       mensajePredeterminado:'',
       mensajePersonalizado:'',
@@ -458,10 +460,6 @@ class FormPropsxFasePresidente extends Component {
     this.props.onNextChildComponentChangeProps(_nextChildComponentProps);
   }
 
-  /*shouldComponentUpdate(nextProps,nextState){
-    return true;
-  
-  }*/
   componentDidMount() {
     console.log("props___ : ", this.props);
     this.setState({idFase:this.props._props.myProps.fases[this.props._props.activeStep].idFase})
@@ -696,12 +694,14 @@ class FormPropsxFasePresidente extends Component {
 
         });
       });
-    alert("¡Se han guardado los cambios!") 
+    alert("¡Se han guardado los cambios!") ;
+    
     }
     else {
       alert("¡Esta fase no es editable!") 
     }
     //this.handleReturn();
+    // this.props.handleReturn; 
   }
 
 	handleSaveComentario = (evt) => {
@@ -742,10 +742,12 @@ class FormPropsxFasePresidente extends Component {
 
         });
       });        
-    alert("¡Se han guardado los cambios!")
+    alert("¡Se han guardado los cambios!");
+    
     }else{
       alert("¡Esta fase no es editable!") 
     }
+    //this.props.handleReturn;
   }
   
   showObservacionesCorreo = (idPropuesta,idFase) => {
